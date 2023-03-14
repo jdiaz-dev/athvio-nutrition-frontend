@@ -1,0 +1,17 @@
+div.header {
+  //width: 99.95%;
+  height: 58px;
+  background-color: rgb(52, 67, 75);
+  box-shadow: 0px 0px 10px rgb(212, 209, 209);
+  //   justify-content:flex-start;
+  display: flex;
+  justify-content: flex-end;
+
+  .div-helper {
+    width: 90%;
+  }
+  
+}
+div.containerOutler{
+  padding: 1%;
+}

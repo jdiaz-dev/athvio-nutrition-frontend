@@ -1,26 +1,55 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
     "module": "esnext",
+    "importHelpers": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": false,
+    "rootDir": ".", //cause error to import from shared folder
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
     "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": false,
+    "outDir": "./dist",
+    "strictNullChecks": false,
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
+    "allowSyntheticDefaultImports": true,
+    /* "paths": {
+      "src/*": ["./src/*"],
+      "test/*": ["./test/*"],
+      "types/*": ["./types/*"]
+    }, */
+    "paths": {
+      "src/*": ["./src/*"],
+      //"./src/modules*"
+    },
+    "allowJs": false,
+    "target": "es5",
+    "baseUrl": "./",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noEmitOnError": true, //to void create js file in root of shared folder in error case
+    "types": ["node"],
+    //to allow use external packages : https://stackoverflow.com/questions/48189713/visual-studio-shared-typescript-library-ts6059-file-is-not-under-rootd
+    // "rootDirs": ["src"]
     "jsx": "react-jsx"
   },
+  //include: Specifies an array of filenames or patterns to include in the program
   "include": [
-    "src"
-  ]
+    "src/**/*.ts",
+    "test/**/*.ts",
+    "types/**/*.ts"
+  ],
+  "rules": {
+    "no-unused-vars": "off"
+  },
+  "exclude": ["node_modules"]
 }

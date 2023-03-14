@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+
+/* ------both main container of apocalipsex component */
+
+.main-container {
+  display: flex;
+  justify-content: space-between;
+  height: 101vh;
+
+  .sidebar {
+    width: 20%;
+  }
+  .app-container {
+    width: 80%;
+  }
+}
