@@ -23,7 +23,7 @@ export const usersSlice = createSlice({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setSignUp: (state, action: any) => {
       state;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, no-param-reassign
       state = action.payload;
     },
   },

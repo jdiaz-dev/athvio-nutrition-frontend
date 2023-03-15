@@ -6,6 +6,7 @@ import { checkAuthentication } from './shared/helpers/LocalStorage';
 import ClientsContainer from './modules/clients/clients/adapters/in/ClientsContainer';
 import ProgramsContainer from './modules/professionals/programs/adapters/in/ProgramsContainer';
 import { Drawer } from './shared/components/Drawer';
+import { SignUp } from './modules/security/users/adapters/in/SignUp';
 
 /* const loginStyles = makeStyles({
   container: {
@@ -35,8 +36,10 @@ function App() {
   return (
     <div className="App">
       <Routes>
+        {/* <Route path="/" element={<SignUp />} /> */}
+        <Route path="*" element={<SignUp />} />
         {/* wrapping entire al  routes between Routes  */}
-        {/* <Route path="/" element={<LogIn />} />
+        {/*
         {!isAuthenticated && (
           <Route
             path="/login"
