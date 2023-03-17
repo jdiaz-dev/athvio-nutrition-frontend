@@ -68,3 +68,9 @@ function App() {
 }
 
 export default App;
+
+/*
+  - break down SignUp.tsx into smaller components and use redux
+  - learn 1 hour of redux
+  - make validations
+*/

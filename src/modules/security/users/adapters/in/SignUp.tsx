@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useMutation } from 'react-apollo';
+import React, { ReactNode, useEffect, useState } from 'react';
 // import { saveDataUser } from '../../../../../../shared/helpers/LocalStorage';
 // import { Navigate } from 'react-router-dom';
 // import { AuthContext } from '../../../../../../App';
@@ -8,18 +7,23 @@ import { makeStyles } from 'tss-react/mui';
 import Card from '@mui/material/Card';
 import Button from '@mui/material//Button';
 import TextField from '@mui/material/TextField';
-import { SIGN_UP } from '../out/userQueries';
-import { LoginResponse, SignUpRequest } from 'src/modules/security/users/adapters/out/user.types';
-// import { SignUpRequest } from 'src/modules/security/users/adapters/out/user.types';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import CountryCodeSelect from 'src/modules/security/users/adapters/in/CountryCodeSelect';
+import { MessagesUserForm } from 'src/shared/Consts';
+import { ReduxStates } from 'src/shared/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserInfo } from 'src/modules/security/users/adapters/in/UserSlice';
+import { SetUserInfo } from 'src/modules/security/users/adapters/out/user.types';
+import { useUsers } from 'src/modules/security/users/adapters/out/UserActions';
 
 const cardStyles = makeStyles()(() => {
   return {
     container: {
       margin: '0px',
-      position: 'absolute',
-      top: '40%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
+      // position: 'absolute',
+      // top: '40%',
+      // left: '50%',
+      // transform: 'translate(-50%, -50%)',
     },
     card: {
       minWidth: 275,
@@ -68,75 +72,122 @@ const cardStyles = makeStyles()(() => {
 
 export function SignUp() {
   const { classes } = cardStyles();
+  const user = useSelector((state: ReduxStates) => state.users);
+  const [userUpdated, setUserUpdated] = useState(false);
+  const dispatch = useDispatch();
 
-  // const authContext = useContext(AuthContext);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  // const [openCreateUserDialog, setopenCreateUserDialog] = useState(false);
-  const [loginHandler, { data }] = useMutation<LoginResponse, SignUpRequest>(SIGN_UP);
-  data;
-  /* if (data) {
-    saveDataUser(data.logIn);
-    authContext.setIsAuthenticated(true);
-    return <Navigate replace to="/sidenav/tickets" />;
-  } */
+  useEffect(() => {
+    const signUpRequest = async () => {
+      await signUp(user);
+      setUserUpdated(false);
+    };
+    if (userUpdated) {
+      void signUpRequest();
+    }
+  }, [userUpdated]);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const { signUp } = useUsers();
 
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
+  const onSubmit = (dataUser: SetUserInfo): void => {
+    dispatch(setUserInfo(dataUser));
+    setUserUpdated(true);
   };
 
   return (
     <div className={classes.container}>
       <Card className={classes.card} variant="outlined">
-        <form className={classes.form} noValidate autoComplete="off">
+        <form className={classes.form} onSubmit={handleSubmit(onSubmit as any as SubmitHandler<FieldValues>)}>
           <TextField
             className={classes.textField}
             id="outlined-basic"
-            label="Correo electrónico"
-            value={email}
             variant="outlined"
-            onChange={handleEmailChange}
+            label="Email address"
+            error={Boolean(errors.email)}
+            fullWidth
+            {...register('email', {
+              required: true,
+              pattern: /^\S+@\S+\.\S+$/,
+            })}
+            helperText={(() => {
+              let message: string;
+              if (errors.email?.type === 'pattern') {
+                message = MessagesUserForm.EMAIL_VALID;
+              } else if (errors.email?.type === 'required') {
+                message = MessagesUserForm.EMAIL_MANDATORY;
+              } else {
+                message = '';
+              }
+              return message as ReactNode;
+            })()}
+          />
+          <TextField
+            className={classes.textField}
+            id="outlined-basic"
+            variant="outlined"
+            label="Password"
+            type="password"
+            {...register('password', { required: MessagesUserForm.PASSWORD_MANDATORY })}
+            error={Boolean(errors.password)}
+            helperText={errors.password?.message as ReactNode}
+          />
+          <TextField
+            className={classes.textField}
+            id="outlined-basic"
+            variant="outlined"
+            label="Enter First Name"
+            type="text"
+            {...register('firstName', { required: MessagesUserForm.FIRSTNAME_MANDATORY })}
+            error={Boolean(errors.firstName)}
+            helperText={errors.firstName?.message as ReactNode}
           />
           <TextField
             className={classes.textField}
             id="filled-basic"
-            label="Contraseña"
+            label="Enter Last Name"
             variant="outlined"
-            value={password}
-            type="password"
-            onChange={handlePasswordChange}
+            type="text"
+            {...register('lastName', { required: MessagesUserForm.LASTNAME_MANDATORY })}
+            error={Boolean(errors.lastName)}
+            helperText={errors.lastName?.message as ReactNode}
           />
-          <Button
-            className={classes.loginButton}
-            size="small"
-            onClick={() =>
-              loginHandler({
-                variables: {
-                  input: {
-                    firstName: 'zzzzz',
-                    lastName: 'zzzzz',
-                    email: 'pro2pro.com',
-                    password: 'pro',
-                    timezone: 'zzzzz',
-                    acceptedTerms: true,
-                    professionalInfo: {
-                      businessName: 'zzzzz',
-                      countryCode: 'zzzzz',
-                      phone: 'zzzzz',
-                      country: 'zzzzz',
-                    },
-                  },
-                },
-              })
-            }
-          >
-            Iniciar sesión
-          </Button>
-          <Button className={`${classes.registerButton}`} size="small" onClick={() => true}>
-            Crear cuenta nueva
+          <TextField
+            className={classes.textField}
+            id="filled-basic"
+            label="Enter Bussines Name"
+            variant="outlined"
+            type="text"
+            {...register('businessName', { required: MessagesUserForm.BUSSINES_NAME_MANDATORY })}
+            error={Boolean(errors.businessName)}
+            helperText={errors.businessName?.message as ReactNode}
+          />
+          <CountryCodeSelect />
+          <TextField
+            className={classes.textField}
+            id="filled-basic"
+            label="Phone"
+            variant="outlined"
+            type="text"
+            {...register('phone', { required: MessagesUserForm.PHONE_MANDATORY })}
+            error={Boolean(errors.phone)}
+            helperText={errors.phone?.message as ReactNode}
+          />
+
+          <TextField
+            className={classes.textField}
+            id="filled-basic"
+            label="What country do you live in?"
+            variant="outlined"
+            type="text"
+            {...register('country', { required: MessagesUserForm.COUNTRY_MANDATORY })}
+            error={Boolean(errors.country)}
+            helperText={errors.country?.message as ReactNode}
+          />
+          <Button className={classes.loginButton} size="small" type="submit">
+            Start your free trial
           </Button>
         </form>
       </Card>

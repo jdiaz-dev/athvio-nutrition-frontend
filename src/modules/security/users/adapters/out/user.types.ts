@@ -1,16 +1,19 @@
-export interface IUserSignUp {
+export interface UserSignUpModel {
   firstName: string;
   lastName: string;
   email: string;
   password: string;
-  timezone: string;
+  countryCode: string;
+  phone: string;
   acceptedTerms: boolean;
+  country: string;
   professionalInfo: {
     businessName: string;
-    countryCode: string;
-    phone: string;
-    country: string;
   };
+}
+
+export interface SetUserInfo extends Omit<UserSignUpModel, 'countryCode' | 'professionalInfo'> {
+  businessName: string;
 }
 
 export type JwtDto = {
@@ -23,5 +26,5 @@ export type LoginResponse = {
 };
 
 export type SignUpRequest = {
-  input: IUserSignUp;
+  input: UserSignUpModel;
 };

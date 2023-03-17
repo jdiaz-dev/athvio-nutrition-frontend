@@ -1,11 +1,11 @@
-export type DataUser = {
-  token: string;
-  userId: string;
-};
+import { UserSignUpModel } from 'src/modules/security/users/adapters/out/user.types';
 
-export type DataConfirm = {
-  openDialog: boolean;
-  resultConfirm: boolean;
-  action: string;
-  message?: string;
+export interface CountryList {
+  name: { common: string };
+  idd: { root: string; suffixes: string[] };
+  flags: { png: string; svg: string };
+}
+
+export type ReduxStates = {
+  users: UserSignUpModel;
 };
