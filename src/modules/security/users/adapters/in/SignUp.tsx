@@ -1,29 +1,22 @@
 import React, { ReactNode, useEffect, useState } from 'react';
-// import { saveDataUser } from '../../../../../../shared/helpers/LocalStorage';
-// import { Navigate } from 'react-router-dom';
-// import { AuthContext } from '../../../../../../App';
-
 import { makeStyles } from 'tss-react/mui';
 import Card from '@mui/material/Card';
 import Button from '@mui/material//Button';
 import TextField from '@mui/material/TextField';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import CountryCodeSelect from 'src/modules/security/users/adapters/in/CountryCodeSelect';
+import CountryCodeSelect from 'src/shared/components/CountryCodeSelect';
 import { MessagesUserForm } from 'src/shared/Consts';
 import { ReduxStates } from 'src/shared/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserInfo } from 'src/modules/security/users/adapters/in/UserSlice';
 import { SetUserInfo } from 'src/modules/security/users/adapters/out/user.types';
 import { useUsers } from 'src/modules/security/users/adapters/out/UserActions';
+import { setCountryCode } from 'src/modules/security/users/adapters/in/UserSlice';
 
 const cardStyles = makeStyles()(() => {
   return {
     container: {
       margin: '0px',
-      // position: 'absolute',
-      // top: '40%',
-      // left: '50%',
-      // transform: 'translate(-50%, -50%)',
     },
     card: {
       minWidth: 275,
@@ -49,32 +42,17 @@ const cardStyles = makeStyles()(() => {
         backgroundColor: 'blue',
       },
     },
-    registerButton: {
-      'backgroundColor': 'green',
-      'width': '90%',
-      'color': 'white',
-      'height': '45px',
-      'marginTop': '15px',
-      'marginBottom': '15px',
-      '&:hover': {
-        backgroundColor: 'green',
-      },
-    },
-    title: {
-      fontSize: 14,
-      width: '85%',
-    },
-    pos: {
-      marginBottom: 12,
-    },
   };
 });
 
 export function SignUp() {
   const { classes } = cardStyles();
   const user = useSelector((state: ReduxStates) => state.users);
+  const countryCode = useSelector((state: ReduxStates) => state.users.countryCode);
+
   const [userUpdated, setUserUpdated] = useState(false);
   const dispatch = useDispatch();
+  const { signUp } = useUsers();
 
   useEffect(() => {
     const signUpRequest = async () => {
@@ -90,7 +68,6 @@ export function SignUp() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { signUp } = useUsers();
 
   const onSubmit = (dataUser: SetUserInfo): void => {
     dispatch(setUserInfo(dataUser));
@@ -164,7 +141,7 @@ export function SignUp() {
             error={Boolean(errors.businessName)}
             helperText={errors.businessName?.message as ReactNode}
           />
-          <CountryCodeSelect />
+          <CountryCodeSelect countryCode={countryCode} setCountryCode={setCountryCode} />
           <TextField
             className={classes.textField}
             id="filled-basic"

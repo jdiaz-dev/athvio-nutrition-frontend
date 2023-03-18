@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { setCountryCode } from 'src/modules/security/users/adapters/in/UserSlice';
+import { useDispatch } from 'react-redux';
 import { InvalidCountries, REST_COUNTRIES_URL } from 'src/shared/Consts';
-import { CountryList, ReduxStates } from 'src/shared/types';
+import { CountryList } from 'src/shared/types';
 
-function CountryCodeSelect() {
-  const countryCode = useSelector((state: ReduxStates) => state.users.countryCode);
+function CountryCodeSelect({
+  countryCode,
+  setCountryCode,
+}: {
+  countryCode: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setCountryCode: (countryCode: any) => any;
+}) {
   const dispatch = useDispatch();
   const [countries, setCountries] = useState<CountryList[]>([]);
   const [isSearchingCountry, setIsSearchingCountry] = useState(false);
@@ -67,6 +72,7 @@ function CountryCodeSelect() {
               required
               onOpen={searchCountryHandler}
               onClose={cleanListenerHandler}
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-return
               onChange={(e) => dispatch(setCountryCode(e.target.value))}
             >
               {countries.map(

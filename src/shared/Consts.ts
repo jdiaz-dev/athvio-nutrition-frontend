@@ -20,3 +20,8 @@ export enum MessagesUserForm {
   COUNTRY_MANDATORY = 'Please enter a country',
   BUSSINES_NAME_MANDATORY = 'Please enter your bussines name',
 }
+
+export enum UserType {
+  PROFESSIONAL = 'professional',
+  CLIENT = 'client',
+}

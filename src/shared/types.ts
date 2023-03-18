@@ -1,5 +1,11 @@
 import { UserSignUpModel } from 'src/modules/security/users/adapters/out/user.types';
 
+export type DataUser = {
+  _id: string;
+  userType: string;
+  token: string;
+};
+
 export interface CountryList {
   name: { common: string };
   idd: { root: string; suffixes: string[] };
