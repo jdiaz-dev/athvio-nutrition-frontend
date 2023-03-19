@@ -15,7 +15,6 @@ import { styled } from '@mui/material/styles';
 
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { MessagesUserForm, UserType } from 'src/shared/Consts';
-import { useMutation } from 'react-apollo';
 import { CREATE_CLIENT } from 'src/modules/clients/clients/adapters/out/ClientQueries';
 import { makeStyles } from 'tss-react/mui';
 import {
@@ -23,11 +22,13 @@ import {
   ClientData,
   CreateClientRequest,
   CreateClientResponse,
+  UserInfoForClient,
 } from 'src/modules/clients/clients/adapters/out/client.types';
 import { getUserFromLocalStorage } from 'src/shared/helpers/LocalStorage';
 import CountryCodeSelect from 'src/shared/components/CountryCodeSelect';
 import { Dayjs } from 'dayjs';
-import { ApolloError } from '@apollo/client';
+import { ApolloError, useMutation } from '@apollo/client';
+import { ClientCreatedSucessfullyDialog } from 'src/modules/clients/clients/adapters/in/dialogs/ClientCreatedSucessfullyDialog';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -99,6 +100,7 @@ export function CreateClientDialog({
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
   const [createClientHandler] = useMutation<CreateClientResponse, CreateClientRequest>(CREATE_CLIENT);
@@ -106,6 +108,8 @@ export function CreateClientDialog({
   const [countryCode, setCountryCode] = useState('');
   const [birthday, setBirthday] = React.useState<Dayjs | null | string>(null);
   const [gender, setGender] = useState<string>('');
+  const [userInfo, setUserInfo] = useState<UserInfoForClient>({ email: '', firstName: '', lastName: '' });
+  const [openMessageClientDialog, setOpenMessageClientDialog] = useState(false);
 
   const handleChangeAditionalInfo = (panel: string) => (event: React.SyntheticEvent, newPanelExpanded: boolean) => {
     setPanelExpanded(newPanelExpanded ? panel : false);
@@ -135,11 +139,31 @@ export function CreateClientDialog({
     if (gender !== '') input.additionalInfo.gender = gender;
 
     try {
-      await createClientHandler({
+      const client = await createClientHandler({
         variables: {
           input,
         },
       });
+      const _client = client.data?.createClient.userInfo as UserInfoForClient;
+      setUserInfo({
+        email: _client.email,
+        firstName: _client.firstName,
+        lastName: _client.lastName,
+      });
+      setOpenMessageClientDialog(true);
+      setopenCreateClientDialog(false);
+      const clientReset = {
+        firstName: '',
+        lastName: '',
+        email: '',
+        location: '',
+        timezone: '',
+        height: null,
+        weight: null,
+        profilePicture: '',
+        phone: '',
+      };
+      reset(clientReset);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: ApolloError) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -148,143 +172,151 @@ export function CreateClientDialog({
   };
 
   return (
-    <Dialog
-      open={openCreateClientDialog}
-      onClose={() => setopenCreateClientDialog(false)}
-      scroll="paper"
-      fullWidth={true}
-      maxWidth="xs"
-      aria-labelledby="dialog-title"
-      aria-describedby="dialog-description"
-    >
-      <DialogContent dividers={true}>
-        <Card className={classes.card} variant="outlined">
-          <form className={classes.form} onSubmit={handleSubmit(onSubmit as any as SubmitHandler<FieldValues>)}>
-            <TextField
-              className={classes.textField}
-              id="outlined-basic"
-              variant="outlined"
-              label="First name"
-              type="text"
-              {...register('firstName', { required: MessagesUserForm.FIRSTNAME_MANDATORY })}
-              error={Boolean(errors.firstName)}
-              helperText={errors.firstName?.message as ReactNode}
-            />
-            <TextField
-              className={classes.textField}
-              id="outlined-basic"
-              variant="outlined"
-              label="Enter First Name"
-              type="text"
-              {...register('lastName', { required: MessagesUserForm.LASTNAME_MANDATORY })}
-              error={Boolean(errors.lastName)}
-              helperText={errors.lastName?.message as ReactNode}
-            />
-            <TextField
-              className={classes.textField}
-              id="outlined-basic"
-              variant="outlined"
-              label="Email address"
-              error={Boolean(errors.email)}
-              fullWidth
-              {...register('email', {
-                required: true,
-                pattern: /^\S+@\S+\.\S+$/,
-              })}
-              helperText={(() => {
-                let message: string;
-                if (errors.email?.type === 'pattern') {
-                  message = MessagesUserForm.EMAIL_VALID;
-                } else if (errors.email?.type === 'required') {
-                  message = MessagesUserForm.EMAIL_MANDATORY;
-                } else {
-                  message = '';
-                }
-                return message as ReactNode;
-              })()}
-            />
+    <>
+      <Dialog
+        open={openCreateClientDialog}
+        onClose={() => setopenCreateClientDialog(false)}
+        scroll="paper"
+        fullWidth={true}
+        maxWidth="xs"
+        aria-labelledby="dialog-title"
+        aria-describedby="dialog-description"
+      >
+        <DialogContent dividers={true}>
+          <Card className={classes.card} variant="outlined">
+            <form className={classes.form} onSubmit={handleSubmit(onSubmit as any as SubmitHandler<FieldValues>)}>
+              <TextField
+                className={classes.textField}
+                id="outlined-basic"
+                variant="outlined"
+                label="First name"
+                type="text"
+                {...register('firstName', { required: MessagesUserForm.FIRSTNAME_MANDATORY })}
+                error={Boolean(errors.firstName)}
+                helperText={errors.firstName?.message as ReactNode}
+              />
+              <TextField
+                className={classes.textField}
+                id="outlined-basic"
+                variant="outlined"
+                label="Enter First Name"
+                type="text"
+                {...register('lastName', { required: MessagesUserForm.LASTNAME_MANDATORY })}
+                error={Boolean(errors.lastName)}
+                helperText={errors.lastName?.message as ReactNode}
+              />
+              <TextField
+                className={classes.textField}
+                id="outlined-basic"
+                variant="outlined"
+                label="Email address"
+                error={Boolean(errors.email)}
+                fullWidth
+                {...register('email', {
+                  required: true,
+                  pattern: /^\S+@\S+\.\S+$/,
+                })}
+                helperText={(() => {
+                  let message: string;
+                  if (errors.email?.type === 'pattern') {
+                    message = MessagesUserForm.EMAIL_VALID;
+                  } else if (errors.email?.type === 'required') {
+                    message = MessagesUserForm.EMAIL_MANDATORY;
+                  } else {
+                    message = '';
+                  }
+                  return message as ReactNode;
+                })()}
+              />
 
-            <div>
-              <Accordion expanded={panelExpanded === 'panel1'} onChange={handleChangeAditionalInfo('panel1')}>
-                <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-                  <Typography>Add aditional details</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <TextField
-                    className={classes.textField}
-                    id="outlined-basic"
-                    variant="outlined"
-                    label="Location"
-                    type="text"
-                    {...register('location', { required: false })}
-                    error={Boolean(errors.location)}
-                    helperText={errors.location?.message as ReactNode}
-                  />
-                  <TextField
-                    className={classes.textField}
-                    id="outlined-basic"
-                    variant="outlined"
-                    label="Height"
-                    type="number"
-                    {...register('height', {
-                      required: false,
-                      valueAsNumber: true,
-                    })}
-                    error={Boolean(errors.height)}
-                    helperText={errors.height?.message as ReactNode}
-                  />
-                  <TextField
-                    className={classes.textField}
-                    id="outlined-basic"
-                    variant="outlined"
-                    label="Weight"
-                    type="number"
-                    {...register('weight', {
-                      required: false,
-                      valueAsNumber: true,
-                    })}
-                    error={Boolean(errors.weight)}
-                    helperText={errors.weight?.message as ReactNode}
-                  />
-                  <div>
-                    <ToggleButtonGroup
-                      color="primary"
-                      value={gender}
-                      exclusive
-                      onChange={handleChangeGender}
-                      aria-label="Platform"
-                    >
-                      <ToggleButton value="male">Male</ToggleButton>
-                      <ToggleButton value="female">Female</ToggleButton>
-                      <ToggleButton value="prefer not to say">Prefer not to say</ToggleButton>
-                    </ToggleButtonGroup>
-                  </div>
+              <div>
+                <Accordion expanded={panelExpanded === 'panel1'} onChange={handleChangeAditionalInfo('panel1')}>
+                  <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+                    <Typography>Add aditional details</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <TextField
+                      className={classes.textField}
+                      id="outlined-basic"
+                      variant="outlined"
+                      label="Location"
+                      type="text"
+                      {...register('location', { required: false })}
+                      error={Boolean(errors.location)}
+                      helperText={errors.location?.message as ReactNode}
+                    />
+                    <TextField
+                      className={classes.textField}
+                      id="outlined-basic"
+                      variant="outlined"
+                      label="Height"
+                      type="number"
+                      {...register('height', {
+                        required: false,
+                        valueAsNumber: true,
+                      })}
+                      error={Boolean(errors.height)}
+                      helperText={errors.height?.message as ReactNode}
+                    />
+                    <TextField
+                      className={classes.textField}
+                      id="outlined-basic"
+                      variant="outlined"
+                      label="Weight"
+                      type="number"
+                      {...register('weight', {
+                        required: false,
+                        valueAsNumber: true,
+                      })}
+                      error={Boolean(errors.weight)}
+                      helperText={errors.weight?.message as ReactNode}
+                    />
+                    <div>
+                      <ToggleButtonGroup
+                        color="primary"
+                        value={gender}
+                        exclusive
+                        onChange={handleChangeGender}
+                        aria-label="Platform"
+                      >
+                        <ToggleButton value="male">Male</ToggleButton>
+                        <ToggleButton value="female">Female</ToggleButton>
+                        <ToggleButton value="prefer not to say">Prefer not to say</ToggleButton>
+                      </ToggleButtonGroup>
+                    </div>
 
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker value={birthday} onChange={(newValue) => setBirthday(newValue)} />
-                  </LocalizationProvider>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker value={birthday} onChange={(newValue) => setBirthday(newValue)} />
+                    </LocalizationProvider>
 
-                  <CountryCodeSelect countryCode={countryCode} setCountryCode={setCountryCode} />
-                  <TextField
-                    className={classes.textField}
-                    id="filled-basic"
-                    label="Phone"
-                    variant="outlined"
-                    type="text"
-                    {...register('phone', { required: false })}
-                    error={Boolean(errors.phone)}
-                    helperText={errors.phone?.message as ReactNode}
-                  />
-                </AccordionDetails>
-              </Accordion>
-            </div>
+                    <CountryCodeSelect countryCode={countryCode} setCountryCode={setCountryCode} />
+                    <TextField
+                      className={classes.textField}
+                      id="filled-basic"
+                      label="Phone"
+                      variant="outlined"
+                      type="text"
+                      {...register('phone', { required: false })}
+                      error={Boolean(errors.phone)}
+                      helperText={errors.phone?.message as ReactNode}
+                    />
+                  </AccordionDetails>
+                </Accordion>
+              </div>
 
-            <Button className={classes.button} size="small" type="submit">
-              Add client
-            </Button>
-          </form>
-        </Card>
-      </DialogContent>
-    </Dialog>
+              <Button className={classes.button} size="small" type="submit">
+                Add client
+              </Button>
+            </form>
+          </Card>
+        </DialogContent>
+      </Dialog>
+      <ClientCreatedSucessfullyDialog
+        openMessageClientDialog={openMessageClientDialog}
+        setOpenMessageClientDialog={setOpenMessageClientDialog}
+        firstName={userInfo.firstName}
+        lastName={userInfo.lastName}
+      />
+    </>
   );
 }

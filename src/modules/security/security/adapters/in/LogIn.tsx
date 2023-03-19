@@ -1,5 +1,4 @@
 import React, { ReactNode, useContext } from 'react';
-import { useMutation } from 'react-apollo';
 import { Navigate } from 'react-router-dom';
 import { makeStyles } from 'tss-react/mui';
 
@@ -17,6 +16,7 @@ import { AuthContext } from 'src/App';
 import { MessagesUserForm } from 'src/shared/Consts';
 import { LOG_IN } from 'src/modules/security/security/adapters/out/SecurityQueries';
 import { saveDataUser } from 'src/shared/helpers/LocalStorage';
+import { useMutation } from '@apollo/client';
 
 const cardStyles = makeStyles()(() => {
   return {

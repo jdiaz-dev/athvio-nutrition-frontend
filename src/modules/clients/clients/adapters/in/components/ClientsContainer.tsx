@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { CreateClientDialog } from 'src/modules/clients/clients/adapters/in/dialogs/CreateClientDialog';
+import ClientList from 'src/modules/clients/clients/adapters/in/components/ClientList';
 
 function ClientsContainer() {
   const [openCreateCLientDialog, setopenCreateCLientDialog] = useState(false);
@@ -12,6 +13,7 @@ function ClientsContainer() {
           Add client
         </Button>
       </Stack>
+      <ClientList />
 
       <CreateClientDialog
         openCreateClientDialog={openCreateCLientDialog}

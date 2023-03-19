@@ -9,8 +9,8 @@ export type UserInfoForClient = {
 export type AdditionalInfo = {
   location?: string;
   timezone?: string;
-  height?: string;
-  weight?: string;
+  height?: number | null;
+  weight?: number | null;
   birthday?: Dayjs | null | string;
   gender?: string;
   profilePicture?: string;
@@ -30,8 +30,29 @@ export interface CreateClientRequest {
 
 export type ClientBodyResponse = {
   _id: string;
+  userInfo: UserInfoForClient;
 };
 
 export type CreateClientResponse = {
   createClient: ClientBodyResponse;
+};
+
+export type GetClientsRequest = {
+  input: {
+    professionalId: string;
+    offset: number;
+    limit: number;
+    state: string;
+  };
+};
+
+export type GetClientResponse = {
+  getClients: {
+    _id: string;
+    user: {
+      firstName: string;
+      lastName: string;
+      email: string;
+    };
+  };
 };
