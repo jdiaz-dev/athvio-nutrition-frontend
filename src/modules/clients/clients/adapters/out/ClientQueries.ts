@@ -22,6 +22,22 @@ export const GET_CLIENTS = gql`
         lastName
         email
       }
+      groups {
+        _id
+        groupName
+      }
+    }
+  }
+`;
+
+export const MANAGE_CLIENT_GROUP = gql`
+  mutation _manageClientGroup($input: ManageClientGroupDto!) {
+    manageClientGroup(input: $input) {
+      _id
+      groups {
+        _id
+        groupName
+      }
     }
   }
 `;

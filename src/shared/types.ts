@@ -15,3 +15,8 @@ export interface CountryList {
 export type ReduxStates = {
   users: UserSignUpModel;
 };
+
+export type ClientGroup = {
+  _id: string;
+  groupName: string;
+};

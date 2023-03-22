@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useContext, useState } from 'react';
 import { Button, Card, Dialog, DialogContent, TextField } from '@mui/material';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
@@ -14,7 +14,7 @@ import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { MessagesUserForm, UserType } from 'src/shared/Consts';
+import { MessagesUserForm } from 'src/shared/Consts';
 import { CREATE_CLIENT } from 'src/modules/clients/clients/adapters/out/ClientQueries';
 import { makeStyles } from 'tss-react/mui';
 import {
@@ -24,11 +24,11 @@ import {
   CreateClientResponse,
   UserInfoForClient,
 } from 'src/modules/clients/clients/adapters/out/client.types';
-import { getUserFromLocalStorage } from 'src/shared/helpers/LocalStorage';
 import CountryCodeSelect from 'src/shared/components/CountryCodeSelect';
 import { Dayjs } from 'dayjs';
 import { ApolloError, useMutation } from '@apollo/client';
 import { ClientCreatedSucessfullyDialog } from 'src/modules/clients/clients/adapters/in/dialogs/ClientCreatedSucessfullyDialog';
+import { ProfessionalIdContext } from 'src/App';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -91,10 +91,12 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 export function CreateClientDialog({
   openCreateClientDialog,
-  setopenCreateClientDialog,
+  setOpenCreateClientDialog,
+  setReloadClientList,
 }: {
   openCreateClientDialog: boolean;
-  setopenCreateClientDialog: (openDialog: boolean) => void;
+  setOpenCreateClientDialog: (openDialog: boolean) => void;
+  setReloadClientList: (openDialog: boolean) => void;
 }) {
   const { classes } = cardStyles();
   const {
@@ -103,6 +105,8 @@ export function CreateClientDialog({
     reset,
     formState: { errors },
   } = useForm();
+  const professionalIdContext = useContext(ProfessionalIdContext);
+
   const [createClientHandler] = useMutation<CreateClientResponse, CreateClientRequest>(CREATE_CLIENT);
   const [panelExpanded, setPanelExpanded] = useState<string | false>(false);
   const [countryCode, setCountryCode] = useState('');
@@ -120,10 +124,9 @@ export function CreateClientDialog({
   };
 
   const onSubmit = async ({ firstName, lastName, email, ...rest }: ClientData): Promise<void> => {
-    const user = getUserFromLocalStorage();
     // eslint-disable-next-line prefer-const
     let input: BodyClient = {
-      professionalId: user.userType === UserType.PROFESSIONAL ? user._id : '',
+      professionalId: professionalIdContext.professionalId,
       userInfo: {
         firstName,
         lastName,
@@ -151,7 +154,7 @@ export function CreateClientDialog({
         lastName: _client.lastName,
       });
       setOpenMessageClientDialog(true);
-      setopenCreateClientDialog(false);
+      setOpenCreateClientDialog(false);
       const clientReset = {
         firstName: '',
         lastName: '',
@@ -164,10 +167,9 @@ export function CreateClientDialog({
         phone: '',
       };
       reset(clientReset);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: ApolloError) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      console.log('-------------error graphQLErrors', err?.graphQLErrors);
+      setReloadClientList(true)
+    } catch (err) {
+      console.log('-------------error graphQLErrors', (err as ApolloError).graphQLErrors);
     }
   };
 
@@ -175,7 +177,7 @@ export function CreateClientDialog({
     <>
       <Dialog
         open={openCreateClientDialog}
-        onClose={() => setopenCreateClientDialog(false)}
+        onClose={() => setOpenCreateClientDialog(false)}
         scroll="paper"
         fullWidth={true}
         maxWidth="xs"

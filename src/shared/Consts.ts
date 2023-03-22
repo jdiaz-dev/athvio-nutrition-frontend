@@ -25,3 +25,8 @@ export enum UserType {
   PROFESSIONAL = 'professional',
   CLIENT = 'client',
 }
+
+export enum ManageClientGroupEnum {
+  ADD = 'add',
+  REMOVE = 'remove',
+}

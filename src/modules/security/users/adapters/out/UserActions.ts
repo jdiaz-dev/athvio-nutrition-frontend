@@ -19,6 +19,7 @@ export function useUsers() {
       console.log(response);
       // eslint-disable-next-line no-console, @typescript-eslint/no-explicit-any
     } catch (error: any) {
+      console.log('-----------error',  error.graphQLErrors)
       throw error;
     }
   };

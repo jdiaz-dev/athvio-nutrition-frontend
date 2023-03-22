@@ -1,4 +1,6 @@
 import { Dayjs } from 'dayjs';
+import { ManageClientGroupEnum } from 'src/shared/Consts';
+import { ClientGroup } from 'src/shared/types';
 
 export type UserInfoForClient = {
   firstName: string;
@@ -54,5 +56,25 @@ export type GetClientResponse = {
       lastName: string;
       email: string;
     };
+    groups: ClientGroup[];
+  }[];
+};
+
+export type ManageClientGroupRequest = {
+  input: {
+    professionalId: string;
+    clientId: string;
+    clientGroupId: string;
+    action: ManageClientGroupEnum;
+  };
+};
+
+export type ManageClientGroupResponse = {
+  input: {
+    _id: string;
+    groups: {
+      _id: string;
+      groupName: string;
+    }[];
   };
 };

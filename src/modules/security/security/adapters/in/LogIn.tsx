@@ -12,7 +12,7 @@ import {
   LoginMutation,
   LoginRequest,
 } from 'src/modules/security/security/adapters/out/security.types';
-import { AuthContext } from 'src/App';
+import { AuthContext, ProfessionalIdContext } from 'src/App';
 import { MessagesUserForm } from 'src/shared/Consts';
 import { LOG_IN } from 'src/modules/security/security/adapters/out/SecurityQueries';
 import { saveDataUser } from 'src/shared/helpers/LocalStorage';
@@ -54,6 +54,8 @@ export function LogIn() {
   const { classes } = cardStyles();
 
   const authContext = useContext(AuthContext);
+  const professionalIdContext = useContext(ProfessionalIdContext);
+
   const [loginHandler, { data }] = useMutation<LoginMutation, LoginRequest>(LOG_IN);
   const {
     register,
@@ -65,6 +67,7 @@ export function LogIn() {
 
   if (data) {
     saveDataUser(data.logIn);
+    professionalIdContext.setProfessionalId(data.logIn._id)
     authContext.setIsAuthenticated(true);
     return <Navigate replace to="/sidenav/clients" />;
   }
