@@ -28,6 +28,7 @@
     "react-router-dom": "^6.9.0",
     "react-scripts": "^5.0.1",
     "redux": "^4.2.1",
+    "rxjs": "^7.8.0",
     "sass": "^1.59.2",
     "tss-react": "^4.7.5",
     "typescript": "^4.9.5",

@@ -16,15 +16,20 @@ export const CREATE_CLIENT = gql`
 export const GET_CLIENTS = gql`
   query _getClients($input: GetClientsDto!) {
     getClients(input: $input) {
-      _id
-      user {
-        firstName
-        lastName
-        email
-      }
-      groups {
+      data {
         _id
-        groupName
+        user {
+          _id
+          firstName
+          lastName
+        }
+        groups {
+          _id
+          groupName
+        }
+      }
+      meta {
+        total
       }
     }
   }

@@ -10,14 +10,13 @@ import { Clients, GetClientResponse, GetClientsRequest } from 'src/modules/clien
 import { GET_CLIENTS } from 'src/modules/clients/clients/adapters/out/ClientQueries';
 import { useQuery } from '@apollo/client';
 import { SearcherBarContext, ProfessionalIdContext, ReloadClientListContext } from 'src/App';
-import ManageClientGroup from 'src/modules/clients/clients/adapters/in/components/ClientList/ManageClientGroup';
 
-function ClientList({
-  reloadClientList,
-  setReloadClientList,
+function CustomMealList({
+  reloadCustomMealList,
+  setReloadCustomMealList,
 }: {
-  reloadClientList: boolean;
-  setReloadClientList: (reload: boolean) => void;
+  reloadCustomMealList: boolean;
+  setReloadCustomMealList: (reload: boolean) => void;
 }) {
   const professionalIdContext = useContext(ProfessionalIdContext);
   const reloadClientListContext = useContext(ReloadClientListContext);
@@ -34,9 +33,7 @@ function ClientList({
       input,
     },
   });
-
   const [clients, setClients] = useState<Clients[]>([]);
-
   useEffect(() => {
     const _input =
       searcherBarContext.searchWords.length > 0 ? { ...input, search: searcherBarContext.searchWords } : input;
@@ -53,9 +50,9 @@ function ClientList({
     };
 
     const verifyOnlyReload = () => {
-      if (reloadClientList || reloadClientListContext.reloadClientList) {
+      if (reloadCustomMealList || reloadClientListContext.reloadClientList) {
         void getClients();
-        setReloadClientList(false);
+        setReloadCustomMealList(false);
         reloadClientListContext.setReloadClientList(false);
       }
     };
@@ -83,7 +80,7 @@ function ClientList({
     verifyChosedWordsFromSearcher();
     vefifyFirstDataCallToServer();
   }, [
-    reloadClientList,
+    reloadCustomMealList,
     reloadClientListContext.reloadClientList,
     searcherBarContext.searchWords,
     searcherBarContext.choosedWord,
@@ -93,7 +90,7 @@ function ClientList({
 
   if (loading) return <div>loading...</div>;
   return (
-    <>
+    <div>
       {clients.length > 0 && (
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -109,17 +106,17 @@ function ClientList({
                   <TableCell component="th" scope="row">
                     {client.user.firstName} {client.user.lastName}
                   </TableCell>
-                  <TableCell component="th" scope="row">
+                  {/* <TableCell component="th" scope="row">
                     <ManageClientGroup clientId={client._id} assignedGroups={client.groups} />
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
       )}
-    </>
+    </div>
   );
 }
 
-export default ClientList;
+export default CustomMealList;

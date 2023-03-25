@@ -13,6 +13,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { UserType } from 'src/shared/Consts';
 import { ClientGroup } from 'src/shared/types';
+import CustomMealsContainer from 'src/modules/professionals/custom-meals/adapters/in/components/CustomMealsContainer';
 
 /* const loginStyles = makeStyles({
   container: {
@@ -45,6 +46,26 @@ export const ReloadClientListContext = createContext<{
   setReloadClientList: React.Dispatch<React.SetStateAction<boolean>>;
 }>({ reloadClientList: false, setReloadClientList: useState });
 
+export const SearcherBarContext = createContext<{
+  searchWords: string[];
+  setSearchWords: React.Dispatch<React.SetStateAction<string[]>>;
+  matchedRecords: string[];
+  setMatchedRecords: React.Dispatch<React.SetStateAction<string[]>>;
+  choosedWord: boolean;
+  setChoosedWord: React.Dispatch<React.SetStateAction<boolean>>;
+  recentlyTypedWord: boolean;
+  setRecentlyTypedWord: React.Dispatch<React.SetStateAction<boolean>>;
+}>({
+  searchWords: [],
+  setSearchWords: useState,
+  matchedRecords: [],
+  setMatchedRecords: useState,
+  choosedWord: false,
+  setChoosedWord: useState,
+  recentlyTypedWord: false,
+  setRecentlyTypedWord: useState,
+});
+
 function App() {
   // const loginClasses = loginStyles;
 
@@ -52,6 +73,12 @@ function App() {
   const [professionalId, setProfessionalId] = useState('');
   const [clientGroupList, setClientGroupList] = useState<ClientGroup[]>([]);
   const [reloadClientList, setReloadClientList] = useState(false);
+
+  //for searcher
+  const [searchWords, setSearchWords] = useState<string[]>([]);
+  const [matchedRecords, setMatchedRecords] = useState<string[]>([]);
+  const [choosedWord, setChoosedWord] = useState(false);
+  const [recentlyTypedWord, setRecentlyTypedWord] = useState(false);
 
   const user = getUserFromLocalStorage();
 
@@ -79,20 +106,33 @@ function App() {
     reloadClientList,
     setReloadClientList,
   };
+
+  const communicationSearcherLister = {
+    searchWords,
+    setSearchWords,
+    matchedRecords,
+    setMatchedRecords,
+    choosedWord,
+    setChoosedWord,
+    recentlyTypedWord,
+    setRecentlyTypedWord,
+  };
+
   return (
     <div className="App">
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <AuthContext.Provider value={authContext}>
           <ProfessionalIdContext.Provider value={professionalContext}>
-            <ClientGroupsContext.Provider value={clientGroupContext}>
-              <ReloadClientListContext.Provider value={reloadClientListContext}>
-                <Routes>
-                  {/* <Route path="/" element={<SignUp />} /> */}
-                  <Route path="*" element={<LogIn />} />
-                  <Route path="signup" element={<SignUp />} />
+            <SearcherBarContext.Provider value={communicationSearcherLister}>
+              <ClientGroupsContext.Provider value={clientGroupContext}>
+                <ReloadClientListContext.Provider value={reloadClientListContext}>
+                  <Routes>
+                    {/* <Route path="/" element={<SignUp />} /> */}
+                    <Route path="*" element={<LogIn />} />
+                    <Route path="signup" element={<SignUp />} />
 
-                  {/* wrapping entire al  routes between Routes  */}
-                  {/*
+                    {/* wrapping entire al  routes between Routes  */}
+                    {/*
             {!isAuthenticated && (
               <Route
                 path="/login"
@@ -104,21 +144,23 @@ function App() {
               />p
             )} */}
 
-                  {/* <Route path="sidenav" element={<SideNav />}> */}
-                  {
-                    /* isAuthenticated && */ <Route path="sidenav" element={<Drawer />}>
-                      <Route path="clients" element={<ClientsContainer />} />
-                      {/* <Route path="Abridores" element={<OpenersContainer />} /> */}
-                      <Route path="programs" element={<ProgramsContainer />} />
-                      <Route path="test" element={<Test />} />
-                    </Route>
-                  }
+                    {/* <Route path="sidenav" element={<SideNav />}> */}
+                    {
+                      /* isAuthenticated && */ <Route path="sidenav" element={<Drawer />}>
+                        <Route path="clients" element={<ClientsContainer />} />
+                        {/* <Route path="Abridores" element={<OpenersContainer />} /> */}
+                        <Route path="programs" element={<ProgramsContainer />} />
+                        <Route path="Custom Meals" element={<CustomMealsContainer />} />
+                        <Route path="test" element={<Test />} />
+                      </Route>
+                    }
 
-                  {/* default route */}
-                  {/* <Route path="*" element={<Navigate to={isAuthenticated ? '/sidenav/Tickets' : '/login'} />} /> */}
-                </Routes>
-              </ReloadClientListContext.Provider>
-            </ClientGroupsContext.Provider>
+                    {/* default route */}
+                    {/* <Route path="*" element={<Navigate to={isAuthenticated ? '/sidenav/Tickets' : '/login'} />} /> */}
+                  </Routes>
+                </ReloadClientListContext.Provider>
+              </ClientGroupsContext.Provider>
+            </SearcherBarContext.Provider>
           </ProfessionalIdContext.Provider>
         </AuthContext.Provider>
       </LocalizationProvider>

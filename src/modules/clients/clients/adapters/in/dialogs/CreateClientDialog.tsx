@@ -167,7 +167,7 @@ export function CreateClientDialog({
         phone: '',
       };
       reset(clientReset);
-      setReloadClientList(true)
+      setReloadClientList(true);
     } catch (err) {
       console.log('-------------error graphQLErrors', (err as ApolloError).graphQLErrors);
     }

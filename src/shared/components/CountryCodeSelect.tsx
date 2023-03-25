@@ -15,6 +15,7 @@ function CountryCodeSelect({
   const dispatch = useDispatch();
   const [countries, setCountries] = useState<CountryList[]>([]);
   const [isSearchingCountry, setIsSearchingCountry] = useState(false);
+
   useEffect(() => {
     const getCountries = () => {
       fetch(REST_COUNTRIES_URL)
@@ -28,6 +29,7 @@ function CountryCodeSelect({
     };
     getCountries();
   }, []);
+
   useEffect(() => {
     let wordToSearch = '';
     function handleCountryCodeChange(ke: KeyboardEvent) {

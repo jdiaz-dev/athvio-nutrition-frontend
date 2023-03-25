@@ -45,19 +45,29 @@ export type GetClientsRequest = {
     offset: number;
     limit: number;
     state: string;
+    search?: string[];
   };
+};
+
+export type Clients = {
+  _id: string;
+  user: {
+    firstName: string;
+    lastName: string;
+    email: string;
+  };
+  groups: ClientGroup[];
 };
 
 export type GetClientResponse = {
   getClients: {
-    _id: string;
-    user: {
-      firstName: string;
-      lastName: string;
-      email: string;
+    data: Clients[];
+    meta: {
+      total: number;
+      limit: number;
+      offset: number;
     };
-    groups: ClientGroup[];
-  }[];
+  };
 };
 
 export type ManageClientGroupRequest = {

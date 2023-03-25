@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import { CreateClientDialog } from 'src/modules/clients/clients/adapters/in/dialogs/CreateClientDialog';
 import ClientList from 'src/modules/clients/clients/adapters/in/components/ClientList/ClientList';
 import ClientGroupsContainer from 'src/modules/professionals/client-groups/adapters/in/components/ClientGroupsContainer';
-import ClientSearchBar from 'src/modules/clients/clients/adapters/in/components/ClientSearchBar';
+import SearcherBar from 'src/shared/components/SearcherBar';
 
 function ClientsContainer() {
   const [openCreateClientDialog, setOpenCreateClientDialog] = useState(false);
@@ -14,7 +14,7 @@ function ClientsContainer() {
   return (
     <div>
       <Stack spacing={2} direction="row" sx={{ width: '100%' }}>
-        <ClientSearchBar />
+        <SearcherBar />
         <Button variant="contained" onClick={() => setOpenCreateClientDialog(true)}>
           Add client
         </Button>

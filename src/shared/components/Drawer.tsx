@@ -145,12 +145,8 @@ export function Drawer() {
             defaultExpandIcon={<ArrowRightIcon />}
             defaultEndIcon={<div style={{ width: 24 }} />}
           >
-            <StyledTreeItem nodeId="1" labelText="Mandamientos" labelIcon={MailIcon} />
-            {/* <StyledTreeItem nodeId="2" labelText="Abridores" labelIcon={DeleteIcon} /> */}
-
-            {/* tickets */}
-            <StyledTreeItem nodeId="3" labelText="Tickets" labelIcon={Label} />
-            <StyledTreeItem nodeId="3" labelText="Reflecciones" labelIcon={Label} />
+            <StyledTreeItem nodeId="1" labelText="Clients" labelIcon={MailIcon} />
+            <StyledTreeItem nodeId="2" labelText="Custom Meals" labelIcon={Label} />
           </TreeView>
         </div>
         <div className="app-container">

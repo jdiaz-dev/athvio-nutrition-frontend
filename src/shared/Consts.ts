@@ -1,4 +1,7 @@
 export const REST_COUNTRIES_URL = 'https://restcountries.com/v3.1/all?fields=name,idd,flags';
+export const EDAMAN_ANALISIS_NUTRITION_DATA = 'https://api.edamam.com/api/nutrition-data';
+export const EDAMAN_ANALISIS_NUTRITION_DATA_APP_ID = '61502c72';
+export const EDAMAN_ANALISIS_APP_KEY = '90b651fc4688ed9c7ea8754afd766b1a';
 
 export enum LocalStorageEnum {
   dataUser = 'dataUser',
