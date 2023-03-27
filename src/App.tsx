@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, StrictMode, useEffect, useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.scss';
 import { checkAuthentication, getUserFromLocalStorage } from './shared/helpers/LocalStorage';
@@ -66,6 +66,31 @@ export const SearcherBarContext = createContext<{
   setRecentlyTypedWord: useState,
 });
 
+export const FoddAddedContext = createContext<{
+  foodAdded: boolean;
+  setFoodAdded: React.Dispatch<React.SetStateAction<boolean>>;
+}>({ foodAdded: false, setFoodAdded: useState });
+
+export const PaginationContext = createContext<{
+  length: number;
+  setLength: React.Dispatch<React.SetStateAction<number>>;
+  offset: number;
+  setOffset: React.Dispatch<React.SetStateAction<number>>;
+  rowsPerPage: number;
+  setRowsPerPage: React.Dispatch<React.SetStateAction<number>>;
+  currentPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+}>({
+  length: 0,
+  setLength: useState,
+  offset: 0,
+  setOffset: useState,
+  rowsPerPage: 0,
+  setRowsPerPage: useState,
+  currentPage: 0,
+  setCurrentPage: useState,
+});
+
 function App() {
   // const loginClasses = loginStyles;
 
@@ -78,8 +103,16 @@ function App() {
   const [searchWords, setSearchWords] = useState<string[]>([]);
   const [matchedRecords, setMatchedRecords] = useState<string[]>([]);
   const [choosedWord, setChoosedWord] = useState(false);
+  const [foodAdded, setFoodAdded] = useState(false);
+
+  //for food added from foodLis
   const [recentlyTypedWord, setRecentlyTypedWord] = useState(false);
 
+  //for pagination
+  const [length, setLength] = useState<number>(0);
+  const [offset, setOffset] = useState<number>(0);
+  const [rowsPerPage, setRowsPerPage] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(0);
   const user = getUserFromLocalStorage();
 
   useEffect(() => {
@@ -118,52 +151,73 @@ function App() {
     setRecentlyTypedWord,
   };
 
+  const foddAddedContext = {
+    foodAdded,
+    setFoodAdded,
+  };
+  const paginationContext = {
+    length,
+    setLength,
+    offset,
+    setOffset,
+    rowsPerPage,
+    setRowsPerPage,
+    currentPage,
+    setCurrentPage,
+  };
+
   return (
     <div className="App">
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <AuthContext.Provider value={authContext}>
-          <ProfessionalIdContext.Provider value={professionalContext}>
-            <SearcherBarContext.Provider value={communicationSearcherLister}>
-              <ClientGroupsContext.Provider value={clientGroupContext}>
-                <ReloadClientListContext.Provider value={reloadClientListContext}>
-                  <Routes>
-                    {/* <Route path="/" element={<SignUp />} /> */}
-                    <Route path="*" element={<LogIn />} />
-                    <Route path="signup" element={<SignUp />} />
+      <StrictMode>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <AuthContext.Provider value={authContext}>
+            <ProfessionalIdContext.Provider value={professionalContext}>
+              <SearcherBarContext.Provider value={communicationSearcherLister}>
+                <ClientGroupsContext.Provider value={clientGroupContext}>
+                  <ReloadClientListContext.Provider value={reloadClientListContext}>
+                    <FoddAddedContext.Provider value={foddAddedContext}>
+                      <PaginationContext.Provider value={paginationContext}>
+                        <Routes>
+                          {/* <Route path="/" element={<SignUp />} /> */}
+                          <Route path="*" element={<LogIn />} />
+                          <Route path="signup" element={<SignUp />} />
 
-                    {/* wrapping entire al  routes between Routes  */}
-                    {/*
-            {!isAuthenticated && (
-              <Route
-                path="/login"
-                element={
-                  <div>
-                    <LogIn />
-                  </div>
-                }
-              />p
-            )} */}
+                          {/* wrapping entire al  routes between Routes  */}
+                          {/*
+                      {!isAuthenticated && (
+                        <Route
+                          path="/login"
+                          element={
+                            <div>
+                              <LogIn />
+                            </div>
+                          }
+                        />p
+                      )} */}
 
-                    {/* <Route path="sidenav" element={<SideNav />}> */}
-                    {
-                      /* isAuthenticated && */ <Route path="sidenav" element={<Drawer />}>
-                        <Route path="clients" element={<ClientsContainer />} />
-                        {/* <Route path="Abridores" element={<OpenersContainer />} /> */}
-                        <Route path="programs" element={<ProgramsContainer />} />
-                        <Route path="Custom Meals" element={<CustomMealsContainer />} />
-                        <Route path="test" element={<Test />} />
-                      </Route>
-                    }
+                          {/* <Route path="sidenav" element={<SideNav />}> */}
+                          {
+                            /* isAuthenticated && */ <Route path="sidenav" element={<Drawer />}>
+                              <Route path="clients" element={<ClientsContainer />} />
+                              {/* <Route path="Abridores" element={<OpenersContainer />} /> */}
+                              <Route path="programs" element={<ProgramsContainer />} />
+                              <Route path="Custom Meals" element={<CustomMealsContainer />} />
+                              <Route path="test" element={<Test />} />
+                            </Route>
+                          }
 
-                    {/* default route */}
-                    {/* <Route path="*" element={<Navigate to={isAuthenticated ? '/sidenav/Tickets' : '/login'} />} /> */}
-                  </Routes>
-                </ReloadClientListContext.Provider>
-              </ClientGroupsContext.Provider>
-            </SearcherBarContext.Provider>
-          </ProfessionalIdContext.Provider>
-        </AuthContext.Provider>
-      </LocalizationProvider>
+                          {/* default route */}
+                          {/* <Route path="*" element={<Navigate to={isAuthenticated ? '/sidenav/Tickets' : '/login'} />} /> */}
+                        </Routes>
+                      </PaginationContext.Provider>
+                    </FoddAddedContext.Provider>
+                  </ReloadClientListContext.Provider>
+                </ClientGroupsContext.Provider>
+              </SearcherBarContext.Provider>
+            </ProfessionalIdContext.Provider>
+          </AuthContext.Provider>
+        </LocalizationProvider>
+      </StrictMode>
     </div>
   );
 }
@@ -171,10 +225,6 @@ function App() {
 export default App;
 
 /*
-  - break down SignUp.tsx into smaller components and use redux
-  - learn 1 hour of redux
-  - make validations
-
-  - make refactor to manageClientGroup
+  - implement remove and edit ingredient previously added
 
 */

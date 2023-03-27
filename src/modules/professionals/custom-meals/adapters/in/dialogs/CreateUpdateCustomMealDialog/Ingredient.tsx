@@ -1,20 +1,7 @@
-import React, { useEffect } from 'react';
-import {
-  Button,
-  Card,
-  Dialog,
-  DialogContent,
-  Paper,
-  Table,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TextField,
-} from '@mui/material';
-import TableBody from '@mui/material/TableBody';
+import React, { useContext, useEffect, useState } from 'react';
+import { TableRow } from '@mui/material';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
-
 import { IngredientType } from 'src/modules/professionals/custom-meals/adapters/out/customMeal.types';
 import {
   EDAMAN_ANALISIS_APP_KEY,
@@ -22,6 +9,9 @@ import {
   EDAMAN_ANALISIS_NUTRITION_DATA_APP_ID,
 } from 'src/shared/Consts';
 import { AnalisysNutritionDataResponse } from 'src/modules/professionals/custom-meals/adapters/out/Edaman.types';
+import { updateIngredient } from 'src/modules/professionals/custom-meals/adapters/in/CustomMealSlice';
+import { useDispatch } from 'react-redux';
+import { FoddAddedContext } from 'src/App';
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
@@ -43,8 +33,12 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 function Ingredient(ingredient: IngredientType) {
+  const dispatch = useDispatch();
+  const foddAddedContext = useContext(FoddAddedContext);
+
+  const [macrosCalculated, setMacrosCalculated] = useState(false);
   useEffect(() => {
-    const getCountries = () => {
+    const caculateMacros = () => {
       fetch(
         // eslint-disable-next-line max-len
         `${EDAMAN_ANALISIS_NUTRITION_DATA}?app_id=${EDAMAN_ANALISIS_NUTRITION_DATA_APP_ID}&app_key=${EDAMAN_ANALISIS_APP_KEY}&nutrition-type=cooking&ingr=${ingredient.amount}g ${ingredient.ingredientName}`,
@@ -54,17 +48,28 @@ function Ingredient(ingredient: IngredientType) {
       )
         .then((response) => response.json())
         .then((nutritionData: AnalisysNutritionDataResponse) => {
-          console.log('-------nutritionData', nutritionData);
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          ingredient.protein = nutritionData.totalNutrients.PROCNT.quantity;
-          ingredient.carbs = nutritionData.totalNutrients.CHOCDF.quantity;
-          ingredient.fat = nutritionData.totalNutrients.FAT.quantity;
-          console.log('-------ingredient', ingredient);
+          console.log('-------------nutritionData', nutritionData);
+          const _ingredient: IngredientType = {
+            ...ingredient,
+            protein: parseFloat(nutritionData.totalNutrients.PROCNT.quantity.toFixed(1)),
+            carbs: parseFloat(nutritionData.totalNutrients.CHOCDF.quantity.toFixed(1)),
+            fat: parseFloat(nutritionData.totalNutrients.FAT.quantity.toFixed(1)),
+            calories: parseFloat(nutritionData.calories.toFixed(1)),
+          };
+          dispatch(updateIngredient(_ingredient));
         })
         .catch((error) => console.log('-----error', error));
     };
-    getCountries();
-  }, []);
+
+    if (!macrosCalculated) {
+      caculateMacros();
+      setMacrosCalculated(true);
+    }
+    if (foddAddedContext.foodAdded) {
+      caculateMacros();
+      foddAddedContext.setFoodAdded(false);
+    }
+  }, [macrosCalculated, foddAddedContext.foodAdded]);
 
   return (
     <>
@@ -73,9 +78,10 @@ function Ingredient(ingredient: IngredientType) {
         <StyledTableCell component="th" scope="row">
           {ingredient.ingredientName}
         </StyledTableCell>
-        <StyledTableCell align="right">{ingredient.fat}</StyledTableCell>
-        <StyledTableCell align="right">{ingredient.carbs}</StyledTableCell>
         <StyledTableCell align="right">{ingredient.protein}</StyledTableCell>
+        <StyledTableCell align="right">{ingredient.carbs}</StyledTableCell>
+        <StyledTableCell align="right">{ingredient.fat}</StyledTableCell>
+        <StyledTableCell align="right">{ingredient.calories}</StyledTableCell>
       </StyledTableRow>
     </>
   );

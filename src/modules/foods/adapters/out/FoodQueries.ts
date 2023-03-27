@@ -9,6 +9,8 @@ export const GET_FOODS = gql`
       }
       meta {
         total
+        limit
+        offset
       }
     }
   }

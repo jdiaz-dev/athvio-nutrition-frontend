@@ -10,8 +10,11 @@ import { Clients, GetClientResponse, GetClientsRequest } from 'src/modules/clien
 import { GET_CLIENTS } from 'src/modules/clients/clients/adapters/out/ClientQueries';
 import { useQuery } from '@apollo/client';
 import { SearcherBarContext, ProfessionalIdContext, ReloadClientListContext } from 'src/App';
+import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
+import CustomMeal from 'src/modules/professionals/custom-meals/adapters/in/components/CustomMeal';
+import { useCustomMeal } from 'src/modules/professionals/custom-meals/adapters/out/CustomMealActions';
 
-function CustomMealList({
+async function CustomMealList({
   reloadCustomMealList,
   setReloadCustomMealList,
 }: {
@@ -21,13 +24,14 @@ function CustomMealList({
   const professionalIdContext = useContext(ProfessionalIdContext);
   const reloadClientListContext = useContext(ReloadClientListContext);
   const searcherBarContext = useContext(SearcherBarContext);
-
+  const { getCustomMeals } = useCustomMeal();
   const input = {
     professionalId: professionalIdContext.professionalId,
     offset: 0,
     limit: 10,
-    state: 'inactive',
   };
+  const { data: _data } = await getCustomMeals(input);
+  console.log('------------_data', _data);
   const { data, loading, refetch } = useQuery<GetClientResponse, GetClientsRequest>(GET_CLIENTS, {
     variables: {
       input,
@@ -35,6 +39,10 @@ function CustomMealList({
   });
   const [clients, setClients] = useState<Clients[]>([]);
   useEffect(() => {
+    const getCustomMealHelper = async () => {
+      await getCustomMeals(input);
+    };
+    void getCustomMealHelper();
     const _input =
       searcherBarContext.searchWords.length > 0 ? { ...input, search: searcherBarContext.searchWords } : input;
     const getClients = async () => {
@@ -91,30 +99,21 @@ function CustomMealList({
   if (loading) return <div>loading...</div>;
   return (
     <div>
-      {clients.length > 0 && (
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Group</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {clients.map((client) => (
-                <TableRow key={client._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                  <TableCell component="th" scope="row">
-                    {client.user.firstName} {client.user.lastName}
-                  </TableCell>
-                  {/* <TableCell component="th" scope="row">
-                    <ManageClientGroup clientId={client._id} assignedGroups={client.groups} />
-                  </TableCell> */}
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      )}
+      <TableContainer component={Paper}>
+        <Table aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell width={'15%'}>Amount (g) </StyledTableCell>
+              <StyledTableCell align="right">Food</StyledTableCell>
+              <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
+              <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
+              <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
+              <StyledTableCell align="right">Calories&nbsp;(kcal)</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>{/* <CustomMeal /> */}</TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
 }

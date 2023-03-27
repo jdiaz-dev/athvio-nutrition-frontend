@@ -1,9 +1,5 @@
 import React, { ReactNode, useContext, useState } from 'react';
 import { Button, Card, Dialog, DialogContent, TextField } from '@mui/material';
-import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
-import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
-import MuiAccordionSummary, { AccordionSummaryProps } from '@mui/material/AccordionSummary';
-import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -11,7 +7,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import Typography from '@mui/material/Typography';
-import { styled } from '@mui/material/styles';
 
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { MessagesUserForm } from 'src/shared/Consts';
@@ -29,6 +24,7 @@ import { Dayjs } from 'dayjs';
 import { ApolloError, useMutation } from '@apollo/client';
 import { ClientCreatedSucessfullyDialog } from 'src/modules/clients/clients/adapters/in/dialogs/ClientCreatedSucessfullyDialog';
 import { ProfessionalIdContext } from 'src/App';
+import { Accordion, AccordionDetails, AccordionSummary } from 'src/shared/components/Accordion';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -59,36 +55,6 @@ const cardStyles = makeStyles()(() => {
   };
 });
 
-const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters elevation={0} square {...props} />)(
-  ({ theme }) => ({
-    'border': `1px solid ${theme.palette.divider}`,
-    '&:not(:last-child)': {
-      borderBottom: 0,
-    },
-    '&:before': {
-      display: 'none',
-    },
-  }),
-);
-
-const AccordionSummary = styled((props: AccordionSummaryProps) => (
-  <MuiAccordionSummary expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '0.9rem' }} />} {...props} />
-))(({ theme }) => ({
-  'backgroundColor': theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, .05)' : 'rgba(0, 0, 0, .03)',
-  'flexDirection': 'row-reverse',
-  '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
-    transform: 'rotate(90deg)',
-  },
-  '& .MuiAccordionSummary-content': {
-    marginLeft: theme.spacing(1),
-  },
-}));
-
-const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
-  padding: theme.spacing(2),
-  borderTop: '1px solid rgba(0, 0, 0, .125)',
-}));
-
 export function CreateClientDialog({
   openCreateClientDialog,
   setOpenCreateClientDialog,
@@ -113,7 +79,8 @@ export function CreateClientDialog({
   const [birthday, setBirthday] = React.useState<Dayjs | null | string>(null);
   const [gender, setGender] = useState<string>('');
   const [userInfo, setUserInfo] = useState<UserInfoForClient>({ email: '', firstName: '', lastName: '' });
-  const [openMessageClientDialog, setOpenMessageClientDialog] = useState(false);
+  const [openMessageDialog, setOpenMessageDialog] = useState(false);
+  const [messageDialog, setMessageDialog] = useState('');
 
   const handleChangeAditionalInfo = (panel: string) => (event: React.SyntheticEvent, newPanelExpanded: boolean) => {
     setPanelExpanded(newPanelExpanded ? panel : false);
@@ -153,8 +120,7 @@ export function CreateClientDialog({
         firstName: _client.firstName,
         lastName: _client.lastName,
       });
-      setOpenMessageClientDialog(true);
-      setOpenCreateClientDialog(false);
+
       const clientReset = {
         firstName: '',
         lastName: '',
@@ -166,10 +132,13 @@ export function CreateClientDialog({
         profilePicture: '',
         phone: '',
       };
+      setOpenMessageDialog(true);
+      setOpenCreateClientDialog(false);
       reset(clientReset);
       setReloadClientList(true);
-    } catch (err) {
-      console.log('-------------error graphQLErrors', (err as ApolloError).graphQLErrors);
+      setMessageDialog(`You added ${firstName} ${lastName} to your clients sucessfully`);
+    } catch (error) {
+      console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
     }
   };
 
@@ -314,10 +283,9 @@ export function CreateClientDialog({
         </DialogContent>
       </Dialog>
       <ClientCreatedSucessfullyDialog
-        openMessageClientDialog={openMessageClientDialog}
-        setOpenMessageClientDialog={setOpenMessageClientDialog}
-        firstName={userInfo.firstName}
-        lastName={userInfo.lastName}
+        openMessageDialog={openMessageDialog}
+        setOpenMessageDialog={setOpenMessageDialog}
+        messageDialog={messageDialog}
       />
     </>
   );

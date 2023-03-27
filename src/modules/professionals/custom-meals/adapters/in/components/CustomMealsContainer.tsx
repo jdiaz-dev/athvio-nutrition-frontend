@@ -1,14 +1,14 @@
-import { Button, Stack } from '@mui/material';
 import React, { useState } from 'react';
-import CustomMealList from 'src/modules/professionals/custom-meals/adapters/in/components/CustomMealList';
+import { Button, Stack } from '@mui/material';
 import CreateCustomMealDialog from 'src/modules/professionals/custom-meals/adapters/in/dialogs/CreateUpdateCustomMealDialog/CreateCustomMealDialog';
 import SearcherBar from 'src/shared/components/SearcherBar';
+import CustomMealList from 'src/modules/professionals/custom-meals/adapters/in/components/CustomMealList';
 
 function CustomMealsContainer() {
   const [openCreateCustomMealDialog, setOpenCreateCustomMealDialog] = useState(false);
   const [reloadCustomMealList, setReloadCustomMealList] = useState(false);
   return (
-    <div>
+    <>
       <Stack spacing={2} direction="row" sx={{ width: '100%' }}>
         <SearcherBar />
 
@@ -23,7 +23,9 @@ function CustomMealsContainer() {
         setOpenCreateCustomMealDialog={setOpenCreateCustomMealDialog}
         setReloadCustomMealList={setReloadCustomMealList}
       />
-    </div>
+
+      <CustomMealList />
+    </>
   );
 }
 

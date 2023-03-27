@@ -7,33 +7,29 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 export function ClientCreatedSucessfullyDialog({
-  openMessageClientDialog,
-  setOpenMessageClientDialog,
-  firstName,
-  lastName,
+  openMessageDialog,
+  setOpenMessageDialog,
+  messageDialog,
 }: {
-  openMessageClientDialog: boolean;
-  setOpenMessageClientDialog: (openDialog: boolean) => void;
-  firstName: string;
-  lastName: string;
+  openMessageDialog: boolean;
+  setOpenMessageDialog: (openDialog: boolean) => void;
+  messageDialog: string;
 }) {
   return (
     <>
       <Dialog
-        open={openMessageClientDialog}
-        onClose={setOpenMessageClientDialog}
+        open={openMessageDialog}
+        onClose={setOpenMessageDialog}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            You added {firstName} {lastName} to your clients sucessfully
-          </DialogContentText>
+          <DialogContentText id="alert-dialog-description">{messageDialog}</DialogContentText>
         </DialogContent>
         <DialogActions>
-          {/* <Button onClick={() => setOpenMessageClientDialog(false)}>Start counching with {firstName}</Button> */}
-          <Button onClick={() => setOpenMessageClientDialog(false)} autoFocus>
+          {/* <Button onClick={() => setOpenMessageDialog(false)}>Start counching with {firstName}</Button> */}
+          <Button onClick={() => setOpenMessageDialog(false)} autoFocus>
             Accept
           </Button>
         </DialogActions>

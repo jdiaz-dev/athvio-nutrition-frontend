@@ -1,3 +1,4 @@
+import { ApolloError } from '@apollo/client';
 import { useDispatch } from 'react-redux';
 import { apolloClient } from 'src/graphql/ApolloClient';
 import { resetUser } from 'src/modules/security/users/adapters/in/UserSlice';
@@ -18,8 +19,8 @@ export function useUsers() {
       if (response) dispatch(resetUser());
       console.log(response);
       // eslint-disable-next-line no-console, @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      console.log('-----------error',  error.graphQLErrors)
+    } catch (error) {
+      console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
     }
   };
