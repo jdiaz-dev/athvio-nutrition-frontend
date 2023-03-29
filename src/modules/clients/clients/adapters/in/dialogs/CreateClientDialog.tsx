@@ -22,7 +22,7 @@ import {
 import CountryCodeSelect from 'src/shared/components/CountryCodeSelect';
 import { Dayjs } from 'dayjs';
 import { ApolloError, useMutation } from '@apollo/client';
-import { ClientCreatedSucessfullyDialog } from 'src/modules/clients/clients/adapters/in/dialogs/ClientCreatedSucessfullyDialog';
+import MessageDialog from 'src/shared/dialogs/MessageDialog';
 import { ProfessionalIdContext } from 'src/App';
 import { Accordion, AccordionDetails, AccordionSummary } from 'src/shared/components/Accordion';
 
@@ -93,7 +93,7 @@ export function CreateClientDialog({
   const onSubmit = async ({ firstName, lastName, email, ...rest }: ClientData): Promise<void> => {
     // eslint-disable-next-line prefer-const
     let input: BodyClient = {
-      professionalId: professionalIdContext.professionalId,
+      professional: professionalIdContext.professional,
       userInfo: {
         firstName,
         lastName,
@@ -282,7 +282,7 @@ export function CreateClientDialog({
           </Card>
         </DialogContent>
       </Dialog>
-      <ClientCreatedSucessfullyDialog
+      <MessageDialog
         openMessageDialog={openMessageDialog}
         setOpenMessageDialog={setOpenMessageDialog}
         messageDialog={messageDialog}

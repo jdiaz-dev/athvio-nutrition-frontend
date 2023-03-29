@@ -35,5 +35,3 @@ export const DELETE_CLIENT_GROUP = gql`
     }
   }
 `;
-
-

@@ -16,7 +16,7 @@ import { AuthContext, ProfessionalIdContext } from 'src/App';
 import { MessagesUserForm } from 'src/shared/Consts';
 import { LOG_IN } from 'src/modules/security/security/adapters/out/SecurityQueries';
 import { saveDataUser } from 'src/shared/helpers/LocalStorage';
-import { useMutation } from '@apollo/client';
+import { ApolloError, useMutation } from '@apollo/client';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -67,7 +67,7 @@ export function LogIn() {
 
   if (data) {
     saveDataUser(data.logIn);
-    professionalIdContext.setProfessionalId(data.logIn._id)
+    professionalIdContext.setProfessional(data.logIn._id);
     authContext.setIsAuthenticated(true);
     return <Navigate replace to="/sidenav/clients" />;
   }
@@ -81,10 +81,8 @@ export function LogIn() {
           },
         },
       });
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      console.log('-------------error', error);
-      console.log('-------------error', error?.graphQLErrors);
+    } catch (error) {
+      console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
     }
   };
 

@@ -10,7 +10,7 @@ import { MANAGE_CLIENT_GROUP } from 'src/modules/clients/clients/adapters/out/Cl
 import { ManageClientGroupEnum } from 'src/shared/Consts';
 import { ClientGroup } from 'src/shared/types';
 
-function ManageClientGroup({ clientId, assignedGroups }: { clientId: string; assignedGroups: ClientGroup[] }) {
+function ManageClientGroup({ client, assignedGroups }: { client: string; assignedGroups: ClientGroup[] }) {
   const professionalIdContext = useContext(ProfessionalIdContext);
   const clientGroupContext = useContext(ClientGroupsContext);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -29,9 +29,9 @@ function ManageClientGroup({ clientId, assignedGroups }: { clientId: string; ass
     const res = await createClientHandler({
       variables: {
         input: {
-          professionalId: professionalIdContext.professionalId,
-          clientGroupId: data._id,
-          clientId,
+          professional: professionalIdContext.professional,
+          clientGroup: data._id,
+          client,
           action,
         },
       },

@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
@@ -10,111 +9,68 @@ import { Clients, GetClientResponse, GetClientsRequest } from 'src/modules/clien
 import { GET_CLIENTS } from 'src/modules/clients/clients/adapters/out/ClientQueries';
 import { useQuery } from '@apollo/client';
 import { SearcherBarContext, ProfessionalIdContext, ReloadClientListContext } from 'src/App';
-import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
-import CustomMeal from 'src/modules/professionals/custom-meals/adapters/in/components/CustomMeal';
+import { StyledTableCell } from 'src/shared/components/CustomizedTable';
 import { useCustomMeal } from 'src/modules/professionals/custom-meals/adapters/out/CustomMealActions';
+import { useSelector } from 'react-redux';
+import { ReduxStates } from 'src/shared/types';
+import CustomMeal from 'src/modules/professionals/custom-meals/adapters/in/components/CustomMeal';
 
-async function CustomMealList({
+function CustomMealList({
   reloadCustomMealList,
   setReloadCustomMealList,
 }: {
   reloadCustomMealList: boolean;
   setReloadCustomMealList: (reload: boolean) => void;
 }) {
+  console.log('----------CustomMealList called');
+  const customMealList = useSelector((state: ReduxStates) => state.customMeals.customMealList);
   const professionalIdContext = useContext(ProfessionalIdContext);
   const reloadClientListContext = useContext(ReloadClientListContext);
   const searcherBarContext = useContext(SearcherBarContext);
   const { getCustomMeals } = useCustomMeal();
-  const input = {
-    professionalId: professionalIdContext.professionalId,
-    offset: 0,
-    limit: 10,
-  };
-  const { data: _data } = await getCustomMeals(input);
-  console.log('------------_data', _data);
-  const { data, loading, refetch } = useQuery<GetClientResponse, GetClientsRequest>(GET_CLIENTS, {
-    variables: {
-      input,
-    },
-  });
-  const [clients, setClients] = useState<Clients[]>([]);
+
   useEffect(() => {
     const getCustomMealHelper = async () => {
-      await getCustomMeals(input);
-    };
-    void getCustomMealHelper();
-    const _input =
-      searcherBarContext.searchWords.length > 0 ? { ...input, search: searcherBarContext.searchWords } : input;
-    const getClients = async () => {
-      const res = await refetch({ input: _input });
-      setClients(res.data.getClients.data);
-    };
+      console.log('----------getCustomMealHelper called');
 
-    const getClientsForSearcher = async () => {
-      const res = await refetch({ input: _input });
-      searcherBarContext.setMatchedRecords(
-        res.data.getClients.data.map((client) => client.user.firstName + ' ' + client.user.lastName),
-      );
-    };
+      const _input = {
+        professional: professionalIdContext.professional,
+        offset: 0,
+        limit: 10,
+      };
 
-    const verifyOnlyReload = () => {
-      if (reloadCustomMealList || reloadClientListContext.reloadClientList) {
-        void getClients();
-        setReloadCustomMealList(false);
-        reloadClientListContext.setReloadClientList(false);
-      }
+      await getCustomMeals(_input);
+      setReloadCustomMealList(false);
     };
+    if (professionalIdContext.professional) {
+      void getCustomMealHelper();
+    }
+  }, [reloadCustomMealList, professionalIdContext.professional]);
 
-    const verifyNewWordToSearch = () => {
-      if (searcherBarContext.searchWords.length === 1 && searcherBarContext.recentlyTypedWord) {
-        void getClientsForSearcher();
-        searcherBarContext.setRecentlyTypedWord(false);
-      }
-    };
-    const verifyChosedWordsFromSearcher = () => {
-      if (searcherBarContext.searchWords.length >= 0 && searcherBarContext.choosedWord) {
-        void getClients();
-        searcherBarContext.setChoosedWord(false);
-      }
-    };
-
-    const vefifyFirstDataCallToServer = () => {
-      if (data && !searcherBarContext.choosedWord && searcherBarContext.searchWords.length === 0) {
-        setClients(data.getClients.data);
-      }
-    };
-    verifyOnlyReload();
-    verifyNewWordToSearch();
-    verifyChosedWordsFromSearcher();
-    vefifyFirstDataCallToServer();
-  }, [
-    reloadCustomMealList,
-    reloadClientListContext.reloadClientList,
-    searcherBarContext.searchWords,
-    searcherBarContext.choosedWord,
-    searcherBarContext.recentlyTypedWord,
-    data,
-  ]);
-
-  if (loading) return <div>loading...</div>;
   return (
-    <div>
+    <>
       <TableContainer component={Paper}>
         <Table aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell width={'15%'}>Amount (g) </StyledTableCell>
-              <StyledTableCell align="right">Food</StyledTableCell>
-              <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
-              <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
-              <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
-              <StyledTableCell align="right">Calories&nbsp;(kcal)</StyledTableCell>
+              <StyledTableCell width={'15%'}>Meal name </StyledTableCell>
+              <StyledTableCell align="right">Total Protein&nbsp;(g)</StyledTableCell>
+              <StyledTableCell align="right">Total Carbs&nbsp;(g)</StyledTableCell>
+              <StyledTableCell align="right">Total Fat&nbsp;(g)</StyledTableCell>
+              <StyledTableCell align="right">Total Calories&nbsp;(kcal)</StyledTableCell>
             </TableRow>
           </TableHead>
-          <TableBody>{/* <CustomMeal /> */}</TableBody>
+          <TableBody style={{ border: '20px solid blue' }}>
+            {customMealList &&
+              customMealList?.data.map((customMeal, index) => (
+                <React.Fragment key={index}>
+                  <CustomMeal {...customMeal} />
+                </React.Fragment>
+              ))}
+          </TableBody>
         </Table>
       </TableContainer>
-    </div>
+    </>
   );
 }
 

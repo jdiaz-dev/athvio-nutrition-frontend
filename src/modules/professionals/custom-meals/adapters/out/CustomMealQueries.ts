@@ -34,3 +34,16 @@ export const GET_CUSTOM_MEALS = gql`
     }
   }
 `;
+
+export const UPDATE_CUSTOM_MEAL = gql`
+  mutation _updateCustomMeal($input: UpdateCustomMealDto!) {
+    updateCustomMeal(input: $input) {
+      _id
+      name
+      ingredients {
+        ingredientName
+      }
+      createdAt
+    }
+  }
+`;

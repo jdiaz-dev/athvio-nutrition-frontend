@@ -10,10 +10,10 @@ import Ingredient from 'src/modules/professionals/custom-meals/adapters/in/dialo
 import { StyledTableCell } from 'src/shared/components/CustomizedTable';
 
 function IngredientList() {
-  const customMeal = useSelector((state: ReduxStates) => state.customMeal);
-
+  const customMeal = useSelector((state: ReduxStates) => state.customMeals.customMealItem);
+  console.log('-----------ingredientList', customMeal.ingredients);
   return (
-    <div>
+    <>
       <TableContainer component={Paper}>
         <Table aria-label="customized table">
           <TableHead>
@@ -36,7 +36,7 @@ function IngredientList() {
         </Table>
       </TableContainer>
       <FoodList />
-    </div>
+    </>
   );
 }
 

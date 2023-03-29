@@ -11,10 +11,10 @@ import { DELETE_CLIENT_GROUP } from 'src/modules/professionals/client-groups/ada
 import { ProfessionalIdContext, ReloadClientListContext } from 'src/App';
 
 function DeleteClientGroup({
-  clientGroupId,
+  clientGroup,
   setReloadClientGroupList,
 }: {
-  clientGroupId: string;
+  clientGroup: string;
   setReloadClientGroupList: (reload: boolean) => void;
 }) {
   const professionalIdContext = useContext(ProfessionalIdContext);
@@ -37,8 +37,8 @@ function DeleteClientGroup({
   };
   const deleteClientGroup = async () => {
     const input = {
-      professionalId: professionalIdContext.professionalId,
-      clientGroupId,
+      professional: professionalIdContext.professional,
+      clientGroup,
     };
     await deleteClientGroupHandler({
       variables: {

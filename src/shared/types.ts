@@ -1,4 +1,4 @@
-import { CustomMeal } from 'src/modules/professionals/custom-meals/adapters/out/customMeal.types';
+import { CustomMealInitialState } from 'src/modules/professionals/custom-meals/adapters/out/customMeal.types';
 import { UserSignUpModel } from 'src/modules/security/users/adapters/out/user.types';
 
 export type DataUser = {
@@ -15,7 +15,7 @@ export interface CountryList {
 
 export type ReduxStates = {
   users: UserSignUpModel;
-  customMeal: CustomMeal;
+  customMeals: CustomMealInitialState;
 };
 
 export type ClientGroup = {

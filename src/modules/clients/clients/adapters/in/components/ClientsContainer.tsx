@@ -10,6 +10,7 @@ import SearcherBar from 'src/shared/components/SearcherBar';
 function ClientsContainer() {
   const [openCreateClientDialog, setOpenCreateClientDialog] = useState(false);
   const [reloadClientList, setReloadClientList] = useState(false);
+  console.log('---------------------ClientsContainer');
 
   return (
     <div>
@@ -23,11 +24,13 @@ function ClientsContainer() {
 
       <ClientList reloadClientList={reloadClientList} setReloadClientList={setReloadClientList} />
 
-      <CreateClientDialog
-        openCreateClientDialog={openCreateClientDialog}
-        setOpenCreateClientDialog={setOpenCreateClientDialog}
-        setReloadClientList={setReloadClientList}
-      />
+      {openCreateClientDialog && (
+        <CreateClientDialog
+          openCreateClientDialog={openCreateClientDialog}
+          setOpenCreateClientDialog={setOpenCreateClientDialog}
+          setReloadClientList={setReloadClientList}
+        />
+      )}
     </div>
   );
 }

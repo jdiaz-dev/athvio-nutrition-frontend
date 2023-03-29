@@ -1,12 +1,15 @@
 import { Box, TextField } from '@mui/material';
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateRecipe } from 'src/modules/professionals/custom-meals/adapters/in/CustomMealSlice';
+import { ReduxStates } from 'src/shared/types';
 
 function Recipe() {
   const dispatch = useDispatch();
+  const recipe = useSelector((state: ReduxStates) => state.customMeals.customMealItem.recipe);
+
   return (
-    <div>
+    <>
       <Box
         sx={{
           // width: 500,
@@ -19,13 +22,13 @@ function Recipe() {
           placeholder="Placeholder"
           multiline
           fullWidth
-          defaultValue={''}
+          defaultValue={recipe}
           onChange={(e) => {
             dispatch(updateRecipe(e.target.value));
           }}
         />
       </Box>
-    </div>
+    </>
   );
 }
 

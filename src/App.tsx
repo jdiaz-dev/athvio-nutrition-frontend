@@ -32,9 +32,9 @@ export const AuthContext = createContext<{
 }>({ isAuthenticated: true, setIsAuthenticated: useState });
 
 export const ProfessionalIdContext = createContext<{
-  professionalId: string;
-  setProfessionalId: React.Dispatch<React.SetStateAction<string>>;
-}>({ professionalId: '', setProfessionalId: useState });
+  professional: string;
+  setProfessional: React.Dispatch<React.SetStateAction<string>>;
+}>({ professional: '', setProfessional: useState });
 
 export const ClientGroupsContext = createContext<{
   clientGroupList: ClientGroup[];
@@ -95,7 +95,7 @@ function App() {
   // const loginClasses = loginStyles;
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [professionalId, setProfessionalId] = useState('');
+  const [professional, setProfessional] = useState('');
   const [clientGroupList, setClientGroupList] = useState<ClientGroup[]>([]);
   const [reloadClientList, setReloadClientList] = useState(false);
 
@@ -116,10 +116,13 @@ function App() {
   const user = getUserFromLocalStorage();
 
   useEffect(() => {
-    setIsAuthenticated(checkAuthentication());
-    setProfessionalId(user.userType === UserType.PROFESSIONAL ? user._id : '');
+    // setIsAuthenticated(checkAuthentication());
     // return () => {};
   }, [isAuthenticated]);
+
+  useEffect(() => {
+    setProfessional(user.userType === UserType.PROFESSIONAL ? user._id : '');
+  }, [professional]);
 
   const authContext = {
     isAuthenticated,
@@ -127,8 +130,8 @@ function App() {
   };
 
   const professionalContext = {
-    professionalId,
-    setProfessionalId,
+    professional,
+    setProfessional,
   };
   const clientGroupContext = {
     clientGroupList,
@@ -166,6 +169,7 @@ function App() {
     setCurrentPage,
   };
 
+  // console.log('---------app called');
   return (
     <div className="App">
       <StrictMode>
@@ -178,36 +182,17 @@ function App() {
                     <FoddAddedContext.Provider value={foddAddedContext}>
                       <PaginationContext.Provider value={paginationContext}>
                         <Routes>
-                          {/* <Route path="/" element={<SignUp />} /> */}
                           <Route path="*" element={<LogIn />} />
                           <Route path="signup" element={<SignUp />} />
 
-                          {/* wrapping entire al  routes between Routes  */}
-                          {/*
-                      {!isAuthenticated && (
-                        <Route
-                          path="/login"
-                          element={
-                            <div>
-                              <LogIn />
-                            </div>
-                          }
-                        />p
-                      )} */}
-
-                          {/* <Route path="sidenav" element={<SideNav />}> */}
                           {
-                            /* isAuthenticated && */ <Route path="sidenav" element={<Drawer />}>
+                            <Route path="sidenav" element={<Drawer />}>
                               <Route path="clients" element={<ClientsContainer />} />
-                              {/* <Route path="Abridores" element={<OpenersContainer />} /> */}
                               <Route path="programs" element={<ProgramsContainer />} />
                               <Route path="Custom Meals" element={<CustomMealsContainer />} />
                               <Route path="test" element={<Test />} />
                             </Route>
                           }
-
-                          {/* default route */}
-                          {/* <Route path="*" element={<Navigate to={isAuthenticated ? '/sidenav/Tickets' : '/login'} />} /> */}
                         </Routes>
                       </PaginationContext.Provider>
                     </FoddAddedContext.Provider>
@@ -218,6 +203,21 @@ function App() {
           </AuthContext.Provider>
         </LocalizationProvider>
       </StrictMode>
+
+      {/* <StrictMode>
+        <Routes>
+          <Route path="*" element={<LogIn />} />
+          <Route path="signup" element={<SignUp />} />
+          {
+            <Route path="sidenav" element={<Drawer />}>
+              <Route path="clients" element={<ClientsContainer />} />
+              <Route path="programs" element={<ProgramsContainer />} />
+              <Route path="Custom Meals" element={<CustomMealsContainer />} />
+              <Route path="test" element={<Test />} />
+            </Route>
+          }
+        </Routes>
+      </StrictMode> */}
     </div>
   );
 }

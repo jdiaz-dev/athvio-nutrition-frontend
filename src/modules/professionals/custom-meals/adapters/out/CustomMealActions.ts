@@ -2,23 +2,30 @@ import { ApolloError } from '@apollo/client';
 import { useDispatch } from 'react-redux';
 import { apolloClient } from 'src/graphql/ApolloClient';
 import {
+  resetCustomMealItem,
+  setCustomMealList,
+} from 'src/modules/professionals/custom-meals/adapters/in/CustomMealSlice';
+import {
   CreateCustomMealRequest,
   CreateCustomMealResponse,
-  CustomMeal,
+  CustomMealBody,
   GetCustomMealRequest,
-  GetCustomMealResponse,
+  GetCustomMealsResponse,
   GetCustomMealsBody,
+  UpdateCustomMealBody,
+  UpdateCustomMealResponse,
+  UpdateCustomMealRequest,
 } from 'src/modules/professionals/custom-meals/adapters/out/customMeal.types';
 import {
   CREATE_CUSTOM_MEAL,
   GET_CUSTOM_MEALS,
+  UPDATE_CUSTOM_MEAL,
 } from 'src/modules/professionals/custom-meals/adapters/out/CustomMealQueries';
 
 export function useCustomMeal() {
   const dispatch = useDispatch();
 
-  const createCustomMeal = async (body: CustomMeal): Promise<void> => {
-    console.log('------body', body);
+  const createCustomMeal = async (body: CustomMealBody): Promise<void> => {
     try {
       const response = await apolloClient.mutate<CreateCustomMealResponse, CreateCustomMealRequest>({
         mutation: CREATE_CUSTOM_MEAL,
@@ -28,18 +35,17 @@ export function useCustomMeal() {
           },
         },
       });
-      // if (response) dispatch(resetUser());
+      if (response) dispatch(resetCustomMealItem());
       console.log(response);
-      // eslint-disable-next-line no-console, @typescript-eslint/no-explicit-any
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
     }
   };
   const getCustomMeals = async (body: GetCustomMealsBody) => {
-    console.log('----------body', body);
+    console.log('---------body', body);
     try {
-      const response = await apolloClient.query<GetCustomMealResponse, GetCustomMealRequest>({
+      const response = await apolloClient.query<GetCustomMealsResponse, GetCustomMealRequest>({
         query: GET_CUSTOM_MEALS,
         variables: {
           input: {
@@ -47,14 +53,30 @@ export function useCustomMeal() {
           },
         },
       });
-      // if (response) dispatch(resetUser());
-      console.log('----------response get', response);
+
+      if (response) dispatch(setCustomMealList(response.data.getCustomMeals));
       return response;
-      // eslint-disable-next-line no-console, @typescript-eslint/no-explicit-any
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
     }
   };
-  return { createCustomMeal, getCustomMeals };
+  const updateCustomMeal = async (body: UpdateCustomMealBody): Promise<void> => {
+    try {
+      const response = await apolloClient.mutate<UpdateCustomMealResponse, UpdateCustomMealRequest>({
+        mutation: UPDATE_CUSTOM_MEAL,
+        variables: {
+          input: {
+            ...body,
+          },
+        },
+      });
+      if (response) dispatch(resetCustomMealItem());
+      console.log(response);
+    } catch (error) {
+      console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
+      throw error;
+    }
+  };
+  return { createCustomMeal, getCustomMeals, updateCustomMeal };
 }

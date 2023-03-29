@@ -69,7 +69,7 @@ function CreateClientGroupDialog({
 
   const createClientGroup = async (data: { groupName: string }) => {
     const input = {
-      professionalId: professionalIdContext.professionalId,
+      professional: professionalIdContext.professional,
       ...data,
     };
     const res = await createClientHandler({

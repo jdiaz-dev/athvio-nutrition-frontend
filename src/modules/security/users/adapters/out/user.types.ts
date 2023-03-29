@@ -16,15 +16,6 @@ export interface SetUserInfo extends Omit<UserSignUpModel, 'countryCode' | 'prof
   businessName: string;
 }
 
-export type JwtDto = {
-  token: string;
-  userId: string;
-};
-
-export type LoginResponse = {
-  signUP: JwtDto;
-};
-
 export type SignUpRequest = {
   input: UserSignUpModel;
 };

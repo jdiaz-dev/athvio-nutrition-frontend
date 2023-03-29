@@ -22,9 +22,9 @@ function ClientList({
   const professionalIdContext = useContext(ProfessionalIdContext);
   const reloadClientListContext = useContext(ReloadClientListContext);
   const searcherBarContext = useContext(SearcherBarContext);
-
+  // console.log('---------------------clientListCalled');
   const input = {
-    professionalId: professionalIdContext.professionalId,
+    professional: professionalIdContext.professional,
     offset: 0,
     limit: 10,
     state: 'inactive',
@@ -110,7 +110,7 @@ function ClientList({
                     {client.user.firstName} {client.user.lastName}
                   </TableCell>
                   <TableCell component="th" scope="row">
-                    <ManageClientGroup clientId={client._id} assignedGroups={client.groups} />
+                    <ManageClientGroup client={client._id} assignedGroups={client.groups} />
                   </TableCell>
                 </TableRow>
               ))}

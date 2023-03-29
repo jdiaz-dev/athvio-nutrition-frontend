@@ -37,7 +37,7 @@ function ClientGroupList({
   const [editGroup, setEditGroup] = useState(false);
   const [_reloadClientGroupList, _setReloadClientGroupList] = useState(false);
   const input = {
-    professionalId: professionalIdContext.professionalId,
+    professional: professionalIdContext.professional,
   };
   const { data, refetch } = useQuery<GetClientGroupsResponse, GetClientGroupsRequest>(GET_CLIENT_GROUPS, {
     variables: {
@@ -47,13 +47,13 @@ function ClientGroupList({
   if (data) clientGroupContext.setClientGroupList(data.getClientGroups);
 
   useEffect(() => {
-    const refetchData = async () => {
+    const getClientsHelper = async () => {
       const res = await refetch({ input });
       // console.log('---------res', res);
       clientGroupContext.setClientGroupList(res.data.getClientGroups);
     };
     if (reloadClientGroupList || reloadClientGroupList) {
-      refetchData();
+      void getClientsHelper();
       _setReloadClientGroupList(false);
       setReloadClientGroupList(false);
     }
@@ -103,7 +103,7 @@ function ClientGroupList({
                       </TableCell>
                       <TableCell component="th" scope="row">
                         <DeleteClientGroup
-                          clientGroupId={group._id}
+                          clientGroup={group._id}
                           setReloadClientGroupList={setReloadClientGroupList}
                         />
                       </TableCell>

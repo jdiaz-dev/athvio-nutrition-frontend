@@ -22,7 +22,7 @@ export type AdditionalInfo = {
 export type ClientData = UserInfoForClient & AdditionalInfo;
 
 export type BodyClient = {
-  professionalId: string;
+  professional: string;
   userInfo: UserInfoForClient;
   additionalInfo: AdditionalInfo;
 };
@@ -41,7 +41,7 @@ export type CreateClientResponse = {
 
 export type GetClientsRequest = {
   input: {
-    professionalId: string;
+    professional: string;
     offset: number;
     limit: number;
     state: string;
@@ -72,9 +72,9 @@ export type GetClientResponse = {
 
 export type ManageClientGroupRequest = {
   input: {
-    professionalId: string;
-    clientId: string;
-    clientGroupId: string;
+    professional: string;
+    client: string;
+    clientGroup: string;
     action: ManageClientGroupEnum;
   };
 };

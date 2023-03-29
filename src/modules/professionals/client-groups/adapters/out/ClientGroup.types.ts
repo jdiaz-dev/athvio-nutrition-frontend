@@ -1,7 +1,7 @@
 import { ClientGroup } from 'src/shared/types';
 
 type ClientGroupBody = {
-  professionalId: string;
+  professional: string;
   groupName: string;
 };
 
@@ -19,8 +19,8 @@ export type UpdateClientGroupsResponse = {
 
 export type UpdateClientGroupsRequest = {
   input: {
-    professionalId: string;
-    clientGroupId: string;
+    professional: string;
+    clientGroup: string;
     groupName: string;
   };
 };
@@ -31,14 +31,14 @@ export type GetClientGroupsResponse = {
 
 export type GetClientGroupsRequest = {
   input: {
-    professionalId: string;
+    professional: string;
   };
 };
 
 export type DeleteClientGroupsRequest = {
   input: {
-    professionalId: string;
-    clientGroupId: string;
+    professional: string;
+    clientGroup: string;
   };
 };
 

@@ -6,14 +6,16 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export function ClientCreatedSucessfullyDialog({
+function MessageDialog({
   openMessageDialog,
   setOpenMessageDialog,
   messageDialog,
+  setMessageDialogAccepted,
 }: {
   openMessageDialog: boolean;
   setOpenMessageDialog: (openDialog: boolean) => void;
   messageDialog: string;
+  setMessageDialogAccepted?: (openDialog: boolean) => void;
 }) {
   return (
     <>
@@ -29,7 +31,13 @@ export function ClientCreatedSucessfullyDialog({
         </DialogContent>
         <DialogActions>
           {/* <Button onClick={() => setOpenMessageDialog(false)}>Start counching with {firstName}</Button> */}
-          <Button onClick={() => setOpenMessageDialog(false)} autoFocus>
+          <Button
+            onClick={() => {
+              setOpenMessageDialog(false);
+              if (setMessageDialogAccepted) setMessageDialogAccepted(true);
+            }}
+            autoFocus
+          >
             Accept
           </Button>
         </DialogActions>
@@ -37,3 +45,5 @@ export function ClientCreatedSucessfullyDialog({
     </>
   );
 }
+
+export default MessageDialog;

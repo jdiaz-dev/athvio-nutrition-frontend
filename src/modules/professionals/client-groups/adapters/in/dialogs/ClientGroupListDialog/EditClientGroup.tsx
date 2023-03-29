@@ -30,8 +30,8 @@ function EditClientGroup({
     const res = await updateClientGroupHandler({
       variables: {
         input: {
-          professionalId: professionalIdContext.professionalId,
-          clientGroupId: _id,
+          professional: professionalIdContext.professional,
+          clientGroup: _id,
           groupName: e.target.value,
         },
       },
@@ -57,7 +57,7 @@ function EditClientGroup({
           variant="standard"
           defaultValue={groupName}
           onBlur={(e) => {
-            updateClientGroup(e);
+            void updateClientGroup(e);
           }}
         />
       </Box>
