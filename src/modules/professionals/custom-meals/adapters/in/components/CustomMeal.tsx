@@ -41,11 +41,7 @@ function CustomMeal(customMeal: CustomMealBody) {
 
   return (
     <>
-      <StyledTableRow
-        key={customMeal.name}
-        style={{ border: '2px solid red' }}
-        // onClick={() => setOpenCreateUpdateCustomMealDialog(true)}
-      >
+      <StyledTableRow key={customMeal.name}>
         <StyledTableCell onClick={() => setOpenCreateUpdateCustomMealDialog(true)} align="right">
           {customMeal.name}
         </StyledTableCell>

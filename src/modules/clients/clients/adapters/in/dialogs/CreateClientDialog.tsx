@@ -26,6 +26,7 @@ import MessageDialog from 'src/shared/dialogs/MessageDialog';
 import { ProfessionalIdContext } from 'src/App';
 import { Accordion, AccordionDetails, AccordionSummary } from 'src/shared/components/Accordion';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
+import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -74,13 +75,13 @@ export function CreateClientDialog({
   const reloadRecordList = useContext(ReloadRecordListContext);
 
   const [createClientHandler] = useMutation<CreateClientResponse, CreateClientRequest>(CREATE_CLIENT);
+  const { openDialog, setOpenDialog, message, setMessage } = useMessageDialog();
+
   const [panelExpanded, setPanelExpanded] = useState<string | false>(false);
   const [countryCode, setCountryCode] = useState('');
   const [birthday, setBirthday] = React.useState<Dayjs | null | string>(null);
   const [gender, setGender] = useState<string>('');
   const [userInfo, setUserInfo] = useState<UserInfoForClient>({ email: '', firstName: '', lastName: '' });
-  const [openMessageDialog, setOpenMessageDialog] = useState(false);
-  const [messageDialog, setMessageDialog] = useState('');
 
   const handleChangeAditionalInfo = (panel: string) => (event: React.SyntheticEvent, newPanelExpanded: boolean) => {
     setPanelExpanded(newPanelExpanded ? panel : false);
@@ -132,11 +133,11 @@ export function CreateClientDialog({
         profilePicture: '',
         phone: '',
       };
-      setOpenMessageDialog(true);
+      setOpenDialog(true);
       setOpenCreateClientDialog(false);
       reset(clientReset);
       reloadRecordList.setReloadRecordList(true);
-      setMessageDialog(`You added ${firstName} ${lastName} to your clients sucessfully`);
+      setMessage(`You added ${firstName} ${lastName} to your clients sucessfully`);
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
     }
@@ -162,7 +163,9 @@ export function CreateClientDialog({
                 variant="outlined"
                 label="First name"
                 type="text"
-                {...register('firstName', { required: MessagesUserForm.FIRSTNAME_MANDATORY })}
+                {...register('firstName', {
+                  required: MessagesUserForm.FIRSTNAME_MANDATORY,
+                })}
                 error={Boolean(errors.firstName)}
                 helperText={errors.firstName?.message as ReactNode}
               />
@@ -282,11 +285,7 @@ export function CreateClientDialog({
           </Card>
         </DialogContent>
       </Dialog>
-      <MessageDialog
-        openMessageDialog={openMessageDialog}
-        setOpenMessageDialog={setOpenMessageDialog}
-        messageDialog={messageDialog}
-      />
+      <MessageDialog openDialog={openDialog} setOpenDialog={setOpenDialog} message={message} />
     </>
   );
 }

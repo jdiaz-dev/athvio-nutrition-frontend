@@ -147,6 +147,7 @@ export function Drawer() {
           >
             <StyledTreeItem nodeId="1" labelText="Clients" labelIcon={MailIcon} />
             <StyledTreeItem nodeId="2" labelText="Custom Meals" labelIcon={Label} />
+            <StyledTreeItem nodeId="3" labelText="Programs" labelIcon={Label} />
           </TreeView>
         </div>
         <div className="app-container">

@@ -18,6 +18,7 @@ export const GET_PROGRAMS = gql`
     getPrograms(input: $input) {
       data {
         _id
+        professional
         name
         description
         programTags {

@@ -1,4 +1,5 @@
 import { CustomMealInitialState } from 'src/modules/professionals/custom-meals/adapters/out/customMeal.types';
+import { ProgramInitialState } from 'src/modules/professionals/programs/adapters/out/program.types';
 import { UserSignUpModel } from 'src/modules/security/users/adapters/out/user.types';
 
 export type DataUser = {
@@ -13,12 +14,13 @@ export interface CountryList {
   flags: { png: string; svg: string };
 }
 
-export type ReduxStates = {
-  users: UserSignUpModel;
-  customMeals: CustomMealInitialState;
-};
-
 export type ClientGroup = {
   _id: string;
   groupName: string;
+};
+
+export type ReduxStates = {
+  users: UserSignUpModel;
+  customMeals: CustomMealInitialState;
+  programs: ProgramInitialState;
 };

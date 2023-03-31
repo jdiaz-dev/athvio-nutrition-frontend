@@ -5,9 +5,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Clients, GetClientResponse, GetClientsRequest } from 'src/modules/clients/clients/adapters/out/client.types';
-import { GET_CLIENTS } from 'src/modules/clients/clients/adapters/out/ClientQueries';
-import { useQuery } from '@apollo/client';
 import { ProfessionalIdContext } from 'src/App';
 import { StyledTableCell } from 'src/shared/components/CustomizedTable';
 import { useCustomMeal } from 'src/modules/professionals/custom-meals/adapters/out/CustomMealActions';
@@ -35,7 +32,6 @@ function CustomMealList() {
     setRecentlyTypedWord,
   } = useSearcher();
   const { getCustomMeals } = useCustomMeal();
-  // console.log('----------CustomMealList called arr', customMealState.customMealList);
 
   useEffect(() => {
     const getCustomMealHelper = async () => {
@@ -78,7 +74,7 @@ function CustomMealList() {
               <StyledTableCell align="right"></StyledTableCell>
             </TableRow>
           </TableHead>
-          <TableBody style={{ border: '20px solid blue' }}>
+          <TableBody>
             {customMealList &&
               customMealList?.data.map((customMeal, index) => (
                 <React.Fragment key={index}>

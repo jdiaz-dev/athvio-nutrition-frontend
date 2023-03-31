@@ -22,9 +22,7 @@ function EditClientGroup({
 }) {
   const professionalIdContext = useContext(ProfessionalIdContext);
 
-  const [updateClientGroupHandler] = useMutation<UpdateClientGroupsResponse, UpdateClientGroupsRequest>(
-    UPDATE_CLIENT_GROUP,
-  );
+  const [updateClientGroupHandler] = useMutation<UpdateClientGroupsResponse, UpdateClientGroupsRequest>(UPDATE_CLIENT_GROUP);
 
   const updateClientGroup = async (e: BaseSyntheticEvent) => {
     const res = await updateClientGroupHandler({

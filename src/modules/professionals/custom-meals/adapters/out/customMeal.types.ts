@@ -19,7 +19,7 @@ export interface IngredientType {
 }
 
 export interface CustomMealBody {
-  _id?: string;
+  _id?: string; // in front we manage _id, to send to back we add domain more Id, for example customMealId
   professional: string;
   name: string;
   ingredients: IngredientType[];

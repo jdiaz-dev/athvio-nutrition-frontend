@@ -19,6 +19,7 @@ import MessageDialog from 'src/shared/dialogs/MessageDialog';
 import { CustomMealBody } from 'src/modules/professionals/custom-meals/adapters/out/customMeal.types';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { ReduxStates } from 'src/shared/types/types';
+import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -61,15 +62,14 @@ function CreateUpdateCustomMealDialog({
   const { classes } = cardStyles();
   const dispatch = useDispatch();
   const customMeal = useSelector((state: ReduxStates) => state.customMeals.customMealItem);
+
+  const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk } = useMessageDialog();
   const { createCustomMeal, updateCustomMeal } = useCustomMeal();
 
   const reloadRecordListContext = useContext(ReloadRecordListContext);
 
   const [panelExpanded, setPanelExpanded] = useState<string | false>(false);
   const [customMealNameUpdated, setCustomMealNameUpdated] = useState(false);
-  const [openMessageDialog, setOpenMessageDialog] = useState(false);
-  const [messageDialog, setMessageDialog] = useState('');
-  const [messageDialogAccepted, setMessageDialogAccepted] = useState(false);
 
   const {
     register,
@@ -97,26 +97,26 @@ function CreateUpdateCustomMealDialog({
           customMeal: _id as string,
           ...restCustomMeal,
         });
-        setMessageDialog('Custom meal updated successfully');
+        setMessage('Custom meal updated successfully');
         setCustomMealNameUpdated(false);
         reset();
       } else {
         await createCustomMeal(customMeal);
-        setMessageDialog('Custom meal created successfully');
+        setMessage('Custom meal created successfully');
         setCustomMealNameUpdated(false);
         reset();
       }
-      setOpenMessageDialog(true);
+      setOpenDialog(true);
     };
     if (customMealNameUpdated) {
       void createUpdateCustomMealHelper();
     }
-    if (!openMessageDialog && messageDialogAccepted) {
+    if (!openDialog && messageOk) {
       setOpenCreateUpdateCustomMealDialog(false);
       reloadRecordListContext.setReloadRecordList(true);
-      setMessageDialogAccepted(false);
+      setMessageOk(false);
     }
-  }, [customMealNameUpdated, openMessageDialog, _customMeal, messageDialogAccepted]);
+  }, [customMealNameUpdated, openDialog, _customMeal, messageOk]);
 
   const handleAccordion = (panel: string) => (event: React.SyntheticEvent, newPanelExpanded: boolean) => {
     setPanelExpanded(newPanelExpanded ? panel : false);
@@ -135,7 +135,8 @@ function CreateUpdateCustomMealDialog({
         }}
         scroll="paper"
         fullWidth={true}
-        maxWidth="md"
+        // maxWidth="md"
+        maxWidth="xl"
         aria-labelledby="dialog-title"
         aria-describedby="dialog-description"
       >
@@ -184,17 +185,11 @@ function CreateUpdateCustomMealDialog({
             </form>
           </Card>
         </DialogContent>
-        {openMessageDialog && (
-          <MessageDialog
-            openMessageDialog={openMessageDialog}
-            setOpenMessageDialog={setOpenMessageDialog}
-            messageDialog={messageDialog}
-            setMessageDialogAccepted={setMessageDialogAccepted}
-          />
+        {openDialog && (
+          <MessageDialog openDialog={openDialog} setOpenDialog={setOpenDialog} message={message} setMessageOk={setMessageOk} />
         )}
       </Dialog>
     </>
   );
 }
-
 export default CreateUpdateCustomMealDialog;

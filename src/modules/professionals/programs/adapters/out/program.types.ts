@@ -1,14 +1,42 @@
+import { IngredientType } from 'src/modules/professionals/custom-meals/adapters/out/customMeal.types';
 import { GetRecordsBody, MetadataRecords } from 'src/shared/types/get-records.types';
+
+export interface Macros {
+  protein: number;
+  carbs: number;
+  fat: number;
+  calories: number;
+}
+
+export interface Meal {
+  _id: string;
+  position: string;
+  recipeName: string;
+  ingredients: IngredientType;
+  recipe: string;
+  macros: Macros;
+}
+
+export interface Plan {
+  _id: string;
+  title: string;
+  week: string;
+  day: string;
+  planMeals: Meal[];
+}
+
+export interface ProgramTag {
+  _id: string;
+  title: string;
+}
 
 export interface ProgramBody {
   _id?: string;
   professional: string;
   name: string;
   description: string;
-  programTags: {
-    _id: string;
-    title: string;
-  };
+  programTags: ProgramTag[];
+  plans: Plan[];
   __typename?: string;
 }
 
@@ -31,15 +59,15 @@ export interface GetProgramsRequest {
   input: GetRecordsBody;
 }
 
-export interface CustomMeals {
+export interface Programs {
   data: ProgramBody[];
   meta: MetadataRecords;
 }
 export interface GetProgramsResponse {
-  getPrograms: CustomMeals;
+  getPrograms: Programs;
 }
 
-export interface UpdateProgramBody extends Omit<ProgramBody, '_id'> {
+export interface UpdateProgramBody extends Pick<ProgramBody, 'professional' | 'name' | 'description'> {
   program: string;
 }
 
@@ -70,4 +98,9 @@ export interface DeleteProgamResponse {
     _id: string;
     name: string;
   };
+}
+
+export interface ProgramInitialState {
+  programList: Programs | null;
+  programItem: ProgramBody;
 }

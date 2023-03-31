@@ -74,8 +74,8 @@ function App() {
               {
                 <Route path="sidenav" element={<Drawer />}>
                   <Route path="clients" element={<ClientsContainer />} />
-                  <Route path="programs" element={<ProgramsContainer />} />
                   <Route path="Custom Meals" element={<CustomMealsContainer />} />
+                  <Route path="Programs" element={<ProgramsContainer />} />
                   <Route path="test" element={<Test />} />
                 </Route>
               }

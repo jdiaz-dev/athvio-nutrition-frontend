@@ -1,7 +1,7 @@
 import { ApolloError } from '@apollo/client';
 import { useDispatch } from 'react-redux';
 import { apolloClient } from 'src/graphql/ApolloClient';
-import { resetCustomMealItem, setCustomMealList } from 'src/modules/professionals/custom-meals/adapters/in/CustomMealSlice';
+import { resetProgramItem, setProgramList } from 'src/modules/professionals/programs/adapters/in/ProgramSlice';
 
 import {
   CreateProgramBody,
@@ -38,7 +38,7 @@ export function useProgram() {
           },
         },
       });
-      if (response) dispatch(resetCustomMealItem());
+      if (response) dispatch(resetProgramItem());
       console.log(response);
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
@@ -57,8 +57,7 @@ export function useProgram() {
         fetchPolicy: 'network-only',
       });
 
-      console.log('--------getCustomMeals', response);
-      if (response) dispatch(setCustomMealList(response.data.getPrograms));
+      if (response) dispatch(setProgramList(response.data.getPrograms));
       return response;
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
@@ -75,7 +74,7 @@ export function useProgram() {
           },
         },
       });
-      if (response) dispatch(resetCustomMealItem());
+      if (response) dispatch(resetProgramItem());
       console.log(response);
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
@@ -93,7 +92,7 @@ export function useProgram() {
           },
         },
       });
-      if (response) dispatch(resetCustomMealItem());
+      if (response) dispatch(resetProgramItem());
       console.log(response);
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);

@@ -7,34 +7,46 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 function MessageDialog({
-  openMessageDialog,
-  setOpenMessageDialog,
-  messageDialog,
-  setMessageDialogAccepted,
+  openDialog,
+  setOpenDialog,
+  message,
+  setMessageOk,
+  alert,
 }: {
-  openMessageDialog: boolean;
-  setOpenMessageDialog: (openDialog: boolean) => void;
-  messageDialog: string;
-  setMessageDialogAccepted?: (openDialog: boolean) => void;
+  openDialog: boolean;
+  setOpenDialog: (openDialog: boolean) => void;
+  message: string;
+  setMessageOk?: (openDialog: boolean) => void;
+  alert?: boolean;
 }) {
   return (
     <>
       <Dialog
-        open={openMessageDialog}
-        onClose={setOpenMessageDialog}
+        open={openDialog}
+        onClose={setOpenDialog}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">{messageDialog}</DialogContentText>
+          <DialogContentText id="alert-dialog-description">{message}</DialogContentText>
         </DialogContent>
         <DialogActions>
-          {/* <Button onClick={() => setOpenMessageDialog(false)}>Start counching with {firstName}</Button> */}
+          {alert && (
+            <Button
+              onClick={() => {
+                setOpenDialog(false);
+                if (setMessageOk) setMessageOk(false);
+              }}
+              autoFocus
+            >
+              Cancel
+            </Button>
+          )}
           <Button
             onClick={() => {
-              setOpenMessageDialog(false);
-              if (setMessageDialogAccepted) setMessageDialogAccepted(true);
+              setOpenDialog(false);
+              if (setMessageOk) setMessageOk(true);
             }}
             autoFocus
           >
