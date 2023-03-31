@@ -49,14 +49,14 @@ const cardStyles = makeStyles()(() => {
   };
 });
 
-function CreateUpdateCustomMealDialog({
-  openCreateUpdateCustomMealDialog,
-  setOpenCreateUpdateCustomMealDialog,
-  _customMeal,
+function CreateUpdateProgramDialog({
+  openCreateUpdatePrograDialog,
+  setOpenCreateUpdateProgramDialog,
+  _program,
 }: {
-  openCreateUpdateCustomMealDialog: boolean;
-  setOpenCreateUpdateCustomMealDialog: (openDialog: boolean) => void;
-  _customMeal?: CustomMealBody;
+  openCreateUpdatePrograDialog: boolean;
+  setOpenCreateUpdateProgramDialog: (openProgram: boolean) => void;
+  _program?: CustomMealBody;
 }) {
   const { classes } = cardStyles();
   const dispatch = useDispatch();
@@ -112,7 +112,7 @@ function CreateUpdateCustomMealDialog({
       void createUpdateCustomMealHelper();
     }
     if (!openMessageDialog && messageDialogAccepted) {
-      setOpenCreateUpdateCustomMealDialog(false);
+      setOpenCreateUpdateProgramDialog(false);
       reloadRecordListContext.setReloadRecordList(true);
       setMessageDialogAccepted(false);
     }
@@ -129,9 +129,9 @@ function CreateUpdateCustomMealDialog({
   return (
     <>
       <Dialog
-        open={openCreateUpdateCustomMealDialog}
+        open={openCreateUpdatePrograDialog}
         onClose={() => {
-          setOpenCreateUpdateCustomMealDialog(false);
+          setOpenCreateUpdateProgramDialog(false);
         }}
         scroll="paper"
         fullWidth={true}
@@ -197,4 +197,4 @@ function CreateUpdateCustomMealDialog({
   );
 }
 
-export default CreateUpdateCustomMealDialog;
+export default CreateUpdateProgramDialog;

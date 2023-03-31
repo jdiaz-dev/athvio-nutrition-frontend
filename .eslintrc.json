@@ -48,7 +48,7 @@
   "rules": {
     "indent": ["error", 2],
     "object-curly-spacing": [2, "always"],
-    "max-len": [1, { "code": 150 }],
+    "max-len": [1, { "code": 130 }],
     "@typescript-eslint/await-thenable": "error",
     "require-jsdoc": [
       "error",

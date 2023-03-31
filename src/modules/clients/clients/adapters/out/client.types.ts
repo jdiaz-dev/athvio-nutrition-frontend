@@ -1,6 +1,7 @@
 import { Dayjs } from 'dayjs';
 import { ManageClientGroupEnum } from 'src/shared/Consts';
-import { ClientGroup } from 'src/shared/types';
+import { MetadataRecords } from 'src/shared/types/get-records.types';
+import { ClientGroup } from 'src/shared/types/types';
 
 export type UserInfoForClient = {
   firstName: string;
@@ -62,11 +63,7 @@ export type Clients = {
 export type GetClientResponse = {
   getClients: {
     data: Clients[];
-    meta: {
-      total: number;
-      limit: number;
-      offset: number;
-    };
+    meta: MetadataRecords;
   };
 };
 

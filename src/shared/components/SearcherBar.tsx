@@ -1,23 +1,30 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Autocomplete, Chip, Stack, TextField } from '@mui/material';
 import { debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { SearcherBarContext } from 'src/App';
 
 const inputChange = new Subject();
 const inputChange$ = inputChange.asObservable();
 
-function SearcherBar() {
-  const searcherBarContext = useContext(SearcherBarContext);
-
+function SearcherBar({
+  setSearchWords,
+  matchedRecords,
+  setChoosedWord,
+  setRecentlyTypedWord,
+}: {
+  setSearchWords: React.Dispatch<React.SetStateAction<string[]>>;
+  matchedRecords: string[];
+  setChoosedWord: React.Dispatch<React.SetStateAction<boolean>>;
+  setRecentlyTypedWord: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const onInputChange = (text: string) => {
     inputChange.next(text);
   };
 
   useEffect(() => {
     const subscription = inputChange$.pipe(debounceTime(500)).subscribe((val) => {
-      searcherBarContext.setRecentlyTypedWord(true);
-      searcherBarContext.setSearchWords([val] as string[]);
+      setRecentlyTypedWord(true);
+      setSearchWords([val] as string[]);
     });
 
     return () => {
@@ -31,13 +38,13 @@ function SearcherBar() {
         <Autocomplete
           multiple
           id="tags-outlined"
-          options={searcherBarContext.matchedRecords}
+          options={matchedRecords}
           getOptionLabel={(option) => {
             return option;
           }}
           onChange={(e, values) => {
-            searcherBarContext.setSearchWords(values as string[]);
-            searcherBarContext.setChoosedWord(true);
+            setSearchWords(values as string[]);
+            setChoosedWord(true);
           }}
           freeSolo
           // eslint-disable-next-line @typescript-eslint/no-explicit-any

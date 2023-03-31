@@ -2,10 +2,9 @@ import { getUserFromLocalStorage } from './../shared/helpers/LocalStorage';
 
 import { ApolloClient, ApolloLink, from, HttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { onError } from "@apollo/client/link/error";
+import { onError } from '@apollo/client/link/error';
 const httpLink = new HttpLink({
   uri: 'http://localhost:3000/graphql',
-
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -20,8 +19,8 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
-  console.log('-------graphQLErrors', graphQLErrors)
-  console.log('-------networkError', networkError)
+  console.log('-------graphQLErrors', graphQLErrors);
+  console.log('-------networkError', networkError);
   if (graphQLErrors)
     graphQLErrors.forEach(({ message, locations, path }) =>
       console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`),
@@ -31,7 +30,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 
 export const apolloClient = new ApolloClient({
   // link: authLink.concat(httpLink),//.concat(errorLink),
-  link:ApolloLink.from([errorLink, authLink, httpLink ]),
+  link: ApolloLink.from([errorLink, authLink, httpLink]),
 
   cache: new InMemoryCache(),
 });

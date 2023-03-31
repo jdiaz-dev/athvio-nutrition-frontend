@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { InvalidCountries, REST_COUNTRIES_URL } from 'src/shared/Consts';
-import { CountryList } from 'src/shared/types';
+import { CountryList } from 'src/shared/types/types';
 
 function CountryCodeSelect({
   countryCode,
@@ -35,9 +35,7 @@ function CountryCodeSelect({
     function handleCountryCodeChange(ke: KeyboardEvent) {
       wordToSearch += ke.key;
 
-      const filtered = countries.filter((country) =>
-        country.name.common.toLowerCase().startsWith(wordToSearch.toLowerCase()),
-      );
+      const filtered = countries.filter((country) => country.name.common.toLowerCase().startsWith(wordToSearch.toLowerCase()));
       if (filtered.length > 0) {
         dispatch(setCountryCode(`${countries[0].idd.root}${countries[0].idd.suffixes[0]}`));
       }

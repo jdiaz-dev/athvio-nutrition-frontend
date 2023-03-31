@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { IngredientType } from 'src/modules/professionals/custom-meals/adapters/out/customMeal.types';
 import {
   EDAMAN_ANALISIS_APP_KEY,
@@ -6,19 +6,15 @@ import {
   EDAMAN_ANALISIS_NUTRITION_DATA_APP_ID,
 } from 'src/shared/Consts';
 import { AnalisysNutritionDataResponse } from 'src/modules/professionals/custom-meals/adapters/out/Edaman.types';
-import {
-  resetCustomMealItem,
-  updateIngredient,
-} from 'src/modules/professionals/custom-meals/adapters/in/CustomMealSlice';
+import { updateIngredient } from 'src/modules/professionals/custom-meals/adapters/in/CustomMealSlice';
 import { useDispatch } from 'react-redux';
-import { FoddAddedContext } from 'src/App';
 import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
+// eslint-disable-next-line max-len
+import { FoddAddedContext } from 'src/modules/professionals/custom-meals/adapters/in/dialogs/CreateUpdateCustomMealDialog/IngredientList';
 
-function Ingredient({ ingredientName, amount, unit, ...rest }: IngredientType) {
+function Ingredient({ ingredient: { ingredientName, amount, unit, ...rest } }: { ingredient: IngredientType }) {
   const dispatch = useDispatch();
   const foddAddedContext = useContext(FoddAddedContext);
-
-  const [macrosCalculated, setMacrosCalculated] = useState(false);
 
   useEffect(() => {
     const caculateMacros = () => {
@@ -31,30 +27,30 @@ function Ingredient({ ingredientName, amount, unit, ...rest }: IngredientType) {
       )
         .then((response) => response.json())
         .then((nutritionData: AnalisysNutritionDataResponse) => {
-          console.log('-------------nutritionData', nutritionData);
+          console.log('----------EDAMAN called');
           const _ingredient: IngredientType = {
             ingredientName,
             amount,
             unit,
-            protein: parseFloat(nutritionData.totalNutrients.PROCNT.quantity.toFixed(1)),
-            carbs: parseFloat(nutritionData.totalNutrients.CHOCDF.quantity.toFixed(1)),
-            fat: parseFloat(nutritionData.totalNutrients.FAT.quantity.toFixed(1)),
-            calories: parseFloat(nutritionData.calories.toFixed(1)),
+            protein: parseFloat(nutritionData.totalNutrients.PROCNT.quantity.toFixed(2)),
+            carbs: parseFloat(nutritionData.totalNutrients.CHOCDF.quantity.toFixed(2)),
+            fat: parseFloat(nutritionData.totalNutrients.FAT.quantity.toFixed(2)),
+            calories: parseFloat(nutritionData.calories.toFixed(2)),
           };
           dispatch(updateIngredient(_ingredient));
         })
         .catch((error) => console.log('-----error', error));
     };
 
-    if (!macrosCalculated && !rest.calories && !rest.carbs && !rest.fat && !rest.protein) {
-      caculateMacros();
-      setMacrosCalculated(true);
-    }
     if (foddAddedContext.foodAdded) {
       caculateMacros();
       foddAddedContext.setFoodAdded(false);
     }
-  }, [macrosCalculated, foddAddedContext.foodAdded]);
+
+    return () => {
+      foddAddedContext.setFoodAdded(false);
+    };
+  }, [amount]);
 
   return (
     <>

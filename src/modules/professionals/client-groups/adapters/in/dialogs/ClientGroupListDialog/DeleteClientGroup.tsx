@@ -8,7 +8,8 @@ import {
   DeleteClientGroupsResponse,
 } from 'src/modules/professionals/client-groups/adapters/out/ClientGroup.types';
 import { DELETE_CLIENT_GROUP } from 'src/modules/professionals/client-groups/adapters/out/ClientGroupQueries';
-import { ProfessionalIdContext, ReloadClientListContext } from 'src/App';
+import { ProfessionalIdContext } from 'src/App';
+import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 
 function DeleteClientGroup({
   clientGroup,
@@ -18,11 +19,9 @@ function DeleteClientGroup({
   setReloadClientGroupList: (reload: boolean) => void;
 }) {
   const professionalIdContext = useContext(ProfessionalIdContext);
-  const reloadClientListContext = useContext(ReloadClientListContext);
+  const reloadRecordListContext = useContext(ReloadRecordListContext);
 
-  const [deleteClientGroupHandler] = useMutation<DeleteClientGroupsResponse, DeleteClientGroupsRequest>(
-    DELETE_CLIENT_GROUP,
-  );
+  const [deleteClientGroupHandler] = useMutation<DeleteClientGroupsResponse, DeleteClientGroupsRequest>(DELETE_CLIENT_GROUP);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -47,7 +46,7 @@ function DeleteClientGroup({
     });
     setAnchorEl(null);
     setReloadClientGroupList(true);
-    reloadClientListContext.setReloadClientList(true);
+    reloadRecordListContext.setReloadRecordList(true);
   };
   return (
     <>

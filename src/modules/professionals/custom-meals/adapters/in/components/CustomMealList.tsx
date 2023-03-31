@@ -8,31 +8,37 @@ import Paper from '@mui/material/Paper';
 import { Clients, GetClientResponse, GetClientsRequest } from 'src/modules/clients/clients/adapters/out/client.types';
 import { GET_CLIENTS } from 'src/modules/clients/clients/adapters/out/ClientQueries';
 import { useQuery } from '@apollo/client';
-import { SearcherBarContext, ProfessionalIdContext, ReloadClientListContext } from 'src/App';
+import { ProfessionalIdContext } from 'src/App';
 import { StyledTableCell } from 'src/shared/components/CustomizedTable';
 import { useCustomMeal } from 'src/modules/professionals/custom-meals/adapters/out/CustomMealActions';
 import { useSelector } from 'react-redux';
-import { ReduxStates } from 'src/shared/types';
 import CustomMeal from 'src/modules/professionals/custom-meals/adapters/in/components/CustomMeal';
+import { useSearcher } from 'src/shared/hooks/useSearcher';
+import SearcherBar from 'src/shared/components/SearcherBar';
+import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
+import { ReduxStates } from 'src/shared/types/types';
 
-function CustomMealList({
-  reloadCustomMealList,
-  setReloadCustomMealList,
-}: {
-  reloadCustomMealList: boolean;
-  setReloadCustomMealList: (reload: boolean) => void;
-}) {
-  console.log('----------CustomMealList called');
+// eslint-disable-next-line prettier/prettier
+function CustomMealList() {
   const customMealList = useSelector((state: ReduxStates) => state.customMeals.customMealList);
   const professionalIdContext = useContext(ProfessionalIdContext);
-  const reloadClientListContext = useContext(ReloadClientListContext);
-  const searcherBarContext = useContext(SearcherBarContext);
+  const reloadRecordListContext = useContext(ReloadRecordListContext);
+  const [firstCall, setFirstCall] = useState(true);
+  const {
+    searchWords,
+    setSearchWords,
+    matchedRecords,
+    setMatchedRecords,
+    choosedWord,
+    setChoosedWord,
+    recentlyTypedWord,
+    setRecentlyTypedWord,
+  } = useSearcher();
   const { getCustomMeals } = useCustomMeal();
+  // console.log('----------CustomMealList called arr', customMealState.customMealList);
 
   useEffect(() => {
     const getCustomMealHelper = async () => {
-      console.log('----------getCustomMealHelper called');
-
       const _input = {
         professional: professionalIdContext.professional,
         offset: 0,
@@ -40,15 +46,26 @@ function CustomMealList({
       };
 
       await getCustomMeals(_input);
-      setReloadCustomMealList(false);
     };
-    if (professionalIdContext.professional) {
+    if (professionalIdContext.professional && reloadRecordListContext.reloadRecordList) {
       void getCustomMealHelper();
+      reloadRecordListContext.setReloadRecordList(false);
     }
-  }, [reloadCustomMealList, professionalIdContext.professional]);
+
+    if (professionalIdContext.professional && firstCall) {
+      void getCustomMealHelper();
+      setFirstCall(false);
+    }
+  }, [professionalIdContext.professional, reloadRecordListContext.reloadRecordList]);
 
   return (
     <>
+      <SearcherBar
+        setSearchWords={setSearchWords}
+        matchedRecords={matchedRecords}
+        setChoosedWord={setChoosedWord}
+        setRecentlyTypedWord={setRecentlyTypedWord}
+      />
       <TableContainer component={Paper}>
         <Table aria-label="customized table">
           <TableHead>
@@ -58,6 +75,7 @@ function CustomMealList({
               <StyledTableCell align="right">Total Carbs&nbsp;(g)</StyledTableCell>
               <StyledTableCell align="right">Total Fat&nbsp;(g)</StyledTableCell>
               <StyledTableCell align="right">Total Calories&nbsp;(kcal)</StyledTableCell>
+              <StyledTableCell align="right"></StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody style={{ border: '20px solid blue' }}>

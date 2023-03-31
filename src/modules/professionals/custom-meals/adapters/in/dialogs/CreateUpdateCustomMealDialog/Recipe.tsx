@@ -2,7 +2,7 @@ import { Box, TextField } from '@mui/material';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateRecipe } from 'src/modules/professionals/custom-meals/adapters/in/CustomMealSlice';
-import { ReduxStates } from 'src/shared/types';
+import { ReduxStates } from 'src/shared/types/types';
 
 function Recipe() {
   const dispatch = useDispatch();

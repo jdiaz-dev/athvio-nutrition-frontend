@@ -1,27 +1,39 @@
 import React, { useContext } from 'react';
 import { TablePagination } from '@mui/material';
-import { PaginationContext } from 'src/App';
 
-function Paginator() {
-  const paginationContext = useContext(PaginationContext);
+function Paginator({
+  length,
+  offset,
+  setOffset,
+  rowsPerPage,
+  currentPage,
+  setCurrentPage,
+}: {
+  length: number;
+  offset: number;
+  setOffset: React.Dispatch<React.SetStateAction<number>>;
+  rowsPerPage: number;
+  currentPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+}) {
   const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
-    if (paginationContext.currentPage < newPage) {
-      paginationContext.setOffset(paginationContext.offset + paginationContext.rowsPerPage);
+    if (currentPage < newPage) {
+      setOffset(offset + rowsPerPage);
     } else {
-      paginationContext.setOffset(paginationContext.offset - paginationContext.rowsPerPage);
+      setOffset(offset - rowsPerPage);
     }
-    paginationContext.setCurrentPage(newPage);
+    setCurrentPage(newPage);
   };
 
   return (
     <>
       <TablePagination
         component="div"
-        count={paginationContext.length}
-        page={paginationContext.currentPage}
+        count={length}
+        page={currentPage}
         onPageChange={handleChangePage}
-        rowsPerPageOptions={[paginationContext.rowsPerPage]}
-        rowsPerPage={paginationContext.rowsPerPage}
+        rowsPerPageOptions={[rowsPerPage]}
+        rowsPerPage={rowsPerPage}
         // onRowsPerPageChange={handleChangeRowsPerPage}
       />
     </>

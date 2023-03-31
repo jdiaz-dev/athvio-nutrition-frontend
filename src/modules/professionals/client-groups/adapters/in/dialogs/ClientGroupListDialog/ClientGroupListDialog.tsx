@@ -1,24 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
-import {
-  Dialog,
-  DialogContent,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from '@mui/material';
+import { Dialog, DialogContent, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import {
   GetClientGroupsRequest,
   GetClientGroupsResponse,
 } from 'src/modules/professionals/client-groups/adapters/out/ClientGroup.types';
 import { GET_CLIENT_GROUPS } from 'src/modules/professionals/client-groups/adapters/out/ClientGroupQueries';
-import { ClientGroupsContext, ProfessionalIdContext } from 'src/App';
+import { ProfessionalIdContext } from 'src/App';
 import DeleteClientGroup from 'src/modules/professionals/client-groups/adapters/in/dialogs/ClientGroupListDialog/DeleteClientGroup';
 import EditClientGroup from 'src/modules/professionals/client-groups/adapters/in/dialogs/ClientGroupListDialog/EditClientGroup';
+import { ClientGroupsContext } from 'src/modules/clients/clients/adapters/in/components/ClientsContainer';
 
 function ClientGroupList({
   openClientGroupListDialog,
@@ -102,10 +93,7 @@ function ClientGroupList({
                         )}
                       </TableCell>
                       <TableCell component="th" scope="row">
-                        <DeleteClientGroup
-                          clientGroup={group._id}
-                          setReloadClientGroupList={setReloadClientGroupList}
-                        />
+                        <DeleteClientGroup clientGroup={group._id} setReloadClientGroupList={setReloadClientGroupList} />
                       </TableCell>
                     </TableRow>
                   ))}

@@ -6,7 +6,7 @@ import CreateUpdateCustomMealDialog from 'src/modules/professionals/custom-meals
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { useReloadRecords } from 'src/shared/hooks/useReloadRecords';
 
-function CustomMealsContainer() {
+function ProgramsContainer() {
   const [openCreateUpdateCustomMealDialog, setOpenCreateUpdateCustomMealDialog] = useState(false);
   const [reloadCustomMealList, setReloadCustomMealList] = useState(false);
   const { reloadRecordList, setReloadRecordList } = useReloadRecords();
@@ -36,4 +36,4 @@ function CustomMealsContainer() {
   );
 }
 
-export default CustomMealsContainer;
+export default ProgramsContainer;

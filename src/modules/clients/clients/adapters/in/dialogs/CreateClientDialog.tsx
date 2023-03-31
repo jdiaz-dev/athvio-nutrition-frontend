@@ -25,6 +25,7 @@ import { ApolloError, useMutation } from '@apollo/client';
 import MessageDialog from 'src/shared/dialogs/MessageDialog';
 import { ProfessionalIdContext } from 'src/App';
 import { Accordion, AccordionDetails, AccordionSummary } from 'src/shared/components/Accordion';
+import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -58,11 +59,9 @@ const cardStyles = makeStyles()(() => {
 export function CreateClientDialog({
   openCreateClientDialog,
   setOpenCreateClientDialog,
-  setReloadClientList,
 }: {
   openCreateClientDialog: boolean;
   setOpenCreateClientDialog: (openDialog: boolean) => void;
-  setReloadClientList: (openDialog: boolean) => void;
 }) {
   const { classes } = cardStyles();
   const {
@@ -72,6 +71,7 @@ export function CreateClientDialog({
     formState: { errors },
   } = useForm();
   const professionalIdContext = useContext(ProfessionalIdContext);
+  const reloadRecordList = useContext(ReloadRecordListContext);
 
   const [createClientHandler] = useMutation<CreateClientResponse, CreateClientRequest>(CREATE_CLIENT);
   const [panelExpanded, setPanelExpanded] = useState<string | false>(false);
@@ -135,7 +135,7 @@ export function CreateClientDialog({
       setOpenMessageDialog(true);
       setOpenCreateClientDialog(false);
       reset(clientReset);
-      setReloadClientList(true);
+      reloadRecordList.setReloadRecordList(true);
       setMessageDialog(`You added ${firstName} ${lastName} to your clients sucessfully`);
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);

@@ -15,16 +15,21 @@ export const GET_CUSTOM_MEALS = gql`
       data {
         _id
         name
+        professional
         ingredients {
           ingredientName
           amount
+          unit
           protein
           carbs
           fat
           calories
         }
+        totalProtein
+        totalCarbs
+        totalFat
+        totalCalories
         recipe
-        createdAt
       }
       meta {
         total
@@ -40,10 +45,26 @@ export const UPDATE_CUSTOM_MEAL = gql`
     updateCustomMeal(input: $input) {
       _id
       name
+      professional
       ingredients {
         ingredientName
+        amount
+        unit
+        protein
+        carbs
+        fat
+        calories
       }
-      createdAt
+      recipe
+    }
+  }
+`;
+
+export const DELETE_CUSTOM_MEAL = gql`
+  mutation _deleteCustomMeal($input: DeleteCustomMealDto!) {
+    deleteCustomMeal(input: $input) {
+      _id
+      name
     }
   }
 `;

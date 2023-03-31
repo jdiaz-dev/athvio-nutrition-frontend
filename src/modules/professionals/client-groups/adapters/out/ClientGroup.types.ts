@@ -1,4 +1,4 @@
-import { ClientGroup } from 'src/shared/types';
+import { ClientGroup } from 'src/shared/types/types';
 
 type ClientGroupBody = {
   professional: string;

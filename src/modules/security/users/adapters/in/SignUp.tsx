@@ -6,12 +6,12 @@ import TextField from '@mui/material/TextField';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import CountryCodeSelect from 'src/shared/components/CountryCodeSelect';
 import { MessagesUserForm } from 'src/shared/Consts';
-import { ReduxStates } from 'src/shared/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserInfo } from 'src/modules/security/users/adapters/in/UserSlice';
 import { SetUserInfo } from 'src/modules/security/users/adapters/out/user.types';
 import { useUsers } from 'src/modules/security/users/adapters/out/UserActions';
 import { setCountryCode } from 'src/modules/security/users/adapters/in/UserSlice';
+import { ReduxStates } from 'src/shared/types/types';
 
 const cardStyles = makeStyles()(() => {
   return {

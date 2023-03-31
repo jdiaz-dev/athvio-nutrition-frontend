@@ -99,10 +99,7 @@ function CreateClientGroupDialog({
       >
         <DialogContent dividers={true}>
           <Card className={classes.card} variant="outlined">
-            <form
-              className={classes.form}
-              onSubmit={handleSubmit(createClientGroup as any as SubmitHandler<FieldValues>)}
-            >
+            <form className={classes.form} onSubmit={handleSubmit(createClientGroup as any as SubmitHandler<FieldValues>)}>
               <TextField
                 className={classes.textField}
                 id="outlined-basic"

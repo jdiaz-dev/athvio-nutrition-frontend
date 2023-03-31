@@ -1,5 +1,5 @@
 import { LocalStorageEnum } from '../Consts';
-import { DataUser } from '../types';
+import { DataUser } from '../types/types';
 
 export const getUserFromLocalStorage = (): DataUser =>
   JSON.parse(localStorage.getItem(LocalStorageEnum.dataUser) || '{}') as DataUser;

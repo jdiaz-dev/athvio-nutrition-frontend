@@ -1,18 +1,17 @@
 import React, { useContext, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { Chip, Menu, MenuItem, Stack } from '@mui/material';
-import { ClientGroupsContext, ProfessionalIdContext } from 'src/App';
-import {
-  ManageClientGroupRequest,
-  ManageClientGroupResponse,
-} from 'src/modules/clients/clients/adapters/out/client.types';
+import { ProfessionalIdContext } from 'src/App';
+import { ManageClientGroupRequest, ManageClientGroupResponse } from 'src/modules/clients/clients/adapters/out/client.types';
 import { MANAGE_CLIENT_GROUP } from 'src/modules/clients/clients/adapters/out/ClientQueries';
 import { ManageClientGroupEnum } from 'src/shared/Consts';
-import { ClientGroup } from 'src/shared/types';
+import { ClientGroup } from 'src/shared/types/types';
+import { ClientGroupsContext } from 'src/modules/clients/clients/adapters/in/components/ClientsContainer';
 
 function ManageClientGroup({ client, assignedGroups }: { client: string; assignedGroups: ClientGroup[] }) {
   const professionalIdContext = useContext(ProfessionalIdContext);
   const clientGroupContext = useContext(ClientGroupsContext);
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const [createClientHandler] = useMutation<ManageClientGroupResponse, ManageClientGroupRequest>(MANAGE_CLIENT_GROUP);
@@ -63,7 +62,32 @@ function ManageClientGroup({ client, assignedGroups }: { client: string; assigne
           }}
         />
       ))}
+      {/*  <Box
+        sx={{
+          '& > :not(style)': {
+            m: 1,
+          },
+        }}
+      >
+        <IconButton aria-label="Example">
+          <FontAwesomeIcon icon={faEllipsisV} />
+        </IconButton>
+
+      </Box> */}
       <Chip label="+" variant="outlined" onClick={handleAnchorOpen} />
+
+      {/* <Box
+        sx={{
+          '& > :not(style)': {
+            m: 2,
+          },
+        }}
+      >
+        <Icon color="primary" onClick={handleAnchorOpen}>
+          add_circle
+        </Icon>
+      </Box> */}
+
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}

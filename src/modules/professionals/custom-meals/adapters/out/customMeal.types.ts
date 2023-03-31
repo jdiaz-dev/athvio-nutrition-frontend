@@ -1,3 +1,5 @@
+import { GetRecordsBody } from 'src/shared/types/get-records.types';
+
 export interface Macros {
   protein: number;
   carbs: number;
@@ -13,6 +15,7 @@ export interface IngredientType {
   carbs?: number;
   fat?: number;
   calories?: number;
+  __typename?: string;
 }
 
 export interface CustomMealBody {
@@ -21,6 +24,11 @@ export interface CustomMealBody {
   name: string;
   ingredients: IngredientType[];
   recipe: string;
+  totalProtein: number;
+  totalCarbs: number;
+  totalFat: number;
+  totalCalories: number;
+  __typename?: string;
 }
 
 export interface CreateCustomMealRequest {
@@ -29,7 +37,7 @@ export interface CreateCustomMealRequest {
 
 export interface CreateCustomMealResponse {
   data: {
-    updateCustomMeal: {
+    createCustomMeal: {
       _id: string;
       name: string;
     };
@@ -53,14 +61,8 @@ export interface UpdateCustomMealResponse {
   };
 }
 
-export interface GetCustomMealsBody {
-  professional: string;
-  offset: number;
-  limit: number;
-  search?: string[];
-}
 export interface GetCustomMealRequest {
-  input: GetCustomMealsBody;
+  input: GetRecordsBody;
 }
 
 export interface CustomMeals {
@@ -73,6 +75,22 @@ export interface CustomMeals {
 }
 export interface GetCustomMealsResponse {
   getCustomMeals: CustomMeals;
+}
+
+export interface DeleteCustomMealBody {
+  professional: string;
+  customMeal: string;
+}
+
+export interface DeleteCustomMealRequest {
+  input: DeleteCustomMealBody;
+}
+
+export interface DeleteCustomMealResponse {
+  deleteCustomMeal: {
+    _id: string;
+    name: string;
+  };
 }
 
 export interface CustomMealInitialState {

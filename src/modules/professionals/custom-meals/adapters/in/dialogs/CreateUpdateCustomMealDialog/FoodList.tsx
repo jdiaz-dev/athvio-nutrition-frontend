@@ -3,7 +3,6 @@ import { useQuery } from '@apollo/client';
 import TableBody from '@mui/material/TableBody';
 import { Button, Paper, Table, TableContainer, TableHead, TableRow, TextField, Typography } from '@mui/material';
 
-import { FoddAddedContext, PaginationContext, SearcherBarContext } from 'src/App';
 import { GetFoodRequest, GetFoodsResponse } from 'src/modules/foods/adapters/out/food.types';
 import SearcherBar from 'src/shared/components/SearcherBar';
 import { useDispatch } from 'react-redux';
@@ -13,17 +12,32 @@ import Paginator from 'src/modules/professionals/custom-meals/adapters/in/dialog
 import { GET_FOODS } from 'src/modules/foods/adapters/out/FoodQueries';
 import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
 import { Accordion, AccordionDetails, AccordionSummary } from 'src/shared/components/Accordion';
+// eslint-disable-next-line max-len
+import { FoddAddedContext } from 'src/modules/professionals/custom-meals/adapters/in/dialogs/CreateUpdateCustomMealDialog/IngredientList';
+import { useSearcher } from 'src/shared/hooks/useSearcher';
+import { usePaginator } from 'src/shared/hooks/usePaginator';
 
 function FoodList() {
-  const searcherBarContext = useContext(SearcherBarContext);
-  const foddAddedContext = useContext(FoddAddedContext);
-  const paginationContext = useContext(PaginationContext);
-
   const dispatch = useDispatch();
+
+  const foddAddedContext = useContext(FoddAddedContext);
+
+  const {
+    searchWords,
+    setSearchWords,
+    matchedRecords,
+    setMatchedRecords,
+    choosedWord,
+    setChoosedWord,
+    recentlyTypedWord,
+    setRecentlyTypedWord,
+  } = useSearcher();
+  const { length, setLength, offset, setOffset, rowsPerPage, setRowsPerPage, currentPage, setCurrentPage } = usePaginator();
+
   const [foods, setFoods] = useState<IngredientType[]>([]);
   const [panelExpanded, setPanelExpanded] = useState<string | false>(false);
   const input = {
-    offset: paginationContext.offset,
+    offset: offset,
     limit: 5,
   };
   const { data, loading, refetch } = useQuery<GetFoodsResponse, GetFoodRequest>(GET_FOODS, {
@@ -35,8 +49,7 @@ function FoodList() {
     setPanelExpanded(newPanelExpanded ? panel : false);
   };
   useEffect(() => {
-    const _input =
-      searcherBarContext.searchWords.length > 0 ? { ...input, search: searcherBarContext.searchWords } : input;
+    const _input = searchWords.length > 0 ? { ...input, search: searchWords } : input;
     const getFoods = async () => {
       const res = await refetch({ input: _input });
       // console.log('---------res', res);
@@ -49,30 +62,30 @@ function FoodList() {
           };
         }),
       );
-      paginationContext.setLength(res.data.getFoods.meta.total);
-      paginationContext.setOffset(res.data.getFoods.meta.offset);
+      setLength(res.data.getFoods.meta.total);
+      setOffset(res.data.getFoods.meta.offset);
     };
 
     const getFoodsForSearcher = async () => {
       const res = await refetch({ input: _input });
-      searcherBarContext.setMatchedRecords(res.data.getFoods.data.map((food) => food.name));
+      setMatchedRecords(res.data.getFoods.data.map((food) => food.name));
     };
 
     const verifyNewWordToSearch = () => {
-      if (searcherBarContext.searchWords.length === 1 && searcherBarContext.recentlyTypedWord) {
+      if (searchWords.length === 1 && recentlyTypedWord) {
         void getFoodsForSearcher();
-        searcherBarContext.setRecentlyTypedWord(false);
+        setRecentlyTypedWord(false);
       }
     };
     const verifyChosedWordsFromSearcher = () => {
-      if (searcherBarContext.searchWords.length >= 0 && searcherBarContext.choosedWord) {
+      if (searchWords.length >= 0 && choosedWord) {
         void getFoods();
-        searcherBarContext.setChoosedWord(false);
+        setChoosedWord(false);
       }
     };
 
     const vefifyFirstDataCallToServer = () => {
-      if (data && !searcherBarContext.choosedWord && searcherBarContext.searchWords.length === 0) {
+      if (data && !choosedWord && searchWords.length === 0) {
         setFoods(
           data?.getFoods.data.map((food) => {
             return {
@@ -84,15 +97,15 @@ function FoodList() {
         );
 
         // console.log('---------data', data);
-        paginationContext.setLength(data.getFoods.meta.total);
-        paginationContext.setOffset(data.getFoods.meta.offset);
-        paginationContext.setRowsPerPage(5);
+        setLength(data.getFoods.meta.total);
+        setOffset(data.getFoods.meta.offset);
+        setRowsPerPage(5);
       }
     };
     verifyNewWordToSearch();
     verifyChosedWordsFromSearcher();
     vefifyFirstDataCallToServer();
-  }, [searcherBarContext.searchWords, searcherBarContext.choosedWord, searcherBarContext.recentlyTypedWord, data]);
+  }, [searchWords, choosedWord, recentlyTypedWord, data]);
 
   if (loading) return <div>Loading...</div>;
 
@@ -103,7 +116,12 @@ function FoodList() {
           <Typography>Add food</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <SearcherBar />
+          <SearcherBar
+            setSearchWords={setSearchWords}
+            matchedRecords={matchedRecords}
+            setChoosedWord={setChoosedWord}
+            setRecentlyTypedWord={setRecentlyTypedWord}
+          />
           {foods.length > 0 && (
             <TableContainer component={Paper}>
               <Table aria-label="customized table">
@@ -147,6 +165,7 @@ function FoodList() {
                                 }),
                               );
                               foddAddedContext.setFoodAdded(true);
+                              console.log('------------hellow foodlist');
                             }
                           }}
                         >
@@ -159,7 +178,14 @@ function FoodList() {
               </Table>
             </TableContainer>
           )}
-          <Paginator />
+          <Paginator
+            length={length}
+            offset={offset}
+            setOffset={setOffset}
+            rowsPerPage={rowsPerPage}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
         </AccordionDetails>
       </Accordion>
     </>
