@@ -11,16 +11,15 @@ import { ApolloProvider } from '@apollo/client';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-  <React.StrictMode>
-    <ApolloProvider client={apolloClient}>
-      <Provider store={store}>
-        <BrowserRouter>
-          {/* wrapping entire application because entire app will use a single router */}
-          <App />
-        </BrowserRouter>
-      </Provider>
-    </ApolloProvider>
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <ApolloProvider client={apolloClient}>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
+  </ApolloProvider>,
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

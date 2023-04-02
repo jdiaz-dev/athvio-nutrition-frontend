@@ -43,10 +43,10 @@ function App() {
 
   const user = getUserFromLocalStorage();
 
-  useEffect(() => {
+  /* useEffect(() => {
     // setIsAuthenticated(checkAuthentication());
     // return () => {};
-  }, [isAuthenticated]);
+  }, [isAuthenticated]); */
 
   useEffect(() => {
     setProfessional(user.userType === UserType.PROFESSIONAL ? user._id : '');
@@ -61,7 +61,8 @@ function App() {
     professional,
     setProfessional,
   };
-  console.log('--------app');
+  // console.log('--------app');
+
   return (
     <div className="App">
       <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -83,21 +84,6 @@ function App() {
           </ProfessionalIdContext.Provider>
         </AuthContext.Provider>
       </LocalizationProvider>
-
-      {/* <StrictMode>
-        <Routes>
-          <Route path="*" element={<LogIn />} />
-          <Route path="signup" element={<SignUp />} />
-          {
-            <Route path="sidenav" element={<Drawer />}>
-              <Route path="clients" element={<ClientsContainer />} />
-              <Route path="programs" element={<ProgramsContainer />} />
-              <Route path="Custom Meals" element={<CustomMealsContainer />} />
-              <Route path="test" element={<Test />} />
-            </Route>
-          }
-        </Routes>
-      </StrictMode> */}
     </div>
   );
 }
