@@ -12,7 +12,9 @@ import Test from 'src/modules/clients/clients/adapters/in/components/Test';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { UserType } from 'src/shared/Consts';
-import CustomMealsContainer from 'src/modules/professionals/custom-meals/adapters/in/components/CustomMealsContainer';
+import CustomRecipesContainer from 'src/modules/professionals/custom-recipes/adapters/in/components/CustomRecipesContainer';
+import Test2 from 'src/modules/clients/clients/adapters/in/components/Test2';
+import ProgramPlansContainer from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer';
 
 /* const loginStyles = makeStyles({
   container: {
@@ -75,9 +77,11 @@ function App() {
               {
                 <Route path="sidenav" element={<Drawer />}>
                   <Route path="clients" element={<ClientsContainer />} />
-                  <Route path="Custom Meals" element={<CustomMealsContainer />} />
+                  <Route path="Custom Recipes" element={<CustomRecipesContainer />} />
                   <Route path="Programs" element={<ProgramsContainer />} />
+                  <Route path="Programs/:programId/RecipePlan" element={<ProgramPlansContainer />} />
                   <Route path="test" element={<Test />} />
+                  <Route path="test2" element={<Test2 />} />
                 </Route>
               }
             </Routes>
@@ -91,6 +95,20 @@ function App() {
 export default App;
 
 /*
+  TODO
   - implement remove and edit ingredient previously added
-  - searcher and paginator for custom meals
+  - searcher and paginator for custom Recipes
+*/
+
+
+/*
+  REDUX
+  to check again:
+    Reducers Should Own the State Shape
+
+  to apply now:
+    Treat Reducers as State Machines - very important
+    Allow Many Reducers to Respond to the Same Action
+
+    Call useSelector Multiple Times in Function Components  ---> extremely important
 */

@@ -20,6 +20,7 @@ export const programSlice = createSlice({
   reducers: {
     setProgramList: (state, action: PayloadAction<Programs>) => {
       state.programList = action.payload;
+      console.log('---------action.payload', action.payload);
     },
     setProgramItem: (state, action: PayloadAction<ProgramBody>) => {
       state.programItem = action.payload;
@@ -32,18 +33,18 @@ export const programSlice = createSlice({
       state.programItem = action.payload;
     }, */
     /*
-    updateCustomMealName: (state, action: PayloadAction<string>) => {
-      state.customMealItem.name = action.payload;
+    updateCustomRecipeName: (state, action: PayloadAction<string>) => {
+      state.customRecipeItem.name = action.payload;
     },
     addIngredient: (state, action: PayloadAction<IngredientType>) => {
-      const indexIngredient = state.customMealItem.ingredients.findIndex(
+      const indexIngredient = state.customRecipeItem.ingredients.findIndex(
         (ingredient) => ingredient.ingredientName === action.payload.ingredientName,
       );
 
       if (indexIngredient === -1) {
-        state.customMealItem.ingredients.push(action.payload);
+        state.customRecipeItem.ingredients.push(action.payload);
       } else {
-        state.customMealItem.ingredients[indexIngredient].amount += action.payload.amount;
+        state.customRecipeItem.ingredients[indexIngredient].amount += action.payload.amount;
       }
     },
     updateIngredient: (state, action: PayloadAction<IngredientType>) => {
@@ -52,43 +53,43 @@ export const programSlice = createSlice({
       };
 
       const recalculateGeneralMacros = (prevMacros: IngredientType): void => {
-        state.customMealItem.ingredients[indexIngredient] = action.payload;
+        state.customRecipeItem.ingredients[indexIngredient] = action.payload;
 
-        state.customMealItem.totalProtein = fixProblemWithDecimals(
-          state.customMealItem.totalProtein,
+        state.customRecipeItem.totalProtein = fixProblemWithDecimals(
+          state.customRecipeItem.totalProtein,
           action.payload.protein || 0,
           prevMacros.protein || 0,
         );
-        state.customMealItem.totalCarbs = fixProblemWithDecimals(
-          state.customMealItem.totalCarbs,
+        state.customRecipeItem.totalCarbs = fixProblemWithDecimals(
+          state.customRecipeItem.totalCarbs,
           action.payload.carbs || 0,
           prevMacros.carbs || 0,
         );
-        state.customMealItem.totalFat = fixProblemWithDecimals(
-          state.customMealItem.totalFat,
+        state.customRecipeItem.totalFat = fixProblemWithDecimals(
+          state.customRecipeItem.totalFat,
           action.payload.fat || 0,
           prevMacros.fat || 0,
         );
-        state.customMealItem.totalCalories = fixProblemWithDecimals(
-          state.customMealItem.totalCalories,
+        state.customRecipeItem.totalCalories = fixProblemWithDecimals(
+          state.customRecipeItem.totalCalories,
           action.payload.calories || 0,
           prevMacros.calories || 0,
         );
       };
-      const indexIngredient = state.customMealItem.ingredients.findIndex(
+      const indexIngredient = state.customRecipeItem.ingredients.findIndex(
         (ingredient) => ingredient.ingredientName === action.payload.ingredientName,
       );
-      const prevIngredientMacros = state.customMealItem.ingredients[indexIngredient];
+      const prevIngredientMacros = state.customRecipeItem.ingredients[indexIngredient];
       recalculateGeneralMacros(prevIngredientMacros);
     },
     removeIngredient: (state, action: PayloadAction<string>) => {
-      const indexIngredient = state.customMealItem.ingredients.findIndex(
+      const indexIngredient = state.customRecipeItem.ingredients.findIndex(
         (ingredient) => ingredient.ingredientName === action.payload,
       );
-      state.customMealItem.ingredients.splice(indexIngredient, 1);
+      state.customRecipeItem.ingredients.splice(indexIngredient, 1);
     },
     updateRecipe: (state, action: PayloadAction<string>) => {
-      state.customMealItem.recipe = action.payload;
+      state.customRecipeItem.recipe = action.payload;
     },
 
     */
@@ -103,7 +104,7 @@ export const {
   setProgramItem,
   setNameAndDescription,
   //   updateProgramItem,
-  /* updateCustomMealName,
+  /* updateCustomRecipeName,
   addIngredient,
   updateIngredient,
   removeIngredient,

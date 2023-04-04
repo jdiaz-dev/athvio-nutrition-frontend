@@ -1,4 +1,4 @@
-import { CustomMealInitialState } from 'src/modules/professionals/custom-meals/adapters/out/customMeal.types';
+import { CustomRecipeInitialState } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 import { ProgramInitialState } from 'src/modules/professionals/programs/adapters/out/program.types';
 import { UserSignUpModel } from 'src/modules/security/users/adapters/out/user.types';
 
@@ -21,6 +21,6 @@ export type ClientGroup = {
 
 export type ReduxStates = {
   users: UserSignUpModel;
-  customMeals: CustomMealInitialState;
+  customRecipes: CustomRecipeInitialState;
   programs: ProgramInitialState;
 };

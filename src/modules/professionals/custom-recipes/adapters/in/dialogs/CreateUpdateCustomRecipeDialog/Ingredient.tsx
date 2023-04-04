@@ -1,16 +1,16 @@
 import React, { useContext, useEffect } from 'react';
-import { IngredientType } from 'src/modules/professionals/custom-meals/adapters/out/customMeal.types';
+import { IngredientType } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 import {
   EDAMAN_ANALISIS_APP_KEY,
   EDAMAN_ANALISIS_NUTRITION_DATA,
   EDAMAN_ANALISIS_NUTRITION_DATA_APP_ID,
 } from 'src/shared/Consts';
-import { AnalisysNutritionDataResponse } from 'src/modules/professionals/custom-meals/adapters/out/Edaman.types';
-import { updateIngredient } from 'src/modules/professionals/custom-meals/adapters/in/CustomMealSlice';
+import { AnalisysNutritionDataResponse } from 'src/modules/professionals/custom-recipes/adapters/out/Edaman.types';
+import { addMacrosToIngredient } from 'src/modules/professionals/custom-recipes/adapters/in/CustomRecipeSlice';
 import { useDispatch } from 'react-redux';
 import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
 // eslint-disable-next-line max-len
-import { FoddAddedContext } from 'src/modules/professionals/custom-meals/adapters/in/dialogs/CreateUpdateCustomMealDialog/IngredientList';
+import { FoddAddedContext } from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/IngredientList';
 
 function Ingredient({ ingredient: { ingredientName, amount, unit, ...rest } }: { ingredient: IngredientType }) {
   const dispatch = useDispatch();
@@ -37,7 +37,7 @@ function Ingredient({ ingredient: { ingredientName, amount, unit, ...rest } }: {
             fat: parseFloat(nutritionData.totalNutrients.FAT.quantity.toFixed(2)),
             calories: parseFloat(nutritionData.calories.toFixed(2)),
           };
-          dispatch(updateIngredient(_ingredient));
+          dispatch(addMacrosToIngredient(_ingredient));
         })
         .catch((error) => console.log('-----error', error));
     };

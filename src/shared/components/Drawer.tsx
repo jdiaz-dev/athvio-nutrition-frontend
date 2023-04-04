@@ -146,7 +146,7 @@ export function Drawer() {
             defaultEndIcon={<div style={{ width: 24 }} />}
           >
             <StyledTreeItem nodeId="1" labelText="Clients" labelIcon={MailIcon} />
-            <StyledTreeItem nodeId="2" labelText="Custom Meals" labelIcon={Label} />
+            <StyledTreeItem nodeId="2" labelText="Custom Recipes" labelIcon={Label} />
             <StyledTreeItem nodeId="3" labelText="Programs" labelIcon={Label} />
           </TreeView>
         </div>

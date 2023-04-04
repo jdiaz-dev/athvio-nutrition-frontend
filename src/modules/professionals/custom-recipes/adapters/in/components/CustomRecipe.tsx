@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 // eslint-disable-next-line max-len
-import CreateUpdateCustomMealDialog from 'src/modules/professionals/custom-meals/adapters/in/dialogs/CreateUpdateCustomMealDialog/CreateUpdateCustomMealDialog';
-import { CustomMealBody } from 'src/modules/professionals/custom-meals/adapters/out/customMeal.types';
+import CreateUpdateCustomRecipeDialog from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/CreateUpdateCustomRecipeDialog';
+import { CustomRecipeBody } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,15 +9,15 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import { Button, Grid, Menu, MenuItem } from '@mui/material';
 import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
-import { useCustomMeal } from 'src/modules/professionals/custom-meals/adapters/out/CustomMealActions';
+import { useCustomRecipe } from 'src/modules/professionals/custom-recipes/adapters/out/CustomRecipeActions';
 import { ProfessionalIdContext } from 'src/App';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 
-function CustomMeal(customMeal: CustomMealBody) {
+function CustomRecipe(customRecipe: CustomRecipeBody) {
   const professionalIdContext = useContext(ProfessionalIdContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
-  const [openCreateUpdateCustomMealDialog, setOpenCreateUpdateCustomMealDialog] = useState(false);
-  const { deleteCustomMeal } = useCustomMeal();
+  const [openCreateUpdateCustomRecipeDialog, setOpenCreateUpdateCustomRecipeDialog] = useState(false);
+  const { deleteCustomRecipe } = useCustomRecipe();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -31,31 +31,31 @@ function CustomMeal(customMeal: CustomMealBody) {
     setAnchorEl(null);
   };
 
-  const deleteCustomMealHandler = () => {
-    void deleteCustomMeal({
+  const deleteCustomRecipeHandler = () => {
+    void deleteCustomRecipe({
       professional: professionalIdContext.professional,
-      customMeal: customMeal._id || '',
+      customRecipe: customRecipe._id || '',
     });
     reloadRecordListContext.setReloadRecordList(true);
   };
 
   return (
     <>
-      <StyledTableRow key={customMeal.name}>
-        <StyledTableCell onClick={() => setOpenCreateUpdateCustomMealDialog(true)} align="right">
-          {customMeal.name}
+      <StyledTableRow key={customRecipe.name}>
+        <StyledTableCell onClick={() => setOpenCreateUpdateCustomRecipeDialog(true)} align="right">
+          {customRecipe.name}
         </StyledTableCell>
-        <StyledTableCell onClick={() => setOpenCreateUpdateCustomMealDialog(true)} align="right">
-          {customMeal.totalProtein}
+        <StyledTableCell onClick={() => setOpenCreateUpdateCustomRecipeDialog(true)} align="right">
+          {customRecipe.macros.protein}
         </StyledTableCell>
-        <StyledTableCell onClick={() => setOpenCreateUpdateCustomMealDialog(true)} align="right">
-          {customMeal.totalCarbs}
+        <StyledTableCell onClick={() => setOpenCreateUpdateCustomRecipeDialog(true)} align="right">
+          {customRecipe.macros.carbs}
         </StyledTableCell>
-        <StyledTableCell onClick={() => setOpenCreateUpdateCustomMealDialog(true)} align="right">
-          {customMeal.totalFat}
+        <StyledTableCell onClick={() => setOpenCreateUpdateCustomRecipeDialog(true)} align="right">
+          {customRecipe.macros.fat}
         </StyledTableCell>
-        <StyledTableCell onClick={() => setOpenCreateUpdateCustomMealDialog(true)} align="right">
-          {customMeal.totalCalories}
+        <StyledTableCell onClick={() => setOpenCreateUpdateCustomRecipeDialog(true)} align="right">
+          {customRecipe.macros.calories}
         </StyledTableCell>
         <StyledTableCell align="right">
           {/*  <Box
@@ -82,7 +82,7 @@ function CustomMeal(customMeal: CustomMealBody) {
             >
               <MenuItem>
                 <div>
-                  <div>Delete this meal?</div>
+                  <div>Delete this Recipe?</div>
                   <div>
                     <Button
                       id="basic-button"
@@ -98,9 +98,9 @@ function CustomMeal(customMeal: CustomMealBody) {
                       aria-controls={open ? 'basic-menu' : undefined}
                       aria-haspopup="true"
                       aria-expanded={open ? 'true' : undefined}
-                      onClick={deleteCustomMealHandler}
+                      onClick={deleteCustomRecipeHandler}
                     >
-                      Delete meal
+                      Delete Recipe
                     </Button>
                   </div>
                 </div>
@@ -110,15 +110,15 @@ function CustomMeal(customMeal: CustomMealBody) {
         </StyledTableCell>
       </StyledTableRow>
 
-      {openCreateUpdateCustomMealDialog && (
-        <CreateUpdateCustomMealDialog
-          openCreateUpdateCustomMealDialog={openCreateUpdateCustomMealDialog}
-          setOpenCreateUpdateCustomMealDialog={setOpenCreateUpdateCustomMealDialog}
-          _customMeal={customMeal}
+      {openCreateUpdateCustomRecipeDialog && (
+        <CreateUpdateCustomRecipeDialog
+          openCreateUpdateCustomRecipeDialog={openCreateUpdateCustomRecipeDialog}
+          setOpenCreateUpdateCustomRecipeDialog={setOpenCreateUpdateCustomRecipeDialog}
+          _customRecipe={customRecipe}
         />
       )}
     </>
   );
 }
 
-export default CustomMeal;
+export default CustomRecipe;

@@ -13,6 +13,7 @@
     "@fullcalendar/core": "^6.1.5",
     "@fullcalendar/daygrid": "^6.1.5",
     "@fullcalendar/interaction": "^6.1.5",
+    "@fullcalendar/list": "^6.1.5",
     "@fullcalendar/react": "^6.1.5",
     "@fullcalendar/timegrid": "^6.1.5",
     "@mui/icons-material": "^5.11.11",
@@ -70,10 +71,13 @@
     ]
   },
   "devDependencies": {
+    "@types/redux-immutable-state-invariant": "^2.1.2",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.7.0",
     "eslint-plugin-immutable": "^1.0.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "^2.8.4"
+    "prettier": "^2.8.4",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-immutable-state-invariant": "^2.1.0"
   }
 }

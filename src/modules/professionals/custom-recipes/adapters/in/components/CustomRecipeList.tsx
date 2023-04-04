@@ -7,17 +7,17 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { ProfessionalIdContext } from 'src/App';
 import { StyledTableCell } from 'src/shared/components/CustomizedTable';
-import { useCustomMeal } from 'src/modules/professionals/custom-meals/adapters/out/CustomMealActions';
+import { useCustomRecipe } from 'src/modules/professionals/custom-recipes/adapters/out/CustomRecipeActions';
 import { useSelector } from 'react-redux';
-import CustomMeal from 'src/modules/professionals/custom-meals/adapters/in/components/CustomMeal';
+import CustomRecipe from 'src/modules/professionals/custom-recipes/adapters/in/components/CustomRecipe';
 import { useSearcher } from 'src/shared/hooks/useSearcher';
 import SearcherBar from 'src/shared/components/SearcherBar';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { ReduxStates } from 'src/shared/types/types';
 
 // eslint-disable-next-line prettier/prettier
-function CustomMealList() {
-  const customMealList = useSelector((state: ReduxStates) => state.customMeals.customMealList);
+function CustomRecipeList() {
+  const customRecipeList = useSelector((state: ReduxStates) => state.customRecipes.customRecipes);
   const professionalIdContext = useContext(ProfessionalIdContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const [firstCall, setFirstCall] = useState(true);
@@ -31,25 +31,25 @@ function CustomMealList() {
     recentlyTypedWord,
     setRecentlyTypedWord,
   } = useSearcher();
-  const { getCustomMeals } = useCustomMeal();
+  const { getCustomRecipes } = useCustomRecipe();
 
   useEffect(() => {
-    const getCustomMealHelper = async () => {
+    const getCustomRecipeHelper = async () => {
       const _input = {
         professional: professionalIdContext.professional,
         offset: 0,
         limit: 10,
       };
 
-      await getCustomMeals(_input);
+      await getCustomRecipes(_input);
     };
     if (professionalIdContext.professional && reloadRecordListContext.reloadRecordList) {
-      void getCustomMealHelper();
+      void getCustomRecipeHelper();
       reloadRecordListContext.setReloadRecordList(false);
     }
 
     if (professionalIdContext.professional && firstCall) {
-      void getCustomMealHelper();
+      void getCustomRecipeHelper();
       setFirstCall(false);
     }
   }, [professionalIdContext.professional, reloadRecordListContext.reloadRecordList]);
@@ -66,7 +66,7 @@ function CustomMealList() {
         <Table aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell width={'15%'}>Meal name </StyledTableCell>
+              <StyledTableCell width={'15%'}>Recipe name </StyledTableCell>
               <StyledTableCell align="right">Total Protein&nbsp;(g)</StyledTableCell>
               <StyledTableCell align="right">Total Carbs&nbsp;(g)</StyledTableCell>
               <StyledTableCell align="right">Total Fat&nbsp;(g)</StyledTableCell>
@@ -75,10 +75,10 @@ function CustomMealList() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {customMealList &&
-              customMealList?.data.map((customMeal, index) => (
+            {customRecipeList &&
+              customRecipeList?.data.map((customRecipe, index) => (
                 <React.Fragment key={index}>
-                  <CustomMeal {...customMeal} />
+                  <CustomRecipe {...customRecipe} />
                 </React.Fragment>
               ))}
           </TableBody>
@@ -88,4 +88,4 @@ function CustomMealList() {
   );
 }
 
-export default CustomMealList;
+export default CustomRecipeList;

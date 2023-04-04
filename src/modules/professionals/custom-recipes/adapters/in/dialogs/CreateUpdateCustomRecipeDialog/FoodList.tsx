@@ -6,14 +6,15 @@ import { Button, Paper, Table, TableContainer, TableHead, TableRow, TextField, T
 import { GetFoodRequest, GetFoodsResponse } from 'src/modules/foods/adapters/out/food.types';
 import SearcherBar from 'src/shared/components/SearcherBar';
 import { useDispatch } from 'react-redux';
-import { addIngredient } from 'src/modules/professionals/custom-meals/adapters/in/CustomMealSlice';
-import { IngredientType } from 'src/modules/professionals/custom-meals/adapters/out/customMeal.types';
-import Paginator from 'src/modules/professionals/custom-meals/adapters/in/dialogs/CreateUpdateCustomMealDialog/Paginator';
+import { addIngredient } from 'src/modules/professionals/custom-recipes/adapters/in/CustomRecipeSlice';
+import { IngredientType } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
+import Paginator from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/Paginator';
 import { GET_FOODS } from 'src/modules/foods/adapters/out/FoodQueries';
 import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
 import { Accordion, AccordionDetails, AccordionSummary } from 'src/shared/components/Accordion';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 // eslint-disable-next-line max-len
-import { FoddAddedContext } from 'src/modules/professionals/custom-meals/adapters/in/dialogs/CreateUpdateCustomMealDialog/IngredientList';
+import { FoddAddedContext } from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/IngredientList';
 import { useSearcher } from 'src/shared/hooks/useSearcher';
 import { usePaginator } from 'src/shared/hooks/usePaginator';
 
@@ -112,7 +113,7 @@ function FoodList() {
   return (
     <>
       <Accordion expanded={panelExpanded === 'panel1'} onChange={handleAddFoodAncle('panel1')}>
-        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1d-content" id="panel1d-header">
           <Typography>Add food</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -124,7 +125,7 @@ function FoodList() {
           />
           {foods.length > 0 && (
             <TableContainer component={Paper}>
-              <Table aria-label="customized table">
+              <Table sx={{ minWidth: 350 }} size="small" aria-label="customized table">
                 <TableHead>
                   <TableRow>
                     <StyledTableCell width={'15%'}>Amount</StyledTableCell>
@@ -135,9 +136,10 @@ function FoodList() {
                 <TableBody style={{ maxHeight: '10px' }}>
                   {foods.map((ingredient) => (
                     <StyledTableRow key={ingredient.ingredientName}>
-                      <StyledTableCell style={{ padding: '4px' }} align="right">
+                      <StyledTableCell style={{ padding: '3px', paddingLeft: '7px' }} align="right">
                         <TextField
-                          inputProps={{ style: { fontSize: 'revert' } }}
+                          inputProps={{ style: { fontSize: 'revert', height: '11px' } }}
+                          InputLabelProps={{ style: { fontSize: 'revert' } }}
                           style={{ width: '100%' }}
                           id="filled-hidden-label-small"
                           label="(g)"
@@ -148,11 +150,12 @@ function FoodList() {
                           onChange={(e) => (ingredient.amount = Number(e.target.value))}
                         />
                       </StyledTableCell>
-                      <StyledTableCell style={{ padding: '10px' }} component="th" scope="row">
+                      <StyledTableCell style={{ padding: '4px' }} component="th" scope="row">
                         {ingredient.ingredientName}
                       </StyledTableCell>
-                      <StyledTableCell align="right" style={{ padding: '7px' }}>
+                      <StyledTableCell align="right" style={{ padding: '0px', paddingRight: '7px' }}>
                         <Button
+                          style={{ fontSize: '12px', height: '24px' }}
                           size="small"
                           variant="contained"
                           onClick={() => {

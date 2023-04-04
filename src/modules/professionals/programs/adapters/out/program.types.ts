@@ -1,4 +1,4 @@
-import { IngredientType } from 'src/modules/professionals/custom-meals/adapters/out/customMeal.types';
+import { IngredientType } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 import { GetRecordsBody, MetadataRecords } from 'src/shared/types/get-records.types';
 
 export interface Macros {
@@ -8,7 +8,7 @@ export interface Macros {
   calories: number;
 }
 
-export interface Meal {
+export interface MealPlan {
   _id: string;
   position: string;
   recipeName: string;
@@ -22,7 +22,7 @@ export interface Plan {
   title: string;
   week: string;
   day: string;
-  planMeals: Meal[];
+  mealPlans: MealPlan[];
 }
 
 export interface ProgramTag {
@@ -94,7 +94,7 @@ export interface DeleteProgramRequest {
 }
 
 export interface DeleteProgamResponse {
-  deleteCustomMeal: {
+  deleteCustomRecipe: {
     _id: string;
     name: string;
   };

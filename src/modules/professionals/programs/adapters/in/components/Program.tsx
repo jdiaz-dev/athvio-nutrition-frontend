@@ -11,6 +11,7 @@ import { useProgram } from 'src/modules/professionals/programs/adapters/out/Prog
 import CreateUpdateProgramDialog from 'src/modules/professionals/programs/adapters/in/dialogs/CreateUpdateProgramDialog';
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
 import MessageDialog from 'src/shared/dialogs/MessageDialog';
+import { Navigate } from 'react-router-dom';
 
 function Program(program: ProgramBody) {
   const professionalIdContext = useContext(ProfessionalIdContext);
@@ -18,6 +19,7 @@ function Program(program: ProgramBody) {
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk, alert, setAlert } = useMessageDialog();
 
   const [openCreateUpdateProgramDialog, setOpenCreateUpdateProgramDialog] = useState(false);
+  const [goToProgramRecipe, setGoToProgramRecipe] = useState(false);
   const { deleteProgram } = useProgram();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -50,11 +52,20 @@ function Program(program: ProgramBody) {
     setOpenDialog(true);
   };
 
+  if (goToProgramRecipe) {
+    const path = `/sidenav/Programs/${program._id as string}/RecipePlan`;
+    return <Navigate replace to={path} />;
+  }
+
   return (
     <>
       <StyledTableRow key={program.name}>
-        <StyledTableCell align="right">{program.name}</StyledTableCell>
-        <StyledTableCell align="right">{program.description}</StyledTableCell>
+        <StyledTableCell align="right" onClick={() => setGoToProgramRecipe(true)}>
+          {program.name}
+        </StyledTableCell>
+        <StyledTableCell align="right" onClick={() => setGoToProgramRecipe(true)}>
+          {program.description}
+        </StyledTableCell>
         <StyledTableCell align="right">
           <Grid item xs={8}>
             <IconButton aria-label="Example" onClick={handleAnchorOpen}>

@@ -3,6 +3,7 @@ import FullCalendar from '@fullcalendar/react'; // must go before plugins
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
 
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -16,7 +17,6 @@ import utc from 'dayjs/plugin/utc';
 dayjs.extend(utc);
 
 function RenderEventContent({ date }: { date: Date }) {
-  console.log('----------RenderEventContent', date);
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -49,8 +49,6 @@ function RenderEventContent({ date }: { date: Date }) {
 }
 
 function Helper(arg, createElement) {
-  console.log('--------helper', arg.event.extendedProps);
-
   if (arg.event.extendedProps.even) {
     return <div>pro</div>;
   } else {
@@ -62,7 +60,7 @@ function Helper(arg, createElement) {
   }
 }
 
-export default function DemoApp() {
+export default function Test2() {
   const [datesToShow, setDatesToShow] = useState<{ title: string; date: Date; extendedProps: { even: boolean; date: Date } }[]>(
     [],
   );
@@ -70,14 +68,13 @@ export default function DemoApp() {
   function handleEventClick(arg: any) {
     // bind with an arrow function
     // alert(arg.dateStr);
-    console.log('---------event clicked', arg);
+    // console.log('---------event clicked', arg);
     // console.log('---------event clicked data', arg.view.getCurrentData());
   }
 
   function handleDateClick(arg) {
     // bind with an arrow function
-    console.log('---------date clicked', arg);
-
+    // console.log('---------date clicked', arg);
     // alert(arg.dateStr);
   }
   const fullMonthWithDates = (dateInfo: DatesSetArg) => {
@@ -99,14 +96,38 @@ export default function DemoApp() {
     <div>
       {/* <RenderEventContent /> */}
       <FullCalendar
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-        initialView="dayGridMonth"
+        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
+        initialView="dayGridFourWeek"
         eventClick={handleEventClick}
         dateClick={handleDateClick}
         events={datesToShow}
         datesSet={fullMonthWithDates}
         eventContent={Helper}
-
+        /* fixedWeekCount={true}
+         */
+        views={{
+          dayGridFourWeek: {
+            type: 'dayGrid',
+            duration: { weeks: 3 },
+            listDayFormat: { weekday: 'long' },
+          },
+        }}
+        dayHeaderContent={(args) => {
+          //to modify weekday name
+          console.log('args', args);
+          if (args.text === 'Sun') {
+            return <div>Day1</div>;
+          }
+          return <div>propro</div>;
+        }}
+        dayCellContent={(args) => {
+          return <div></div>;
+        }}
+        contentHeight={450}
+        titleFormat={{
+          weekday: undefined,
+        }}
+        // weekNumberDidMount
       />
     </div>
   );
