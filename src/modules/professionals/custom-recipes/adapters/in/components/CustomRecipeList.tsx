@@ -18,6 +18,8 @@ import { ReduxStates } from 'src/shared/types/types';
 // eslint-disable-next-line prettier/prettier
 function CustomRecipeList() {
   const customRecipeList = useSelector((state: ReduxStates) => state.customRecipes.customRecipes);
+  console.log('----------customRecipeList', customRecipeList);
+
   const professionalIdContext = useContext(ProfessionalIdContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const [firstCall, setFirstCall] = useState(true);

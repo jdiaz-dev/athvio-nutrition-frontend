@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { combineReducers, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   CustomRecipeBody,
   CustomRecipeInitialState,
@@ -23,9 +23,24 @@ const initialState: CustomRecipeInitialState = {
   },
 };
 
+const customRecipesSlices = createSlice({
+  name: 'customRecipes',
+  initialState: initialState.customRecipes,
+  reducers: {
+    showCustomRecipes: (state, action: PayloadAction<CustomRecipes>) => {
+      console.log('-----------action.type', action.type);
+      console.log('-----------action.type', action);
+      state = action.payload;
+      return state;
+    },
+  },
+});
+
+export const { showCustomRecipes } = customRecipesSlices.actions;
+
 export const customRecipeSlice = createSlice({
   name: 'customRecipe',
-  initialState,
+  initialState: initialState.customRecipe,
   // applyMiddleware(...middleware),
   reducers: {
     /*
@@ -35,30 +50,34 @@ export const customRecipeSlice = createSlice({
 
       refactor setupdateCustomRecipeName
     */
-    showCustomRecipes: (state, action: PayloadAction<CustomRecipes>) => {
+    /* showCustomRecipes: (state, action: PayloadAction<CustomRecipes>) => {
       console.log('-----------action.type', action.type);
       state.customRecipes = action.payload;
-    },
+    }, */
     showCustomRecipeDetail: (state, action: PayloadAction<CustomRecipeBody | undefined>) => {
-      if (action.payload) state.customRecipe = action.payload;
+      if (action.payload) state = action.payload;
+      return state;
     },
     reinitializeCustomRecipe: (state) => {
-      state.customRecipe = initialState.customRecipe;
+      state = initialState.customRecipe;
+      return state;
     },
     renameCustomRecipeName: (state, action: PayloadAction<string>) => {
-      state.customRecipe.name = action.payload;
+      state.name = action.payload;
+      return state;
     },
     addIngredient: (state, action: PayloadAction<IngredientType>): any => {
-      /* const indexIngredient = state.customRecipe.ingredients.findIndex(
+      const indexIngredient = state.ingredients.findIndex(
         (ingredient) => ingredient.ingredientName === action.payload.ingredientName,
       );
 
       if (indexIngredient === -1) {
-        state.customRecipe.ingredients.push(action.payload);
+        state.ingredients.push(action.payload);
       } else {
-        state.customRecipe.ingredients[indexIngredient].amount += action.payload.amount;
-      } */
-      return state.customRecipe.ingredients[0];
+        state.ingredients[indexIngredient].amount += action.payload.amount;
+      }
+      return state;
+      // return state.ingredients[0];
     },
     addMacrosToIngredient: (state, action: PayloadAction<IngredientType>) => {
       const fixProblemWithDecimals = (state: number, current: number, prev: number) => {
@@ -66,49 +85,57 @@ export const customRecipeSlice = createSlice({
       };
 
       const recalculateGeneralMacros = (prevMacros: IngredientType): void => {
-        state.customRecipe.ingredients[indexIngredient] = action.payload;
+        state.ingredients[indexIngredient] = action.payload;
 
-        state.customRecipe.macros.protein = fixProblemWithDecimals(
-          state.customRecipe.macros.protein,
-          action.payload.protein || 0,
-          prevMacros.protein || 0,
-        );
-        state.customRecipe.macros.carbs = fixProblemWithDecimals(
-          state.customRecipe.macros.carbs,
-          action.payload.carbs || 0,
-          prevMacros.carbs || 0,
-        );
-        state.customRecipe.macros.fat = fixProblemWithDecimals(
-          state.customRecipe.macros.fat,
-          action.payload.fat || 0,
-          prevMacros.fat || 0,
-        );
-        state.customRecipe.macros.calories = fixProblemWithDecimals(
-          state.customRecipe.macros.calories,
+        state.macros.protein = fixProblemWithDecimals(state.macros.protein, action.payload.protein || 0, prevMacros.protein || 0);
+        state.macros.carbs = fixProblemWithDecimals(state.macros.carbs, action.payload.carbs || 0, prevMacros.carbs || 0);
+        state.macros.fat = fixProblemWithDecimals(state.macros.fat, action.payload.fat || 0, prevMacros.fat || 0);
+        state.macros.calories = fixProblemWithDecimals(
+          state.macros.calories,
           action.payload.calories || 0,
           prevMacros.calories || 0,
         );
       };
-      const indexIngredient = state.customRecipe.ingredients.findIndex(
+      const indexIngredient = state.ingredients.findIndex(
         (ingredient) => ingredient.ingredientName === action.payload.ingredientName,
       );
-      const prevIngredientMacros = state.customRecipe.ingredients[indexIngredient];
+      const prevIngredientMacros = state.ingredients[indexIngredient];
       recalculateGeneralMacros(prevIngredientMacros);
+      return state;
     },
     removeIngredient: (state, action: PayloadAction<string>) => {
-      const indexIngredient = state.customRecipe.ingredients.findIndex(
-        (ingredient) => ingredient.ingredientName === action.payload,
-      );
-      state.customRecipe.ingredients.splice(indexIngredient, 1);
+      const indexIngredient = state.ingredients.findIndex((ingredient) => ingredient.ingredientName === action.payload);
+      state.ingredients.splice(indexIngredient, 1);
+      return state;
     },
     renameCookingInstruction: (state, action: PayloadAction<string>) => {
-      state.customRecipe.cookingInstruction = action.payload;
+      state.cookingInstruction = action.payload;
+      return state;
     },
   },
 });
 
+export const myReducers = combineReducers({
+  customRecipes: customRecipesSlices.reducer,
+  customRecipe: customRecipeSlice.reducer,
+});
+
+/* export const crossSliceReducer = (state, action) => {
+  if (action.type === 'CROSS_SLICE_ACTION') {
+    const newName = action.payload + state.counter.value;
+    const namesState = state.names;
+    state = {
+      ...state,
+      names: { ...namesState, value: [...state.names.value, newName] },
+    };
+  }
+  return state;
+}; */
+
+// export const myReducers = reducer(initialState, { type: 'CROSS_SLICE_ACTION', payload: 'test' });
+
 export const {
-  showCustomRecipes,
+  // showCustomRecipes,
   showCustomRecipeDetail,
   renameCustomRecipeName,
   addIngredient,
