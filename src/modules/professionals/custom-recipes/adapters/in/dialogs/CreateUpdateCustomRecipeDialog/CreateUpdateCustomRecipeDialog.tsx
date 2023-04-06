@@ -145,7 +145,11 @@ function CreateUpdateCustomRecipeDialog({
           style={{ minHeight: '900px', display: 'flex', justifyContent: 'space-between', border: '2px solid brown' }}
         >
           <Card style={{ width: '55%' }} sx={{ minWidth: 275 }} className={classes.card} variant="outlined">
-            <form className={classes.form} onSubmit={handleSubmit(onSubmitCustomRecipe as any as SubmitHandler<FieldValues>)}>
+            <form
+              className={classes.form}
+              onMouseEnter={() => console.log('hellowwww')}
+              onSubmit={handleSubmit(onSubmitCustomRecipe as any as SubmitHandler<FieldValues>)}
+            >
               <Box
                 sx={{
                   maxWidth: '100%',
@@ -172,7 +176,7 @@ function CreateUpdateCustomRecipeDialog({
                   aria-controls="panel1d-content"
                   id="panel1d-header"
                 >
-                  <Typography variant="subtitle1">Add recipe</Typography>
+                  <Typography variant="subtitle1">Add instructions</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                   <CookingInstructions />

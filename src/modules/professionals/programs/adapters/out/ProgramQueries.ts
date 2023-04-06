@@ -13,6 +13,35 @@ export const CREATE_PROGRAM = gql`
   }
 `;
 
+export const GET_PROGRAM = gql`
+  query _getProgram($input: GetProgramDto!) {
+    getProgram(input: $input) {
+      _id
+      name
+      description
+      programTags {
+        _id
+      }
+      plans {
+        title
+        week
+        day
+        mealPlans {
+          tagFood
+          position
+          recipeName
+          ingredients {
+            ingredientName
+            amount
+            calories
+          }
+          cookingInstruction
+        }
+      }
+    }
+  }
+`;
+
 export const GET_PROGRAMS = gql`
   query _getPrograms($input: GetProgramsDto!) {
     getPrograms(input: $input) {

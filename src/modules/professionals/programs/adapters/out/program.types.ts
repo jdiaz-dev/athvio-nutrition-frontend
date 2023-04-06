@@ -45,6 +45,21 @@ export interface CreateProgramRequest {
   input: CreateProgramBody;
 }
 
+export interface UniqueProgramInput {
+  professional: string;
+  program: string;
+}
+
+export interface GetProgramResponse {
+  data: {
+    getProgram: ProgramBody;
+  };
+}
+
+export interface GetProgramRequest {
+  input: UniqueProgramInput;
+}
+
 export interface CreateProgramResponse {
   data: {
     createProgram: {
@@ -82,11 +97,6 @@ export interface UpdateProgramResponse {
       name: string;
     };
   };
-}
-
-export interface DeleteProgramBody {
-  professional: string;
-  program: string;
 }
 
 export interface DeleteProgramRequest {

@@ -22,7 +22,7 @@ const initialState: CustomRecipeInitialState = {
     },
   },
 };
-
+console.log('--------------hello from slice')
 const customRecipesSlices = createSlice({
   name: 'customRecipes',
   initialState: initialState.customRecipes,
