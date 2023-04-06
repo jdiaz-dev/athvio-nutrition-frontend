@@ -20,8 +20,8 @@ export interface MealPlan {
 export interface Plan {
   _id: string;
   title: string;
-  week: string;
-  day: string;
+  week: number;
+  day: number;
   mealPlans: MealPlan[];
 }
 
@@ -51,9 +51,7 @@ export interface UniqueProgramInput {
 }
 
 export interface GetProgramResponse {
-  data: {
-    getProgram: ProgramBody;
-  };
+  getProgram: ProgramBody;
 }
 
 export interface GetProgramRequest {
@@ -114,3 +112,9 @@ export interface ProgramInitialState {
   programList: Programs | null;
   programItem: ProgramBody;
 }
+
+export type DateItem = {
+  title: string;
+  date: Date;
+  extendedProps: { plan: Plan | null; dayPlan: number };
+};

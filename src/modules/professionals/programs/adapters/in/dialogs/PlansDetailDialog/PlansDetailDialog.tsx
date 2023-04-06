@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -7,7 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-function ProgramRecipePlan({ date }: { date: Date }) {
+function PlansDetailDialog({ dayPlan }: { dayPlan: number }) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -26,7 +26,7 @@ function ProgramRecipePlan({ date }: { date: Date }) {
       <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
         <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">{date.toString()}</DialogContentText>
+          <DialogContentText id="alert-dialog-description">{dayPlan}</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Disagree</Button>
@@ -39,4 +39,4 @@ function ProgramRecipePlan({ date }: { date: Date }) {
   );
 }
 
-export default ProgramRecipePlan;
+export default PlansDetailDialog;

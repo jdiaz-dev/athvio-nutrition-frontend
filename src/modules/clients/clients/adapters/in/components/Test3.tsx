@@ -25,6 +25,10 @@ export const customRecipeSlice = createSlice({
   },
 });
 
+const initialStateIngredients = {
+
+}
+
 export const { renameCustomRecipeName } = customRecipeSlice.actions;
 
 export default customRecipeSlice.reducer;

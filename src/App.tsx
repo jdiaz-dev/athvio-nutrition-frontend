@@ -14,7 +14,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { UserType } from 'src/shared/Consts';
 import CustomRecipesContainer from 'src/modules/professionals/custom-recipes/adapters/in/components/CustomRecipesContainer';
 import Test2 from 'src/modules/clients/clients/adapters/in/components/Test2';
-import ProgramPlansContainer from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer';
+import ProgramPlansContainer from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/ProgramPlansContainer';
 
 /* const loginStyles = makeStyles({
   container: {
@@ -99,7 +99,6 @@ export default App;
   - implement remove and edit ingredient previously added
   - searcher and paginator for custom Recipes
 */
-
 
 /*
   REDUX
