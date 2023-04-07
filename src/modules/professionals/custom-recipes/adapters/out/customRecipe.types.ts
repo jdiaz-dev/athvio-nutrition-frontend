@@ -29,6 +29,8 @@ export interface CustomRecipeBody {
   __typename?: string;
 }
 
+export type MealDataForBuilder = Pick<CustomRecipeBody, '_id' | 'name' | 'ingredients' | 'cookingInstruction' | 'macros'>;
+
 export interface CreateCustomRecipeRequest {
   input: CustomRecipeBody;
 }

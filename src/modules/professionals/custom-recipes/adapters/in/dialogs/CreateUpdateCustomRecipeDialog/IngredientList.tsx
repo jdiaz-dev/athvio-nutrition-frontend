@@ -1,13 +1,12 @@
-import React, { createContext, useEffect, useMemo, useState } from 'react';
+import React, { createContext, useState } from 'react';
 
 import { Paper, Table, TableContainer, TableHead, TableRow } from '@mui/material';
 import TableBody from '@mui/material/TableBody';
 
-import { useSelector } from 'react-redux';
 import FoodList from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/FoodList';
 import Ingredient from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/Ingredient';
 import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
-import { ReduxStates } from 'src/shared/types/types';
+import { MealDataForBuilder } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 
 const styleTableCell = {
   fontSize: 14,
@@ -18,8 +17,7 @@ export const FoddAddedContext = createContext<{
   setFoodAdded: React.Dispatch<React.SetStateAction<boolean>>;
 }>({ foodAdded: false, setFoodAdded: useState });
 
-function IngredientList() {
-  const customRecipe = useSelector((state: ReduxStates) => state.customRecipes.customRecipe);
+function IngredientList({ meal }: { meal: MealDataForBuilder }) {
   const [foodAdded, setFoodAdded] = useState(false);
 
   return (
@@ -51,16 +49,16 @@ function IngredientList() {
             </TableHead>
             {
               <TableBody>
-                {customRecipe.ingredients.map((ingredient, index) => (
+                {meal.ingredients.map((ingredient, index) => (
                   <Ingredient key={index} ingredient={ingredient} />
                 ))}
-                <StyledTableRow key={customRecipe.name}>
+                <StyledTableRow key={meal.name}>
                   <StyledTableCell align="right"></StyledTableCell>
                   <StyledTableCell align="right">Total</StyledTableCell>
-                  <StyledTableCell align="right">{customRecipe.macros.protein}</StyledTableCell>
-                  <StyledTableCell align="right">{customRecipe.macros.carbs}</StyledTableCell>
-                  <StyledTableCell align="right">{customRecipe.macros.fat}</StyledTableCell>
-                  <StyledTableCell align="right">{customRecipe.macros.calories}</StyledTableCell>
+                  <StyledTableCell align="right">{meal.macros.protein}</StyledTableCell>
+                  <StyledTableCell align="right">{meal.macros.carbs}</StyledTableCell>
+                  <StyledTableCell align="right">{meal.macros.fat}</StyledTableCell>
+                  <StyledTableCell align="right">{meal.macros.calories}</StyledTableCell>
                 </StyledTableRow>
               </TableBody>
             }

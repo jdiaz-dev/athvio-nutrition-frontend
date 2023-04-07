@@ -7,9 +7,9 @@ import IngredientList from 'src/modules/professionals/custom-recipes/adapters/in
 // eslint-disable-next-line max-len
 import CookingInstructions from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/CookingInstructions';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import { ReduxStates } from 'src/shared/types/types';
+import { useDispatch } from 'react-redux';
 import { renameCustomRecipeName } from 'src/modules/professionals/custom-recipes/adapters/in/CustomRecipeSlice';
+import { MealDataForBuilder } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -20,10 +20,9 @@ const cardStyles = makeStyles()(() => {
 });
 
 // VERY IMPORTANT: this component is used (shared) in custom-recipes, program and client-plan modules
-function MealConstructor({ setMealNameUpdated }: { setMealNameUpdated: (mealNameUpdated: boolean) => void }) {
+function MealBuilder({ meal, setMealNameUpdated }: { meal: MealDataForBuilder; setMealNameUpdated: (mealNameUpdated: boolean) => void }) {
   const { classes } = cardStyles();
   const dispatch = useDispatch();
-  const customRecipe = useSelector((state: ReduxStates) => state.customRecipes.customRecipe);
 
   const [panelExpanded, setPanelExpanded] = useState<string | false>(false);
 
@@ -53,21 +52,21 @@ function MealConstructor({ setMealNameUpdated }: { setMealNameUpdated: (mealName
             fullWidth
             id="fullWidth"
             label="Custom Recipe name"
-            defaultValue={customRecipe.name}
+            defaultValue={meal.name}
             {...register('name', { required: 'Please enter a name for your custom Recipe.' })}
             error={Boolean(errors.name)}
             helperText={errors.name?.message as ReactNode}
           />
         </Box>
 
-        <IngredientList />
+        <IngredientList meal={meal} />
 
         <Accordion expanded={panelExpanded === 'panel1'} onChange={handleAccordion('panel1')}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />} style={{ height: '38px' }} aria-controls="panel1d-content" id="panel1d-header">
             <Typography variant="subtitle1">Add instructions</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <CookingInstructions />
+            <CookingInstructions cookingInstruction={meal.cookingInstruction} />
           </AccordionDetails>
         </Accordion>
         <Button variant="contained" type="submit">
@@ -78,4 +77,4 @@ function MealConstructor({ setMealNameUpdated }: { setMealNameUpdated: (mealName
   );
 }
 
-export default MealConstructor;
+export default MealBuilder;

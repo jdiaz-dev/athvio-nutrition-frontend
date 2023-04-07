@@ -1,17 +1,9 @@
-import React, { ReactNode, useContext, useEffect, useState } from 'react';
-import { Box, Button, Card, Dialog, DialogContent, TextField, Typography } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import React, { useContext, useEffect, useState } from 'react';
+import { Card, Dialog, DialogContent } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
 
-import IngredientList from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/IngredientList';
 import NutrientsDetail from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/NutrientsDetail';
-import CookingInstructions from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/CookingInstructions';
-import {
-  reinitializeCustomRecipe,
-  showCustomRecipeDetail,
-  renameCustomRecipeName,
-} from 'src/modules/professionals/custom-recipes/adapters/in/CustomRecipeSlice';
+import { reinitializeCustomRecipe, showCustomRecipeDetail } from 'src/modules/professionals/custom-recipes/adapters/in/CustomRecipeSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCustomRecipe } from 'src/modules/professionals/custom-recipes/adapters/out/CustomRecipeActions';
 import MessageDialog from 'src/shared/dialogs/MessageDialog';
@@ -19,8 +11,7 @@ import { CustomRecipeBody } from 'src/modules/professionals/custom-recipes/adapt
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { ReduxStates } from 'src/shared/types/types';
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
-import { Accordion, AccordionDetails, AccordionSummary } from 'src/shared/components/Accordion';
-import MealConstructor from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/MealConstructor';
+import MealBuilder from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/MealBuilder';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -82,12 +73,13 @@ function CreateUpdateCustomRecipeDialog({
     };
   }, [_customRecipe]);
 
+  const { _id, professional, __typename, ...restCustomRecipe } = customRecipe;
   useEffect(() => {
     const createUpdateCustomRecipeHelper = async () => {
       if (_customRecipe && _customRecipe._id) {
-        const { _id, ...restCustomRecipe } = customRecipe;
         await updateCustomRecipe({
           customRecipe: _id as string,
+          professional,
           ...restCustomRecipe,
         });
         setMessage('Custom Recipe updated successfully');
@@ -132,7 +124,7 @@ function CreateUpdateCustomRecipeDialog({
           style={{ minHeight: '900px', display: 'flex', justifyContent: 'space-between', border: '2px solid brown' }}
         >
           <Card style={{ width: '55%' }} sx={{ minWidth: 275 }} className={classes.card} variant="outlined">
-            <MealConstructor setMealNameUpdated={setCustomRecipeNameUpdated} />
+            <MealBuilder meal={restCustomRecipe} setMealNameUpdated={setCustomRecipeNameUpdated} />
           </Card>
           <NutrientsDetail />
         </DialogContent>

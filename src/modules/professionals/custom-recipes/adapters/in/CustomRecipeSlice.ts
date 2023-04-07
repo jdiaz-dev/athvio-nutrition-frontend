@@ -22,14 +22,11 @@ const initialState: CustomRecipeInitialState = {
     },
   },
 };
-console.log('--------------hello from slice')
 const customRecipesSlices = createSlice({
   name: 'customRecipes',
   initialState: initialState.customRecipes,
   reducers: {
     showCustomRecipes: (state, action: PayloadAction<CustomRecipes>) => {
-      console.log('-----------action.type', action.type);
-      console.log('-----------action.type', action);
       state = action.payload;
       return state;
     },

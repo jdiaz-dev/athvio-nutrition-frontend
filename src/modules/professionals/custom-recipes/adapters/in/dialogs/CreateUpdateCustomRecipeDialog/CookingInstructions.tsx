@@ -1,12 +1,10 @@
-import { Box, TextField } from '@mui/material';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { Box, TextField } from '@mui/material';
+import { useDispatch } from 'react-redux';
 import { renameCookingInstruction } from 'src/modules/professionals/custom-recipes/adapters/in/CustomRecipeSlice';
-import { ReduxStates } from 'src/shared/types/types';
 
-function CookingInstructions() {
+function CookingInstructions({ cookingInstruction }: { cookingInstruction: string }) {
   const dispatch = useDispatch();
-  const cookingInstruction = useSelector((state: ReduxStates) => state.customRecipes.customRecipe.cookingInstruction);
 
   return (
     <>
