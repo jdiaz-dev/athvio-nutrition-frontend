@@ -1,5 +1,5 @@
-import React, { ReactNode, useEffect, useState } from 'react';
-import { Box, Button, Card, Dialog, DialogContent, TextField, Typography } from '@mui/material';
+import React, { ReactNode, useState } from 'react';
+import { Box, Button, TextField, Typography } from '@mui/material';
 import { Accordion, AccordionDetails, AccordionSummary } from 'src/shared/components/Accordion';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { makeStyles } from 'tss-react/mui';
@@ -10,7 +10,6 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 import { renameCustomRecipeName } from 'src/modules/professionals/custom-recipes/adapters/in/CustomRecipeSlice';
-import { CustomRecipeBody } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -20,63 +19,19 @@ const cardStyles = makeStyles()(() => {
   };
 });
 
-function MealConstructor({
-  setMealNameUpdated,
-  _customRecipe,
-}: {
-  setMealNameUpdated: (mealNameUpdated: boolean) => void;
-  _customRecipe?: CustomRecipeBody;
-}) {
+// VERY IMPORTANT: this component is used (shared) in custom-recipes, program and client-plan modules
+function MealConstructor({ setMealNameUpdated }: { setMealNameUpdated: (mealNameUpdated: boolean) => void }) {
   const { classes } = cardStyles();
   const dispatch = useDispatch();
   const customRecipe = useSelector((state: ReduxStates) => state.customRecipes.customRecipe);
 
-  //   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk } = useMessageDialog();
-  //   const { createCustomRecipe, updateCustomRecipe } = useCustomRecipe();
-
-  //   const reloadRecordListContext = useContext(ReloadRecordListContext);
-
   const [panelExpanded, setPanelExpanded] = useState<string | false>(false);
-  const [customRecipeNameUpdated, setCustomRecipeNameUpdated] = useState(false);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm();
-
-  useEffect(() => {
-    if (_customRecipe !== undefined) {
-      dispatch(showCustomRecipeDetail(_customRecipe));
-    } else {
-      dispatch(reinitializeCustomRecipe());
-    }
-    return () => {
-      dispatch(reinitializeCustomRecipe());
-    };
-  }, [_customRecipe]);
-
-  useEffect(() => {
-    const createUpdateCustomRecipeHelper = async () => {
-      if (_customRecipe && _customRecipe._id) {
-        const { _id, ...restCustomRecipe } = customRecipe;
-        await updateCustomRecipe({
-          customRecipe: _id as string,
-          ...restCustomRecipe,
-        });
-        setCustomRecipeNameUpdated(false);
-        reset();
-      } else {
-        await createCustomRecipe(customRecipe);
-        setCustomRecipeNameUpdated(false);
-        reset();
-      }
-    };
-    if (customRecipeNameUpdated) {
-      void createUpdateCustomRecipeHelper();
-    }
-  }, [customRecipeNameUpdated, _customRecipe]);
 
   const handleAccordion = (panel: string) => (event: React.SyntheticEvent, newPanelExpanded: boolean) => {
     setPanelExpanded(newPanelExpanded ? panel : false);
@@ -87,11 +42,7 @@ function MealConstructor({
   };
   return (
     <div>
-      <form
-        className={classes.form}
-        onMouseEnter={() => console.log('hellowwww')}
-        onSubmit={handleSubmit(onSubmitCustomRecipe as any as SubmitHandler<FieldValues>)}
-      >
+      <form className={classes.form} onSubmit={handleSubmit(onSubmitCustomRecipe as any as SubmitHandler<FieldValues>)}>
         <Box
           sx={{
             maxWidth: '100%',

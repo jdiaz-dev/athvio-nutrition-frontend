@@ -2,10 +2,7 @@
 import { ApolloError } from '@apollo/client';
 import { useDispatch } from 'react-redux';
 import { apolloClient } from 'src/graphql/ApolloClient';
-import {
-  reinitializeCustomRecipe,
-  showCustomRecipes,
-} from 'src/modules/professionals/custom-recipes/adapters/in/CustomRecipeSlice';
+import { reinitializeCustomRecipe, showCustomRecipes } from 'src/modules/professionals/custom-recipes/adapters/in/CustomRecipeSlice';
 import {
   CreateCustomRecipeRequest,
   CreateCustomRecipeResponse,
@@ -40,7 +37,7 @@ export function useCustomRecipe() {
           },
         },
       });
-      if (response) dispatch(reinitializeCustomRecipe());
+      response;
       // console.log(response);
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
@@ -83,7 +80,7 @@ export function useCustomRecipe() {
           },
         },
       });
-      if (response) dispatch(reinitializeCustomRecipe());
+      response;
       // console.log(response);
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);

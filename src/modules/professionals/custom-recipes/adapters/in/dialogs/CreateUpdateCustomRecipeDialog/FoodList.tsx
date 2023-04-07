@@ -168,7 +168,6 @@ function FoodList() {
                                 }),
                               );
                               foddAddedContext.setFoodAdded(true);
-                              console.log('------------hellow foodlist');
                             }
                           }}
                         >

@@ -20,6 +20,7 @@ import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext
 import { ReduxStates } from 'src/shared/types/types';
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
 import { Accordion, AccordionDetails, AccordionSummary } from 'src/shared/components/Accordion';
+import MealConstructor from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/MealConstructor';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -68,15 +69,7 @@ function CreateUpdateCustomRecipeDialog({
 
   const reloadRecordListContext = useContext(ReloadRecordListContext);
 
-  const [panelExpanded, setPanelExpanded] = useState<string | false>(false);
   const [customRecipeNameUpdated, setCustomRecipeNameUpdated] = useState(false);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm();
 
   useEffect(() => {
     if (_customRecipe !== undefined) {
@@ -99,32 +92,25 @@ function CreateUpdateCustomRecipeDialog({
         });
         setMessage('Custom Recipe updated successfully');
         setCustomRecipeNameUpdated(false);
-        reset();
       } else {
         await createCustomRecipe(customRecipe);
         setMessage('Custom Recipe created successfully');
         setCustomRecipeNameUpdated(false);
-        reset();
       }
       setOpenDialog(true);
     };
     if (customRecipeNameUpdated) {
       void createUpdateCustomRecipeHelper();
     }
+  }, [customRecipeNameUpdated, _customRecipe]);
+
+  useEffect(() => {
     if (!openDialog && messageOk) {
       setOpenCreateUpdateCustomRecipeDialog(false);
       reloadRecordListContext.setReloadRecordList(true);
       setMessageOk(false);
     }
-  }, [customRecipeNameUpdated, openDialog, _customRecipe, messageOk]);
-
-  const handleAccordion = (panel: string) => (event: React.SyntheticEvent, newPanelExpanded: boolean) => {
-    setPanelExpanded(newPanelExpanded ? panel : false);
-  };
-  const onSubmitCustomRecipe = (data: { name: string }) => {
-    dispatch(renameCustomRecipeName(data.name));
-    setCustomRecipeNameUpdated(true);
-  };
+  }, [openDialog, messageOk]);
 
   return (
     <>
@@ -132,6 +118,7 @@ function CreateUpdateCustomRecipeDialog({
         open={openCreateUpdateCustomRecipeDialog}
         onClose={() => {
           setOpenCreateUpdateCustomRecipeDialog(false);
+          dispatch(reinitializeCustomRecipe());
         }}
         scroll="paper"
         fullWidth={true}
@@ -145,47 +132,7 @@ function CreateUpdateCustomRecipeDialog({
           style={{ minHeight: '900px', display: 'flex', justifyContent: 'space-between', border: '2px solid brown' }}
         >
           <Card style={{ width: '55%' }} sx={{ minWidth: 275 }} className={classes.card} variant="outlined">
-            <form
-              className={classes.form}
-              onMouseEnter={() => console.log('hellowwww')}
-              onSubmit={handleSubmit(onSubmitCustomRecipe as any as SubmitHandler<FieldValues>)}
-            >
-              <Box
-                sx={{
-                  maxWidth: '100%',
-                  marginBottom: '10px',
-                }}
-              >
-                <TextField
-                  fullWidth
-                  id="fullWidth"
-                  label="Custom Recipe name"
-                  defaultValue={customRecipe.name}
-                  {...register('name', { required: 'Please enter a name for your custom Recipe.' })}
-                  error={Boolean(errors.name)}
-                  helperText={errors.name?.message as ReactNode}
-                />
-              </Box>
-
-              <IngredientList />
-
-              <Accordion expanded={panelExpanded === 'panel1'} onChange={handleAccordion('panel1')}>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  style={{ height: '38px' }}
-                  aria-controls="panel1d-content"
-                  id="panel1d-header"
-                >
-                  <Typography variant="subtitle1">Add instructions</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <CookingInstructions />
-                </AccordionDetails>
-              </Accordion>
-              <Button variant="contained" type="submit">
-                Save
-              </Button>
-            </form>
+            <MealConstructor setMealNameUpdated={setCustomRecipeNameUpdated} />
           </Card>
           <NutrientsDetail />
         </DialogContent>

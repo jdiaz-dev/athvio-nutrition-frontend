@@ -29,7 +29,7 @@ export const GET_PROGRAM = gql`
         mealPlans {
           tagFood
           position
-          recipeName
+          name
           ingredients {
             ingredientName
             amount
