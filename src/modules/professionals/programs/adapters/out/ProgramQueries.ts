@@ -23,19 +23,30 @@ export const GET_PROGRAM = gql`
         _id
       }
       plans {
+        _id
         title
         week
         day
         mealPlans {
-          tagFood
+          _id
           position
           name
           ingredients {
-            ingredientName
+            name
             amount
+            unit
+            protein
+            carbs
+            fat
             calories
           }
           cookingInstruction
+          macros {
+            protein
+            carbs
+            fat
+            calories
+          }
         }
       }
     }

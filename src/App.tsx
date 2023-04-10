@@ -111,3 +111,8 @@ export default App;
 
     Call useSelector Multiple Times in Function Components  ---> extremely important
 */
+
+/*
+  starting:
+    re-commit full calendar component
+*/

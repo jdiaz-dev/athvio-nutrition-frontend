@@ -1,10 +1,11 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { combineReducers, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { customRecipeSlicer } from 'src/modules/professionals/custom-recipes/adapters/in/CustomRecipeSlice';
 import { ProgramBody, ProgramInitialState, Programs } from 'src/modules/professionals/programs/adapters/out/program.types';
 import { getUserFromLocalStorage } from 'src/shared/helpers/LocalStorage';
 
-const initialState: ProgramInitialState = {
-  programList: null,
-  programItem: {
+export const programInitialState: ProgramInitialState = {
+  programs: null,
+  program: {
     professional: getUserFromLocalStorage()._id,
     _id: '',
     name: '',
@@ -12,22 +13,45 @@ const initialState: ProgramInitialState = {
     programTags: [],
     plans: [],
   },
+  mealPlan: {
+    _id: '',
+    name: '',
+    ingredients: [],
+    cookingInstruction: '',
+    macros: {
+      protein: 0,
+      carbs: 0,
+      fat: 0,
+      calories: 0,
+    },
+  },
 };
 
-export const programSlice = createSlice({
+const programsSlice = createSlice({
   name: 'programs',
-  initialState,
+  initialState: programInitialState.programs,
   reducers: {
     setProgramList: (state, action: PayloadAction<Programs>) => {
-      state.programList = action.payload;
-      console.log('---------action.payload', action.payload);
+      state = action.payload;
+      return state;
     },
+  },
+});
+
+export const { setProgramList } = programsSlice.actions;
+
+export const programSlice = createSlice({
+  name: 'program',
+  initialState: programInitialState.program,
+  reducers: {
     setProgramItem: (state, action: PayloadAction<ProgramBody>) => {
-      state.programItem = action.payload;
+      state = action.payload;
+      return state;
     },
     setNameAndDescription: (state, action: PayloadAction<Pick<ProgramBody, 'name' | 'description'>>) => {
-      state.programItem.name = action.payload.name;
-      state.programItem.description = action.payload.description;
+      state.name = action.payload.name;
+      state.description = action.payload.description;
+      return state;
     },
     /* updateProgramItem: (state, action: PayloadAction<ProgramBody>) => {
       state.programItem = action.payload;
@@ -38,7 +62,7 @@ export const programSlice = createSlice({
     },
     addIngredient: (state, action: PayloadAction<IngredientType>) => {
       const indexIngredient = state.customRecipeItem.ingredients.findIndex(
-        (ingredient) => ingredient.ingredientName === action.payload.ingredientName,
+        (ingredient) => ingredient.name === action.payload.name,
       );
 
       if (indexIngredient === -1) {
@@ -77,14 +101,14 @@ export const programSlice = createSlice({
         );
       };
       const indexIngredient = state.customRecipeItem.ingredients.findIndex(
-        (ingredient) => ingredient.ingredientName === action.payload.ingredientName,
+        (ingredient) => ingredient.name === action.payload.name,
       );
       const prevIngredientMacros = state.customRecipeItem.ingredients[indexIngredient];
       recalculateGeneralMacros(prevIngredientMacros);
     },
     removeIngredient: (state, action: PayloadAction<string>) => {
       const indexIngredient = state.customRecipeItem.ingredients.findIndex(
-        (ingredient) => ingredient.ingredientName === action.payload,
+        (ingredient) => ingredient.name === action.payload,
       );
       state.customRecipeItem.ingredients.splice(indexIngredient, 1);
     },
@@ -94,13 +118,26 @@ export const programSlice = createSlice({
 
     */
     resetProgramItem: (state) => {
-      state.programItem = initialState.programItem;
+      state = programInitialState.program;
+      return state;
     },
   },
 });
 
+const mealSlice = customRecipeSlicer('mealPlan', programInitialState.mealPlan);
+
 export const {
-  setProgramList,
+  // showCustomRecipes,
+  acceptNewMealDetail,
+  renameMealName,
+  addIngredient,
+  addMacrosToIngredient,
+  removeIngredient,
+  renameCookingInstruction,
+  reinitializeMeal,
+} = mealSlice.actions;
+
+export const {
   setProgramItem,
   setNameAndDescription,
   //   updateProgramItem,
@@ -113,4 +150,8 @@ export const {
   resetProgramItem,
 } = programSlice.actions;
 
-export default programSlice.reducer;
+export default combineReducers({
+  programs: programsSlice.reducer,
+  program: programSlice.reducer,
+  mealPlan: mealSlice.reducer,
+});

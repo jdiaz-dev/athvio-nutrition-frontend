@@ -5,34 +5,33 @@ export interface Macros {
   carbs: number;
   fat: number;
   calories: number;
-  __typename?: string;
 }
 
 export interface IngredientType {
-  ingredientName: string;
+  name: string;
   amount: number;
   unit: string;
   protein?: number;
   carbs?: number;
   fat?: number;
   calories?: number;
-  __typename?: string;
 }
 
 export interface CustomRecipeBody {
-  _id?: string; // in front we manage _id, to send to back we add domain more Id, for example customRecipeId
+  _id: string; // in front we manage _id, to send to back we add domain more Id, for example customRecipeId
   professional: string;
   name: string;
   ingredients: IngredientType[];
   cookingInstruction: string;
   macros: Macros;
-  __typename?: string;
 }
 
-export type MealDataForBuilder = Pick<CustomRecipeBody, '_id' | 'name' | 'ingredients' | 'cookingInstruction' | 'macros'>;
+export type MealDataForBuilder = Omit<CustomRecipeBody, 'professional'>;
+
+export type CreateCustomRecipeBody = Omit<CustomRecipeBody, 'id'>;
 
 export interface CreateCustomRecipeRequest {
-  input: CustomRecipeBody;
+  input: CreateCustomRecipeBody;
 }
 
 export interface CreateCustomRecipeResponse {

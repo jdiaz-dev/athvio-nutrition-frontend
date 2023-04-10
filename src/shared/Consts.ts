@@ -33,3 +33,9 @@ export enum ManageClientGroupEnum {
   ADD = 'add',
   REMOVE = 'remove',
 }
+
+export enum Modules {
+  PROGRAMS = 'programs',
+  CUSTOM_RECIPES = 'customRecipes',
+  CLIENT_PLANS = 'clientPlans',
+}

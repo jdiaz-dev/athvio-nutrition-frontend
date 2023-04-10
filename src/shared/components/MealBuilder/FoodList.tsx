@@ -6,7 +6,6 @@ import { Button, Paper, Table, TableContainer, TableHead, TableRow, TextField, T
 import { GetFoodRequest, GetFoodsResponse } from 'src/modules/foods/adapters/out/food.types';
 import SearcherBar from 'src/shared/components/SearcherBar';
 import { useDispatch } from 'react-redux';
-import { addIngredient } from 'src/modules/professionals/custom-recipes/adapters/in/CustomRecipeSlice';
 import { IngredientType } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 import Paginator from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/Paginator';
 import { GET_FOODS } from 'src/modules/foods/adapters/out/FoodQueries';
@@ -14,14 +13,18 @@ import { StyledTableCell, StyledTableRow } from 'src/shared/components/Customize
 import { Accordion, AccordionDetails, AccordionSummary } from 'src/shared/components/Accordion';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 // eslint-disable-next-line max-len
-import { FoddAddedContext } from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/IngredientList';
 import { useSearcher } from 'src/shared/hooks/useSearcher';
 import { usePaginator } from 'src/shared/hooks/usePaginator';
+import { useChooseSlicers } from 'src/shared/hooks/useChooseSlicers';
+import { FoddAddedContext } from 'src/shared/components/MealBuilder/FoddAddedContext';
+import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
 
 function FoodList() {
   const dispatch = useDispatch();
 
   const foddAddedContext = useContext(FoddAddedContext);
+  const currentModuleContext = useContext(CurrentModuleContext);
+  const { addIngredient } = useChooseSlicers(currentModuleContext.currentModule);
 
   const {
     searchWords,
@@ -58,7 +61,7 @@ function FoodList() {
         res.data?.getFoods.data.map((food) => {
           return {
             amount: 0,
-            ingredientName: food.name,
+            name: food.name,
             unit: 'g',
           };
         }),
@@ -91,7 +94,7 @@ function FoodList() {
           data?.getFoods.data.map((food) => {
             return {
               amount: 0,
-              ingredientName: food.name,
+              name: food.name,
               unit: 'g',
             };
           }),
@@ -135,7 +138,7 @@ function FoodList() {
                 </TableHead>
                 <TableBody style={{ maxHeight: '10px' }}>
                   {foods.map((ingredient) => (
-                    <StyledTableRow key={ingredient.ingredientName}>
+                    <StyledTableRow key={ingredient.name}>
                       <StyledTableCell style={{ padding: '3px', paddingLeft: '7px' }} align="right">
                         <TextField
                           inputProps={{ style: { fontSize: 'revert', height: '11px' } }}
@@ -151,7 +154,7 @@ function FoodList() {
                         />
                       </StyledTableCell>
                       <StyledTableCell style={{ padding: '4px' }} component="th" scope="row">
-                        {ingredient.ingredientName}
+                        {ingredient.name}
                       </StyledTableCell>
                       <StyledTableCell align="right" style={{ padding: '0px', paddingRight: '7px' }}>
                         <Button
@@ -163,7 +166,7 @@ function FoodList() {
                               dispatch(
                                 addIngredient({
                                   amount: ingredient.amount,
-                                  ingredientName: ingredient.ingredientName,
+                                  name: ingredient.name,
                                   unit: 'g',
                                 }),
                               );

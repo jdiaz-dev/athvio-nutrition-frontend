@@ -11,11 +11,7 @@ import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext
 import { ReduxStates } from 'src/shared/types/types';
 import { ProgramBody } from 'src/modules/professionals/programs/adapters/out/program.types';
 import { useProgram } from 'src/modules/professionals/programs/adapters/out/ProgramActions';
-import {
-  resetProgramItem,
-  setNameAndDescription,
-  setProgramItem,
-} from 'src/modules/professionals/programs/adapters/in/ProgramSlice';
+import { resetProgramItem, setNameAndDescription, setProgramItem } from 'src/modules/professionals/programs/adapters/in/ProgramSlice';
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
 
 const cardStyles = makeStyles()(() => {
@@ -59,7 +55,7 @@ function CreateUpdateProgramDialog({
   const dispatch = useDispatch();
   const { classes } = cardStyles();
   const reloadRecordListContext = useContext(ReloadRecordListContext);
-  const programState = useSelector((state: ReduxStates) => state.programs.programItem);
+  const programState = useSelector((state: ReduxStates) => state.programs.program);
 
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk } = useMessageDialog();
   const [createUpdateProgramStateUpdate, setCreateUpdateProgramStateUpdated] = useState(false);
@@ -86,7 +82,6 @@ function CreateUpdateProgramDialog({
   useEffect(() => {
     const createUpdateProgramHelper = async () => {
       if (_program && _program._id) {
-        console.log('---------program', programState);
         const { _id, professional, name, description, ...restProgram } = programState;
         await updateProgram({
           program: _id as string,

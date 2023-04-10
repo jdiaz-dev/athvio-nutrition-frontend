@@ -10,7 +10,6 @@ import { ClientGroup } from 'src/shared/types/types';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { useReloadRecords } from 'src/shared/hooks/useReloadRecords';
 
-
 export const ClientGroupsContext = createContext<{
   clientGroupList: ClientGroup[];
   setClientGroupList: React.Dispatch<React.SetStateAction<ClientGroup[]>>;
@@ -21,7 +20,6 @@ function ClientsContainer() {
   const [clientGroupList, setClientGroupList] = useState<ClientGroup[]>([]);
 
   const { reloadRecordList, setReloadRecordList } = useReloadRecords();
-  // console.log('---------------------ClientsContainer');
 
   return (
     <>
@@ -38,10 +36,7 @@ function ClientsContainer() {
         </ClientGroupsContext.Provider>
 
         {openCreateClientDialog && (
-          <CreateClientDialog
-            openCreateClientDialog={openCreateClientDialog}
-            setOpenCreateClientDialog={setOpenCreateClientDialog}
-          />
+          <CreateClientDialog openCreateClientDialog={openCreateClientDialog} setOpenCreateClientDialog={setOpenCreateClientDialog} />
         )}
       </ReloadRecordListContext.Provider>
     </>

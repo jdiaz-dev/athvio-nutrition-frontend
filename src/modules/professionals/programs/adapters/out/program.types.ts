@@ -1,4 +1,4 @@
-import { IngredientType } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
+import { IngredientType, MealDataForBuilder } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 import { GetRecordsBody, MetadataRecords } from 'src/shared/types/get-records.types';
 
 export interface Macros {
@@ -10,10 +10,10 @@ export interface Macros {
 
 export interface MealPlan {
   _id: string;
-  position: string;
-  recipeName: string;
-  ingredients: IngredientType;
-  recipe: string;
+  position: number;
+  name: string;
+  ingredients: IngredientType[];
+  cookingInstruction: string;
   macros: Macros;
 }
 
@@ -37,7 +37,6 @@ export interface ProgramBody {
   description: string;
   programTags: ProgramTag[];
   plans: Plan[];
-  __typename?: string;
 }
 
 export type CreateProgramBody = Pick<ProgramBody, 'professional' | 'name' | 'description'>;
@@ -45,7 +44,7 @@ export interface CreateProgramRequest {
   input: CreateProgramBody;
 }
 
-export interface UniqueProgramInput {
+export interface ProgramInput {
   professional: string;
   program: string;
 }
@@ -55,7 +54,7 @@ export interface GetProgramResponse {
 }
 
 export interface GetProgramRequest {
-  input: UniqueProgramInput;
+  input: ProgramInput;
 }
 
 export interface CreateProgramResponse {
@@ -98,7 +97,7 @@ export interface UpdateProgramResponse {
 }
 
 export interface DeleteProgramRequest {
-  input: DeleteProgramBody;
+  input: ProgramInput;
 }
 
 export interface DeleteProgamResponse {
@@ -109,12 +108,13 @@ export interface DeleteProgamResponse {
 }
 
 export interface ProgramInitialState {
-  programList: Programs | null;
-  programItem: ProgramBody;
+  programs: Programs | null;
+  program: ProgramBody;
+  mealPlan: MealDataForBuilder;
 }
 
 export type DateItem = {
   title: string;
   date: Date;
-  extendedProps: { plan: Plan | null; dayPlan: number };
+  extendedProps: { plan: Plan | null; program: string; dayPlan: number };
 };

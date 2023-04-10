@@ -1,6 +1,6 @@
+// eslint-disable-next-line max-len
 import React, { useEffect, useState } from 'react';
 import { Button, Stack } from '@mui/material';
-// eslint-disable-next-line max-len
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { useReloadRecords } from 'src/shared/hooks/useReloadRecords';
 import ProgramList from 'src/modules/professionals/programs/adapters/in/components/ProgramList';
@@ -10,7 +10,7 @@ function ProgramsContainer() {
   const [openCreateUpdateProgramDialog, setOpenCreateUpdateProgramDialog] = useState(false);
   const [reloadProgramList, setReloadProgramList] = useState(false);
   const { reloadRecordList, setReloadRecordList } = useReloadRecords();
-  // console.log('--------container');
+
   useEffect(() => {
     return () => {
       setReloadProgramList(false);

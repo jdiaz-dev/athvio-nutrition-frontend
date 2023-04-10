@@ -37,7 +37,6 @@ function Program(program: ProgramBody) {
   }, [alert, messageOk]);
 
   const handleAnchorOpen = (event: React.MouseEvent<HTMLButtonElement | HTMLOrSVGElement>) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument
     setAnchorEl(event.currentTarget as HTMLElement);
   };
 
@@ -95,13 +94,7 @@ function Program(program: ProgramBody) {
         />
       )}
       {openDialog && (
-        <MessageDialog
-          openDialog={openDialog}
-          setOpenDialog={setOpenDialog}
-          message={message}
-          setMessageOk={setMessageOk}
-          alert={alert}
-        />
+        <MessageDialog openDialog={openDialog} setOpenDialog={setOpenDialog} message={message} setMessageOk={setMessageOk} alert={alert} />
       )}
     </>
   );

@@ -2,7 +2,7 @@
 import { ApolloError } from '@apollo/client';
 import { useDispatch } from 'react-redux';
 import { apolloClient } from 'src/graphql/ApolloClient';
-import { reinitializeCustomRecipe, showCustomRecipes } from 'src/modules/professionals/custom-recipes/adapters/in/CustomRecipeSlice';
+import * as CustomRecipeSlicers from 'src/modules/professionals/custom-recipes/adapters/in/CustomRecipeSlice';
 import {
   CreateCustomRecipeRequest,
   CreateCustomRecipeResponse,
@@ -15,6 +15,7 @@ import {
   DeleteCustomRecipeRequest,
   DeleteCustomRecipeResponse,
   DeleteCustomRecipeBody,
+  CreateCustomRecipeBody,
 } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 import {
   CREATE_CUSTOM_RECIPE,
@@ -27,7 +28,7 @@ import { GetRecordsBody } from 'src/shared/types/get-records.types';
 export function useCustomRecipe() {
   const dispatch = useDispatch();
 
-  const createCustomRecipe = async (body: CustomRecipeBody): Promise<void> => {
+  const createCustomRecipe = async (body: CreateCustomRecipeBody): Promise<void> => {
     try {
       const response = await apolloClient.mutate<CreateCustomRecipeResponse, CreateCustomRecipeRequest>({
         mutation: CREATE_CUSTOM_RECIPE,
@@ -57,7 +58,7 @@ export function useCustomRecipe() {
       });
 
       // console.log('--------getCustomRecipes', response);
-      if (response) dispatch(showCustomRecipes(response.data.getCustomRecipes));
+      if (response) dispatch(CustomRecipeSlicers.showCustomRecipes(response.data.getCustomRecipes));
       return response;
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
@@ -65,18 +66,12 @@ export function useCustomRecipe() {
     }
   };
   const updateCustomRecipe = async (body: UpdateCustomRecipeBody): Promise<void> => {
-    const _body = { ...body };
-    const { __typename, ...restBody } = _body;
-    const { __typename: typeName, ...restMacros } = restBody.macros;
-    restBody.ingredients = _body.ingredients.map(({ __typename, ...rest }) => rest);
-    restBody.macros = restMacros;
-
     try {
       const response = await apolloClient.mutate<UpdateCustomRecipeResponse, UpdateCustomRecipeRequest>({
         mutation: UPDATE_CUSTOM_RECIPE,
         variables: {
           input: {
-            ...restBody,
+            ...body,
           },
         },
       });
@@ -98,7 +93,7 @@ export function useCustomRecipe() {
           },
         },
       });
-      if (response) dispatch(reinitializeCustomRecipe());
+      if (response) dispatch(CustomRecipeSlicers.reinitializeMeal());
       console.log(response);
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);

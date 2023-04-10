@@ -1,15 +1,16 @@
-import React, { ReactNode, useState } from 'react';
+/* eslint-disable max-len */
+import React, { ReactNode, useContext, useState } from 'react';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { Accordion, AccordionDetails, AccordionSummary } from 'src/shared/components/Accordion';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { makeStyles } from 'tss-react/mui';
-import IngredientList from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/IngredientList';
-// eslint-disable-next-line max-len
 import CookingInstructions from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/CookingInstructions';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { renameCustomRecipeName } from 'src/modules/professionals/custom-recipes/adapters/in/CustomRecipeSlice';
 import { MealDataForBuilder } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
+import { useChooseSlicers } from 'src/shared/hooks/useChooseSlicers';
+import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
+import IngredientList from 'src/shared/components/MealBuilder/IngredientList';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -23,6 +24,8 @@ const cardStyles = makeStyles()(() => {
 function MealBuilder({ meal, setMealNameUpdated }: { meal: MealDataForBuilder; setMealNameUpdated: (mealNameUpdated: boolean) => void }) {
   const { classes } = cardStyles();
   const dispatch = useDispatch();
+  const currentModuleContext = useContext(CurrentModuleContext);
+  const { renameMealName } = useChooseSlicers(currentModuleContext.currentModule);
 
   const [panelExpanded, setPanelExpanded] = useState<string | false>(false);
 
@@ -36,7 +39,7 @@ function MealBuilder({ meal, setMealNameUpdated }: { meal: MealDataForBuilder; s
     setPanelExpanded(newPanelExpanded ? panel : false);
   };
   const onSubmitCustomRecipe = (data: { name: string }) => {
-    dispatch(renameCustomRecipeName(data.name));
+    dispatch(renameMealName(data.name));
     setMealNameUpdated(true);
   };
   return (

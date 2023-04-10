@@ -17,7 +17,7 @@ export const GET_CUSTOM_RECIPES = gql`
         name
         professional
         ingredients {
-          ingredientName
+          name
           amount
           unit
           protein
@@ -49,7 +49,7 @@ export const UPDATE_CUSTOM_RECIPE = gql`
       professional
       name
       ingredients {
-        ingredientName
+        name
       }
     }
   }

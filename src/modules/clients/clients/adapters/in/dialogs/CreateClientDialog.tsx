@@ -246,13 +246,7 @@ export function CreateClientDialog({
                       helperText={errors.weight?.message as ReactNode}
                     />
                     <div>
-                      <ToggleButtonGroup
-                        color="primary"
-                        value={gender}
-                        exclusive
-                        onChange={handleChangeGender}
-                        aria-label="Platform"
-                      >
+                      <ToggleButtonGroup color="primary" value={gender} exclusive onChange={handleChangeGender} aria-label="Platform">
                         <ToggleButton value="male">Male</ToggleButton>
                         <ToggleButton value="female">Female</ToggleButton>
                         <ToggleButton value="prefer not to say">Prefer not to say</ToggleButton>

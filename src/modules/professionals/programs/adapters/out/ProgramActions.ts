@@ -8,7 +8,7 @@ import {
   CreateProgramRequest,
   CreateProgramResponse,
   DeleteProgamResponse,
-  DeleteProgramBody,
+  ProgramInput,
   DeleteProgramRequest,
   GetProgramsRequest,
   GetProgramsResponse,
@@ -82,7 +82,7 @@ export function useProgram() {
     }
   };
 
-  const deleteProgram = async (body: DeleteProgramBody): Promise<void> => {
+  const deleteProgram = async (body: ProgramInput): Promise<void> => {
     try {
       const response = await apolloClient.mutate<DeleteProgamResponse, DeleteProgramRequest>({
         mutation: DELETE_PROGRAM,

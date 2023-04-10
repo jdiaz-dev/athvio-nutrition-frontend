@@ -1,41 +1,54 @@
-import React from 'react';
-
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import { MealPlan, Plan } from 'src/modules/professionals/programs/adapters/out/program.types';
+import MealDetail from 'src/modules/professionals/programs/adapters/in/dialogs/PlansDetailDialog/MealDetail';
+import { programInitialState } from 'src/modules/professionals/programs/adapters/in/ProgramSlice';
 
-function PlansDetailDialog({ dayPlan }: { dayPlan: number }) {
-  const [open, setOpen] = React.useState(false);
+function PlansDetailDialog({
+  openPlanDetailDialog,
+  setOpenPlanDetailDialog,
+  dayPlan,
+  program,
+  plan,
+}: {
+  openPlanDetailDialog: boolean;
+  setOpenPlanDetailDialog: (openPlanDetailDialog: boolean) => void;
+  dayPlan: number;
+  program?: string;
+  plan?: Plan;
+}) {
+  const [mealPlans, setMealPlans] = useState<MealPlan[]>(plan?.mealPlans || []);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const addMealPlanHandler = () => {
+    setMealPlans(mealPlans.concat([{ position: 0, ...programInitialState.mealPlan }]));
   };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   return (
-    <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Add recipes
-      </Button>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
-        <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
+    <>
+      <Dialog
+        open={openPlanDetailDialog}
+        onClose={() => setOpenPlanDetailDialog(false)}
+        maxWidth="xl"
+        fullWidth={true}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">{dayPlan}</DialogContentText>
+          {program &&
+            plan &&
+            mealPlans.map((mealPlan, index) => <MealDetail key={index} program={program} plan={plan._id} mealPlan={mealPlan} />)}
+          <Button onClick={() => addMealPlanHandler()}>Add meal</Button>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button onClick={() => setOpenPlanDetailDialog(false)}>Disagree</Button>
+          <Button onClick={() => setOpenPlanDetailDialog(false)} autoFocus>
             Agree
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   );
 }
 

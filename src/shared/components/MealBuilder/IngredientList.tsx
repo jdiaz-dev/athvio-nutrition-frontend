@@ -1,21 +1,18 @@
-import React, { createContext, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Paper, Table, TableContainer, TableHead, TableRow } from '@mui/material';
 import TableBody from '@mui/material/TableBody';
 
-import FoodList from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/FoodList';
-import Ingredient from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/Ingredient';
+import FoodList from 'src/shared/components/MealBuilder/FoodList';
 import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
 import { MealDataForBuilder } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
+import { FoddAddedContext } from 'src/shared/components/MealBuilder/FoddAddedContext';
+import Ingredient from 'src/shared/components/MealBuilder/Ingredient';
 
 const styleTableCell = {
   fontSize: 14,
   padding: '10px',
 };
-export const FoddAddedContext = createContext<{
-  foodAdded: boolean;
-  setFoodAdded: React.Dispatch<React.SetStateAction<boolean>>;
-}>({ foodAdded: false, setFoodAdded: useState });
 
 function IngredientList({ meal }: { meal: MealDataForBuilder }) {
   const [foodAdded, setFoodAdded] = useState(false);

@@ -7,9 +7,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { ProfessionalIdContext } from 'src/App';
 import { StyledTableCell } from 'src/shared/components/CustomizedTable';
-import { useCustomMeal } from 'src/modules/professionals/custom-meals/adapters/out/CustomMealActions';
 import { useSelector } from 'react-redux';
-import CustomMeal from 'src/modules/professionals/custom-meals/adapters/in/components/CustomMeal';
 import { useSearcher } from 'src/shared/hooks/useSearcher';
 import SearcherBar from 'src/shared/components/SearcherBar';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
@@ -19,7 +17,7 @@ import { useProgram } from 'src/modules/professionals/programs/adapters/out/Prog
 
 // eslint-disable-next-line prettier/prettier
 function ProgramList() {
-  const programList = useSelector((state: ReduxStates) => state.programs.programList);
+  const programs = useSelector((state: ReduxStates) => state.programs.programs);
   const professionalIdContext = useContext(ProfessionalIdContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const [firstCall, setFirstCall] = useState(true);
@@ -74,8 +72,8 @@ function ProgramList() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {programList &&
-              programList?.data.map((program, index) => (
+            {programs &&
+              programs?.data.map((program, index) => (
                 <React.Fragment key={index}>
                   <Program {...program} />
                 </React.Fragment>

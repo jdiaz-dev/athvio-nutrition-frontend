@@ -3,7 +3,7 @@ import { Card, Dialog, DialogContent } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
 
 import NutrientsDetail from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/NutrientsDetail';
-import { reinitializeCustomRecipe, showCustomRecipeDetail } from 'src/modules/professionals/custom-recipes/adapters/in/CustomRecipeSlice';
+import * as CustomRecipeSlicers from 'src/modules/professionals/custom-recipes/adapters/in/CustomRecipeSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCustomRecipe } from 'src/modules/professionals/custom-recipes/adapters/out/CustomRecipeActions';
 import MessageDialog from 'src/shared/dialogs/MessageDialog';
@@ -11,7 +11,9 @@ import { CustomRecipeBody } from 'src/modules/professionals/custom-recipes/adapt
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { ReduxStates } from 'src/shared/types/types';
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
-import MealBuilder from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/MealBuilder';
+import { Modules } from 'src/shared/Consts';
+import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
+import MealBuilder from 'src/shared/components/MealBuilder/MealBuilder';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -53,7 +55,7 @@ function CreateUpdateCustomRecipeDialog({
 }) {
   const { classes } = cardStyles();
   const dispatch = useDispatch();
-  const customRecipe = useSelector((state: ReduxStates) => state.customRecipes.customRecipe);
+  const customRecipeState = useSelector((state: ReduxStates) => state.customRecipes.customRecipe);
 
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk } = useMessageDialog();
   const { createCustomRecipe, updateCustomRecipe } = useCustomRecipe();
@@ -64,28 +66,28 @@ function CreateUpdateCustomRecipeDialog({
 
   useEffect(() => {
     if (_customRecipe !== undefined) {
-      dispatch(showCustomRecipeDetail(_customRecipe));
+      dispatch(CustomRecipeSlicers.acceptNewMealDetail(_customRecipe));
     } else {
-      dispatch(reinitializeCustomRecipe());
+      dispatch(CustomRecipeSlicers.reinitializeMeal());
     }
     return () => {
-      dispatch(reinitializeCustomRecipe());
+      dispatch(CustomRecipeSlicers.reinitializeMeal());
     };
   }, [_customRecipe]);
 
-  const { _id, professional, __typename, ...restCustomRecipe } = customRecipe;
+  const { professional, ...restCustomRecipe } = customRecipeState;
   useEffect(() => {
     const createUpdateCustomRecipeHelper = async () => {
       if (_customRecipe && _customRecipe._id) {
         await updateCustomRecipe({
-          customRecipe: _id as string,
+          customRecipe: restCustomRecipe._id,
           professional,
           ...restCustomRecipe,
         });
         setMessage('Custom Recipe updated successfully');
         setCustomRecipeNameUpdated(false);
       } else {
-        await createCustomRecipe(customRecipe);
+        await createCustomRecipe(customRecipeState);
         setMessage('Custom Recipe created successfully');
         setCustomRecipeNameUpdated(false);
       }
@@ -110,11 +112,10 @@ function CreateUpdateCustomRecipeDialog({
         open={openCreateUpdateCustomRecipeDialog}
         onClose={() => {
           setOpenCreateUpdateCustomRecipeDialog(false);
-          dispatch(reinitializeCustomRecipe());
+          dispatch(CustomRecipeSlicers.reinitializeMeal());
         }}
         scroll="paper"
         fullWidth={true}
-        // maxWidth="md"
         maxWidth="xl"
         aria-labelledby="dialog-title"
         aria-describedby="dialog-description"
@@ -124,7 +125,9 @@ function CreateUpdateCustomRecipeDialog({
           style={{ minHeight: '900px', display: 'flex', justifyContent: 'space-between', border: '2px solid brown' }}
         >
           <Card style={{ width: '55%' }} sx={{ minWidth: 275 }} className={classes.card} variant="outlined">
-            <MealBuilder meal={restCustomRecipe} setMealNameUpdated={setCustomRecipeNameUpdated} />
+            <CurrentModuleContext.Provider value={{ currentModule: Modules.CUSTOM_RECIPES }}>
+              <MealBuilder meal={restCustomRecipe} setMealNameUpdated={setCustomRecipeNameUpdated} />
+            </CurrentModuleContext.Provider>
           </Card>
           <NutrientsDetail />
         </DialogContent>

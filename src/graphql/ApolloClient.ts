@@ -1,6 +1,6 @@
 import { getUserFromLocalStorage } from './../shared/helpers/LocalStorage';
 
-import { ApolloClient, ApolloLink, from, HttpLink, InMemoryCache } from '@apollo/client';
+import { ApolloClient, ApolloLink, HttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
 const httpLink = new HttpLink({
@@ -32,7 +32,14 @@ export const apolloClient = new ApolloClient({
   // link: authLink.concat(httpLink),//.concat(errorLink),
   link: ApolloLink.from([errorLink, authLink, httpLink]),
 
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    addTypename: false,
+    typePolicies: {
+      Macros: {
+        keyFields: [],
+      },
+    },
+  }),
 });
 // apolloClient.setLink(from([errorLink]))
 /*

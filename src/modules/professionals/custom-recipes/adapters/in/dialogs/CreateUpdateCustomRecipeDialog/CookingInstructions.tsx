@@ -10,7 +10,6 @@ function CookingInstructions({ cookingInstruction }: { cookingInstruction: strin
     <>
       <Box
         sx={{
-          // width: 500,
           maxWidth: '100%',
         }}
       >
