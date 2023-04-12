@@ -1,4 +1,4 @@
-import { IngredientType, MealDataForBuilder } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
+import { IngredientType, MealDataForBuilder } from 'src/shared/components/MealBuilder/MealBuilder.types';
 import { GetRecordsBody, MetadataRecords } from 'src/shared/types/get-records.types';
 
 export interface Macros {
@@ -10,8 +10,8 @@ export interface Macros {
 
 export interface MealPlan {
   _id: string;
-  position: number;
   name: string;
+  position: number;
   ingredients: IngredientType[];
   cookingInstruction: string;
   macros: Macros;
@@ -31,7 +31,7 @@ export interface ProgramTag {
 }
 
 export interface ProgramBody {
-  _id?: string;
+  _id: string;
   professional: string;
   name: string;
   description: string;
@@ -42,6 +42,16 @@ export interface ProgramBody {
 export type CreateProgramBody = Pick<ProgramBody, 'professional' | 'name' | 'description'>;
 export interface CreateProgramRequest {
   input: CreateProgramBody;
+}
+
+export interface CreateProgramResponse {
+  data: {
+    createProgram: {
+      _id: string;
+      name: string;
+      description: string;
+    };
+  };
 }
 
 export interface ProgramInput {
@@ -55,16 +65,6 @@ export interface GetProgramResponse {
 
 export interface GetProgramRequest {
   input: ProgramInput;
-}
-
-export interface CreateProgramResponse {
-  data: {
-    createProgram: {
-      _id: string;
-      name: string;
-      description: string;
-    };
-  };
 }
 
 export interface GetProgramsRequest {
@@ -107,14 +107,26 @@ export interface DeleteProgamResponse {
   };
 }
 
-export interface ProgramInitialState {
-  programs: Programs | null;
-  program: ProgramBody;
-  mealPlan: MealDataForBuilder;
+export interface PlanDayInfo {
+  _id: string | null;
+  totalMeals: number | null;
 }
-
+export type DateItemExtendedProps = {
+  plan: PlanDayInfo;
+  program: string;
+  planDay: number;
+  planWeek: number;
+};
 export type DateItem = {
   title: string;
   date: Date;
-  extendedProps: { plan: Plan | null; program: string; dayPlan: number };
+  extendedProps: DateItemExtendedProps;
 };
+
+export interface ProgramInitialState {
+  programs: Programs | null;
+  program: ProgramBody;
+  plans: Plan[];
+  plan: Plan;
+  mealPlan: MealDataForBuilder;
+}

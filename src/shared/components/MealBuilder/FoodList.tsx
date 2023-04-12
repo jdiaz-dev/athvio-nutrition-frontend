@@ -6,18 +6,17 @@ import { Button, Paper, Table, TableContainer, TableHead, TableRow, TextField, T
 import { GetFoodRequest, GetFoodsResponse } from 'src/modules/foods/adapters/out/food.types';
 import SearcherBar from 'src/shared/components/SearcherBar';
 import { useDispatch } from 'react-redux';
-import { IngredientType } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
-import Paginator from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/Paginator';
+import Paginator from 'src/shared/components/Paginator';
 import { GET_FOODS } from 'src/modules/foods/adapters/out/FoodQueries';
 import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
 import { Accordion, AccordionDetails, AccordionSummary } from 'src/shared/components/Accordion';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-// eslint-disable-next-line max-len
 import { useSearcher } from 'src/shared/hooks/useSearcher';
 import { usePaginator } from 'src/shared/hooks/usePaginator';
 import { useChooseSlicers } from 'src/shared/hooks/useChooseSlicers';
 import { FoddAddedContext } from 'src/shared/components/MealBuilder/FoddAddedContext';
 import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
+import { IngredientType } from 'src/shared/components/MealBuilder/MealBuilder.types';
 
 function FoodList() {
   const dispatch = useDispatch();

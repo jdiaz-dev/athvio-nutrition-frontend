@@ -6,7 +6,6 @@ import * as CustomRecipeSlicers from 'src/modules/professionals/custom-recipes/a
 import {
   CreateCustomRecipeRequest,
   CreateCustomRecipeResponse,
-  CustomRecipeBody,
   GetCustomRecipeRequest,
   GetCustomRecipesResponse,
   UpdateCustomRecipeBody,

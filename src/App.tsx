@@ -8,12 +8,10 @@ import ProgramsContainer from './modules/professionals/programs/adapters/in/comp
 import { Drawer } from './shared/components/Drawer';
 import { SignUp } from './modules/security/users/adapters/in/SignUp';
 import { LogIn } from 'src/modules/security/security/adapters/in/LogIn';
-import Test from 'src/modules/clients/clients/adapters/in/components/Test';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { UserType } from 'src/shared/Consts';
 import CustomRecipesContainer from 'src/modules/professionals/custom-recipes/adapters/in/components/CustomRecipesContainer';
-import Test2 from 'src/modules/clients/clients/adapters/in/components/Test2';
 import ProgramPlansContainer from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/ProgramPlansContainer';
 
 /* const loginStyles = makeStyles({
@@ -80,8 +78,6 @@ function App() {
                   <Route path="Custom Recipes" element={<CustomRecipesContainer />} />
                   <Route path="Programs" element={<ProgramsContainer />} />
                   <Route path="Programs/:programId/RecipePlan" element={<ProgramPlansContainer />} />
-                  <Route path="test" element={<Test />} />
-                  <Route path="test2" element={<Test2 />} />
                 </Route>
               }
             </Routes>
@@ -98,6 +94,10 @@ export default App;
   TODO
   - implement remove and edit ingredient previously added
   - searcher and paginator for custom Recipes
+  - fix delay data after to update recipe (programs module)
+  - fix button touched but doesn't increment ingredient amount in program plans
+  - fix create meal plan (at momemt to choose meal name from wilcalrd call inmediatly to the backend) in MealDetail component
+  - implementent reload in : /sidenav/Programs/642f04279fb0838a6208f1e9/RecipePlan path
 */
 
 /*
@@ -115,4 +115,15 @@ export default App;
 /*
   starting:
     re-commit full calendar component
+*/
+
+/*
+  todo now
+  - eliminate plan from program
+  - copy plan to another day
+
+  urgent
+  - import meal from custom recipes
+    - realize import in backend
+    - add pagination to custom recipes
 */

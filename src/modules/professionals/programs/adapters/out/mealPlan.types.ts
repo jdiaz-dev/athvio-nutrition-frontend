@@ -16,9 +16,7 @@ export interface CreateMealPlanRequest {
 }
 
 export interface CreateMealPlanProgramResponse {
-  data: {
-    createMealPlan: ProgramBody;
-  };
+  createMealPlan: ProgramBody;
 }
 
 export interface UpdateMealPlanBody extends Omit<MealPlanBody, '_id' | 'mealPlanBody'> {
@@ -30,8 +28,18 @@ export interface UpdateMealPlanRequest {
   input: UpdateMealPlanBody;
 }
 
-export interface UpdateMealPlanProgramResponse {
-  data: {
-    updateMealPlan: ProgramBody;
-  };
+export interface UpdateMealPlanResponse {
+  updateMealPlan: ProgramBody;
+}
+
+export interface DeleteMealPlanBody extends Omit<MealPlanBody, '_id' | 'mealPlanBody'> {
+  mealPlan: string;
+}
+
+export interface DeleteMealPlanRequest {
+  input: DeleteMealPlanBody;
+}
+
+export interface DeleteMealPlanResponse {
+  deleteMealPlan: ProgramBody;
 }

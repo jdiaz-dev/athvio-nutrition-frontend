@@ -1,34 +1,7 @@
+import { RecipeBody } from 'src/shared/components/MealBuilder/MealBuilder.types';
 import { GetRecordsBody } from 'src/shared/types/get-records.types';
 
-export interface Macros {
-  protein: number;
-  carbs: number;
-  fat: number;
-  calories: number;
-}
-
-export interface IngredientType {
-  name: string;
-  amount: number;
-  unit: string;
-  protein?: number;
-  carbs?: number;
-  fat?: number;
-  calories?: number;
-}
-
-export interface CustomRecipeBody {
-  _id: string; // in front we manage _id, to send to back we add domain more Id, for example customRecipeId
-  professional: string;
-  name: string;
-  ingredients: IngredientType[];
-  cookingInstruction: string;
-  macros: Macros;
-}
-
-export type MealDataForBuilder = Omit<CustomRecipeBody, 'professional'>;
-
-export type CreateCustomRecipeBody = Omit<CustomRecipeBody, 'id'>;
+export type CreateCustomRecipeBody = Omit<RecipeBody, '_id'>;
 
 export interface CreateCustomRecipeRequest {
   input: CreateCustomRecipeBody;
@@ -43,7 +16,7 @@ export interface CreateCustomRecipeResponse {
   };
 }
 
-export interface UpdateCustomRecipeBody extends Omit<CustomRecipeBody, '_id'> {
+export interface UpdateCustomRecipeBody extends Omit<RecipeBody, '_id'> {
   customRecipe: string;
 }
 
@@ -65,7 +38,7 @@ export interface GetCustomRecipeRequest {
 }
 
 export interface CustomRecipes {
-  data: CustomRecipeBody[];
+  data: RecipeBody[];
   meta: {
     total: number;
     offset: number;
@@ -94,5 +67,5 @@ export interface DeleteCustomRecipeResponse {
 
 export interface CustomRecipeInitialState {
   customRecipes: CustomRecipes | null;
-  customRecipe: CustomRecipeBody;
+  customRecipe: RecipeBody;
 }

@@ -109,12 +109,7 @@ function CreateClientGroupDialog({
                 {...register('groupName', { required: true })}
               />
 
-              <Button
-                className={isValid ? classes.button : classes.buttonDisabled}
-                size="small"
-                type="submit"
-                disabled={!isValid}
-              >
+              <Button className={isValid ? classes.button : classes.buttonDisabled} size="small" type="submit" disabled={!isValid}>
                 Create group
               </Button>
             </form>

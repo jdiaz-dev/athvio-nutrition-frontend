@@ -3,6 +3,8 @@ export const EDAMAN_ANALISIS_NUTRITION_DATA = 'https://api.edamam.com/api/nutrit
 export const EDAMAN_ANALISIS_NUTRITION_DATA_APP_ID = '61502c72';
 export const EDAMAN_ANALISIS_APP_KEY = '90b651fc4688ed9c7ea8754afd766b1a';
 
+export const baseHeight = 150;
+export const baseWeek = 1;
 export enum LocalStorageEnum {
   dataUser = 'dataUser',
   authenticated = 'authenticated',
@@ -24,6 +26,11 @@ export enum MessagesUserForm {
   BUSSINES_NAME_MANDATORY = 'Please enter your bussines name',
 }
 
+/* export enum CustomRecipeMessages {
+  CREATED = 'Custom Recipe created successfully',
+  UPDATED = 'Custom Recipe updated successfully',
+} */
+
 export enum UserType {
   PROFESSIONAL = 'professional',
   CLIENT = 'client',
@@ -38,4 +45,11 @@ export enum Modules {
   PROGRAMS = 'programs',
   CUSTOM_RECIPES = 'customRecipes',
   CLIENT_PLANS = 'clientPlans',
+}
+
+export enum WeekActions {
+  READY = 'ready',
+  ADD = 'add',
+  REMOVE = 'remove',
+  NEUTRAL = 'neutral',
 }

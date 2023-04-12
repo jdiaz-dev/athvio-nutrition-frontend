@@ -52,7 +52,7 @@ function Program(program: ProgramBody) {
   };
 
   if (goToProgramRecipe) {
-    const path = `/sidenav/Programs/${program._id as string}/RecipePlan`;
+    const path = `/sidenav/Programs/${program._id}/RecipePlan`;
     return <Navigate replace to={path} />;
   }
 
@@ -68,7 +68,7 @@ function Program(program: ProgramBody) {
         <StyledTableCell align="right">
           <Grid item xs={8}>
             <IconButton aria-label="Example" onClick={handleAnchorOpen}>
-              <FontAwesomeIcon icon={faEllipsisV} />
+              <FontAwesomeIcon icon={faEllipsisV} size="xs" />
             </IconButton>
             <Menu
               id="basic-menu"

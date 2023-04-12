@@ -5,9 +5,9 @@ import TableBody from '@mui/material/TableBody';
 
 import FoodList from 'src/shared/components/MealBuilder/FoodList';
 import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
-import { MealDataForBuilder } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 import { FoddAddedContext } from 'src/shared/components/MealBuilder/FoddAddedContext';
 import Ingredient from 'src/shared/components/MealBuilder/Ingredient';
+import { MealDataForBuilder } from 'src/shared/components/MealBuilder/MealBuilder.types';
 
 const styleTableCell = {
   fontSize: 14,

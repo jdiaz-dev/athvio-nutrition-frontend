@@ -1,7 +1,7 @@
 import { applyMiddleware, configureStore } from '@reduxjs/toolkit';
 import usersReducer from 'src/modules/security/users/adapters/in/UserSlice';
 import customMealReducers from 'src/modules/professionals/custom-recipes/adapters/in/CustomRecipeSlice';
-import programsReducer from 'src/modules/professionals/programs/adapters/in/ProgramSlice';
+import programsReducer from 'src/modules/professionals/programs/adapters/in/slicers/ProgramSlice';
 
 // const {applyMiddleware, combineReducers, createStore} = require('redux');
 import thunk from 'redux-thunk';

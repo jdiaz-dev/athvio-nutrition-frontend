@@ -72,8 +72,8 @@ function ProgramList() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {programs &&
-              programs?.data.map((program, index) => (
+            {programs !== null &&
+              programs.data.map((program, index) => (
                 <React.Fragment key={index}>
                   <Program {...program} />
                 </React.Fragment>

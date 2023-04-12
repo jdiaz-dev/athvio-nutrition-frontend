@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import FullCalendar from '@fullcalendar/react'; // must go before plugins
@@ -10,9 +10,7 @@ import listPlugin from '@fullcalendar/list';
 import { DatesSetArg } from '@fullcalendar/core';
 
 import { Navigate, useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
-import { GET_PROGRAM } from 'src/modules/professionals/programs/adapters/out/ProgramQueries';
-import { DateItem, GetProgramRequest, GetProgramResponse, Plan } from 'src/modules/professionals/programs/adapters/out/program.types';
+import { DateItem } from 'src/modules/professionals/programs/adapters/out/program.types';
 import { ProfessionalIdContext } from 'src/App';
 import ProgramPlansHelper from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/ProgramPlansHelper';
 
@@ -20,89 +18,108 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { useReloadRecords } from 'src/shared/hooks/useReloadRecords';
+import { Button } from '@mui/material';
+import { baseHeight, baseWeek, WeekActions } from 'src/shared/Consts';
+import { useProgram } from 'src/modules/professionals/programs/adapters/out/ProgramActions';
+import { useSelector } from 'react-redux';
+import { ReduxStates } from 'src/shared/types/types';
 dayjs.extend(utc);
 
-export const eventNewDiv = ({ event, el, view }) => {
-  console.log(view.calendar.getOption('contextValues'));
-  // Creating `div` to replace the default <a href=""/> for event
-  const eventDiv = document.createElement('div');
-  eventDiv.innerText = 'hellow';
-  // Get classes on the default `a.fc-timeline-event`
-  const classes = Array.from(el.classList);
-  // Add classes to the new `div`
-  eventDiv.classList.add(...classes);
-
-  ReactDOM.render(<EventContent event={event} />, eventDiv);
-
-  return eventDiv;
-};
 function ProgramPlansContainer() {
   const { programId } = useParams();
   const professionalIdContext = useContext(ProfessionalIdContext);
+  const programState = useSelector((state: ReduxStates) => state.programs.program);
 
+  const { getProgram } = useProgram();
   const { reloadRecordList, setReloadRecordList } = useReloadRecords();
+  const [redirectToProgramList, setRedirectToProgramList] = useState(false);
 
   const [datesToShow, setDatesToShow] = useState<DateItem[]>([]);
-  const [redirectToProgramList, setRedirectToProgramList] = useState(false);
-  const [plans, setPlans] = useState<Plan[] | null>(null);
+  const [dateSet, setDateSet] = useState<{ dateStart: Date; dateEnd: Date } | null>(null);
+  const [totalWeeks, setTotalWeeks] = useState<number>(baseWeek);
+  const [contentHeight, setContentHeight] = useState<number>(baseHeight);
+  const [weekAction, setWeekAction] = useState<WeekActions>(WeekActions.READY);
+  const [maxWeekWithPlans, setMaxWeekWithPlans] = useState<number>(1);
   const input = {
     professional: professionalIdContext.professional,
     program: programId as string,
   };
-  const { data, refetch } = useQuery<GetProgramResponse, GetProgramRequest>(GET_PROGRAM, {
-    variables: {
-      input,
-    },
-  });
+  console.log('-------------reloadRecordList', reloadRecordList);
+  console.log('-------------programState', programState);
   useEffect(() => {
-    if (data !== undefined) {
-      setPlans(data.getProgram.plans);
-    }
-    return () => {
-      setPlans(null);
+    const getProgramHelper = async () => {
+      await getProgram(input);
     };
-  }, [data]);
-  useEffect(() => {
-    console.log(' hellow');
-    if (reloadRecordList) {
-      void refetch({ input });
+
+    if (professionalIdContext.professional) {
+      void getProgramHelper();
       setReloadRecordList(false);
     }
-  }, [reloadRecordList]);
-  // function handleEventClick(arg: any) {}
-  // function handleDateClick(arg) {}
+  }, [professionalIdContext.professional, reloadRecordList]);
 
-  const fullMonthWithDates = useCallback(
-    (dateInfo: DatesSetArg) => {
-      console.log('-----------dateInfo1', dateInfo);
-
-      let dateStart = dayjs(dateInfo.start);
+  useEffect(() => {
+    const weeksBasedOnPlans = programState.plans.length > 0 ? programState.plans[programState.plans.length - 1].week : baseWeek;
+    const fullWeekTableWithDates = (): DateItem[] => {
+      let dateStart = dayjs(dateSet ? dateSet.dateStart : new Date());
       let dateItem: DateItem;
-      const dates: DateItem[] = [];
 
-      let dayPlan = 1;
+      let planDay = 1;
+      let planWeek = 1;
       let planIndex: number;
-      console.log(' -------*********************----------- plans', plans);
 
-      while (dateStart < dayjs(dateInfo.end)) {
-        planIndex = plans?.findIndex((plan) => plan.day === dayPlan) as number;
+      const dates: DateItem[] = [];
+      while (dateStart < dayjs(dateSet ? dateSet.dateEnd : new Date())) {
+        planIndex = programState.plans.findIndex((plan) => plan.day === planDay);
         dateItem = {
           title: '',
           date: dateStart.toDate(),
           extendedProps: {
-            program: data && data?.getProgram._id ? data?.getProgram._id : '',
-            plan: plans !== null && planIndex >= 0 ? plans[planIndex] : null,
-            dayPlan,
+            program: programState !== undefined ? programState._id : '',
+            plan: {
+              _id: programState.plans.length > 0 && planIndex >= 0 ? programState.plans[planIndex]._id : null,
+              totalMeals: programState.plans.length > 0 && planIndex >= 0 ? programState.plans[planIndex].mealPlans.length : null,
+            },
+            planDay,
+            planWeek,
           },
         };
         dateStart = dayjs(dateStart).set('date', dateStart.get('date') + 1);
-        dayPlan++;
+        planWeek = planDay % 7 === 0 ? planWeek + 1 : planWeek;
+        planDay++;
         dates.push(dateItem);
       }
-      setDatesToShow(dates);
-    },
-    [plans],
-  );
+      return dates;
+    };
+    const handleWeekAction = (): number => {
+      if (weekAction === WeekActions.READY) {
+        return weeksBasedOnPlans;
+      } else if (weekAction === WeekActions.ADD) {
+        return totalWeeks + 1;
+      } else if (weekAction === WeekActions.REMOVE) {
+        return totalWeeks - 1;
+      } else {
+        return totalWeeks;
+      }
+    };
+
+    if (dateSet !== null || reloadRecordList) {
+      setDatesToShow(fullWeekTableWithDates());
+      setMaxWeekWithPlans(weeksBasedOnPlans);
+      setTotalWeeks(handleWeekAction());
+      setWeekAction(WeekActions.NEUTRAL);
+    }
+  }, [reloadRecordList, dateSet, programState, weekAction]);
+
+  // function handleEventClick(arg: any) {}
+  // function handleDateClick(arg) {}
+
+  useEffect(() => {
+    setContentHeight(baseHeight * totalWeeks);
+  }, [totalWeeks]);
+
+  const dateSetHelper = (dateInfo: DatesSetArg) => {
+    setDateSet({ dateStart: dateInfo.start, dateEnd: dateInfo.end });
+  };
 
   if (redirectToProgramList) {
     const path = `/sidenav/Programs`;
@@ -118,52 +135,60 @@ function ProgramPlansContainer() {
         }}
       />
       <ReloadRecordListContext.Provider value={{ reloadRecordList, setReloadRecordList }}>
-        {plans !== null && (
+        {programState.plans.length > 0 && (
           <FullCalendar
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
             initialView="dayGridFourWeek"
             // eventClick={handleEventClick}
             // dateClick={handleDateClick}
             events={datesToShow}
-            datesSet={fullMonthWithDates}
+            datesSet={dateSetHelper}
             eventContent={ProgramPlansHelper}
             // handleCustomRendering={eventNewDiv}
             views={{
               dayGridFourWeek: {
                 type: 'dayGrid',
-                duration: { weeks: 3, specifiedWeeks: true },
+                duration: { weeks: totalWeeks, specifiedWeeks: true },
                 listDayFormat: { weekday: 'long' },
               },
             }}
             dayHeaders={false} // hide day headers
             /* dayHeaderContent={(args) => {
-          if (args.text === 'Sun') {
-            return <div>Day1</div>;
-          } else if (args.text === 'Mon') {
-            return <div>Day2</div>;
-          } else if (args.text === 'Tue') {
-            return <div>Day3</div>;
-          } else if (args.text === 'Wed') {
-            return <div>Day4</div>;
-          } else if (args.text === 'Thu') {
-            return <div>Day5</div>;
-          } else if (args.text === 'Fri') {
-            return <div>Day6</div>;
-          } else {
-            return <div>Day7</div>;
-          }
-          }} */
+            if (args.text === 'Sun') {
+              return <div>Day1</div>;
+            } else if (args.text === 'Mon') {
+              return <div>Day2</div>;
+            } else if (args.text === 'Tue') {
+              return <div>Day3</div>;
+            } else if (args.text === 'Wed') {
+              return <div>Day4</div>;
+            } else if (args.text === 'Thu') {
+              return <div>Day5</div>;
+            } else if (args.text === 'Fri') {
+              return <div>Day6</div>;
+            } else {
+              return <div>Day7</div>;
+            }
+            }} */
 
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             dayCellContent={(info, create) => {
               counterDay++;
               return <div>Day {counterDay}</div>;
             }}
-            contentHeight={450}
+            contentHeight={contentHeight}
             titleFormat={{
               weekday: undefined,
             }}
           />
+        )}
+        <Button variant="contained" onClick={() => setWeekAction(WeekActions.ADD)}>
+          Add week
+        </Button>
+        {maxWeekWithPlans < totalWeeks && (
+          <Button variant="contained" onClick={() => setWeekAction(WeekActions.REMOVE)}>
+            Remove week
+          </Button>
         )}
       </ReloadRecordListContext.Provider>
     </>

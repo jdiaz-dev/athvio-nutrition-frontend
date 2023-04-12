@@ -1,19 +1,15 @@
 import React, { useContext, useState } from 'react';
 // eslint-disable-next-line max-len
 import CreateUpdateCustomRecipeDialog from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/CreateUpdateCustomRecipeDialog';
-import { CustomRecipeBody } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
-import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
 import { Button, Grid, Menu, MenuItem } from '@mui/material';
 import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
 import { useCustomRecipe } from 'src/modules/professionals/custom-recipes/adapters/out/CustomRecipeActions';
 import { ProfessionalIdContext } from 'src/App';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
+import { RecipeBody } from 'src/shared/components/MealBuilder/MealBuilder.types';
 
-function CustomRecipe(customRecipe: CustomRecipeBody) {
+function CustomRecipe(customRecipe: RecipeBody) {
   const professionalIdContext = useContext(ProfessionalIdContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const [openCreateUpdateCustomRecipeDialog, setOpenCreateUpdateCustomRecipeDialog] = useState(false);

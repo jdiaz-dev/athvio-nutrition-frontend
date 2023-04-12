@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
-import PlansDetailDialog from 'src/modules/professionals/programs/adapters/in/dialogs/PlansDetailDialog/PlansDetailDialog';
-import { Plan } from 'src/modules/professionals/programs/adapters/out/program.types';
+import PlanDetailDialog from 'src/modules/professionals/programs/adapters/in/dialogs/PlanDetailDialog/PlanDetailDialog';
+import { PlanDayInfo } from 'src/modules/professionals/programs/adapters/out/program.types';
 
-function PlanBasicInformation({ program, plan }: { program: string; plan: Plan }) {
+function PlanBasicInformation({ program, plan }: { program: string; plan: PlanDayInfo }) {
   const [openPlanDetailDialog, setOpenPlanDetailDialog] = useState(false);
 
   return (
     <>
-      <div onClick={() => setOpenPlanDetailDialog(true)}>{plan.mealPlans.length} meals</div>
+      <div onClick={() => setOpenPlanDetailDialog(true)}>{plan.totalMeals} meals</div>
       {openPlanDetailDialog && (
-        <PlansDetailDialog
+        <PlanDetailDialog
           openPlanDetailDialog={openPlanDetailDialog}
           setOpenPlanDetailDialog={setOpenPlanDetailDialog}
-          dayPlan={plan.day}
           program={program}
-          plan={plan}
+          planId={plan._id || ''}
         />
       )}
     </>

@@ -1,8 +1,9 @@
 import React, { ReactNode, useContext, useEffect, useState } from 'react';
-import { Box, Button, Card, Dialog, DialogContent, TextField } from '@mui/material';
+import { Button, Card, Dialog, DialogContent, DialogTitle, IconButton, TextField } from '@mui/material';
 
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { makeStyles } from 'tss-react/mui';
+import CloseIcon from '@mui/icons-material/Close';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -11,7 +12,7 @@ import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext
 import { ReduxStates } from 'src/shared/types/types';
 import { ProgramBody } from 'src/modules/professionals/programs/adapters/out/program.types';
 import { useProgram } from 'src/modules/professionals/programs/adapters/out/ProgramActions';
-import { resetProgramItem, setNameAndDescription, setProgramItem } from 'src/modules/professionals/programs/adapters/in/ProgramSlice';
+import * as ProgramSlice from 'src/modules/professionals/programs/adapters/in/slicers/ProgramSlice';
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
 
 const cardStyles = makeStyles()(() => {
@@ -56,6 +57,7 @@ function CreateUpdateProgramDialog({
   const { classes } = cardStyles();
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const programState = useSelector((state: ReduxStates) => state.programs.program);
+  const [closeIconDialog, setCloseIconDialog] = useState(true);
 
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk } = useMessageDialog();
   const [createUpdateProgramStateUpdate, setCreateUpdateProgramStateUpdated] = useState(false);
@@ -70,21 +72,22 @@ function CreateUpdateProgramDialog({
 
   useEffect(() => {
     if (_program !== undefined) {
-      dispatch(setProgramItem(_program));
+      dispatch(ProgramSlice.acceptNewProgram(_program));
     } else {
-      dispatch(resetProgramItem());
+      dispatch(ProgramSlice.resetProgramItem());
     }
     return () => {
-      dispatch(resetProgramItem());
+      dispatch(ProgramSlice.resetProgramItem());
     };
   }, [_program]);
 
   useEffect(() => {
     const createUpdateProgramHelper = async () => {
       if (_program && _program._id) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { _id, professional, name, description, ...restProgram } = programState;
         await updateProgram({
-          program: _id as string,
+          program: _id,
           professional,
           name,
           description,
@@ -113,7 +116,7 @@ function CreateUpdateProgramDialog({
 
   const onSubmitProgram = (data: { name: string; description: string }) => {
     console.log(data);
-    dispatch(setNameAndDescription(data));
+    dispatch(ProgramSlice.setNameAndDescription(data));
     setCreateUpdateProgramStateUpdated(true);
   };
 
@@ -130,6 +133,25 @@ function CreateUpdateProgramDialog({
         aria-labelledby="dialog-title"
         aria-describedby="dialog-description"
       >
+        <DialogTitle sx={{ m: 0, p: 2 }}>
+          Create your custom recipe
+          {closeIconDialog ? (
+            <IconButton
+              aria-label="close"
+              onClick={() => {
+                setCloseIconDialog(false);
+              }}
+              sx={{
+                position: 'absolute',
+                right: 8,
+                top: 8,
+                color: (theme) => theme.palette.grey[500],
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+          ) : null}
+        </DialogTitle>
         <DialogContent dividers={true} style={{ minHeight: '900px' }}>
           <Card className={classes.card} variant="outlined">
             <form className={classes.form} onSubmit={handleSubmit(onSubmitProgram as any as SubmitHandler<FieldValues>)}>

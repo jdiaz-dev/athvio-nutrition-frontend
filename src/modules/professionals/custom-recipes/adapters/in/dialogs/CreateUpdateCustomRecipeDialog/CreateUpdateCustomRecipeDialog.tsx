@@ -1,19 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Card, Dialog, DialogContent } from '@mui/material';
+import { Card, Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
+import CloseIcon from '@mui/icons-material/Close';
 
 import NutrientsDetail from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/NutrientsDetail';
 import * as CustomRecipeSlicers from 'src/modules/professionals/custom-recipes/adapters/in/CustomRecipeSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCustomRecipe } from 'src/modules/professionals/custom-recipes/adapters/out/CustomRecipeActions';
-import MessageDialog from 'src/shared/dialogs/MessageDialog';
-import { CustomRecipeBody } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { ReduxStates } from 'src/shared/types/types';
-import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
 import { Modules } from 'src/shared/Consts';
 import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
 import MealBuilder from 'src/shared/components/MealBuilder/MealBuilder';
+import { RecipeBody } from 'src/shared/components/MealBuilder/MealBuilder.types';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -51,18 +50,18 @@ function CreateUpdateCustomRecipeDialog({
 }: {
   openCreateUpdateCustomRecipeDialog: boolean;
   setOpenCreateUpdateCustomRecipeDialog: (openDialog: boolean) => void;
-  _customRecipe?: CustomRecipeBody;
+  _customRecipe?: RecipeBody;
 }) {
   const { classes } = cardStyles();
   const dispatch = useDispatch();
   const customRecipeState = useSelector((state: ReduxStates) => state.customRecipes.customRecipe);
 
-  const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk } = useMessageDialog();
   const { createCustomRecipe, updateCustomRecipe } = useCustomRecipe();
 
   const reloadRecordListContext = useContext(ReloadRecordListContext);
 
-  const [customRecipeNameUpdated, setCustomRecipeNameUpdated] = useState(false);
+  const [componentMouseOut, setComponentMouseOut] = useState(false);
+  const [closeIconDialog, setCloseIconDialog] = useState(true);
 
   useEffect(() => {
     if (_customRecipe !== undefined) {
@@ -75,36 +74,32 @@ function CreateUpdateCustomRecipeDialog({
     };
   }, [_customRecipe]);
 
-  const { professional, ...restCustomRecipe } = customRecipeState;
+  const { _id, professional, ...restCustomRecipe } = customRecipeState;
   useEffect(() => {
     const createUpdateCustomRecipeHelper = async () => {
       if (_customRecipe && _customRecipe._id) {
         await updateCustomRecipe({
-          customRecipe: restCustomRecipe._id,
+          customRecipe: _id,
           professional,
           ...restCustomRecipe,
         });
-        setMessage('Custom Recipe updated successfully');
-        setCustomRecipeNameUpdated(false);
+        setComponentMouseOut(false);
       } else {
-        await createCustomRecipe(customRecipeState);
-        setMessage('Custom Recipe created successfully');
-        setCustomRecipeNameUpdated(false);
+        await createCustomRecipe({ professional, ...restCustomRecipe });
+        setComponentMouseOut(false);
       }
-      setOpenDialog(true);
     };
-    if (customRecipeNameUpdated) {
+    if (componentMouseOut) {
       void createUpdateCustomRecipeHelper();
     }
-  }, [customRecipeNameUpdated, _customRecipe]);
+  }, [componentMouseOut, _customRecipe]);
 
   useEffect(() => {
-    if (!openDialog && messageOk) {
-      setOpenCreateUpdateCustomRecipeDialog(false);
+    if (!closeIconDialog) {
       reloadRecordListContext.setReloadRecordList(true);
-      setMessageOk(false);
+      setOpenCreateUpdateCustomRecipeDialog(false);
     }
-  }, [openDialog, messageOk]);
+  }, [closeIconDialog]);
 
   return (
     <>
@@ -120,20 +115,44 @@ function CreateUpdateCustomRecipeDialog({
         aria-labelledby="dialog-title"
         aria-describedby="dialog-description"
       >
+        <DialogTitle sx={{ m: 0, p: 2 }}>
+          Create your custom recipe
+          {closeIconDialog ? (
+            <IconButton
+              aria-label="close"
+              onClick={() => {
+                setCloseIconDialog(false);
+              }}
+              sx={{
+                position: 'absolute',
+                right: 8,
+                top: 8,
+                color: (theme) => theme.palette.grey[500],
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+          ) : null}
+        </DialogTitle>
         <DialogContent
           dividers={true}
           style={{ minHeight: '900px', display: 'flex', justifyContent: 'space-between', border: '2px solid brown' }}
         >
-          <Card style={{ width: '55%' }} sx={{ minWidth: 275 }} className={classes.card} variant="outlined">
+          <Card
+            style={{ width: '55%' }}
+            sx={{ minWidth: 275 }}
+            className={classes.card}
+            variant="outlined"
+            onMouseLeave={() => {
+              setComponentMouseOut(true);
+            }}
+          >
             <CurrentModuleContext.Provider value={{ currentModule: Modules.CUSTOM_RECIPES }}>
-              <MealBuilder meal={restCustomRecipe} setMealNameUpdated={setCustomRecipeNameUpdated} />
+              <MealBuilder meal={{ _id, ...restCustomRecipe }} />
             </CurrentModuleContext.Provider>
           </Card>
           <NutrientsDetail />
         </DialogContent>
-        {openDialog && (
-          <MessageDialog openDialog={openDialog} setOpenDialog={setOpenDialog} message={message} setMessageOk={setMessageOk} />
-        )}
       </Dialog>
     </>
   );

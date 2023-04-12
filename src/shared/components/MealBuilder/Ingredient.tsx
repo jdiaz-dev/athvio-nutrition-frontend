@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react';
-import { IngredientType } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 import { EDAMAN_ANALISIS_APP_KEY, EDAMAN_ANALISIS_NUTRITION_DATA, EDAMAN_ANALISIS_NUTRITION_DATA_APP_ID } from 'src/shared/Consts';
 import { AnalisysNutritionDataResponse } from 'src/modules/professionals/custom-recipes/adapters/out/Edaman.types';
 import { useDispatch } from 'react-redux';
@@ -7,6 +6,7 @@ import { StyledTableCell, StyledTableRow } from 'src/shared/components/Customize
 import { useChooseSlicers } from 'src/shared/hooks/useChooseSlicers';
 import { FoddAddedContext } from 'src/shared/components/MealBuilder/FoddAddedContext';
 import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
+import { IngredientType } from 'src/shared/components/MealBuilder/MealBuilder.types';
 
 function Ingredient({ ingredient: { name, amount, unit, ...rest } }: { ingredient: IngredientType }) {
   const dispatch = useDispatch();

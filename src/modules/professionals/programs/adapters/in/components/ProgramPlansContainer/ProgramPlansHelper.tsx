@@ -1,15 +1,16 @@
 import React from 'react';
 import { EventContentArg } from '@fullcalendar/core';
 import PlanBasicInformation from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/PlanBasicInformation';
-import { Plan } from 'src/modules/professionals/programs/adapters/out/program.types';
-import CreatePlanMealButton from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/CreatePlanMealButton';
+import CreatePlanMealButton from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/CreatePlanButton';
+import { DateItemExtendedProps } from 'src/modules/professionals/programs/adapters/out/program.types';
 
+// it is a function not  a component, therefore doesn't support hooks
 function ProgramPlansHelper(arg: EventContentArg) {
-  const { program, plan, dayPlan } = arg.event.extendedProps;
-  if (plan === null) {
-    return <CreatePlanMealButton dayPlan={dayPlan as number} />;
+  const { program, plan, planDay, planWeek } = arg.event.extendedProps as DateItemExtendedProps;
+  if (plan._id === null) {
+    return <CreatePlanMealButton planDay={planDay} planWeek={planWeek} program={program} />;
   } else {
-    return <PlanBasicInformation program={program as string} plan={plan as Plan} />;
+    return <PlanBasicInformation program={program} plan={plan} />;
   }
 }
 

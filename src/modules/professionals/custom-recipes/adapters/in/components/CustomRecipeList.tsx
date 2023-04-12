@@ -18,7 +18,6 @@ import { ReduxStates } from 'src/shared/types/types';
 // eslint-disable-next-line prettier/prettier
 function CustomRecipeList() {
   const customRecipeList = useSelector((state: ReduxStates) => state.customRecipes.customRecipes);
-  console.log('----------customRecipeList', customRecipeList);
 
   const professionalIdContext = useContext(ProfessionalIdContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
@@ -36,7 +35,7 @@ function CustomRecipeList() {
   const { getCustomRecipes } = useCustomRecipe();
 
   useEffect(() => {
-    const getCustomRecipeHelper = async () => {
+    const getCustomRecipeHandler = async () => {
       const _input = {
         professional: professionalIdContext.professional,
         offset: 0,
@@ -46,12 +45,12 @@ function CustomRecipeList() {
       await getCustomRecipes(_input);
     };
     if (professionalIdContext.professional && reloadRecordListContext.reloadRecordList) {
-      void getCustomRecipeHelper();
+      void getCustomRecipeHandler();
       reloadRecordListContext.setReloadRecordList(false);
     }
 
     if (professionalIdContext.professional && firstCall) {
-      void getCustomRecipeHelper();
+      void getCustomRecipeHandler();
       setFirstCall(false);
     }
   }, [professionalIdContext.professional, reloadRecordListContext.reloadRecordList]);

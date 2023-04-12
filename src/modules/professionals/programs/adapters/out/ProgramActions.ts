@@ -1,7 +1,8 @@
 import { ApolloError } from '@apollo/client';
 import { useDispatch } from 'react-redux';
 import { apolloClient } from 'src/graphql/ApolloClient';
-import { resetProgramItem, setProgramList } from 'src/modules/professionals/programs/adapters/in/ProgramSlice';
+import * as ProgramSlice from 'src/modules/professionals/programs/adapters/in/slicers/ProgramSlice';
+import * as PlanSlice from 'src/modules/professionals/programs/adapters/in/slicers/PlanSlice';
 
 import {
   CreateProgramBody,
@@ -15,11 +16,14 @@ import {
   UpdateProgramBody,
   UpdateProgramRequest,
   UpdateProgramResponse,
+  GetProgramResponse,
+  GetProgramRequest,
 } from 'src/modules/professionals/programs/adapters/out/program.types';
 
 import {
   CREATE_PROGRAM,
   DELETE_PROGRAM,
+  GET_PROGRAM,
   GET_PROGRAMS,
   UPDATE_PROGRAM,
 } from 'src/modules/professionals/programs/adapters/out/ProgramQueries';
@@ -38,8 +42,33 @@ export function useProgram() {
           },
         },
       });
-      if (response) dispatch(resetProgramItem());
+      if (response) {
+        dispatch(ProgramSlice.resetProgramItem());
+      }
       console.log(response);
+    } catch (error) {
+      console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
+      throw error;
+    }
+  };
+  const getProgram = async (body: ProgramInput) => {
+    try {
+      const response = await apolloClient.query<GetProgramResponse, GetProgramRequest>({
+        query: GET_PROGRAM,
+        variables: {
+          input: {
+            ...body,
+          },
+        },
+        fetchPolicy: 'network-only',
+      });
+
+      if (response) {
+        dispatch(ProgramSlice.acceptNewProgram(response.data.getProgram));
+        dispatch(PlanSlice.acceptNewPlans(response.data.getProgram.plans));
+      }
+
+      return response;
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
@@ -57,7 +86,10 @@ export function useProgram() {
         fetchPolicy: 'network-only',
       });
 
-      if (response) dispatch(setProgramList(response.data.getPrograms));
+      if (response) {
+        dispatch(ProgramSlice.acceptNewPrograms(response.data.getPrograms));
+      }
+
       return response;
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
@@ -74,7 +106,7 @@ export function useProgram() {
           },
         },
       });
-      if (response) dispatch(resetProgramItem());
+      if (response) dispatch(ProgramSlice.resetProgramItem());
       console.log(response);
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
@@ -92,12 +124,12 @@ export function useProgram() {
           },
         },
       });
-      if (response) dispatch(resetProgramItem());
+      if (response) dispatch(ProgramSlice.resetProgramItem());
       console.log(response);
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
     }
   };
-  return { createProgram, getPrograms, updateProgram, deleteProgram };
+  return { createProgram, getProgram, getPrograms, updateProgram, deleteProgram };
 }

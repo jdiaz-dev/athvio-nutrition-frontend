@@ -1,5 +1,5 @@
 import * as cutomRecipeSlicers from 'src/modules/professionals/custom-recipes/adapters/in/CustomRecipeSlice';
-import * as programSlicers from 'src/modules/professionals/programs/adapters/in/ProgramSlice';
+import * as mealPlanSlicers from 'src/modules/professionals/programs/adapters/in/slicers/MealPlanSlice';
 import { Modules } from 'src/shared/Consts';
 
 export const useChooseSlicers = (domain: string) => {
@@ -7,8 +7,7 @@ export const useChooseSlicers = (domain: string) => {
   if (domain === Modules.CUSTOM_RECIPES) {
     slicer = cutomRecipeSlicers;
   } else {
-    slicer = programSlicers;
+    slicer = mealPlanSlicers;
   }
-
   return { ...slicer };
 };
