@@ -4,19 +4,7 @@ export const CREATE_PROGRAM = gql`
   mutation _createProgram($input: CreateProgramDto!) {
     createProgram(input: $input) {
       _id
-      name
-      description
-      programTags {
-        _id
-      }
-    }
-  }
-`;
-
-export const GET_PROGRAM = gql`
-  query _getProgram($input: GetProgramDto!) {
-    getProgram(input: $input) {
-      _id
+      professional
       name
       description
       programTags {
@@ -29,23 +17,63 @@ export const GET_PROGRAM = gql`
         day
         mealPlans {
           _id
+          mealTag
           position
-          name
-          ingredients {
+          meals {
             name
-            amount
-            unit
-            protein
-            carbs
-            fat
-            calories
+            ingredients {
+              name
+              amount
+              calories
+            }
+            cookingInstruction
+            macros {
+              protein
+              carbs
+              fat
+              calories
+            }
           }
-          cookingInstruction
-          macros {
-            protein
-            carbs
-            fat
-            calories
+        }
+      }
+    }
+  }
+`;
+
+export const GET_PROGRAM = gql`
+  query _getProgram($input: GetProgramDto!) {
+    getProgram(input: $input) {
+      _id
+      professional
+      name
+      description
+      programTags {
+        _id
+      }
+      plans {
+        _id
+        title
+        week
+        day
+        mealPlans {
+          _id
+          mealTag
+          position
+          meals {
+            _id
+            name
+            ingredients {
+              name
+              amount
+              calories
+            }
+            cookingInstruction
+            macros {
+              protein
+              carbs
+              fat
+              calories
+            }
           }
         }
       }
@@ -58,12 +86,33 @@ export const GET_PROGRAMS = gql`
     getPrograms(input: $input) {
       data {
         _id
-        professional
         name
         description
         programTags {
           _id
           title
+        }
+        plans {
+          mealPlans {
+            _id
+            mealTag
+            position
+            meals {
+              name
+              ingredients {
+                name
+                amount
+                calories
+              }
+              cookingInstruction
+              macros {
+                protein
+                carbs
+                fat
+                calories
+              }
+            }
+          }
         }
       }
       meta {
@@ -80,8 +129,32 @@ export const UPDATE_PROGRAM = gql`
     updateProgram(input: $input) {
       _id
       name
+      description
       programTags {
         _id
+        title
+      }
+      plans {
+        mealPlans {
+          _id
+          mealTag
+          position
+          meals {
+            name
+            ingredients {
+              name
+              amount
+              calories
+            }
+            cookingInstruction
+            macros {
+              protein
+              carbs
+              fat
+              calories
+            }
+          }
+        }
       }
     }
   }
@@ -91,9 +164,36 @@ export const DELETE_PROGRAM = gql`
   mutation _deleteProgram($input: DeleteProgramDto!) {
     deleteProgram(input: $input) {
       _id
+      professional
       name
+      description
       programTags {
         _id
+      }
+      plans {
+        title
+        week
+        day
+        mealPlans {
+          _id
+          mealTag
+          position
+          meals {
+            name
+            ingredients {
+              name
+              amount
+              calories
+            }
+            cookingInstruction
+            macros {
+              protein
+              carbs
+              fat
+              calories
+            }
+          }
+        }
       }
     }
   }

@@ -5,12 +5,12 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import CloseIcon from '@mui/icons-material/Close';
 import { MealPlan } from 'src/modules/professionals/programs/adapters/out/program.types';
-import MealPlanDetail from 'src/modules/professionals/programs/adapters/in/dialogs/PlanDetailDialog/MealPlanDetail';
 import { programInitialState } from 'src/modules/professionals/programs/adapters/in/slicers/ProgramInitialState';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 import { DialogTitle, IconButton } from '@mui/material';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
+import MealPlanDetail from 'src/modules/professionals/programs/adapters/in/dialogs/PlanDetailDialog/MealPlanDetail';
 
 function PlanDetailDialog({
   openPlanDetailDialog,
@@ -44,7 +44,7 @@ function PlanDetailDialog({
   }, [closeIconDialog]);
 
   const addMealPlanHandler = () => {
-    setMealPlans(mealPlans.concat([{ position: 0, ...programInitialState.mealPlan }]));
+    setMealPlans(mealPlans.concat([{ ...programInitialState.mealPlan }]));
   };
   return (
     <>

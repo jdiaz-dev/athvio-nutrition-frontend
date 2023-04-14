@@ -21,7 +21,7 @@ export interface CreateMealPlanProgramResponse {
 
 export interface UpdateMealPlanBody extends Omit<MealPlanBody, '_id' | 'mealPlanBody'> {
   mealPlan: string;
-  mealPlanBody: Omit<MealPlan, '_id'>;
+  mealPlanBody: Pick<MealPlan, 'position' | 'mealTag'>;
 }
 
 export interface UpdateMealPlanRequest {

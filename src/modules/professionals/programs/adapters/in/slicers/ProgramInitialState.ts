@@ -21,9 +21,9 @@ export const programInitialState: ProgramInitialState = {
   },
   mealPlan: {
     _id: '',
-    name: 'Meal name',
-    ingredients: [],
-    cookingInstruction: '',
+    mealTag: 'Meal name',
+    position: 0,
+    meals: [],
     macros: {
       protein: 0,
       carbs: 0,

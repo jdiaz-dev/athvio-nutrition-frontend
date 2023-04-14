@@ -44,8 +44,8 @@ function ProgramPlansContainer() {
     professional: professionalIdContext.professional,
     program: programId as string,
   };
-  console.log('-------------reloadRecordList', reloadRecordList);
-  console.log('-------------programState', programState);
+  // console.log('-------------reloadRecordList', reloadRecordList);
+  // console.log('-------------programState', programState);
   useEffect(() => {
     const getProgramHelper = async () => {
       await getProgram(input);
@@ -59,6 +59,7 @@ function ProgramPlansContainer() {
 
   useEffect(() => {
     const weeksBasedOnPlans = programState.plans.length > 0 ? programState.plans[programState.plans.length - 1].week : baseWeek;
+
     const fullWeekTableWithDates = (): DateItem[] => {
       let dateStart = dayjs(dateSet ? dateSet.dateStart : new Date());
       let dateItem: DateItem;

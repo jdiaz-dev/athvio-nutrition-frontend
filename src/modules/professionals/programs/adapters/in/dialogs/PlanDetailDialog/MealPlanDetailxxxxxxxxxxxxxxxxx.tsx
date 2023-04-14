@@ -8,7 +8,6 @@ import * as MealPlanSlice from 'src/modules/professionals/programs/adapters/in/s
 import { useMealPlan } from 'src/modules/professionals/programs/adapters/out/MealPlanActions';
 import { MealPlan } from 'src/modules/professionals/programs/adapters/out/program.types';
 import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
-import MealBuilder from 'src/shared/components/MealBuilder/MealBuilder';
 import { Modules } from 'src/shared/Consts';
 import { ReduxStates } from 'src/shared/types/types';
 import { makeStyles } from 'tss-react/mui';
@@ -16,7 +15,6 @@ import { PlanContext } from 'src/modules/professionals/programs/adapters/in/comp
 import { mealPlanCreatedChange } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/CreatePlanButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
-import MealDetail from 'src/modules/professionals/programs/adapters/in/dialogs/PlanDetailDialog/MealDetail';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -30,7 +28,7 @@ const cardStyles = makeStyles()(() => {
   };
 });
 
-function MealPlanDetail({ program, plan, mealPlan }: { program: string; plan: string; mealPlan: MealPlan }) {
+function MealPlanDetail({ program, plan, mealPlan: { position, ...restMealPlan } }: { program: string; plan: string; mealPlan: MealPlan }) {
   const { classes } = cardStyles();
   const professionalIdContext = useContext(ProfessionalIdContext);
   const planContext = useContext(PlanContext);
@@ -49,7 +47,7 @@ function MealPlanDetail({ program, plan, mealPlan }: { program: string; plan: st
     setAnchorEl(null);
   };
   const componentClickedHandler = () => {
-    dispatch(MealPlanSlice.acceptNewMealDetail(mealPlan));
+    dispatch(MealPlanSlice.acceptNewMealDetail(restMealPlan));
     setComponentTouched(true);
   };
   const createUpdateMealPlanHandler = async () => {
@@ -60,7 +58,7 @@ function MealPlanDetail({ program, plan, mealPlan }: { program: string; plan: st
         professional: professionalIdContext.professional,
         program,
         plan,
-        mealPlanBody: mealPlanState,
+        mealPlanBody: { position, ...rest },
       });
 
       if (planContext.isFromRecentlyCreatedPlan) mealPlanCreatedChange.next(true);
@@ -70,7 +68,7 @@ function MealPlanDetail({ program, plan, mealPlan }: { program: string; plan: st
         program,
         plan,
         mealPlan: mealPlanState._id,
-        mealPlanBody: mealPlanState,
+        mealPlanBody: { position, ...rest },
       });
     }
   };
@@ -85,7 +83,7 @@ function MealPlanDetail({ program, plan, mealPlan }: { program: string; plan: st
     });
   };
 
-  // const mealPlan = () => (componentTouched ? mealPlanState : mealPlan);
+  const mealPlan = () => (componentTouched ? mealPlanState : restMealPlan);
   return (
     <>
       <Card
@@ -119,15 +117,8 @@ function MealPlanDetail({ program, plan, mealPlan }: { program: string; plan: st
             <MenuItem onClick={() => deleteMealPlanHandler()}>Delete meal</MenuItem>
           </Menu>
         </Grid>
-
-        {/* this context maybe will be used */}
-        <div>{mealPlan.mealTag}</div>
         <CurrentModuleContext.Provider value={{ currentModule: Modules.PROGRAMS }}>
-          <div>
-            {mealPlan.meals.map((meal, index) => (
-              <MealDetail key={index} meal={meal} />
-            ))}
-          </div>
+          <div>{/* <MealBuilder meal={mealPlan()} /> */}</div>
         </CurrentModuleContext.Provider>
       </Card>
     </>

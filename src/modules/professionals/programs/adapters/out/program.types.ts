@@ -8,12 +8,18 @@ export interface Macros {
   calories: number;
 }
 
-export interface MealPlan {
+export interface Meal {
   _id: string;
   name: string;
-  position: number;
   ingredients: IngredientType[];
   cookingInstruction: string;
+  macros: Macros;
+}
+export interface MealPlan {
+  _id: string;
+  mealTag: string;
+  position: number;
+  meals: Meal[];
   macros: Macros;
 }
 
@@ -128,5 +134,5 @@ export interface ProgramInitialState {
   program: ProgramBody;
   plans: Plan[];
   plan: Plan;
-  mealPlan: MealDataForBuilder;
+  mealPlan: MealPlan;
 }
