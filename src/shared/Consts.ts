@@ -5,6 +5,8 @@ export const EDAMAN_ANALISIS_APP_KEY = '90b651fc4688ed9c7ea8754afd766b1a';
 
 export const baseHeight = 150;
 export const baseWeek = 1;
+export const defaultDatabase = 'ALL';
+
 export enum LocalStorageEnum {
   dataUser = 'dataUser',
   authenticated = 'authenticated',
@@ -52,4 +54,9 @@ export enum WeekActions {
   ADD = 'add',
   REMOVE = 'remove',
   NEUTRAL = 'neutral',
+}
+
+export enum IngredientType {
+  CUSTOM_INGREDIENT = 'CUSTOM_INGREDIENT',
+  UNIQUE_INGREDIENT = 'UNIQUE_INGREDIENT',
 }

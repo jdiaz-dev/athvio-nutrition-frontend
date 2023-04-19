@@ -27,7 +27,7 @@ function MealBuilder({ meal }: { meal: MealDataForBuilder }) {
           <Typography variant="subtitle1">Cooking instructions</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <CookingInstructions cookingInstruction={meal.cookingInstruction} />
+          <CookingInstructions cookingInstructions={meal.cookingInstructionss} />
         </AccordionDetails>
       </Accordion>
     </>

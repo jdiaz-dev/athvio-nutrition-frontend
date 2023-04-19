@@ -9,8 +9,9 @@ const initialState: CustomRecipeInitialState = {
     _id: '',
     professional: getUserFromLocalStorage()._id,
     name: 'Meal 1',
-    ingredients: [],
-    cookingInstruction: '',
+    ingredientDetails: [],
+    cookingInstructions: '',
+    totalWeight: 0,
     macros: {
       protein: 0,
       carbs: 0,
@@ -34,15 +35,7 @@ export const { showCustomRecipes } = customRecipesSlices.actions;
 
 const custoRecipeSlice = recipeBuilderSlice('customRecipe', initialState.customRecipe);
 
-export const {
-  acceptNewMealDetail,
-  renameMealName,
-  addIngredient,
-  addMacrosToIngredient,
-  removeIngredient,
-  renameCookingInstruction,
-  reinitializeMeal,
-} = custoRecipeSlice.actions;
+export const { acceptNewMealDetail, renameMealName, addIngredient, renameCookingInstruction, reinitializeMeal } = custoRecipeSlice.actions;
 
 export default combineReducers({
   customRecipes: customRecipesSlices.reducer,

@@ -28,7 +28,7 @@ export const CREATE_MEAL_PLAN = gql`
             fat
             calories
           }
-          cookingInstruction
+          cookingInstructions
           macros {
             protein
             carbs
@@ -69,7 +69,7 @@ export const UPDATE_MEAL_PLAN = gql`
             fat
             calories
           }
-          cookingInstruction
+          cookingInstructions
           macros {
             protein
             carbs
@@ -110,7 +110,7 @@ export const DELETE_MEAL_PLAN = gql`
             fat
             calories
           }
-          cookingInstruction
+          cookingInstructions
           macros {
             protein
             carbs

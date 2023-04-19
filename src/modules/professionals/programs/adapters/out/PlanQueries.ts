@@ -26,7 +26,7 @@ export const CREATE_PROGRAM_PLAN = gql`
             fat
             calories
           }
-          cookingInstruction
+          cookingInstructions
           macros {
             protein
             carbs
@@ -65,7 +65,7 @@ export const DELETE_PROGRAM_PLAN = gql`
             fat
             calories
           }
-          cookingInstruction
+          cookingInstructions
           macros {
             protein
             carbs

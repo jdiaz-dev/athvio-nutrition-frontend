@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
 import { useChooseSlicers } from 'src/shared/hooks/useChooseSlicers';
 
-function CookingInstructions({ cookingInstruction }: { cookingInstruction: string }) {
+function CookingInstructions({ cookingInstructions }: { cookingInstructions: string }) {
   const currentModuleContext = useContext(CurrentModuleContext);
   const { renameCookingInstruction } = useChooseSlicers(currentModuleContext.currentModule);
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ function CookingInstructions({ cookingInstruction }: { cookingInstruction: strin
           placeholder="Placeholder"
           multiline
           fullWidth
-          defaultValue={cookingInstruction}
+          defaultValue={cookingInstructions}
           onChange={(e) => {
             dispatch(renameCookingInstruction(e.target.value));
           }}

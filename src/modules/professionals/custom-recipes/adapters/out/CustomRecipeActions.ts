@@ -38,7 +38,7 @@ export function useCustomRecipe() {
         },
       });
       response;
-      // console.log(response);
+      console.log(response);
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;

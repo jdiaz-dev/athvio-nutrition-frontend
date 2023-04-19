@@ -54,13 +54,12 @@ function CreateUpdateCustomRecipeDialog({
 }) {
   const { classes } = cardStyles();
   const dispatch = useDispatch();
+  const reloadRecordListContext = useContext(ReloadRecordListContext);
   const customRecipeState = useSelector((state: ReduxStates) => state.customRecipes.customRecipe);
 
   const { createCustomRecipe, updateCustomRecipe } = useCustomRecipe();
 
-  const reloadRecordListContext = useContext(ReloadRecordListContext);
-
-  const [componentMouseOut, setComponentMouseOut] = useState(false);
+  const [componentTouched, setComponentTouched] = useState(false);
   const [closeIconDialog, setCloseIconDialog] = useState(true);
 
   useEffect(() => {
@@ -75,24 +74,18 @@ function CreateUpdateCustomRecipeDialog({
   }, [_customRecipe]);
 
   const { _id, professional, ...restCustomRecipe } = customRecipeState;
-  useEffect(() => {
-    const createUpdateCustomRecipeHelper = async () => {
-      if (_customRecipe && _customRecipe._id) {
-        await updateCustomRecipe({
-          customRecipe: _id,
-          professional,
-          ...restCustomRecipe,
-        });
-        setComponentMouseOut(false);
-      } else {
-        await createCustomRecipe({ professional, ...restCustomRecipe });
-        setComponentMouseOut(false);
-      }
-    };
-    if (componentMouseOut) {
-      void createUpdateCustomRecipeHelper();
+
+  const createUpdateCustomRecipeHandler = async () => {
+    if (_customRecipe && _customRecipe._id) {
+      await updateCustomRecipe({
+        customRecipe: _id,
+        professional,
+        ...restCustomRecipe,
+      });
+    } else {
+      await createCustomRecipe({ professional, ...restCustomRecipe });
     }
-  }, [componentMouseOut, _customRecipe]);
+  };
 
   useEffect(() => {
     if (!closeIconDialog) {
@@ -121,6 +114,10 @@ function CreateUpdateCustomRecipeDialog({
             <IconButton
               aria-label="close"
               onClick={() => {
+                if (componentTouched) {
+                  void createUpdateCustomRecipeHandler();
+                  setComponentTouched(false);
+                }
                 setCloseIconDialog(false);
               }}
               sx={{
@@ -143,8 +140,10 @@ function CreateUpdateCustomRecipeDialog({
             sx={{ minWidth: 275 }}
             className={classes.card}
             variant="outlined"
-            onMouseLeave={() => {
-              setComponentMouseOut(true);
+            onClick={() => {
+              if (!componentTouched) {
+                setComponentTouched(true);
+              }
             }}
           >
             <CurrentModuleContext.Provider value={{ currentModule: Modules.CUSTOM_RECIPES }}>

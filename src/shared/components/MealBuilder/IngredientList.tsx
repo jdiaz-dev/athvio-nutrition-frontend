@@ -6,7 +6,7 @@ import TableBody from '@mui/material/TableBody';
 import FoodList from 'src/shared/components/MealBuilder/FoodList';
 import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
 import { FoddAddedContext } from 'src/shared/components/MealBuilder/FoddAddedContext';
-import Ingredient from 'src/shared/components/MealBuilder/Ingredient';
+import IngredientItem from 'src/shared/components/MealBuilder/IngredientItem';
 import { MealDataForBuilder } from 'src/shared/components/MealBuilder/MealBuilder.types';
 
 const styleTableCell = {
@@ -46,8 +46,8 @@ function IngredientList({ meal }: { meal: MealDataForBuilder }) {
             </TableHead>
             {
               <TableBody>
-                {meal.ingredients.map((ingredient, index) => (
-                  <Ingredient key={index} ingredient={ingredient} />
+                {meal.ingredientDetails.map((ingredient, index) => (
+                  <IngredientItem key={index} ingredient={ingredient.ingredient} />
                 ))}
                 <StyledTableRow key={meal.name}>
                   <StyledTableCell align="right"></StyledTableCell>

@@ -12,7 +12,7 @@ export interface Meal {
   _id: string;
   name: string;
   ingredients: IngredientType[];
-  cookingInstruction: string;
+  cookingInstructions: string;
   macros: Macros;
 }
 export interface MealPlan {

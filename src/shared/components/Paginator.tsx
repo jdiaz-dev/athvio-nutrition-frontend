@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { TablePagination } from '@mui/material';
 
 function Paginator({
@@ -16,6 +16,10 @@ function Paginator({
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 }) {
+  console.log('---------length', length);
+  console.log('---------offset', offset);
+  console.log('---------rowsPerPage', rowsPerPage);
+  console.log('---------currentPage', currentPage);
   const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
     if (currentPage < newPage) {
       setOffset(offset + rowsPerPage);

@@ -26,7 +26,7 @@ export const CREATE_PROGRAM = gql`
               amount
               calories
             }
-            cookingInstruction
+            cookingInstructions
             macros {
               protein
               carbs
@@ -67,7 +67,7 @@ export const GET_PROGRAM = gql`
               amount
               calories
             }
-            cookingInstruction
+            cookingInstructions
             macros {
               protein
               carbs
@@ -104,7 +104,7 @@ export const GET_PROGRAMS = gql`
                 amount
                 calories
               }
-              cookingInstruction
+              cookingInstructions
               macros {
                 protein
                 carbs
@@ -146,7 +146,7 @@ export const UPDATE_PROGRAM = gql`
               amount
               calories
             }
-            cookingInstruction
+            cookingInstructions
             macros {
               protein
               carbs
@@ -185,7 +185,7 @@ export const DELETE_PROGRAM = gql`
               amount
               calories
             }
-            cookingInstruction
+            cookingInstructions
             macros {
               protein
               carbs

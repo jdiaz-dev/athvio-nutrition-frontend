@@ -1,30 +1,31 @@
+/* eslint-disable indent */
 import React, { useContext, useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import TableBody from '@mui/material/TableBody';
-import { Button, Paper, Table, TableContainer, TableHead, TableRow, TextField, Typography } from '@mui/material';
+import { Paper, Table, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 
-import { GetFoodRequest, GetFoodsResponse } from 'src/modules/foods/adapters/out/food.types';
+import {
+  Food,
+  GetAutocompleteFoodNamesRequest,
+  GetAutocompleteFoodNamesResponse,
+  GetFoodRequest,
+  GetFoodsResponse,
+} from 'src/shared/components/MealBuilder/food.types';
 import SearcherBar from 'src/shared/components/SearcherBar';
-import { useDispatch } from 'react-redux';
 import Paginator from 'src/shared/components/Paginator';
-import { GET_FOODS } from 'src/modules/foods/adapters/out/FoodQueries';
-import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
+import { StyledTableCell } from 'src/shared/components/CustomizedTable';
 import { Accordion, AccordionDetails, AccordionSummary } from 'src/shared/components/Accordion';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useSearcher } from 'src/shared/hooks/useSearcher';
 import { usePaginator } from 'src/shared/hooks/usePaginator';
-import { useChooseSlicers } from 'src/shared/hooks/useChooseSlicers';
-import { FoddAddedContext } from 'src/shared/components/MealBuilder/FoddAddedContext';
-import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
-import { IngredientType } from 'src/shared/components/MealBuilder/MealBuilder.types';
+import { GET_AUTOCOMPLETE_FOOD_NAMES, GET_FOODS } from 'src/shared/components/MealBuilder/FoodQueries';
+import FoodItem from 'src/shared/components/MealBuilder/FoodItem';
+import { ProfessionalIdContext } from 'src/App';
+import DatabaseSelector from 'src/shared/components/MealBuilder/DatabaseSelector';
+import { defaultDatabase } from 'src/shared/Consts';
 
 function FoodList() {
-  const dispatch = useDispatch();
-
-  const foddAddedContext = useContext(FoddAddedContext);
-  const currentModuleContext = useContext(CurrentModuleContext);
-  const { addIngredient } = useChooseSlicers(currentModuleContext.currentModule);
-
+  const professionalIdContext = useContext(ProfessionalIdContext);
   const {
     searchWords,
     setSearchWords,
@@ -36,18 +37,47 @@ function FoodList() {
     setRecentlyTypedWord,
   } = useSearcher();
   const { length, setLength, offset, setOffset, rowsPerPage, setRowsPerPage, currentPage, setCurrentPage } = usePaginator();
+  const [database, setDatabase] = useState(defaultDatabase);
 
-  const [foods, setFoods] = useState<IngredientType[]>([]);
+  const [foods, setFoods] = useState<Food[]>([]);
   const [panelExpanded, setPanelExpanded] = useState<string | false>(false);
   const input = {
+    professional: professionalIdContext.professional,
     offset: offset,
     limit: 5,
+    foodDatabase: database,
   };
-  const { data, loading, refetch } = useQuery<GetFoodsResponse, GetFoodRequest>(GET_FOODS, {
-    variables: {
-      input,
+
+  const { data, loading, refetch } = useQuery<GetFoodsResponse, GetFoodRequest>(
+    GET_FOODS,
+
+    database !== defaultDatabase
+      ? {
+          variables: {
+            input,
+          },
+          fetchPolicy: 'network-only',
+        }
+      : database === defaultDatabase && (offset === 0 || offset % 20 === 0)
+      ? {
+          variables: {
+            input,
+          },
+          fetchPolicy: 'network-only',
+        }
+      : {
+          skip: true,
+        },
+  );
+
+  const { refetch: refetchAutocomplete } = useQuery<GetAutocompleteFoodNamesResponse, GetAutocompleteFoodNamesRequest>(
+    GET_AUTOCOMPLETE_FOOD_NAMES,
+    {
+      skip: true,
+      fetchPolicy: 'network-only',
     },
-  });
+  );
+
   const handleAddFoodAncle = (panel: string) => (event: React.SyntheticEvent, newPanelExpanded: boolean) => {
     setPanelExpanded(newPanelExpanded ? panel : false);
   };
@@ -55,23 +85,20 @@ function FoodList() {
     const _input = searchWords.length > 0 ? { ...input, search: searchWords } : input;
     const getFoods = async () => {
       const res = await refetch({ input: _input });
-      // console.log('---------res', res);
-      setFoods(
-        res.data?.getFoods.data.map((food) => {
-          return {
-            amount: 0,
-            name: food.name,
-            unit: 'g',
-          };
-        }),
-      );
+
+      setFoods(res.data?.getFoods.data);
       setLength(res.data.getFoods.meta.total);
       setOffset(res.data.getFoods.meta.offset);
     };
 
     const getFoodsForSearcher = async () => {
-      const res = await refetch({ input: _input });
-      setMatchedRecords(res.data.getFoods.data.map((food) => food.name));
+      const autocompleteInput = {
+        professional: professionalIdContext.professional,
+        search: searchWords[0],
+        foodDatabase: database,
+      };
+      const foodNames = await refetchAutocomplete({ input: autocompleteInput });
+      setMatchedRecords(foodNames.data.getAutoCompleteFoodNames.foodNames);
     };
 
     const verifyNewWordToSearch = () => {
@@ -87,19 +114,15 @@ function FoodList() {
       }
     };
 
+    /* const manageRowsForDatabase = () => {
+      if(database === defaultDatabase){
+
+      }
+    } */
     const vefifyFirstDataCallToServer = () => {
       if (data && !choosedWord && searchWords.length === 0) {
-        setFoods(
-          data?.getFoods.data.map((food) => {
-            return {
-              amount: 0,
-              name: food.name,
-              unit: 'g',
-            };
-          }),
-        );
+        setFoods(data?.getFoods.data);
 
-        // console.log('---------data', data);
         setLength(data.getFoods.meta.total);
         setOffset(data.getFoods.meta.offset);
         setRowsPerPage(5);
@@ -108,7 +131,7 @@ function FoodList() {
     verifyNewWordToSearch();
     verifyChosedWordsFromSearcher();
     vefifyFirstDataCallToServer();
-  }, [searchWords, choosedWord, recentlyTypedWord, data]);
+  }, [searchWords, choosedWord, recentlyTypedWord, database, data]);
 
   if (loading) return <div>Loading...</div>;
 
@@ -125,6 +148,7 @@ function FoodList() {
             setChoosedWord={setChoosedWord}
             setRecentlyTypedWord={setRecentlyTypedWord}
           />
+          <DatabaseSelector database={database} setDatabase={setDatabase} />
           {foods.length > 0 && (
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 350 }} size="small" aria-label="customized table">
@@ -132,52 +156,17 @@ function FoodList() {
                   <TableRow>
                     <StyledTableCell width={'15%'}>Amount</StyledTableCell>
                     <StyledTableCell>Food</StyledTableCell>
+                    <StyledTableCell>Protein</StyledTableCell>
+                    <StyledTableCell>Carbs</StyledTableCell>
+                    <StyledTableCell>Fat</StyledTableCell>
+                    <StyledTableCell>Calories</StyledTableCell>
                     <StyledTableCell></StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody style={{ maxHeight: '10px' }}>
-                  {foods.map((ingredient) => (
-                    <StyledTableRow key={ingredient.name}>
-                      <StyledTableCell style={{ padding: '3px', paddingLeft: '7px' }} align="right">
-                        <TextField
-                          inputProps={{ style: { fontSize: 'revert', height: '11px' } }}
-                          InputLabelProps={{ style: { fontSize: 'revert' } }}
-                          style={{ width: '100%' }}
-                          id="filled-hidden-label-small"
-                          label="(g)"
-                          variant="outlined"
-                          size="small"
-                          type="number"
-                          defaultValue={ingredient.amount}
-                          onChange={(e) => (ingredient.amount = Number(e.target.value))}
-                        />
-                      </StyledTableCell>
-                      <StyledTableCell style={{ padding: '4px' }} component="th" scope="row">
-                        {ingredient.name}
-                      </StyledTableCell>
-                      <StyledTableCell align="right" style={{ padding: '0px', paddingRight: '7px' }}>
-                        <Button
-                          style={{ fontSize: '12px', height: '24px' }}
-                          size="small"
-                          variant="contained"
-                          onClick={() => {
-                            if (ingredient.amount > 0) {
-                              dispatch(
-                                addIngredient({
-                                  amount: ingredient.amount,
-                                  name: ingredient.name,
-                                  unit: 'g',
-                                }),
-                              );
-                              foddAddedContext.setFoodAdded(true);
-                            }
-                          }}
-                        >
-                          Add
-                        </Button>
-                      </StyledTableCell>
-                    </StyledTableRow>
-                  ))}
+                  {foods.map((food, index) => {
+                    return <FoodItem key={index} food={food} />;
+                  })}
                 </TableBody>
               </Table>
             </TableContainer>

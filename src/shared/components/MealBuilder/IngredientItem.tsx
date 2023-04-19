@@ -6,14 +6,12 @@ import { StyledTableCell, StyledTableRow } from 'src/shared/components/Customize
 import { useChooseSlicers } from 'src/shared/hooks/useChooseSlicers';
 import { FoddAddedContext } from 'src/shared/components/MealBuilder/FoddAddedContext';
 import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
-import { IngredientType } from 'src/shared/components/MealBuilder/MealBuilder.types';
+import { Ingredient } from 'src/shared/components/MealBuilder/MealBuilder.types';
 
-function Ingredient({ ingredient: { name, amount, unit, ...rest } }: { ingredient: IngredientType }) {
+function IngredientItem({ ingredient: { name, amount, unit, ...rest } }: { ingredient: Ingredient }) {
   const dispatch = useDispatch();
   const foddAddedContext = useContext(FoddAddedContext);
   const currentModuleContext = useContext(CurrentModuleContext);
-
-  const { addMacrosToIngredient } = useChooseSlicers(currentModuleContext.currentModule);
 
   useEffect(() => {
     const caculateMacros = () => {
@@ -27,7 +25,7 @@ function Ingredient({ ingredient: { name, amount, unit, ...rest } }: { ingredien
         .then((response) => response.json())
         .then((nutritionData: AnalisysNutritionDataResponse) => {
           console.log('----------EDAMAN called');
-          const _ingredient: IngredientType = {
+          const _ingredient: Ingredient = {
             name,
             amount,
             unit,
@@ -43,7 +41,7 @@ function Ingredient({ ingredient: { name, amount, unit, ...rest } }: { ingredien
 
     if (foddAddedContext.foodAdded) {
       console.log('---------->>>>>>>>>>', foddAddedContext.foodAdded);
-      caculateMacros();
+      // caculateMacros();
       foddAddedContext.setFoodAdded(false);
     }
 
@@ -68,4 +66,4 @@ function Ingredient({ ingredient: { name, amount, unit, ...rest } }: { ingredien
   );
 }
 
-export default Ingredient;
+export default IngredientItem;

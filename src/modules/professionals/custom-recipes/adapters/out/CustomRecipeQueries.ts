@@ -5,6 +5,64 @@ export const CREATE_CUSTOM_RECIPE = gql`
     createCustomRecipe(input: $input) {
       _id
       name
+      professional
+      name
+      ingredientDetails {
+        ingredientType
+        customIngredient {
+          name
+          ingredients {
+            name
+            amount
+            unit
+            protein
+            carbs
+            fat
+            calories
+          }
+        }
+        ingredient {
+          name
+          amount
+          unit
+          protein
+          carbs
+          fat
+          calories
+        }
+        equivalents {
+          ingredientType
+          customIngredient {
+            name
+            ingredients {
+              amount
+              name
+              unit
+              protein
+              carbs
+              fat
+              calories
+            }
+          }
+          ingredient {
+            amount
+            name
+            unit
+            protein
+            carbs
+            fat
+            calories
+          }
+        }
+      }
+      cookingInstructions
+      totalWeight
+      macros {
+        protein
+        carbs
+        fat
+        calories
+      }
     }
   }
 `;
@@ -16,16 +74,57 @@ export const GET_CUSTOM_RECIPES = gql`
         _id
         name
         professional
-        ingredients {
-          name
-          amount
-          unit
-          protein
-          carbs
-          fat
-          calories
+        name
+        ingredientDetails {
+          ingredientType
+          customIngredient {
+            name
+            ingredients {
+              name
+              amount
+              unit
+              protein
+              carbs
+              fat
+              calories
+            }
+          }
+          ingredient {
+            name
+            amount
+            unit
+            protein
+            carbs
+            fat
+            calories
+          }
+          equivalents {
+            ingredientType
+            customIngredient {
+              name
+              ingredients {
+                amount
+                name
+                unit
+                protein
+                carbs
+                fat
+                calories
+              }
+            }
+            ingredient {
+              amount
+              name
+              unit
+              protein
+              carbs
+              fat
+              calories
+            }
+          }
         }
-        cookingInstruction
+        cookingInstructions
+        totalWeight
         macros {
           protein
           carbs
@@ -46,10 +145,64 @@ export const UPDATE_CUSTOM_RECIPE = gql`
   mutation _updateCustomRecipe($input: UpdateCustomRecipeDto!) {
     updateCustomRecipe(input: $input) {
       _id
+      name
       professional
       name
-      ingredients {
-        name
+      ingredientDetails {
+        ingredientType
+        customIngredient {
+          name
+          ingredients {
+            name
+            amount
+            unit
+            protein
+            carbs
+            fat
+            calories
+          }
+        }
+        ingredient {
+          name
+          amount
+          unit
+          protein
+          carbs
+          fat
+          calories
+        }
+        equivalents {
+          ingredientType
+          customIngredient {
+            name
+            ingredients {
+              amount
+              name
+              unit
+              protein
+              carbs
+              fat
+              calories
+            }
+          }
+          ingredient {
+            amount
+            name
+            unit
+            protein
+            carbs
+            fat
+            calories
+          }
+        }
+      }
+      cookingInstructions
+      totalWeight
+      macros {
+        protein
+        carbs
+        fat
+        calories
       }
     }
   }
@@ -60,6 +213,64 @@ export const DELETE_CUSTOM_RECIPE = gql`
     deleteCustomRecipe(input: $input) {
       _id
       name
+      professional
+      name
+      ingredientDetails {
+        ingredientType
+        customIngredient {
+          name
+          ingredients {
+            name
+            amount
+            unit
+            protein
+            carbs
+            fat
+            calories
+          }
+        }
+        ingredient {
+          name
+          amount
+          unit
+          protein
+          carbs
+          fat
+          calories
+        }
+        equivalents {
+          ingredientType
+          customIngredient {
+            name
+            ingredients {
+              amount
+              name
+              unit
+              protein
+              carbs
+              fat
+              calories
+            }
+          }
+          ingredient {
+            amount
+            name
+            unit
+            protein
+            carbs
+            fat
+            calories
+          }
+        }
+      }
+      cookingInstructions
+      totalWeight
+      macros {
+        protein
+        carbs
+        fat
+        calories
+      }
     }
   }
 `;
