@@ -10,6 +10,7 @@ import {
   GetAutocompleteFoodNamesResponse,
   GetFoodRequest,
   GetFoodsResponse,
+  InputGetFoods,
 } from 'src/shared/components/MealBuilder/food.types';
 import SearcherBar from 'src/shared/components/SearcherBar';
 import Paginator from 'src/shared/components/Paginator';
@@ -22,7 +23,7 @@ import { GET_AUTOCOMPLETE_FOOD_NAMES, GET_FOODS } from 'src/shared/components/Me
 import FoodItem from 'src/shared/components/MealBuilder/FoodItem';
 import { ProfessionalIdContext } from 'src/App';
 import DatabaseSelector from 'src/shared/components/MealBuilder/DatabaseSelector';
-import { defaultDatabase } from 'src/shared/Consts';
+import { SpecialPagination } from 'src/shared/Consts';
 
 function FoodList() {
   const professionalIdContext = useContext(ProfessionalIdContext);
@@ -36,39 +37,24 @@ function FoodList() {
     recentlyTypedWord,
     setRecentlyTypedWord,
   } = useSearcher();
-  const { length, setLength, offset, setOffset, rowsPerPage, setRowsPerPage, currentPage, setCurrentPage } = usePaginator();
-  const [database, setDatabase] = useState(defaultDatabase);
+  const { length, setLength, offset, setOffset, rowsPerPage, currentPage, setCurrentPage } = usePaginator(5);
+  const [database, setDatabase] = useState<string>(SpecialPagination.DEFAULT_DATABASE);
 
   const [foods, setFoods] = useState<Food[]>([]);
+  const [providerFoods, setProviderFoods] = useState<Food[]>([]);
+  const [usedSessions, setUsedSessions] = useState<number[]>([]);
+  const [session, setSession] = useState<number | null>(null);
+  const [nextSession, setNextSession] = useState<number | null>(null);
+  const [makeRequestToDefaultDB, setMaqueRequestToDefaultDB] = useState<boolean>(true);
+
+  const [databaseChanged, setDatabaseChanged] = useState<boolean>(false);
+
   const [panelExpanded, setPanelExpanded] = useState<string | false>(false);
-  const input = {
-    professional: professionalIdContext.professional,
-    offset: offset,
-    limit: 5,
-    foodDatabase: database,
-  };
 
-  const { data, loading, refetch } = useQuery<GetFoodsResponse, GetFoodRequest>(
-    GET_FOODS,
-
-    database !== defaultDatabase
-      ? {
-          variables: {
-            input,
-          },
-          fetchPolicy: 'network-only',
-        }
-      : database === defaultDatabase && (offset === 0 || offset % 20 === 0)
-      ? {
-          variables: {
-            input,
-          },
-          fetchPolicy: 'network-only',
-        }
-      : {
-          skip: true,
-        },
-  );
+  const { loading, refetch } = useQuery<GetFoodsResponse, GetFoodRequest>(GET_FOODS, {
+    skip: true,
+    fetchPolicy: 'network-only',
+  });
 
   const { refetch: refetchAutocomplete } = useQuery<GetAutocompleteFoodNamesResponse, GetAutocompleteFoodNamesRequest>(
     GET_AUTOCOMPLETE_FOOD_NAMES,
@@ -81,16 +67,53 @@ function FoodList() {
   const handleAddFoodAncle = (panel: string) => (event: React.SyntheticEvent, newPanelExpanded: boolean) => {
     setPanelExpanded(newPanelExpanded ? panel : false);
   };
-  useEffect(() => {
-    const _input = searchWords.length > 0 ? { ...input, search: searchWords } : input;
-    const getFoods = async () => {
-      const res = await refetch({ input: _input });
 
-      setFoods(res.data?.getFoods.data);
-      setLength(res.data.getFoods.meta.total);
-      setOffset(res.data.getFoods.meta.offset);
+  const isSpecialPagination = () => database === SpecialPagination.DEFAULT_DATABASE || database === SpecialPagination.SYSTEM_DATABASE;
+  const input: InputGetFoods = {
+    professional: professionalIdContext.professional,
+    offset: offset,
+    limit: rowsPerPage,
+    foodDatabase: database,
+  };
+
+  useEffect(() => {
+    const manageRequestToDefaultDB = () => database === SpecialPagination.DEFAULT_DATABASE && makeRequestToDefaultDB;
+    const isRequestToDefaultDB = manageRequestToDefaultDB();
+    let _input: InputGetFoods = searchWords.length > 0 ? { ...input, search: searchWords } : input;
+
+    const getFoodsForNormalPagination = async () => {
+      if (professionalIdContext.professional || choosedWord || databaseChanged) {
+        const res = await refetch({ input: _input });
+        setFoods(res.data?.getFoods.data);
+        setLength(res.data.getFoods.meta.total);
+        setOffset(res.data.getFoods.meta.offset);
+      }
     };
 
+    _input = isRequestToDefaultDB && session !== null ? { ..._input, session } : _input;
+    const getFoodsForSpecialPagintation = async () => {
+      if (professionalIdContext.professional && (choosedWord || isRequestToDefaultDB || databaseChanged)) {
+        const res = await refetch({ input: _input });
+
+        setProviderFoods(res.data.getFoods.data);
+        setNextSession(res.data.getFoods.meta.foodProviderSessions?.nextSession || null);
+        setMaqueRequestToDefaultDB(false);
+      }
+    };
+
+    const getFoods = () => {
+      if (isSpecialPagination()) {
+        void getFoodsForSpecialPagintation();
+      } else {
+        void getFoodsForNormalPagination();
+      }
+      setChoosedWord(false);
+      setDatabaseChanged(false);
+    };
+    getFoods();
+  }, [professionalIdContext.professional, choosedWord, databaseChanged, makeRequestToDefaultDB, offset]);
+
+  useEffect(() => {
     const getFoodsForSearcher = async () => {
       const autocompleteInput = {
         professional: professionalIdContext.professional,
@@ -107,31 +130,40 @@ function FoodList() {
         setRecentlyTypedWord(false);
       }
     };
-    const verifyChosedWordsFromSearcher = () => {
-      if (searchWords.length >= 0 && choosedWord) {
-        void getFoods();
-        setChoosedWord(false);
-      }
-    };
 
-    /* const manageRowsForDatabase = () => {
-      if(database === defaultDatabase){
-
-      }
-    } */
-    const vefifyFirstDataCallToServer = () => {
-      if (data && !choosedWord && searchWords.length === 0) {
-        setFoods(data?.getFoods.data);
-
-        setLength(data.getFoods.meta.total);
-        setOffset(data.getFoods.meta.offset);
-        setRowsPerPage(5);
-      }
-    };
     verifyNewWordToSearch();
-    verifyChosedWordsFromSearcher();
-    vefifyFirstDataCallToServer();
-  }, [searchWords, choosedWord, recentlyTypedWord, database, data]);
+  }, [searchWords, recentlyTypedWord]);
+
+  useEffect(() => {
+    const requestToGetNextPageOfDefaultDB = () => offset === SpecialPagination.LIMIT_RECORDS_IN_MEMORY;
+    const paginateUsingArrInMemory = () => offset >= SpecialPagination.OFFSET_RESETED && providerFoods.length > 0;
+    const requestToGetPreviousPageOfDefaultDB = () =>
+      offset < SpecialPagination.OFFSET_RESETED && providerFoods.length > 0 && nextSession !== null;
+
+    const managePaginationInDefaultDB = () => {
+      if (requestToGetNextPageOfDefaultDB()) {
+        setUsedSessions([...usedSessions, session === null ? SpecialPagination.FIRST_PAGE_SIMULATION : session]);
+        setSession(nextSession);
+        setProviderFoods([]);
+        setFoods([]);
+        setOffset(SpecialPagination.OFFSET_RESETED);
+        setMaqueRequestToDefaultDB(true);
+      } else if (paginateUsingArrInMemory()) {
+        setFoods(providerFoods.slice(offset, offset + rowsPerPage));
+        setLength(
+          providerFoods.length + usedSessions.length * SpecialPagination.LIMIT_RECORDS_IN_MEMORY + SpecialPagination.TOTAL_NEXT_RECORDS,
+        );
+      } else if (requestToGetPreviousPageOfDefaultDB()) {
+        setSession(usedSessions.length > 1 ? usedSessions[usedSessions.length - 1] : null);
+        setUsedSessions(usedSessions.slice(0, usedSessions.length - 1));
+        setProviderFoods([]);
+        setFoods([]);
+        setOffset(SpecialPagination.ALLOWED_OFFSET_LIMIT);
+        setMaqueRequestToDefaultDB(true);
+      }
+    };
+    if (isSpecialPagination()) managePaginationInDefaultDB();
+  }, [providerFoods, offset]);
 
   if (loading) return <div>Loading...</div>;
 
@@ -148,19 +180,19 @@ function FoodList() {
             setChoosedWord={setChoosedWord}
             setRecentlyTypedWord={setRecentlyTypedWord}
           />
-          <DatabaseSelector database={database} setDatabase={setDatabase} />
+          <DatabaseSelector database={database} setDatabase={setDatabase} setDatabaseChanged={setDatabaseChanged} />
           {foods.length > 0 && (
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 350 }} size="small" aria-label="customized table">
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell width={'15%'}>Amount</StyledTableCell>
-                    <StyledTableCell>Food</StyledTableCell>
-                    <StyledTableCell>Protein</StyledTableCell>
-                    <StyledTableCell>Carbs</StyledTableCell>
-                    <StyledTableCell>Fat</StyledTableCell>
-                    <StyledTableCell>Calories</StyledTableCell>
-                    <StyledTableCell></StyledTableCell>
+                    <StyledTableCell width={'10%'}>Amount</StyledTableCell>
+                    <StyledTableCell width={'65%'}>Food</StyledTableCell>
+                    <StyledTableCell width={'5%'}>Protein</StyledTableCell>
+                    <StyledTableCell width={'5%'}>Carbs</StyledTableCell>
+                    <StyledTableCell width={'5%'}>Fat</StyledTableCell>
+                    <StyledTableCell width={'5%'}>Calories</StyledTableCell>
+                    <StyledTableCell width={'5%'}></StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody style={{ maxHeight: '10px' }}>

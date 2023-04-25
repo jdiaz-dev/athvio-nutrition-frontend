@@ -25,6 +25,10 @@ export const GET_FOODS = gql`
         total
         limit
         offset
+        foodProviderSessions {
+          title
+          nextSession
+        }
       }
     }
   }

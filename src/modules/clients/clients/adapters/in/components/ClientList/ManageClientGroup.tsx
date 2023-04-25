@@ -7,10 +7,12 @@ import { MANAGE_CLIENT_GROUP } from 'src/modules/clients/clients/adapters/out/Cl
 import { ManageClientGroupEnum } from 'src/shared/Consts';
 import { ClientGroup } from 'src/shared/types/types';
 import { ClientGroupsContext } from 'src/modules/clients/clients/adapters/in/components/ClientsContainer';
+import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 
 function ManageClientGroup({ client, assignedGroups }: { client: string; assignedGroups: ClientGroup[] }) {
   const professionalIdContext = useContext(ProfessionalIdContext);
   const clientGroupContext = useContext(ClientGroupsContext);
+  const reloadRecordListContext = useContext(ReloadRecordListContext);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -25,7 +27,7 @@ function ManageClientGroup({ client, assignedGroups }: { client: string; assigne
   };
 
   const manageClientGroupHandler = async (data: ClientGroup, action: ManageClientGroupEnum) => {
-    const res = await createClientHandler({
+    await createClientHandler({
       variables: {
         input: {
           professional: professionalIdContext.professional,
@@ -35,19 +37,14 @@ function ManageClientGroup({ client, assignedGroups }: { client: string; assigne
         },
       },
     });
+    reloadRecordListContext.setReloadRecordList(true);
     // console.log('-------res', res);
   };
 
-  const assignedGroup = (group: ClientGroup) => (
-    <Chip label={group.groupName} style={{ backgroundColor: 'red' }} variant="outlined" />
-  );
+  const assignedGroup = (group: ClientGroup) => <Chip label={group.groupName} style={{ backgroundColor: 'red' }} variant="outlined" />;
 
   const unassignedGroup = (group: ClientGroup) => (
-    <Chip
-      label={group.groupName}
-      variant="outlined"
-      onClick={() => void manageClientGroupHandler(group, ManageClientGroupEnum.ADD)}
-    />
+    <Chip label={group.groupName} variant="outlined" onClick={() => void manageClientGroupHandler(group, ManageClientGroupEnum.ADD)} />
   );
 
   const listAssignedGroups = (
@@ -100,9 +97,7 @@ function ManageClientGroup({ client, assignedGroups }: { client: string; assigne
         <MenuItem disableRipple>
           <div>
             {clientGroupContext.clientGroupList.map((group) => (
-              <div key={group._id}>
-                {assignedGroups.find((g) => g._id === group._id) ? assignedGroup(group) : unassignedGroup(group)}
-              </div>
+              <div key={group._id}>{assignedGroups.find((g) => g._id === group._id) ? assignedGroup(group) : unassignedGroup(group)}</div>
             ))}
           </div>
         </MenuItem>

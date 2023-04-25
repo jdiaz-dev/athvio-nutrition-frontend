@@ -101,6 +101,8 @@ export default App;
 
   - rename export interface RecipeBody
   - fix bug at moment to add ingredient and some macros is 0, NaN  is the  result trying to add ingredient
+  - fix : only use one call to server in clientList component (void call by default, use skip call for it)
+  - fix. refactor food list component ot better understand
 */
 
 /*

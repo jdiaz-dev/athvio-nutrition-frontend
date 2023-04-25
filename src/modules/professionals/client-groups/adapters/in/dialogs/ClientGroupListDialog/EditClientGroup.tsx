@@ -8,6 +8,7 @@ import {
 import { useMutation } from '@apollo/client';
 import { UPDATE_CLIENT_GROUP } from 'src/modules/professionals/client-groups/adapters/out/ClientGroupQueries';
 import { ProfessionalIdContext } from 'src/App';
+import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 
 function EditClientGroup({
   _id,
@@ -21,6 +22,7 @@ function EditClientGroup({
   setReloadClientGroupList: (reload: boolean) => void;
 }) {
   const professionalIdContext = useContext(ProfessionalIdContext);
+  const reloadRecordListContext = useContext(ReloadRecordListContext);
 
   const [updateClientGroupHandler] = useMutation<UpdateClientGroupsResponse, UpdateClientGroupsRequest>(UPDATE_CLIENT_GROUP);
 
@@ -36,6 +38,7 @@ function EditClientGroup({
     });
     res;
     setReloadClientGroupList(true);
+    reloadRecordListContext.setReloadRecordList(true);
     setEditGroup(false);
     // console.log('--------res', res);
   };

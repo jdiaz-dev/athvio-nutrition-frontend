@@ -54,19 +54,19 @@ function FoodItem({ food }: { food: Food }) {
         <StyledTableCell style={{ padding: '4px' }} component="th" scope="row">
           {_food.name}
         </StyledTableCell>
-        <StyledTableCell style={{ padding: '4px' }} component="th" scope="row">
+        <StyledTableCell width={'5%'} style={{ padding: '4px' }} component="th" scope="row">
           {_food.macros.protein}
         </StyledTableCell>
-        <StyledTableCell style={{ padding: '4px' }} component="th" scope="row">
+        <StyledTableCell width={'5%'} style={{ padding: '4px' }} component="th" scope="row">
           {_food.macros.carbs}
         </StyledTableCell>
-        <StyledTableCell style={{ padding: '4px' }} component="th" scope="row">
+        <StyledTableCell width={'5%'} style={{ padding: '4px' }} component="th" scope="row">
           {_food.macros.fat}
         </StyledTableCell>
-        <StyledTableCell style={{ padding: '4px' }} component="th" scope="row">
+        <StyledTableCell width={'5%'} style={{ padding: '4px' }} component="th" scope="row">
           {_food.macros.calories}
         </StyledTableCell>
-        <StyledTableCell align="right" style={{ padding: '0px', paddingRight: '7px' }}>
+        <StyledTableCell align="right" width={'5%'} style={{ padding: '0px', paddingRight: '7px' }}>
           <Button
             style={{ fontSize: '12px', height: '24px' }}
             size="small"

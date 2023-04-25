@@ -1,4 +1,4 @@
-const arr = [ 2,5,7]
+const arr = [];
 
-const res = arr.find((item) => (item === 9))
-console.log(res)
+const res = arr.pop();
+console.log(res);

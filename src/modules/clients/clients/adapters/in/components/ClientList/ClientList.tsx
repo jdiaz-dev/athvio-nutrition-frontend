@@ -29,63 +29,49 @@ function ClientList() {
     recentlyTypedWord,
     setRecentlyTypedWord,
   } = useSearcher();
-  // console.log('---------------------clientListCalled');
+
+  const { loading, refetch } = useQuery<GetClientResponse, GetClientsRequest>(GET_CLIENTS, {
+    skip: true,
+  });
+
+  const [clients, setClients] = useState<Clients[]>([]);
+
   const input = {
     professional: professionalIdContext.professional,
     offset: 0,
     limit: 10,
     state: 'inactive',
   };
-  const { data, loading, refetch } = useQuery<GetClientResponse, GetClientsRequest>(GET_CLIENTS, {
-    variables: {
-      input,
-    },
-  });
-
-  const [clients, setClients] = useState<Clients[]>([]);
 
   useEffect(() => {
     const _input = searchWords.length > 0 ? { ...input, search: searchWords } : input;
-    const getClients = async () => {
+    const getClientsHelper = async () => {
       const res = await refetch({ input: _input });
       setClients(res.data.getClients.data);
     };
-
-    const getClientsForSearcher = async () => {
-      const res = await refetch({ input: _input });
-      setMatchedRecords(res.data.getClients.data.map((client) => client.user.firstName + ' ' + client.user.lastName));
-    };
-
-    const verifyOnlyReload = () => {
-      if (reloadRecordListContext.reloadRecordList) {
-        void getClients();
+    const getClients = () => {
+      if (professionalIdContext.professional || reloadRecordListContext.reloadRecordList || choosedWord) {
+        void getClientsHelper();
+        setChoosedWord(false);
         reloadRecordListContext.setReloadRecordList(false);
       }
     };
+    getClients();
+  }, [professionalIdContext.professional, reloadRecordListContext.reloadRecordList, choosedWord]);
 
-    const verifyNewWordToSearch = () => {
+  useEffect(() => {
+    const getClientsForSearcher = async () => {
       if (searchWords.length === 1 && recentlyTypedWord) {
-        void getClientsForSearcher();
+        const _input = searchWords.length > 0 ? { ...input, search: searchWords } : input;
+        const res = await refetch({ input: _input });
+
+        setMatchedRecords(res.data.getClients.data.map((client) => client.user.firstName + ' ' + client.user.lastName));
         setRecentlyTypedWord(false);
       }
     };
-    const verifyChosedWordsFromSearcher = () => {
-      if (searchWords.length >= 0 && choosedWord) {
-        void getClients();
-        setChoosedWord(false);
-      }
-    };
 
-    const vefifyFirstDataCallToServer = () => {
-      if (data && !choosedWord && searchWords.length === 0) {
-        setClients(data.getClients.data);
-      }
-    };
-    verifyOnlyReload();
-    verifyNewWordToSearch();
-    verifyChosedWordsFromSearcher();
-    vefifyFirstDataCallToServer();
-  }, [reloadRecordListContext.reloadRecordList, searchWords, choosedWord, recentlyTypedWord, data]);
+    void getClientsForSearcher();
+  }, [searchWords, recentlyTypedWord]);
 
   if (loading) return <div>loading...</div>;
   return (

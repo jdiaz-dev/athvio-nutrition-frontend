@@ -1,6 +1,6 @@
 import { Button, Menu, MenuItem } from '@mui/material';
 import React, { MouseEvent, useState } from 'react';
-import ClientGroupList from 'src/modules/professionals/client-groups/adapters/in/dialogs/ClientGroupListDialog/ClientGroupListDialog';
+import ClientGroupListDialog from 'src/modules/professionals/client-groups/adapters/in/dialogs/ClientGroupListDialog/ClientGroupListDialog';
 import CreateClientGroupDialog from 'src/modules/professionals/client-groups/adapters/in/dialogs/CreateClientGroupDialog';
 
 function ClientGroupsContainer() {
@@ -59,7 +59,7 @@ function ClientGroupsContainer() {
         setReloadClientGroupList={setReloadClientGroupList}
       />
 
-      <ClientGroupList
+      <ClientGroupListDialog
         openClientGroupListDialog={openClientGroupListDialog}
         setOpenClientGroupListDialog={setOpenClientGroupListDialog}
         reloadClientGroupList={reloadClientGroupList}

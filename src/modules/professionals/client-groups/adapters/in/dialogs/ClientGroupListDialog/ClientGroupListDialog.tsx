@@ -1,17 +1,14 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { Dialog, DialogContent, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import {
-  GetClientGroupsRequest,
-  GetClientGroupsResponse,
-} from 'src/modules/professionals/client-groups/adapters/out/ClientGroup.types';
+import { GetClientGroupsRequest, GetClientGroupsResponse } from 'src/modules/professionals/client-groups/adapters/out/ClientGroup.types';
 import { GET_CLIENT_GROUPS } from 'src/modules/professionals/client-groups/adapters/out/ClientGroupQueries';
 import { ProfessionalIdContext } from 'src/App';
 import DeleteClientGroup from 'src/modules/professionals/client-groups/adapters/in/dialogs/ClientGroupListDialog/DeleteClientGroup';
 import EditClientGroup from 'src/modules/professionals/client-groups/adapters/in/dialogs/ClientGroupListDialog/EditClientGroup';
 import { ClientGroupsContext } from 'src/modules/clients/clients/adapters/in/components/ClientsContainer';
 
-function ClientGroupList({
+function ClientGroupListDialog({
   openClientGroupListDialog,
   setOpenClientGroupListDialog,
   reloadClientGroupList,
@@ -107,4 +104,4 @@ function ClientGroupList({
   );
 }
 
-export default ClientGroupList;
+export default ClientGroupListDialog;

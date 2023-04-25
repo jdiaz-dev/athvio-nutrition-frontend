@@ -5,7 +5,6 @@ export const EDAMAN_ANALISIS_APP_KEY = '90b651fc4688ed9c7ea8754afd766b1a';
 
 export const baseHeight = 150;
 export const baseWeek = 1;
-export const defaultDatabase = 'ALL';
 
 export enum LocalStorageEnum {
   dataUser = 'dataUser',
@@ -54,6 +53,17 @@ export enum WeekActions {
   ADD = 'add',
   REMOVE = 'remove',
   NEUTRAL = 'neutral',
+}
+
+export enum SpecialPagination {
+  FIRST_PAGE_SIMULATION = 0,
+  ALLOWED_OFFSET_LIMIT = 15,
+  DEFAULT_DATABASE = 'ALL',
+  SYSTEM_DATABASE = 'SYSTEM',
+  OFFSET_RESETED = 0,
+  LIMIT_RECORDS_IN_MEMORY = 20,
+  TOTAL_NEXT_RECORDS = 20,
+  // rowsPerPageForDefaultDB = 20;
 }
 
 export enum IngredientType {

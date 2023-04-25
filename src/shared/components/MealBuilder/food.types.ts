@@ -18,14 +18,16 @@ export type GetAutocompleteFoodNamesResponse = {
   };
 };
 
+export interface InputGetFoods {
+  professional: string;
+  offset: number;
+  limit: number;
+  foodDatabase: string;
+  search?: string[];
+  session?: number;
+}
 export type GetFoodRequest = {
-  input: {
-    professional: string;
-    offset: number;
-    limit: number;
-    foodDatabase: string;
-    search?: string[];
-  };
+  input: InputGetFoods;
 };
 
 interface Measure {
@@ -45,6 +47,10 @@ export type Food = {
   measures: Measure[];
 };
 
+interface FoodProviderSession {
+  title: string;
+  nextSession: number;
+}
 export type GetFoodsResponse = {
   getFoods: {
     data: Food[];
@@ -52,6 +58,7 @@ export type GetFoodsResponse = {
       total: number;
       limit: number;
       offset: number;
+      foodProviderSessions: FoodProviderSession | null;
     };
   };
 };

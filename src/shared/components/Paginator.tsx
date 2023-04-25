@@ -16,10 +16,6 @@ function Paginator({
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 }) {
-  console.log('---------length', length);
-  console.log('---------offset', offset);
-  console.log('---------rowsPerPage', rowsPerPage);
-  console.log('---------currentPage', currentPage);
   const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
     if (currentPage < newPage) {
       setOffset(offset + rowsPerPage);
@@ -28,7 +24,6 @@ function Paginator({
     }
     setCurrentPage(newPage);
   };
-
   return (
     <>
       <TablePagination

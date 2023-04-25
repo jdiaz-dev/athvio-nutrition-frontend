@@ -4,10 +4,19 @@ import { useQuery } from '@apollo/client';
 import { GetFoodDatabasesResponse } from 'src/shared/components/MealBuilder/food.types';
 import { GET_FOOD_DATABASES } from 'src/shared/components/MealBuilder/FoodQueries';
 
-function DatabaseSelector({ database, setDatabase }: { database: string; setDatabase: (database: string) => void }) {
+function DatabaseSelector({
+  database,
+  setDatabase,
+  setDatabaseChanged,
+}: {
+  database: string;
+  setDatabase: (database: string) => void;
+  setDatabaseChanged: (databaseChanged: boolean) => void;
+}) {
   const { data } = useQuery<GetFoodDatabasesResponse>(GET_FOOD_DATABASES);
   const handleChange = (event: SelectChangeEvent) => {
     setDatabase(event.target.value);
+    setDatabaseChanged(true);
   };
 
   return (
