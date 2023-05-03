@@ -56,7 +56,6 @@ export function useCustomRecipe() {
         fetchPolicy: 'network-only',
       });
 
-      // console.log('--------getCustomRecipes', response);
       if (response) dispatch(CustomRecipeSlicers.showCustomRecipes(response.data.getCustomRecipes));
       return response;
     } catch (error) {
@@ -65,6 +64,7 @@ export function useCustomRecipe() {
     }
   };
   const updateCustomRecipe = async (body: UpdateCustomRecipeBody): Promise<void> => {
+    console.log('-------------body updateCustomRecipe', body);
     try {
       const response = await apolloClient.mutate<UpdateCustomRecipeResponse, UpdateCustomRecipeRequest>({
         mutation: UPDATE_CUSTOM_RECIPE,
@@ -75,7 +75,7 @@ export function useCustomRecipe() {
         },
       });
       response;
-      // console.log(response);
+      console.log(response);
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;

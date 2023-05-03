@@ -4,21 +4,113 @@ export const GET_FOODS = gql`
   query _getFoods($input: GetFoodsDto!) {
     getFoods(input: $input) {
       data {
+        foodId
+        foodDatabase
         name
+        ingredientDetails {
+          ingredientType
+          customIngredient {
+            amount
+            label
+            name
+            ingredients {
+              name
+              amount
+              label
+              weightInGrams
+              protein
+              carbs
+              fat
+              calories
+            }
+            macros {
+              weightInGrams
+              protein
+              carbs
+              fat
+              calories
+            }
+          }
+          equivalents {
+            ingredientType
+            customIngredient {
+              name
+              ingredients {
+                name
+                amount
+                label
+                weightInGrams
+                protein
+                carbs
+                fat
+                calories
+              }
+              macros {
+                weightInGrams
+                protein
+                carbs
+                fat
+                calories
+              }
+            }
+            ingredient {
+              amount
+              label
+              weightInGrams
+              protein
+              carbs
+              fat
+              calories
+            }
+          }
+          ingredient {
+            name
+            amount
+            label
+            weightInGrams
+            protein
+            carbs
+            fat
+            calories
+          }
+          equivalents {
+            ingredientType
+            customIngredient {
+              name
+              ingredients {
+                amount
+                name
+                label
+                weightInGrams
+                protein
+                carbs
+                fat
+                calories
+              }
+            }
+            ingredient {
+              amount
+              name
+              label
+              weightInGrams
+              protein
+              carbs
+              fat
+              calories
+            }
+          }
+        }
         macros {
+          weightInGrams
           protein
           carbs
           fat
           calories
         }
-        defaultMeasure {
-          amount
-          unit
-        }
-        measures {
+        availableMeasures {
           uri
           label
-          weight
+          weightInGrams
         }
       }
       meta {

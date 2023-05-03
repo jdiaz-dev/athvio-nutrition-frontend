@@ -10,11 +10,55 @@ export const CREATE_CUSTOM_RECIPE = gql`
       ingredientDetails {
         ingredientType
         customIngredient {
+          amount
+          label
           name
           ingredients {
             name
             amount
-            unit
+            label
+            weightInGrams
+            protein
+            carbs
+            fat
+            calories
+          }
+          macros {
+            weightInGrams
+            protein
+            carbs
+            fat
+            calories
+          }
+        }
+        equivalents {
+          ingredientType
+          customIngredient {
+            amount
+            label
+            name
+            ingredients {
+              name
+              amount
+              label
+              weightInGrams
+              protein
+              carbs
+              fat
+              calories
+            }
+            macros {
+              weightInGrams
+              protein
+              carbs
+              fat
+              calories
+            }
+          }
+          ingredient {
+            amount
+            label
+            weightInGrams
             protein
             carbs
             fat
@@ -24,7 +68,8 @@ export const CREATE_CUSTOM_RECIPE = gql`
         ingredient {
           name
           amount
-          unit
+          label
+          weightInGrams
           protein
           carbs
           fat
@@ -37,7 +82,8 @@ export const CREATE_CUSTOM_RECIPE = gql`
             ingredients {
               amount
               name
-              unit
+              label
+              weightInGrams
               protein
               carbs
               fat
@@ -47,7 +93,8 @@ export const CREATE_CUSTOM_RECIPE = gql`
           ingredient {
             amount
             name
-            unit
+            label
+            weightInGrams
             protein
             carbs
             fat
@@ -56,8 +103,8 @@ export const CREATE_CUSTOM_RECIPE = gql`
         }
       }
       cookingInstructions
-      totalWeight
       macros {
+        weightInGrams
         protein
         carbs
         fat
@@ -72,17 +119,58 @@ export const GET_CUSTOM_RECIPES = gql`
     getCustomRecipes(input: $input) {
       data {
         _id
-        name
         professional
         name
         ingredientDetails {
           ingredientType
           customIngredient {
+            amount
+            label
             name
             ingredients {
               name
               amount
-              unit
+              label
+              weightInGrams
+              protein
+              carbs
+              fat
+              calories
+            }
+            macros {
+              weightInGrams
+              protein
+              carbs
+              fat
+              calories
+            }
+          }
+          equivalents {
+            ingredientType
+            customIngredient {
+              name
+              ingredients {
+                name
+                amount
+                label
+                weightInGrams
+                protein
+                carbs
+                fat
+                calories
+              }
+              macros {
+                weightInGrams
+                protein
+                carbs
+                fat
+                calories
+              }
+            }
+            ingredient {
+              amount
+              label
+              weightInGrams
               protein
               carbs
               fat
@@ -92,7 +180,8 @@ export const GET_CUSTOM_RECIPES = gql`
           ingredient {
             name
             amount
-            unit
+            label
+            weightInGrams
             protein
             carbs
             fat
@@ -105,7 +194,8 @@ export const GET_CUSTOM_RECIPES = gql`
               ingredients {
                 amount
                 name
-                unit
+                label
+                weightInGrams
                 protein
                 carbs
                 fat
@@ -115,7 +205,8 @@ export const GET_CUSTOM_RECIPES = gql`
             ingredient {
               amount
               name
-              unit
+              label
+              weightInGrams
               protein
               carbs
               fat
@@ -124,8 +215,8 @@ export const GET_CUSTOM_RECIPES = gql`
           }
         }
         cookingInstructions
-        totalWeight
         macros {
+          weightInGrams
           protein
           carbs
           fat
@@ -151,11 +242,53 @@ export const UPDATE_CUSTOM_RECIPE = gql`
       ingredientDetails {
         ingredientType
         customIngredient {
+          amount
+          label
           name
           ingredients {
             name
             amount
-            unit
+            label
+            weightInGrams
+            protein
+            carbs
+            fat
+            calories
+          }
+          macros {
+            weightInGrams
+            protein
+            carbs
+            fat
+            calories
+          }
+        }
+        equivalents {
+          ingredientType
+          customIngredient {
+            name
+            ingredients {
+              name
+              amount
+              label
+              weightInGrams
+              protein
+              carbs
+              fat
+              calories
+            }
+            macros {
+              weightInGrams
+              protein
+              carbs
+              fat
+              calories
+            }
+          }
+          ingredient {
+            amount
+            label
+            weightInGrams
             protein
             carbs
             fat
@@ -165,7 +298,8 @@ export const UPDATE_CUSTOM_RECIPE = gql`
         ingredient {
           name
           amount
-          unit
+          label
+          weightInGrams
           protein
           carbs
           fat
@@ -178,7 +312,8 @@ export const UPDATE_CUSTOM_RECIPE = gql`
             ingredients {
               amount
               name
-              unit
+              label
+              weightInGrams
               protein
               carbs
               fat
@@ -188,7 +323,8 @@ export const UPDATE_CUSTOM_RECIPE = gql`
           ingredient {
             amount
             name
-            unit
+            label
+            weightInGrams
             protein
             carbs
             fat
@@ -197,8 +333,8 @@ export const UPDATE_CUSTOM_RECIPE = gql`
         }
       }
       cookingInstructions
-      totalWeight
       macros {
+        weightInGrams
         protein
         carbs
         fat
@@ -218,11 +354,53 @@ export const DELETE_CUSTOM_RECIPE = gql`
       ingredientDetails {
         ingredientType
         customIngredient {
+          amount
+          label
           name
           ingredients {
             name
             amount
-            unit
+            label
+            weightInGrams
+            protein
+            carbs
+            fat
+            calories
+          }
+          macros {
+            weightInGrams
+            protein
+            carbs
+            fat
+            calories
+          }
+        }
+        equivalents {
+          ingredientType
+          customIngredient {
+            name
+            ingredients {
+              name
+              amount
+              label
+              weightInGrams
+              protein
+              carbs
+              fat
+              calories
+            }
+            macros {
+              weightInGrams
+              protein
+              carbs
+              fat
+              calories
+            }
+          }
+          ingredient {
+            amount
+            label
+            weightInGrams
             protein
             carbs
             fat
@@ -232,7 +410,8 @@ export const DELETE_CUSTOM_RECIPE = gql`
         ingredient {
           name
           amount
-          unit
+          label
+          weightInGrams
           protein
           carbs
           fat
@@ -245,7 +424,8 @@ export const DELETE_CUSTOM_RECIPE = gql`
             ingredients {
               amount
               name
-              unit
+              label
+              weightInGrams
               protein
               carbs
               fat
@@ -255,7 +435,8 @@ export const DELETE_CUSTOM_RECIPE = gql`
           ingredient {
             amount
             name
-            unit
+            label
+            weightInGrams
             protein
             carbs
             fat
@@ -264,8 +445,8 @@ export const DELETE_CUSTOM_RECIPE = gql`
         }
       }
       cookingInstructions
-      totalWeight
       macros {
+        weightInGrams
         protein
         carbs
         fat

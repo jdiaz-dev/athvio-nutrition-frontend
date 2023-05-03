@@ -11,12 +11,12 @@ const initialState: CustomRecipeInitialState = {
     name: 'Meal 1',
     ingredientDetails: [],
     cookingInstructions: '',
-    totalWeight: 0,
     macros: {
       protein: 0,
       carbs: 0,
       fat: 0,
       calories: 0,
+      weightInGrams: 0,
     },
   },
 };

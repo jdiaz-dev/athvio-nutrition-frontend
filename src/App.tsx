@@ -13,6 +13,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { UserType } from 'src/shared/Consts';
 import CustomRecipesContainer from 'src/modules/professionals/custom-recipes/adapters/in/components/CustomRecipesContainer';
 import ProgramPlansContainer from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/ProgramPlansContainer';
+import Lab from 'src/modules/Lab';
 
 /* const loginStyles = makeStyles({
   container: {
@@ -78,6 +79,7 @@ function App() {
                   <Route path="Custom Recipes" element={<CustomRecipesContainer />} />
                   <Route path="Programs" element={<ProgramsContainer />} />
                   <Route path="Programs/:programId/RecipePlan" element={<ProgramPlansContainer />} />
+                  <Route path="Lab" element={<Lab />} />
                 </Route>
               }
             </Routes>
@@ -97,12 +99,12 @@ export default App;
   - fix delay data after to update recipe (programs module)
   - fix button touched but doesn't increment ingredient amount in program plans
   - fix create meal plan (at momemt to choose meal name from wilcalrd call inmediatly to the backend) in MealDetail component
-  - implementent reload in : /sidenav/Programs/642f04279fb0838a6208f1e9/RecipePlan path
 
   - rename export interface RecipeBody
   - fix bug at moment to add ingredient and some macros is 0, NaN  is the  result trying to add ingredient
   - fix : only use one call to server in clientList component (void call by default, use skip call for it)
   - fix. refactor food list component ot better understand
+  - fix: refactor - at moment to get info from ALL database, it is not capable to get the meal searched in the search
 */
 
 /*

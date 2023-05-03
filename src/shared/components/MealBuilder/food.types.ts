@@ -1,4 +1,5 @@
-import { Macros } from 'src/shared/components/MealBuilder/MealBuilder.types';
+import { IngredientDetail, Macros } from 'src/shared/components/MealBuilder/MealBuilder.types';
+import { FoodDatabases } from 'src/shared/Consts';
 
 export type GetFoodDatabasesResponse = {
   getFoodDatabases: string[];
@@ -30,27 +31,34 @@ export type GetFoodRequest = {
   input: InputGetFoods;
 };
 
-interface Measure {
+export interface Measure {
   uri: string;
   label: string;
-  weight: number;
+  weightInGrams: number;
 }
 
-interface DefaultMeasure {
-  amount: number;
-  unit: string;
-}
 export type Food = {
+  foodDatabase: FoodDatabases;
   name: string;
   macros: Macros;
-  defaultMeasure: DefaultMeasure;
-  measures: Measure[];
+  foodId?: string;
+  ingredientDetails?: IngredientDetail[];
+  availableMeasures?: Measure[];
 };
+interface EstablishedMeasure {
+  amount: number;
+  label: string;
+  weightInGrams: number;
+}
+export interface FoodManager extends Food {
+  measure: EstablishedMeasure;
+}
 
 interface FoodProviderSession {
   title: string;
   nextSession: number;
 }
+
 export type GetFoodsResponse = {
   getFoods: {
     data: Food[];

@@ -23,7 +23,7 @@ import { GET_AUTOCOMPLETE_FOOD_NAMES, GET_FOODS } from 'src/shared/components/Me
 import FoodItem from 'src/shared/components/MealBuilder/FoodItem';
 import { ProfessionalIdContext } from 'src/App';
 import DatabaseSelector from 'src/shared/components/MealBuilder/DatabaseSelector';
-import { SpecialPagination } from 'src/shared/Consts';
+import { FoodDatabases, SpecialPagination } from 'src/shared/Consts';
 
 function FoodList() {
   const professionalIdContext = useContext(ProfessionalIdContext);
@@ -38,7 +38,7 @@ function FoodList() {
     setRecentlyTypedWord,
   } = useSearcher();
   const { length, setLength, offset, setOffset, rowsPerPage, currentPage, setCurrentPage } = usePaginator(5);
-  const [database, setDatabase] = useState<string>(SpecialPagination.DEFAULT_DATABASE);
+  const [database, setDatabase] = useState<string>(FoodDatabases.ALL);
 
   const [foods, setFoods] = useState<Food[]>([]);
   const [providerFoods, setProviderFoods] = useState<Food[]>([]);
@@ -68,7 +68,7 @@ function FoodList() {
     setPanelExpanded(newPanelExpanded ? panel : false);
   };
 
-  const isSpecialPagination = () => database === SpecialPagination.DEFAULT_DATABASE || database === SpecialPagination.SYSTEM_DATABASE;
+  const isSpecialPagination = () => database === FoodDatabases.ALL || database === FoodDatabases.SYSTEM;
   const input: InputGetFoods = {
     professional: professionalIdContext.professional,
     offset: offset,
@@ -77,7 +77,7 @@ function FoodList() {
   };
 
   useEffect(() => {
-    const manageRequestToDefaultDB = () => database === SpecialPagination.DEFAULT_DATABASE && makeRequestToDefaultDB;
+    const manageRequestToDefaultDB = () => database === FoodDatabases.ALL && makeRequestToDefaultDB;
     const isRequestToDefaultDB = manageRequestToDefaultDB();
     let _input: InputGetFoods = searchWords.length > 0 ? { ...input, search: searchWords } : input;
 
@@ -186,13 +186,25 @@ function FoodList() {
               <Table sx={{ minWidth: 350 }} size="small" aria-label="customized table">
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell width={'10%'}>Amount</StyledTableCell>
-                    <StyledTableCell width={'65%'}>Food</StyledTableCell>
-                    <StyledTableCell width={'5%'}>Protein</StyledTableCell>
-                    <StyledTableCell width={'5%'}>Carbs</StyledTableCell>
-                    <StyledTableCell width={'5%'}>Fat</StyledTableCell>
-                    <StyledTableCell width={'5%'}>Calories</StyledTableCell>
-                    <StyledTableCell width={'5%'}></StyledTableCell>
+                    <StyledTableCell style={{ padding: '1px', border: '1px solid red' }} width={'25%'}>
+                      Amount
+                    </StyledTableCell>
+                    <StyledTableCell style={{ padding: '1px', border: '1px solid red' }} width={'45%'}>
+                      Food
+                    </StyledTableCell>
+                    <StyledTableCell style={{ padding: '1px', border: '1px solid red' }} width={'5%'}>
+                      Protein
+                    </StyledTableCell>
+                    <StyledTableCell style={{ padding: '1px', border: '1px solid red' }} width={'5%'}>
+                      Carbs
+                    </StyledTableCell>
+                    <StyledTableCell style={{ padding: '1px', border: '1px solid red' }} width={'5%'}>
+                      Fat
+                    </StyledTableCell>
+                    <StyledTableCell style={{ padding: '1px', border: '1px solid red' }} width={'5%'}>
+                      Calories
+                    </StyledTableCell>
+                    <StyledTableCell style={{ padding: '1px', border: '1px solid red' }} width={'5%'}></StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody style={{ maxHeight: '10px' }}>

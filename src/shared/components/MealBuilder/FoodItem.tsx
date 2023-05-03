@@ -1,97 +1,198 @@
+/* eslint-disable max-len */
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import AddIcon from '@mui/icons-material/Add';
+
 import { useDispatch } from 'react-redux';
 import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
 import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
 import { FoddAddedContext } from 'src/shared/components/MealBuilder/FoddAddedContext';
-import { Food } from 'src/shared/components/MealBuilder/food.types';
+import { Food, FoodManager } from 'src/shared/components/MealBuilder/food.types';
 import { useChooseSlicers } from 'src/shared/hooks/useChooseSlicers';
+import { FoodDatabases, IngredientType, MeasureSizes } from 'src/shared/Consts';
+import { BootstrapInput } from 'src/shared/components/CustomizedInput';
+import { calculateMacrosFixingDecimals, multiplicateFixingDecimals } from 'src/shared/components/MealBuilder/MacrosCalculator';
+import { Ingredient, IngredientDetail } from 'src/shared/components/MealBuilder/MealBuilder.types';
 
 function FoodItem({ food }: { food: Food }) {
   const foddAddedContext = useContext(FoddAddedContext);
   const dispatch = useDispatch();
-
   const currentModuleContext = useContext(CurrentModuleContext);
   const { addIngredient } = useChooseSlicers(currentModuleContext.currentModule);
-  const [_food, _setFood] = useState<Food>(food);
+  const [foodManager, setFoodManager] = useState<FoodManager | null>(null);
+  const [measure, setMeasure] = useState<string | null>(null);
+
   useEffect(() => {
-    _setFood(food);
+    const defaultMeasure = food.availableMeasures?.find((measure) => measure.label === MeasureSizes.GRAM_LABEL);
+    const defaultMeasureValue = `${defaultMeasure?.label || ''} ${defaultMeasure?.weightInGrams || ''}`;
+    setMeasure(defaultMeasureValue);
+    setFoodManager({
+      ...food,
+      measure: { amount: food.macros.weightInGrams, label: MeasureSizes.GRAM_LABEL as string, weightInGrams: food.macros.weightInGrams },
+    });
   }, [food]);
 
-  const calculateMacrosFixingDecimals = (amount: number, amountReference: number, macroReference: number) => {
-    return (amount * 100 * (macroReference * 100)) / (amountReference * 10000);
+  useEffect(() => {
+    const measureSplited: string[] = measure !== null ? measure.split(' ') : [];
+    const measureLabel = measureSplited[0];
+
+    if (measureLabel && foodManager !== null) {
+      const amountInGrams = parseFloat(measureSplited[1]);
+      const foodTotalAmount = multiplicateFixingDecimals(amountInGrams, foodManager.measure.amount);
+      setFoodManager({
+        ...foodManager,
+        macros: {
+          protein: calculateMacrosFixingDecimals(foodTotalAmount, food.macros.weightInGrams, food.macros.protein),
+          carbs: calculateMacrosFixingDecimals(foodTotalAmount, food.macros.weightInGrams, food.macros.carbs),
+          fat: calculateMacrosFixingDecimals(foodTotalAmount, food.macros.weightInGrams, food.macros.fat),
+          calories: calculateMacrosFixingDecimals(foodTotalAmount, food.macros.weightInGrams, food.macros.calories),
+          weightInGrams: foodManager.measure.amount,
+        },
+        measure: {
+          amount: foodManager.measure.amount,
+          label: measureLabel,
+          weightInGrams: measureLabel === MeasureSizes.GRAM_LABEL ? foodManager.measure.amount : foodTotalAmount,
+        },
+      });
+    }
+  }, [measure, foodManager?.measure.amount]);
+
+  const handleMeasureChange = (event: SelectChangeEvent<string>) => {
+    const measureSplited = event.target.value.split(' ');
+    const measureLabel = measureSplited[0];
+
+    if (foodManager !== null) {
+      setMeasure(event.target.value);
+      setFoodManager({
+        ...foodManager,
+        measure: {
+          ...foodManager.measure,
+          amount: measureLabel === MeasureSizes.GRAM_LABEL ? (MeasureSizes.GRAM_AMOUNT as number) : (MeasureSizes.NORMAL_AMOUNT as number),
+        },
+      });
+    }
   };
+
+  const chooseIngredient = () => {
+    let ingredientDetailCustomRecipe: IngredientDetail;
+    if (foodManager !== null && foodManager.measure.amount > 0 && foodManager.foodDatabase === FoodDatabases.CUSTOM_RECIPES) {
+      ingredientDetailCustomRecipe = {
+        ingredientType: IngredientType.CUSTOM_INGREDIENT,
+        customIngredient: {
+          name: foodManager.name,
+          label: foodManager.measure.label,
+          amount: foodManager.measure.amount,
+          ingredients: [],
+          macros: foodManager.macros,
+        },
+        equivalents: [],
+      };
+
+      foodManager.ingredientDetails?.forEach((ingredientDetail) => {
+        if (ingredientDetail.customIngredient) throw Error('you cannot add a custom ingredient to a custom recipe');
+
+        ingredientDetailCustomRecipe.customIngredient?.ingredients.push(ingredientDetail.ingredient as Ingredient);
+      });
+      dispatch(addIngredient(ingredientDetailCustomRecipe));
+      foddAddedContext.setFoodAdded(true);
+    } else if (
+      foodManager !== null &&
+      foodManager.measure.amount > 0 &&
+      (foodManager.foodDatabase === FoodDatabases.ALL || foodManager.foodDatabase === FoodDatabases.SYSTEM)
+    ) {
+      ingredientDetailCustomRecipe = {
+        ingredientType: IngredientType.UNIQUE_INGREDIENT,
+        ingredient: {
+          name: foodManager.name,
+          label: foodManager.measure.label,
+          amount: foodManager.measure.amount,
+          ...foodManager.macros,
+        },
+        equivalents: [],
+      };
+      dispatch(addIngredient(ingredientDetailCustomRecipe));
+      foddAddedContext.setFoodAdded(true);
+    }
+  };
+
   return (
     <>
-      <StyledTableRow key={_food.name}>
-        <StyledTableCell style={{ padding: '3px', paddingLeft: '7px' }} align="right">
-          <TextField
-            inputProps={{ style: { fontSize: 'revert', height: '11px' } }}
-            InputLabelProps={{ style: { fontSize: 'revert' } }}
-            style={{ width: '100%' }}
-            id="filled-hidden-label-small"
-            label="(g)"
-            variant="outlined"
-            size="small"
-            type="number"
-            defaultValue={_food.defaultMeasure.amount}
-            onChange={(e) => {
-              const newAmount = Number(e.target.value);
-
-              _setFood({
-                ..._food,
-                macros: {
-                  protein: calculateMacrosFixingDecimals(newAmount, food.defaultMeasure.amount, food.macros.protein),
-                  carbs: calculateMacrosFixingDecimals(newAmount, food.defaultMeasure.amount, food.macros.carbs),
-                  fat: calculateMacrosFixingDecimals(newAmount, food.defaultMeasure.amount, food.macros.fat),
-                  calories: calculateMacrosFixingDecimals(newAmount, food.defaultMeasure.amount, food.macros.calories),
-                },
-                defaultMeasure: { ..._food.defaultMeasure, amount: Number(e.target.value) },
-              });
-            }}
-          />
-        </StyledTableCell>
-        <StyledTableCell style={{ padding: '4px' }} component="th" scope="row">
-          {_food.name}
-        </StyledTableCell>
-        <StyledTableCell width={'5%'} style={{ padding: '4px' }} component="th" scope="row">
-          {_food.macros.protein}
-        </StyledTableCell>
-        <StyledTableCell width={'5%'} style={{ padding: '4px' }} component="th" scope="row">
-          {_food.macros.carbs}
-        </StyledTableCell>
-        <StyledTableCell width={'5%'} style={{ padding: '4px' }} component="th" scope="row">
-          {_food.macros.fat}
-        </StyledTableCell>
-        <StyledTableCell width={'5%'} style={{ padding: '4px' }} component="th" scope="row">
-          {_food.macros.calories}
-        </StyledTableCell>
-        <StyledTableCell align="right" width={'5%'} style={{ padding: '0px', paddingRight: '7px' }}>
-          <Button
-            style={{ fontSize: '12px', height: '24px' }}
-            size="small"
-            variant="contained"
-            onClick={() => {
-              if (_food.defaultMeasure.amount > 0) {
-                dispatch(
-                  addIngredient({
-                    amount: _food.defaultMeasure.amount,
-                    name: _food.name,
-                    unit: 'g',
-                    protein: _food.macros.protein,
-                    carbs: _food.macros.carbs,
-                    fat: _food.macros.fat,
-                    calories: _food.macros.calories,
-                  }),
-                );
-                foddAddedContext.setFoodAdded(true);
-              }
-            }}
-          >
-            Add
-          </Button>
-        </StyledTableCell>
-      </StyledTableRow>
+      {foodManager !== null && (
+        <StyledTableRow key={foodManager.name}>
+          <StyledTableCell style={{ padding: '3px', paddingLeft: '7px' }} align="right">
+            <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+              <div style={{ border: '1px solid blue' }}>
+                <TextField
+                  inputProps={{ style: { fontSize: 'revert', height: '11px', width: '38px' } }}
+                  InputLabelProps={{ style: { fontSize: 'revert' } }}
+                  style={{ width: '100%' }}
+                  id="standard-number"
+                  size="small"
+                  variant="standard"
+                  type={'number'}
+                  value={foodManager.measure.amount}
+                  onChange={(e) => {
+                    setFoodManager({
+                      ...foodManager,
+                      measure: { ...foodManager.measure, amount: Number(e.target.value) },
+                    });
+                  }}
+                />
+              </div>
+              <div style={{ border: '1px solid blue' }}>
+                <FormControl sx={{ m: 1, maxWidth: 85 }} size="small" style={{ margin: 0 }} variant="standard">
+                  <InputLabel id="demo-customized-select-label">Measure</InputLabel>
+                  <Select
+                    labelId="demo-select-small-label"
+                    id="demo-select-small"
+                    value={measure !== null ? measure : ''}
+                    label="measure"
+                    style={{ width: '85px', border: '2px solid brown' }}
+                    input={<BootstrapInput componentsProps={{ input: { style: { padding: '50px' } } }} />}
+                    onChange={handleMeasureChange}
+                  >
+                    {foodManager.availableMeasures &&
+                      foodManager.availableMeasures.map((measure, index) => {
+                        const value = `${measure.label} ${measure.weightInGrams}`;
+                        return (
+                          <MenuItem key={index} value={value}>
+                            {measure.label === MeasureSizes.GRAM_LABEL ? measure.label : `${measure.label} (${measure.weightInGrams}g)`}
+                          </MenuItem>
+                        );
+                      })}
+                  </Select>
+                </FormControl>
+              </div>
+              <div style={{ border: '1px solid blue' }}>{foodManager.measure.weightInGrams}g</div>
+            </div>
+          </StyledTableCell>
+          <StyledTableCell style={{ padding: '4px' }} component="th" scope="row">
+            {foodManager.name}
+          </StyledTableCell>
+          <StyledTableCell width={'5%'} style={{ padding: '4px' }} component="th" scope="row">
+            {foodManager.macros.protein}
+          </StyledTableCell>
+          <StyledTableCell width={'5%'} style={{ padding: '4px' }} component="th" scope="row">
+            {foodManager.macros.carbs}
+          </StyledTableCell>
+          <StyledTableCell width={'5%'} style={{ padding: '4px' }} component="th" scope="row">
+            {foodManager.macros.fat}
+          </StyledTableCell>
+          <StyledTableCell width={'5%'} style={{ padding: '4px' }} component="th" scope="row">
+            {foodManager.macros.calories}
+          </StyledTableCell>
+          <StyledTableCell align="right" width={'5%'} style={{ padding: '0px', paddingRight: '7px' }}>
+            <AddIcon
+              //  style={{ fontSize: '12px', height: '24px' }}
+              onClick={chooseIngredient}
+            />
+          </StyledTableCell>
+        </StyledTableRow>
+      )}
     </>
   );
 }

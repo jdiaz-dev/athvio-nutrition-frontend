@@ -1,4 +1,4 @@
-import { IngredientType, MealDataForBuilder } from 'src/shared/components/MealBuilder/MealBuilder.types';
+import { IngredientDetail, MealDataForBuilder } from 'src/shared/components/MealBuilder/MealBuilder.types';
 import { GetRecordsBody, MetadataRecords } from 'src/shared/types/get-records.types';
 
 export interface Macros {
@@ -11,7 +11,7 @@ export interface Macros {
 export interface Meal {
   _id: string;
   name: string;
-  ingredients: IngredientType[];
+  ingredientDetails: IngredientDetail[];
   cookingInstructions: string;
   macros: Macros;
 }

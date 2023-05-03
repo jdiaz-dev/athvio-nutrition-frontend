@@ -1,8 +1,3 @@
-export const REST_COUNTRIES_URL = 'https://restcountries.com/v3.1/all?fields=name,idd,flags';
-export const EDAMAN_ANALISIS_NUTRITION_DATA = 'https://api.edamam.com/api/nutrition-data';
-export const EDAMAN_ANALISIS_NUTRITION_DATA_APP_ID = '61502c72';
-export const EDAMAN_ANALISIS_APP_KEY = '90b651fc4688ed9c7ea8754afd766b1a';
-
 export const baseHeight = 150;
 export const baseWeek = 1;
 
@@ -58,15 +53,25 @@ export enum WeekActions {
 export enum SpecialPagination {
   FIRST_PAGE_SIMULATION = 0,
   ALLOWED_OFFSET_LIMIT = 15,
-  DEFAULT_DATABASE = 'ALL',
-  SYSTEM_DATABASE = 'SYSTEM',
   OFFSET_RESETED = 0,
   LIMIT_RECORDS_IN_MEMORY = 20,
   TOTAL_NEXT_RECORDS = 20,
   // rowsPerPageForDefaultDB = 20;
 }
 
+export enum MeasureSizes {
+  GRAM_LABEL = 'Gram',
+  GRAM_AMOUNT = 100,
+  NORMAL_AMOUNT = 1,
+}
+
 export enum IngredientType {
   CUSTOM_INGREDIENT = 'CUSTOM_INGREDIENT',
   UNIQUE_INGREDIENT = 'UNIQUE_INGREDIENT',
+}
+
+export enum FoodDatabases {
+  ALL = 'ALL',
+  SYSTEM = 'SYSTEM',
+  CUSTOM_RECIPES = 'CUSTOM_RECIPES',
 }
