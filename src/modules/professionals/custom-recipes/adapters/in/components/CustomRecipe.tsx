@@ -7,9 +7,9 @@ import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
 import { useCustomRecipe } from 'src/modules/professionals/custom-recipes/adapters/out/CustomRecipeActions';
 import { ProfessionalIdContext } from 'src/App';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
-import { RecipeBody } from 'src/shared/components/MealBuilder/MealBuilder.types';
+import { CustomRecipeBody } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 
-function CustomRecipe(customRecipe: RecipeBody) {
+function CustomRecipe(customRecipe: CustomRecipeBody) {
   const professionalIdContext = useContext(ProfessionalIdContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const [openCreateUpdateCustomRecipeDialog, setOpenCreateUpdateCustomRecipeDialog] = useState(false);

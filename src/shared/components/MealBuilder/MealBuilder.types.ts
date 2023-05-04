@@ -13,7 +13,9 @@ export interface Ingredient extends Macros {
   name: string;
   label: string;
 }
-export type EndIngredient = Ingredient;
+export interface DisplayedIngredient extends Ingredient {
+  ingredientType: IngredientType;
+}
 export interface CustomIngredient {
   amount: number;
   name: string;
@@ -32,13 +34,12 @@ export interface IngredientDetail extends Equivalent {
   equivalents: Equivalent[];
 }
 
-export interface RecipeBody {
+export interface MealBuilderBody {
   _id: string; // in front we manage _id, to send to back we add domain more Id, for example customRecipeId
   professional: string;
-  name: string;
   ingredientDetails: IngredientDetail[];
   cookingInstructions: string;
   macros: Macros;
 }
 
-export type MealDataForBuilder = Omit<RecipeBody, 'professional'>;
+export type MealDataForBuilder = Omit<MealBuilderBody, 'professional'>;

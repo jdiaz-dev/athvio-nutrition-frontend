@@ -1,7 +1,10 @@
-import { RecipeBody } from 'src/shared/components/MealBuilder/MealBuilder.types';
+import { MealBuilderBody } from 'src/shared/components/MealBuilder/MealBuilder.types';
 import { GetRecordsBody } from 'src/shared/types/get-records.types';
 
-export type CreateCustomRecipeBody = Omit<RecipeBody, '_id'>;
+export interface CustomRecipeBody extends MealBuilderBody {
+  name: string;
+}
+export type CreateCustomRecipeBody = Omit<CustomRecipeBody, '_id'>;
 
 export interface CreateCustomRecipeRequest {
   input: CreateCustomRecipeBody;
@@ -16,7 +19,7 @@ export interface CreateCustomRecipeResponse {
   };
 }
 
-export interface UpdateCustomRecipeBody extends Omit<RecipeBody, '_id'> {
+export interface UpdateCustomRecipeBody extends Omit<CustomRecipeBody, '_id'> {
   customRecipe: string;
 }
 
@@ -38,7 +41,7 @@ export interface GetCustomRecipeRequest {
 }
 
 export interface CustomRecipes {
-  data: RecipeBody[];
+  data: CustomRecipeBody[];
   meta: {
     total: number;
     offset: number;
@@ -67,5 +70,6 @@ export interface DeleteCustomRecipeResponse {
 
 export interface CustomRecipeInitialState {
   customRecipes: CustomRecipes | null;
-  customRecipe: RecipeBody;
+  customRecipeDetails: MealBuilderBody;
+  customRecipeName: string;
 }

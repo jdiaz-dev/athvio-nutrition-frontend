@@ -1,10 +1,13 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
 import { makeStyles } from 'tss-react/mui';
 
-import { EndIngredient } from 'src/shared/components/MealBuilder/MealBuilder.types';
+import { DisplayedIngredient } from 'src/shared/components/MealBuilder/MealBuilder.types';
+import { useChooseSlicers } from 'src/shared/hooks/useChooseSlicers';
+import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
+import { useDispatch } from 'react-redux';
 
 const containerStyles = makeStyles()(() => {
   return {
@@ -29,17 +32,16 @@ const containerStyles = makeStyles()(() => {
   };
 });
 
-function IngredientItem({ endIngredient: { name, amount, label, ...rest } }: { endIngredient: EndIngredient }) {
+function IngredientItem({ displayedIngredient: { name, amount, label, ...rest } }: { displayedIngredient: DisplayedIngredient }) {
   const { classes } = containerStyles();
+  const dispatch = useDispatch();
   const [displayOverlay, setDisplayOverlay] = useState(false);
-  // const refDiv = useRef<HTMLDivElement>(null);
-  /*
+  const currentModuleContext = useContext(CurrentModuleContext);
+  const { removeIngredient } = useChooseSlicers(currentModuleContext.currentModule);
 
-  useEffect(() => {
-    if (displayOverlay) refDiv.current?.style.setProperty('zIndex', '2');
-    console.log('-------displayOverlay', displayOverlay);
-  }, [displayOverlay]); */
-
+  const deleteIngredientHandlder = () => {
+    dispatch(removeIngredient({ ingredientType: rest.ingredientType, name }));
+  };
   return (
     <>
       <StyledTableRow key={name} classes={{ root: classes.container }}>
@@ -107,7 +109,7 @@ function IngredientItem({ endIngredient: { name, amount, label, ...rest } }: { e
           }}
           className={classes.overlay}
         >
-          <DeleteIcon />
+          <DeleteIcon onClick={deleteIngredientHandlder} />
         </td>
       </StyledTableRow>
     </>

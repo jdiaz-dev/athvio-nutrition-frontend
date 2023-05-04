@@ -10,7 +10,6 @@ function CustomRecipesContainer() {
   const [openCreateUpdateCustomRecipeDialog, setOpenCreateUpdateCustomRecipeDialog] = useState(false);
   const [reloadCustomRecipeList, setReloadCustomRecipeList] = useState(false);
   const { reloadRecordList, setReloadRecordList } = useReloadRecords();
-  // console.log('--------container');
   useEffect(() => {
     return () => {
       setReloadCustomRecipeList(false);

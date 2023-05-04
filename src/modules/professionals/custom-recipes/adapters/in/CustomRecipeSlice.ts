@@ -35,7 +35,8 @@ export const { showCustomRecipes } = customRecipesSlices.actions;
 
 const custoRecipeSlice = recipeBuilderSlice('customRecipe', initialState.customRecipe);
 
-export const { acceptNewMealDetail, renameMealName, addIngredient, renameCookingInstruction, reinitializeMeal } = custoRecipeSlice.actions;
+export const { acceptNewMealDetail, renameMealName, addIngredient, removeIngredient, renameCookingInstruction, reinitializeMeal } =
+  custoRecipeSlice.actions;
 
 export default combineReducers({
   customRecipes: customRecipesSlices.reducer,

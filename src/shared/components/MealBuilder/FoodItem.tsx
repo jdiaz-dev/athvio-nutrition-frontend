@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { useContext, useEffect, useState } from 'react';
 import { TextField } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';

@@ -9,30 +9,95 @@ export const CREATE_PROGRAM = gql`
       description
       programTags {
         _id
+        title
       }
       plans {
         _id
         title
         week
         day
-        mealPlans {
+        meals {
           _id
-          mealTag
           position
-          meals {
-            name
-            ingredients {
+          mealTag
+          name
+          ingredientDetails {
+            ingredientType
+            customIngredient {
+              amount
+              label
+              name
+              ingredients {
+                name
+                amount
+                label
+                weightInGrams
+                protein
+                carbs
+                fat
+                calories
+              }
+              macros {
+                weightInGrams
+                protein
+                carbs
+                fat
+                calories
+              }
+            }
+            ingredient {
               name
               amount
-              calories
-            }
-            cookingInstructions
-            macros {
+              label
+              weightInGrams
               protein
               carbs
               fat
               calories
             }
+            equivalents {
+              ingredientType
+              customIngredient {
+                amount
+                label
+                name
+                ingredients {
+                  name
+                  amount
+                  label
+                  weightInGrams
+                  protein
+                  carbs
+                  fat
+                  calories
+                }
+                macros {
+                  weightInGrams
+                  protein
+                  carbs
+                  fat
+                  calories
+                }
+              }
+              ingredient {
+                name
+                amount
+                label
+                weightInGrams
+                protein
+                carbs
+                fat
+                calories
+              }
+            }
+          }
+          cookingInstruction
+          macros {
+            weightInGrams
+            protein
+            carbs
+            fat
+            calories
           }
         }
       }
@@ -49,31 +114,95 @@ export const GET_PROGRAM = gql`
       description
       programTags {
         _id
+        title
       }
       plans {
         _id
         title
         week
         day
-        mealPlans {
+        meals {
           _id
-          mealTag
           position
-          meals {
-            _id
-            name
-            ingredients {
+          mealTag
+          name
+          ingredientDetails {
+            ingredientType
+            customIngredient {
+              amount
+              label
+              name
+              ingredients {
+                name
+                amount
+                label
+                weightInGrams
+                protein
+                carbs
+                fat
+                calories
+              }
+              macros {
+                weightInGrams
+                protein
+                carbs
+                fat
+                calories
+              }
+            }
+            ingredient {
               name
               amount
-              calories
-            }
-            cookingInstructions
-            macros {
+              label
+              weightInGrams
               protein
               carbs
               fat
               calories
             }
+            equivalents {
+              ingredientType
+              customIngredient {
+                amount
+                label
+                name
+                ingredients {
+                  name
+                  amount
+                  label
+                  weightInGrams
+                  protein
+                  carbs
+                  fat
+                  calories
+                }
+                macros {
+                  weightInGrams
+                  protein
+                  carbs
+                  fat
+                  calories
+                }
+              }
+              ingredient {
+                name
+                amount
+                label
+                weightInGrams
+                protein
+                carbs
+                fat
+                calories
+              }
+            }
+          }
+          cookingInstruction
+          macros {
+            weightInGrams
+            protein
+            carbs
+            fat
+            calories
           }
         }
       }
@@ -86,6 +215,7 @@ export const GET_PROGRAMS = gql`
     getPrograms(input: $input) {
       data {
         _id
+        professional
         name
         description
         programTags {
@@ -93,24 +223,92 @@ export const GET_PROGRAMS = gql`
           title
         }
         plans {
-          mealPlans {
+          _id
+          title
+          week
+          day
+          meals {
             _id
-            mealTag
             position
-            meals {
-              name
-              ingredients {
+            mealTag
+            name
+            ingredientDetails {
+              ingredientType
+              customIngredient {
+                amount
+                label
+                name
+                ingredients {
+                  name
+                  amount
+                  label
+                  weightInGrams
+                  protein
+                  carbs
+                  fat
+                  calories
+                }
+                macros {
+                  weightInGrams
+                  protein
+                  carbs
+                  fat
+                  calories
+                }
+              }
+              ingredient {
                 name
                 amount
-                calories
-              }
-              cookingInstructions
-              macros {
+                label
+                weightInGrams
                 protein
                 carbs
                 fat
                 calories
               }
+              equivalents {
+                ingredientType
+                customIngredient {
+                  amount
+                  label
+                  name
+                  ingredients {
+                    name
+                    amount
+                    label
+                    weightInGrams
+                    protein
+                    carbs
+                    fat
+                    calories
+                  }
+                  macros {
+                    weightInGrams
+                    protein
+                    carbs
+                    fat
+                    calories
+                  }
+                }
+                ingredient {
+                  name
+                  amount
+                  label
+                  weightInGrams
+                  protein
+                  carbs
+                  fat
+                  calories
+                }
+              }
+            }
+            cookingInstruction
+            macros {
+              weightInGrams
+              protein
+              carbs
+              fat
+              calories
             }
           }
         }
@@ -128,6 +326,7 @@ export const UPDATE_PROGRAM = gql`
   mutation _updateProgram($input: UpdateProgramDto!) {
     updateProgram(input: $input) {
       _id
+      professional
       name
       description
       programTags {
@@ -135,24 +334,92 @@ export const UPDATE_PROGRAM = gql`
         title
       }
       plans {
-        mealPlans {
+        _id
+        title
+        week
+        day
+        meals {
           _id
-          mealTag
           position
-          meals {
-            name
-            ingredients {
+          mealTag
+          name
+          ingredientDetails {
+            ingredientType
+            customIngredient {
+              amount
+              label
+              name
+              ingredients {
+                name
+                amount
+                label
+                weightInGrams
+                protein
+                carbs
+                fat
+                calories
+              }
+              macros {
+                weightInGrams
+                protein
+                carbs
+                fat
+                calories
+              }
+            }
+            ingredient {
               name
               amount
-              calories
-            }
-            cookingInstructions
-            macros {
+              label
+              weightInGrams
               protein
               carbs
               fat
               calories
             }
+            equivalents {
+              ingredientType
+              customIngredient {
+                amount
+                label
+                name
+                ingredients {
+                  name
+                  amount
+                  label
+                  weightInGrams
+                  protein
+                  carbs
+                  fat
+                  calories
+                }
+                macros {
+                  weightInGrams
+                  protein
+                  carbs
+                  fat
+                  calories
+                }
+              }
+              ingredient {
+                name
+                amount
+                label
+                weightInGrams
+                protein
+                carbs
+                fat
+                calories
+              }
+            }
+          }
+          cookingInstruction
+          macros {
+            weightInGrams
+            protein
+            carbs
+            fat
+            calories
           }
         }
       }
@@ -169,29 +436,95 @@ export const DELETE_PROGRAM = gql`
       description
       programTags {
         _id
+        title
       }
       plans {
+        _id
         title
         week
         day
-        mealPlans {
+        meals {
           _id
-          mealTag
           position
-          meals {
-            name
-            ingredients {
+          mealTag
+          name
+          ingredientDetails {
+            ingredientType
+            customIngredient {
+              amount
+              label
+              name
+              ingredients {
+                name
+                amount
+                label
+                weightInGrams
+                protein
+                carbs
+                fat
+                calories
+              }
+              macros {
+                weightInGrams
+                protein
+                carbs
+                fat
+                calories
+              }
+            }
+            ingredient {
               name
               amount
-              calories
-            }
-            cookingInstructions
-            macros {
+              label
+              weightInGrams
               protein
               carbs
               fat
               calories
             }
+            equivalents {
+              ingredientType
+              customIngredient {
+                amount
+                label
+                name
+                ingredients {
+                  name
+                  amount
+                  label
+                  weightInGrams
+                  protein
+                  carbs
+                  fat
+                  calories
+                }
+                macros {
+                  weightInGrams
+                  protein
+                  carbs
+                  fat
+                  calories
+                }
+              }
+              ingredient {
+                name
+                amount
+                label
+                weightInGrams
+                protein
+                carbs
+                fat
+                calories
+              }
+            }
+          }
+          cookingInstruction
+          macros {
+            weightInGrams
+            protein
+            carbs
+            fat
+            calories
           }
         }
       }

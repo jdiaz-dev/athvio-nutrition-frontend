@@ -1,26 +1,24 @@
+import React, { useEffect, useState } from 'react';
 import { Box, TextField } from '@mui/material';
-import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
-import { useChooseSlicers } from 'src/shared/hooks/useChooseSlicers';
+import * as CustomRecipeBasicInfoSlice from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeName';
 
-function MealNameInput({ recipeName }: { recipeName: string }) {
+function RecipeNameInput({ recipeName }: { recipeName: string }) {
   const dispatch = useDispatch();
-  const currentModuleContext = useContext(CurrentModuleContext);
   const [_recipeName, _setRecipeName] = useState(recipeName);
   const [isInputBlur, setIsInputBlur] = useState(false);
-  const { renameMealName } = useChooseSlicers(currentModuleContext.currentModule);
 
   useEffect(() => {
     if (isInputBlur) {
       if (_recipeName.length === 0) {
-        dispatch(renameMealName(recipeName));
+        dispatch(CustomRecipeBasicInfoSlice.renameRecipeName(recipeName));
       } else {
-        dispatch(renameMealName(_recipeName));
+        dispatch(CustomRecipeBasicInfoSlice.renameRecipeName(_recipeName));
       }
       setIsInputBlur(false);
     }
   }, [isInputBlur, recipeName]);
+
   return (
     <div>
       <Box
@@ -46,4 +44,5 @@ function MealNameInput({ recipeName }: { recipeName: string }) {
   );
 }
 
-export default MealNameInput;
+export default RecipeNameInput;
+

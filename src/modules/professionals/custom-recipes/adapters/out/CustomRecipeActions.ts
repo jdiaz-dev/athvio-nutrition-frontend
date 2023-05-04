@@ -2,7 +2,8 @@
 import { ApolloError } from '@apollo/client';
 import { useDispatch } from 'react-redux';
 import { apolloClient } from 'src/graphql/ApolloClient';
-import * as CustomRecipeSlicers from 'src/modules/professionals/custom-recipes/adapters/in/CustomRecipeSlice';
+import * as CustomRecipeSlicers from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeSlice';
+import * as CustomRecipeDetailsSlice from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeDetailsSlice';
 import {
   CreateCustomRecipeRequest,
   CreateCustomRecipeResponse,
@@ -64,7 +65,6 @@ export function useCustomRecipe() {
     }
   };
   const updateCustomRecipe = async (body: UpdateCustomRecipeBody): Promise<void> => {
-    console.log('-------------body updateCustomRecipe', body);
     try {
       const response = await apolloClient.mutate<UpdateCustomRecipeResponse, UpdateCustomRecipeRequest>({
         mutation: UPDATE_CUSTOM_RECIPE,
@@ -92,7 +92,7 @@ export function useCustomRecipe() {
           },
         },
       });
-      if (response) dispatch(CustomRecipeSlicers.reinitializeMeal());
+      if (response) dispatch(CustomRecipeDetailsSlice.reinitializeMeal());
       console.log(response);
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);

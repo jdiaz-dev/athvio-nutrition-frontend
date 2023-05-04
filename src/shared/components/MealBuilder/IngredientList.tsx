@@ -7,7 +7,7 @@ import FoodList from 'src/shared/components/MealBuilder/FoodList';
 import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
 import { FoddAddedContext } from 'src/shared/components/MealBuilder/FoddAddedContext';
 import IngredientItem from 'src/shared/components/MealBuilder/IngredientItem';
-import { EndIngredient, MealDataForBuilder } from 'src/shared/components/MealBuilder/MealBuilder.types';
+import { DisplayedIngredient, MealDataForBuilder } from 'src/shared/components/MealBuilder/MealBuilder.types';
 import { IngredientType } from 'src/shared/Consts';
 
 const styleTableCell = {
@@ -48,19 +48,20 @@ function IngredientList({ meal }: { meal: MealDataForBuilder }) {
             {
               <TableBody>
                 {meal.ingredientDetails.map((ingredientDetail, index) => {
-                  const endIngredient: EndIngredient =
+                  const displayedIngredient: DisplayedIngredient =
                     ingredientDetail.ingredientType == IngredientType.UNIQUE_INGREDIENT && ingredientDetail.ingredient
-                      ? ingredientDetail.ingredient
+                      ? { ingredientType: IngredientType.UNIQUE_INGREDIENT, ...ingredientDetail.ingredient }
                       : ({
+                          ingredientType: ingredientDetail.ingredientType,
                           amount: ingredientDetail.customIngredient?.amount,
                           label: ingredientDetail.customIngredient?.label,
                           name: ingredientDetail.customIngredient?.name,
                           ...ingredientDetail.customIngredient?.macros,
-                        } as EndIngredient);
+                        } as DisplayedIngredient);
 
-                  return <IngredientItem key={index} endIngredient={endIngredient} />;
+                  return <IngredientItem key={index} displayedIngredient={displayedIngredient} />;
                 })}
-                <StyledTableRow key={meal.name}>
+                <StyledTableRow>
                   <StyledTableCell align="right"></StyledTableCell>
                   <StyledTableCell align="right">Total</StyledTableCell>
                   <StyledTableCell align="right">{meal.macros.protein}</StyledTableCell>
@@ -79,36 +80,3 @@ function IngredientList({ meal }: { meal: MealDataForBuilder }) {
 }
 
 export default IngredientList;
-
-/*
-  export interface Macros {
-  weightInGrams: number;
-  protein: number;
-  carbs: number;
-  fat: number;
-  calories: number;
-}
-
-export interface Ingredient extends Macros {
-  amount: number;
-  name: string;
-  label: string;
-}
-export type EndIngredient = Ingredient;
-interface CustomIngredient {
-  name: string;
-  ingredients: Ingredient[];
-  macros: Macros;
-}
-
-interface Equivalent {
-  ingredientType: IngredientType;
-  customIngredient?: CustomIngredient;
-  ingredient?: Ingredient;
-}
-
-interface IngredientDetail extends Equivalent {
-  equivalents: Equivalent[];
-}
-
-*/

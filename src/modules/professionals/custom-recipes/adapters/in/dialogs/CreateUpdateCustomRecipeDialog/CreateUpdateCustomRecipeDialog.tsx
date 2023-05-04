@@ -4,7 +4,7 @@ import { makeStyles } from 'tss-react/mui';
 import CloseIcon from '@mui/icons-material/Close';
 
 import NutrientsDetail from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/NutrientsDetail';
-import * as CustomRecipeSlicers from 'src/modules/professionals/custom-recipes/adapters/in/CustomRecipeSlice';
+import * as CustomRecipeDetailsSlice from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeDetailsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCustomRecipe } from 'src/modules/professionals/custom-recipes/adapters/out/CustomRecipeActions';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
@@ -12,7 +12,8 @@ import { ReduxStates } from 'src/shared/types/types';
 import { Modules } from 'src/shared/Consts';
 import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
 import MealBuilder from 'src/shared/components/MealBuilder/MealBuilder';
-import { RecipeBody } from 'src/shared/components/MealBuilder/MealBuilder.types';
+import RecipeNameInput from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/RecipeNameInput';
+import { CustomRecipeBody } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -50,12 +51,13 @@ function CreateUpdateCustomRecipeDialog({
 }: {
   openCreateUpdateCustomRecipeDialog: boolean;
   setOpenCreateUpdateCustomRecipeDialog: (openDialog: boolean) => void;
-  _customRecipe?: RecipeBody;
+  _customRecipe?: CustomRecipeBody;
 }) {
   const { classes } = cardStyles();
   const dispatch = useDispatch();
   const reloadRecordListContext = useContext(ReloadRecordListContext);
-  const customRecipeState = useSelector((state: ReduxStates) => state.customRecipes.customRecipe);
+  const customRecipeDetailsState = useSelector((state: ReduxStates) => state.customRecipes.customRecipeDetails);
+  const recipeNameState = useSelector((state: ReduxStates) => state.customRecipes.customRecipeName);
 
   const { createCustomRecipe, updateCustomRecipe } = useCustomRecipe();
 
@@ -64,26 +66,29 @@ function CreateUpdateCustomRecipeDialog({
 
   useEffect(() => {
     if (_customRecipe !== undefined) {
-      dispatch(CustomRecipeSlicers.acceptNewMealDetail(_customRecipe));
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { name, ...rest } = _customRecipe;
+      dispatch(CustomRecipeDetailsSlice.acceptNewMealDetail(rest));
     } else {
-      dispatch(CustomRecipeSlicers.reinitializeMeal());
+      dispatch(CustomRecipeDetailsSlice.reinitializeMeal());
     }
     return () => {
-      dispatch(CustomRecipeSlicers.reinitializeMeal());
+      dispatch(CustomRecipeDetailsSlice.reinitializeMeal());
     };
   }, [_customRecipe]);
 
-  const { _id, professional, ...restCustomRecipe } = customRecipeState;
+  const { _id, professional, ...restCustomRecipe } = customRecipeDetailsState;
 
   const createUpdateCustomRecipeHandler = async () => {
     if (_customRecipe && _customRecipe._id) {
       await updateCustomRecipe({
         customRecipe: _id,
         professional,
+        name: recipeNameState,
         ...restCustomRecipe,
       });
     } else {
-      await createCustomRecipe({ professional, ...restCustomRecipe });
+      await createCustomRecipe({ professional, name: recipeNameState, ...restCustomRecipe });
     }
   };
 
@@ -100,7 +105,7 @@ function CreateUpdateCustomRecipeDialog({
         open={openCreateUpdateCustomRecipeDialog}
         onClose={() => {
           setOpenCreateUpdateCustomRecipeDialog(false);
-          dispatch(CustomRecipeSlicers.reinitializeMeal());
+          dispatch(CustomRecipeDetailsSlice.reinitializeMeal());
         }}
         scroll="paper"
         fullWidth={true}
@@ -146,6 +151,7 @@ function CreateUpdateCustomRecipeDialog({
               }
             }}
           >
+            <RecipeNameInput recipeName={_customRecipe?.name || recipeNameState} />
             <CurrentModuleContext.Provider value={{ currentModule: Modules.CUSTOM_RECIPES }}>
               <MealBuilder meal={{ _id, ...restCustomRecipe }} />
             </CurrentModuleContext.Provider>

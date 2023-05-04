@@ -1,6 +1,6 @@
 import { applyMiddleware, configureStore } from '@reduxjs/toolkit';
 import usersReducer from 'src/modules/security/users/adapters/in/UserSlice';
-import customMealReducers from 'src/modules/professionals/custom-recipes/adapters/in/CustomRecipeSlice';
+import customRecipeReducers from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeSlice';
 import programsReducer from 'src/modules/professionals/programs/adapters/in/slicers/ProgramSlice';
 
 // const {applyMiddleware, combineReducers, createStore} = require('redux');
@@ -17,7 +17,7 @@ export default configureStore({
   reducer: {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     users: usersReducer,
-    customRecipes: customMealReducers,
+    customRecipes: customRecipeReducers,
     programs: programsReducer,
   },
   devTools: true,
