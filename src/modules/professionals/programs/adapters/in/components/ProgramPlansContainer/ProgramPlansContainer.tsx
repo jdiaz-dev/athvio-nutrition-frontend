@@ -78,7 +78,7 @@ function ProgramPlansContainer() {
             program: programState !== undefined ? programState._id : '',
             plan: {
               _id: programState.plans.length > 0 && planIndex >= 0 ? programState.plans[planIndex]._id : null,
-              totalMeals: programState.plans.length > 0 && planIndex >= 0 ? programState.plans[planIndex].mealPlans.length : null,
+              totalMeals: programState.plans.length > 0 && planIndex >= 0 ? programState.plans[planIndex].meals.length : null,
             },
             planDay,
             planWeek,

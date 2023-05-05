@@ -4,13 +4,13 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import CloseIcon from '@mui/icons-material/Close';
-import { MealPlan } from 'src/modules/professionals/programs/adapters/out/program.types';
+import { Meal } from 'src/modules/professionals/programs/adapters/out/program.types';
 import { programInitialState } from 'src/modules/professionals/programs/adapters/in/slicers/ProgramInitialState';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 import { DialogTitle, IconButton } from '@mui/material';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
-import MealPlanDetail from 'src/modules/professionals/programs/adapters/in/dialogs/PlanDetailDialog/MealPlanDetail';
+import MealDetail from 'src/modules/professionals/programs/adapters/in/dialogs/PlanDetailDialog/MealDetail';
 
 function PlanDetailDialog({
   openPlanDetailDialog,
@@ -24,17 +24,13 @@ function PlanDetailDialog({
   planId?: string;
 }) {
   const reloadRecordListContext = useContext(ReloadRecordListContext);
-
-  const mealPlansState = useSelector((state: ReduxStates) => state.programs.plans).find((_plan) => _plan._id === planId)
-    ?.mealPlans as unknown as MealPlan[] | undefined;
-  console.log('----------planId', planId);
-  console.log('----------mealPlansState', mealPlansState);
-  const [mealPlans, setMealPlans] = useState<MealPlan[]>([]);
+  const planState = useSelector((state: ReduxStates) => state.programs.plans).find((_plan) => _plan._id === planId);
+  const [meals, setMeals] = useState<Meal[]>([]);
   const [closeIconDialog, setCloseIconDialog] = useState(true);
 
   useEffect(() => {
-    setMealPlans(mealPlansState || []);
-  }, [mealPlansState]);
+    setMeals(planState?.meals || []);
+  }, [planState]);
 
   useEffect(() => {
     if (!closeIconDialog) {
@@ -44,7 +40,7 @@ function PlanDetailDialog({
   }, [closeIconDialog]);
 
   const addMealPlanHandler = () => {
-    setMealPlans(mealPlans.concat([{ ...programInitialState.mealPlan }]));
+    setMeals(meals.concat([{ ...programInitialState.mealBasicInfo, ...programInitialState.mealDetails }]));
   };
   return (
     <>
@@ -57,7 +53,7 @@ function PlanDetailDialog({
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
-          Create your custom recipe
+          Create your custom pro recipe
           {closeIconDialog ? (
             <IconButton
               aria-label="close"
@@ -76,10 +72,7 @@ function PlanDetailDialog({
           ) : null}
         </DialogTitle>
         <DialogContent>
-          {program &&
-            mealPlans.map((mealPlan, index) => (
-              <MealPlanDetail key={index} program={program} plan={planId as string} mealPlan={mealPlan} />
-            ))}
+          {program && meals.map((meal, index) => <MealDetail key={index} program={program} plan={planId as string} meal={meal} />)}
           <Button onClick={() => addMealPlanHandler()}>Add meal</Button>
         </DialogContent>
         <DialogActions>

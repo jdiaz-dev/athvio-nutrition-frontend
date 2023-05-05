@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Box, TextField } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import * as CustomRecipeBasicInfoSlice from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeName';
+import * as CustomRecipeBasicInfoSlice from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeBasicInfo';
+import { defaultRecipeName } from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeInitialState';
 
 function RecipeNameInput({ recipeName }: { recipeName: string }) {
   const dispatch = useDispatch();
@@ -17,6 +18,10 @@ function RecipeNameInput({ recipeName }: { recipeName: string }) {
       }
       setIsInputBlur(false);
     }
+
+    return () => {
+      dispatch(CustomRecipeBasicInfoSlice.renameRecipeName(defaultRecipeName));
+    };
   }, [isInputBlur, recipeName]);
 
   return (
@@ -45,4 +50,3 @@ function RecipeNameInput({ recipeName }: { recipeName: string }) {
 }
 
 export default RecipeNameInput;
-

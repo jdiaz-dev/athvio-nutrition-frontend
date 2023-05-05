@@ -1,11 +1,11 @@
 import { CustomRecipeInitialState } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 import { getUserFromLocalStorage } from 'src/shared/helpers/LocalStorage';
 
+export const defaultRecipeName = 'Meal 1';
 export const customRecipeInitialState: CustomRecipeInitialState = {
   customRecipes: null,
   customRecipeDetails: {
     _id: '',
-    professional: getUserFromLocalStorage()._id,
     ingredientDetails: [],
     cookingInstructions: '',
     macros: {
@@ -16,5 +16,8 @@ export const customRecipeInitialState: CustomRecipeInitialState = {
       weightInGrams: 0,
     },
   },
-  customRecipeName: 'Meal 1',
+  customRecipeBasicInfo: {
+    professional: getUserFromLocalStorage()._id,
+    name: defaultRecipeName,
+  },
 };

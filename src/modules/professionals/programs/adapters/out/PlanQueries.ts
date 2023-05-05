@@ -4,30 +4,96 @@ export const CREATE_PROGRAM_PLAN = gql`
   mutation _addProgramPlan($input: AddProgramPlanDto!) {
     addProgramPlan(input: $input) {
       _id
+      professional
       name
       description
       programTags {
         _id
+        title
       }
       plans {
         _id
         title
         week
         day
-        mealPlans {
+        meals {
+          _id
           position
+          mealTag
           name
-          ingredients {
-            amount
-            unit
-            name
-            protein
-            carbs
-            fat
-            calories
+          ingredientDetails {
+            ingredientType
+            customIngredient {
+              amount
+              label
+              name
+              ingredients {
+                name
+                amount
+                label
+                weightInGrams
+                protein
+                carbs
+                fat
+                calories
+              }
+              macros {
+                weightInGrams
+                protein
+                carbs
+                fat
+                calories
+              }
+            }
+            ingredient {
+              name
+              amount
+              label
+              weightInGrams
+              protein
+              carbs
+              fat
+              calories
+            }
+            equivalents {
+              ingredientType
+              customIngredient {
+                amount
+                label
+                name
+                ingredients {
+                  name
+                  amount
+                  label
+                  weightInGrams
+                  protein
+                  carbs
+                  fat
+                  calories
+                }
+                macros {
+                  weightInGrams
+                  protein
+                  carbs
+                  fat
+                  calories
+                }
+              }
+              ingredient {
+                name
+                amount
+                label
+                weightInGrams
+                protein
+                carbs
+                fat
+                calories
+              }
+            }
           }
           cookingInstructions
           macros {
+            weightInGrams
             protein
             carbs
             fat
@@ -43,30 +109,96 @@ export const DELETE_PROGRAM_PLAN = gql`
   mutation _deleteProgramPlan($input: DeleteProgramPlanDto!) {
     deleteProgramPlan(input: $input) {
       _id
+      professional
       name
       description
       programTags {
         _id
+        title
       }
       plans {
         _id
         title
         week
         day
-        mealPlans {
+        meals {
+          _id
           position
+          mealTag
           name
-          ingredients {
-            amount
-            unit
-            name
-            protein
-            carbs
-            fat
-            calories
+          ingredientDetails {
+            ingredientType
+            customIngredient {
+              amount
+              label
+              name
+              ingredients {
+                name
+                amount
+                label
+                weightInGrams
+                protein
+                carbs
+                fat
+                calories
+              }
+              macros {
+                weightInGrams
+                protein
+                carbs
+                fat
+                calories
+              }
+            }
+            ingredient {
+              name
+              amount
+              label
+              weightInGrams
+              protein
+              carbs
+              fat
+              calories
+            }
+            equivalents {
+              ingredientType
+              customIngredient {
+                amount
+                label
+                name
+                ingredients {
+                  name
+                  amount
+                  label
+                  weightInGrams
+                  protein
+                  carbs
+                  fat
+                  calories
+                }
+                macros {
+                  weightInGrams
+                  protein
+                  carbs
+                  fat
+                  calories
+                }
+              }
+              ingredient {
+                name
+                amount
+                label
+                weightInGrams
+                protein
+                carbs
+                fat
+                calories
+              }
+            }
           }
           cookingInstructions
           macros {
+            weightInGrams
             protein
             carbs
             fat

@@ -1,6 +1,6 @@
 import { Plan, ProgramBody } from 'src/modules/professionals/programs/adapters/out/program.types';
 
-export interface CreateProgramPlanBody extends Omit<Plan, '_id' | 'title' | 'mealPlans'> {
+export interface CreateProgramPlanBody extends Omit<Plan, '_id' | 'title' | 'meals'> {
   professional: string;
   program: string;
 }

@@ -1,34 +1,27 @@
-import { IngredientDetail, MealDataForBuilder } from 'src/shared/components/MealBuilder/MealBuilder.types';
+import { IngredientDetail, Macros, MealDataForBuilder } from 'src/shared/components/MealBuilder/MealBuilder.types';
 import { GetRecordsBody, MetadataRecords } from 'src/shared/types/get-records.types';
 
-export interface Macros {
-  protein: number;
-  carbs: number;
-  fat: number;
-  calories: number;
+export interface MealBasicInfo {
+  position: number;
+  mealTag: string;
+  name: string;
 }
 
-export interface Meal {
+export interface MealDetails {
   _id: string;
-  name: string;
   ingredientDetails: IngredientDetail[];
   cookingInstructions: string;
   macros: Macros;
 }
-export interface MealPlan {
-  _id: string;
-  mealTag: string;
-  position: number;
-  meals: Meal[];
-  macros: Macros;
-}
+
+export interface Meal extends MealBasicInfo, MealDetails {}
 
 export interface Plan {
   _id: string;
   title: string;
   week: number;
   day: number;
-  mealPlans: MealPlan[];
+  meals: Meal[];
 }
 
 export interface ProgramTag {
@@ -134,5 +127,6 @@ export interface ProgramInitialState {
   program: ProgramBody;
   plans: Plan[];
   plan: Plan;
-  mealPlan: MealPlan;
+  mealBasicInfo: MealBasicInfo;
+  mealDetails: MealDetails;
 }

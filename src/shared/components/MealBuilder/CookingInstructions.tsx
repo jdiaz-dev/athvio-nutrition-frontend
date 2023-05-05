@@ -8,6 +8,8 @@ function CookingInstructions({ cookingInstructions }: { cookingInstructions: str
   const currentModuleContext = useContext(CurrentModuleContext);
   const { renameCookingInstruction } = useChooseSlicers(currentModuleContext.currentModule);
   const dispatch = useDispatch();
+  console.log('---------meal', currentModuleContext.currentModule);
+  console.log('---------cookingInstructions', cookingInstructions);
 
   return (
     <>

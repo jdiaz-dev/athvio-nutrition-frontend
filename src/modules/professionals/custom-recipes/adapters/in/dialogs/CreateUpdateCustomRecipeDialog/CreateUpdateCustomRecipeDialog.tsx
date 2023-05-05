@@ -57,7 +57,7 @@ function CreateUpdateCustomRecipeDialog({
   const dispatch = useDispatch();
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const customRecipeDetailsState = useSelector((state: ReduxStates) => state.customRecipes.customRecipeDetails);
-  const recipeNameState = useSelector((state: ReduxStates) => state.customRecipes.customRecipeName);
+  const recipeNameBasicInfo = useSelector((state: ReduxStates) => state.customRecipes.customRecipeBasicInfo);
 
   const { createCustomRecipe, updateCustomRecipe } = useCustomRecipe();
 
@@ -77,18 +77,17 @@ function CreateUpdateCustomRecipeDialog({
     };
   }, [_customRecipe]);
 
-  const { _id, professional, ...restCustomRecipe } = customRecipeDetailsState;
+  const { _id, ...restCustomRecipe } = customRecipeDetailsState;
 
   const createUpdateCustomRecipeHandler = async () => {
     if (_customRecipe && _customRecipe._id) {
       await updateCustomRecipe({
         customRecipe: _id,
-        professional,
-        name: recipeNameState,
         ...restCustomRecipe,
+        ...recipeNameBasicInfo,
       });
     } else {
-      await createCustomRecipe({ professional, name: recipeNameState, ...restCustomRecipe });
+      await createCustomRecipe({ ...recipeNameBasicInfo, ...restCustomRecipe });
     }
   };
 
@@ -151,7 +150,7 @@ function CreateUpdateCustomRecipeDialog({
               }
             }}
           >
-            <RecipeNameInput recipeName={_customRecipe?.name || recipeNameState} />
+            <RecipeNameInput recipeName={_customRecipe?.name || recipeNameBasicInfo.name} />
             <CurrentModuleContext.Provider value={{ currentModule: Modules.CUSTOM_RECIPES }}>
               <MealBuilder meal={{ _id, ...restCustomRecipe }} />
             </CurrentModuleContext.Provider>

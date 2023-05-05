@@ -36,10 +36,9 @@ export interface IngredientDetail extends Equivalent {
 
 export interface MealBuilderBody {
   _id: string; // in front we manage _id, to send to back we add domain more Id, for example customRecipeId
-  professional: string;
   ingredientDetails: IngredientDetail[];
   cookingInstructions: string;
   macros: Macros;
 }
 
-export type MealDataForBuilder = Omit<MealBuilderBody, 'professional'>;
+export type MealDataForBuilder = MealBuilderBody;
