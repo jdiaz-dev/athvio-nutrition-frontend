@@ -6,14 +6,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Clients, GetClientResponse, GetClientsRequest } from 'src/modules/clients/clients/adapters/out/client.types';
+import { ClientBody, GetClientResponse, GetClientsRequest } from 'src/modules/clients/clients/adapters/out/client.types';
 import { GET_CLIENTS } from 'src/modules/clients/clients/adapters/out/ClientQueries';
 import { useQuery } from '@apollo/client';
 import { ProfessionalIdContext } from 'src/App';
-import ManageClientGroup from 'src/modules/clients/clients/adapters/in/components/ClientList/ManageClientGroup';
 import SearcherBar from 'src/shared/components/SearcherBar';
 import { useSearcher } from 'src/shared/hooks/useSearcher';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
+import Client from 'src/modules/clients/clients/adapters/in/components/ClientList/Client';
 
 function ClientList() {
   const professionalIdContext = useContext(ProfessionalIdContext);
@@ -34,7 +34,7 @@ function ClientList() {
     skip: true,
   });
 
-  const [clients, setClients] = useState<Clients[]>([]);
+  const [clients, setClients] = useState<ClientBody[]>([]);
 
   const input = {
     professional: professionalIdContext.professional,
@@ -91,19 +91,7 @@ function ClientList() {
               <TableCell>Group</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
-            {clients.length > 0 &&
-              clients.map((client) => (
-                <TableRow key={client._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                  <TableCell component="th" scope="row">
-                    {client.user.firstName} {client.user.lastName}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    <ManageClientGroup client={client._id} assignedGroups={client.groups} />
-                  </TableCell>
-                </TableRow>
-              ))}
-          </TableBody>
+          <TableBody>{clients.length > 0 && clients.map((client, index) => <Client key={index} client={client} />)}</TableBody>
         </Table>
       </TableContainer>
     </>

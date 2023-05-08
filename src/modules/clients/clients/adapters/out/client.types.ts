@@ -50,7 +50,7 @@ export type GetClientsRequest = {
   };
 };
 
-export type Clients = {
+export type ClientBody = {
   _id: string;
   user: {
     firstName: string;
@@ -62,7 +62,7 @@ export type Clients = {
 
 export type GetClientResponse = {
   getClients: {
-    data: Clients[];
+    data: ClientBody[];
     meta: MetadataRecords;
   };
 };

@@ -19,7 +19,7 @@ function Program(program: ProgramBody) {
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk, alert, setAlert } = useMessageDialog();
 
   const [openCreateUpdateProgramDialog, setOpenCreateUpdateProgramDialog] = useState(false);
-  const [goToProgramRecipe, setGoToProgramRecipe] = useState(false);
+  const [goToProgramPlans, setGoToProgramPlans] = useState(false);
   const { deleteProgram } = useProgram();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -51,7 +51,7 @@ function Program(program: ProgramBody) {
     setOpenDialog(true);
   };
 
-  if (goToProgramRecipe) {
+  if (goToProgramPlans) {
     const path = `/sidenav/Programs/${program._id}/RecipePlan`;
     return <Navigate replace to={path} />;
   }
@@ -59,10 +59,10 @@ function Program(program: ProgramBody) {
   return (
     <>
       <StyledTableRow key={program.name}>
-        <StyledTableCell align="right" onClick={() => setGoToProgramRecipe(true)}>
+        <StyledTableCell align="right" onClick={() => setGoToProgramPlans(true)}>
           {program.name}
         </StyledTableCell>
-        <StyledTableCell align="right" onClick={() => setGoToProgramRecipe(true)}>
+        <StyledTableCell align="right" onClick={() => setGoToProgramPlans(true)}>
           {program.description}
         </StyledTableCell>
         <StyledTableCell align="right">
