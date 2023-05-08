@@ -44,8 +44,7 @@ function ProgramPlansContainer() {
     professional: professionalIdContext.professional,
     program: programId as string,
   };
-  // console.log('-------------reloadRecordList', reloadRecordList);
-  // console.log('-------------programState', programState);
+
   useEffect(() => {
     const getProgramHelper = async () => {
       await getProgram(input);

@@ -10,7 +10,12 @@ export const mealBasicInfoSlice = createSlice({
       state = action.payload;
       return state;
     },
+    renameMealTag: (state, action: PayloadAction<string>) => {
+      state.mealTag = action.payload;
+      console.log('--------------action.payload', action.payload);
+      return state;
+    },
   },
 });
 
-export const { acceptNewMealBasicInfo } = mealBasicInfoSlice.actions;
+export const { acceptNewMealBasicInfo, renameMealTag } = mealBasicInfoSlice.actions;

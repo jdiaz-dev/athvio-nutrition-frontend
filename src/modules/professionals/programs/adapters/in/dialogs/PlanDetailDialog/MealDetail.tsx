@@ -17,6 +17,7 @@ import { mealPlanCreatedChange } from 'src/modules/professionals/programs/adapte
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
 import { Meal } from 'src/modules/professionals/programs/adapters/out/program.types';
+import MealTag from 'src/modules/professionals/programs/adapters/in/dialogs/PlanDetailDialog/MealTag';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -55,8 +56,8 @@ function MealDetail({ program, plan, meal: { position, mealTag, name, ...mealDet
     setComponentTouched(true);
   };
   const createUpdateMealPlanHandler = async () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { _id, ...rest } = mealDetailsState;
+    const { _id, ...restMealDetail } = mealDetailsState;
+    console.log('-----------mealBasicInfoState', mealBasicInfoState);
     if (mealDetailsState._id.length == 0) {
       await createMeal({
         professional: professionalIdContext.professional,
@@ -64,7 +65,7 @@ function MealDetail({ program, plan, meal: { position, mealTag, name, ...mealDet
         plan,
         mealBody: {
           ...mealBasicInfoState,
-          ...mealDetailsState,
+          ...restMealDetail,
         },
       });
 
@@ -74,10 +75,10 @@ function MealDetail({ program, plan, meal: { position, mealTag, name, ...mealDet
         professional: professionalIdContext.professional,
         program,
         plan,
-        meal: mealDetailsState._id,
+        meal: _id,
         mealBody: {
           ...mealBasicInfoState,
-          ...mealDetailsState,
+          ...restMealDetail,
         },
       });
     }
@@ -97,7 +98,7 @@ function MealDetail({ program, plan, meal: { position, mealTag, name, ...mealDet
   return (
     <>
       <Card
-        style={{ width: '55%' }}
+        style={{ width: '55%', padding: '10px' }}
         sx={{ minWidth: 275 }}
         className={classes.card}
         variant="outlined"
@@ -128,8 +129,7 @@ function MealDetail({ program, plan, meal: { position, mealTag, name, ...mealDet
           </Menu>
         </Grid>
 
-        {/* this context maybe will be used */}
-        <div>{mealBasicInfoState.mealTag}</div>
+        <MealTag mealTag={mealTag} componentTouched={componentTouched} />
         <CurrentModuleContext.Provider value={{ currentModule: Modules.PROGRAMS }}>
           <MealBuilder meal={meal()} />
         </CurrentModuleContext.Provider>

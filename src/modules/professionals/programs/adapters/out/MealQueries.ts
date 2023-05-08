@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const CREATE_MEAL = gql`
-  mutation _createMealPlan($input: AddMealPlanDto!) {
-    createMealPlan(input: $input) {
+  mutation _createMeal($input: AddMealDto!) {
+    createMeal(input: $input) {
       _id
       professional
       name
@@ -106,8 +106,8 @@ export const CREATE_MEAL = gql`
 `;
 
 export const UPDATE_MEAL = gql`
-  mutation _updateMealPlan($input: UpdateMealPlanDto!) {
-    updateMealPlan(input: $input) {
+  mutation _updateMeal($input: UpdateMealDto!) {
+    updateMeal(input: $input) {
       _id
       professional
       name
@@ -211,8 +211,8 @@ export const UPDATE_MEAL = gql`
 `;
 
 export const DELETE_MEAL = gql`
-  mutation _deleteMealPlan($input: DeleteMealPlanDto!) {
-    deleteMealPlan(input: $input) {
+  mutation _deleteMeal($input: DeleteMealDto!) {
+    deleteMeal(input: $input) {
       _id
       professional
       name

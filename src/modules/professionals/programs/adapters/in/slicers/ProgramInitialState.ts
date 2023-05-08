@@ -1,6 +1,7 @@
 import { ProgramInitialState } from 'src/modules/professionals/programs/adapters/out/program.types';
 import { getUserFromLocalStorage } from 'src/shared/helpers/LocalStorage';
 
+export const defaultMealTag = 'First meal';
 export const programInitialState: ProgramInitialState = {
   programs: null,
   program: {
@@ -21,7 +22,7 @@ export const programInitialState: ProgramInitialState = {
   },
   mealBasicInfo: {
     position: 0,
-    mealTag: '',
+    mealTag: defaultMealTag,
     name: 'Meal name',
   },
   mealDetails: {

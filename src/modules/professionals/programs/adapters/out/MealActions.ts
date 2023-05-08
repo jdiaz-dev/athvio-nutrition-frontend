@@ -21,6 +21,7 @@ export function useMeal() {
   const dispatch = useDispatch();
 
   const createMeal = async (body: CreateMealBody): Promise<void> => {
+    console.log('----------------createMeal body', body);
     try {
       const response = await apolloClient.mutate<CreateMealResponse, CreateMealRequest>({
         mutation: CREATE_MEAL,
@@ -38,6 +39,7 @@ export function useMeal() {
   };
 
   const updateMeal = async (body: UpdateMealBody): Promise<void> => {
+    console.log('----------------updateMeal body', body);
     try {
       const response = await apolloClient.mutate<UpdateMealResponse, UpdateMealRequest>({
         mutation: UPDATE_MEAL,

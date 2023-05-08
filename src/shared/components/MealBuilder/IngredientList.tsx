@@ -17,7 +17,6 @@ const styleTableCell = {
 
 function IngredientList({ meal }: { meal: MealDataForBuilder }) {
   const [foodAdded, setFoodAdded] = useState(false);
-  console.log('---------meal', meal);
   return (
     <>
       <FoddAddedContext.Provider value={{ foodAdded, setFoodAdded }}>

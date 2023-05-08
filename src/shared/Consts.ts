@@ -22,6 +22,10 @@ export enum MessagesUserForm {
   BUSSINES_NAME_MANDATORY = 'Please enter your bussines name',
 }
 
+export enum ProgramMessages {
+  REMOVE_PLAN = 'Are you sure to delete this plan?',
+}
+
 /* export enum CustomRecipeMessages {
   CREATED = 'Custom Recipe created successfully',
   UPDATED = 'Custom Recipe updated successfully',

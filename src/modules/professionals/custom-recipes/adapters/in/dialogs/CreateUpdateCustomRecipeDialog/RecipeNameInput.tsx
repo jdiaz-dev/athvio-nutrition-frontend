@@ -25,7 +25,7 @@ function RecipeNameInput({ recipeName }: { recipeName: string }) {
   }, [isInputBlur, recipeName]);
 
   return (
-    <div>
+    <>
       <Box
         sx={{
           maxWidth: '100%',
@@ -45,7 +45,7 @@ function RecipeNameInput({ recipeName }: { recipeName: string }) {
           }}
         />
       </Box>
-    </div>
+    </>
   );
 }
 

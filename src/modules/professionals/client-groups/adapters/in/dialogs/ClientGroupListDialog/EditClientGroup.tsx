@@ -26,7 +26,7 @@ function EditClientGroup({
 
   const [updateClientGroupHandler] = useMutation<UpdateClientGroupsResponse, UpdateClientGroupsRequest>(UPDATE_CLIENT_GROUP);
 
-  const updateClientGroup = async (e: BaseSyntheticEvent) => {
+  const updateClientGroup = async (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => {
     const res = await updateClientGroupHandler({
       variables: {
         input: {

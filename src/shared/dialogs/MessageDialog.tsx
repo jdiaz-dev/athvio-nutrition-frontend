@@ -21,12 +21,7 @@ function MessageDialog({
 }) {
   return (
     <>
-      <Dialog
-        open={openDialog}
-        onClose={setOpenDialog}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
+      <Dialog open={openDialog} onClose={setOpenDialog} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
         <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">{message}</DialogContentText>
