@@ -14,6 +14,7 @@ import { UserType } from 'src/shared/Consts';
 import CustomRecipesContainer from 'src/modules/professionals/custom-recipes/adapters/in/components/CustomRecipesContainer';
 import ProgramPlansContainer from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/ProgramPlansContainer';
 import Lab from 'src/modules/Lab';
+import ClientPlansContainer from 'src/modules/clients/client-plans/adapters/in/components/ClientPlansContainer/ClientPlansContainer';
 
 /* const loginStyles = makeStyles({
   container: {
@@ -76,9 +77,10 @@ function App() {
               {
                 <Route path="sidenav" element={<Drawer />}>
                   <Route path="clients" element={<ClientsContainer />} />
+                  <Route path="clients/:clientId/plans" element={<ClientPlansContainer />} />
                   <Route path="Custom Recipes" element={<CustomRecipesContainer />} />
                   <Route path="Programs" element={<ProgramsContainer />} />
-                  <Route path="Programs/:programId/RecipePlan" element={<ProgramPlansContainer />} />
+                  <Route path="Programs/:programId/plans" element={<ProgramPlansContainer />} />
                   <Route path="Lab" element={<Lab />} />
                 </Route>
               }
@@ -117,11 +119,6 @@ export default App;
     Allow Many Reducers to Respond to the Same Action
 
     Call useSelector Multiple Times in Function Components  ---> extremely important
-*/
-
-/*
-  starting:
-    re-commit full calendar component
 */
 
 /*

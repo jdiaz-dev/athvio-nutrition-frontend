@@ -9,7 +9,7 @@ import MessageDialog from 'src/shared/dialogs/MessageDialog';
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
 import { ProgramMessages } from 'src/shared/Consts';
 
-function PlanBasicInformation({ program, plan }: { program: string; plan: PlanDayInfo }) {
+function ProgramPlanBasicInformation({ program, plan }: { program: string; plan: PlanDayInfo }) {
   const professionalIdContext = useContext(ProfessionalIdContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const [openPlanDetailDialog, setOpenPlanDetailDialog] = useState(false);
@@ -55,4 +55,4 @@ function PlanBasicInformation({ program, plan }: { program: string; plan: PlanDa
   );
 }
 
-export default PlanBasicInformation;
+export default ProgramPlanBasicInformation;

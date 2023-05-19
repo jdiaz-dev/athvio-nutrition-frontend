@@ -1,3 +1,4 @@
+export const REST_COUNTRIES_URL = 'https://restcountries.com/v3.1/all?fields=name,idd,flags';
 export const baseHeight = 150;
 export const baseWeek = 1;
 

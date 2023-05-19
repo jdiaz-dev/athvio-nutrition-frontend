@@ -1,4 +1,5 @@
 import { Dayjs } from 'dayjs';
+import { Meal } from 'src/modules/professionals/programs/adapters/out/program.types';
 import { ManageClientGroupEnum } from 'src/shared/Consts';
 import { MetadataRecords } from 'src/shared/types/get-records.types';
 import { ClientGroup } from 'src/shared/types/types';
@@ -84,4 +85,10 @@ export type ManageClientGroupResponse = {
       groupName: string;
     }[];
   };
+};
+
+export type ClientPlanDateExtendedProps = {
+  client: string;
+  clientPlan: string | null;
+  meals: Pick<Meal, 'name'>[];
 };

@@ -12,7 +12,7 @@ import { PlanContext } from 'src/modules/professionals/programs/adapters/in/comp
 export const mealPlanCreatedChange = new Subject<boolean>();
 const mealPlanCreatedChange$ = mealPlanCreatedChange.asObservable();
 
-function CreatePlanButton({ planDay, planWeek, program }: { planDay: number; planWeek: number; program: string }) {
+function CreateClientPlanButton({ planDay, planWeek, program }: { planDay: number; planWeek: number; program: string }) {
   const professionalIdContext = useContext(ProfessionalIdContext);
   const planState = useSelector((state: ReduxStates) => state.programs.plan);
 
@@ -92,4 +92,4 @@ function CreatePlanButton({ planDay, planWeek, program }: { planDay: number; pla
   );
 }
 
-export default CreatePlanButton;
+export default CreateClientPlanButton;

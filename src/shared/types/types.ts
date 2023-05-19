@@ -2,6 +2,12 @@ import { CustomRecipeInitialState } from 'src/modules/professionals/custom-recip
 import { ProgramInitialState } from 'src/modules/professionals/programs/adapters/out/program.types';
 import { UserSignUpModel } from 'src/modules/security/users/adapters/out/user.types';
 
+export type DateItem<T> = {
+  title: string;
+  date: Date;
+  extendedProps: T;
+};
+
 export type DataUser = {
   _id: string;
   userType: string;

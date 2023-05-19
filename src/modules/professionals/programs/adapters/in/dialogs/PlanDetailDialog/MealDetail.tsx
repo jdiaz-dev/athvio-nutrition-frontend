@@ -13,7 +13,7 @@ import { Modules } from 'src/shared/Consts';
 import { ReduxStates } from 'src/shared/types/types';
 import { makeStyles } from 'tss-react/mui';
 import { PlanContext } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/PlanContext';
-import { mealPlanCreatedChange } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/CreatePlanButton';
+import { mealPlanCreatedChange } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/CreateProgramPlanButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
 import { Meal } from 'src/modules/professionals/programs/adapters/out/program.types';

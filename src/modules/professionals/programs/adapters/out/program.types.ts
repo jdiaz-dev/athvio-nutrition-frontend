@@ -110,16 +110,11 @@ export interface PlanDayInfo {
   _id: string | null;
   totalMeals: number | null;
 }
-export type DateItemExtendedProps = {
+export type ProgramPlanDateExtendedProps = {
   plan: PlanDayInfo;
   program: string;
   planDay: number;
   planWeek: number;
-};
-export type DateItem = {
-  title: string;
-  date: Date;
-  extendedProps: DateItemExtendedProps;
 };
 
 export interface ProgramInitialState {

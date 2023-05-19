@@ -10,7 +10,6 @@ import listPlugin from '@fullcalendar/list';
 import { DatesSetArg } from '@fullcalendar/core';
 
 import { Navigate, useParams } from 'react-router-dom';
-import { DateItem } from 'src/modules/professionals/programs/adapters/out/program.types';
 import { ProfessionalIdContext } from 'src/App';
 import ProgramPlansHelper from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/ProgramPlansHelper';
 
@@ -22,7 +21,8 @@ import { Button } from '@mui/material';
 import { baseHeight, baseWeek, WeekActions } from 'src/shared/Consts';
 import { useProgram } from 'src/modules/professionals/programs/adapters/out/ProgramActions';
 import { useSelector } from 'react-redux';
-import { ReduxStates } from 'src/shared/types/types';
+import { DateItem, ReduxStates } from 'src/shared/types/types';
+import { ProgramPlanDateExtendedProps } from 'src/modules/professionals/programs/adapters/out/program.types';
 dayjs.extend(utc);
 
 function ProgramPlansContainer() {
@@ -34,7 +34,7 @@ function ProgramPlansContainer() {
   const { reloadRecordList, setReloadRecordList } = useReloadRecords();
   const [redirectToProgramList, setRedirectToProgramList] = useState(false);
 
-  const [datesToShow, setDatesToShow] = useState<DateItem[]>([]);
+  const [datesToShow, setDatesToShow] = useState<DateItem<ProgramPlanDateExtendedProps>[]>([]);
   const [dateSet, setDateSet] = useState<{ dateStart: Date; dateEnd: Date } | null>(null);
   const [totalWeeks, setTotalWeeks] = useState<number>(baseWeek);
   const [contentHeight, setContentHeight] = useState<number>(baseHeight);
@@ -59,15 +59,15 @@ function ProgramPlansContainer() {
   useEffect(() => {
     const weeksBasedOnPlans = programState.plans.length > 0 ? programState.plans[programState.plans.length - 1].week : baseWeek;
 
-    const fullWeekTableWithDates = (): DateItem[] => {
+    const fullWeekTableWithDates = (): DateItem<ProgramPlanDateExtendedProps>[] => {
       let dateStart = dayjs(dateSet ? dateSet.dateStart : new Date());
-      let dateItem: DateItem;
+      let dateItem: DateItem<ProgramPlanDateExtendedProps>;
 
       let planDay = 1;
       let planWeek = 1;
       let planIndex: number;
 
-      const dates: DateItem[] = [];
+      const dates: DateItem<ProgramPlanDateExtendedProps>[] = [];
       while (dateStart < dayjs(dateSet ? dateSet.dateEnd : new Date())) {
         planIndex = programState.plans.findIndex((plan) => plan.day === planDay);
         dateItem = {

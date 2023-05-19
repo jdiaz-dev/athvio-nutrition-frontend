@@ -52,7 +52,7 @@ function Program(program: ProgramBody) {
   };
 
   if (goToProgramPlans) {
-    const path = `/sidenav/Programs/${program._id}/RecipePlan`;
+    const path = `/sidenav/Programs/${program._id}/plans`;
     return <Navigate replace to={path} />;
   }
 
