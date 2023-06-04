@@ -85,7 +85,7 @@ function App() {
                 </Route>
               }
             </Routes>
-          </ProfessionalIdContext.Provider>
+          </ProfessionalIdContext.Provider>      
         </AuthContext.Provider>
       </LocalizationProvider>
     </div>

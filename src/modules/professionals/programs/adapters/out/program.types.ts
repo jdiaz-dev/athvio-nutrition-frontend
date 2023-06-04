@@ -1,4 +1,4 @@
-import { IngredientDetail, Macros, MealDataForBuilder } from 'src/shared/components/MealBuilder/MealBuilder.types';
+import { IngredientDetail, Macros } from 'src/shared/components/MealBuilder/MealBuilder.types';
 import { GetRecordsBody, MetadataRecords } from 'src/shared/types/get-records.types';
 
 export interface MealBasicInfo {

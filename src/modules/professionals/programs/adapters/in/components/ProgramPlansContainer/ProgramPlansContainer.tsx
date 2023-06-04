@@ -135,53 +135,52 @@ function ProgramPlansContainer() {
         }}
       />
       <ReloadRecordListContext.Provider value={{ reloadRecordList, setReloadRecordList }}>
-        {programState.plans.length > 0 && (
-          <FullCalendar
-            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
-            initialView="dayGridFourWeek"
-            // eventClick={handleEventClick}
-            // dateClick={handleDateClick}
-            events={datesToShow}
-            datesSet={dateSetHelper}
-            eventContent={ProgramPlansHelper}
-            // handleCustomRendering={eventNewDiv}
-            views={{
-              dayGridFourWeek: {
-                type: 'dayGrid',
-                duration: { weeks: totalWeeks, specifiedWeeks: true },
-                listDayFormat: { weekday: 'long' },
-              },
-            }}
-            dayHeaders={false} // hide day headers
-            /* dayHeaderContent={(args) => {
-            if (args.text === 'Sun') {
-              return <div>Day1</div>;
-            } else if (args.text === 'Mon') {
-              return <div>Day2</div>;
-            } else if (args.text === 'Tue') {
-              return <div>Day3</div>;
-            } else if (args.text === 'Wed') {
-              return <div>Day4</div>;
-            } else if (args.text === 'Thu') {
-              return <div>Day5</div>;
-            } else if (args.text === 'Fri') {
-              return <div>Day6</div>;
-            } else {
-              return <div>Day7</div>;
-            }
-            }} */
+        <FullCalendar
+          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
+          initialView="dayGridFourWeek"
+          // eventClick={handleEventClick}
+          // dateClick={handleDateClick}
+          events={datesToShow}
+          datesSet={dateSetHelper}
+          eventContent={ProgramPlansHelper}
+          // handleCustomRendering={eventNewDiv}
+          views={{
+            dayGridFourWeek: {
+              type: 'dayGrid',
+              duration: { weeks: totalWeeks, specifiedWeeks: true },
+              listDayFormat: { weekday: 'long' },
+            },
+          }}
+          dayHeaders={false} // hide day headers
+          /* dayHeaderContent={(args) => {
+          if (args.text === 'Sun') {
+            return <div>Day1</div>;
+          } else if (args.text === 'Mon') {
+            return <div>Day2</div>;
+          } else if (args.text === 'Tue') {
+            return <div>Day3</div>;
+          } else if (args.text === 'Wed') {
+            return <div>Day4</div>;
+          } else if (args.text === 'Thu') {
+            return <div>Day5</div>;
+          } else if (args.text === 'Fri') {
+            return <div>Day6</div>;
+          } else {
+            return <div>Day7</div>;
+          }
+          }} */
 
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            dayCellContent={(info, create) => {
-              counterDay++;
-              return <div>Day {counterDay}</div>;
-            }}
-            contentHeight={contentHeight}
-            titleFormat={{
-              weekday: undefined,
-            }}
-          />
-        )}
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          dayCellContent={(info, create) => {
+            counterDay++;
+            return <div>Day {counterDay}</div>;
+          }}
+          contentHeight={contentHeight}
+          titleFormat={{
+            weekday: undefined,
+          }}
+        />
+
         <Button variant="contained" onClick={() => setWeekAction(WeekActions.ADD)}>
           Add week
         </Button>
