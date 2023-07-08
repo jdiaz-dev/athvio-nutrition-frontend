@@ -5,7 +5,7 @@ import { StyledTableCell, StyledTableRow } from 'src/shared/components/Customize
 import { makeStyles } from 'tss-react/mui';
 
 import { DisplayedIngredient } from 'src/shared/components/MealBuilder/MealBuilder.types';
-import { useChooseSlicers } from 'src/shared/hooks/useChooseSlicers';
+import { useMealBuilderSlicers } from 'src/shared/hooks/useMealBuilderSlicers';
 import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
 import { useDispatch } from 'react-redux';
 
@@ -37,7 +37,7 @@ function IngredientItem({ displayedIngredient: { name, amount, label, ...rest } 
   const dispatch = useDispatch();
   const [displayOverlay, setDisplayOverlay] = useState(false);
   const currentModuleContext = useContext(CurrentModuleContext);
-  const { removeIngredient } = useChooseSlicers(currentModuleContext.currentModule);
+  const { removeIngredient } = useMealBuilderSlicers(currentModuleContext.currentModule);
 
   const deleteIngredientHandlder = () => {
     dispatch(removeIngredient({ ingredientType: rest.ingredientType, name }));

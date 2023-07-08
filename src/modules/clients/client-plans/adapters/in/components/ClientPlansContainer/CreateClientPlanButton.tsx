@@ -8,47 +8,65 @@ import { ReduxStates } from 'src/shared/types/types';
 import { usePlan } from 'src/modules/professionals/programs/adapters/out/PlanActions';
 import { ProfessionalIdContext } from 'src/App';
 import { PlanContext } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/PlanContext';
+import { useClientPlan } from 'src/modules/clients/client-plans/adapters/out/ClientPlanActions';
 
 export const mealPlanCreatedChange = new Subject<boolean>();
 const mealPlanCreatedChange$ = mealPlanCreatedChange.asObservable();
 
-function CreateClientPlanButton({ planDay, planWeek, program }: { planDay: number; planWeek: number; program: string }) {
+function CreateClientPlanButton({ client, assignedDate }: { client: string; assignedDate: Date }) {
   const professionalIdContext = useContext(ProfessionalIdContext);
   const planState = useSelector((state: ReduxStates) => state.programs.plan);
 
-  const { createPlan, deletePlan } = usePlan();
+  const { createClientPlan, deleteClientPlan } = useClientPlan();
   const [openPlanDetailDialog, setOpenPlanDetailDialog] = useState(false);
   const [planCrated, setPlanCrated] = useState(false);
   const [mealPlanCreated, setMealPlanCreated] = useState(false);
 
+  /* 
+    export interface Plan {
+      _id: string;
+      title?: string;
+      meals: Meal[];
+    }
+
+    export interface ClientPlanBody extends Omit<Plan, 'week' | 'day'> {
+      client: string;
+      assignedDate: Date;
+      // comments
+      // commentResult
+    }
+
+    export interface CreateClientPlanInput extends Pick<ClientPlanBody, 'client' | 'assignedDate' | 'title'> {
+      professional: string;
+    }
+  */
   useEffect(() => {
-    const createProgramPlanHandler = async () => {
+    const createClientPlanHandler = async () => {
       const input = {
         professional: professionalIdContext.professional,
-        program,
-        week: planWeek,
-        day: planDay,
+        client,
+        assignedDate,
       };
-      await createPlan(input);
+      await createClientPlan(input);
       setPlanCrated(true);
     };
 
     if (openPlanDetailDialog) {
-      void createProgramPlanHandler();
+      void createClientPlanHandler();
     }
   }, [professionalIdContext.professional, openPlanDetailDialog]);
 
   useEffect(() => {
-    const deletePlanHandler = async () => {
+    const deleteClientPlanHandler = async () => {
       const input = {
         professional: professionalIdContext.professional,
-        program,
-        plan: planState._id,
+        client,
+        clientPlan: 'planState._id',
       };
-      await deletePlan(input);
+      await deleteClientPlan(input);
     };
     if (planCrated && !mealPlanCreated && !openPlanDetailDialog) {
-      void deletePlanHandler();
+      void deleteClientPlanHandler();
     }
   }, [openPlanDetailDialog]);
 

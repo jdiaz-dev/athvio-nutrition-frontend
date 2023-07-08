@@ -17,11 +17,11 @@ import { CREATE_MEAL, DELETE_MEAL, UPDATE_MEAL } from 'src/modules/professionals
 
 import { Plan } from 'src/modules/professionals/programs/adapters/out/program.types';
 
-export function useMeal() {
+export function usePlanMeal() {
   const dispatch = useDispatch();
 
-  const createMeal = async (body: CreateMealBody): Promise<void> => {
-    console.log('----------------createMeal body', body);
+  const createPlanMeal = async (body: CreateMealBody): Promise<void> => {
+    console.log('----------------createPlanMeal body', body);
     try {
       const response = await apolloClient.mutate<CreateMealResponse, CreateMealRequest>({
         mutation: CREATE_MEAL,
@@ -31,6 +31,7 @@ export function useMeal() {
           },
         },
       });
+      console.log('----------------my response', body);
       dispatch(PlanSlice.acceptNewPlans(response.data?.createMeal.plans as unknown as Plan[]));
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
@@ -38,8 +39,8 @@ export function useMeal() {
     }
   };
 
-  const updateMeal = async (body: UpdateMealBody): Promise<void> => {
-    console.log('----------------updateMeal body', body);
+  const updatePlanMeal = async (body: UpdateMealBody): Promise<void> => {
+    console.log('----------------updatePlanMeal body', body);
     try {
       const response = await apolloClient.mutate<UpdateMealResponse, UpdateMealRequest>({
         mutation: UPDATE_MEAL,
@@ -56,7 +57,7 @@ export function useMeal() {
     }
   };
 
-  const deleteMeal = async (body: DeleteMealBody): Promise<void> => {
+  const deletePlanMeal = async (body: DeleteMealBody): Promise<void> => {
     try {
       const response = await apolloClient.mutate<DeleteMealResponse, DeleteMealRequest>({
         mutation: DELETE_MEAL,
@@ -72,5 +73,5 @@ export function useMeal() {
       throw error;
     }
   };
-  return { createMeal, updateMeal, deleteMeal };
+  return { createPlanMeal, updatePlanMeal, deletePlanMeal };
 }

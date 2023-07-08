@@ -1,6 +1,6 @@
 import { Dayjs } from 'dayjs';
-import { Meal } from 'src/modules/professionals/programs/adapters/out/program.types';
 import { ManageClientGroupEnum } from 'src/shared/Consts';
+import { Meal } from 'src/shared/components/MealDetails/Meal.types';
 import { MetadataRecords } from 'src/shared/types/get-records.types';
 import { ClientGroup } from 'src/shared/types/types';
 

@@ -43,6 +43,7 @@ export enum ManageClientGroupEnum {
 }
 
 export enum Modules {
+  CLIENTS = 'clients',
   PROGRAMS = 'programs',
   CUSTOM_RECIPES = 'customRecipes',
   CLIENT_PLANS = 'clientPlans',

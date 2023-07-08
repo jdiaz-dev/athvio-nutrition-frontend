@@ -11,7 +11,7 @@ import { StyledTableCell, StyledTableRow } from 'src/shared/components/Customize
 import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
 import { FoddAddedContext } from 'src/shared/components/MealBuilder/FoddAddedContext';
 import { Food, FoodManager } from 'src/shared/components/MealBuilder/food.types';
-import { useChooseSlicers } from 'src/shared/hooks/useChooseSlicers';
+import { useMealBuilderSlicers } from 'src/shared/hooks/useMealBuilderSlicers';
 import { FoodDatabases, IngredientType, MeasureSizes } from 'src/shared/Consts';
 import { BootstrapInput } from 'src/shared/components/CustomizedInput';
 import { calculateMacrosFixingDecimals, multiplicateFixingDecimals } from 'src/shared/components/MealBuilder/MacrosCalculator';
@@ -21,7 +21,7 @@ function FoodItem({ food }: { food: Food }) {
   const foddAddedContext = useContext(FoddAddedContext);
   const dispatch = useDispatch();
   const currentModuleContext = useContext(CurrentModuleContext);
-  const { addIngredient } = useChooseSlicers(currentModuleContext.currentModule);
+  const { addIngredient } = useMealBuilderSlicers(currentModuleContext.currentModule);
   const [foodManager, setFoodManager] = useState<FoodManager | null>(null);
   const [measure, setMeasure] = useState<string | null>(null);
 

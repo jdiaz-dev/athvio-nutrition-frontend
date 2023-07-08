@@ -4,13 +4,15 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import CloseIcon from '@mui/icons-material/Close';
-import { Meal } from 'src/modules/professionals/programs/adapters/out/program.types';
 import { programInitialState } from 'src/modules/professionals/programs/adapters/in/slicers/ProgramInitialState';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 import { DialogTitle, IconButton } from '@mui/material';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
-import MealDetail from 'src/modules/professionals/programs/adapters/in/dialogs/PlanDetailDialog/MealDetail';
+import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
+import { Modules } from 'src/shared/Consts';
+import { Meal } from 'src/shared/components/MealDetails/Meal.types';
+import MealDetail from 'src/shared/components/MealDetails/MealDetail';
 
 function PlanDetailDialog({
   openPlanDetailDialog,
@@ -72,7 +74,9 @@ function PlanDetailDialog({
           ) : null}
         </DialogTitle>
         <DialogContent>
-          {program && meals.map((meal, index) => <MealDetail key={index} program={program} plan={planId as string} meal={meal} />)}
+          <CurrentModuleContext.Provider value={{ currentModule: Modules.PROGRAMS }}>
+            {program && meals.map((meal, index) => <MealDetail key={index} program={program} plan={planId as string} meal={meal} />)}
+          </CurrentModuleContext.Provider>
           <Button onClick={() => addMealPlanHandler()}>Add meal</Button>
         </DialogContent>
         <DialogActions>
@@ -87,3 +91,23 @@ function PlanDetailDialog({
 }
 
 export default PlanDetailDialog;
+
+interface client {
+  client: string;
+  plan: string;
+  meal: string;
+}
+interface program {
+  program: string;
+  plan: string;
+  meal: string;
+}
+
+type owner<ownerData> = {
+  [K in keyof ownerData]: string;
+};
+
+const test: owner<client> = {
+  client: '',
+  id: '',
+};

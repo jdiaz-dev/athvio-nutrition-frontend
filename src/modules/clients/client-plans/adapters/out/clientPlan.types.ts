@@ -1,9 +1,9 @@
-import { Meal, MealBasicInfo, MealDetails } from 'src/modules/professionals/programs/adapters/out/program.types';
+import { Meal, MealBasicInfo, MealDetails } from 'src/shared/components/MealDetails/Meal.types';
 import { GetRecordsBody, MetadataRecords } from 'src/shared/types/get-records.types';
 
 export interface Plan {
   _id: string;
-  title: string;
+  title?: string;
   week: number;
   day: number;
   meals: Meal[];

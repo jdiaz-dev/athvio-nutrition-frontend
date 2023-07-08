@@ -85,7 +85,7 @@ function App() {
                 </Route>
               }
             </Routes>
-          </ProfessionalIdContext.Provider>      
+          </ProfessionalIdContext.Provider>
         </AuthContext.Provider>
       </LocalizationProvider>
     </div>
@@ -130,4 +130,9 @@ export default App;
   - import meal from custom recipes
     - realize import in backend
     - add pagination to custom recipes
+*/
+
+/* 
+  actually working
+    -refactoring PlanDetailDialog.tsx
 */

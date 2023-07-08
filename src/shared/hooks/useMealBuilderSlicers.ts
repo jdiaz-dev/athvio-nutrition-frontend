@@ -3,15 +3,15 @@ import * as customRecipeDetailsImports from 'src/modules/professionals/custom-re
 import * as ProgramMealDetailImport from 'src/modules/professionals/programs/adapters/in/slicers/MealDetailsSlice';
 import { Modules } from 'src/shared/Consts';
 
-const { custoRecipeDetailsSlice, ...customRecipeDetailsSlicers } = customRecipeDetailsImports;
+const { customRecipeDetailsSlice, ...customRecipeDetailsSlicers } = customRecipeDetailsImports;
 const { mealDetailsSlice, ...programMealDetailSlicers } = ProgramMealDetailImport;
-export const useChooseSlicers = (domain: string) => {
+
+export const useMealBuilderSlicers = (currentModule: string) => {
   let slicer;
-  if (domain === Modules.CUSTOM_RECIPES) {
+  if (currentModule === Modules.CUSTOM_RECIPES) {
     slicer = customRecipeDetailsSlicers;
     customRecipeDetailsSlicers;
   } else {
-    // slicer = mealPlanSlicers;
     slicer = programMealDetailSlicers;
   }
   return { ...slicer };

@@ -1,0 +1,58 @@
+import { Modules } from 'src/shared/Consts';
+import { usePlanMeal } from 'src/modules/professionals/programs/adapters/out/MealActions';
+import { Meal } from 'src/shared/components/MealDetails/Meal.types';
+
+interface CreateMeal {
+  professional: string;
+  mealOwner: string;
+  planOwner: string;
+  mealBody: Omit<Meal, '_id'>;
+}
+
+interface UpdateMeal extends CreateMeal {
+  meal: string;
+}
+
+interface DeleteMeal extends Omit<CreateMeal, 'mealBody'> {
+  meal: string;
+}
+
+export const useMealDetailAdapter = (currentModule: string) => {
+  const { createPlanMeal, updatePlanMeal, deletePlanMeal } = usePlanMeal();
+
+  const createMeal = async (data: CreateMeal) => {
+    if (currentModule === Modules.PROGRAMS) {
+      await createPlanMeal({
+        professional: data.professional,
+        program: data.mealOwner,
+        plan: data.planOwner,
+        mealBody: data.mealBody,
+      });
+    }
+  };
+
+  const updateMeal = async (data: UpdateMeal) => {
+    if (currentModule === Modules.PROGRAMS) {
+      await updatePlanMeal({
+        professional: data.professional,
+        program: data.mealOwner,
+        plan: data.planOwner,
+        mealBody: data.mealBody,
+        meal: data.meal,
+      });
+    }
+  };
+
+  const deleteMeal = async (data: DeleteMeal) => {
+    if (currentModule === Modules.PROGRAMS) {
+      await deletePlanMeal({
+        professional: data.professional,
+        program: data.mealOwner,
+        plan: data.planOwner,
+        meal: data.meal,
+      });
+    }
+  };
+
+  return { createMeal, updateMeal, deleteMeal };
+};

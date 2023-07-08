@@ -1,21 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { programInitialState } from 'src/modules/professionals/programs/adapters/in/slicers/ProgramInitialState';
-import { MealBasicInfo } from 'src/modules/professionals/programs/adapters/out/program.types';
+import { mealBasicInfoSlice as mealBasicInfoSlicer } from 'src/shared/components/MealDetails/MealBasicInfoSlice';
 
-export const mealBasicInfoSlice = createSlice({
-  name: 'mealBasicInfo',
-  initialState: programInitialState.mealBasicInfo,
-  reducers: {
-    acceptNewMealBasicInfo: (state, action: PayloadAction<MealBasicInfo>) => {
-      state = action.payload;
-      return state;
-    },
-    renameMealTag: (state, action: PayloadAction<string>) => {
-      state.mealTag = action.payload;
-      console.log('--------------action.payload', action.payload);
-      return state;
-    },
-  },
-});
+export const mealBasicInfoSlice = mealBasicInfoSlicer('mealBasicInfo', programInitialState.mealBasicInfo);
 
 export const { acceptNewMealBasicInfo, renameMealTag } = mealBasicInfoSlice.actions;

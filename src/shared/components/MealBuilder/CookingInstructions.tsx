@@ -2,11 +2,11 @@ import React, { useContext } from 'react';
 import { Box, TextField } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
-import { useChooseSlicers } from 'src/shared/hooks/useChooseSlicers';
+import { useMealBuilderSlicers } from 'src/shared/hooks/useMealBuilderSlicers';
 
 function CookingInstructions({ cookingInstructions }: { cookingInstructions: string }) {
   const currentModuleContext = useContext(CurrentModuleContext);
-  const { renameCookingInstruction } = useChooseSlicers(currentModuleContext.currentModule);
+  const { renameCookingInstruction } = useMealBuilderSlicers(currentModuleContext.currentModule);
   const dispatch = useDispatch();
 
   return (

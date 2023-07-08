@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ProfessionalIdContext } from 'src/App';
 import * as MealDetailsSlice from 'src/modules/professionals/programs/adapters/in/slicers/MealDetailsSlice';
 import * as MealBasicInfoSlice from 'src/modules/professionals/programs/adapters/in/slicers/MealBasicInfoSlice';
-import { useMeal } from 'src/modules/professionals/programs/adapters/out/MealActions';
 import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
 import MealBuilder from 'src/shared/components/MealBuilder/MealBuilder';
 import { Modules } from 'src/shared/Consts';
@@ -16,8 +15,9 @@ import { PlanContext } from 'src/modules/professionals/programs/adapters/in/comp
 import { mealPlanCreatedChange } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/CreateProgramPlanButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
-import { Meal } from 'src/modules/professionals/programs/adapters/out/program.types';
 import MealTag from 'src/modules/professionals/programs/adapters/in/dialogs/PlanDetailDialog/MealTag';
+import { useMealDetailAdapter } from 'src/shared/hooks/useMealDetailAdapter';
+import { Meal } from 'src/shared/components/MealDetails/Meal.types';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -34,12 +34,14 @@ const cardStyles = makeStyles()(() => {
 function MealDetail({ program, plan, meal: { position, mealTag, name, ...mealDetails } }: { program: string; plan: string; meal: Meal }) {
   const { classes } = cardStyles();
   const professionalIdContext = useContext(ProfessionalIdContext);
+  const currentModuleContext = useContext(CurrentModuleContext);
   const planContext = useContext(PlanContext);
   const mealBasicInfoState = useSelector((state: ReduxStates) => state.programs.mealBasicInfo);
   const mealDetailsState = useSelector((state: ReduxStates) => state.programs.mealDetails);
 
   const dispatch = useDispatch();
-  const { createMeal, updateMeal, deleteMeal } = useMeal();
+
+  const { createMeal, updateMeal, deleteMeal } = useMealDetailAdapter(currentModuleContext.currentModule);
   const [componentTouched, setComponentTouched] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -55,14 +57,13 @@ function MealDetail({ program, plan, meal: { position, mealTag, name, ...mealDet
     dispatch(MealDetailsSlice.acceptNewMealDetail(mealDetails));
     setComponentTouched(true);
   };
-  const createUpdateMealPlanHandler = async () => {
+  const createUpdateMealHandler = async () => {
     const { _id, ...restMealDetail } = mealDetailsState;
-    console.log('-----------mealBasicInfoState', mealBasicInfoState);
     if (mealDetailsState._id.length == 0) {
       await createMeal({
         professional: professionalIdContext.professional,
-        program,
-        plan,
+        mealOwner: program,
+        planOwner: plan,
         mealBody: {
           ...mealBasicInfoState,
           ...restMealDetail,
@@ -73,8 +74,8 @@ function MealDetail({ program, plan, meal: { position, mealTag, name, ...mealDet
     } else {
       await updateMeal({
         professional: professionalIdContext.professional,
-        program,
-        plan,
+        mealOwner: program,
+        planOwner: plan,
         meal: _id,
         mealBody: {
           ...mealBasicInfoState,
@@ -83,13 +84,13 @@ function MealDetail({ program, plan, meal: { position, mealTag, name, ...mealDet
       });
     }
   };
-  const deleteMealPlanHandler = async () => {
+  const deleteMealHandler = async () => {
     setAnchorEl(null);
     setComponentTouched(false);
     await deleteMeal({
       professional: professionalIdContext.professional,
-      program,
-      plan,
+      mealOwner: program,
+      planOwner: plan,
       meal: mealDetailsState._id,
     });
   };
@@ -108,7 +109,7 @@ function MealDetail({ program, plan, meal: { position, mealTag, name, ...mealDet
           }
         }}
         onMouseLeave={() => {
-          if (componentTouched) void createUpdateMealPlanHandler();
+          if (componentTouched) void createUpdateMealHandler();
           setComponentTouched(false);
         }}
       >
@@ -125,7 +126,7 @@ function MealDetail({ program, plan, meal: { position, mealTag, name, ...mealDet
               'aria-labelledby': 'basic-button',
             }}
           >
-            <MenuItem onClick={() => deleteMealPlanHandler()}>Delete meal</MenuItem>
+            <MenuItem onClick={() => deleteMealHandler()}>Delete meal</MenuItem>
           </Menu>
         </Grid>
 

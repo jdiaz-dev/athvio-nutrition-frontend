@@ -1,8 +1,8 @@
 import { combineReducers, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { clientPlanInitialState } from 'src/modules/clients/client-plans/adapters/in/slicers/ClientPlanInitialState';
+import { mealBasicInfoSlice } from 'src/modules/clients/client-plans/adapters/in/slicers/MealBasicInfoSlice';
+import { mealDetailsSlice } from 'src/modules/clients/client-plans/adapters/in/slicers/MealDetailsSlice';
 import { ClientPlanBody, ClientPlans } from 'src/modules/clients/client-plans/adapters/out/clientPlan.types';
-import { mealBasicInfoSlice } from 'src/modules/professionals/programs/adapters/in/slicers/MealBasicInfoSlice';
-import { mealDetailsSlice } from 'src/modules/professionals/programs/adapters/in/slicers/MealDetailsSlice';
 
 const clientPlansSlice = createSlice({
   name: 'clientPlans',
