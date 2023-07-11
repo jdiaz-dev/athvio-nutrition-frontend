@@ -7,11 +7,11 @@ import { ClientPlanDateExtendedProps } from 'src/modules/clients/clients/adapter
 
 // it is a function not  a component, therefore doesn't support hooks
 function ClientPlansHelper(arg: EventContentArg) {
-  const { clientPlan, meals } = arg.event.extendedProps as ClientPlanDateExtendedProps;
-  if (clientPlan === null) {
-    return <CreateClientPlanButton planDay={planDay} planWeek={planWeek} program={program} />;
+  const { client, clientPlanDayInfo, assignedDate } = arg.event.extendedProps as ClientPlanDateExtendedProps;
+  if (clientPlanDayInfo._id === null) {
+    return <CreateClientPlanButton client={client} assignedDate={assignedDate} />;
   } else {
-    return <ClientPlanBasicInformation program={program} plan={plan} />;
+    return <ClientPlanBasicInformation client={client} plan={clientPlanDayInfo} />;
   }
 }
 

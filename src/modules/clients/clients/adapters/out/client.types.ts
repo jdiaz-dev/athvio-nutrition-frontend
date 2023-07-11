@@ -2,7 +2,7 @@ import { Dayjs } from 'dayjs';
 import { ManageClientGroupEnum } from 'src/shared/Consts';
 import { Meal } from 'src/shared/components/MealDetails/Meal.types';
 import { MetadataRecords } from 'src/shared/types/get-records.types';
-import { ClientGroup } from 'src/shared/types/types';
+import { ClientGroup, PlanDayInfo } from 'src/shared/types/types';
 
 export type UserInfoForClient = {
   firstName: string;
@@ -88,7 +88,7 @@ export type ManageClientGroupResponse = {
 };
 
 export type ClientPlanDateExtendedProps = {
+  clientPlanDayInfo: PlanDayInfo;
   client: string;
-  clientPlan: string | null;
-  meals: Pick<Meal, 'name'>[];
+  assignedDate: Date;
 };

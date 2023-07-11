@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Navigate, useParams } from 'react-router-dom';
 import { DatesSetArg } from '@fullcalendar/core';
@@ -9,17 +9,89 @@ import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import ClientPlansHelper from 'src/modules/clients/client-plans/adapters/in/components/ClientPlansContainer/ClientPlansHelper';
-import { DateItem } from 'src/shared/types/types';
+import { DateItem, ReduxStates } from 'src/shared/types/types';
+import { ClientPlanDateExtendedProps } from 'src/modules/clients/clients/adapters/out/client.types';
+import { ProfessionalIdContext } from 'src/App';
+import { useReloadRecords } from 'src/shared/hooks/useReloadRecords';
+import dayjs from 'dayjs';
+import { useSelector } from 'react-redux';
 
 function ClientPlansContainer() {
+  const professionalIdContext = useContext(ProfessionalIdContext);
+  const clientPlansState = useSelector((state: ReduxStates) => state.clientPlans.clientPlans?.data || []);
   const { clientId } = useParams();
+  const { reloadRecordList, setReloadRecordList } = useReloadRecords();
   const [redirectToClientList, setRedirectToClientList] = useState(false);
   const [dateSet, setDateSet] = useState<{ dateStart: Date; dateEnd: Date } | null>(null);
-  const [datesToShow, setDatesToShow] = useState<DateItem<DateItemExtendedProps>[]>([]);
+  const [datesToShow, setDatesToShow] = useState<DateItem<ClientPlanDateExtendedProps>[]>([]);
 
   const dateSetHelper = (dateInfo: DatesSetArg) => {
     setDateSet({ dateStart: dateInfo.start, dateEnd: dateInfo.end });
   };
+
+  /*  useEffect(() => {
+    const getProgramHelper = async () => {
+      await getProgram(input);
+    };
+
+    if (professionalIdContext.professional) {
+      void getProgramHelper();
+      setReloadRecordList(false);
+    }
+  }, [professionalIdContext.professional, reloadRecordList]); */
+
+  useEffect(() => {
+    // const weeksBasedOnPlans = clientPlansState.plans.length > 0 ? clientPlansState.plans[clientPlansState.plans.length - 1].week : baseWeek;
+
+    const fullWeekTableWithDates = (): DateItem<ClientPlanDateExtendedProps>[] => {
+      let dateStart = dayjs(dateSet ? dateSet.dateStart : new Date());
+      let dateItem: DateItem<ClientPlanDateExtendedProps>;
+
+      let planDay = 1;
+      let planWeek = 1;
+      let planIndex: number;
+
+      const dates: DateItem<ClientPlanDateExtendedProps>[] = [];
+      while (dateStart < dayjs(dateSet ? dateSet.dateEnd : new Date())) {
+        planIndex = clientPlansState.findIndex((plan) => dayjs(plan.assignedDate) === dateStart);
+        dateItem = {
+          title: '',
+          date: dateStart.toDate(),
+          extendedProps: {
+            client: clientId as string,
+            clientPlanDayInfo: {
+              _id: clientPlansState.length > 0 && planIndex >= 0 ? clientPlansState[planIndex]._id : null,
+              totalMeals: clientPlansState.length > 0 && planIndex >= 0 ? clientPlansState[planIndex].meals.length : null,
+            },
+            assignedDate: new Date(dateStart.toString()),
+          },
+        };
+        dateStart = dayjs(dateStart).set('date', dateStart.get('date') + 1);
+        planWeek = planDay % 7 === 0 ? planWeek + 1 : planWeek;
+        planDay++;
+        dates.push(dateItem);
+      }
+      return dates;
+    };
+    /* const handleWeekAction = (): number => {
+      if (weekAction === WeekActions.READY) {
+        return weeksBasedOnPlans;
+      } else if (weekAction === WeekActions.ADD) {
+        return totalWeeks + 1;
+      } else if (weekAction === WeekActions.REMOVE) {
+        return totalWeeks - 1;
+      } else {
+        return totalWeeks;
+      }
+    }; */
+
+    if (datesToShow.length === 0 || reloadRecordList) {
+      setDatesToShow(fullWeekTableWithDates());
+      // setMaxWeekWithPlans(weeksBasedOnPlans);
+      // setTotalWeeks(handleWeekAction());
+      // setWeekAction(WeekActions.NEUTRAL);
+    }
+  }, [reloadRecordList, dateSet, clientPlansState /* weekAction */]);
 
   if (redirectToClientList) {
     const path = `/sidenav/Clients`;

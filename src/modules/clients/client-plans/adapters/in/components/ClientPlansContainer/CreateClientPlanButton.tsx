@@ -5,7 +5,6 @@ import { Button } from '@mui/material';
 import PlanDetailDialog from 'src/modules/professionals/programs/adapters/in/dialogs/PlanDetailDialog/PlanDetailDialog';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
-import { usePlan } from 'src/modules/professionals/programs/adapters/out/PlanActions';
 import { ProfessionalIdContext } from 'src/App';
 import { PlanContext } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/PlanContext';
 import { useClientPlan } from 'src/modules/clients/client-plans/adapters/out/ClientPlanActions';
@@ -14,6 +13,8 @@ export const mealPlanCreatedChange = new Subject<boolean>();
 const mealPlanCreatedChange$ = mealPlanCreatedChange.asObservable();
 
 function CreateClientPlanButton({ client, assignedDate }: { client: string; assignedDate: Date }) {
+  console.log('-----------client', client);
+  console.log('-----------assignedDate', assignedDate);
   const professionalIdContext = useContext(ProfessionalIdContext);
   const planState = useSelector((state: ReduxStates) => state.programs.plan);
 
@@ -22,24 +23,6 @@ function CreateClientPlanButton({ client, assignedDate }: { client: string; assi
   const [planCrated, setPlanCrated] = useState(false);
   const [mealPlanCreated, setMealPlanCreated] = useState(false);
 
-  /* 
-    export interface Plan {
-      _id: string;
-      title?: string;
-      meals: Meal[];
-    }
-
-    export interface ClientPlanBody extends Omit<Plan, 'week' | 'day'> {
-      client: string;
-      assignedDate: Date;
-      // comments
-      // commentResult
-    }
-
-    export interface CreateClientPlanInput extends Pick<ClientPlanBody, 'client' | 'assignedDate' | 'title'> {
-      professional: string;
-    }
-  */
   useEffect(() => {
     const createClientPlanHandler = async () => {
       const input = {
@@ -85,7 +68,7 @@ function CreateClientPlanButton({ client, assignedDate }: { client: string; assi
   return (
     <>
       <Button variant="outlined" onClick={() => setOpenPlanDetailDialog(true)}>
-        Add plan
+        Create plan
       </Button>
 
       {openPlanDetailDialog && planState._id.length > 0 ? (
@@ -93,8 +76,8 @@ function CreateClientPlanButton({ client, assignedDate }: { client: string; assi
           <PlanDetailDialog
             openPlanDetailDialog={openPlanDetailDialog}
             setOpenPlanDetailDialog={setOpenPlanDetailDialog}
-            program={program}
-            planId={planState._id}
+            domainOwnerId={client}
+            planOwnerId={planState._id}
           />
         </PlanContext.Provider>
       ) : (
@@ -102,7 +85,7 @@ function CreateClientPlanButton({ client, assignedDate }: { client: string; assi
           <PlanDetailDialog
             openPlanDetailDialog={openPlanDetailDialog}
             setOpenPlanDetailDialog={setOpenPlanDetailDialog}
-            program={program}
+            domainOwnerId={client}
           />
         )
       )}

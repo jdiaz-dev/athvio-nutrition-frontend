@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PlanDetailDialog from 'src/modules/professionals/programs/adapters/in/dialogs/PlanDetailDialog/PlanDetailDialog';
-import { PlanDayInfo } from 'src/modules/professionals/programs/adapters/out/program.types';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ProfessionalIdContext } from 'src/App';
 import { usePlan } from 'src/modules/professionals/programs/adapters/out/PlanActions';
@@ -8,8 +7,9 @@ import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext
 import MessageDialog from 'src/shared/dialogs/MessageDialog';
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
 import { ProgramMessages } from 'src/shared/Consts';
+import { PlanDayInfo } from 'src/shared/types/types';
 
-function ProgramPlanBasicInformation({ program, plan }: { program: string; plan: PlanDayInfo }) {
+function ProgramPlanBasicInformation({ program, planDayInfo }: { program: string; planDayInfo: PlanDayInfo }) {
   const professionalIdContext = useContext(ProfessionalIdContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const [openPlanDetailDialog, setOpenPlanDetailDialog] = useState(false);
@@ -27,7 +27,7 @@ function ProgramPlanBasicInformation({ program, plan }: { program: string; plan:
       await deletePlan({
         professional: professionalIdContext.professional,
         program,
-        plan: plan._id as string,
+        plan: planDayInfo._id as string,
       });
       reloadRecordListContext.setReloadRecordList(true);
       setAlert(false);
@@ -38,13 +38,13 @@ function ProgramPlanBasicInformation({ program, plan }: { program: string; plan:
 
   return (
     <>
-      <div onClick={() => setOpenPlanDetailDialog(true)}>{plan.totalMeals} meals</div>
+      <div onClick={() => setOpenPlanDetailDialog(true)}>{planDayInfo.totalMeals} meals</div>
       {openPlanDetailDialog && (
         <PlanDetailDialog
           openPlanDetailDialog={openPlanDetailDialog}
           setOpenPlanDetailDialog={setOpenPlanDetailDialog}
-          program={program}
-          planId={plan._id || ''}
+          domainOwnerId={program}
+          planOwnerId={planDayInfo._id || ''}
         />
       )}
       <DeleteIcon onClick={deletePlanHandler} />

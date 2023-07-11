@@ -1,3 +1,4 @@
+import { ClientPlanInitialState } from 'src/modules/clients/client-plans/adapters/out/clientPlan.types';
 import { CustomRecipeInitialState } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 import { ProgramInitialState } from 'src/modules/professionals/programs/adapters/out/program.types';
 import { UserSignUpModel } from 'src/modules/security/users/adapters/out/user.types';
@@ -29,4 +30,10 @@ export type ReduxStates = {
   users: UserSignUpModel;
   customRecipes: CustomRecipeInitialState;
   programs: ProgramInitialState;
+  clientPlans: ClientPlanInitialState;
 };
+
+export interface PlanDayInfo {
+  _id: string | null;
+  totalMeals: number | null;
+}

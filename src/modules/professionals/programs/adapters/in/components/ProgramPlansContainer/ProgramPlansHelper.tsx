@@ -7,11 +7,11 @@ import { ProgramPlanDateExtendedProps } from 'src/modules/professionals/programs
 
 // it is a function not  a component, therefore doesn't support hooks
 function ProgramPlansHelper(arg: EventContentArg) {
-  const { program, plan, planDay, planWeek } = arg.event.extendedProps as ProgramPlanDateExtendedProps;
-  if (plan._id === null) {
+  const { program, planDayInfo, planDay, planWeek } = arg.event.extendedProps as ProgramPlanDateExtendedProps;
+  if (planDayInfo._id === null) {
     return <CreateProgramPlanButton planDay={planDay} planWeek={planWeek} program={program} />;
   } else {
-    return <ProgramPlanBasicInformation program={program} plan={plan} />;
+    return <ProgramPlanBasicInformation program={program} planDayInfo={planDayInfo} />;
   }
 }
 

@@ -1,5 +1,6 @@
 import { Meal, MealBasicInfo, MealDetails } from 'src/shared/components/MealDetails/Meal.types';
 import { GetRecordsBody, MetadataRecords } from 'src/shared/types/get-records.types';
+import { PlanDayInfo } from 'src/shared/types/types';
 
 export interface Plan {
   _id: string;
@@ -91,12 +92,8 @@ export interface DeleteProgamResponse {
   };
 }
 
-export interface PlanDayInfo {
-  _id: string | null;
-  totalMeals: number | null;
-}
 export type ProgramPlanDateExtendedProps = {
-  plan: PlanDayInfo;
+  planDayInfo: PlanDayInfo;
   program: string;
   planDay: number;
   planWeek: number;

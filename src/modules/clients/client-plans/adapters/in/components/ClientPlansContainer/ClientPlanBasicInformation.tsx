@@ -1,22 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PlanDetailDialog from 'src/modules/professionals/programs/adapters/in/dialogs/PlanDetailDialog/PlanDetailDialog';
-import { PlanDayInfo } from 'src/modules/professionals/programs/adapters/out/program.types';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ProfessionalIdContext } from 'src/App';
-import { usePlan } from 'src/modules/professionals/programs/adapters/out/PlanActions';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import MessageDialog from 'src/shared/dialogs/MessageDialog';
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
 import { ProgramMessages } from 'src/shared/Consts';
+import { useClientPlan } from 'src/modules/clients/client-plans/adapters/out/ClientPlanActions';
+import { PlanDayInfo } from 'src/shared/types/types';
 
-function ClientPlanBasicInformation({ program, plan }: { program: string; plan: PlanDayInfo }) {
+function ClientPlanBasicInformation({ client, plan }: { client: string; plan: PlanDayInfo }) {
   const professionalIdContext = useContext(ProfessionalIdContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const [openPlanDetailDialog, setOpenPlanDetailDialog] = useState(false);
 
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk, alert, setAlert } = useMessageDialog();
 
-  const { deletePlan } = usePlan();
+  const { deleteClientPlan } = useClientPlan();
   const deletePlanHandler = () => {
     setOpenDialog(true);
     setMessage(ProgramMessages.REMOVE_PLAN);
@@ -24,10 +24,10 @@ function ClientPlanBasicInformation({ program, plan }: { program: string; plan: 
   };
   useEffect(() => {
     const deletePlanHelper = async () => {
-      await deletePlan({
+      await deleteClientPlan({
         professional: professionalIdContext.professional,
-        program,
-        plan: plan._id as string,
+        client,
+        clientPlan: plan._id as string,
       });
       reloadRecordListContext.setReloadRecordList(true);
       setAlert(false);
@@ -43,8 +43,8 @@ function ClientPlanBasicInformation({ program, plan }: { program: string; plan: 
         <PlanDetailDialog
           openPlanDetailDialog={openPlanDetailDialog}
           setOpenPlanDetailDialog={setOpenPlanDetailDialog}
-          program={program}
-          planId={plan._id || ''}
+          domainOwnerId={client}
+          planOwnerId={plan._id || ''}
         />
       )}
       <DeleteIcon onClick={deletePlanHandler} />

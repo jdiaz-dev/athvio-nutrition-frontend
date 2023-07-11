@@ -31,7 +31,15 @@ const cardStyles = makeStyles()(() => {
   };
 });
 
-function MealDetail({ program, plan, meal: { position, mealTag, name, ...mealDetails } }: { program: string; plan: string; meal: Meal }) {
+function MealDetail({
+  domainOwnerId,
+  planOwnerId,
+  meal: { position, mealTag, name, ...mealDetails },
+}: {
+  domainOwnerId: string;
+  planOwnerId: string;
+  meal: Meal;
+}) {
   const { classes } = cardStyles();
   const professionalIdContext = useContext(ProfessionalIdContext);
   const currentModuleContext = useContext(CurrentModuleContext);
@@ -62,8 +70,8 @@ function MealDetail({ program, plan, meal: { position, mealTag, name, ...mealDet
     if (mealDetailsState._id.length == 0) {
       await createMeal({
         professional: professionalIdContext.professional,
-        mealOwner: program,
-        planOwner: plan,
+        domainOwnerId,
+        planOwnerId,
         mealBody: {
           ...mealBasicInfoState,
           ...restMealDetail,
@@ -74,8 +82,8 @@ function MealDetail({ program, plan, meal: { position, mealTag, name, ...mealDet
     } else {
       await updateMeal({
         professional: professionalIdContext.professional,
-        mealOwner: program,
-        planOwner: plan,
+        domainOwnerId,
+        planOwnerId,
         meal: _id,
         mealBody: {
           ...mealBasicInfoState,
@@ -89,8 +97,8 @@ function MealDetail({ program, plan, meal: { position, mealTag, name, ...mealDet
     setComponentTouched(false);
     await deleteMeal({
       professional: professionalIdContext.professional,
-      mealOwner: program,
-      planOwner: plan,
+      domainOwnerId,
+      planOwnerId,
       meal: mealDetailsState._id,
     });
   };

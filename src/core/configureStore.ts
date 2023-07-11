@@ -2,6 +2,7 @@ import { applyMiddleware, configureStore } from '@reduxjs/toolkit';
 import usersReducer from 'src/modules/security/users/adapters/in/UserSlice';
 import customRecipeReducers from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeSlice';
 import programsReducer from 'src/modules/professionals/programs/adapters/in/slicers/ProgramSlice';
+import clientPlansReducer from 'src/modules/clients/client-plans/adapters/in/slicers/ClientPlanSlice';
 
 // const {applyMiddleware, combineReducers, createStore} = require('redux');
 import thunk from 'redux-thunk';
@@ -19,6 +20,7 @@ export default configureStore({
     users: usersReducer,
     customRecipes: customRecipeReducers,
     programs: programsReducer,
+    clientPlans: clientPlansReducer,
   },
   devTools: true,
   // enhancers

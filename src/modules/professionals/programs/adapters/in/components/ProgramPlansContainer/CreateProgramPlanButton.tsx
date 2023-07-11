@@ -75,8 +75,8 @@ function CreateProgramPlanButton({ planDay, planWeek, program }: { planDay: numb
           <PlanDetailDialog
             openPlanDetailDialog={openPlanDetailDialog}
             setOpenPlanDetailDialog={setOpenPlanDetailDialog}
-            program={program}
-            planId={planState._id}
+            domainOwnerId={program}
+            planOwnerId={planState._id}
           />
         </PlanContext.Provider>
       ) : (
@@ -84,7 +84,7 @@ function CreateProgramPlanButton({ planDay, planWeek, program }: { planDay: numb
           <PlanDetailDialog
             openPlanDetailDialog={openPlanDetailDialog}
             setOpenPlanDetailDialog={setOpenPlanDetailDialog}
-            program={program}
+            domainOwnerId={program}
           />
         )
       )}

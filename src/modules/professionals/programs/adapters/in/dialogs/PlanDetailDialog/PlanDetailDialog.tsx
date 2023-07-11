@@ -17,16 +17,16 @@ import MealDetail from 'src/shared/components/MealDetails/MealDetail';
 function PlanDetailDialog({
   openPlanDetailDialog,
   setOpenPlanDetailDialog,
-  program,
-  planId,
+  domainOwnerId,
+  planOwnerId,
 }: {
   openPlanDetailDialog: boolean;
   setOpenPlanDetailDialog: (openPlanDetailDialog: boolean) => void;
-  program: string;
-  planId?: string;
+  domainOwnerId: string;
+  planOwnerId?: string;
 }) {
   const reloadRecordListContext = useContext(ReloadRecordListContext);
-  const planState = useSelector((state: ReduxStates) => state.programs.plans).find((_plan) => _plan._id === planId);
+  const planState = useSelector((state: ReduxStates) => state.programs.plans).find((_plan) => _plan._id === planOwnerId);
   const [meals, setMeals] = useState<Meal[]>([]);
   const [closeIconDialog, setCloseIconDialog] = useState(true);
 
@@ -75,7 +75,10 @@ function PlanDetailDialog({
         </DialogTitle>
         <DialogContent>
           <CurrentModuleContext.Provider value={{ currentModule: Modules.PROGRAMS }}>
-            {program && meals.map((meal, index) => <MealDetail key={index} program={program} plan={planId as string} meal={meal} />)}
+            {domainOwnerId &&
+              meals.map((meal, index) => (
+                <MealDetail key={index} domainOwnerId={domainOwnerId} planOwnerId={planOwnerId as string} meal={meal} />
+              ))}
           </CurrentModuleContext.Provider>
           <Button onClick={() => addMealPlanHandler()}>Add meal</Button>
         </DialogContent>
@@ -91,23 +94,3 @@ function PlanDetailDialog({
 }
 
 export default PlanDetailDialog;
-
-interface client {
-  client: string;
-  plan: string;
-  meal: string;
-}
-interface program {
-  program: string;
-  plan: string;
-  meal: string;
-}
-
-type owner<ownerData> = {
-  [K in keyof ownerData]: string;
-};
-
-const test: owner<client> = {
-  client: '',
-  id: '',
-};

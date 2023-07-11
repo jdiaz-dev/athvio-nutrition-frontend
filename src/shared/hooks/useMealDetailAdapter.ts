@@ -4,8 +4,8 @@ import { Meal } from 'src/shared/components/MealDetails/Meal.types';
 
 interface CreateMeal {
   professional: string;
-  mealOwner: string;
-  planOwner: string;
+  domainOwnerId: string;
+  planOwnerId: string;
   mealBody: Omit<Meal, '_id'>;
 }
 
@@ -24,8 +24,8 @@ export const useMealDetailAdapter = (currentModule: string) => {
     if (currentModule === Modules.PROGRAMS) {
       await createPlanMeal({
         professional: data.professional,
-        program: data.mealOwner,
-        plan: data.planOwner,
+        program: data.domainOwnerId,
+        plan: data.planOwnerId,
         mealBody: data.mealBody,
       });
     }
@@ -35,8 +35,8 @@ export const useMealDetailAdapter = (currentModule: string) => {
     if (currentModule === Modules.PROGRAMS) {
       await updatePlanMeal({
         professional: data.professional,
-        program: data.mealOwner,
-        plan: data.planOwner,
+        program: data.domainOwnerId,
+        plan: data.planOwnerId,
         mealBody: data.mealBody,
         meal: data.meal,
       });
@@ -47,8 +47,8 @@ export const useMealDetailAdapter = (currentModule: string) => {
     if (currentModule === Modules.PROGRAMS) {
       await deletePlanMeal({
         professional: data.professional,
-        program: data.mealOwner,
-        plan: data.planOwner,
+        program: data.domainOwnerId,
+        plan: data.planOwnerId,
         meal: data.meal,
       });
     }
