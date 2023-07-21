@@ -2,6 +2,7 @@ import { ApolloError } from '@apollo/client';
 import { useDispatch } from 'react-redux';
 import { apolloClient } from 'src/graphql/ApolloClient';
 import {
+  ClientPlanBody,
   CreateClientPlanInput,
   CreateClientPlanRequest,
   CreateClientPlanResponse,
@@ -10,12 +11,12 @@ import {
   DeleteClientPlanResponse,
   GetClientPlansRequest,
   GetClientPlansResponse,
+  GetRecordsClientPlansBody,
   UpdateClientPlanInput,
   UpdateClientPlanRequest,
   UpdateClientPlanResponse,
 } from 'src/modules/clients/client-plans/adapters/out/clientPlan.types';
 import * as ClientPlanSlice from 'src/modules/clients/client-plans/adapters/in/slicers/ClientPlanSlice';
-import { GetRecordsBody } from 'src/shared/types/get-records.types';
 import {
   CREATE_CLIENT_PLAN,
   DELETE_CLIENT_PLAN,
@@ -27,7 +28,6 @@ export function useClientPlan() {
   const dispatch = useDispatch();
 
   const createClientPlan = async (body: CreateClientPlanInput): Promise<void> => {
-    console.log('----------------createMeal body', body);
     try {
       const response = await apolloClient.mutate<CreateClientPlanResponse, CreateClientPlanRequest>({
         mutation: CREATE_CLIENT_PLAN,
@@ -37,8 +37,8 @@ export function useClientPlan() {
           },
         },
       });
-      response;
-      // dispatch(ClientPlanSlice.acceptNewClientPlan(response.data?.data.createClientPlan));
+      console.log('----------------response createClientPlan', response);
+      if (response) dispatch(ClientPlanSlice.acceptNewClientPlan(response.data?.createClientPlan as ClientPlanBody));
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
@@ -68,7 +68,7 @@ export function useClientPlan() {
       throw error;
     }
   }; */
-  const getClientPlans = async (body: GetRecordsBody) => {
+  const getClientPlans = async (body: GetRecordsClientPlansBody) => {
     try {
       const response = await apolloClient.query<GetClientPlansResponse, GetClientPlansRequest>({
         query: GET_CLIENT_PLANS,
@@ -81,10 +81,9 @@ export function useClientPlan() {
       });
 
       if (response) {
+        console.log('----------contitional ?', response.data.getClientPlans);
         dispatch(ClientPlanSlice.acceptNewClientPlans(response.data.getClientPlans));
       }
-
-      return response;
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
@@ -111,6 +110,7 @@ export function useClientPlan() {
   };
 
   const deleteClientPlan = async (body: DeleteClientPlanInput): Promise<void> => {
+    console.log('----------------deleteClientPlan xxx body', body);
     try {
       const response = await apolloClient.mutate<DeleteClientPlanResponse, DeleteClientPlanRequest>({
         mutation: DELETE_CLIENT_PLAN,

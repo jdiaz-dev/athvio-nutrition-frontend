@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import React, { useState } from 'react';
 import { Card, Grid, IconButton, Menu, MenuItem } from '@mui/material';
+import { Subject } from 'rxjs';
 import { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ProfessionalIdContext } from 'src/App';
@@ -12,12 +13,11 @@ import { Modules } from 'src/shared/Consts';
 import { ReduxStates } from 'src/shared/types/types';
 import { makeStyles } from 'tss-react/mui';
 import { PlanContext } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/PlanContext';
-import { mealPlanCreatedChange } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/CreateProgramPlanButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
 import MealTag from 'src/modules/professionals/programs/adapters/in/dialogs/PlanDetailDialog/MealTag';
 import { useMealDetailAdapter } from 'src/shared/hooks/useMealDetailAdapter';
-import { Meal } from 'src/shared/components/MealDetails/Meal.types';
+import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -30,6 +30,8 @@ const cardStyles = makeStyles()(() => {
     },
   };
 });
+const mealPlanCreatedChange = new Subject<boolean>();
+export const mealPlanCreatedChange$ = mealPlanCreatedChange.asObservable();
 
 function MealDetail({
   domainOwnerId,
@@ -40,12 +42,19 @@ function MealDetail({
   planOwnerId: string;
   meal: Meal;
 }) {
+  console.log('----------MealDetail');
   const { classes } = cardStyles();
   const professionalIdContext = useContext(ProfessionalIdContext);
   const currentModuleContext = useContext(CurrentModuleContext);
   const planContext = useContext(PlanContext);
-  const mealBasicInfoState = useSelector((state: ReduxStates) => state.programs.mealBasicInfo);
-  const mealDetailsState = useSelector((state: ReduxStates) => state.programs.mealDetails);
+  const mealBasicInfoState =
+    currentModuleContext.currentModule === Modules.PROGRAMS
+      ? useSelector((state: ReduxStates) => state.programs.mealBasicInfo)
+      : useSelector((state: ReduxStates) => state.clientPlans.mealBasicInfo);
+  const mealDetailsState =
+    currentModuleContext.currentModule === Modules.PROGRAMS
+      ? useSelector((state: ReduxStates) => state.programs.mealDetails)
+      : useSelector((state: ReduxStates) => state.clientPlans.mealDetails);
 
   const dispatch = useDispatch();
 

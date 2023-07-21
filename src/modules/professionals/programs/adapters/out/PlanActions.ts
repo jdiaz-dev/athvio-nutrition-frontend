@@ -50,7 +50,7 @@ export function usePlan() {
           },
         },
       });
-      // if (response) dispatch(resetProgramItem());
+      // if (response) dispatch(PlanSlice.resetProgramItem());
       console.log(response);
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import PlanDetailDialog from 'src/modules/professionals/programs/adapters/in/dialogs/PlanDetailDialog/PlanDetailDialog';
+import PlanDetailDialog from 'src/shared/components/PlanDetailDialog/PlanDetailDialog';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ProfessionalIdContext } from 'src/App';
 import { usePlan } from 'src/modules/professionals/programs/adapters/out/PlanActions';

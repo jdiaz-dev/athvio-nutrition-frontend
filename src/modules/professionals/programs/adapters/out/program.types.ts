@@ -1,4 +1,4 @@
-import { Meal, MealBasicInfo, MealDetails } from 'src/shared/components/MealDetails/Meal.types';
+import { Meal, MealBasicInfo, MealDetails } from 'src/shared/components/PlanDetailDialog/Meal.types';
 import { GetRecordsBody, MetadataRecords } from 'src/shared/types/get-records.types';
 import { PlanDayInfo } from 'src/shared/types/types';
 

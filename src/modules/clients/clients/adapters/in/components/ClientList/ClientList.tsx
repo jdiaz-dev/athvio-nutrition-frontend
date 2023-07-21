@@ -40,7 +40,7 @@ function ClientList() {
     professional: professionalIdContext.professional,
     offset: 0,
     limit: 10,
-    state: 'inactive',
+    state: 'active',
   };
 
   useEffect(() => {

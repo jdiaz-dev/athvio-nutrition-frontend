@@ -2,7 +2,7 @@ import { ClientPlanInitialState } from 'src/modules/clients/client-plans/adapter
 
 export const defaultMealTag = 'First meal';
 export const clientPlanInitialState: ClientPlanInitialState = {
-  clientPlans: null,
+  clientPlans: [],
   clientPlan: {
     _id: '',
     client: '',

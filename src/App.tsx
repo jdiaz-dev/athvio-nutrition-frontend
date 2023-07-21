@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import './App.scss';
 import { checkAuthentication, getUserFromLocalStorage } from './shared/helpers/LocalStorage';
 // import LogIn from './modules/security/security/adapters/in/components/LogIn';
@@ -134,5 +134,5 @@ export default App;
 
 /* 
   actually working
-    -refactoring PlanDetailDialog.tsx
+    ClientPlansContainer line 60
 */

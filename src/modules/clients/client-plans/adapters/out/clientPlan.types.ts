@@ -1,4 +1,4 @@
-import { Meal, MealBasicInfo, MealDetails } from 'src/shared/components/MealDetails/Meal.types';
+import { Meal, MealBasicInfo, MealDetails } from 'src/shared/components/PlanDetailDialog/Meal.types';
 import { GetRecordsBody, MetadataRecords } from 'src/shared/types/get-records.types';
 
 export interface Plan {
@@ -25,15 +25,12 @@ export interface CreateClientPlanRequest {
 }
 
 export interface CreateClientPlanResponse {
-  data: {
-    createClientPlan: {
-      _id: string;
-      assignedDate: string;
-      title: string;
-    };
-  };
+  createClientPlan: ClientPlanBody;
 }
 
+export interface GetRecordsClientPlansBody extends GetRecordsBody {
+  client: string;
+}
 /* export interface GetClientPlanRequest {
   input: ProgramInput;
 }
@@ -43,7 +40,7 @@ export interface GetClientPlanResponse {
 } */
 
 export interface GetClientPlansRequest {
-  input: GetRecordsBody;
+  input: GetRecordsClientPlansBody;
 }
 
 export interface ClientPlans {
@@ -94,7 +91,7 @@ export type ProgramPlanDateExtendedProps = {
 }; */
 
 export interface ClientPlanInitialState {
-  clientPlans: ClientPlans | null;
+  clientPlans: ClientPlanBody[];
   clientPlan: ClientPlanBody;
   mealBasicInfo: MealBasicInfo;
   mealDetails: MealDetails;

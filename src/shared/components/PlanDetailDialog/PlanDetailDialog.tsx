@@ -9,10 +9,10 @@ import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 import { DialogTitle, IconButton } from '@mui/material';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
+import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
+import MealDetail from 'src/shared/components/PlanDetailDialog/MealDetail';
 import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
 import { Modules } from 'src/shared/Consts';
-import { Meal } from 'src/shared/components/MealDetails/Meal.types';
-import MealDetail from 'src/shared/components/MealDetails/MealDetail';
 
 function PlanDetailDialog({
   openPlanDetailDialog,
@@ -26,10 +26,13 @@ function PlanDetailDialog({
   planOwnerId?: string;
 }) {
   const reloadRecordListContext = useContext(ReloadRecordListContext);
-  const planState = useSelector((state: ReduxStates) => state.programs.plans).find((_plan) => _plan._id === planOwnerId);
+  const currentModuleContext = useContext(CurrentModuleContext);
+  const planState =
+    currentModuleContext.currentModule === Modules.PROGRAMS
+      ? useSelector((state: ReduxStates) => state.programs.plans).find((_plan) => _plan._id === planOwnerId)
+      : useSelector((state: ReduxStates) => state.clientPlans.clientPlan);
   const [meals, setMeals] = useState<Meal[]>([]);
   const [closeIconDialog, setCloseIconDialog] = useState(true);
-
   useEffect(() => {
     setMeals(planState?.meals || []);
   }, [planState]);
@@ -74,12 +77,10 @@ function PlanDetailDialog({
           ) : null}
         </DialogTitle>
         <DialogContent>
-          <CurrentModuleContext.Provider value={{ currentModule: Modules.PROGRAMS }}>
-            {domainOwnerId &&
-              meals.map((meal, index) => (
-                <MealDetail key={index} domainOwnerId={domainOwnerId} planOwnerId={planOwnerId as string} meal={meal} />
-              ))}
-          </CurrentModuleContext.Provider>
+          {domainOwnerId &&
+            meals.map((meal, index) => (
+              <MealDetail key={index} domainOwnerId={domainOwnerId} planOwnerId={planOwnerId as string} meal={meal} />
+            ))}
           <Button onClick={() => addMealPlanHandler()}>Add meal</Button>
         </DialogContent>
         <DialogActions>

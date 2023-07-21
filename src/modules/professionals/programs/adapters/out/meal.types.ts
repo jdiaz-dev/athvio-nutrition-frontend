@@ -1,5 +1,5 @@
 import { ProgramBody } from 'src/modules/professionals/programs/adapters/out/program.types';
-import { Meal } from 'src/shared/components/MealDetails/Meal.types';
+import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 
 interface MealBody {
   _id: string;

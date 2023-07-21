@@ -1,6 +1,6 @@
 import { Dayjs } from 'dayjs';
 import { ManageClientGroupEnum } from 'src/shared/Consts';
-import { Meal } from 'src/shared/components/MealDetails/Meal.types';
+import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 import { MetadataRecords } from 'src/shared/types/get-records.types';
 import { ClientGroup, PlanDayInfo } from 'src/shared/types/types';
 

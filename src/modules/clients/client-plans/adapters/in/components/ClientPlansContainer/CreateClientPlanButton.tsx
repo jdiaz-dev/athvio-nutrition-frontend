@@ -1,26 +1,21 @@
 /* eslint-disable max-len */
 import React, { useContext, useEffect, useState } from 'react';
-import { Subject } from 'rxjs';
 import { Button } from '@mui/material';
-import PlanDetailDialog from 'src/modules/professionals/programs/adapters/in/dialogs/PlanDetailDialog/PlanDetailDialog';
+import PlanDetailDialog from 'src/shared/components/PlanDetailDialog/PlanDetailDialog';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 import { ProfessionalIdContext } from 'src/App';
 import { PlanContext } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/PlanContext';
 import { useClientPlan } from 'src/modules/clients/client-plans/adapters/out/ClientPlanActions';
-
-export const mealPlanCreatedChange = new Subject<boolean>();
-const mealPlanCreatedChange$ = mealPlanCreatedChange.asObservable();
+import { mealPlanCreatedChange$ } from 'src/shared/components/PlanDetailDialog/MealDetail';
 
 function CreateClientPlanButton({ client, assignedDate }: { client: string; assignedDate: Date }) {
-  console.log('-----------client', client);
-  console.log('-----------assignedDate', assignedDate);
   const professionalIdContext = useContext(ProfessionalIdContext);
-  const planState = useSelector((state: ReduxStates) => state.programs.plan);
+  const clientPlanState = useSelector((state: ReduxStates) => state.clientPlans.clientPlan);
 
   const { createClientPlan, deleteClientPlan } = useClientPlan();
   const [openPlanDetailDialog, setOpenPlanDetailDialog] = useState(false);
-  const [planCrated, setPlanCrated] = useState(false);
+  const [planCreated, setPlanCreated] = useState(false);
   const [mealPlanCreated, setMealPlanCreated] = useState(false);
 
   useEffect(() => {
@@ -31,7 +26,7 @@ function CreateClientPlanButton({ client, assignedDate }: { client: string; assi
         assignedDate,
       };
       await createClientPlan(input);
-      setPlanCrated(true);
+      setPlanCreated(true);
     };
 
     if (openPlanDetailDialog) {
@@ -44,11 +39,11 @@ function CreateClientPlanButton({ client, assignedDate }: { client: string; assi
       const input = {
         professional: professionalIdContext.professional,
         client,
-        clientPlan: 'planState._id',
+        clientPlan: clientPlanState._id,
       };
       await deleteClientPlan(input);
     };
-    if (planCrated && !mealPlanCreated && !openPlanDetailDialog) {
+    if (planCreated && !mealPlanCreated && !openPlanDetailDialog) {
       void deleteClientPlanHandler();
     }
   }, [openPlanDetailDialog]);
@@ -71,13 +66,13 @@ function CreateClientPlanButton({ client, assignedDate }: { client: string; assi
         Create plan
       </Button>
 
-      {openPlanDetailDialog && planState._id.length > 0 ? (
+      {openPlanDetailDialog && clientPlanState._id.length > 0 ? (
         <PlanContext.Provider value={{ isFromRecentlyCreatedPlan: true }}>
           <PlanDetailDialog
             openPlanDetailDialog={openPlanDetailDialog}
             setOpenPlanDetailDialog={setOpenPlanDetailDialog}
             domainOwnerId={client}
-            planOwnerId={planState._id}
+            planOwnerId={clientPlanState._id}
           />
         </PlanContext.Provider>
       ) : (

@@ -15,34 +15,41 @@ import { ProfessionalIdContext } from 'src/App';
 import { useReloadRecords } from 'src/shared/hooks/useReloadRecords';
 import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
+import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
+import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
+import { Modules } from 'src/shared/Consts';
+import { useClientPlan } from 'src/modules/clients/client-plans/adapters/out/ClientPlanActions';
 
 function ClientPlansContainer() {
   const professionalIdContext = useContext(ProfessionalIdContext);
-  const clientPlansState = useSelector((state: ReduxStates) => state.clientPlans.clientPlans?.data || []);
+  const clientPlansState = useSelector((state: ReduxStates) => state.clientPlans.clientPlans || []);
+  // console.log('------------clientPlansState', clientPlansState);
   const { clientId } = useParams();
+  const { getClientPlans } = useClientPlan();
   const { reloadRecordList, setReloadRecordList } = useReloadRecords();
   const [redirectToClientList, setRedirectToClientList] = useState(false);
   const [dateSet, setDateSet] = useState<{ dateStart: Date; dateEnd: Date } | null>(null);
   const [datesToShow, setDatesToShow] = useState<DateItem<ClientPlanDateExtendedProps>[]>([]);
-
-  const dateSetHelper = (dateInfo: DatesSetArg) => {
-    setDateSet({ dateStart: dateInfo.start, dateEnd: dateInfo.end });
+  const input = {
+    professional: professionalIdContext.professional,
+    client: clientId as string,
+    offset: 0,
+    limit: 30,
   };
 
-  /*  useEffect(() => {
+  useEffect(() => {
     const getProgramHelper = async () => {
-      await getProgram(input);
+      await getClientPlans(input);
     };
 
     if (professionalIdContext.professional) {
       void getProgramHelper();
       setReloadRecordList(false);
     }
-  }, [professionalIdContext.professional, reloadRecordList]); */
+  }, [professionalIdContext.professional, reloadRecordList]);
 
   useEffect(() => {
     // const weeksBasedOnPlans = clientPlansState.plans.length > 0 ? clientPlansState.plans[clientPlansState.plans.length - 1].week : baseWeek;
-
     const fullWeekTableWithDates = (): DateItem<ClientPlanDateExtendedProps>[] => {
       let dateStart = dayjs(dateSet ? dateSet.dateStart : new Date());
       let dateItem: DateItem<ClientPlanDateExtendedProps>;
@@ -50,10 +57,13 @@ function ClientPlansContainer() {
       let planDay = 1;
       let planWeek = 1;
       let planIndex: number;
+      // console.log('-------------------dateSet', dateSet);
 
       const dates: DateItem<ClientPlanDateExtendedProps>[] = [];
       while (dateStart < dayjs(dateSet ? dateSet.dateEnd : new Date())) {
-        planIndex = clientPlansState.findIndex((plan) => dayjs(plan.assignedDate) === dateStart);
+        planIndex = clientPlansState.findIndex((plan) => {
+          return dayjs(plan.assignedDate).toString() === dateStart.toString();
+        });
         dateItem = {
           title: '',
           date: dateStart.toDate(),
@@ -85,13 +95,18 @@ function ClientPlansContainer() {
       }
     }; */
 
-    if (datesToShow.length === 0 || reloadRecordList) {
+    if (datesToShow.length === 0 || reloadRecordList || clientPlansState) {
+      console.log('-------------<<<>>>>>>>> clientPlansState', clientPlansState);
       setDatesToShow(fullWeekTableWithDates());
       // setMaxWeekWithPlans(weeksBasedOnPlans);
       // setTotalWeeks(handleWeekAction());
       // setWeekAction(WeekActions.NEUTRAL);
     }
   }, [reloadRecordList, dateSet, clientPlansState /* weekAction */]);
+
+  const dateSetHelper = (dateInfo: DatesSetArg) => {
+    setDateSet({ dateStart: dateInfo.start, dateEnd: dateInfo.end });
+  };
 
   if (redirectToClientList) {
     const path = `/sidenav/Clients`;
@@ -105,19 +120,20 @@ function ClientPlansContainer() {
           setRedirectToClientList(true);
         }}
       />
+      <CurrentModuleContext.Provider value={{ currentModule: Modules.CLIENT_PLANS }}>
+        <ReloadRecordListContext.Provider value={{ reloadRecordList, setReloadRecordList }}>
+          <FullCalendar
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
+            // eventClick={handleEventClick}
+            // dateClick={handleDateClick}
 
-      <FullCalendar
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
-        // eventClick={handleEventClick}
-        // dateClick={handleDateClick}
+            events={datesToShow}
+            datesSet={dateSetHelper}
+            eventContent={ClientPlansHelper}
+            // handleCustomRendering={eventNewDiv}
 
-        events={datesToShow}
-        datesSet={dateSetHelper}
-        eventContent={ClientPlansHelper}
-        // handleCustomRendering={eventNewDiv}
-
-        // dayHeaders={false}
-        /* dayHeaderContent={(args) => {
+            // dayHeaders={false}
+            /* dayHeaderContent={(args) => {
             if (args.text === 'Sun') {
               return <div>Day1</div>;
             } else if (args.text === 'Mon') {
@@ -135,18 +151,20 @@ function ClientPlansContainer() {
             }
             }} */
 
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        /* dayCellContent={(info, create) => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            /* dayCellContent={(info, create) => {
           counterDay++;
           return <div>Day {counterDay}</div>;
         }} */
 
-        // contentHeight={contentHeight}
+            // contentHeight={contentHeight}
 
-        titleFormat={{
-          weekday: undefined,
-        }}
-      />
+            titleFormat={{
+              weekday: undefined,
+            }}
+          />
+        </ReloadRecordListContext.Provider>
+      </CurrentModuleContext.Provider>
     </div>
   );
 }

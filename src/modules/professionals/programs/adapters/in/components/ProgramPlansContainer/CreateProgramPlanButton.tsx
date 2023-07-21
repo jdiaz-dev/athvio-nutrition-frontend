@@ -1,16 +1,13 @@
 /* eslint-disable max-len */
 import React, { useContext, useEffect, useState } from 'react';
-import { Subject } from 'rxjs';
 import { Button } from '@mui/material';
-import PlanDetailDialog from 'src/modules/professionals/programs/adapters/in/dialogs/PlanDetailDialog/PlanDetailDialog';
+import PlanDetailDialog from 'src/shared/components/PlanDetailDialog/PlanDetailDialog';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 import { usePlan } from 'src/modules/professionals/programs/adapters/out/PlanActions';
 import { ProfessionalIdContext } from 'src/App';
 import { PlanContext } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/PlanContext';
-
-export const mealPlanCreatedChange = new Subject<boolean>();
-const mealPlanCreatedChange$ = mealPlanCreatedChange.asObservable();
+import { mealPlanCreatedChange$ } from 'src/shared/components/PlanDetailDialog/MealDetail';
 
 function CreateProgramPlanButton({ planDay, planWeek, program }: { planDay: number; planWeek: number; program: string }) {
   const professionalIdContext = useContext(ProfessionalIdContext);

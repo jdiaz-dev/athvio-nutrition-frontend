@@ -18,11 +18,12 @@ import utc from 'dayjs/plugin/utc';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { useReloadRecords } from 'src/shared/hooks/useReloadRecords';
 import { Button } from '@mui/material';
-import { baseHeight, baseWeek, WeekActions } from 'src/shared/Consts';
+import { baseHeight, baseWeek, Modules, WeekActions } from 'src/shared/Consts';
 import { useProgram } from 'src/modules/professionals/programs/adapters/out/ProgramActions';
 import { useSelector } from 'react-redux';
 import { DateItem, ReduxStates } from 'src/shared/types/types';
 import { ProgramPlanDateExtendedProps } from 'src/modules/professionals/programs/adapters/out/program.types';
+import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
 dayjs.extend(utc);
 
 function ProgramPlansContainer() {
@@ -134,25 +135,26 @@ function ProgramPlansContainer() {
           setRedirectToProgramList(true);
         }}
       />
-      <ReloadRecordListContext.Provider value={{ reloadRecordList, setReloadRecordList }}>
-        <FullCalendar
-          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
-          initialView="dayGridFourWeek"
-          // eventClick={handleEventClick}
-          // dateClick={handleDateClick}
-          events={datesToShow}
-          datesSet={dateSetHelper}
-          eventContent={ProgramPlansHelper}
-          // handleCustomRendering={eventNewDiv}
-          views={{
-            dayGridFourWeek: {
-              type: 'dayGrid',
-              duration: { weeks: totalWeeks, specifiedWeeks: true },
-              listDayFormat: { weekday: 'long' },
-            },
-          }}
-          dayHeaders={false} // hide day headers
-          /* dayHeaderContent={(args) => {
+      <CurrentModuleContext.Provider value={{ currentModule: Modules.PROGRAMS }}>
+        <ReloadRecordListContext.Provider value={{ reloadRecordList, setReloadRecordList }}>
+          <FullCalendar
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
+            initialView="dayGridFourWeek"
+            // eventClick={handleEventClick}
+            // dateClick={handleDateClick}
+            events={datesToShow}
+            datesSet={dateSetHelper}
+            eventContent={ProgramPlansHelper}
+            // handleCustomRendering={eventNewDiv}
+            views={{
+              dayGridFourWeek: {
+                type: 'dayGrid',
+                duration: { weeks: totalWeeks, specifiedWeeks: true },
+                listDayFormat: { weekday: 'long' },
+              },
+            }}
+            dayHeaders={false} // hide day headers
+            /* dayHeaderContent={(args) => {
           if (args.text === 'Sun') {
             return <div>Day1</div>;
           } else if (args.text === 'Mon') {
@@ -170,26 +172,27 @@ function ProgramPlansContainer() {
           }
           }} */
 
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          dayCellContent={(info, create) => {
-            counterDay++;
-            return <div>Day {counterDay}</div>;
-          }}
-          contentHeight={contentHeight}
-          titleFormat={{
-            weekday: undefined,
-          }}
-        />
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            dayCellContent={(info, create) => {
+              counterDay++;
+              return <div>Day {counterDay}</div>;
+            }}
+            contentHeight={contentHeight}
+            titleFormat={{
+              weekday: undefined,
+            }}
+          />
 
-        <Button variant="contained" onClick={() => setWeekAction(WeekActions.ADD)}>
-          Add week
-        </Button>
-        {maxWeekWithPlans < totalWeeks && (
-          <Button variant="contained" onClick={() => setWeekAction(WeekActions.REMOVE)}>
-            Remove week
+          <Button variant="contained" onClick={() => setWeekAction(WeekActions.ADD)}>
+            Add week
           </Button>
-        )}
-      </ReloadRecordListContext.Provider>
+          {maxWeekWithPlans < totalWeeks && (
+            <Button variant="contained" onClick={() => setWeekAction(WeekActions.REMOVE)}>
+              Remove week
+            </Button>
+          )}
+        </ReloadRecordListContext.Provider>
+      </CurrentModuleContext.Provider>
     </>
   );
 }

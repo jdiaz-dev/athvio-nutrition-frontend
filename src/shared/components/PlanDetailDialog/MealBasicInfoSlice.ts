@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { MealBasicInfo } from 'src/shared/components/MealDetails/Meal.types';
+import { MealBasicInfo } from 'src/shared/components/PlanDetailDialog/Meal.types';
 
 export const mealBasicInfoSlice = (sliceName: string, initialState: MealBasicInfo) => {
   return createSlice({
@@ -12,7 +12,6 @@ export const mealBasicInfoSlice = (sliceName: string, initialState: MealBasicInf
       },
       renameMealTag: (state, action: PayloadAction<string>) => {
         state.mealTag = action.payload;
-        console.log('--------------action.payload', action.payload);
         return state;
       },
     },

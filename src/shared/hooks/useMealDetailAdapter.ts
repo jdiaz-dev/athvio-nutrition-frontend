@@ -1,6 +1,8 @@
 import { Modules } from 'src/shared/Consts';
 import { usePlanMeal } from 'src/modules/professionals/programs/adapters/out/MealActions';
-import { Meal } from 'src/shared/components/MealDetails/Meal.types';
+// import { useClientPlan } from 'src/modules/clients/client-plans/adapters/out/ClientPlanActions';
+import { useClientPlanMeal } from 'src/modules/clients/client-plans/adapters/out/PlanMealActions';
+import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 
 interface CreateMeal {
   professional: string;
@@ -19,13 +21,22 @@ interface DeleteMeal extends Omit<CreateMeal, 'mealBody'> {
 
 export const useMealDetailAdapter = (currentModule: string) => {
   const { createPlanMeal, updatePlanMeal, deletePlanMeal } = usePlanMeal();
+  const { createClientPlanMeal, updateClientPlanMeal, deleteClientPlanMeal } = useClientPlanMeal();
 
   const createMeal = async (data: CreateMeal) => {
+    console.log('-----------currentModule', currentModule);
     if (currentModule === Modules.PROGRAMS) {
       await createPlanMeal({
         professional: data.professional,
         program: data.domainOwnerId,
         plan: data.planOwnerId,
+        mealBody: data.mealBody,
+      });
+    } else if (currentModule === Modules.CLIENT_PLANS) {
+      await createClientPlanMeal({
+        professional: data.professional,
+        client: data.domainOwnerId,
+        clientPlan: data.planOwnerId,
         mealBody: data.mealBody,
       });
     }
@@ -37,8 +48,16 @@ export const useMealDetailAdapter = (currentModule: string) => {
         professional: data.professional,
         program: data.domainOwnerId,
         plan: data.planOwnerId,
-        mealBody: data.mealBody,
         meal: data.meal,
+        mealBody: data.mealBody,
+      });
+    } else {
+      await updateClientPlanMeal({
+        professional: data.professional,
+        client: data.domainOwnerId,
+        clientPlan: data.planOwnerId,
+        meal: data.meal,
+        mealBody: data.mealBody,
       });
     }
   };
@@ -49,6 +68,13 @@ export const useMealDetailAdapter = (currentModule: string) => {
         professional: data.professional,
         program: data.domainOwnerId,
         plan: data.planOwnerId,
+        meal: data.meal,
+      });
+    } else {
+      await deleteClientPlanMeal({
+        professional: data.professional,
+        client: data.domainOwnerId,
+        clientPlan: data.planOwnerId,
         meal: data.meal,
       });
     }
