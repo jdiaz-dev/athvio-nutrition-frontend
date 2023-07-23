@@ -47,6 +47,7 @@ function ClientList() {
     const _input = searchWords.length > 0 ? { ...input, search: searchWords } : input;
     const getClientsHelper = async () => {
       const res = await refetch({ input: _input });
+      console.log('------------res', res);
       setClients(res.data.getClients.data);
     };
     const getClients = () => {

@@ -59,7 +59,6 @@ function ProgramPlansContainer() {
 
   useEffect(() => {
     const weeksBasedOnPlans = programState.plans.length > 0 ? programState.plans[programState.plans.length - 1].week : baseWeek;
-
     const fullWeekTableWithDates = (): DateItem<ProgramPlanDateExtendedProps>[] => {
       let dateStart = dayjs(dateSet ? dateSet.dateStart : new Date());
       let dateItem: DateItem<ProgramPlanDateExtendedProps>;
@@ -107,12 +106,11 @@ function ProgramPlansContainer() {
       setDatesToShow(fullWeekTableWithDates());
       setMaxWeekWithPlans(weeksBasedOnPlans);
       setTotalWeeks(handleWeekAction());
+    }
+    if (weekAction !== WeekActions.READY) {
       setWeekAction(WeekActions.NEUTRAL);
     }
   }, [reloadRecordList, dateSet, programState, weekAction]);
-
-  // function handleEventClick(arg: any) {}
-  // function handleDateClick(arg) {}
 
   useEffect(() => {
     setContentHeight(baseHeight * totalWeeks);

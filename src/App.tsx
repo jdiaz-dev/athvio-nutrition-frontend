@@ -130,6 +130,7 @@ export default App;
   - import meal from custom recipes
     - realize import in backend
     - add pagination to custom recipes
+    - assign program to customer
 */
 
 /* 
