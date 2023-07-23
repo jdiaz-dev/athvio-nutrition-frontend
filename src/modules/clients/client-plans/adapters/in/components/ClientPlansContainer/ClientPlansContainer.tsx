@@ -57,12 +57,10 @@ function ClientPlansContainer() {
       let planDay = 1;
       let planWeek = 1;
       let planIndex: number;
-      // console.log('-------------------dateSet', dateSet);
 
       const dates: DateItem<ClientPlanDateExtendedProps>[] = [];
       while (dateStart < dayjs(dateSet ? dateSet.dateEnd : new Date())) {
         planIndex = clientPlansState.findIndex((plan) => {
-          // console.log('---------dateStart inside', dayjs(plan.assignedDate).toString());
           return dayjs(plan.assignedDate).toString() === dateStart.toString();
         });
         dateItem = {
@@ -78,7 +76,6 @@ function ClientPlansContainer() {
           },
         };
         dateStart = dayjs(dateStart).set('date', dateStart.get('date') + 1);
-        // console.log('---------dateStart out', dateStart.toString());
         planWeek = planDay % 7 === 0 ? planWeek + 1 : planWeek;
         planDay++;
         dates.push(dateItem);
@@ -98,7 +95,6 @@ function ClientPlansContainer() {
     }; */
 
     if (datesToShow.length === 0 || reloadRecordList || clientPlansState) {
-      console.log('-------------<<<>>>>>>>> clientPlansState', clientPlansState);
       setDatesToShow(fullWeekTableWithDates());
       // setMaxWeekWithPlans(weeksBasedOnPlans);
       // setTotalWeeks(handleWeekAction());
@@ -107,7 +103,6 @@ function ClientPlansContainer() {
   }, [reloadRecordList, dateSet, clientPlansState /* weekAction */]);
 
   const dateSetHelper = (dateInfo: DatesSetArg) => {
-    console.log('-------------dateInfo', dateInfo);
     setDateSet({ dateStart: dateInfo.start, dateEnd: dateInfo.end });
   };
 
@@ -173,8 +168,3 @@ function ClientPlansContainer() {
 }
 
 export default ClientPlansContainer;
-
-/* 
-  info : 00
-  from from to database 05
-*/
