@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import IconButton from '@mui/material/IconButton';
 import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
-import { Grid, Menu, MenuItem } from '@mui/material';
+import { Chip, Grid, Menu, MenuItem } from '@mui/material';
 import { ProfessionalIdContext } from 'src/App';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { ProgramBody } from 'src/modules/professionals/programs/adapters/out/program.types';
@@ -12,6 +12,7 @@ import CreateUpdateProgramDialog from 'src/modules/professionals/programs/adapte
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
 import MessageDialog from 'src/shared/dialogs/MessageDialog';
 import { Navigate } from 'react-router-dom';
+import AssignProgramDialog from 'src/modules/professionals/programs/adapters/in/dialogs/AssignProgramDialog';
 
 function Program(program: ProgramBody) {
   const professionalIdContext = useContext(ProfessionalIdContext);
@@ -19,6 +20,7 @@ function Program(program: ProgramBody) {
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk, alert, setAlert } = useMessageDialog();
 
   const [openCreateUpdateProgramDialog, setOpenCreateUpdateProgramDialog] = useState(false);
+  const [openAssignPogramDialog, setOpenAssignPogramDialog] = useState(false);
   const [goToProgramPlans, setGoToProgramPlans] = useState(false);
   const { deleteProgram } = useProgram();
 
@@ -35,6 +37,8 @@ function Program(program: ProgramBody) {
       setAlert(false);
     }
   }, [alert, messageOk]);
+
+  const assignProgramHandler = () => {};
 
   const handleAnchorOpen = (event: React.MouseEvent<HTMLButtonElement | HTMLOrSVGElement>) => {
     setAnchorEl(event.currentTarget as HTMLElement);
@@ -66,6 +70,9 @@ function Program(program: ProgramBody) {
           {program.description}
         </StyledTableCell>
         <StyledTableCell align="right">
+          <Chip label="Assign program" variant="outlined" onClick={assignProgramHandler} />
+        </StyledTableCell>
+        <StyledTableCell align="right">
           <Grid item xs={8}>
             <IconButton aria-label="Example" onClick={handleAnchorOpen}>
               <FontAwesomeIcon icon={faEllipsisV} size="xs" />
@@ -95,6 +102,9 @@ function Program(program: ProgramBody) {
       )}
       {openDialog && (
         <MessageDialog openDialog={openDialog} setOpenDialog={setOpenDialog} message={message} setMessageOk={setMessageOk} alert={alert} />
+      )}
+      {openAssignPogramDialog && (
+        <AssignProgramDialog openAssignPogramDialog={openAssignPogramDialog} setOpenAssignPogramDialog={setOpenAssignPogramDialog} />
       )}
     </>
   );

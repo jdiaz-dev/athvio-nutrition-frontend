@@ -5,7 +5,6 @@ import Button from '@mui/material/Button';
 import { CreateClientDialog } from 'src/modules/clients/clients/adapters/in/dialogs/CreateClientDialog';
 import ClientList from 'src/modules/clients/clients/adapters/in/components/ClientList/ClientList';
 import ClientGroupsContainer from 'src/modules/professionals/client-groups/adapters/in/components/ClientGroupsContainer';
-import SearcherBar from 'src/shared/components/SearcherBar';
 import { ClientGroup } from 'src/shared/types/types';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { useReloadRecords } from 'src/shared/hooks/useReloadRecords';

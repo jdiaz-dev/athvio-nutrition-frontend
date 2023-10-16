@@ -13,7 +13,7 @@ import { ProfessionalIdContext } from 'src/App';
 import SearcherBar from 'src/shared/components/SearcherBar';
 import { useSearcher } from 'src/shared/hooks/useSearcher';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
-import Client from 'src/modules/clients/clients/adapters/in/components/ClientList/Client';
+import ClientDetail from 'src/modules/clients/clients/adapters/in/components/ClientList/ClientDetail';
 
 function ClientList() {
   const professionalIdContext = useContext(ProfessionalIdContext);
@@ -47,7 +47,6 @@ function ClientList() {
     const _input = searchWords.length > 0 ? { ...input, search: searchWords } : input;
     const getClientsHelper = async () => {
       const res = await refetch({ input: _input });
-      console.log('------------res', res);
       setClients(res.data.getClients.data);
     };
     const getClients = () => {
@@ -92,7 +91,7 @@ function ClientList() {
               <TableCell>Group</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>{clients.length > 0 && clients.map((client, index) => <Client key={index} client={client} />)}</TableBody>
+          <TableBody>{clients.length > 0 && clients.map((client, index) => <ClientDetail key={index} client={client} />)}</TableBody>
         </Table>
       </TableContainer>
     </>
