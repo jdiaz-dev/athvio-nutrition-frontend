@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -6,14 +6,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { ClientBody, GetClientResponse, GetClientsRequest } from 'src/modules/clients/clients/adapters/out/client.types';
-import { GET_CLIENTS } from 'src/modules/clients/clients/adapters/out/ClientQueries';
-import { useQuery } from '@apollo/client';
 import { ProfessionalIdContext } from 'src/App';
 import SearcherBar from 'src/shared/components/SearcherBar';
 import { useSearcher } from 'src/shared/hooks/useSearcher';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import ClientDetail from 'src/modules/clients/clients/adapters/in/components/ClientList/ClientDetail';
+import { useClient } from 'src/shared/hooks/useClient';
 
 function ClientList() {
   const professionalIdContext = useContext(ProfessionalIdContext);
@@ -30,11 +28,12 @@ function ClientList() {
     setRecentlyTypedWord,
   } = useSearcher();
 
-  const { loading, refetch } = useQuery<GetClientResponse, GetClientsRequest>(GET_CLIENTS, {
+  /* const { loading, refetch } = useQuery<GetClientResponse, GetClientsRequest>(GET_CLIENTS, {
     skip: true,
   });
-
-  const [clients, setClients] = useState<ClientBody[]>([]);
+  
+  const [clients, setClients] = useState<ClientBody[]>([]); */
+  const { loadingClients, refetchClients, clients, setClients } = useClient();
 
   const input = {
     professional: professionalIdContext.professional,
@@ -46,7 +45,7 @@ function ClientList() {
   useEffect(() => {
     const _input = searchWords.length > 0 ? { ...input, search: searchWords } : input;
     const getClientsHelper = async () => {
-      const res = await refetch({ input: _input });
+      const res = await refetchClients({ input: _input });
       setClients(res.data.getClients.data);
     };
     const getClients = () => {
@@ -63,7 +62,7 @@ function ClientList() {
     const getClientsForSearcher = async () => {
       if (searchWords.length === 1 && recentlyTypedWord) {
         const _input = searchWords.length > 0 ? { ...input, search: searchWords } : input;
-        const res = await refetch({ input: _input });
+        const res = await refetchClients({ input: _input });
 
         setMatchedRecords(res.data.getClients.data.map((client) => client.user.firstName + ' ' + client.user.lastName));
         setRecentlyTypedWord(false);
@@ -73,7 +72,7 @@ function ClientList() {
     void getClientsForSearcher();
   }, [searchWords, recentlyTypedWord]);
 
-  if (loading) return <div>loading...</div>;
+  if (loadingClients) return <div>loading...</div>;
   return (
     <>
       <SearcherBar

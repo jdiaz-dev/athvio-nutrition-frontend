@@ -38,8 +38,6 @@ function Program(program: ProgramBody) {
     }
   }, [alert, messageOk]);
 
-  const assignProgramHandler = () => {};
-
   const handleAnchorOpen = (event: React.MouseEvent<HTMLButtonElement | HTMLOrSVGElement>) => {
     setAnchorEl(event.currentTarget as HTMLElement);
   };
@@ -70,7 +68,7 @@ function Program(program: ProgramBody) {
           {program.description}
         </StyledTableCell>
         <StyledTableCell align="right">
-          <Chip label="Assign program" variant="outlined" onClick={assignProgramHandler} />
+          <Chip label="Assign program" variant="outlined" onClick={() => setOpenAssignPogramDialog(true)} />
         </StyledTableCell>
         <StyledTableCell align="right">
           <Grid item xs={8}>
