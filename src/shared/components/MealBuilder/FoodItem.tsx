@@ -8,7 +8,7 @@ import AddIcon from '@mui/icons-material/Add';
 
 import { useDispatch } from 'react-redux';
 import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
-import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
+import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import { FoddAddedContext } from 'src/shared/components/MealBuilder/FoddAddedContext';
 import { Food, FoodManager } from 'src/shared/components/MealBuilder/food.types';
 import { useMealBuilderSlicers } from 'src/shared/hooks/useMealBuilderSlicers';

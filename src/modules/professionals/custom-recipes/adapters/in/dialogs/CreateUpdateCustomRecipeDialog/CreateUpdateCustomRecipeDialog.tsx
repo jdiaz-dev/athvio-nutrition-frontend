@@ -10,7 +10,7 @@ import { useCustomRecipe } from 'src/modules/professionals/custom-recipes/adapte
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { ReduxStates } from 'src/shared/types/types';
 import { Modules } from 'src/shared/Consts';
-import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
+import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import MealBuilder from 'src/shared/components/MealBuilder/MealBuilder';
 import RecipeNameInput from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/RecipeNameInput';
 import { CustomRecipeBody } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';

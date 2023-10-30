@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Box, TextField } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
+import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import { useMealBuilderSlicers } from 'src/shared/hooks/useMealBuilderSlicers';
 
 function CookingInstructions({ cookingInstructions }: { cookingInstructions: string }) {

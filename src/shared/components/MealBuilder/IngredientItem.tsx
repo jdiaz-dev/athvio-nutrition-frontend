@@ -6,7 +6,7 @@ import { makeStyles } from 'tss-react/mui';
 
 import { DisplayedIngredient } from 'src/shared/components/MealBuilder/MealBuilder.types';
 import { useMealBuilderSlicers } from 'src/shared/hooks/useMealBuilderSlicers';
-import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
+import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import { useDispatch } from 'react-redux';
 
 const containerStyles = makeStyles()(() => {

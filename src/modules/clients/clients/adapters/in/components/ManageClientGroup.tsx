@@ -9,11 +9,11 @@ import { ClientGroup } from 'src/shared/types/types';
 import { ClientGroupsContext } from 'src/modules/clients/clients/adapters/in/components/ClientsContainer';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 
-function ManageClientGroup({ client, assignedGroups }: { client: string; assignedGroups: ClientGroup[] }) {
+function ManageClientGroup(props: { client: string; assignedGroups: ClientGroup[] }) {
+  const { client, assignedGroups } = props;
   const professionalIdContext = useContext(ProfessionalIdContext);
   const clientGroupContext = useContext(ClientGroupsContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
-
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const [createClientHandler] = useMutation<ManageClientGroupResponse, ManageClientGroupRequest>(MANAGE_CLIENT_GROUP);
@@ -38,7 +38,6 @@ function ManageClientGroup({ client, assignedGroups }: { client: string; assigne
       },
     });
     reloadRecordListContext.setReloadRecordList(true);
-    // console.log('-------res', res);
   };
 
   const assignedGroup = (group: ClientGroup) => <Chip label={group.groupName} style={{ backgroundColor: 'red' }} variant="outlined" />;

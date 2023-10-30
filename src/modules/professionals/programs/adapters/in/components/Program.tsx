@@ -12,7 +12,7 @@ import CreateUpdateProgramDialog from 'src/modules/professionals/programs/adapte
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
 import MessageDialog from 'src/shared/dialogs/MessageDialog';
 import { Navigate } from 'react-router-dom';
-import AssignProgramDialog from 'src/modules/professionals/programs/adapters/in/dialogs/AssignProgramDialog';
+import AssignProgramDialog from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/AssignProgramDialog';
 
 function Program(program: ProgramBody) {
   const professionalIdContext = useContext(ProfessionalIdContext);

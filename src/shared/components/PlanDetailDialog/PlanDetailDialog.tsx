@@ -11,7 +11,7 @@ import { DialogTitle, IconButton } from '@mui/material';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 import MealDetail from 'src/shared/components/PlanDetailDialog/MealDetail';
-import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
+import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import { Modules } from 'src/shared/Consts';
 
 function PlanDetailDialog({

@@ -16,7 +16,7 @@ import { useReloadRecords } from 'src/shared/hooks/useReloadRecords';
 import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
-import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
+import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import { Modules } from 'src/shared/Consts';
 import { useClientPlan } from 'src/modules/clients/client-plans/adapters/out/ClientPlanActions';
 

@@ -23,7 +23,7 @@ import { useProgram } from 'src/modules/professionals/programs/adapters/out/Prog
 import { useSelector } from 'react-redux';
 import { DateItem, ReduxStates } from 'src/shared/types/types';
 import { ProgramPlanDateExtendedProps } from 'src/modules/professionals/programs/adapters/out/program.types';
-import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
+import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 dayjs.extend(utc);
 
 function ProgramPlansContainer() {

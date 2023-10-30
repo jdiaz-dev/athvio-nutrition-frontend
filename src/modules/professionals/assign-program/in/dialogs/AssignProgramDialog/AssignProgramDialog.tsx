@@ -14,8 +14,10 @@ import { ProgramBody } from 'src/modules/professionals/programs/adapters/out/pro
 import { useProgram } from 'src/modules/professionals/programs/adapters/out/ProgramActions';
 import * as ProgramSlice from 'src/modules/professionals/programs/adapters/in/slicers/ProgramSlice';
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
-import { useSearcher } from 'src/shared/hooks/useSearcher';
-import SearcherBar from 'src/shared/components/SearcherBar';
+import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
+import ClientList from 'src/shared/components/ClientList/ClientList';
+import { Modules } from 'src/shared/Consts';
+import AssignProgramButton from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/AssignProgramButton';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -64,17 +66,6 @@ function AssignProgramDialog({
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk } = useMessageDialog();
   const [createUpdateProgramStateUpdate, setCreateUpdateProgramStateUpdated] = useState(false);
   const { createProgram, updateProgram } = useProgram();
-
-  const {
-    searchWords,
-    setSearchWords,
-    matchedRecords,
-    setMatchedRecords,
-    choosedWord,
-    setChoosedWord,
-    recentlyTypedWord,
-    setRecentlyTypedWord,
-  } = useSearcher();
 
   const {
     register,
@@ -168,12 +159,9 @@ function AssignProgramDialog({
         <DialogContent dividers={true} style={{ minHeight: '900px' }}>
           <Card className={classes.card} variant="outlined">
             <form className={classes.form} onSubmit={handleSubmit(onSubmitProgram as unknown as SubmitHandler<FieldValues>)}>
-              <SearcherBar
-                setSearchWords={setSearchWords}
-                matchedRecords={matchedRecords}
-                setChoosedWord={setChoosedWord}
-                setRecentlyTypedWord={setRecentlyTypedWord}
-              />
+              <CurrentModuleContext.Provider value={{ currentModule: Modules.PROGRAMS }}>
+                <ClientList Details={[AssignProgramButton]} />
+              </CurrentModuleContext.Provider>
 
               <Button variant="contained" type="submit">
                 Save

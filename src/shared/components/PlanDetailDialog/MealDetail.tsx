@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ProfessionalIdContext } from 'src/App';
 import * as MealDetailsSlice from 'src/modules/professionals/programs/adapters/in/slicers/MealDetailsSlice';
 import * as MealBasicInfoSlice from 'src/modules/professionals/programs/adapters/in/slicers/MealBasicInfoSlice';
-import { CurrentModuleContext } from 'src/shared/components/MealBuilder/CurrentModuleContext';
+import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import MealBuilder from 'src/shared/components/MealBuilder/MealBuilder';
 import { Modules } from 'src/shared/Consts';
 import { ReduxStates } from 'src/shared/types/types';

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { ReactElement, useContext, useEffect, useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,10 +10,12 @@ import { ProfessionalIdContext } from 'src/App';
 import SearcherBar from 'src/shared/components/SearcherBar';
 import { useSearcher } from 'src/shared/hooks/useSearcher';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
-import ClientDetail from 'src/modules/clients/clients/adapters/in/components/ClientList/ClientDetail';
-import { useClient } from 'src/shared/hooks/useClient';
+import ClientDetail from 'src/shared/components/ClientList/ClientDetail';
+import { GET_CLIENTS } from 'src/modules/clients/clients/adapters/out/ClientQueries';
+import { ClientBody, GetClientResponse, GetClientsRequest } from 'src/modules/clients/clients/adapters/out/client.types';
+import { useQuery } from '@apollo/client';
 
-function ClientList() {
+function ClientList({ Details }: { Details: (() => ReactElement)[] }) {
   const professionalIdContext = useContext(ProfessionalIdContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
 
@@ -28,12 +30,10 @@ function ClientList() {
     setRecentlyTypedWord,
   } = useSearcher();
 
-  /* const { loading, refetch } = useQuery<GetClientResponse, GetClientsRequest>(GET_CLIENTS, {
+  const { loading: loadingClients, refetch: refetchClients } = useQuery<GetClientResponse, GetClientsRequest>(GET_CLIENTS, {
     skip: true,
   });
-  
-  const [clients, setClients] = useState<ClientBody[]>([]); */
-  const { loadingClients, refetchClients, clients, setClients } = useClient();
+  const [clients, setClients] = useState<ClientBody[]>([]);
 
   const input = {
     professional: professionalIdContext.professional,
@@ -90,7 +90,9 @@ function ClientList() {
               <TableCell>Group</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>{clients.length > 0 && clients.map((client, index) => <ClientDetail key={index} client={client} />)}</TableBody>
+          <TableBody>
+            {clients.length > 0 && clients.map((client, index) => <ClientDetail key={index} client={client} Details={Details} />)}
+          </TableBody>
         </Table>
       </TableContainer>
     </>
