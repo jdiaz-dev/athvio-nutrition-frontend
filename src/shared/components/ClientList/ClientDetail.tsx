@@ -18,8 +18,10 @@ function ClientDetail({ client, Details }: { client: ClientBody; Details: (() =>
       const ManageClientGroupComp = <ManageClientGroupHandler client={client._id} assignedGroups={client.groups} />;
       detailComponents.push(ManageClientGroupComp);
     } else if (currentModuleContext.currentModule === Modules.PROGRAMS) {
+      const { _id, user } = client;
+      const { firstName, lastName } = user;
       const AssignProgramButtonHandler = Details[0];
-      const AssignProgramButtonComp = <AssignProgramButtonHandler client={client._id} assignedGroups={client.groups} />;
+      const AssignProgramButtonComp = <AssignProgramButtonHandler client={{ _id, firstName, lastName }} assignedGroups={client.groups} />;
       detailComponents.push(AssignProgramButtonComp);
     }
     return detailComponents;

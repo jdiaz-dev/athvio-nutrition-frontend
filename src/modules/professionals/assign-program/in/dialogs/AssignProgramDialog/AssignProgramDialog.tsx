@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button, Card, Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
 
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { makeStyles } from 'tss-react/mui';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -17,7 +16,9 @@ import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import ClientList from 'src/shared/components/ClientList/ClientList';
 import { Modules } from 'src/shared/Consts';
-import AssignProgramButton from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/AssignProgramButton';
+import SelectClientButton from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/SelectClientButton';
+import SelectedClients from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/SelectedClients';
+import AssigmentStartDate from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/AssigmentStartDate';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -64,16 +65,7 @@ function AssignProgramDialog({
   const [closeIconDialog, setCloseIconDialog] = useState(true);
 
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk } = useMessageDialog();
-  const [createUpdateProgramStateUpdate, setCreateUpdateProgramStateUpdated] = useState(false);
-  const { createProgram, updateProgram } = useProgram();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm();
-
+  console.log('--------_program', _program);
   useEffect(() => {
     if (_program !== undefined) {
       dispatch(ProgramSlice.acceptNewProgram(_program));
@@ -90,39 +82,20 @@ function AssignProgramDialog({
       if (_program && _program._id) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { _id, professional, name, description, ...restProgram } = programState;
-        await updateProgram({
-          program: _id,
-          professional,
-          name,
-          description,
-        });
+
         setMessage('Program updated successfully');
-        setCreateUpdateProgramStateUpdated(false);
-        reset();
       } else {
-        const { professional, name, description } = programState;
-        await createProgram({ professional, name, description });
         setMessage('Program created successfully');
-        setCreateUpdateProgramStateUpdated(false);
-        reset();
       }
       setOpenDialog(true);
     };
-    if (createUpdateProgramStateUpdate) {
-      void createUpdateProgramHelper();
-    }
+
     if (!openDialog && messageOk) {
       setOpenAssignPogramDialog(false);
       reloadRecordListContext.setReloadRecordList(true);
       setMessageOk(false);
     }
-  }, [createUpdateProgramStateUpdate, openDialog, _program, messageOk]);
-
-  const onSubmitProgram = (data: { name: string; description: string }) => {
-    console.log(data);
-    dispatch(ProgramSlice.setNameAndDescription(data));
-    setCreateUpdateProgramStateUpdated(true);
-  };
+  }, [openDialog, _program, messageOk]);
 
   return (
     <>
@@ -158,15 +131,14 @@ function AssignProgramDialog({
         </DialogTitle>
         <DialogContent dividers={true} style={{ minHeight: '900px' }}>
           <Card className={classes.card} variant="outlined">
-            <form className={classes.form} onSubmit={handleSubmit(onSubmitProgram as unknown as SubmitHandler<FieldValues>)}>
-              <CurrentModuleContext.Provider value={{ currentModule: Modules.PROGRAMS }}>
-                <ClientList Details={[AssignProgramButton]} />
-              </CurrentModuleContext.Provider>
-
-              <Button variant="contained" type="submit">
-                Save
-              </Button>
-            </form>
+            <CurrentModuleContext.Provider value={{ currentModule: Modules.PROGRAMS }}>
+              <ClientList Details={[SelectClientButton]} />
+            </CurrentModuleContext.Provider>
+            <SelectedClients />
+            <AssigmentStartDate />
+            <Button variant="contained" type="submit">
+              Save
+            </Button>
           </Card>
         </DialogContent>
         {openDialog && (

@@ -4,7 +4,7 @@ import { ApolloClient, ApolloLink, HttpLink, InMemoryCache } from '@apollo/clien
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
 const httpLink = new HttpLink({
-  uri: 'http://localhost:3000/graphql',
+  uri: 'http://localhost:57343/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -44,7 +44,7 @@ export const apolloClient = new ApolloClient({
 // apolloClient.setLink(from([errorLink]))
 /*
 export const apolloClient = new ApolloClient({
-  uri: 'http://localhost:3000/graphql',
+  uri: 'http://localhost:57343/graphql',
   // uri: 'http://ec2-18-212-53-234.compute-1.amazonaws.com/graphql',
   // uri: 'https://nk-backend-production.up.railway.app/graphql',
 

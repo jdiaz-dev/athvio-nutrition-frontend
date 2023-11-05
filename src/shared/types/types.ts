@@ -1,4 +1,5 @@
 import { ClientPlanInitialState } from 'src/modules/clients/client-plans/adapters/out/clientPlan.types';
+import { AssignProgramInitialState } from 'src/modules/professionals/assign-program/out/AssignProgram.types';
 import { CustomRecipeInitialState } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 import { ProgramInitialState } from 'src/modules/professionals/programs/adapters/out/program.types';
 import { UserSignUpModel } from 'src/modules/security/users/adapters/out/user.types';
@@ -16,9 +17,9 @@ export type DataUser = {
 };
 
 export interface CountryList {
-  name: { common: string };
-  idd: { root: string; suffixes: string[] };
-  flags: { png: string; svg: string };
+  name: { common: string; };
+  idd: { root: string; suffixes: string[]; };
+  flags: { png: string; svg: string; };
 }
 
 export type ClientGroup = {
@@ -31,6 +32,7 @@ export type ReduxStates = {
   customRecipes: CustomRecipeInitialState;
   programs: ProgramInitialState;
   clientPlans: ClientPlanInitialState;
+  assignProgram: AssignProgramInitialState;
 };
 
 export interface PlanDayInfo {

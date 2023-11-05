@@ -15,7 +15,6 @@ function MealTag({ mealTag, componentTouched }: { mealTag: string; componentTouc
 
   useEffect(() => {
     const renameMealTagHelper = () => {
-      console.log('-----------entried');
       if (_mealTag.length === 0) {
         dispatch(renameMealTag(defaultMealTag));
       } else {

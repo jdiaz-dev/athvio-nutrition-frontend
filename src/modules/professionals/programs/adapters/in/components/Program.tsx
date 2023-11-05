@@ -102,7 +102,11 @@ function Program(program: ProgramBody) {
         <MessageDialog openDialog={openDialog} setOpenDialog={setOpenDialog} message={message} setMessageOk={setMessageOk} alert={alert} />
       )}
       {openAssignPogramDialog && (
-        <AssignProgramDialog openAssignPogramDialog={openAssignPogramDialog} setOpenAssignPogramDialog={setOpenAssignPogramDialog} />
+        <AssignProgramDialog
+          openAssignPogramDialog={openAssignPogramDialog}
+          setOpenAssignPogramDialog={setOpenAssignPogramDialog}
+          _program={program}
+        />
       )}
     </>
   );
