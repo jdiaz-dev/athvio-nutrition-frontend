@@ -14,6 +14,11 @@ import MessageDialog from 'src/shared/dialogs/MessageDialog';
 import { Navigate } from 'react-router-dom';
 import AssignProgramDialog from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/AssignProgramDialog';
 
+const chipStyle = (totalPlans: number) => ({
+  opacity: totalPlans > 0 ? 1 : 0.6,
+  cursor: totalPlans > 0 ? 'pointer' : 'not-allowed',
+});
+
 function Program(program: ProgramBody) {
   const professionalIdContext = useContext(ProfessionalIdContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
@@ -23,7 +28,6 @@ function Program(program: ProgramBody) {
   const [openAssignPogramDialog, setOpenAssignPogramDialog] = useState(false);
   const [goToProgramPlans, setGoToProgramPlans] = useState(false);
   const { deleteProgram } = useProgram();
-
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -68,7 +72,14 @@ function Program(program: ProgramBody) {
           {program.description}
         </StyledTableCell>
         <StyledTableCell align="right">
-          <Chip label="Assign program" variant="outlined" onClick={() => setOpenAssignPogramDialog(true)} />
+          <Chip
+            style={chipStyle(program.plans.length)}
+            label="Assign program"
+            variant="outlined"
+            onClick={() => {
+              if (program.plans.length > 0) setOpenAssignPogramDialog(true);
+            }}
+          />
         </StyledTableCell>
         <StyledTableCell align="right">
           <Grid item xs={8}>

@@ -7,6 +7,7 @@ import * as AssignProgramSlice from 'src/modules/professionals/assign-program/in
 function SelectClientButton({ client }: { client: ClientToAssign }) {
   const dispatch = useDispatch();
   const [assigned, setAssigned] = useState(false);
+
   const asssignCientHandler = () => {
     if (!assigned) {
       dispatch(AssignProgramSlice.assignNewClient(client));
@@ -16,6 +17,7 @@ function SelectClientButton({ client }: { client: ClientToAssign }) {
       setAssigned(false);
     }
   };
+
   return (
     <>
       <Chip label="+" variant="outlined" onClick={asssignCientHandler} />

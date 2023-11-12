@@ -19,6 +19,8 @@ import { Modules } from 'src/shared/Consts';
 import SelectClientButton from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/SelectClientButton';
 import SelectedClients from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/SelectedClients';
 import AssigmentStartDate from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/AssigmentStartDate';
+import StartDaySelector from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/StartDaySelector';
+import { useAssignProgram } from 'src/modules/professionals/assign-program/out/AssignProgramActions';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -62,10 +64,11 @@ function AssignProgramDialog({
   const { classes } = cardStyles();
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const programState = useSelector((state: ReduxStates) => state.programs.program);
+  const assignProgramState = useSelector((state: ReduxStates) => state.assignProgram);
   const [closeIconDialog, setCloseIconDialog] = useState(true);
 
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk } = useMessageDialog();
-  console.log('--------_program', _program);
+  const { assignProgram } = useAssignProgram();
   useEffect(() => {
     if (_program !== undefined) {
       dispatch(ProgramSlice.acceptNewProgram(_program));
@@ -77,6 +80,15 @@ function AssignProgramDialog({
     };
   }, [_program]);
 
+  const assignProgramHandler = async () => {
+    await assignProgram({
+      professional: programState.professional,
+      program: programState._id,
+      clients: assignProgramState.clients.map((client) => client._id),
+      assignmentStartDate: assignProgramState.assignmentStartDate,
+      startingDay: assignProgramState.startingDay,
+    });
+  };
   useEffect(() => {
     const createUpdateProgramHelper = async () => {
       if (_program && _program._id) {
@@ -136,7 +148,8 @@ function AssignProgramDialog({
             </CurrentModuleContext.Provider>
             <SelectedClients />
             <AssigmentStartDate />
-            <Button variant="contained" type="submit">
+            <StartDaySelector />
+            <Button variant="contained" type="submit" onClick={assignProgramHandler}>
               Save
             </Button>
           </Card>

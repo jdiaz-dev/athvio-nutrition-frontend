@@ -156,7 +156,7 @@ export function CreateClientDialog({
       >
         <DialogContent dividers={true}>
           <Card className={classes.card} variant="outlined">
-            <form className={classes.form} onSubmit={handleSubmit(onSubmit as any as SubmitHandler<FieldValues>)}>
+            <form className={classes.form} onSubmit={handleSubmit(onSubmit as unknown as SubmitHandler<FieldValues>)}>
               <TextField
                 className={classes.textField}
                 id="outlined-basic"
