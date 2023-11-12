@@ -6,5 +6,5 @@ export const assignProgramInitialState: AssignProgramInitialState = {
   program: '',
   clients: [],
   assignmentStartDate: dayjs(),
-  startingDay: 0,
+  startingDay: 1,
 };

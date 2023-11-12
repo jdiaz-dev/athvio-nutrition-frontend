@@ -12,13 +12,13 @@ function StartDaySelector() {
   const dispatch = useDispatch();
 
   const plansState = useSelector((state: ReduxStates) => state.programs.program).plans;
-  const [highestPlanDay, setHighestPlanDay] = useState<number>(plansState[plansState.length - 1].day);
-  const selectDayHandler = (event: SelectChangeEvent) => {
+  const assignProgramState = useSelector((state: ReduxStates) => state.assignProgram);
+
+  const [highestPlanDay] = useState<number>(plansState[plansState.length - 1].day);
+  const selectDayHandler = (event: SelectChangeEvent<number>) => {
     dispatch(AssignProgramSlice.assignStartingDay(event.target.value as unknown as number));
   };
 
-  console.log('----------highestPlanDay', highestPlanDay);
-  // const highestPlanDay = plansState[plansState.length - 1].day;
   const days: number[] = [];
   for (let x = 1; x <= highestPlanDay; x++) {
     days.push(x);
@@ -28,7 +28,13 @@ function StartDaySelector() {
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Starting day</InputLabel>
-        <Select labelId="demo-simple-select-label" id="demo-simple-select" value={'1'} label="day" onChange={selectDayHandler}>
+        <Select<number>
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={assignProgramState.startingDay}
+          label="day"
+          onChange={selectDayHandler}
+        >
           {days.map((day, index) => (
             <MenuItem key={index} value={day}>
               Day {day}
