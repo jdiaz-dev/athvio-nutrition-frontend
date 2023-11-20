@@ -27,9 +27,12 @@ export const GET_CLIENTS = gql`
           _id
           groupName
         }
+        state
       }
       meta {
         total
+        limit
+        offset
       }
     }
   }
@@ -39,6 +42,19 @@ export const MANAGE_CLIENT_GROUP = gql`
   mutation _manageClientGroup($input: ManageClientGroupDto!) {
     manageClientGroup(input: $input) {
       _id
+      groups {
+        _id
+        groupName
+      }
+    }
+  }
+`;
+
+export const ARCHIVE_CLIENT = gql`
+  mutation _manageClientState($input: ManageClientStateDto!) {
+    manageClientState(input: $input) {
+      _id
+      timezone
       groups {
         _id
         groupName

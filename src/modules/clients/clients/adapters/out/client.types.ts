@@ -1,5 +1,5 @@
 import { Dayjs } from 'dayjs';
-import { ManageClientGroupEnum } from 'src/shared/Consts';
+import { ClientStates, ManageClientGroupEnum } from 'src/shared/Consts';
 import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 import { MetadataRecords } from 'src/shared/types/get-records.types';
 import { ClientGroup, PlanDayInfo } from 'src/shared/types/types';
@@ -59,6 +59,7 @@ export type ClientBody = {
     email: string;
   };
   groups: ClientGroup[];
+  state: string;
 };
 
 export type GetClientResponse = {
@@ -84,6 +85,21 @@ export type ManageClientGroupResponse = {
       _id: string;
       groupName: string;
     }[];
+  };
+};
+
+export type ManageClientStateRequest = {
+  input: {
+    professional: string;
+    client: string;
+    state: ClientStates;
+  };
+};
+
+export type ManageClientStateResponse = {
+  manageClientState: {
+    _id: string;
+    groups: string[];
   };
 };
 

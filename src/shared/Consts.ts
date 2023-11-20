@@ -81,3 +81,12 @@ export enum FoodDatabases {
   SYSTEM = 'SYSTEM',
   CUSTOM_RECIPES = 'CUSTOM_RECIPES',
 }
+export enum ClientStates {
+  ACTIVE = 'active',
+  ARCHIVED = 'archived',
+}
+
+export enum ClientStatesActions {
+  ACTIVATE = 'activate',
+  ARCHIVE = 'archive',
+}

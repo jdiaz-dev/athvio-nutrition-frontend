@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Card, Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
+import { Button, Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
 
 import { makeStyles } from 'tss-react/mui';
 import CloseIcon from '@mui/icons-material/Close';
@@ -10,13 +10,9 @@ import MessageDialog from 'src/shared/dialogs/MessageDialog';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { ReduxStates } from 'src/shared/types/types';
 import { ProgramBody } from 'src/modules/professionals/programs/adapters/out/program.types';
-import { useProgram } from 'src/modules/professionals/programs/adapters/out/ProgramActions';
 import * as ProgramSlice from 'src/modules/professionals/programs/adapters/in/slicers/ProgramSlice';
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
-import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
-import ClientList from 'src/shared/components/ClientList/ClientList';
-import { Modules } from 'src/shared/Consts';
-import SelectClientButton from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/SelectClientButton';
+import ClientList from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/ClientListToAssign';
 import SelectedClients from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/SelectedClients';
 import AssigmentStartDate from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/AssigmentStartDate';
 import StartDaySelector from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/StartDaySelector';
@@ -109,6 +105,13 @@ function AssignProgramDialog({
     }
   }, [openDialog, _program, messageOk]);
 
+  useEffect(() => {
+    if (!closeIconDialog) {
+      reloadRecordListContext.setReloadRecordList(true);
+      setOpenAssignPogramDialog(false);
+    }
+  }, [closeIconDialog]);
+
   return (
     <>
       <Dialog
@@ -141,18 +144,20 @@ function AssignProgramDialog({
             </IconButton>
           ) : null}
         </DialogTitle>
-        <DialogContent dividers={true} style={{ minHeight: '900px' }}>
-          <Card className={classes.card} variant="outlined">
-            <CurrentModuleContext.Provider value={{ currentModule: Modules.PROGRAMS }}>
-              <ClientList Details={[SelectClientButton]} />
-            </CurrentModuleContext.Provider>
+        <DialogContent dividers={true} style={{ minHeight: '900px', display: 'flex', justifyContent: 'space-between' }}>
+          <div style={{ width: '68%' }}>
+            <ClientList />
+          </div>
+          <div>
             <SelectedClients />
             <AssigmentStartDate />
             <StartDaySelector />
             <Button variant="contained" type="submit" onClick={assignProgramHandler}>
               Save
             </Button>
-          </Card>
+          </div>
+
+          {/* </Card> */}
         </DialogContent>
         {openDialog && (
           <MessageDialog openDialog={openDialog} setOpenDialog={setOpenDialog} message={message} setMessageOk={setMessageOk} />
