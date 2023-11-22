@@ -19,11 +19,16 @@ function CountryCodeSelect({
   useEffect(() => {
     const getCountries = () => {
       fetch(REST_COUNTRIES_URL)
-        .then((response) => response.json())
+        .then((response) => {
+          console.log('---------response', response);
+
+          return response.json();
+        })
         .then((countries: CountryList[]) => {
+          console.log('---------countries', countries);
           countries.sort((a, b) => (a.name.common > b.name.common ? 1 : -1));
           setCountries(countries);
-          dispatch(setCountryCode(`${countries[0].idd.root}${countries[0].idd.suffixes[0]}`));
+          // dispatch(setCountryCode(`${countries[0].idd.root}${countries[0].idd.suffixes[0]}`));
         })
         .catch((error) => console.log('-----error', error));
     };
@@ -37,7 +42,7 @@ function CountryCodeSelect({
 
       const filtered = countries.filter((country) => country.name.common.toLowerCase().startsWith(wordToSearch.toLowerCase()));
       if (filtered.length > 0) {
-        dispatch(setCountryCode(`${countries[0].idd.root}${countries[0].idd.suffixes[0]}`));
+        setCountryCode(`${countries[0].idd.root}${countries[0].idd.suffixes[0]}`);
       }
 
       setTimeout(() => {
@@ -64,7 +69,7 @@ function CountryCodeSelect({
       {countries[0] && (
         <Box sx={{ minWidth: 120 }}>
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Phone</InputLabel>
+            <InputLabel id="demo-simple-select-label">Country</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
@@ -73,7 +78,7 @@ function CountryCodeSelect({
               onOpen={searchCountryHandler}
               onClose={cleanListenerHandler}
               // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-              onChange={(e) => dispatch(setCountryCode(e.target.value))}
+              onChange={(e) => setCountryCode(e.target.value)}
             >
               {countries.map(
                 (country, index) =>

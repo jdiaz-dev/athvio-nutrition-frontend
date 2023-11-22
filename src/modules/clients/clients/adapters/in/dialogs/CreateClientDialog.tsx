@@ -150,7 +150,7 @@ export function CreateClientDialog({
         onClose={() => setOpenCreateClientDialog(false)}
         scroll="paper"
         fullWidth={true}
-        maxWidth="xs"
+        maxWidth="md"
         aria-labelledby="dialog-title"
         aria-describedby="dialog-description"
       >

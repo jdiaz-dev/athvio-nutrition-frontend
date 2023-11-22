@@ -3,12 +3,10 @@ import { styled, alpha } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Menu, { MenuProps } from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import EditIcon from '@mui/icons-material/Edit';
-import Divider from '@mui/material/Divider';
 import ArchiveIcon from '@mui/icons-material/Archive';
-import FileCopyIcon from '@mui/icons-material/FileCopy';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import { ARCHIVE_CLIENT } from 'src/modules/clients/clients/adapters/out/ClientQueries';
 import { useMutation } from '@apollo/client';
 import { ManageClientStateRequest, ManageClientStateResponse } from 'src/modules/clients/clients/adapters/out/client.types';
@@ -66,7 +64,10 @@ export default function ClientOptions({ client }: { client: string }) {
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = async () => {
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const optionSelectedHandler = async () => {
     setAnchorEl(null);
     await manageStateMutation({
       variables: {
@@ -81,7 +82,7 @@ export default function ClientOptions({ client }: { client: string }) {
   };
 
   return (
-    <div>
+    <>
       <Button
         id="demo-customized-button"
         aria-controls={open ? 'demo-customized-menu' : undefined}
@@ -103,20 +104,24 @@ export default function ClientOptions({ client }: { client: string }) {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose} disableRipple>
-          <ArchiveIcon />
-          {clientStateContext.indexState === 1 ? ClientStatesActions.ACTIVATE : ClientStatesActions.ARCHIVE}
-        </MenuItem>
-        {/* <MenuItem onClick={handleClose} disableRipple>
-          <FileCopyIcon />
-          Duplicate
-        </MenuItem>
-        <Divider sx={{ my: 0.5 }} />
-        <MenuItem onClick={handleClose} disableRipple>
-          <MoreHorizIcon />
-          More
-        </MenuItem> */}
+        {clientStateContext.indexState === 1 ? (
+          <MenuItem onClick={optionSelectedHandler} disableRipple>
+            <PowerSettingsNewIcon />
+            {ClientStatesActions.ACTIVATE}
+          </MenuItem>
+        ) : (
+          <>
+            <MenuItem onClick={optionSelectedHandler} disableRipple>
+              <ArchiveIcon />
+              {ClientStatesActions.ARCHIVE}
+            </MenuItem>
+            <MenuItem disableRipple>
+              <ChatBubbleIcon />
+              Message
+            </MenuItem>
+          </>
+        )}
       </StyledMenu>
-    </div>
+    </>
   );
 }
