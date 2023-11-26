@@ -23,7 +23,6 @@ import { useClientPlan } from 'src/modules/clients/client-plans/adapters/out/Cli
 function ClientPlansContainer() {
   const professionalIdContext = useContext(ProfessionalIdContext);
   const clientPlansState = useSelector((state: ReduxStates) => state.clientPlans.clientPlans || []);
-  // console.log('------------clientPlansState', clientPlansState);
   const { clientId } = useParams();
   const { getClientPlans } = useClientPlan();
   const { reloadRecordList, setReloadRecordList } = useReloadRecords();

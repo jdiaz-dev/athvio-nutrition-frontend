@@ -12,7 +12,12 @@ import { useSearcher } from 'src/shared/hooks/useSearcher';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import ClientDetail from 'src/modules/clients/clients/adapters/in/components/ClientDetail';
 import { GET_CLIENTS } from 'src/modules/clients/clients/adapters/out/ClientQueries';
-import { ClientBody, GetClientResponse, GetClientsRequest } from 'src/modules/clients/clients/adapters/out/client.types';
+import {
+  ClientBody,
+  GetClientResponse,
+  GetClientsRequest,
+  GraphQLClientInput,
+} from 'src/modules/clients/clients/adapters/out/client.types';
 import { useQuery } from '@apollo/client';
 import { StyledTableCell } from 'src/shared/components/CustomizedTable';
 import { usePaginator } from 'src/shared/hooks/usePaginator';
@@ -41,26 +46,31 @@ function ClientList() {
     skip: true,
   });
   const [clients, setClients] = useState<ClientBody[]>([]);
-  const input = {
+
+  const input: GraphQLClientInput = {
     professional: professionalIdContext.professional,
-    offset: offset,
+    offset: searchWords.length == 1 ? 0 : offset,
     limit: rowsPerPage,
     state: Object.entries(ClientStates)[clientStateContext.indexState][1],
   };
+  if (searchWords.length > 0) input.search = searchWords;
+
   useEffect(() => {
     setOffset(0);
     setCurrentPage(0);
   }, [clientStateContext.indexState]);
 
   useEffect(() => {
-    const _input = searchWords.length > 0 ? { ...input, search: searchWords } : input;
     const getClientsHelper = async () => {
-      const res = await refetchClients({ input: _input });
-      console.log('-----------res', res);
+      // TODO: fix double call to server
+      const res = await refetchClients({ input });
       setClients(res.data.getClients.data);
       setLength(res.data.getClients.meta.total);
+
+      if (choosedWord && res.data.getClients.meta.total <= rowsPerPage) {
+        setCurrentPage(0);
+      }
     };
-    console.log('-----------offset', offset);
     const getClients = () => {
       if (professionalIdContext.professional || reloadRecordListContext.reloadRecordList || choosedWord) {
         void getClientsHelper();
@@ -74,8 +84,7 @@ function ClientList() {
   useEffect(() => {
     const getClientsForSearcher = async () => {
       if (searchWords.length === 1 && recentlyTypedWord) {
-        const _input = searchWords.length > 0 ? { ...input, search: searchWords } : input;
-        const res = await refetchClients({ input: _input });
+        const res = await refetchClients({ input });
 
         setMatchedRecords(res.data.getClients.data.map((client) => client.user.firstName + ' ' + client.user.lastName));
         setRecentlyTypedWord(false);

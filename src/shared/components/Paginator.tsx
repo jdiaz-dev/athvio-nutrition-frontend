@@ -24,6 +24,7 @@ function Paginator({
     }
     setCurrentPage(newPage);
   };
+
   return (
     <>
       <TablePagination

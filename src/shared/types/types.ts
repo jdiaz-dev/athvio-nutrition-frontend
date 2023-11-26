@@ -26,6 +26,12 @@ export type ClientGroup = {
   _id: string;
   groupName: string;
 };
+export type GraphQLInput = {
+  professional: string;
+  offset: number;
+  limit: number;
+  search?: string[];
+};
 
 export type ReduxStates = {
   users: UserSignUpModel;

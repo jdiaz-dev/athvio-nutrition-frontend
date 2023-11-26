@@ -20,7 +20,6 @@ function SearcherBar({
   const onInputChange = (text: string) => {
     inputChange.next(text);
   };
-
   useEffect(() => {
     const subscription = inputChange$.pipe(debounceTime(500)).subscribe((val) => {
       setRecentlyTypedWord(true);

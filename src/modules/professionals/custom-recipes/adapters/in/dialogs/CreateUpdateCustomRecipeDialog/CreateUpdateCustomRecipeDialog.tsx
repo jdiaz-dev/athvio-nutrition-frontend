@@ -14,6 +14,8 @@ import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import MealBuilder from 'src/shared/components/MealBuilder/MealBuilder';
 import RecipeNameInput from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/RecipeNameInput';
 import { CustomRecipeBody } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
+import * as CustomRecipeBasicInfoSlice from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeBasicInfo';
+import { defaultRecipeName } from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeInitialState';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -86,8 +88,10 @@ function CreateUpdateCustomRecipeDialog({
         ...restCustomRecipe,
         ...recipeNameBasicInfo,
       });
+      dispatch(CustomRecipeBasicInfoSlice.renameRecipeName(defaultRecipeName));
     } else {
       await createCustomRecipe({ ...recipeNameBasicInfo, ...restCustomRecipe });
+      dispatch(CustomRecipeBasicInfoSlice.renameRecipeName(defaultRecipeName));
     }
   };
 
@@ -150,7 +154,7 @@ function CreateUpdateCustomRecipeDialog({
               }
             }}
           >
-            <RecipeNameInput recipeName={_customRecipe?.name || recipeNameBasicInfo.name} />
+            <RecipeNameInput recipeName={_customRecipe?.name || recipeNameBasicInfo.name} parentComponentTouched={componentTouched} />
             <CurrentModuleContext.Provider value={{ currentModule: Modules.CUSTOM_RECIPES }}>
               <MealBuilder meal={{ _id, ...restCustomRecipe }} />
             </CurrentModuleContext.Provider>

@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { InvalidCountries, REST_COUNTRIES_URL } from 'src/shared/Consts';
 import { CountryList } from 'src/shared/types/types';
 
 function CountryCodeSelect({
   countryCode,
   setCountryCode,
+  setCountryName,
 }: {
-  countryCode: string;
+  countryCode: string | undefined;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setCountryCode: (countryCode: any) => any;
+  setCountryCode: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setCountryName: React.Dispatch<React.SetStateAction<string | undefined>>;
 }) {
-  const dispatch = useDispatch();
   const [countries, setCountries] = useState<CountryList[]>([]);
   const [isSearchingCountry, setIsSearchingCountry] = useState(false);
 
@@ -20,15 +20,12 @@ function CountryCodeSelect({
     const getCountries = () => {
       fetch(REST_COUNTRIES_URL)
         .then((response) => {
-          console.log('---------response', response);
-
           return response.json();
         })
         .then((countries: CountryList[]) => {
-          console.log('---------countries', countries);
           countries.sort((a, b) => (a.name.common > b.name.common ? 1 : -1));
           setCountries(countries);
-          // dispatch(setCountryCode(`${countries[0].idd.root}${countries[0].idd.suffixes[0]}`));
+          // setCountryCode(`${countries[0].idd.root}${countries[0].idd.suffixes[0]}`);
         })
         .catch((error) => console.log('-----error', error));
     };
@@ -63,7 +60,14 @@ function CountryCodeSelect({
   const searchCountryHandler = () => {
     setIsSearchingCountry(true);
   };
-
+  const selectCountryHandler = (e: SelectChangeEvent<string>) => {
+    const value = e.target.value;
+    const index = value.indexOf(' ');
+    const countryCode = value.slice(0, index);
+    const countryName = value.slice(index + 1);
+    setCountryCode(countryCode);
+    setCountryName(countryName);
+  };
   return (
     <div>
       {countries[0] && (
@@ -74,17 +78,16 @@ function CountryCodeSelect({
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={countryCode}
-              required
               onOpen={searchCountryHandler}
               onClose={cleanListenerHandler}
               // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-              onChange={(e) => setCountryCode(e.target.value)}
+              onChange={selectCountryHandler}
             >
               {countries.map(
                 (country, index) =>
                   country.name.common !== InvalidCountries.ANTARTICA &&
                   country.name.common !== InvalidCountries.INVALID_ISLANDS && (
-                    <MenuItem key={index} value={`${country.idd.root}${country.idd.suffixes[0]}`}>
+                    <MenuItem key={index} value={`${country.idd.root}${country.idd.suffixes[0]} ${country.name.common}`}>
                       <img src={country.flags.svg} width="25" height="15" />
                       {` ${country.name.common} ${country.idd.root}${country.idd.suffixes[0]}`}
                     </MenuItem>

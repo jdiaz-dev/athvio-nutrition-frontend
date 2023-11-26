@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import * as CustomRecipeBasicInfoSlice from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeBasicInfo';
 import { defaultRecipeName } from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeInitialState';
 
-function RecipeNameInput({ recipeName }: { recipeName: string }) {
+function RecipeNameInput({ recipeName, parentComponentTouched }: { recipeName: string; parentComponentTouched: boolean }) {
   const dispatch = useDispatch();
   const [_recipeName, _setRecipeName] = useState(recipeName);
   const [isInputBlur, setIsInputBlur] = useState(false);
@@ -20,10 +20,18 @@ function RecipeNameInput({ recipeName }: { recipeName: string }) {
     }
 
     return () => {
-      dispatch(CustomRecipeBasicInfoSlice.renameRecipeName(defaultRecipeName));
+      if (!parentComponentTouched && !isInputBlur) {
+        dispatch(CustomRecipeBasicInfoSlice.renameRecipeName(defaultRecipeName));
+      }
     };
   }, [isInputBlur, recipeName]);
 
+  const mouseLeaveHandler = () => {
+    if (_recipeName.length === 0) {
+      _setRecipeName(recipeName);
+    }
+    setIsInputBlur(true);
+  };
   return (
     <>
       <Box
@@ -39,10 +47,7 @@ function RecipeNameInput({ recipeName }: { recipeName: string }) {
           autoComplete="off"
           value={_recipeName}
           onChange={(e) => _setRecipeName(e.target.value)}
-          onMouseLeave={() => {
-            if (_recipeName.length === 0) _setRecipeName(recipeName);
-            setIsInputBlur(true);
-          }}
+          onMouseLeave={mouseLeaveHandler}
         />
       </Box>
     </>

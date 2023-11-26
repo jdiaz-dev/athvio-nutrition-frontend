@@ -18,35 +18,6 @@ import AssigmentStartDate from 'src/modules/professionals/assign-program/in/dial
 import StartDaySelector from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/StartDaySelector';
 import { useAssignProgram } from 'src/modules/professionals/assign-program/out/AssignProgramActions';
 
-const cardStyles = makeStyles()(() => {
-  return {
-    card: {
-      minWidth: 275,
-      width: '70%',
-      margin: '0px auto',
-      padding: '0px',
-    },
-    form: {
-      width: '100%',
-    },
-    textField: {
-      width: '90%',
-      marginTop: '15px',
-    },
-    button: {
-      'backgroundColor': 'blue',
-      'width': '90%',
-      'color': 'white',
-      'height': '45px',
-      'marginTop': '15px',
-      'marginBottom': '15px',
-      '&:hover': {
-        backgroundColor: 'blue',
-      },
-    },
-  };
-});
-
 function AssignProgramDialog({
   openAssignPogramDialog,
   setOpenAssignPogramDialog,
@@ -57,7 +28,6 @@ function AssignProgramDialog({
   _program?: ProgramBody;
 }) {
   const dispatch = useDispatch();
-  const { classes } = cardStyles();
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const programState = useSelector((state: ReduxStates) => state.programs.program);
   const assignProgramState = useSelector((state: ReduxStates) => state.assignProgram);
@@ -86,18 +56,6 @@ function AssignProgramDialog({
     });
   };
   useEffect(() => {
-    const createUpdateProgramHelper = async () => {
-      if (_program && _program._id) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { _id, professional, name, description, ...restProgram } = programState;
-
-        setMessage('Program updated successfully');
-      } else {
-        setMessage('Program created successfully');
-      }
-      setOpenDialog(true);
-    };
-
     if (!openDialog && messageOk) {
       setOpenAssignPogramDialog(false);
       reloadRecordListContext.setReloadRecordList(true);

@@ -11,16 +11,17 @@ import { useSelector } from 'react-redux';
 import { useSearcher } from 'src/shared/hooks/useSearcher';
 import SearcherBar from 'src/shared/components/SearcherBar';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
-import { ReduxStates } from 'src/shared/types/types';
+import { GraphQLInput, ReduxStates } from 'src/shared/types/types';
 import Program from 'src/modules/professionals/programs/adapters/in/components/Program';
 import { useProgram } from 'src/modules/professionals/programs/adapters/out/ProgramActions';
+import Paginator from 'src/shared/components/Paginator';
+import { usePaginator } from 'src/shared/hooks/usePaginator';
 
 // eslint-disable-next-line prettier/prettier
 function ProgramList() {
   const programs = useSelector((state: ReduxStates) => state.programs.programs);
   const professionalIdContext = useContext(ProfessionalIdContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
-  const [firstCall, setFirstCall] = useState(true);
   const {
     searchWords,
     setSearchWords,
@@ -32,27 +33,46 @@ function ProgramList() {
     setRecentlyTypedWord,
   } = useSearcher();
   const { getPrograms } = useProgram();
+  const { length, setLength, offset, setOffset, rowsPerPage, currentPage, setCurrentPage } = usePaginator(5);
+
+  const input: GraphQLInput = {
+    professional: professionalIdContext.professional,
+    offset: searchWords.length == 1 ? 0 : offset,
+    limit: rowsPerPage,
+  };
+  if (searchWords.length > 0) input.search = searchWords;
 
   useEffect(() => {
     const getProgramHelper = async () => {
-      const _input = {
-        professional: professionalIdContext.professional,
-        offset: 0,
-        limit: 10,
-      };
-
-      await getPrograms(_input);
+      const res = await getPrograms(input);
+      setLength(res.data.getPrograms.meta.total);
+      if (choosedWord && res.data.getPrograms.meta.total <= rowsPerPage) {
+        setCurrentPage(0);
+      }
     };
-    if (professionalIdContext.professional && reloadRecordListContext.reloadRecordList) {
-      void getProgramHelper();
-      reloadRecordListContext.setReloadRecordList(false);
-    }
 
-    if (professionalIdContext.professional && firstCall) {
-      void getProgramHelper();
-      setFirstCall(false);
-    }
-  }, [professionalIdContext.professional, reloadRecordListContext.reloadRecordList]);
+    const getCustomRecipesFn = () => {
+      if (professionalIdContext.professional || reloadRecordListContext.reloadRecordList || choosedWord) {
+        void getProgramHelper();
+        setChoosedWord(false);
+        reloadRecordListContext.setReloadRecordList(false);
+      }
+    };
+    getCustomRecipesFn();
+  }, [professionalIdContext.professional, reloadRecordListContext.reloadRecordList, choosedWord, offset]);
+
+  useEffect(() => {
+    const getClientsForSearcher = async () => {
+      if (searchWords.length === 1 && recentlyTypedWord) {
+        const res = await getPrograms(input);
+
+        setMatchedRecords(res.data.getPrograms.data.map((program) => program.name));
+        setRecentlyTypedWord(false);
+      }
+    };
+
+    void getClientsForSearcher();
+  }, [searchWords, recentlyTypedWord]);
 
   return (
     <>
@@ -81,6 +101,14 @@ function ProgramList() {
           </TableBody>
         </Table>
       </TableContainer>
+      <Paginator
+        length={length}
+        offset={offset}
+        setOffset={setOffset}
+        rowsPerPage={rowsPerPage}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </>
   );
 }

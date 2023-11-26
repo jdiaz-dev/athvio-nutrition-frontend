@@ -78,7 +78,8 @@ export function CreateClientDialog({
   const { openDialog, setOpenDialog, message, setMessage } = useMessageDialog();
 
   const [panelExpanded, setPanelExpanded] = useState<string | false>(false);
-  const [countryCode, setCountryCode] = useState('');
+  const [countryCode, setCountryCode] = useState<string | undefined>();
+  const [countryName, setCountryName] = useState<string | undefined>();
   const [birthday, setBirthday] = React.useState<Dayjs | null | string>(null);
   const [gender, setGender] = useState<string>('');
   const [userInfo, setUserInfo] = useState<UserInfoForClient>({ email: '', firstName: '', lastName: '' });
@@ -106,6 +107,7 @@ export function CreateClientDialog({
     };
 
     if (countryCode) input.additionalInfo.countryCode = countryCode;
+    if (countryName) input.additionalInfo.country = countryName;
     if (birthday !== null && birthday !== '') input.additionalInfo.birthday = birthday;
     if (gender !== '') input.additionalInfo.gender = gender;
 
@@ -257,7 +259,7 @@ export function CreateClientDialog({
                       <DatePicker value={birthday} onChange={(newValue) => setBirthday(newValue)} />
                     </LocalizationProvider>
 
-                    <CountryCodeSelect countryCode={countryCode} setCountryCode={setCountryCode} />
+                    <CountryCodeSelect countryCode={countryCode} setCountryCode={setCountryCode} setCountryName={setCountryName} />
                     <TextField
                       className={classes.textField}
                       id="filled-basic"

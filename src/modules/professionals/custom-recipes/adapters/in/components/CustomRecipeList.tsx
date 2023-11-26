@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
@@ -13,15 +13,15 @@ import CustomRecipe from 'src/modules/professionals/custom-recipes/adapters/in/c
 import { useSearcher } from 'src/shared/hooks/useSearcher';
 import SearcherBar from 'src/shared/components/SearcherBar';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
-import { ReduxStates } from 'src/shared/types/types';
+import { GraphQLInput, ReduxStates } from 'src/shared/types/types';
+import { usePaginator } from 'src/shared/hooks/usePaginator';
+import Paginator from 'src/shared/components/Paginator';
 
-// eslint-disable-next-line prettier/prettier
 function CustomRecipeList() {
   const customRecipeList = useSelector((state: ReduxStates) => state.customRecipes.customRecipes);
 
   const professionalIdContext = useContext(ProfessionalIdContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
-  const [firstCall, setFirstCall] = useState(true);
   const {
     searchWords,
     setSearchWords,
@@ -32,28 +32,47 @@ function CustomRecipeList() {
     recentlyTypedWord,
     setRecentlyTypedWord,
   } = useSearcher();
+  const { length, setLength, offset, setOffset, rowsPerPage, currentPage, setCurrentPage } = usePaginator(5);
+
   const { getCustomRecipes } = useCustomRecipe();
+  const input: GraphQLInput = {
+    professional: professionalIdContext.professional,
+    offset: searchWords.length == 1 ? 0 : offset,
+    limit: rowsPerPage,
+  };
+  if (searchWords.length > 0) input.search = searchWords;
 
   useEffect(() => {
-    const getCustomRecipeHandler = async () => {
-      const _input = {
-        professional: professionalIdContext.professional,
-        offset: 0,
-        limit: 10,
-      };
-
-      await getCustomRecipes(_input);
+    const getCustomRecipesHelper = async () => {
+      const res = await getCustomRecipes(input);
+      setLength(res.data.getCustomRecipes.meta.total);
+      if (choosedWord && res.data.getCustomRecipes.meta.total <= rowsPerPage) {
+        setCurrentPage(0);
+      }
     };
-    if (professionalIdContext.professional && reloadRecordListContext.reloadRecordList) {
-      void getCustomRecipeHandler();
-      reloadRecordListContext.setReloadRecordList(false);
-    }
 
-    if (professionalIdContext.professional && firstCall) {
-      void getCustomRecipeHandler();
-      setFirstCall(false);
-    }
-  }, [professionalIdContext.professional, reloadRecordListContext.reloadRecordList]);
+    const getCustomRecipesFn = () => {
+      if (professionalIdContext.professional || reloadRecordListContext.reloadRecordList || choosedWord) {
+        void getCustomRecipesHelper();
+        setChoosedWord(false);
+        reloadRecordListContext.setReloadRecordList(false);
+      }
+    };
+    getCustomRecipesFn();
+  }, [professionalIdContext.professional, reloadRecordListContext.reloadRecordList, choosedWord, offset]);
+
+  useEffect(() => {
+    const getClientsForSearcher = async () => {
+      if (searchWords.length === 1 && recentlyTypedWord) {
+        const res = await getCustomRecipes(input);
+
+        setMatchedRecords(res.data.getCustomRecipes.data.map((recipe) => recipe.name));
+        setRecentlyTypedWord(false);
+      }
+    };
+
+    void getClientsForSearcher();
+  }, [searchWords, recentlyTypedWord]);
 
   return (
     <>
@@ -85,6 +104,14 @@ function CustomRecipeList() {
           </TableBody>
         </Table>
       </TableContainer>
+      <Paginator
+        length={length}
+        offset={offset}
+        setOffset={setOffset}
+        rowsPerPage={rowsPerPage}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </>
   );
 }
