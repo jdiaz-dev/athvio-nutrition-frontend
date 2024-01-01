@@ -127,13 +127,5 @@ export default App;
   - copy plan to another day
 
   urgent
-  - import meal from custom recipes
     - realize import in backend
-    - add pagination to custom recipes
-    - assign program to customer
-*/
-
-/* 
-  actually working
-    ClientPlansContainer line 60
 */

@@ -6,7 +6,6 @@ import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
-
 import { DatesSetArg } from '@fullcalendar/core';
 
 import { Navigate, useParams } from 'react-router-dom';
@@ -77,7 +76,7 @@ function ProgramPlansContainer() {
             program: programState !== undefined ? programState._id : '',
             planDayInfo: {
               _id: programState.plans.length > 0 && planIndex >= 0 ? programState.plans[planIndex]._id : null,
-              totalMeals: programState.plans.length > 0 && planIndex >= 0 ? programState.plans[planIndex].meals.length : null,
+              meals: programState.plans.length > 0 && planIndex >= 0 ? programState.plans[planIndex].meals : null,
             },
             planDay,
             planWeek,
@@ -141,8 +140,10 @@ function ProgramPlansContainer() {
             // eventClick={handleEventClick}
             // dateClick={handleDateClick}
             events={datesToShow}
+            editable={true} // enable draggable
             datesSet={dateSetHelper}
             eventContent={ProgramPlansHelper}
+            unselectAuto={false}
             // handleCustomRendering={eventNewDiv}
             views={{
               dayGridFourWeek: {
@@ -153,22 +154,22 @@ function ProgramPlansContainer() {
             }}
             dayHeaders={false} // hide day headers
             /* dayHeaderContent={(args) => {
-          if (args.text === 'Sun') {
-            return <div>Day1</div>;
-          } else if (args.text === 'Mon') {
-            return <div>Day2</div>;
-          } else if (args.text === 'Tue') {
-            return <div>Day3</div>;
-          } else if (args.text === 'Wed') {
-            return <div>Day4</div>;
-          } else if (args.text === 'Thu') {
-            return <div>Day5</div>;
-          } else if (args.text === 'Fri') {
-            return <div>Day6</div>;
-          } else {
-            return <div>Day7</div>;
-          }
-          }} */
+            if (args.text === 'Sun') {
+              return <div>Day1</div>;
+            } else if (args.text === 'Mon') {
+              return <div>Day2</div>;
+            } else if (args.text === 'Tue') {
+              return <div>Day3</div>;
+            } else if (args.text === 'Wed') {
+              return <div>Day4</div>;
+            } else if (args.text === 'Thu') {
+              return <div>Day5</div>;
+            } else if (args.text === 'Fri') {
+              return <div>Day6</div>;
+            } else {
+              return <div>Day7</div>;
+            }
+            }} */
 
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             dayCellContent={(info, create) => {
@@ -179,6 +180,7 @@ function ProgramPlansContainer() {
             titleFormat={{
               weekday: undefined,
             }}
+            eventDragStart={}
           />
 
           <Button variant="contained" onClick={() => setWeekAction(WeekActions.ADD)}>

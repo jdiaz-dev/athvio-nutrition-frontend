@@ -3,6 +3,7 @@ import { AssignProgramInitialState } from 'src/modules/professionals/assign-prog
 import { CustomRecipeInitialState } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 import { ProgramInitialState } from 'src/modules/professionals/programs/adapters/out/program.types';
 import { UserSignUpModel } from 'src/modules/security/users/adapters/out/user.types';
+import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 
 export type DateItem<T> = {
   title: string;
@@ -43,5 +44,5 @@ export type ReduxStates = {
 
 export interface PlanDayInfo {
   _id: string | null;
-  totalMeals: number | null;
+  meals: Meal[] | null;
 }
