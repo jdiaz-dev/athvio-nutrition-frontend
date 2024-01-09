@@ -62,6 +62,7 @@ function ProgramPlanBasicInformation({ program, planDayInfo }: { program: string
     if (messageOk) void deletePlanHelper();
   }, [messageOk]);
   const { classes } = buttonStyles();
+
   return (
     <>
       <div draggable className={classes.container}>
@@ -79,8 +80,8 @@ function ProgramPlanBasicInformation({ program, planDayInfo }: { program: string
             ))}
           </ul>
         </div>
-        <DeleteIcon className={classes.trash} onClick={deletePlanHandler} />
       </div>
+      <DeleteIcon className={classes.trash} onClick={deletePlanHandler} />
       {openPlanDetailDialog && (
         <PlanDetailDialog
           openPlanDetailDialog={openPlanDetailDialog}

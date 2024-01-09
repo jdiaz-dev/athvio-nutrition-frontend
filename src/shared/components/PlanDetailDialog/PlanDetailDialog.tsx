@@ -47,6 +47,7 @@ function PlanDetailDialog({
   const addMealPlanHandler = () => {
     setMeals(meals.concat([{ ...programInitialState.mealBasicInfo, ...programInitialState.mealDetails }]));
   };
+
   return (
     <>
       <Dialog
@@ -58,12 +59,12 @@ function PlanDetailDialog({
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
-          Create your custom pro recipe
+          Create your custom pro recipeeee
           {closeIconDialog ? (
             <IconButton
               aria-label="close"
               onClick={() => {
-                setCloseIconDialog(false);
+                setOpenPlanDetailDialog(false);
               }}
               sx={{
                 position: 'absolute',
@@ -84,8 +85,8 @@ function PlanDetailDialog({
           <Button onClick={() => addMealPlanHandler()}>Add meal</Button>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpenPlanDetailDialog(false)}>Disagree</Button>
-          <Button onClick={() => setOpenPlanDetailDialog(false)} autoFocus>
+          <Button onClick={() => setCloseIconDialog(false)}>Disagree</Button>
+          <Button onClick={() => setCloseIconDialog(false)} autoFocus>
             Agree
           </Button>
         </DialogActions>

@@ -4,12 +4,27 @@ export interface CreateProgramPlanBody extends Omit<Plan, '_id' | 'title' | 'mea
   professional: string;
   program: string;
 }
+
+export interface UpdatePlanAssignedWeekDayBody extends CreateProgramPlanBody {
+  professional: string;
+  program: string;
+  plan: string;
+}
+
 export interface CreateProgramPlanRequest {
   input: CreateProgramPlanBody;
 }
 
 export interface CreateProgramPlanResponse {
   addProgramPlan: ProgramBody;
+}
+
+export interface UpdatePlanAssignedWeekDayRequest {
+  input: UpdatePlanAssignedWeekDayBody;
+}
+
+export interface UpdatePlanAssignedWeekDayResponse {
+  updatePlanAssignedWeekDay: ProgramBody;
 }
 
 export interface DeleteProgramPlanBody {

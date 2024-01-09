@@ -12,7 +12,6 @@ import { mealPlanCreatedChange$ } from 'src/shared/components/PlanDetailDialog/M
 function CreateClientPlanButton({ client, assignedDate }: { client: string; assignedDate: Date }) {
   const professionalIdContext = useContext(ProfessionalIdContext);
   const clientPlanState = useSelector((state: ReduxStates) => state.clientPlans.clientPlan);
-
   const { createClientPlan, deleteClientPlan } = useClientPlan();
   const [openPlanDetailDialog, setOpenPlanDetailDialog] = useState(false);
   const [planCreated, setPlanCreated] = useState(false);

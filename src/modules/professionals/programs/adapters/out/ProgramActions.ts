@@ -62,7 +62,7 @@ export function useProgram() {
         },
         fetchPolicy: 'network-only',
       });
-
+      console.log('--------response getProgram', response);
       if (response) {
         dispatch(ProgramSlice.acceptNewProgram(response.data.getProgram));
         dispatch(PlanSlice.acceptNewPlans(response.data.getProgram.plans));

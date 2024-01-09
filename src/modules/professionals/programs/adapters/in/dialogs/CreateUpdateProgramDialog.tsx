@@ -62,7 +62,7 @@ function CreateUpdateProgramDialog({
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk } = useMessageDialog();
   const [createUpdateProgramStateUpdate, setCreateUpdateProgramStateUpdated] = useState(false);
   const { createProgram, updateProgram } = useProgram();
-
+  console.log('--------reloadRecordListContext', reloadRecordListContext);
   const {
     register,
     handleSubmit,

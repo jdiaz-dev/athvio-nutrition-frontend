@@ -6,7 +6,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
-import { DatesSetArg } from '@fullcalendar/core';
+import { DatesSetArg, EventDropArg, EventInput } from '@fullcalendar/core';
 
 import { Navigate, useParams } from 'react-router-dom';
 import { ProfessionalIdContext } from 'src/App';
@@ -23,14 +23,16 @@ import { useSelector } from 'react-redux';
 import { DateItem, ReduxStates } from 'src/shared/types/types';
 import { ProgramPlanDateExtendedProps } from 'src/modules/professionals/programs/adapters/out/program.types';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
+import { usePlan } from 'src/modules/professionals/programs/adapters/out/PlanActions';
 dayjs.extend(utc);
 
 function ProgramPlansContainer() {
   const { programId } = useParams();
   const professionalIdContext = useContext(ProfessionalIdContext);
   const programState = useSelector((state: ReduxStates) => state.programs.program);
-
   const { getProgram } = useProgram();
+  const { updatePlanAssignedWeekDay } = usePlan();
+
   const { reloadRecordList, setReloadRecordList } = useReloadRecords();
   const [redirectToProgramList, setRedirectToProgramList] = useState(false);
 
@@ -58,6 +60,7 @@ function ProgramPlansContainer() {
 
   useEffect(() => {
     const weeksBasedOnPlans = programState.plans.length > 0 ? programState.plans[programState.plans.length - 1].week : baseWeek;
+
     const fullWeekTableWithDates = (): DateItem<ProgramPlanDateExtendedProps>[] => {
       let dateStart = dayjs(dateSet ? dateSet.dateStart : new Date());
       let dateItem: DateItem<ProgramPlanDateExtendedProps>;
@@ -115,15 +118,40 @@ function ProgramPlansContainer() {
     setContentHeight(baseHeight * totalWeeks);
   }, [totalWeeks]);
 
+  async function handleOnDrop(info: EventDropArg) {
+    const daysMoved = info.delta.days;
+    const indexPlan = programState.plans.findIndex(
+      (plan) => plan._id === (info.event.extendedProps as ProgramPlanDateExtendedProps).planDayInfo._id,
+    );
+    const { _id } = programState.plans[indexPlan];
+
+    const day = programState.plans[indexPlan].day + daysMoved;
+
+    await updatePlanAssignedWeekDay({
+      professional: professionalIdContext.professional,
+      program: programId as string,
+      plan: _id,
+      day: day,
+      week: day % 7 ? Math.floor(day / 7) + 1 : Math.floor(day / 7),
+    });
+  }
+
   const dateSetHelper = (dateInfo: DatesSetArg) => {
     setDateSet({ dateStart: dateInfo.start, dateEnd: dateInfo.end });
+  };
+  const manageDragEffect = (e: EventInput) => {
+    if ((e.extendedProps as ProgramPlanDateExtendedProps).planDayInfo._id) {
+      e.editable = true;
+    } else {
+      e.editable = false;
+    }
+    return e;
   };
 
   if (redirectToProgramList) {
     const path = `/sidenav/Programs`;
     return <Navigate replace to={path} />;
   }
-
   let counterDay = 0;
   return (
     <>
@@ -139,11 +167,20 @@ function ProgramPlansContainer() {
             initialView="dayGridFourWeek"
             // eventClick={handleEventClick}
             // dateClick={handleDateClick}
+            headerToolbar={false}
             events={datesToShow}
             editable={true} // enable draggable
             datesSet={dateSetHelper}
             eventContent={ProgramPlansHelper}
+            customRenderingReplacesEl={true}
             unselectAuto={false}
+            // customRenderingMetaMap={tr}
+            /* selectOverlap={() => {
+              return false;
+            }} */
+            /* eventOverlap={() => {
+              return false;
+            }} */
             // handleCustomRendering={eventNewDiv}
             views={{
               dayGridFourWeek: {
@@ -152,6 +189,7 @@ function ProgramPlansContainer() {
                 listDayFormat: { weekday: 'long' },
               },
             }}
+            // dragScroll={true}
             dayHeaders={false} // hide day headers
             /* dayHeaderContent={(args) => {
             if (args.text === 'Sun') {
@@ -180,7 +218,9 @@ function ProgramPlansContainer() {
             titleFormat={{
               weekday: undefined,
             }}
-            eventDragStart={}
+            eventDataTransform={manageDragEffect}
+            eventDrop={handleOnDrop}
+            progressiveEventRendering={true}
           />
 
           <Button variant="contained" onClick={() => setWeekAction(WeekActions.ADD)}>

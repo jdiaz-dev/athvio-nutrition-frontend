@@ -25,6 +25,7 @@ export const useMealDetailAdapter = (currentModule: string) => {
 
   const createMeal = async (data: CreateMeal) => {
     console.log('-----------currentModule', currentModule);
+    console.log('-----------data', data);
     if (currentModule === Modules.PROGRAMS) {
       await createPlanMeal({
         professional: data.professional,

@@ -11,6 +11,7 @@ function ProgramPlansHelper(arg: EventContentArg) {
 
   const containerStyles = { height: '120px', width: '100%', margin: 'auto', backgroundColor: 'white', marginTop: '-2px' };
   if (planDayInfo._id === null) {
+    // arg.event.startEditable = false;
     return (
       <div style={containerStyles}>
         <ProgramPlanItemButtons planDay={planDay} planWeek={planWeek} program={program} />

@@ -2,6 +2,7 @@ import { ApolloError } from '@apollo/client';
 import { useDispatch } from 'react-redux';
 import { apolloClient } from 'src/graphql/ApolloClient';
 import * as PlanSlice from 'src/modules/professionals/programs/adapters/in/slicers/PlanSlice';
+import * as ProgramSlice from 'src/modules/professionals/programs/adapters/in/slicers/ProgramSlice';
 
 import {
   CreateProgramPlanBody,
@@ -10,15 +11,21 @@ import {
   DeleteProgramPlanBody,
   DeleteProgramPlanRequest,
   DeleteProgramPlanResponse,
+  UpdatePlanAssignedWeekDayBody,
+  UpdatePlanAssignedWeekDayRequest,
+  UpdatePlanAssignedWeekDayResponse,
 } from 'src/modules/professionals/programs/adapters/out/Plan.types';
-import { CREATE_PROGRAM_PLAN, DELETE_PROGRAM_PLAN } from 'src/modules/professionals/programs/adapters/out/PlanQueries';
+import {
+  CREATE_PROGRAM_PLAN,
+  DELETE_PROGRAM_PLAN,
+  UPDATE_PLAN_ASSIGNED_WEKK_DAY,
+} from 'src/modules/professionals/programs/adapters/out/PlanQueries';
 import { Plan, ProgramBody } from 'src/modules/professionals/programs/adapters/out/program.types';
 
 export function usePlan() {
   const dispatch = useDispatch();
 
   const createPlan = async (body: CreateProgramPlanBody): Promise<void> => {
-    console.log('---------------------------body createProgramPlan ', body);
     try {
       const response = await apolloClient.mutate<CreateProgramPlanResponse, CreateProgramPlanRequest>({
         mutation: CREATE_PROGRAM_PLAN,
@@ -28,12 +35,27 @@ export function usePlan() {
           },
         },
       });
-      console.log('---------------------------response createProgramPlan ', response);
-      const irrealLastIndex = 99999;
-      const lastPlanCreatedIndex = (response.data?.addProgramPlan as ProgramBody).plans.length - 1 || irrealLastIndex;
-
+      const lastPlanCreatedIndex = (response.data?.addProgramPlan as ProgramBody).plans.length - 1;
       dispatch(PlanSlice.acceptNewPlans(response.data?.addProgramPlan.plans as Plan[]));
       dispatch(PlanSlice.acceptNewPlan(response.data?.addProgramPlan.plans[lastPlanCreatedIndex] as Plan));
+    } catch (error) {
+      console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
+      throw error;
+    }
+  };
+
+  const updatePlanAssignedWeekDay = async (body: UpdatePlanAssignedWeekDayBody): Promise<void> => {
+    try {
+      const response = await apolloClient.mutate<UpdatePlanAssignedWeekDayResponse, UpdatePlanAssignedWeekDayRequest>({
+        mutation: UPDATE_PLAN_ASSIGNED_WEKK_DAY,
+        variables: {
+          input: {
+            ...body,
+          },
+        },
+      });
+      dispatch(ProgramSlice.acceptNewProgram(response.data?.updatePlanAssignedWeekDay as ProgramBody));
+      dispatch(PlanSlice.acceptNewPlans(response.data?.updatePlanAssignedWeekDay.plans as Plan[]));
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
@@ -57,5 +79,5 @@ export function usePlan() {
       throw error;
     }
   };
-  return { createPlan, deletePlan };
+  return { createPlan, updatePlanAssignedWeekDay, deletePlan };
 }

@@ -42,7 +42,6 @@ function MealDetail({
   planOwnerId: string;
   meal: Meal;
 }) {
-  console.log('----------MealDetail');
   const { classes } = cardStyles();
   const professionalIdContext = useContext(ProfessionalIdContext);
   const currentModuleContext = useContext(CurrentModuleContext);
