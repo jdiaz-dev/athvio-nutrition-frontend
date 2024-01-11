@@ -10,9 +10,9 @@ import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
 import { ProgramMessages } from 'src/shared/Consts';
 import { PlanDayInfo } from 'src/shared/types/types';
 import { ListItem } from '@mui/material';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import PanToolIcon from '@mui/icons-material/PanTool';
 import { hoverIcon, programItemContainer, programItemWrapper } from 'src/shared/styles/styles';
+import CopyProgramPlan from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/CopyProgramPlan';
 
 const buttonStyles = makeStyles()(() => {
   return {
@@ -66,15 +66,17 @@ function ProgramPlanBasicInformation({ program, planDayInfo }: { program: string
   return (
     <>
       <div draggable className={classes.container}>
-        <div onClick={() => setOpenPlanDetailDialog(true)}>
+        <div style={{ width: '100%' }}>
           <div className={classes.numberMealsContainer}>
-            <div style={{ width: '70%' }}>{planDayInfo.meals?.length} meals</div>
+            <div style={{ width: '70%' }} onClick={() => setOpenPlanDetailDialog(true)}>
+              {planDayInfo.meals?.length} meals
+            </div>
             <div style={{ width: '30%' }}>
-              <ContentCopyIcon className={classes.icon} />
+              <CopyProgramPlan plan={planDayInfo._id as unknown as string} />
               <PanToolIcon className={classes.icon} />
             </div>
           </div>
-          <ul>
+          <ul style={{ width: '100%' }} onClick={() => setOpenPlanDetailDialog(true)}>
             {planDayInfo.meals?.map((meal, index) => (
               <ListItem key={index}>{meal.name}</ListItem>
             ))}

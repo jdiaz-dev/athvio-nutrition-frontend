@@ -9,7 +9,6 @@ import { ProfessionalIdContext } from 'src/App';
 import { PlanContext } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/PlanContext';
 import { mealPlanCreatedChange$ } from 'src/shared/components/PlanDetailDialog/MealDetail';
 import AddIcon from '@mui/icons-material/Add';
-import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import { hoverIcon, programItemContainer, programItemWrapper } from 'src/shared/styles/styles';
 import DuplicateProgramPlan from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/DuplicateProgramPlan';
 
@@ -30,7 +29,6 @@ const buttonStyles = makeStyles()(() => {
 function ProgramPlanItemButtons({ planDay, planWeek, program }: { planDay: number; planWeek: number; program: string }) {
   const professionalIdContext = useContext(ProfessionalIdContext);
   const planState = useSelector((state: ReduxStates) => state.programs.plan);
-  console.log('-----------planState', planState);
   const { createPlan, deletePlan } = usePlan();
   const [openPlanDetailDialog, setOpenPlanDetailDialog] = useState(false);
   const [planCrated, setPlanCrated] = useState(false);
@@ -87,7 +85,7 @@ function ProgramPlanItemButtons({ planDay, planWeek, program }: { planDay: numbe
         <AddIcon className={classes.icon} onClick={() => setOpenPlanDetailDialog(true)} />
       </div>
       <div className={classes.wrapper}>
-        <DuplicateProgramPlan />
+        <DuplicateProgramPlan newWeek={planWeek} newDay={planDay} />
       </div>
 
       {openPlanDetailDialog && planState._id.length > 0 ? (

@@ -11,13 +11,18 @@ import {
   DeleteProgramPlanBody,
   DeleteProgramPlanRequest,
   DeleteProgramPlanResponse,
+  DuplicateProgramPlanBody,
+  DuplicateProgramPlanRequest,
+  DuplicateProgramPlanResponse,
   UpdatePlanAssignedWeekDayBody,
   UpdatePlanAssignedWeekDayRequest,
   UpdatePlanAssignedWeekDayResponse,
 } from 'src/modules/professionals/programs/adapters/out/Plan.types';
+
 import {
   CREATE_PROGRAM_PLAN,
   DELETE_PROGRAM_PLAN,
+  DUPLICATE_PROGRAM_PLAN,
   UPDATE_PLAN_ASSIGNED_WEKK_DAY,
 } from 'src/modules/professionals/programs/adapters/out/PlanQueries';
 import { Plan, ProgramBody } from 'src/modules/professionals/programs/adapters/out/program.types';
@@ -61,6 +66,23 @@ export function usePlan() {
       throw error;
     }
   };
+  const duplicateProgramPlan = async (body: DuplicateProgramPlanBody): Promise<void> => {
+    try {
+      const response = await apolloClient.mutate<DuplicateProgramPlanResponse, DuplicateProgramPlanRequest>({
+        mutation: DUPLICATE_PROGRAM_PLAN,
+        variables: {
+          input: {
+            ...body,
+          },
+        },
+      });
+      dispatch(ProgramSlice.acceptNewProgram(response.data?.duplicateProgramPlan as ProgramBody));
+      // dispatch(PlanSlice.acceptNewPlans(response.data?.duplicateProgramPlan.plans as Plan[]));
+    } catch (error) {
+      console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
+      throw error;
+    }
+  };
 
   const deletePlan = async (body: DeleteProgramPlanBody): Promise<void> => {
     try {
@@ -79,5 +101,5 @@ export function usePlan() {
       throw error;
     }
   };
-  return { createPlan, updatePlanAssignedWeekDay, deletePlan };
+  return { createPlan, updatePlanAssignedWeekDay, duplicateProgramPlan, deletePlan };
 }

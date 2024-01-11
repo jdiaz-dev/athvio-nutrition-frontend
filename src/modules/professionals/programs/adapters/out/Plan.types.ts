@@ -11,6 +11,7 @@ export interface UpdatePlanAssignedWeekDayBody extends CreateProgramPlanBody {
   plan: string;
 }
 
+export type DuplicateProgramPlanBody = UpdatePlanAssignedWeekDayBody;
 export interface CreateProgramPlanRequest {
   input: CreateProgramPlanBody;
 }
@@ -25,6 +26,14 @@ export interface UpdatePlanAssignedWeekDayRequest {
 
 export interface UpdatePlanAssignedWeekDayResponse {
   updatePlanAssignedWeekDay: ProgramBody;
+}
+
+export interface DuplicateProgramPlanRequest {
+  input: DuplicateProgramPlanBody;
+}
+
+export interface DuplicateProgramPlanResponse {
+  duplicateProgramPlan: ProgramBody;
 }
 
 export interface DeleteProgramPlanBody {
