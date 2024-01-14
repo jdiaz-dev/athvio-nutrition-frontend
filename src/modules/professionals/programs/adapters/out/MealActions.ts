@@ -21,7 +21,6 @@ export function usePlanMeal() {
   const dispatch = useDispatch();
 
   const createPlanMeal = async (body: CreateMealBody): Promise<void> => {
-    console.log('----------------createPlanMeal body', body);
     try {
       const response = await apolloClient.mutate<CreateMealResponse, CreateMealRequest>({
         mutation: CREATE_MEAL,
@@ -31,7 +30,6 @@ export function usePlanMeal() {
           },
         },
       });
-      console.log('----------------my response', body);
       dispatch(PlanSlice.acceptNewPlans(response.data?.createMeal.plans as unknown as Plan[]));
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
@@ -40,7 +38,6 @@ export function usePlanMeal() {
   };
 
   const updatePlanMeal = async (body: UpdateMealBody): Promise<void> => {
-    console.log('----------------updatePlanMeal body', body);
     try {
       const response = await apolloClient.mutate<UpdateMealResponse, UpdateMealRequest>({
         mutation: UPDATE_MEAL,

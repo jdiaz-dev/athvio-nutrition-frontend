@@ -8,7 +8,7 @@ import ClientOptions from 'src/modules/clients/clients/adapters/in/components/Cl
 
 function ClientDetail({ client }: { client: ClientBody }) {
   const [goToClientPlans, setGoToClientPlans] = useState(false);
-
+  console.log('-------client', client);
   if (goToClientPlans) {
     const path = `/sidenav/Clients/${client._id}/plans`;
     return <Navigate replace to={path} />;

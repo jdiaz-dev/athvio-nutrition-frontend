@@ -11,6 +11,8 @@ import { PlanDayInfo, ReduxStates } from 'src/shared/types/types';
 import { useDispatch, useSelector } from 'react-redux';
 import * as ClientPlanSlice from 'src/modules/clients/client-plans/adapters/in/slicers/ClientPlanSlice';
 import { ClientPlanBody } from 'src/modules/clients/client-plans/adapters/out/clientPlan.types';
+import PlanBucket from 'src/shared/components/PlanBucket/PlanBucket';
+import CopyClientPlan from 'src/modules/clients/client-plans/adapters/in/components/ClientPlansContainer/CopyClientPlan';
 
 function ClientPlanBasicInformation({ client, plan }: { client: string; plan: PlanDayInfo }) {
   const professionalIdContext = useContext(ProfessionalIdContext);
@@ -50,7 +52,10 @@ function ClientPlanBasicInformation({ client, plan }: { client: string; plan: Pl
   };
   return (
     <>
-      <div onClick={() => openDialogHandler()}>{plan.totalMeals} meals</div>
+      {/* <div onClick={() => openDialogHandler()}>{plan.meals?.length} meals</div> */}
+      <PlanBucket planDayInfo={plan} handler={openDialogHandler}>
+        <CopyClientPlan plan={plan._id as unknown as string} />
+      </PlanBucket>
       {openPlanDetailDialog && (
         <PlanDetailDialog
           openPlanDetailDialog={openPlanDetailDialog}

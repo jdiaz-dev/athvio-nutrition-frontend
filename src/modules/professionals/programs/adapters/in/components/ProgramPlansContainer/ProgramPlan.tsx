@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PlanDetailDialog from 'src/shared/components/PlanDetailDialog/PlanDetailDialog';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { makeStyles } from 'tss-react/mui';
 import { ProfessionalIdContext } from 'src/App';
 import { usePlan } from 'src/modules/professionals/programs/adapters/out/PlanActions';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
@@ -9,33 +7,12 @@ import MessageDialog from 'src/shared/dialogs/MessageDialog';
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
 import { ProgramMessages } from 'src/shared/Consts';
 import { PlanDayInfo } from 'src/shared/types/types';
-import { ListItem } from '@mui/material';
-import PanToolIcon from '@mui/icons-material/PanTool';
-import { hoverIcon, programItemContainer, programItemWrapper } from 'src/shared/styles/styles';
+
+import CustomTrashIcon from 'src/shared/components/Icons/CustomTrashIcon';
+import PlanBucket from 'src/shared/components/PlanBucket/PlanBucket';
 import CopyProgramPlan from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/CopyProgramPlan';
 
-const buttonStyles = makeStyles()(() => {
-  return {
-    container: { ...programItemContainer, margin: 0 },
-    wrapper: {
-      ...programItemWrapper,
-      ...hoverIcon,
-    },
-    trash: {
-      ...hoverIcon,
-      marginLeft: '80%',
-      marginBottom: '2px',
-    },
-    icon: {
-      width: '45%',
-      marginRight: '3px',
-    },
-    numberMealsContainer: {
-      display: 'flex',
-    },
-  };
-});
-function ProgramPlanBasicInformation({ program, planDayInfo }: { program: string; planDayInfo: PlanDayInfo }) {
+function ProgramPlan({ program, planDayInfo }: { program: string; planDayInfo: PlanDayInfo }) {
   const professionalIdContext = useContext(ProfessionalIdContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const [openPlanDetailDialog, setOpenPlanDetailDialog] = useState(false);
@@ -61,29 +38,13 @@ function ProgramPlanBasicInformation({ program, planDayInfo }: { program: string
 
     if (messageOk) void deletePlanHelper();
   }, [messageOk]);
-  const { classes } = buttonStyles();
 
   return (
     <>
-      <div draggable className={classes.container}>
-        <div style={{ width: '100%' }}>
-          <div className={classes.numberMealsContainer}>
-            <div style={{ width: '70%' }} onClick={() => setOpenPlanDetailDialog(true)}>
-              {planDayInfo.meals?.length} meals
-            </div>
-            <div style={{ width: '30%' }}>
-              <CopyProgramPlan plan={planDayInfo._id as unknown as string} />
-              <PanToolIcon className={classes.icon} />
-            </div>
-          </div>
-          <ul style={{ width: '100%' }} onClick={() => setOpenPlanDetailDialog(true)}>
-            {planDayInfo.meals?.map((meal, index) => (
-              <ListItem key={index}>{meal.name}</ListItem>
-            ))}
-          </ul>
-        </div>
-      </div>
-      <DeleteIcon className={classes.trash} onClick={deletePlanHandler} />
+      <PlanBucket planDayInfo={planDayInfo} handler={() => setOpenPlanDetailDialog(true)}>
+        <CopyProgramPlan plan={planDayInfo._id as unknown as string} />
+      </PlanBucket>
+      <CustomTrashIcon handler={deletePlanHandler} />
       {openPlanDetailDialog && (
         <PlanDetailDialog
           openPlanDetailDialog={openPlanDetailDialog}
@@ -99,4 +60,4 @@ function ProgramPlanBasicInformation({ program, planDayInfo }: { program: string
   );
 }
 
-export default ProgramPlanBasicInformation;
+export default ProgramPlan;

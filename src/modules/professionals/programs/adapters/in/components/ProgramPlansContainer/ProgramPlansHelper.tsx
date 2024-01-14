@@ -1,27 +1,30 @@
 /* eslint-disable max-len */
 import React from 'react';
 import { EventContentArg } from '@fullcalendar/core';
-import ProgramPlanBasicInformation from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/ProgramPlanBasicInformation';
+import ProgramPlan from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/ProgramPlan';
 import ProgramPlanItemButtons from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/ProgramPlanItemButtons';
 import { ProgramPlanDateExtendedProps } from 'src/modules/professionals/programs/adapters/out/program.types';
+import PlanWrapper from 'src/shared/components/wrappers/PlanWrapper';
+import WrapperItemButtons from 'src/shared/components/wrappers/WrapperItemButtons';
 
 // it is a function not  a component, therefore doesn't support hooks
 function ProgramPlansHelper(arg: EventContentArg) {
   const { program, planDayInfo, planDay, planWeek } = arg.event.extendedProps as ProgramPlanDateExtendedProps;
 
-  const containerStyles = { height: '120px', width: '100%', margin: 'auto', backgroundColor: 'white', marginTop: '-2px' };
   if (planDayInfo._id === null) {
     // arg.event.startEditable = false;
     return (
-      <div style={containerStyles}>
-        <ProgramPlanItemButtons planDay={planDay} planWeek={planWeek} program={program} />
-      </div>
+      <PlanWrapper>
+        <WrapperItemButtons>
+          <ProgramPlanItemButtons planDay={planDay} planWeek={planWeek} program={program} />
+        </WrapperItemButtons>
+      </PlanWrapper>
     );
   } else {
     return (
-      <div style={{ ...containerStyles, border: '2px solid red' }}>
-        <ProgramPlanBasicInformation program={program} planDayInfo={planDayInfo} />
-      </div>
+      <PlanWrapper>
+        <ProgramPlan program={program} planDayInfo={planDayInfo} />
+      </PlanWrapper>
     );
   }
 }

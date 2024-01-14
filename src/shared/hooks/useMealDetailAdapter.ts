@@ -24,8 +24,6 @@ export const useMealDetailAdapter = (currentModule: string) => {
   const { createClientPlanMeal, updateClientPlanMeal, deleteClientPlanMeal } = useClientPlanMeal();
 
   const createMeal = async (data: CreateMeal) => {
-    console.log('-----------currentModule', currentModule);
-    console.log('-----------data', data);
     if (currentModule === Modules.PROGRAMS) {
       await createPlanMeal({
         professional: data.professional,

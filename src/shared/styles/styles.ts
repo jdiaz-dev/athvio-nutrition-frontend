@@ -1,5 +1,3 @@
-export const programItemContainer = { display: 'flex', marginTop: '12.5%', cursor: 'pointer' };
-
 export const programItemWrapper = {
   width: '50%',
   height: '100%',

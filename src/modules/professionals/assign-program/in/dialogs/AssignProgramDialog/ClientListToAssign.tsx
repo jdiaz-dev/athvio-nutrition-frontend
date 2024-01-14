@@ -51,11 +51,9 @@ function ClientList() {
     const _input = searchWords.length > 0 ? { ...input, search: searchWords } : input;
     const getClientsHelper = async () => {
       const res = await refetchClients({ input: _input });
-      console.log('-----------res', res);
       setClients(res.data.getClients.data);
       setLength(res.data.getClients.meta.total);
     };
-    console.log('-----------offset', offset);
     const getClients = () => {
       if (professionalIdContext.professional || reloadRecordListContext.reloadRecordList || choosedWord) {
         void getClientsHelper();

@@ -37,7 +37,6 @@ export function useClientPlan() {
           },
         },
       });
-      console.log('----------------response createClientPlan', response);
       if (response) dispatch(ClientPlanSlice.acceptNewClientPlan(response.data?.createClientPlan as ClientPlanBody));
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
@@ -79,9 +78,8 @@ export function useClientPlan() {
         },
         fetchPolicy: 'network-only',
       });
-
+      console.log('------------response', response);
       if (response) {
-        console.log('----------contitional ?', response.data.getClientPlans);
         dispatch(ClientPlanSlice.acceptNewClientPlans(response.data.getClientPlans));
       }
     } catch (error) {
@@ -91,7 +89,6 @@ export function useClientPlan() {
   };
 
   const updateClientPlan = async (body: UpdateClientPlanInput): Promise<void> => {
-    console.log('----------------updateClientPlan body', body);
     try {
       const response = await apolloClient.mutate<UpdateClientPlanResponse, UpdateClientPlanRequest>({
         mutation: UPDATE_CLIENT_PLAN,
@@ -110,7 +107,6 @@ export function useClientPlan() {
   };
 
   const deleteClientPlan = async (body: DeleteClientPlanInput): Promise<void> => {
-    console.log('----------------deleteClientPlan xxx body', body);
     try {
       const response = await apolloClient.mutate<DeleteClientPlanResponse, DeleteClientPlanRequest>({
         mutation: DELETE_CLIENT_PLAN,

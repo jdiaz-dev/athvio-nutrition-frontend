@@ -83,7 +83,6 @@ function CreateClientGroupDialog({
       groupName: '',
     });
     res;
-    // console.log('-----res', res);
   };
 
   return (

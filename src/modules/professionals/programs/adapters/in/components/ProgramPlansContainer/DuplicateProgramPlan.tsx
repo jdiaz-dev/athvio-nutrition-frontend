@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import { usePlan } from 'src/modules/professionals/programs/adapters/out/PlanActions';
 import { ProfessionalIdContext } from 'src/App';
 import { ReduxStates } from 'src/shared/types/types';
 import { useSelector } from 'react-redux';
+import CustomPasteIcon from 'src/shared/components/Icons/CustomPasteIcon';
 
 function DuplicateProgramPlan({ newWeek, newDay }: { newWeek: number; newDay: number }) {
   const professionalIdContext = useContext(ProfessionalIdContext);
@@ -21,7 +21,7 @@ function DuplicateProgramPlan({ newWeek, newDay }: { newWeek: number; newDay: nu
     });
   };
 
-  return <ContentPasteIcon onClick={duplicateProgramPlanHandler} />;
+  return <CustomPasteIcon handler={duplicateProgramPlanHandler} />;
 }
 
 export default DuplicateProgramPlan;

@@ -40,7 +40,6 @@ function EditClientGroup({
     setReloadClientGroupList(true);
     reloadRecordListContext.setReloadRecordList(true);
     setEditGroup(false);
-    // console.log('--------res', res);
   };
 
   return (

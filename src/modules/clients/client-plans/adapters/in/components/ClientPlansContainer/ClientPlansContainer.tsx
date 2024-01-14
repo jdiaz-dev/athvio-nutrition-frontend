@@ -69,7 +69,7 @@ function ClientPlansContainer() {
             client: clientId as string,
             clientPlanDayInfo: {
               _id: clientPlansState.length > 0 && planIndex >= 0 ? clientPlansState[planIndex]._id : null,
-              totalMeals: clientPlansState.length > 0 && planIndex >= 0 ? clientPlansState[planIndex].meals.length : null,
+              meals: clientPlansState.length > 0 && planIndex >= 0 ? clientPlansState[planIndex].meals : null,
             },
             assignedDate: new Date(dateStart.toString()),
           },
@@ -123,8 +123,13 @@ function ClientPlansContainer() {
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
             // eventClick={handleEventClick}
             // dateClick={handleDateClick}
-
+            headerToolbar={{
+              left: 'title',
+              center: '',
+              right: 'prev,next',
+            }}
             events={datesToShow}
+            editable={true}
             datesSet={dateSetHelper}
             eventContent={ClientPlansHelper}
             // handleCustomRendering={eventNewDiv}
@@ -157,7 +162,8 @@ function ClientPlansContainer() {
             // contentHeight={contentHeight}
 
             titleFormat={{
-              weekday: undefined,
+              year: 'numeric',
+              month: 'long',
             }}
           />
         </ReloadRecordListContext.Provider>

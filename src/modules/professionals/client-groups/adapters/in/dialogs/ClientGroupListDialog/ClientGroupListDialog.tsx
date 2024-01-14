@@ -37,7 +37,6 @@ function ClientGroupListDialog({
   useEffect(() => {
     const getClientsHelper = async () => {
       const res = await refetch({ input });
-      // console.log('---------res', res);
       clientGroupContext.setClientGroupList(res.data.getClientGroups);
     };
     if (reloadClientGroupList || reloadClientGroupList) {

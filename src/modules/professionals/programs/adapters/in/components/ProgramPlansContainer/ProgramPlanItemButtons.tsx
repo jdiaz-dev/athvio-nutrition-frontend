@@ -8,20 +8,15 @@ import { usePlan } from 'src/modules/professionals/programs/adapters/out/PlanAct
 import { ProfessionalIdContext } from 'src/App';
 import { PlanContext } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/PlanContext';
 import { mealPlanCreatedChange$ } from 'src/shared/components/PlanDetailDialog/MealDetail';
-import AddIcon from '@mui/icons-material/Add';
-import { hoverIcon, programItemContainer, programItemWrapper } from 'src/shared/styles/styles';
+import { hoverIcon, programItemWrapper } from 'src/shared/styles/styles';
 import DuplicateProgramPlan from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/DuplicateProgramPlan';
+import CustomAddIcon from 'src/shared/components/Icons/CustomAddIcon';
 
-const buttonStyles = makeStyles()(() => {
+const styles = makeStyles()(() => {
   return {
-    container: programItemContainer,
     wrapper: {
       ...programItemWrapper,
       ...hoverIcon,
-    },
-    icon: {
-      width: '100%',
-      height: '30%',
     },
   };
 });
@@ -76,13 +71,12 @@ function ProgramPlanItemButtons({ planDay, planWeek, program }: { planDay: numbe
       };
     }
   }, [openPlanDetailDialog]);
-
-  const { classes } = buttonStyles();
+  const { classes } = styles();
 
   return (
-    <div draggable className={classes.container}>
+    <>
       <div className={classes.wrapper}>
-        <AddIcon className={classes.icon} onClick={() => setOpenPlanDetailDialog(true)} />
+        <CustomAddIcon handler={() => setOpenPlanDetailDialog(true)} />
       </div>
       <div className={classes.wrapper}>
         <DuplicateProgramPlan newWeek={planWeek} newDay={planDay} />
@@ -106,7 +100,7 @@ function ProgramPlanItemButtons({ planDay, planWeek, program }: { planDay: numbe
           />
         )
       )}
-    </div>
+    </>
   );
 }
 

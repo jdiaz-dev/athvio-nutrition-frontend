@@ -31,8 +31,6 @@ export function useAssignProgram() {
   const dispatch = useDispatch();
 
   const assignProgram = async (body: AssignProgramBody): Promise<void> => {
-    console.log('-------body', body);
-
     try {
       const response = await apolloClient.mutate<AssignProgramResponse, AssignProgramRequest>({
         mutation: ASSIGN_PROGRAM,
