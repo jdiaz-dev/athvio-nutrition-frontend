@@ -19,6 +19,7 @@ import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import { Modules } from 'src/shared/Consts';
 import { useClientPlan } from 'src/modules/clients/client-plans/adapters/out/ClientPlanActions';
+import { assignmentDateHook } from 'src/modules/clients/client-plans/adapters/in/components/ClientPlansContainer/assignmentDateHook';
 
 function ClientPlansContainer() {
   const professionalIdContext = useContext(ProfessionalIdContext);
@@ -35,7 +36,7 @@ function ClientPlansContainer() {
     offset: 0,
     limit: 30,
   };
-
+  const { handleOnStart, handleOnDrop, manageDragEffect } = assignmentDateHook(clientId as string, setReloadRecordList);
   useEffect(() => {
     const getProgramHelper = async () => {
       await getClientPlans(input);
@@ -48,7 +49,7 @@ function ClientPlansContainer() {
   }, [professionalIdContext.professional, reloadRecordList]);
 
   useEffect(() => {
-    // const weeksBasedOnPlans = clientPlansState.plans.length > 0 ? clientPlansState.plans[clientPlansState.plans.length - 1].week : baseWeek;
+    // const   = clientPlansState.plans.length > 0 ? clientPlansState.plans[clientPlansState.plans.length - 1].week : baseWeek;
     const fullWeekTableWithDates = (): DateItem<ClientPlanDateExtendedProps>[] => {
       let dateStart = dayjs(dateSet ? dateSet.dateStart : new Date());
       let dateItem: DateItem<ClientPlanDateExtendedProps>;
@@ -81,17 +82,6 @@ function ClientPlansContainer() {
       }
       return dates;
     };
-    /* const handleWeekAction = (): number => {
-      if (weekAction === WeekActions.READY) {
-        return weeksBasedOnPlans;
-      } else if (weekAction === WeekActions.ADD) {
-        return totalWeeks + 1;
-      } else if (weekAction === WeekActions.REMOVE) {
-        return totalWeeks - 1;
-      } else {
-        return totalWeeks;
-      }
-    }; */
 
     if (datesToShow.length === 0 || reloadRecordList || clientPlansState) {
       setDatesToShow(fullWeekTableWithDates());
@@ -155,16 +145,17 @@ function ClientPlansContainer() {
 
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             /* dayCellContent={(info, create) => {
-          counterDay++;
-          return <div>Day {counterDay}</div>;
-        }} */
-
+              counterDay++;
+              return <div>Day {counterDay}</div>;
+            }} */
             // contentHeight={contentHeight}
-
             titleFormat={{
               year: 'numeric',
               month: 'long',
             }}
+            eventDragStart={handleOnStart}
+            eventDrop={handleOnDrop}
+            eventDataTransform={manageDragEffect}
           />
         </ReloadRecordListContext.Provider>
       </CurrentModuleContext.Provider>

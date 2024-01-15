@@ -2,7 +2,7 @@ import React from 'react';
 // import * as PlanSlice from 'src/modules/professionals/programs/adapters/in/slicers/PlanSlice';
 import { useDispatch } from 'react-redux';
 import CustomCopyIcon from 'src/shared/components/Icons/CustomCopyIcon';
-import * as ClientPlanSlice from 'src/modules/clients/client-plans/adapters/in/slicers/PlanSlice';
+import * as ClientPlanSlice from 'src/modules/clients/client-plans/adapters/in/slicers/ClientPlanSlice';
 
 function CopyClientPlan({ plan }: { plan: string }) {
   const dispatch = useDispatch();

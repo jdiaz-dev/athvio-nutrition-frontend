@@ -8,6 +8,9 @@ import { ProfessionalIdContext } from 'src/App';
 import { PlanContext } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/PlanContext';
 import { useClientPlan } from 'src/modules/clients/client-plans/adapters/out/ClientPlanActions';
 import { mealPlanCreatedChange$ } from 'src/shared/components/PlanDetailDialog/MealDetail';
+import CustomIconWrapper from 'src/shared/components/Icons/CustomIconWrapper';
+import CustomAddIcon from 'src/shared/components/Icons/CustomAddIcon';
+import DuplicateClientPlan from 'src/modules/clients/client-plans/adapters/in/components/ClientPlansContainer/DuplicateProgramPlan';
 
 function CreateClientPlanButton({ client, assignedDate }: { client: string; assignedDate: Date }) {
   const professionalIdContext = useContext(ProfessionalIdContext);
@@ -61,10 +64,12 @@ function CreateClientPlanButton({ client, assignedDate }: { client: string; assi
 
   return (
     <>
-      <Button variant="outlined" onClick={() => setOpenPlanDetailDialog(true)}>
-        Create plan
-      </Button>
-
+      <CustomIconWrapper>
+        <CustomAddIcon handler={() => setOpenPlanDetailDialog(true)} />
+      </CustomIconWrapper>
+      <CustomIconWrapper>
+        <DuplicateClientPlan client={client} assignedDate={assignedDate} />
+      </CustomIconWrapper>
       {openPlanDetailDialog && clientPlanState._id.length > 0 ? (
         <PlanContext.Provider value={{ isFromRecentlyCreatedPlan: true }}>
           <PlanDetailDialog

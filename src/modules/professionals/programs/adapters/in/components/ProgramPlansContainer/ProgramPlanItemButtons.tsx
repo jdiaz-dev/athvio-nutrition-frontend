@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 import React, { useContext, useEffect, useState } from 'react';
-import { makeStyles } from 'tss-react/mui';
 import PlanDetailDialog from 'src/shared/components/PlanDetailDialog/PlanDetailDialog';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
@@ -8,18 +7,9 @@ import { usePlan } from 'src/modules/professionals/programs/adapters/out/PlanAct
 import { ProfessionalIdContext } from 'src/App';
 import { PlanContext } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/PlanContext';
 import { mealPlanCreatedChange$ } from 'src/shared/components/PlanDetailDialog/MealDetail';
-import { hoverIcon, programItemWrapper } from 'src/shared/styles/styles';
 import DuplicateProgramPlan from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/DuplicateProgramPlan';
 import CustomAddIcon from 'src/shared/components/Icons/CustomAddIcon';
-
-const styles = makeStyles()(() => {
-  return {
-    wrapper: {
-      ...programItemWrapper,
-      ...hoverIcon,
-    },
-  };
-});
+import CustomIconWrapper from 'src/shared/components/Icons/CustomIconWrapper';
 
 function ProgramPlanItemButtons({ planDay, planWeek, program }: { planDay: number; planWeek: number; program: string }) {
   const professionalIdContext = useContext(ProfessionalIdContext);
@@ -71,16 +61,15 @@ function ProgramPlanItemButtons({ planDay, planWeek, program }: { planDay: numbe
       };
     }
   }, [openPlanDetailDialog]);
-  const { classes } = styles();
 
   return (
     <>
-      <div className={classes.wrapper}>
+      <CustomIconWrapper>
         <CustomAddIcon handler={() => setOpenPlanDetailDialog(true)} />
-      </div>
-      <div className={classes.wrapper}>
+      </CustomIconWrapper>
+      <CustomIconWrapper>
         <DuplicateProgramPlan newWeek={planWeek} newDay={planDay} />
-      </div>
+      </CustomIconWrapper>
 
       {openPlanDetailDialog && planState._id.length > 0 ? (
         <PlanContext.Provider value={{ isFromRecentlyCreatedPlan: true }}>

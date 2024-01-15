@@ -48,11 +48,21 @@ export interface ClientPlans {
   meta: MetadataRecords;
 }
 export interface GetClientPlansResponse {
-  getClientPlans: ClientPlans;
+  getClientPlans: ClientPlanBody[];
 }
 
 export interface UpdateClientPlanInput extends CreateClientPlanInput {
   clientPlan: string;
+}
+
+export type DuplicateClientPlanInput = UpdateClientPlanInput;
+
+export interface DuplicateClientPlanRequest {
+  input: DuplicateClientPlanInput;
+}
+
+export interface DuplicateClientPlanResponse {
+  duplicateClientPlan: ClientPlanBody;
 }
 
 export interface UpdateClientPlanRequest {
@@ -64,7 +74,6 @@ export interface UpdateClientPlanResponse {
     updateClientPlan: ClientPlanBody;
   };
 }
-
 export interface DeleteClientPlanInput {
   professional: string;
   client: string;

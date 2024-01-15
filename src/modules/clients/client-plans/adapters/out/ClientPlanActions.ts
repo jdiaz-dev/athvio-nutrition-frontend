@@ -9,6 +9,9 @@ import {
   DeleteClientPlanInput,
   DeleteClientPlanRequest,
   DeleteClientPlanResponse,
+  DuplicateClientPlanInput,
+  DuplicateClientPlanRequest,
+  DuplicateClientPlanResponse,
   GetClientPlansRequest,
   GetClientPlansResponse,
   GetRecordsClientPlansBody,
@@ -20,6 +23,7 @@ import * as ClientPlanSlice from 'src/modules/clients/client-plans/adapters/in/s
 import {
   CREATE_CLIENT_PLAN,
   DELETE_CLIENT_PLAN,
+  DUPLICATE_CLIENT_PLAN,
   GET_CLIENT_PLANS,
   UPDATE_CLIENT_PLAN,
 } from 'src/modules/clients/client-plans/adapters/out/ClientPlanQueries';
@@ -78,7 +82,7 @@ export function useClientPlan() {
         },
         fetchPolicy: 'network-only',
       });
-      console.log('------------response', response);
+
       if (response) {
         dispatch(ClientPlanSlice.acceptNewClientPlans(response.data.getClientPlans));
       }
@@ -105,6 +109,24 @@ export function useClientPlan() {
       throw error;
     }
   };
+  const duplicateClientPlan = async (body: DuplicateClientPlanInput): Promise<void> => {
+    try {
+      const response = await apolloClient.mutate<DuplicateClientPlanResponse, DuplicateClientPlanRequest>({
+        mutation: DUPLICATE_CLIENT_PLAN,
+        variables: {
+          input: {
+            ...body,
+          },
+        },
+      });
+      console.log('---------response', response);
+      // getClientPlans({ professional: body.professional, client: body.client });
+      if (response) dispatch(ClientPlanSlice.acceptNewClientPlan(response.data?.duplicateClientPlan as ClientPlanBody));
+    } catch (error) {
+      console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
+      throw error;
+    }
+  };
 
   const deleteClientPlan = async (body: DeleteClientPlanInput): Promise<void> => {
     try {
@@ -123,5 +145,5 @@ export function useClientPlan() {
       throw error;
     }
   };
-  return { createClientPlan, getClientPlans, updateClientPlan, deleteClientPlan };
+  return { createClientPlan, getClientPlans, updateClientPlan, duplicateClientPlan, deleteClientPlan };
 }

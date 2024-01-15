@@ -282,9 +282,9 @@ export const UPDATE_CLIENT_PLAN = gql`
   }
 `;
 
-export const UPDATE_CLIENT_PLAN_DATE = gql`
-  mutation _updateClientPlanDate($input: UpdateClientPlanDateDto!) {
-    updateClientPlanDate(input: $input) {
+export const DUPLICATE_CLIENT_PLAN = gql`
+  mutation _duplicateClientPlan($input: DuplicateClientPlanDto!) {
+    duplicateClientPlan(input: $input) {
       _id
       title
       assignedDate

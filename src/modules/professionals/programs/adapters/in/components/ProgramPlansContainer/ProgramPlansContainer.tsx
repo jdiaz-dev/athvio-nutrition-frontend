@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { useContext, useEffect, useState } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
@@ -6,7 +7,6 @@ import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
-import { DatesSetArg, EventDropArg, EventInput } from '@fullcalendar/core';
 
 import { Navigate, useParams } from 'react-router-dom';
 import { ProfessionalIdContext } from 'src/App';
@@ -17,31 +17,25 @@ import utc from 'dayjs/plugin/utc';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { useReloadRecords } from 'src/shared/hooks/useReloadRecords';
 import { Button } from '@mui/material';
-import { baseHeight, baseWeek, Modules, WeekActions } from 'src/shared/Consts';
+import { Modules, WeekActions } from 'src/shared/Consts';
 import { useProgram } from 'src/modules/professionals/programs/adapters/out/ProgramActions';
-import { useSelector } from 'react-redux';
-import { DateItem, ReduxStates } from 'src/shared/types/types';
-import { ProgramPlanDateExtendedProps } from 'src/modules/professionals/programs/adapters/out/program.types';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
-import { usePlan } from 'src/modules/professionals/programs/adapters/out/PlanActions';
+import { assignmentWeekDayHook } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/assignmentWeekDayHook';
+import { calendarConfigurationHook } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/calendarConfigurationHook';
 dayjs.extend(utc);
 
 function ProgramPlansContainer() {
   const { programId } = useParams();
   const professionalIdContext = useContext(ProfessionalIdContext);
-  const programState = useSelector((state: ReduxStates) => state.programs.program);
   const { getProgram } = useProgram();
-  const { updatePlanAssignedWeekDay } = usePlan();
 
   const { reloadRecordList, setReloadRecordList } = useReloadRecords();
   const [redirectToProgramList, setRedirectToProgramList] = useState(false);
 
-  const [datesToShow, setDatesToShow] = useState<DateItem<ProgramPlanDateExtendedProps>[]>([]);
-  const [dateSet, setDateSet] = useState<{ dateStart: Date; dateEnd: Date } | null>(null);
-  const [totalWeeks, setTotalWeeks] = useState<number>(baseWeek);
-  const [contentHeight, setContentHeight] = useState<number>(baseHeight);
-  const [weekAction, setWeekAction] = useState<WeekActions>(WeekActions.READY);
-  const [maxWeekWithPlans, setMaxWeekWithPlans] = useState<number>(1);
+  const { handleOnDrop, manageDragEffect } = assignmentWeekDayHook(programId as string);
+  const { dateSetHelper, setWeekAction, datesToShow, totalWeeks, maxWeekWithPlans, contentHeight } =
+    calendarConfigurationHook(reloadRecordList);
+
   const input = {
     professional: professionalIdContext.professional,
     program: programId as string,
@@ -57,96 +51,6 @@ function ProgramPlansContainer() {
       setReloadRecordList(false);
     }
   }, [professionalIdContext.professional, reloadRecordList]);
-
-  useEffect(() => {
-    const weeksBasedOnPlans = programState.plans.length > 0 ? programState.plans[programState.plans.length - 1].week : baseWeek;
-
-    const fullWeekTableWithDates = (): DateItem<ProgramPlanDateExtendedProps>[] => {
-      let dateStart = dayjs(dateSet ? dateSet.dateStart : new Date());
-      let dateItem: DateItem<ProgramPlanDateExtendedProps>;
-
-      let planDay = 1;
-      let planWeek = 1;
-      let planIndex: number;
-
-      const dates: DateItem<ProgramPlanDateExtendedProps>[] = [];
-      while (dateStart < dayjs(dateSet ? dateSet.dateEnd : new Date())) {
-        planIndex = programState.plans.findIndex((plan) => plan.day === planDay);
-        dateItem = {
-          title: '',
-          date: dateStart.toDate(),
-          extendedProps: {
-            program: programState !== undefined ? programState._id : '',
-            planDayInfo: {
-              _id: programState.plans.length > 0 && planIndex >= 0 ? programState.plans[planIndex]._id : null,
-              meals: programState.plans.length > 0 && planIndex >= 0 ? programState.plans[planIndex].meals : null,
-            },
-            planDay,
-            planWeek,
-          },
-        };
-        dateStart = dayjs(dateStart).set('date', dateStart.get('date') + 1);
-        planWeek = planDay % 7 === 0 ? planWeek + 1 : planWeek;
-        planDay++;
-        dates.push(dateItem);
-      }
-      return dates;
-    };
-    const handleWeekAction = (): number => {
-      if (weekAction === WeekActions.READY) {
-        return weeksBasedOnPlans;
-      } else if (weekAction === WeekActions.ADD) {
-        return totalWeeks + 1;
-      } else if (weekAction === WeekActions.REMOVE) {
-        return totalWeeks - 1;
-      } else {
-        return totalWeeks;
-      }
-    };
-
-    if (dateSet !== null || reloadRecordList) {
-      setDatesToShow(fullWeekTableWithDates());
-      setMaxWeekWithPlans(weeksBasedOnPlans);
-      setTotalWeeks(handleWeekAction());
-    }
-    if (weekAction !== WeekActions.READY) {
-      setWeekAction(WeekActions.NEUTRAL);
-    }
-  }, [reloadRecordList, dateSet, programState, weekAction]);
-
-  useEffect(() => {
-    setContentHeight(baseHeight * totalWeeks);
-  }, [totalWeeks]);
-
-  async function handleOnDrop(info: EventDropArg) {
-    const daysMoved = info.delta.days;
-    const indexPlan = programState.plans.findIndex(
-      (plan) => plan._id === (info.event.extendedProps as ProgramPlanDateExtendedProps).planDayInfo._id,
-    );
-    const { _id } = programState.plans[indexPlan];
-
-    const day = programState.plans[indexPlan].day + daysMoved;
-
-    await updatePlanAssignedWeekDay({
-      professional: professionalIdContext.professional,
-      program: programId as string,
-      plan: _id,
-      day: day,
-      week: day % 7 ? Math.floor(day / 7) + 1 : Math.floor(day / 7),
-    });
-  }
-
-  const dateSetHelper = (dateInfo: DatesSetArg) => {
-    setDateSet({ dateStart: dateInfo.start, dateEnd: dateInfo.end });
-  };
-  const manageDragEffect = (e: EventInput) => {
-    if ((e.extendedProps as ProgramPlanDateExtendedProps).planDayInfo._id) {
-      e.editable = true;
-    } else {
-      e.editable = false;
-    }
-    return e;
-  };
 
   if (redirectToProgramList) {
     const path = `/sidenav/Programs`;
@@ -174,14 +78,6 @@ function ProgramPlansContainer() {
             eventContent={ProgramPlansHelper}
             customRenderingReplacesEl={true}
             unselectAuto={false}
-            // customRenderingMetaMap={tr}
-            /* selectOverlap={() => {
-              return false;
-            }} */
-            /* eventOverlap={() => {
-              return false;
-            }} */
-            // handleCustomRendering={eventNewDiv}
             views={{
               dayGridFourWeek: {
                 type: 'dayGrid',
@@ -209,8 +105,7 @@ function ProgramPlansContainer() {
             }
             }} */
 
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            dayCellContent={(info, create) => {
+            dayCellContent={() => {
               counterDay++;
               return <div>Day {counterDay}</div>;
             }}
@@ -218,8 +113,8 @@ function ProgramPlansContainer() {
             titleFormat={{
               weekday: undefined,
             }}
-            eventDataTransform={manageDragEffect}
             eventDrop={handleOnDrop}
+            eventDataTransform={manageDragEffect}
             progressiveEventRendering={true}
           />
 

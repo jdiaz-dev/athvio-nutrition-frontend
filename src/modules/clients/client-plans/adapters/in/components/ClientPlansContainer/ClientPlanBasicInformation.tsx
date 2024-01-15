@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PlanDetailDialog from 'src/shared/components/PlanDetailDialog/PlanDetailDialog';
-import DeleteIcon from '@mui/icons-material/Delete';
 import { ProfessionalIdContext } from 'src/App';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import MessageDialog from 'src/shared/dialogs/MessageDialog';
@@ -13,6 +12,7 @@ import * as ClientPlanSlice from 'src/modules/clients/client-plans/adapters/in/s
 import { ClientPlanBody } from 'src/modules/clients/client-plans/adapters/out/clientPlan.types';
 import PlanBucket from 'src/shared/components/PlanBucket/PlanBucket';
 import CopyClientPlan from 'src/modules/clients/client-plans/adapters/in/components/ClientPlansContainer/CopyClientPlan';
+import CustomTrashIcon from 'src/shared/components/Icons/CustomTrashIcon';
 
 function ClientPlanBasicInformation({ client, plan }: { client: string; plan: PlanDayInfo }) {
   const professionalIdContext = useContext(ProfessionalIdContext);
@@ -64,7 +64,7 @@ function ClientPlanBasicInformation({ client, plan }: { client: string; plan: Pl
           planOwnerId={plan._id || ''}
         />
       )}
-      <DeleteIcon onClick={deletePlanHandler} />
+      <CustomTrashIcon handler={deletePlanHandler} />
       {openDialog && (
         <MessageDialog openDialog={openDialog} setOpenDialog={setOpenDialog} message={message} setMessageOk={setMessageOk} alert={alert} />
       )}
