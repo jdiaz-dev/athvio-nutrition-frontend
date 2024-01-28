@@ -1,5 +1,5 @@
 import { applyMiddleware, configureStore } from '@reduxjs/toolkit';
-import usersReducer from 'src/modules/security/users/adapters/in/UserSlice';
+import usersReducer from 'src/modules/authentication/authentication/adapters/in/UserSlice';
 import customRecipeReducers from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeSlice';
 import programsReducer from 'src/modules/professionals/programs/adapters/in/slicers/ProgramSlice';
 import clientPlansReducer from 'src/modules/clients/client-plans/adapters/in/slicers/ClientPlanSlice';

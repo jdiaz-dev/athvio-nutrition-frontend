@@ -7,11 +7,11 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import CountryCodeSelect from 'src/shared/components/CountryCodeSelect';
 import { MessagesUserForm } from 'src/shared/Consts';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserInfo } from 'src/modules/security/users/adapters/in/UserSlice';
-import { SetUserInfo } from 'src/modules/security/users/adapters/out/user.types';
-import { useUsers } from 'src/modules/security/users/adapters/out/UserActions';
-import { setCountryCode } from 'src/modules/security/users/adapters/in/UserSlice';
+import { setUserInfo } from 'src/modules/authentication/authentication/adapters/in/UserSlice';
+import { setCountryCode } from 'src/modules/authentication/authentication/adapters/in/UserSlice';
 import { ReduxStates } from 'src/shared/types/types';
+import { SetUserInfo } from '../out/authentication.types';
+import { useAuthentication } from '../out/authenticationActions';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -52,7 +52,7 @@ export function SignUp() {
 
   const [userUpdated, setUserUpdated] = useState(false);
   const dispatch = useDispatch();
-  const { signUp } = useUsers();
+  const { signUp } = useAuthentication();
 
   useEffect(() => {
     const signUpRequest = async () => {

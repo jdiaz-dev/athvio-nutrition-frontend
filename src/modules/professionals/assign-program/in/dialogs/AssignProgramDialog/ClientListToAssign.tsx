@@ -16,7 +16,7 @@ import { useQuery } from '@apollo/client';
 import { StyledTableCell } from 'src/shared/components/CustomizedTable';
 import { usePaginator } from 'src/shared/hooks/usePaginator';
 import Paginator from 'src/shared/components/Paginator';
-import { UserState } from 'src/shared/Consts';
+import { ClientStates } from 'src/shared/Consts';
 import ClientItem from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/ClientItem';
 
 function ClientList() {
@@ -44,7 +44,7 @@ function ClientList() {
     professional: professionalIdContext.professional,
     offset: offset,
     limit: rowsPerPage,
-    state: UserState[0],
+    state: ClientStates.ACTIVE,
   };
 
   useEffect(() => {

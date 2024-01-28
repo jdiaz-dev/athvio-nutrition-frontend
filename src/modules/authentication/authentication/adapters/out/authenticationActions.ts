@@ -1,17 +1,17 @@
 import { ApolloError } from '@apollo/client';
 import { useDispatch } from 'react-redux';
 import { apolloClient } from 'src/graphql/ApolloClient';
-import { resetUser } from 'src/modules/security/users/adapters/in/UserSlice';
-import { UserSignUpModel } from 'src/modules/security/users/adapters/out/user.types';
-import { SIGN_UP } from 'src/modules/security/users/adapters/out/userQueries';
+import { resetUser } from 'src/modules/authentication/authentication/adapters/in/UserSlice';
+import { UserSignUpModel } from './authentication.types';
+import { SIGN_UP_CLIENT } from 'src/modules/clients/clients/adapters/out/ClientQueries';
 
-export function useUsers() {
+export function useAuthentication() {
   const dispatch = useDispatch();
 
   const signUp = async (body: UserSignUpModel): Promise<void> => {
     try {
       const response = await apolloClient.mutate({
-        mutation: SIGN_UP,
+        mutation: SIGN_UP_CLIENT,
         variables: {
           input: body,
         },

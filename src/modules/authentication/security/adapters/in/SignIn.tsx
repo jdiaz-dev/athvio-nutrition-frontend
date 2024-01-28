@@ -7,10 +7,10 @@ import Button from '@mui/material//Button';
 import TextField from '@mui/material/TextField';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
-import { CredentialsSignIn, SignInMutation, SignInRequest } from 'src/modules/security/security/adapters/out/security.types';
+import { CredentialsSignIn, SignInMutation, SignInRequest } from 'src/modules/authentication/security/adapters/out/security.types';
 import { AuthContext, ProfessionalIdContext } from 'src/App';
 import { MessagesUserForm } from 'src/shared/Consts';
-import { SIGN_IN } from 'src/modules/security/security/adapters/out/SecurityQueries';
+import { SIGN_IN } from 'src/modules/authentication/security/adapters/out/SecurityQueries';
 import { saveDataUser } from 'src/shared/helpers/LocalStorage';
 import { ApolloError, useMutation } from '@apollo/client';
 

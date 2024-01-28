@@ -1,8 +1,8 @@
+import { UserSignUpModel } from 'src/modules/authentication/authentication/adapters/out/authentication.types';
 import { ClientPlanInitialState } from 'src/modules/clients/client-plans/adapters/out/clientPlan.types';
 import { AssignProgramInitialState } from 'src/modules/professionals/assign-program/out/AssignProgram.types';
 import { CustomRecipeInitialState } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 import { ProgramInitialState } from 'src/modules/professionals/programs/adapters/out/program.types';
-import { UserSignUpModel } from 'src/modules/security/users/adapters/out/user.types';
 import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 
 export type DateItem<T> = {

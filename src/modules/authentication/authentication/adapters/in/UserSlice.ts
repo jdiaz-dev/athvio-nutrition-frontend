@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { SetUserInfo } from 'src/modules/security/users/adapters/out/user.types';
+import { SetUserInfo } from '../out/authentication.types';
 
 const initialState = {
   firstName: '',

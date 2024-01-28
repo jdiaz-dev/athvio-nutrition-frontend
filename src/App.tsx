@@ -5,7 +5,7 @@ import { getUserFromLocalStorage } from './shared/helpers/LocalStorage';
 import ClientsContainer from './modules/clients/clients/adapters/in/components/ClientsContainer';
 import ProgramsContainer from './modules/professionals/programs/adapters/in/components/ProgramsContainer';
 import { Drawer } from './shared/components/Drawer';
-import { SignUp } from './modules/security/users/adapters/in/SignUp';
+import { SignUp } from './modules/authentication/authentication/adapters/in/SignUp';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { UserType } from 'src/shared/Consts';
@@ -13,7 +13,7 @@ import CustomRecipesContainer from 'src/modules/professionals/custom-recipes/ada
 import ProgramPlansContainer from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/ProgramPlansContainer';
 import Lab from 'src/modules/Lab';
 import ClientPlansContainer from 'src/modules/clients/client-plans/adapters/in/components/ClientPlansContainer/ClientPlansContainer';
-import SignIn from './modules/security/security/adapters/in/SignIn';
+import SignIn from './modules/authentication/security/adapters/in/SignIn';
 
 export const AuthContext = createContext<{
   isAuthenticated: boolean;
