@@ -62,7 +62,7 @@ function ProgramList() {
   }, [professionalIdContext.professional, reloadRecordListContext.reloadRecordList, choosedWord, offset]);
 
   useEffect(() => {
-    const getClientsForSearcher = async () => {
+    const getPatientsForSearcher = async () => {
       if (searchWords.length === 1 && recentlyTypedWord) {
         const res = await getPrograms(input);
 
@@ -71,7 +71,7 @@ function ProgramList() {
       }
     };
 
-    void getClientsForSearcher();
+    void getPatientsForSearcher();
   }, [searchWords, recentlyTypedWord]);
 
   return (

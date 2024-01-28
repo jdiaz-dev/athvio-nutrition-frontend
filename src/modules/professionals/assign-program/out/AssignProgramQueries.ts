@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 export const ASSIGN_PROGRAM = gql`
   mutation _assignProgram($input: AssignProgramDto!) {
     assignProgram(input: $input) {
-      client
+      patient
       assignedDate
       meals {
         _id

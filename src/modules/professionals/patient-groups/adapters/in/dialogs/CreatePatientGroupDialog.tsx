@@ -1,0 +1,122 @@
+import React, { useContext } from 'react';
+import { useMutation } from '@apollo/client';
+import { Button, Card, Dialog, DialogContent, TextField } from '@mui/material';
+import {
+  CreatePatientGroupRequest,
+  CreatePatientGroupResponse,
+} from 'src/modules/professionals/patient-groups/adapters/out/PatientGroup.types';
+import { CREATE_CLIENT_GROUP } from 'src/modules/professionals/patient-groups/adapters/out/PatientGroupQueries';
+import { makeStyles } from 'tss-react/mui';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { ProfessionalIdContext } from 'src/App';
+
+const cardStyles = makeStyles()(() => {
+  return {
+    card: {
+      minWidth: 275,
+      width: '70%',
+      margin: '0px auto',
+      padding: '0px',
+    },
+    form: {
+      width: '100%',
+    },
+    textField: {
+      width: '90%',
+      marginTop: '15px',
+    },
+    button: {
+      'backgroundColor': '#0355d8',
+      'width': '90%',
+      'color': 'white',
+      'height': '45px',
+      'marginTop': '15px',
+      'marginBottom': '15px',
+      '&:hover': {
+        backgroundColor: 'blue',
+      },
+    },
+    buttonDisabled: {
+      backgroundColor: '#629ef7',
+      width: '90%',
+      color: 'black',
+      height: '45px',
+      marginTop: '15px',
+      marginBottom: '15px',
+    },
+  };
+});
+
+function CreatePatientGroupDialog({
+  openCreatePatientGroupDialog,
+  setOpenCreatePatientGroupDialog,
+  setReloadPatientGroupList,
+}: {
+  openCreatePatientGroupDialog: boolean;
+  setOpenCreatePatientGroupDialog: (openDialog: boolean) => void;
+  setReloadPatientGroupList: (reload: boolean) => void;
+}) {
+  const { classes } = cardStyles();
+  const professionalIdContext = useContext(ProfessionalIdContext);
+
+  const [createPatientHandler] = useMutation<CreatePatientGroupResponse, CreatePatientGroupRequest>(CREATE_CLIENT_GROUP);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isValid },
+  } = useForm();
+
+  const createPatientGroup = async (data: { groupName: string }) => {
+    const input = {
+      professional: professionalIdContext.professional,
+      ...data,
+    };
+    const res = await createPatientHandler({
+      variables: {
+        input,
+      },
+    });
+    setOpenCreatePatientGroupDialog(false);
+    setReloadPatientGroupList(true);
+    reset({
+      groupName: '',
+    });
+    res;
+  };
+
+  return (
+    <>
+      <Dialog
+        open={openCreatePatientGroupDialog}
+        onClose={() => setOpenCreatePatientGroupDialog(false)}
+        scroll="paper"
+        fullWidth={true}
+        maxWidth="xs"
+        aria-labelledby="dialog-title"
+        aria-describedby="dialog-description"
+      >
+        <DialogContent dividers={true}>
+          <Card className={classes.card} variant="outlined">
+            <form className={classes.form} onSubmit={handleSubmit(createPatientGroup as any as SubmitHandler<FieldValues>)}>
+              <TextField
+                className={classes.textField}
+                id="outlined-basic"
+                variant="outlined"
+                label="Group name"
+                type="text"
+                {...register('groupName', { required: true })}
+              />
+
+              <Button className={isValid ? classes.button : classes.buttonDisabled} size="small" type="submit" disabled={!isValid}>
+                Create group
+              </Button>
+            </form>
+          </Card>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+}
+
+export default CreatePatientGroupDialog;

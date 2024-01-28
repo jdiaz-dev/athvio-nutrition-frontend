@@ -1,5 +1,5 @@
 import { UserSignUpModel } from 'src/modules/authentication/authentication/adapters/out/authentication.types';
-import { ClientPlanInitialState } from 'src/modules/clients/client-plans/adapters/out/clientPlan.types';
+import { PatientPlanInitialState } from 'src/modules/patients/patient-plans/adapters/out/patientPlan.types';
 import { AssignProgramInitialState } from 'src/modules/professionals/assign-program/out/AssignProgram.types';
 import { CustomRecipeInitialState } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 import { ProgramInitialState } from 'src/modules/professionals/programs/adapters/out/program.types';
@@ -23,7 +23,7 @@ export interface CountryList {
   flags: { png: string; svg: string; };
 }
 
-export type ClientGroup = {
+export type PatientGroup = {
   _id: string;
   groupName: string;
 };
@@ -38,7 +38,7 @@ export type ReduxStates = {
   users: UserSignUpModel;
   customRecipes: CustomRecipeInitialState;
   programs: ProgramInitialState;
-  clientPlans: ClientPlanInitialState;
+  patientPlans: PatientPlanInitialState;
   assignProgram: AssignProgramInitialState;
 };
 

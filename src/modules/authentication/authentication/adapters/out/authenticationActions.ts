@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { apolloClient } from 'src/graphql/ApolloClient';
 import { resetUser } from 'src/modules/authentication/authentication/adapters/in/UserSlice';
 import { UserSignUpModel } from './authentication.types';
-import { SIGN_UP_CLIENT } from 'src/modules/clients/clients/adapters/out/ClientQueries';
+import { SIGN_UP_CLIENT } from 'src/modules/patients/patients/adapters/out/PatientQueries';
 
 export function useAuthentication() {
   const dispatch = useDispatch();

@@ -2,7 +2,7 @@ import { applyMiddleware, configureStore } from '@reduxjs/toolkit';
 import usersReducer from 'src/modules/authentication/authentication/adapters/in/UserSlice';
 import customRecipeReducers from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeSlice';
 import programsReducer from 'src/modules/professionals/programs/adapters/in/slicers/ProgramSlice';
-import clientPlansReducer from 'src/modules/clients/client-plans/adapters/in/slicers/ClientPlanSlice';
+import patientPlansReducer from 'src/modules/patients/patient-plans/adapters/in/slicers/PatientPlanSlice';
 import assignProgramReducer from 'src/modules/professionals/assign-program/in/slicers/AssignProgramSlice';
 
 // const {applyMiddleware, combineReducers, createStore} = require('redux');
@@ -22,7 +22,7 @@ export default configureStore({
     customRecipes: customRecipeReducers,
     programs: programsReducer,
     assignProgram: assignProgramReducer,
-    clientPlans: clientPlansReducer,
+    patientPlans: patientPlansReducer,
   },
   devTools: true,
   // enhancers

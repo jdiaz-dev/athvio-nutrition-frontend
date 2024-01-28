@@ -1,0 +1,68 @@
+import React, { BaseSyntheticEvent, useContext } from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import {
+  UpdatePatientGroupsRequest,
+  UpdatePatientGroupsResponse,
+} from 'src/modules/professionals/patient-groups/adapters/out/PatientGroup.types';
+import { useMutation } from '@apollo/client';
+import { UPDATE_CLIENT_GROUP } from 'src/modules/professionals/patient-groups/adapters/out/PatientGroupQueries';
+import { ProfessionalIdContext } from 'src/App';
+import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
+
+function EditPatientGroup({
+  _id,
+  groupName,
+  setEditGroup,
+  setReloadPatientGroupList,
+}: {
+  _id: string;
+  groupName: string;
+  setEditGroup: (edit: boolean) => void;
+  setReloadPatientGroupList: (reload: boolean) => void;
+}) {
+  const professionalIdContext = useContext(ProfessionalIdContext);
+  const reloadRecordListContext = useContext(ReloadRecordListContext);
+
+  const [updatePatientGroupHandler] = useMutation<UpdatePatientGroupsResponse, UpdatePatientGroupsRequest>(UPDATE_CLIENT_GROUP);
+
+  const updatePatientGroup = async (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => {
+    const res = await updatePatientGroupHandler({
+      variables: {
+        input: {
+          professional: professionalIdContext.professional,
+          patientGroup: _id,
+          groupName: e.target.value,
+        },
+      },
+    });
+    res;
+    setReloadPatientGroupList(true);
+    reloadRecordListContext.setReloadRecordList(true);
+    setEditGroup(false);
+  };
+
+  return (
+    <>
+      <Box
+        component="form"
+        sx={{
+          '& > :not(style)': { m: 1, width: '25ch' },
+        }}
+        noValidate
+        autoComplete="off"
+      >
+        <TextField
+          id="standard-basic"
+          variant="standard"
+          defaultValue={groupName}
+          onBlur={(e) => {
+            void updatePatientGroup(e);
+          }}
+        />
+      </Box>
+    </>
+  );
+}
+
+export default EditPatientGroup;

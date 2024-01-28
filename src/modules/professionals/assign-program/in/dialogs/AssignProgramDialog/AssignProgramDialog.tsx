@@ -12,8 +12,8 @@ import { ReduxStates } from 'src/shared/types/types';
 import { ProgramBody } from 'src/modules/professionals/programs/adapters/out/program.types';
 import * as ProgramSlice from 'src/modules/professionals/programs/adapters/in/slicers/ProgramSlice';
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
-import ClientList from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/ClientListToAssign';
-import SelectedClients from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/SelectedClients';
+import PatientList from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/PatientListToAssign';
+import SelectedPatients from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/SelectedPatients';
 import AssigmentStartDate from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/AssigmentStartDate';
 import StartDaySelector from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/StartDaySelector';
 import { useAssignProgram } from 'src/modules/professionals/assign-program/out/AssignProgramActions';
@@ -50,10 +50,11 @@ function AssignProgramDialog({
     await assignProgram({
       professional: programState.professional,
       program: programState._id,
-      clients: assignProgramState.clients.map((client) => client._id),
+      patients: assignProgramState.patients.map((patient) => patient._id),
       assignmentStartDate: assignProgramState.assignmentStartDate,
       startingDay: assignProgramState.startingDay,
     });
+    setOpenAssignPogramDialog(false)
   };
   useEffect(() => {
     if (!openDialog && messageOk) {
@@ -104,10 +105,10 @@ function AssignProgramDialog({
         </DialogTitle>
         <DialogContent dividers={true} style={{ minHeight: '900px', display: 'flex', justifyContent: 'space-between' }}>
           <div style={{ width: '68%' }}>
-            <ClientList />
+            <PatientList />
           </div>
           <div>
-            <SelectedClients />
+            <SelectedPatients />
             <AssigmentStartDate />
             <StartDaySelector />
             <Button variant="contained" type="submit" onClick={assignProgramHandler}>

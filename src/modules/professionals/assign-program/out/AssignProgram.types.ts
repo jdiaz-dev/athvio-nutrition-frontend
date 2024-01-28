@@ -2,7 +2,7 @@ import { Dayjs } from 'dayjs';
 import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 
 export interface AssignedProgram {
-  client: string;
+  patient: string;
   assignatedDate: Date;
   meals: Meal[];
 }
@@ -10,18 +10,18 @@ export interface AssignedProgram {
 export interface AssignProgramBody {
   professional: string;
   program: string;
-  clients: string[];
+  patients: string[];
   assignmentStartDate: Dayjs;
   startingDay: number;
 }
 
-export interface ClientToAssign {
+export interface PatientToAssign {
   _id: string;
   firstName: string;
   lastName: string;
 }
-export interface AssignProgramInitialState extends Omit<AssignProgramBody, 'clients'> {
-  clients: ClientToAssign[];
+export interface AssignProgramInitialState extends Omit<AssignProgramBody, 'patients'> {
+  patients: PatientToAssign[];
 }
 
 export interface AssignProgramRequest {

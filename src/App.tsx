@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.scss';
 import { getUserFromLocalStorage } from './shared/helpers/LocalStorage';
-import ClientsContainer from './modules/clients/clients/adapters/in/components/ClientsContainer';
+import PatientsContainer from './modules/patients/patients/adapters/in/components/PatientsContainer';
 import ProgramsContainer from './modules/professionals/programs/adapters/in/components/ProgramsContainer';
 import { Drawer } from './shared/components/Drawer';
 import { SignUp } from './modules/authentication/authentication/adapters/in/SignUp';
@@ -12,7 +12,7 @@ import { UserType } from 'src/shared/Consts';
 import CustomRecipesContainer from 'src/modules/professionals/custom-recipes/adapters/in/components/CustomRecipesContainer';
 import ProgramPlansContainer from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/ProgramPlansContainer';
 import Lab from 'src/modules/Lab';
-import ClientPlansContainer from 'src/modules/clients/client-plans/adapters/in/components/ClientPlansContainer/ClientPlansContainer';
+import PatientPlansContainer from 'src/modules/patients/patient-plans/adapters/in/components/PatientPlansContainer/PatientPlansContainer';
 import SignIn from './modules/authentication/security/adapters/in/SignIn';
 
 export const AuthContext = createContext<{
@@ -63,8 +63,8 @@ function App() {
 
               {
                 <Route path="sidenav" element={<Drawer />}>
-                  <Route path="clients" element={<ClientsContainer />} />
-                  <Route path="clients/:clientId/plans" element={<ClientPlansContainer />} />
+                  <Route path="patients" element={<PatientsContainer />} />
+                  <Route path="patients/:patientId/plans" element={<PatientPlansContainer />} />
                   <Route path="Custom Recipes" element={<CustomRecipesContainer />} />
                   <Route path="Programs" element={<ProgramsContainer />} />
                   <Route path="Programs/:programId/plans" element={<ProgramPlansContainer />} />
@@ -91,7 +91,7 @@ export default App;
 
   - rename export interface RecipeBody
   - fix bug at moment to add ingredient and some macros is 0, NaN  is the  result trying to add ingredient
-  - fix : only use one call to server in clientList component (void call by default, use skip call for it)
+  - fix : only use one call to server in patientList component (void call by default, use skip call for it)
   - fix. refactor food list component ot better understand
   - fix: refactor - at moment to get info from ALL database, it is not capable to get the meal searched in the search
 */

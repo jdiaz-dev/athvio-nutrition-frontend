@@ -12,6 +12,7 @@ function StartDaySelector() {
   const dispatch = useDispatch();
 
   const plansState = useSelector((state: ReduxStates) => state.programs.program).plans;
+  console.log('------------plansState', plansState)
   const assignProgramState = useSelector((state: ReduxStates) => state.assignProgram);
 
   const [highestPlanDay] = useState<number>(plansState[plansState.length - 1].day);

@@ -49,11 +49,11 @@ function MealDetail({
   const mealBasicInfoState =
     currentModuleContext.currentModule === Modules.PROGRAMS
       ? useSelector((state: ReduxStates) => state.programs.mealBasicInfo)
-      : useSelector((state: ReduxStates) => state.clientPlans.mealBasicInfo);
+      : useSelector((state: ReduxStates) => state.patientPlans.mealBasicInfo);
   const mealDetailsState =
     currentModuleContext.currentModule === Modules.PROGRAMS
       ? useSelector((state: ReduxStates) => state.programs.mealDetails)
-      : useSelector((state: ReduxStates) => state.clientPlans.mealDetails);
+      : useSelector((state: ReduxStates) => state.patientPlans.mealDetails);
 
   const dispatch = useDispatch();
 

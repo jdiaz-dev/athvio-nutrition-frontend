@@ -1,7 +1,7 @@
 import { Modules } from 'src/shared/Consts';
 import { usePlanMeal } from 'src/modules/professionals/programs/adapters/out/MealActions';
-// import { useClientPlan } from 'src/modules/clients/client-plans/adapters/out/ClientPlanActions';
-import { useClientPlanMeal } from 'src/modules/clients/client-plans/adapters/out/PlanMealActions';
+// import { usePatientPlan } from 'src/modules/patients/patient-plans/adapters/out/PatientPlanActions';
+import { usePatientPlanMeal } from 'src/modules/patients/patient-plans/adapters/out/PlanMealActions';
 import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 
 interface CreateMeal {
@@ -21,7 +21,7 @@ interface DeleteMeal extends Omit<CreateMeal, 'mealBody'> {
 
 export const useMealDetailAdapter = (currentModule: string) => {
   const { createPlanMeal, updatePlanMeal, deletePlanMeal } = usePlanMeal();
-  const { createClientPlanMeal, updateClientPlanMeal, deleteClientPlanMeal } = useClientPlanMeal();
+  const { createPatientPlanMeal, updatePatientPlanMeal, deletePatientPlanMeal } = usePatientPlanMeal();
 
   const createMeal = async (data: CreateMeal) => {
     if (currentModule === Modules.PROGRAMS) {
@@ -32,10 +32,10 @@ export const useMealDetailAdapter = (currentModule: string) => {
         mealBody: data.mealBody,
       });
     } else if (currentModule === Modules.CLIENT_PLANS) {
-      await createClientPlanMeal({
+      await createPatientPlanMeal({
         professional: data.professional,
-        client: data.domainOwnerId,
-        clientPlan: data.planOwnerId,
+        patient: data.domainOwnerId,
+        patientPlan: data.planOwnerId,
         mealBody: data.mealBody,
       });
     }
@@ -51,10 +51,10 @@ export const useMealDetailAdapter = (currentModule: string) => {
         mealBody: data.mealBody,
       });
     } else {
-      await updateClientPlanMeal({
+      await updatePatientPlanMeal({
         professional: data.professional,
-        client: data.domainOwnerId,
-        clientPlan: data.planOwnerId,
+        patient: data.domainOwnerId,
+        patientPlan: data.planOwnerId,
         meal: data.meal,
         mealBody: data.mealBody,
       });
@@ -70,10 +70,10 @@ export const useMealDetailAdapter = (currentModule: string) => {
         meal: data.meal,
       });
     } else {
-      await deleteClientPlanMeal({
+      await deletePatientPlanMeal({
         professional: data.professional,
-        client: data.domainOwnerId,
-        clientPlan: data.planOwnerId,
+        patient: data.domainOwnerId,
+        patientPlan: data.planOwnerId,
         meal: data.meal,
       });
     }

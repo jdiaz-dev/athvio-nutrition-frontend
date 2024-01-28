@@ -34,19 +34,19 @@ export enum ProgramMessages {
 
 export enum UserType {
   PROFESSIONAL = 'professional',
-  CLIENT = 'client',
+  CLIENT = 'patient',
 }
 
-export enum ManageClientGroupEnum {
+export enum ManagePatientGroupEnum {
   ADD = 'add',
   REMOVE = 'remove',
 }
 
 export enum Modules {
-  CLIENTS = 'clients',
+  CLIENTS = 'patients',
   PROGRAMS = 'programs',
   CUSTOM_RECIPES = 'customRecipes',
-  CLIENT_PLANS = 'clientPlans',
+  CLIENT_PLANS = 'patientPlans',
 }
 
 export enum WeekActions {
@@ -81,12 +81,12 @@ export enum FoodDatabases {
   SYSTEM = 'SYSTEM',
   CUSTOM_RECIPES = 'CUSTOM_RECIPES',
 }
-export enum ClientStates {
+export enum PatientStates {
   ACTIVE = 'active',
   ARCHIVED = 'archived',
 }
 
-export enum ClientStatesActions {
+export enum PatientStatesActions {
   ACTIVATE = 'activate',
   ARCHIVE = 'archive',
 }

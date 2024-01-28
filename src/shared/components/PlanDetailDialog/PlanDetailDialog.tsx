@@ -30,7 +30,7 @@ function PlanDetailDialog({
   const planState =
     currentModuleContext.currentModule === Modules.PROGRAMS
       ? useSelector((state: ReduxStates) => state.programs.plans).find((_plan) => _plan._id === planOwnerId)
-      : useSelector((state: ReduxStates) => state.clientPlans.clientPlan);
+      : useSelector((state: ReduxStates) => state.patientPlans.patientPlan);
   const [meals, setMeals] = useState<Meal[]>([]);
   const [closeIconDialog, setCloseIconDialog] = useState(true);
   useEffect(() => {

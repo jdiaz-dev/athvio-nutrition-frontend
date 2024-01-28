@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 export const assignProgramInitialState: AssignProgramInitialState = {
   professional: '',
   program: '',
-  clients: [],
+  patients: [],
   assignmentStartDate: dayjs(),
   startingDay: 1,
 };

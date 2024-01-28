@@ -28,12 +28,11 @@ function SignIn() {
   } = useForm();
 
   isFinite;
-
   if (data) {
     saveDataUser(data.signIn);
     professionalIdContext.setProfessional(data.signIn._id);
     authContext.setIsAuthenticated(true);
-    return <Navigate replace to="/sidenav/clients" />;
+    return <Navigate replace to="/sidenav/patients" />;
   }
 
   const onSubmit = async (dataUser: CredentialsSignIn): Promise<void> => {
