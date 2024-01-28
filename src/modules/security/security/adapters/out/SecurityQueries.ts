@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
-export const LOG_IN = gql`
-  mutation doLogin($input: LoginDto!) {
-    logIn(input: $input) {
+export const SIGN_IN = gql`
+  mutation signIn($input: SignInDto!) {
+    signIn(input: $input) {
       _id
       userType
       token

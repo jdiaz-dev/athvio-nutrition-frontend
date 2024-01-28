@@ -1,4 +1,4 @@
-export type CredentialsLogIn = {
+export type CredentialsSignIn = {
   email: string;
   password: string;
 };
@@ -9,10 +9,10 @@ export type JwtDto = {
   token: string;
 };
 
-export type LoginMutation = {
-  logIn: JwtDto;
+export type SignInMutation = {
+  signIn: JwtDto;
 };
 
-export type LoginRequest = {
-  input: CredentialsLogIn;
+export type SignInRequest = {
+  input: CredentialsSignIn;
 };

@@ -1,13 +1,11 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.scss';
-import { checkAuthentication, getUserFromLocalStorage } from './shared/helpers/LocalStorage';
-// import LogIn from './modules/security/security/adapters/in/components/LogIn';
+import { getUserFromLocalStorage } from './shared/helpers/LocalStorage';
 import ClientsContainer from './modules/clients/clients/adapters/in/components/ClientsContainer';
 import ProgramsContainer from './modules/professionals/programs/adapters/in/components/ProgramsContainer';
 import { Drawer } from './shared/components/Drawer';
 import { SignUp } from './modules/security/users/adapters/in/SignUp';
-import { LogIn } from 'src/modules/security/security/adapters/in/LogIn';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { UserType } from 'src/shared/Consts';
@@ -15,17 +13,7 @@ import CustomRecipesContainer from 'src/modules/professionals/custom-recipes/ada
 import ProgramPlansContainer from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/ProgramPlansContainer';
 import Lab from 'src/modules/Lab';
 import ClientPlansContainer from 'src/modules/clients/client-plans/adapters/in/components/ClientPlansContainer/ClientPlansContainer';
-
-/* const loginStyles = makeStyles({
-  container: {
-    height: '100vh',
-    position: 'relative',
-  },
-  login: {
-    width: '100%',
-  },
-});
- */
+import SignIn from './modules/security/security/adapters/in/SignIn';
 
 export const AuthContext = createContext<{
   isAuthenticated: boolean;
@@ -38,7 +26,6 @@ export const ProfessionalIdContext = createContext<{
 }>({ professional: '', setProfessional: useState });
 
 function App() {
-  // const loginClasses = loginStyles;
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [professional, setProfessional] = useState('');
@@ -71,7 +58,7 @@ function App() {
         <AuthContext.Provider value={authContext}>
           <ProfessionalIdContext.Provider value={professionalContext}>
             <Routes>
-              <Route path="*" element={<LogIn />} />
+              <Route path="*" element={<SignIn />} />
               <Route path="signup" element={<SignUp />} />
 
               {

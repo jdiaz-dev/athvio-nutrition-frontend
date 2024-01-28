@@ -2,7 +2,7 @@ import React, { createContext, useState } from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
-import { CreateClientDialog } from 'src/modules/clients/clients/adapters/in/dialogs/CreateClientDialog';
+import SignUpClientDialog from 'src/modules/clients/clients/adapters/in/dialogs/SignUpClientDialog';
 import ClientGroupsContainer from 'src/modules/professionals/client-groups/adapters/in/components/ClientGroupsContainer';
 import { ClientGroup } from 'src/shared/types/types';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
@@ -39,7 +39,7 @@ function ClientsContainer() {
         </ClientGroupsContext.Provider>
 
         {openCreateClientDialog && (
-          <CreateClientDialog openCreateClientDialog={openCreateClientDialog} setOpenCreateClientDialog={setOpenCreateClientDialog} />
+          <SignUpClientDialog openCreateClientDialog={openCreateClientDialog} setOpenCreateClientDialog={setOpenCreateClientDialog} />
         )}
       </ReloadRecordListContext.Provider>
     </>

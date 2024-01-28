@@ -10,13 +10,13 @@ import Typography from '@mui/material/Typography';
 
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { MessagesUserForm } from 'src/shared/Consts';
-import { CREATE_CLIENT } from 'src/modules/clients/clients/adapters/out/ClientQueries';
+import { SIGN_UP_CLIENT } from 'src/modules/clients/clients/adapters/out/ClientQueries';
 import { makeStyles } from 'tss-react/mui';
 import {
   BodyClient,
   ClientData,
-  CreateClientRequest,
-  CreateClientResponse,
+  SignUpClientRequest,
+  SignUpClientResponse,
   UserInfoForClient,
 } from 'src/modules/clients/clients/adapters/out/client.types';
 import CountryCodeSelect from 'src/shared/components/CountryCodeSelect';
@@ -57,7 +57,7 @@ const cardStyles = makeStyles()(() => {
   };
 });
 
-export function CreateClientDialog({
+function SignUpClientDialog({
   openCreateClientDialog,
   setOpenCreateClientDialog,
 }: {
@@ -74,7 +74,7 @@ export function CreateClientDialog({
   const professionalIdContext = useContext(ProfessionalIdContext);
   const reloadRecordList = useContext(ReloadRecordListContext);
 
-  const [createClientHandler] = useMutation<CreateClientResponse, CreateClientRequest>(CREATE_CLIENT);
+  const [createClientHandler] = useMutation<SignUpClientResponse, SignUpClientRequest>(SIGN_UP_CLIENT);
   const { openDialog, setOpenDialog, message, setMessage } = useMessageDialog();
 
   const [panelExpanded, setPanelExpanded] = useState<string | false>(false);
@@ -117,7 +117,7 @@ export function CreateClientDialog({
           input,
         },
       });
-      const _client = client.data?.createClient.userInfo as UserInfoForClient;
+      const _client = client.data?.signUpClient.userInfo as UserInfoForClient;
       setUserInfo({
         email: _client.email,
         firstName: _client.firstName,
@@ -285,3 +285,5 @@ export function CreateClientDialog({
     </>
   );
 }
+
+export default SignUpClientDialog

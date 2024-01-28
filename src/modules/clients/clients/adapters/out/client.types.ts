@@ -31,7 +31,7 @@ export type BodyClient = {
   userInfo: UserInfoForClient;
   additionalInfo: AdditionalInfo;
 };
-export interface CreateClientRequest {
+export interface SignUpClientRequest {
   input: BodyClient;
 }
 
@@ -40,8 +40,8 @@ export type ClientBodyResponse = {
   userInfo: UserInfoForClient;
 };
 
-export type CreateClientResponse = {
-  createClient: ClientBodyResponse;
+export type SignUpClientResponse = {
+  signUpClient: ClientBodyResponse;
 };
 
 export type GetClientsRequest = {

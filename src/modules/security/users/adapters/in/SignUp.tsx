@@ -31,7 +31,7 @@ const cardStyles = makeStyles()(() => {
       width: '90%',
       marginTop: '15px',
     },
-    loginButton: {
+    signInButton: {
       'backgroundColor': 'blue',
       'width': '90%',
       'color': 'white',
@@ -163,7 +163,7 @@ export function SignUp() {
             error={Boolean(errors.country)}
             helperText={errors.country?.message as ReactNode}
           />
-          <Button className={classes.loginButton} size="small" type="submit">
+          <Button className={classes.signInButton} size="small" type="submit">
             Start your free trial
           </Button>
         </form>

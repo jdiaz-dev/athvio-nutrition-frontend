@@ -7,56 +7,20 @@ import Button from '@mui/material//Button';
 import TextField from '@mui/material/TextField';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
-import {
-  CredentialsLogIn,
-  LoginMutation,
-  LoginRequest,
-} from 'src/modules/security/security/adapters/out/security.types';
+import { CredentialsSignIn, SignInMutation, SignInRequest } from 'src/modules/security/security/adapters/out/security.types';
 import { AuthContext, ProfessionalIdContext } from 'src/App';
 import { MessagesUserForm } from 'src/shared/Consts';
-import { LOG_IN } from 'src/modules/security/security/adapters/out/SecurityQueries';
+import { SIGN_IN } from 'src/modules/security/security/adapters/out/SecurityQueries';
 import { saveDataUser } from 'src/shared/helpers/LocalStorage';
 import { ApolloError, useMutation } from '@apollo/client';
 
-const cardStyles = makeStyles()(() => {
-  return {
-    container: {
-      margin: '0px',
-    },
-    card: {
-      minWidth: 275,
-      width: '70%',
-      margin: '0px auto',
-      padding: '0px',
-    },
-    form: {
-      width: '100%',
-    },
-    textField: {
-      width: '90%',
-      marginTop: '15px',
-    },
-    loginButton: {
-      'backgroundColor': 'blue',
-      'width': '90%',
-      'color': 'white',
-      'height': '45px',
-      'marginTop': '15px',
-      'marginBottom': '15px',
-      '&:hover': {
-        backgroundColor: 'blue',
-      },
-    },
-  };
-});
-
-export function LogIn() {
-  const { classes } = cardStyles();
+function SignIn() {
+  const { classes } = styles();
 
   const authContext = useContext(AuthContext);
   const professionalIdContext = useContext(ProfessionalIdContext);
 
-  const [loginHandler, { data }] = useMutation<LoginMutation, LoginRequest>(LOG_IN);
+  const [signInHandler, { data }] = useMutation<SignInMutation, SignInRequest>(SIGN_IN);
   const {
     register,
     handleSubmit,
@@ -66,15 +30,15 @@ export function LogIn() {
   isFinite;
 
   if (data) {
-    saveDataUser(data.logIn);
-    professionalIdContext.setProfessional(data.logIn._id);
+    saveDataUser(data.signIn);
+    professionalIdContext.setProfessional(data.signIn._id);
     authContext.setIsAuthenticated(true);
     return <Navigate replace to="/sidenav/clients" />;
   }
 
-  const onSubmit = async (dataUser: CredentialsLogIn): Promise<void> => {
+  const onSubmit = async (dataUser: CredentialsSignIn): Promise<void> => {
     try {
-      await loginHandler({
+      await signInHandler({
         variables: {
           input: {
             ...dataUser,
@@ -123,7 +87,7 @@ export function LogIn() {
             error={Boolean(errors.password)}
             helperText={errors.password?.message as ReactNode}
           />
-          <Button className={classes.loginButton} size="small" type="submit">
+          <Button className={classes.signInButton} size="small" type="submit">
             Iniciar sesión
           </Button>
         </form>
@@ -131,3 +95,36 @@ export function LogIn() {
     </div>
   );
 }
+const styles = makeStyles()(() => {
+  return {
+    container: {
+      margin: '0px',
+    },
+    card: {
+      minWidth: 275,
+      width: '70%',
+      margin: '0px auto',
+      padding: '0px',
+    },
+    form: {
+      width: '100%',
+    },
+    textField: {
+      width: '90%',
+      marginTop: '15px',
+    },
+    signInButton: {
+      'backgroundColor': 'blue',
+      'width': '90%',
+      'color': 'white',
+      'height': '45px',
+      'marginTop': '15px',
+      'marginBottom': '15px',
+      '&:hover': {
+        backgroundColor: 'blue',
+      },
+    },
+  };
+});
+
+export default SignIn;
