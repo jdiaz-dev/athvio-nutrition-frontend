@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { MessagesUserForm } from 'src/shared/Consts';
-import { SIGN_UP_CLIENT } from 'src/modules/patients/patients/adapters/out/PatientQueries';
+import { SIGN_UP_PATIENT } from 'src/modules/patients/patients/adapters/out/PatientQueries';
 import { makeStyles } from 'tss-react/mui';
 import {
   BodyPatient,
@@ -74,7 +74,7 @@ function SignUpPatientDialog({
   const professionalIdContext = useContext(ProfessionalIdContext);
   const reloadRecordList = useContext(ReloadRecordListContext);
 
-  const [createPatientHandler] = useMutation<SignUpPatientResponse, SignUpPatientRequest>(SIGN_UP_CLIENT);
+  const [createPatientHandler] = useMutation<SignUpPatientResponse, SignUpPatientRequest>(SIGN_UP_PATIENT);
   const { openDialog, setOpenDialog, message, setMessage } = useMessageDialog();
 
   const [panelExpanded, setPanelExpanded] = useState<string | false>(false);

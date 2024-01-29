@@ -17,6 +17,8 @@ import SelectedPatients from 'src/modules/professionals/assign-program/in/dialog
 import AssigmentStartDate from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/AssigmentStartDate';
 import StartDaySelector from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/StartDaySelector';
 import { useAssignProgram } from 'src/modules/professionals/assign-program/out/AssignProgramActions';
+import { MessagesForOkDialog } from 'src/shared/Consts';
+import * as AssignProgramSlice from 'src/modules/professionals/assign-program/in/slicers/AssignProgramSlice';
 
 function AssignProgramDialog({
   openAssignPogramDialog,
@@ -32,6 +34,7 @@ function AssignProgramDialog({
   const programState = useSelector((state: ReduxStates) => state.programs.program);
   const assignProgramState = useSelector((state: ReduxStates) => state.assignProgram);
   const [closeIconDialog, setCloseIconDialog] = useState(true);
+  console.log('-----------assignProgramState', assignProgramState)
 
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk } = useMessageDialog();
   const { assignProgram } = useAssignProgram();
@@ -54,7 +57,9 @@ function AssignProgramDialog({
       assignmentStartDate: assignProgramState.assignmentStartDate,
       startingDay: assignProgramState.startingDay,
     });
-    setOpenAssignPogramDialog(false)
+    setMessage(MessagesForOkDialog.PROGRAM_ASSIGNED);
+    setOpenDialog(true);
+    dispatch(AssignProgramSlice.resetAssignmets());
   };
   useEffect(() => {
     if (!openDialog && messageOk) {

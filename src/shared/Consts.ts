@@ -90,3 +90,7 @@ export enum PatientStatesActions {
   ACTIVATE = 'activate',
   ARCHIVE = 'archive',
 }
+
+export enum MessagesForOkDialog {
+  PROGRAM_ASSIGNED = 'Program assignment queued!',
+}

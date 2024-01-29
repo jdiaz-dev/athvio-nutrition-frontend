@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const SIGN_UP_CLIENT = gql`
+export const SIGN_UP_PATIENT = gql`
   mutation _signUpPatient($input: SignUpPatientDto!) {
     signUpPatient(input: $input) {
       _id

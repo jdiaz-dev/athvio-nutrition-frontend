@@ -8,7 +8,8 @@ export const assignProgramSlice = createSlice({
   initialState: assignProgramInitialState,
   reducers: {
     assignNewPatient: (state, action: PayloadAction<PatientToAssign>) => {
-      state.patients.push(action.payload);
+      const patientFound = state.patients.find((patient) => patient._id === action.payload._id);
+      if (!patientFound) state.patients.push(action.payload);
       return state;
     },
     unassignPatient: (state, action: PayloadAction<PatientToAssign>) => {
@@ -24,8 +25,12 @@ export const assignProgramSlice = createSlice({
       state.startingDay = action.payload;
       return state;
     },
+    resetAssignmets: (state) => {
+      state = assignProgramInitialState;
+      return state;
+    },
   },
 });
 
-export const { assignNewPatient, unassignPatient, assignStartDate, assignStartingDay } = assignProgramSlice.actions;
+export const { assignNewPatient, unassignPatient, assignStartDate, assignStartingDay, resetAssignmets } = assignProgramSlice.actions;
 export default assignProgramSlice.reducer;

@@ -7,7 +7,7 @@ import Button from '@mui/material//Button';
 import TextField from '@mui/material/TextField';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
-import { CredentialsSignIn, SignInMutation, SignInRequest } from 'src/modules/authentication/security/adapters/out/security.types';
+import { CredentialsSignIn, SignInResponse, SignInRequest } from 'src/modules/authentication/security/adapters/out/security.types';
 import { AuthContext, ProfessionalIdContext } from 'src/App';
 import { MessagesUserForm } from 'src/shared/Consts';
 import { SIGN_IN } from 'src/modules/authentication/security/adapters/out/SecurityQueries';
@@ -20,14 +20,13 @@ function SignIn() {
   const authContext = useContext(AuthContext);
   const professionalIdContext = useContext(ProfessionalIdContext);
 
-  const [signInHandler, { data }] = useMutation<SignInMutation, SignInRequest>(SIGN_IN);
+  const [signInHandler, { data }] = useMutation<SignInResponse, SignInRequest>(SIGN_IN);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  isFinite;
   if (data) {
     saveDataUser(data.signIn);
     professionalIdContext.setProfessional(data.signIn._id);

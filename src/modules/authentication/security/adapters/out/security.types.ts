@@ -9,7 +9,7 @@ export type JwtDto = {
   token: string;
 };
 
-export type SignInMutation = {
+export type SignInResponse = {
   signIn: JwtDto;
 };
 

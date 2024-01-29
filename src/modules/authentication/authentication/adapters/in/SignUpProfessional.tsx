@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUserInfo } from 'src/modules/authentication/authentication/adapters/in/UserSlice';
 import { setCountryCode } from 'src/modules/authentication/authentication/adapters/in/UserSlice';
 import { ReduxStates } from 'src/shared/types/types';
-import { SetUserInfo } from '../out/authentication.types';
+import { SetUserInfo, SignUpProfessionalModel } from '../out/authentication.types';
 import { useAuthentication } from '../out/authenticationActions';
 
 const cardStyles = makeStyles()(() => {
@@ -45,23 +45,31 @@ const cardStyles = makeStyles()(() => {
   };
 });
 
-export function SignUp() {
+function SignUpProfessional() {
   const { classes } = cardStyles();
   const user = useSelector((state: ReduxStates) => state.users);
-  const countryCode = useSelector((state: ReduxStates) => state.users.countryCode);
+  // const countryCode = useSelector((state: ReduxStates) => state.users.countryCode);
 
   const [userUpdated, setUserUpdated] = useState(false);
+  const [countryCode, setCountryCode] = useState<string | undefined>();
+  const [countryName, setCountryName] = useState<string | undefined>('');
+
   const dispatch = useDispatch();
   const { signUp } = useAuthentication();
 
   useEffect(() => {
     const signUpRequest = async () => {
-      await signUp(user);
+      let _user: SignUpProfessionalModel = { ...user };
+      if (countryName) _user.country = countryName;
+      await signUp(_user);
+      console.log('-----------entried2');
+
       setUserUpdated(false);
     };
     if (userUpdated) {
       void signUpRequest();
     }
+    console.log('-----------entried1');
   }, [userUpdated]);
   const {
     register,
@@ -141,7 +149,7 @@ export function SignUp() {
             error={Boolean(errors.businessName)}
             helperText={errors.businessName?.message as ReactNode}
           />
-          <CountryCodeSelect countryCode={countryCode} setCountryCode={setCountryCode} />
+          <CountryCodeSelect countryCode={countryCode} setCountryCode={setCountryCode} setCountryName={setCountryName} />
           <TextField
             className={classes.textField}
             id="filled-basic"
@@ -153,7 +161,7 @@ export function SignUp() {
             helperText={errors.phone?.message as ReactNode}
           />
 
-          <TextField
+          {/* <TextField
             className={classes.textField}
             id="filled-basic"
             label="What country do you live in?"
@@ -162,7 +170,7 @@ export function SignUp() {
             {...register('country', { required: MessagesUserForm.COUNTRY_MANDATORY })}
             error={Boolean(errors.country)}
             helperText={errors.country?.message as ReactNode}
-          />
+          /> */}
           <Button className={classes.signInButton} size="small" type="submit">
             Start your free trial
           </Button>
@@ -171,3 +179,5 @@ export function SignUp() {
     </div>
   );
 }
+
+export default SignUpProfessional;

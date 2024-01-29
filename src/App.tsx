@@ -5,7 +5,7 @@ import { getUserFromLocalStorage } from './shared/helpers/LocalStorage';
 import PatientsContainer from './modules/patients/patients/adapters/in/components/PatientsContainer';
 import ProgramsContainer from './modules/professionals/programs/adapters/in/components/ProgramsContainer';
 import { Drawer } from './shared/components/Drawer';
-import { SignUp } from './modules/authentication/authentication/adapters/in/SignUp';
+import SignUpProfessional from './modules/authentication/authentication/adapters/in/SignUpProfessional';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { UserType } from 'src/shared/Consts';
@@ -59,7 +59,7 @@ function App() {
           <ProfessionalIdContext.Provider value={professionalContext}>
             <Routes>
               <Route path="*" element={<SignIn />} />
-              <Route path="signup" element={<SignUp />} />
+              <Route path="signup" element={<SignUpProfessional />} />
 
               {
                 <Route path="sidenav" element={<Drawer />}>
@@ -83,14 +83,10 @@ export default App;
 
 /*
   TODO
-  - implement remove and edit ingredient previously added
-  - searcher and paginator for custom Recipes
   - fix delay data after to update recipe (programs module)
   - fix button touched but doesn't increment ingredient amount in program plans
-  - fix create meal plan (at momemt to choose meal name from wilcalrd call inmediatly to the backend) in MealDetail component
 
   - rename export interface RecipeBody
-  - fix bug at moment to add ingredient and some macros is 0, NaN  is the  result trying to add ingredient
   - fix : only use one call to server in patientList component (void call by default, use skip call for it)
   - fix. refactor food list component ot better understand
   - fix: refactor - at moment to get info from ALL database, it is not capable to get the meal searched in the search
@@ -109,10 +105,13 @@ export default App;
 */
 
 /*
-  todo now
-  - eliminate plan from program
-  - copy plan to another day
 
   urgent
     - realize import in backend
+*/
+
+
+/* 
+  stayed
+    move code from security to authentication module
 */

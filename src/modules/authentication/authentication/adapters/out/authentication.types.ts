@@ -1,4 +1,4 @@
-export interface UserSignUpModel {
+export interface SignUpProfessionalModel {
   firstName: string;
   lastName: string;
   email: string;
@@ -12,10 +12,10 @@ export interface UserSignUpModel {
   };
 }
 
-export interface SetUserInfo extends Omit<UserSignUpModel, 'countryCode' | 'professionalInfo'> {
+export interface SetUserInfo extends Omit<SignUpProfessionalModel, 'countryCode' | 'professionalInfo'> {
   businessName: string;
 }
 
 export type SignUpRequest = {
-  input: UserSignUpModel;
+  input: SignUpProfessionalModel;
 };

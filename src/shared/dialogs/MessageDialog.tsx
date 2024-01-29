@@ -19,6 +19,8 @@ function MessageDialog({
   setMessageOk?: (openDialog: boolean) => void;
   alert?: boolean;
 }) {
+  console.log('-----------openDialog', openDialog)
+  console.log('-----------message', message)
   return (
     <>
       <Dialog open={openDialog} onClose={setOpenDialog} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { SetUserInfo } from '../out/authentication.types';
+import { SetUserInfo, SignUpProfessionalModel } from '../out/authentication.types';
 
-const initialState = {
+const initialState: SignUpProfessionalModel = {
   firstName: '',
   lastName: '',
   email: '',
@@ -30,13 +30,16 @@ export const usersSlice = createSlice({
       state.country = action.payload.country;
       state.phone = action.payload.phone;
       state.professionalInfo.businessName = action.payload.businessName;
+      return state;
     },
     setCountryCode: (state, action: PayloadAction<string>) => {
       state.countryCode = action.payload;
+      return state;
     },
     resetUser: (state) => {
       state = initialState;
       state;
+      return state;
     },
   },
 });
