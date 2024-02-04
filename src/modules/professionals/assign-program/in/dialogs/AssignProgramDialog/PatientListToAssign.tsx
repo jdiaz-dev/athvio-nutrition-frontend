@@ -6,7 +6,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-import { ProfessionalIdContext } from 'src/App';
 import SearcherBar from 'src/shared/components/SearcherBar';
 import { useSearcher } from 'src/shared/hooks/useSearcher';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
@@ -18,9 +17,10 @@ import { usePaginator } from 'src/shared/hooks/usePaginator';
 import Paginator from 'src/shared/components/Paginator';
 import { PatientStates } from 'src/shared/Consts';
 import PatientItem from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/PatientItem';
+import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 function PatientList() {
-  const professionalIdContext = useContext(ProfessionalIdContext);
+  const authContext = useContext(AuthContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
 
   const {
@@ -41,7 +41,7 @@ function PatientList() {
   const [patients, setPatients] = useState<PatientBody[]>([]);
 
   const input = {
-    professional: professionalIdContext.professional,
+    professional: authContext.professional,
     offset: offset,
     limit: rowsPerPage,
     state: PatientStates.ACTIVE,
@@ -55,14 +55,14 @@ function PatientList() {
       setLength(res.data.getPatients.meta.total);
     };
     const getPatients = () => {
-      if (professionalIdContext.professional || reloadRecordListContext.reloadRecordList || choosedWord) {
+      if (authContext.professional || reloadRecordListContext.reloadRecordList || choosedWord) {
         void getPatientsHelper();
         setChoosedWord(false);
         reloadRecordListContext.setReloadRecordList(false);
       }
     };
     getPatients();
-  }, [professionalIdContext.professional, reloadRecordListContext.reloadRecordList, choosedWord, offset]);
+  }, [authContext.professional, reloadRecordListContext.reloadRecordList, choosedWord, offset]);
 
   useEffect(() => {
     const getPatientsForSearcher = async () => {

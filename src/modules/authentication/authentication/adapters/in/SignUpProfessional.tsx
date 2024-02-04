@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useContext, useState } from 'react';
 import { makeStyles } from 'tss-react/mui';
 import Card from '@mui/material/Card';
 import Button from '@mui/material//Button';
@@ -6,86 +6,55 @@ import TextField from '@mui/material/TextField';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import CountryCodeSelect from 'src/shared/components/CountryCodeSelect';
 import { MessagesUserForm } from 'src/shared/Consts';
-import { useDispatch, useSelector } from 'react-redux';
-import { setUserInfo } from 'src/modules/authentication/authentication/adapters/in/UserSlice';
-import { setCountryCode } from 'src/modules/authentication/authentication/adapters/in/UserSlice';
-import { ReduxStates } from 'src/shared/types/types';
+import { useDispatch } from 'react-redux';
+import { resetUser } from 'src/modules/authentication/authentication/adapters/in/UserSlice';
 import { SetUserInfo, SignUpProfessionalModel } from '../out/authentication.types';
 import { useAuthentication } from '../out/authenticationActions';
-
-const cardStyles = makeStyles()(() => {
-  return {
-    container: {
-      margin: '0px',
-    },
-    card: {
-      minWidth: 275,
-      width: '70%',
-      margin: '0px auto',
-      padding: '0px',
-    },
-    form: {
-      width: '100%',
-    },
-    textField: {
-      width: '90%',
-      marginTop: '15px',
-    },
-    signInButton: {
-      'backgroundColor': 'blue',
-      'width': '90%',
-      'color': 'white',
-      'height': '45px',
-      'marginTop': '15px',
-      'marginBottom': '15px',
-      '&:hover': {
-        backgroundColor: 'blue',
-      },
-    },
-  };
-});
+import { Navigate } from 'react-router-dom';
+import { saveDataUser } from 'src/shared/helpers/LocalStorage';
+import { AuthContext } from './context/AuthContext';
 
 function SignUpProfessional() {
-  const { classes } = cardStyles();
-  const user = useSelector((state: ReduxStates) => state.users);
-  // const countryCode = useSelector((state: ReduxStates) => state.users.countryCode);
+  const authContext = useContext(AuthContext);
+  const dispatch = useDispatch();
 
-  const [userUpdated, setUserUpdated] = useState(false);
   const [countryCode, setCountryCode] = useState<string | undefined>();
   const [countryName, setCountryName] = useState<string | undefined>('');
 
-  const dispatch = useDispatch();
   const { signUp } = useAuthentication();
 
-  useEffect(() => {
-    const signUpRequest = async () => {
-      let _user: SignUpProfessionalModel = { ...user };
-      if (countryName) _user.country = countryName;
-      await signUp(_user);
-      console.log('-----------entried2');
-
-      setUserUpdated(false);
-    };
-    if (userUpdated) {
-      void signUpRequest();
+  const signUpRequest = async ({ businessName, ...rest }: SetUserInfo) => {
+    console.log('----------dataUser', rest);
+    let _user: SignUpProfessionalModel = { ...rest };
+    if (businessName) _user.professionalInfo = { businessName };
+    if (countryName) _user.country = countryName;
+    if (countryCode) _user.countryCode = countryCode;
+    console.log('-----------data emptyu');
+    const { data } = await signUp(_user);
+    console.log('-----------data', data);
+    if (data) {
+      dispatch(resetUser());
+      saveDataUser(data.signUpProfessional);
+      /* authContext.setProfessional(data.signUpProfessional._id);
+      authContext.setIsAuthenticated(true); */
     }
-    console.log('-----------entried1');
-  }, [userUpdated]);
+  };
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (dataUser: SetUserInfo): void => {
-    dispatch(setUserInfo(dataUser));
-    setUserUpdated(true);
-  };
+  const { classes } = styles();
+
+  if (authContext.isAuthenticated) {
+    return <Navigate replace to="/sidenav/patients" />;
+  }
 
   return (
     <div className={classes.container}>
       <Card className={classes.card} variant="outlined">
-        <form className={classes.form} onSubmit={handleSubmit(onSubmit as any as SubmitHandler<FieldValues>)}>
+        <form className={classes.form} onSubmit={handleSubmit(signUpRequest as any as SubmitHandler<FieldValues>)}>
           <TextField
             className={classes.textField}
             id="outlined-basic"
@@ -145,7 +114,7 @@ function SignUpProfessional() {
             label="Enter Bussines Name"
             variant="outlined"
             type="text"
-            {...register('businessName', { required: MessagesUserForm.BUSSINES_NAME_MANDATORY })}
+            {...register('businessName', { required: false })}
             error={Boolean(errors.businessName)}
             helperText={errors.businessName?.message as ReactNode}
           />
@@ -156,21 +125,10 @@ function SignUpProfessional() {
             label="Phone"
             variant="outlined"
             type="text"
-            {...register('phone', { required: MessagesUserForm.PHONE_MANDATORY })}
+            {...register('phone', { required: false })}
             error={Boolean(errors.phone)}
             helperText={errors.phone?.message as ReactNode}
           />
-
-          {/* <TextField
-            className={classes.textField}
-            id="filled-basic"
-            label="What country do you live in?"
-            variant="outlined"
-            type="text"
-            {...register('country', { required: MessagesUserForm.COUNTRY_MANDATORY })}
-            error={Boolean(errors.country)}
-            helperText={errors.country?.message as ReactNode}
-          /> */}
           <Button className={classes.signInButton} size="small" type="submit">
             Start your free trial
           </Button>
@@ -179,5 +137,37 @@ function SignUpProfessional() {
     </div>
   );
 }
+
+const styles = makeStyles()(() => {
+  return {
+    container: {
+      margin: '0px',
+    },
+    card: {
+      minWidth: 275,
+      width: '70%',
+      margin: '0px auto',
+      padding: '0px',
+    },
+    form: {
+      width: '100%',
+    },
+    textField: {
+      width: '90%',
+      marginTop: '15px',
+    },
+    signInButton: {
+      'backgroundColor': 'blue',
+      'width': '90%',
+      'color': 'white',
+      'height': '45px',
+      'marginTop': '15px',
+      'marginBottom': '15px',
+      '&:hover': {
+        backgroundColor: 'blue',
+      },
+    },
+  };
+});
 
 export default SignUpProfessional;

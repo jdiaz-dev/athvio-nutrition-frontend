@@ -6,7 +6,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-import { ProfessionalIdContext } from 'src/App';
 import SearcherBar from 'src/shared/components/SearcherBar';
 import { useSearcher } from 'src/shared/hooks/useSearcher';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
@@ -24,9 +23,10 @@ import { usePaginator } from 'src/shared/hooks/usePaginator';
 import Paginator from 'src/shared/components/Paginator';
 import { PatientStates } from 'src/shared/Consts';
 import { PatientStateContext } from 'src/modules/patients/patients/adapters/in/components/PatientStateContext';
+import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 function PatientList() {
-  const professionalIdContext = useContext(ProfessionalIdContext);
+  const authContext = useContext(AuthContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const patientStateContext = useContext(PatientStateContext);
 
@@ -48,7 +48,7 @@ function PatientList() {
   const [patients, setPatients] = useState<PatientBody[]>([]);
 
   const input: GraphQLPatientInput = {
-    professional: professionalIdContext.professional,
+    professional: authContext.professional,
     offset: searchWords.length == 1 ? 0 : offset,
     limit: rowsPerPage,
     state: Object.entries(PatientStates)[patientStateContext.indexState][1],
@@ -72,14 +72,14 @@ function PatientList() {
       }
     };
     const getPatients = () => {
-      if (professionalIdContext.professional || reloadRecordListContext.reloadRecordList || choosedWord) {
+      if (authContext.professional || reloadRecordListContext.reloadRecordList || choosedWord) {
         void getPatientsHelper();
         setChoosedWord(false);
         reloadRecordListContext.setReloadRecordList(false);
       }
     };
     getPatients();
-  }, [professionalIdContext.professional, reloadRecordListContext.reloadRecordList, choosedWord, offset, patientStateContext.indexState]);
+  }, [authContext.professional, reloadRecordListContext.reloadRecordList, choosedWord, offset, patientStateContext.indexState]);
 
   useEffect(() => {
     const getPatientsForSearcher = async () => {

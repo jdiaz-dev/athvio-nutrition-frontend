@@ -4,7 +4,6 @@ import IconButton from '@mui/material/IconButton';
 import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
 import { Chip, Grid, Menu, MenuItem } from '@mui/material';
-import { ProfessionalIdContext } from 'src/App';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { ProgramBody } from 'src/modules/professionals/programs/adapters/out/program.types';
 import { useProgram } from 'src/modules/professionals/programs/adapters/out/ProgramActions';
@@ -13,6 +12,7 @@ import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
 import MessageDialog from 'src/shared/dialogs/MessageDialog';
 import { Navigate } from 'react-router-dom';
 import AssignProgramDialog from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/AssignProgramDialog';
+import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 const chipStyle = (totalPlans: number) => ({
   opacity: totalPlans > 0 ? 1 : 0.6,
@@ -20,7 +20,7 @@ const chipStyle = (totalPlans: number) => ({
 });
 
 function Program(program: ProgramBody) {
-  const professionalIdContext = useContext(ProfessionalIdContext);
+  const authContext = useContext(AuthContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk, alert, setAlert } = useMessageDialog();
 
@@ -34,7 +34,7 @@ function Program(program: ProgramBody) {
   useEffect(() => {
     if (alert && messageOk) {
       void deleteProgram({
-        professional: professionalIdContext.professional,
+        professional: authContext.professional,
         program: program._id || '',
       });
       reloadRecordListContext.setReloadRecordList(true);

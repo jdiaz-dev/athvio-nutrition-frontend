@@ -1,0 +1,42 @@
+import { destroyCookie, parseCookies, setCookie } from 'nookies';
+import { JwtDto } from './authentication.types';
+
+const TOKEN_COOKIE = 'auth.token';
+const USER_TPE = 'auth.userType';
+const ID = 'auth._id';
+
+export function createSessionCookies({ _id, userType, token }: JwtDto) {
+  setCookie(null, ID, _id, {
+    maxAge: 3600,
+    path: '/',
+  });
+  setCookie(null, USER_TPE, userType, {
+    maxAge: 3600,
+    path: '/',
+  });
+  setCookie(null, TOKEN_COOKIE, token, {
+    maxAge: 3600,
+    path: '/',
+  });
+
+  /* if (refreshToken) {
+    setCookie(null, REFRESH_TOKEN_COOKIE, refreshToken, {
+      maxAge: COOKIE_EXPIRATION_TIME,
+      path: '/',
+    });
+  } */
+}
+
+export function getToken() {
+  const cookies = parseCookies();
+  return cookies[TOKEN_COOKIE];
+}
+export function getUserId() {
+  const cookies = parseCookies();
+  return cookies[ID];
+}
+
+/*  export function getRefreshToken() {
+    const cookies = parseCookies()
+    return cookies[REFRESH_TOKEN_COOKIE]
+  } */

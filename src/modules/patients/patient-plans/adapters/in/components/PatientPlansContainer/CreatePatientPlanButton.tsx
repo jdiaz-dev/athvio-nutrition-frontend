@@ -4,16 +4,16 @@ import { Button } from '@mui/material';
 import PlanDetailDialog from 'src/shared/components/PlanDetailDialog/PlanDetailDialog';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
-import { ProfessionalIdContext } from 'src/App';
 import { PlanContext } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/PlanContext';
 import { usePatientPlan } from 'src/modules/patients/patient-plans/adapters/out/PatientPlanActions';
 import { mealPlanCreatedChange$ } from 'src/shared/components/PlanDetailDialog/MealDetail';
 import CustomIconWrapper from 'src/shared/components/Icons/CustomIconWrapper';
 import CustomAddIcon from 'src/shared/components/Icons/CustomAddIcon';
 import DuplicatePatientPlan from 'src/modules/patients/patient-plans/adapters/in/components/PatientPlansContainer/DuplicateProgramPlan';
+import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 function CreatePatientPlanButton({ patient, assignedDate }: { patient: string; assignedDate: Date }) {
-  const professionalIdContext = useContext(ProfessionalIdContext);
+  const authContext = useContext(AuthContext);
   const patientPlanState = useSelector((state: ReduxStates) => state.patientPlans.patientPlan);
   const { createPatientPlan, deletePatientPlan } = usePatientPlan();
   const [openPlanDetailDialog, setOpenPlanDetailDialog] = useState(false);
@@ -23,7 +23,7 @@ function CreatePatientPlanButton({ patient, assignedDate }: { patient: string; a
   useEffect(() => {
     const createPatientPlanHandler = async () => {
       const input = {
-        professional: professionalIdContext.professional,
+        professional: authContext.professional,
         patient,
         assignedDate,
       };
@@ -34,12 +34,12 @@ function CreatePatientPlanButton({ patient, assignedDate }: { patient: string; a
     if (openPlanDetailDialog) {
       void createPatientPlanHandler();
     }
-  }, [professionalIdContext.professional, openPlanDetailDialog]);
+  }, [authContext.professional, openPlanDetailDialog]);
 
   useEffect(() => {
     const deletePatientPlanHandler = async () => {
       const input = {
-        professional: professionalIdContext.professional,
+        professional: authContext.professional,
         patient,
         patientPlan: patientPlanState._id,
       };

@@ -8,8 +8,8 @@ import {
   DeletePatientGroupsResponse,
 } from 'src/modules/professionals/patient-groups/adapters/out/PatientGroup.types';
 import { DELETE_CLIENT_GROUP } from 'src/modules/professionals/patient-groups/adapters/out/PatientGroupQueries';
-import { ProfessionalIdContext } from 'src/App';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
+import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 function DeletePatientGroup({
   patientGroup,
@@ -18,7 +18,7 @@ function DeletePatientGroup({
   patientGroup: string;
   setReloadPatientGroupList: (reload: boolean) => void;
 }) {
-  const professionalIdContext = useContext(ProfessionalIdContext);
+  const authContext = useContext(AuthContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
 
   const [deletePatientGroupHandler] = useMutation<DeletePatientGroupsResponse, DeletePatientGroupsRequest>(DELETE_CLIENT_GROUP);
@@ -36,7 +36,7 @@ function DeletePatientGroup({
   };
   const deletePatientGroup = async () => {
     const input = {
-      professional: professionalIdContext.professional,
+      professional: authContext.professional,
       patientGroup,
     };
     await deletePatientGroupHandler({

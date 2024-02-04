@@ -3,10 +3,10 @@ import { useQuery } from '@apollo/client';
 import { Dialog, DialogContent, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { GetPatientGroupsRequest, GetPatientGroupsResponse } from 'src/modules/professionals/patient-groups/adapters/out/PatientGroup.types';
 import { GET_CLIENT_GROUPS } from 'src/modules/professionals/patient-groups/adapters/out/PatientGroupQueries';
-import { ProfessionalIdContext } from 'src/App';
 import DeletePatientGroup from 'src/modules/professionals/patient-groups/adapters/in/dialogs/PatientGroupListDialog/DeletePatientGroup';
 import EditPatientGroup from 'src/modules/professionals/patient-groups/adapters/in/dialogs/PatientGroupListDialog/EditPatientGroup';
 import { PatientGroupsContext } from 'src/modules/patients/patients/adapters/in/components/PatientsContainer';
+import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 function PatientGroupListDialog({
   openPatientGroupListDialog,
@@ -19,13 +19,13 @@ function PatientGroupListDialog({
   reloadPatientGroupList: boolean;
   setReloadPatientGroupList: (reload: boolean) => void;
 }) {
-  const professionalIdContext = useContext(ProfessionalIdContext);
+  const authContext = useContext(AuthContext);
   const patientGroupContext = useContext(PatientGroupsContext);
 
   const [editGroup, setEditGroup] = useState(false);
   const [_reloadPatientGroupList, _setReloadPatientGroupList] = useState(false);
   const input = {
-    professional: professionalIdContext.professional,
+    professional: authContext.professional,
   };
   const { data, refetch } = useQuery<GetPatientGroupsResponse, GetPatientGroupsRequest>(GET_CLIENT_GROUPS, {
     variables: {

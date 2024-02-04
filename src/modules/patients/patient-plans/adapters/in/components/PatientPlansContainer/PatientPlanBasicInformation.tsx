@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PlanDetailDialog from 'src/shared/components/PlanDetailDialog/PlanDetailDialog';
-import { ProfessionalIdContext } from 'src/App';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import MessageDialog from 'src/shared/dialogs/MessageDialog';
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
@@ -13,9 +12,10 @@ import { PatientPlanBody } from 'src/modules/patients/patient-plans/adapters/out
 import PlanBucket from 'src/shared/components/PlanBucket/PlanBucket';
 import CopyPatientPlan from 'src/modules/patients/patient-plans/adapters/in/components/PatientPlansContainer/CopyPatientPlan';
 import CustomTrashIcon from 'src/shared/components/Icons/CustomTrashIcon';
+import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 function PatientPlanBasicInformation({ patient, plan }: { patient: string; plan: PlanDayInfo }) {
-  const professionalIdContext = useContext(ProfessionalIdContext);
+  const authContext = useContext(AuthContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
 
   const planState = useSelector((state: ReduxStates) => state.patientPlans.patientPlans).find((_plan) => _plan._id === plan._id);
@@ -29,7 +29,7 @@ function PatientPlanBasicInformation({ patient, plan }: { patient: string; plan:
   useEffect(() => {
     const deletePlanHelper = async () => {
       await deletePatientPlan({
-        professional: professionalIdContext.professional,
+        professional: authContext.professional,
         patient,
         patientPlan: plan._id as string,
       });

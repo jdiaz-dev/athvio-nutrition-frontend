@@ -4,15 +4,15 @@ import PlanDetailDialog from 'src/shared/components/PlanDetailDialog/PlanDetailD
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 import { usePlan } from 'src/modules/professionals/programs/adapters/out/PlanActions';
-import { ProfessionalIdContext } from 'src/App';
 import { PlanContext } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/PlanContext';
 import { mealPlanCreatedChange$ } from 'src/shared/components/PlanDetailDialog/MealDetail';
 import DuplicateProgramPlan from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/DuplicateProgramPlan';
 import CustomAddIcon from 'src/shared/components/Icons/CustomAddIcon';
 import CustomIconWrapper from 'src/shared/components/Icons/CustomIconWrapper';
+import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 function ProgramPlanItemButtons({ planDay, planWeek, program }: { planDay: number; planWeek: number; program: string }) {
-  const professionalIdContext = useContext(ProfessionalIdContext);
+  const authContext = useContext(AuthContext);
   const planState = useSelector((state: ReduxStates) => state.programs.plan);
   const { createPlan, deletePlan } = usePlan();
   const [openPlanDetailDialog, setOpenPlanDetailDialog] = useState(false);
@@ -22,7 +22,7 @@ function ProgramPlanItemButtons({ planDay, planWeek, program }: { planDay: numbe
   useEffect(() => {
     const createProgramPlanHandler = async () => {
       const input = {
-        professional: professionalIdContext.professional,
+        professional: authContext.professional,
         program,
         week: planWeek,
         day: planDay,
@@ -34,12 +34,12 @@ function ProgramPlanItemButtons({ planDay, planWeek, program }: { planDay: numbe
     if (openPlanDetailDialog) {
       void createProgramPlanHandler();
     }
-  }, [professionalIdContext.professional, openPlanDetailDialog]);
+  }, [authContext.professional, openPlanDetailDialog]);
 
   useEffect(() => {
     const deletePlanHandler = async () => {
       const input = {
-        professional: professionalIdContext.professional,
+        professional: authContext.professional,
         program,
         plan: planState._id,
       };

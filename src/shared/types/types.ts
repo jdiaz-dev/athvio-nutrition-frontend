@@ -1,4 +1,4 @@
-import { UserSignUpModel } from 'src/modules/authentication/authentication/adapters/out/authentication.types';
+import { SignUpProfessionalModel } from 'src/modules/authentication/authentication/adapters/out/authentication.types';
 import { PatientPlanInitialState } from 'src/modules/patients/patient-plans/adapters/out/patientPlan.types';
 import { AssignProgramInitialState } from 'src/modules/professionals/assign-program/out/AssignProgram.types';
 import { CustomRecipeInitialState } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
@@ -35,7 +35,7 @@ export type GraphQLInput = {
 };
 
 export type ReduxStates = {
-  users: UserSignUpModel;
+  users: SignUpProfessionalModel;
   customRecipes: CustomRecipeInitialState;
   programs: ProgramInitialState;
   patientPlans: PatientPlanInitialState;

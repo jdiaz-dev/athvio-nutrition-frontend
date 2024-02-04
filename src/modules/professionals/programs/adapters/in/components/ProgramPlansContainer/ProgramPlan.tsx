@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PlanDetailDialog from 'src/shared/components/PlanDetailDialog/PlanDetailDialog';
-import { ProfessionalIdContext } from 'src/App';
 import { usePlan } from 'src/modules/professionals/programs/adapters/out/PlanActions';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import MessageDialog from 'src/shared/dialogs/MessageDialog';
@@ -11,9 +10,10 @@ import { PlanDayInfo } from 'src/shared/types/types';
 import CustomTrashIcon from 'src/shared/components/Icons/CustomTrashIcon';
 import PlanBucket from 'src/shared/components/PlanBucket/PlanBucket';
 import CopyProgramPlan from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/CopyProgramPlan';
+import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 function ProgramPlan({ program, planDayInfo }: { program: string; planDayInfo: PlanDayInfo }) {
-  const professionalIdContext = useContext(ProfessionalIdContext);
+  const authContext = useContext(AuthContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const [openPlanDetailDialog, setOpenPlanDetailDialog] = useState(false);
 
@@ -28,7 +28,7 @@ function ProgramPlan({ program, planDayInfo }: { program: string; planDayInfo: P
   useEffect(() => {
     const deletePlanHelper = async () => {
       await deletePlan({
-        professional: professionalIdContext.professional,
+        professional: authContext.professional,
         program,
         plan: planDayInfo._id as string,
       });

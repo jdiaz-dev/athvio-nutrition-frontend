@@ -4,7 +4,6 @@ import { Card, Grid, IconButton, Menu, MenuItem } from '@mui/material';
 import { Subject } from 'rxjs';
 import { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ProfessionalIdContext } from 'src/App';
 import * as MealDetailsSlice from 'src/modules/professionals/programs/adapters/in/slicers/MealDetailsSlice';
 import * as MealBasicInfoSlice from 'src/modules/professionals/programs/adapters/in/slicers/MealBasicInfoSlice';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
@@ -18,6 +17,7 @@ import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
 import MealTag from 'src/modules/professionals/programs/adapters/in/dialogs/PlanDetailDialog/MealTag';
 import { useMealDetailAdapter } from 'src/shared/hooks/useMealDetailAdapter';
 import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
+import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -43,7 +43,7 @@ function MealDetail({
   meal: Meal;
 }) {
   const { classes } = cardStyles();
-  const professionalIdContext = useContext(ProfessionalIdContext);
+  const authContext = useContext(AuthContext);
   const currentModuleContext = useContext(CurrentModuleContext);
   const planContext = useContext(PlanContext);
   const mealBasicInfoState =
@@ -77,7 +77,7 @@ function MealDetail({
     const { _id, ...restMealDetail } = mealDetailsState;
     if (mealDetailsState._id.length == 0) {
       await createMeal({
-        professional: professionalIdContext.professional,
+        professional: authContext.professional,
         domainOwnerId,
         planOwnerId,
         mealBody: {
@@ -89,7 +89,7 @@ function MealDetail({
       if (planContext.isFromRecentlyCreatedPlan) mealPlanCreatedChange.next(true);
     } else {
       await updateMeal({
-        professional: professionalIdContext.professional,
+        professional: authContext.professional,
         domainOwnerId,
         planOwnerId,
         meal: _id,
@@ -104,7 +104,7 @@ function MealDetail({
     setAnchorEl(null);
     setComponentTouched(false);
     await deleteMeal({
-      professional: professionalIdContext.professional,
+      professional: authContext.professional,
       domainOwnerId,
       planOwnerId,
       meal: mealDetailsState._id,

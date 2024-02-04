@@ -1,17 +1,17 @@
 import React, { useContext, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { Chip, Menu, MenuItem, Stack } from '@mui/material';
-import { ProfessionalIdContext } from 'src/App';
 import { ManagePatientGroupRequest, ManagePatientGroupResponse } from 'src/modules/patients/patients/adapters/out/patient.types';
 import { MANAGE_CLIENT_GROUP } from 'src/modules/patients/patients/adapters/out/PatientQueries';
 import { ManagePatientGroupEnum } from 'src/shared/Consts';
 import { PatientGroup } from 'src/shared/types/types';
 import { PatientGroupsContext } from 'src/modules/patients/patients/adapters/in/components/PatientsContainer';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
+import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 function ManagePatientGroup(props: { patient: string; assignedGroups: PatientGroup[] }) {
   const { patient, assignedGroups } = props;
-  const professionalIdContext = useContext(ProfessionalIdContext);
+  const authContext = useContext(AuthContext);
   const patientGroupContext = useContext(PatientGroupsContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -30,7 +30,7 @@ function ManagePatientGroup(props: { patient: string; assignedGroups: PatientGro
     await createPatientHandler({
       variables: {
         input: {
-          professional: professionalIdContext.professional,
+          professional: authContext.professional,
           patientGroup: data._id,
           patient,
           action,

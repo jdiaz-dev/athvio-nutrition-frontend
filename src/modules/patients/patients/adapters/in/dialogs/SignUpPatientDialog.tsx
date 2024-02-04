@@ -23,10 +23,10 @@ import CountryCodeSelect from 'src/shared/components/CountryCodeSelect';
 import { Dayjs } from 'dayjs';
 import { ApolloError, useMutation } from '@apollo/client';
 import MessageDialog from 'src/shared/dialogs/MessageDialog';
-import { ProfessionalIdContext } from 'src/App';
 import { Accordion, AccordionDetails, AccordionSummary } from 'src/shared/components/Accordion';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
+import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -71,7 +71,7 @@ function SignUpPatientDialog({
     reset,
     formState: { errors },
   } = useForm();
-  const professionalIdContext = useContext(ProfessionalIdContext);
+  const authContext = useContext(AuthContext);
   const reloadRecordList = useContext(ReloadRecordListContext);
 
   const [createPatientHandler] = useMutation<SignUpPatientResponse, SignUpPatientRequest>(SIGN_UP_PATIENT);
@@ -95,7 +95,7 @@ function SignUpPatientDialog({
   const onSubmit = async ({ firstName, lastName, email, ...rest }: PatientData): Promise<void> => {
     // eslint-disable-next-line prefer-const
     let input: BodyPatient = {
-      professional: professionalIdContext.professional,
+      professional: authContext.professional,
       userInfo: {
         firstName,
         lastName,

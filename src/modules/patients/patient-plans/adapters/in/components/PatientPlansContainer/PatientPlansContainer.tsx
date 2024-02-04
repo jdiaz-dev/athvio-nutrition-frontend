@@ -11,7 +11,6 @@ import listPlugin from '@fullcalendar/list';
 import PatientPlansHelper from 'src/modules/patients/patient-plans/adapters/in/components/PatientPlansContainer/PatientPlansHelper';
 import { DateItem, ReduxStates } from 'src/shared/types/types';
 import { PatientPlanDateExtendedProps } from 'src/modules/patients/patients/adapters/out/patient.types';
-import { ProfessionalIdContext } from 'src/App';
 import { useReloadRecords } from 'src/shared/hooks/useReloadRecords';
 import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
@@ -20,9 +19,10 @@ import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import { Modules } from 'src/shared/Consts';
 import { usePatientPlan } from 'src/modules/patients/patient-plans/adapters/out/PatientPlanActions';
 import { assignmentDateHook } from 'src/modules/patients/patient-plans/adapters/in/components/PatientPlansContainer/assignmentDateHook';
+import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 function PatientPlansContainer() {
-  const professionalIdContext = useContext(ProfessionalIdContext);
+  const authContext = useContext(AuthContext);
   const patientPlansState = useSelector((state: ReduxStates) => state.patientPlans.patientPlans || []);
   const { patientId } = useParams();
   const { getPatientPlans } = usePatientPlan();
@@ -31,22 +31,23 @@ function PatientPlansContainer() {
   const [dateSet, setDateSet] = useState<{ dateStart: Date; dateEnd: Date } | null>(null);
   const [datesToShow, setDatesToShow] = useState<DateItem<PatientPlanDateExtendedProps>[]>([]);
   const input = {
-    professional: professionalIdContext.professional,
+    professional: authContext.professional,
     patient: patientId as string,
     offset: 0,
     limit: 30,
   };
+  console.log('-----------PatientPlansContainer')
   const { handleOnStart, handleOnDrop, manageDragEffect } = assignmentDateHook(patientId as string, setReloadRecordList);
   useEffect(() => {
     const getProgramHelper = async () => {
       await getPatientPlans(input);
     };
 
-    if (professionalIdContext.professional) {
+    if (authContext.professional) {
       void getProgramHelper();
       setReloadRecordList(false);
     }
-  }, [professionalIdContext.professional, reloadRecordList]);
+  }, [authContext.professional, reloadRecordList]);
 
   useEffect(() => {
     // const   = patientPlansState.plans.length > 0 ? patientPlansState.plans[patientPlansState.plans.length - 1].week : baseWeek;

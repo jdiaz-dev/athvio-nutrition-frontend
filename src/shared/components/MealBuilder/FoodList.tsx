@@ -20,12 +20,12 @@ import { useSearcher } from 'src/shared/hooks/useSearcher';
 import { usePaginator } from 'src/shared/hooks/usePaginator';
 import { GET_AUTOCOMPLETE_FOOD_NAMES, GET_FOODS } from 'src/shared/components/MealBuilder/FoodQueries';
 import FoodItem from 'src/shared/components/MealBuilder/FoodItem';
-import { ProfessionalIdContext } from 'src/App';
 import DatabaseSelector from 'src/shared/components/MealBuilder/DatabaseSelector';
 import { FoodDatabases, SpecialPagination } from 'src/shared/Consts';
+import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 function FoodList() {
-  const professionalIdContext = useContext(ProfessionalIdContext);
+  const authContext = useContext(AuthContext);
   const {
     searchWords,
     setSearchWords,
@@ -68,7 +68,7 @@ function FoodList() {
 
   const isSpecialPagination = () => database === FoodDatabases.ALL || database === FoodDatabases.SYSTEM;
   const input: InputGetFoods = {
-    professional: professionalIdContext.professional,
+    professional: authContext.professional,
     offset: offset,
     limit: rowsPerPage,
     foodDatabase: database,
@@ -80,7 +80,7 @@ function FoodList() {
     let _input: InputGetFoods = searchWords.length > 0 ? { ...input, search: searchWords } : input;
 
     const getFoodsForNormalPagination = async () => {
-      if (professionalIdContext.professional || choosedWord || databaseChanged) {
+      if (authContext.professional || choosedWord || databaseChanged) {
         const res = await refetch({ input: _input });
         setFoods(res.data?.getFoods.data);
         setLength(res.data.getFoods.meta.total);
@@ -90,7 +90,7 @@ function FoodList() {
 
     _input = isRequestToDefaultDB && session !== null ? { ..._input, session } : _input;
     const getFoodsForSpecialPagintation = async () => {
-      if (professionalIdContext.professional && (choosedWord || isRequestToDefaultDB || databaseChanged)) {
+      if (authContext.professional && (choosedWord || isRequestToDefaultDB || databaseChanged)) {
         const res = await refetch({ input: _input });
 
         setProviderFoods(res.data.getFoods.data);
@@ -109,12 +109,12 @@ function FoodList() {
       setDatabaseChanged(false);
     };
     getFoods();
-  }, [professionalIdContext.professional, choosedWord, databaseChanged, makeRequestToDefaultDB, offset]);
+  }, [authContext.professional, choosedWord, databaseChanged, makeRequestToDefaultDB, offset]);
 
   useEffect(() => {
     const getFoodsForSearcher = async () => {
       const autocompleteInput = {
-        professional: professionalIdContext.professional,
+        professional: authContext.professional,
         search: searchWords[0],
         foodDatabase: database,
       };

@@ -12,8 +12,8 @@ import { useMutation } from '@apollo/client';
 import { ManagePatientStateRequest, ManagePatientStateResponse } from 'src/modules/patients/patients/adapters/out/patient.types';
 import { PatientStates, PatientStatesActions } from 'src/shared/Consts';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
-import { ProfessionalIdContext } from 'src/App';
 import { PatientStateContext } from 'src/modules/patients/patients/adapters/in/components/PatientStateContext';
+import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -53,7 +53,7 @@ const StyledMenu = styled((props: MenuProps) => (
 }));
 
 export default function PatientOptions({ patient }: { patient: string }) {
-  const professionalIdContext = useContext(ProfessionalIdContext);
+  const authContext = useContext(AuthContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const patientStateContext = useContext(PatientStateContext);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -72,7 +72,7 @@ export default function PatientOptions({ patient }: { patient: string }) {
     await manageStateMutation({
       variables: {
         input: {
-          professional: professionalIdContext.professional,
+          professional: authContext.professional,
           patient,
           state: patientStateContext.indexState === 1 ? PatientStates.ACTIVE : PatientStates.ARCHIVED,
         },

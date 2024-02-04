@@ -1,5 +1,4 @@
 import React, { ReactNode, useContext } from 'react';
-import { Navigate } from 'react-router-dom';
 import { makeStyles } from 'tss-react/mui';
 
 import Card from '@mui/material/Card';
@@ -7,47 +6,23 @@ import Button from '@mui/material//Button';
 import TextField from '@mui/material/TextField';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
-import { CredentialsSignIn, SignInResponse, SignInRequest } from 'src/modules/authentication/security/adapters/out/security.types';
-import { AuthContext, ProfessionalIdContext } from 'src/App';
+import { CredentialsSignIn } from 'src/modules/authentication/authentication/adapters/out/authentication.types';
 import { MessagesUserForm } from 'src/shared/Consts';
-import { SIGN_IN } from 'src/modules/authentication/security/adapters/out/SecurityQueries';
-import { saveDataUser } from 'src/shared/helpers/LocalStorage';
-import { ApolloError, useMutation } from '@apollo/client';
+import { AuthContext } from './context/AuthContext';
 
 function SignIn() {
   const { classes } = styles();
+  const { signIn } = useContext(AuthContext);
 
-  const authContext = useContext(AuthContext);
-  const professionalIdContext = useContext(ProfessionalIdContext);
-
-  const [signInHandler, { data }] = useMutation<SignInResponse, SignInRequest>(SIGN_IN);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  if (data) {
-    saveDataUser(data.signIn);
-    professionalIdContext.setProfessional(data.signIn._id);
-    authContext.setIsAuthenticated(true);
-    return <Navigate replace to="/sidenav/patients" />;
-  }
-
   const onSubmit = async (dataUser: CredentialsSignIn): Promise<void> => {
-    try {
-      await signInHandler({
-        variables: {
-          input: {
-            ...dataUser,
-          },
-        },
-      });
-    } catch (error) {
-      console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
-    }
+    await signIn(dataUser);
   };
-
   return (
     <div className={classes.container}>
       <Card className={classes.card} variant="outlined">

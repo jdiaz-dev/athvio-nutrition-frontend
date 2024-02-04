@@ -1,14 +1,13 @@
-import { getUserFromLocalStorage } from './../shared/helpers/LocalStorage';
-
 import { ApolloClient, ApolloLink, HttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
+import { getToken } from 'src/modules/authentication/authentication/adapters/out/cookies';
 const httpLink = new HttpLink({
   uri: 'http://localhost:57343/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
-  const token = getUserFromLocalStorage().token;
+  const token = getToken();
   return {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     headers: {

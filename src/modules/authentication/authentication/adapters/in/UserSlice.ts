@@ -16,11 +16,12 @@ const initialState: SignUpProfessionalModel = {
   },
 };
 
+//TODO: remove this slicer
 export const usersSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     setUserInfo: (state, action: PayloadAction<SetUserInfo>) => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, no-param-reassign
       state.firstName = action.payload.firstName;
@@ -29,7 +30,7 @@ export const usersSlice = createSlice({
       state.password = action.payload.password;
       state.country = action.payload.country;
       state.phone = action.payload.phone;
-      state.professionalInfo.businessName = action.payload.businessName;
+      // state.professionalInfo.businessName = action.payload.businessName;
       return state;
     },
     setCountryCode: (state, action: PayloadAction<string>) => {

@@ -9,7 +9,6 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 
 import { Navigate, useParams } from 'react-router-dom';
-import { ProfessionalIdContext } from 'src/App';
 import ProgramPlansHelper from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/ProgramPlansHelper';
 
 import dayjs from 'dayjs';
@@ -22,11 +21,12 @@ import { useProgram } from 'src/modules/professionals/programs/adapters/out/Prog
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import { assignmentWeekDayHook } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/assignmentWeekDayHook';
 import { calendarConfigurationHook } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/calendarConfigurationHook';
+import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 dayjs.extend(utc);
 
 function ProgramPlansContainer() {
   const { programId } = useParams();
-  const professionalIdContext = useContext(ProfessionalIdContext);
+  const authContext = useContext(AuthContext);
   const { getProgram } = useProgram();
 
   const { reloadRecordList, setReloadRecordList } = useReloadRecords();
@@ -37,7 +37,7 @@ function ProgramPlansContainer() {
     calendarConfigurationHook(reloadRecordList);
 
   const input = {
-    professional: professionalIdContext.professional,
+    professional: authContext.professional,
     program: programId as string,
   };
 
@@ -46,11 +46,11 @@ function ProgramPlansContainer() {
       await getProgram(input);
     };
 
-    if (professionalIdContext.professional) {
+    if (authContext.professional) {
       void getProgramHelper();
       setReloadRecordList(false);
     }
-  }, [professionalIdContext.professional, reloadRecordList]);
+  }, [authContext.professional, reloadRecordList]);
 
   if (redirectToProgramList) {
     const path = `/sidenav/Programs`;

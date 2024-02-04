@@ -8,7 +8,6 @@ import PatientOptions from 'src/modules/patients/patients/adapters/in/components
 
 function PatientDetail({ patient }: { patient: PatientBody }) {
   const [goToPatientPlans, setGoToPatientPlans] = useState(false);
-  console.log('-------patient', patient);
   if (goToPatientPlans) {
     const path = `/sidenav/Patients/${patient._id}/plans`;
     return <Navigate replace to={path} />;

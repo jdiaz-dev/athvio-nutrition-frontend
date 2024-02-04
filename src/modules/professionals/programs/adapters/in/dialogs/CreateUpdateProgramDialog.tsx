@@ -14,7 +14,7 @@ import { ProgramBody } from 'src/modules/professionals/programs/adapters/out/pro
 import { useProgram } from 'src/modules/professionals/programs/adapters/out/ProgramActions';
 import * as ProgramSlice from 'src/modules/professionals/programs/adapters/in/slicers/ProgramSlice';
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
-import { ProfessionalIdContext } from 'src/App';
+import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -57,7 +57,7 @@ function CreateUpdateProgramDialog({
   const dispatch = useDispatch();
   const { classes } = cardStyles();
   const reloadRecordListContext = useContext(ReloadRecordListContext);
-  const professionalIdContext = useContext(ProfessionalIdContext);
+  const authContext = useContext(AuthContext);
 
   const programState = useSelector((state: ReduxStates) => state.programs.program);
   const [closeIconDialog, setCloseIconDialog] = useState(true);
@@ -91,7 +91,7 @@ function CreateUpdateProgramDialog({
         const { _id, professional, name, description, ...restProgram } = programState;
         await updateProgram({
           program: _id,
-          professional:professionalIdContext.professional,
+          professional:authContext.professional,
           name,
           description,
         });
@@ -100,7 +100,7 @@ function CreateUpdateProgramDialog({
         reset();
       } else {
         const { professional, name, description } = programState;
-        await createProgram({ professional:professionalIdContext.professional, name, description });
+        await createProgram({ professional:authContext.professional, name, description });
         setMessage('Program created successfully');
         setCreateUpdateProgramStateUpdated(false);
         reset();

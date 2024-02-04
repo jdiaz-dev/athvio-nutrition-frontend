@@ -5,12 +5,12 @@ import { StyledTableCell, StyledTableRow } from 'src/shared/components/Customize
 import { Button, Grid, Menu, MenuItem } from '@mui/material';
 import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
 import { useCustomRecipe } from 'src/modules/professionals/custom-recipes/adapters/out/CustomRecipeActions';
-import { ProfessionalIdContext } from 'src/App';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { CustomRecipeBody } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
+import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 function CustomRecipe(customRecipe: CustomRecipeBody) {
-  const professionalIdContext = useContext(ProfessionalIdContext);
+  const authContext = useContext(AuthContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const [openCreateUpdateCustomRecipeDialog, setOpenCreateUpdateCustomRecipeDialog] = useState(false);
   const { deleteCustomRecipe } = useCustomRecipe();
@@ -29,7 +29,7 @@ function CustomRecipe(customRecipe: CustomRecipeBody) {
 
   const deleteCustomRecipeHandler = () => {
     void deleteCustomRecipe({
-      professional: professionalIdContext.professional,
+      professional: authContext.professional,
       customRecipe: customRecipe._id || '',
     });
     reloadRecordListContext.setReloadRecordList(true);

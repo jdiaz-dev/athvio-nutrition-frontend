@@ -2,16 +2,16 @@ import { EventDropArg, EventInput } from '@fullcalendar/core';
 import { EventDragStartArg } from '@fullcalendar/interaction';
 import { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ProfessionalIdContext } from 'src/App';
 import { usePatientPlan } from 'src/modules/patients/patient-plans/adapters/out/PatientPlanActions';
 import { PatientPlanDateExtendedProps } from 'src/modules/patients/patients/adapters/out/patient.types';
 import * as PatientPlanSlice from 'src/modules/patients/patient-plans/adapters/in/slicers/PatientPlanSlice';
 import { ReduxStates } from 'src/shared/types/types';
 import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
+import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 export const assignmentDateHook = (patientId: string, setReloadRecordList: (val: boolean) => void) => {
-  const professionalIdContext = useContext(ProfessionalIdContext);
-  professionalIdContext;
+  const authContext = useContext(AuthContext);
+  authContext;
   const patientPlanState = useSelector((state: ReduxStates) => state.patientPlans.patientPlan);
   const { updatePatientPlan } = usePatientPlan();
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ export const assignmentDateHook = (patientId: string, setReloadRecordList: (val:
     newMonthDay.setDate(previousMonthDay + daysMoved);
 
     await updatePatientPlan({
-      professional: professionalIdContext.professional,
+      professional: authContext.professional,
       patient: patientId,
       patientPlan: patientPlanState._id,
       assignedDate: newMonthDay,

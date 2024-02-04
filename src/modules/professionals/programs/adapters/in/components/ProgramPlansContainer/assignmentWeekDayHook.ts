@@ -1,14 +1,14 @@
 import { EventDropArg, EventInput } from '@fullcalendar/core';
 import { useContext } from 'react';
 import { useSelector } from 'react-redux';
-import { ProfessionalIdContext } from 'src/App';
+import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 import { usePlan } from 'src/modules/professionals/programs/adapters/out/PlanActions';
 import { ProgramPlanDateExtendedProps } from 'src/modules/professionals/programs/adapters/out/program.types';
 import { ReduxStates } from 'src/shared/types/types';
 
 export const assignmentWeekDayHook = (programId: string) => {
-  const professionalIdContext = useContext(ProfessionalIdContext);
-  professionalIdContext;
+  const authContext = useContext(AuthContext);
+  authContext;
   const programState = useSelector((state: ReduxStates) => state.programs.program);
   const { updatePlanAssignedWeekDay } = usePlan();
 
@@ -22,7 +22,7 @@ export const assignmentWeekDayHook = (programId: string) => {
     const day = programState.plans[indexPlan].day + daysMoved;
 
     await updatePlanAssignedWeekDay({
-      professional: professionalIdContext.professional,
+      professional: authContext.professional,
       program: programId,
       plan: _id,
       day: day,

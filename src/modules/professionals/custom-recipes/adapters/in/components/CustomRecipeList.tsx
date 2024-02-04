@@ -5,7 +5,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { ProfessionalIdContext } from 'src/App';
 import { StyledTableCell } from 'src/shared/components/CustomizedTable';
 import { useCustomRecipe } from 'src/modules/professionals/custom-recipes/adapters/out/CustomRecipeActions';
 import { useSelector } from 'react-redux';
@@ -16,11 +15,12 @@ import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext
 import { GraphQLInput, ReduxStates } from 'src/shared/types/types';
 import { usePaginator } from 'src/shared/hooks/usePaginator';
 import Paginator from 'src/shared/components/Paginator';
+import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 function CustomRecipeList() {
   const customRecipeList = useSelector((state: ReduxStates) => state.customRecipes.customRecipes);
 
-  const professionalIdContext = useContext(ProfessionalIdContext);
+  const authContext = useContext(AuthContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const {
     searchWords,
@@ -36,7 +36,7 @@ function CustomRecipeList() {
 
   const { getCustomRecipes } = useCustomRecipe();
   const input: GraphQLInput = {
-    professional: professionalIdContext.professional,
+    professional: authContext.professional,
     offset: searchWords.length == 1 ? 0 : offset,
     limit: rowsPerPage,
   };
@@ -52,14 +52,14 @@ function CustomRecipeList() {
     };
 
     const getCustomRecipesFn = () => {
-      if (professionalIdContext.professional || reloadRecordListContext.reloadRecordList || choosedWord) {
+      if (authContext.professional || reloadRecordListContext.reloadRecordList || choosedWord) {
         void getCustomRecipesHelper();
         setChoosedWord(false);
         reloadRecordListContext.setReloadRecordList(false);
       }
     };
     getCustomRecipesFn();
-  }, [professionalIdContext.professional, reloadRecordListContext.reloadRecordList, choosedWord, offset]);
+  }, [authContext.professional, reloadRecordListContext.reloadRecordList, choosedWord, offset]);
 
   useEffect(() => {
     const getPatientsForSearcher = async () => {

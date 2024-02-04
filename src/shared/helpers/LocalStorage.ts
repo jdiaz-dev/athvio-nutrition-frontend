@@ -1,6 +1,7 @@
 import { LocalStorageEnum } from '../Consts';
 import { DataUser } from '../types/types';
 
+//TODO : delete all these methods
 export const getUserFromLocalStorage = (): DataUser => JSON.parse(localStorage.getItem(LocalStorageEnum.dataUser) || '{}') as DataUser;
 
 export const saveDataUser = (dataUser: DataUser): void => {

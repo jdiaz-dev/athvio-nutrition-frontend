@@ -7,8 +7,8 @@ import {
 } from 'src/modules/professionals/patient-groups/adapters/out/PatientGroup.types';
 import { useMutation } from '@apollo/client';
 import { UPDATE_CLIENT_GROUP } from 'src/modules/professionals/patient-groups/adapters/out/PatientGroupQueries';
-import { ProfessionalIdContext } from 'src/App';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
+import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 function EditPatientGroup({
   _id,
@@ -21,7 +21,7 @@ function EditPatientGroup({
   setEditGroup: (edit: boolean) => void;
   setReloadPatientGroupList: (reload: boolean) => void;
 }) {
-  const professionalIdContext = useContext(ProfessionalIdContext);
+  const authContext = useContext(AuthContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
 
   const [updatePatientGroupHandler] = useMutation<UpdatePatientGroupsResponse, UpdatePatientGroupsRequest>(UPDATE_CLIENT_GROUP);
@@ -30,7 +30,7 @@ function EditPatientGroup({
     const res = await updatePatientGroupHandler({
       variables: {
         input: {
-          professional: professionalIdContext.professional,
+          professional: authContext.professional,
           patientGroup: _id,
           groupName: e.target.value,
         },

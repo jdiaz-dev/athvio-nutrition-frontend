@@ -8,7 +8,7 @@ import {
 import { CREATE_CLIENT_GROUP } from 'src/modules/professionals/patient-groups/adapters/out/PatientGroupQueries';
 import { makeStyles } from 'tss-react/mui';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { ProfessionalIdContext } from 'src/App';
+import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -57,7 +57,7 @@ function CreatePatientGroupDialog({
   setReloadPatientGroupList: (reload: boolean) => void;
 }) {
   const { classes } = cardStyles();
-  const professionalIdContext = useContext(ProfessionalIdContext);
+  const authContext = useContext(AuthContext);
 
   const [createPatientHandler] = useMutation<CreatePatientGroupResponse, CreatePatientGroupRequest>(CREATE_CLIENT_GROUP);
   const {
@@ -69,7 +69,7 @@ function CreatePatientGroupDialog({
 
   const createPatientGroup = async (data: { groupName: string }) => {
     const input = {
-      professional: professionalIdContext.professional,
+      professional: authContext.professional,
       ...data,
     };
     const res = await createPatientHandler({
