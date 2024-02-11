@@ -20,6 +20,8 @@ import { Modules } from 'src/shared/Consts';
 import { usePatientPlan } from 'src/modules/patients/patient-plans/adapters/out/PatientPlanActions';
 import { assignmentDateHook } from 'src/modules/patients/patient-plans/adapters/in/components/PatientPlansContainer/assignmentDateHook';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { Box } from '@mui/system';
+import CalendarStyled from 'src/shared/components/CalendarStyled/CalendarStyled';
 
 function PatientPlansContainer() {
   const authContext = useContext(AuthContext);
@@ -36,7 +38,7 @@ function PatientPlansContainer() {
     offset: 0,
     limit: 30,
   };
-  console.log('-----------PatientPlansContainer')
+
   const { handleOnStart, handleOnDrop, manageDragEffect } = assignmentDateHook(patientId as string, setReloadRecordList);
   useEffect(() => {
     const getProgramHelper = async () => {
@@ -108,25 +110,28 @@ function PatientPlansContainer() {
           setRedirectToPatientList(true);
         }}
       />
+
       <CurrentModuleContext.Provider value={{ currentModule: Modules.CLIENT_PLANS }}>
         <ReloadRecordListContext.Provider value={{ reloadRecordList, setReloadRecordList }}>
-          <FullCalendar
-            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
-            // eventClick={handleEventClick}
-            // dateClick={handleDateClick}
-            headerToolbar={{
-              left: 'title',
-              center: '',
-              right: 'prev,next',
-            }}
-            events={datesToShow}
-            editable={true}
-            datesSet={dateSetHelper}
-            eventContent={PatientPlansHelper}
-            // handleCustomRendering={eventNewDiv}
+          <Box sx={{ position: 'relative' }}>
+            <CalendarStyled>
+              <FullCalendar
+                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
+                // eventClick={handleEventClick}
+                // dateClick={handleDateClick}
+                headerToolbar={{
+                  left: 'title',
+                  center: '',
+                  right: 'prev,next',
+                }}
+                events={datesToShow}
+                editable={true}
+                datesSet={dateSetHelper}
+                eventContent={PatientPlansHelper}
+                // handleCustomRendering={eventNewDiv}
 
-            // dayHeaders={false}
-            /* dayHeaderContent={(args) => {
+                // dayHeaders={false}
+                /* dayHeaderContent={(args) => {
             if (args.text === 'Sun') {
               return <div>Day1</div>;
             } else if (args.text === 'Mon') {
@@ -144,20 +149,22 @@ function PatientPlansContainer() {
             }
             }} */
 
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            /* dayCellContent={(info, create) => {
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                /* dayCellContent={(info, create) => {
               counterDay++;
               return <div>Day {counterDay}</div>;
             }} */
-            // contentHeight={contentHeight}
-            titleFormat={{
-              year: 'numeric',
-              month: 'long',
-            }}
-            eventDragStart={handleOnStart}
-            eventDrop={handleOnDrop}
-            eventDataTransform={manageDragEffect}
-          />
+                // contentHeight={contentHeight}
+                titleFormat={{
+                  year: 'numeric',
+                  month: 'long',
+                }}
+                eventDragStart={handleOnStart}
+                eventDrop={handleOnDrop}
+                eventDataTransform={manageDragEffect}
+              />
+            </CalendarStyled>
+          </Box>
         </ReloadRecordListContext.Provider>
       </CurrentModuleContext.Provider>
     </div>

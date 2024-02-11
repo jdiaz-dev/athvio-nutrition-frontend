@@ -17,8 +17,8 @@ export interface AssignProgramBody {
 
 export interface PatientToAssign {
   _id: string;
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
 }
 export interface AssignProgramInitialState extends Omit<AssignProgramBody, 'patients'> {
   patients: PatientToAssign[];

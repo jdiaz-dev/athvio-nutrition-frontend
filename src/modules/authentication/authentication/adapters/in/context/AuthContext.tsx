@@ -1,10 +1,11 @@
 import { createContext } from 'react';
-import { CredentialsSignIn } from '../../out/authentication.types';
+import { CredentialsSignIn, SignUpProfessionalModel } from '../../out/authentication.types';
 
 export type AuthContextData = {
   isAuthenticated: boolean;
   professional: string; //TODO: change name
-  signIn: (credentials: CredentialsSignIn) => Promise<any>;
+  signInHandler: (credentials: CredentialsSignIn) => Promise<any>;
+  signUpProfessionalHandler: (credentials: SignUpProfessionalModel) => Promise<any>;
   signOut: () => void;
 };
 

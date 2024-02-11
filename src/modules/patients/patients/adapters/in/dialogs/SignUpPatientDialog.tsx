@@ -82,7 +82,7 @@ function SignUpPatientDialog({
   const [countryName, setCountryName] = useState<string | undefined>();
   const [birthday, setBirthday] = React.useState<Dayjs | null | string>(null);
   const [gender, setGender] = useState<string>('');
-  const [userInfo, setUserInfo] = useState<UserInfoForPatient>({ email: '', firstName: '', lastName: '' });
+  const [userInfo, setUserInfo] = useState<UserInfoForPatient>({ email: '', firstname: '', lastname: '' });
 
   const handleChangeAditionalInfo = (panel: string) => (event: React.SyntheticEvent, newPanelExpanded: boolean) => {
     setPanelExpanded(newPanelExpanded ? panel : false);
@@ -92,13 +92,13 @@ function SignUpPatientDialog({
     setGender(gender);
   };
 
-  const onSubmit = async ({ firstName, lastName, email, ...rest }: PatientData): Promise<void> => {
+  const onSubmit = async ({ firstname, lastname, email, ...rest }: PatientData): Promise<void> => {
     // eslint-disable-next-line prefer-const
     let input: BodyPatient = {
       professional: authContext.professional,
       userInfo: {
-        firstName,
-        lastName,
+        firstname,
+        lastname,
         email,
       },
       additionalInfo: {
@@ -120,13 +120,13 @@ function SignUpPatientDialog({
       const _patient = patient.data?.signUpPatient.userInfo as UserInfoForPatient;
       setUserInfo({
         email: _patient.email,
-        firstName: _patient.firstName,
-        lastName: _patient.lastName,
+        firstname: _patient.firstname,
+        lastname: _patient.lastname,
       });
 
       const patientReset = {
-        firstName: '',
-        lastName: '',
+        firstname: '',
+        lastname: '',
         email: '',
         location: '',
         timezone: '',
@@ -139,7 +139,7 @@ function SignUpPatientDialog({
       setOpenCreatePatientDialog(false);
       reset(patientReset);
       reloadRecordList.setReloadRecordList(true);
-      setMessage(`You added ${firstName} ${lastName} to your patients sucessfully`);
+      setMessage(`You added ${firstname} ${lastname} to your patients sucessfully`);
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
     }
@@ -165,11 +165,11 @@ function SignUpPatientDialog({
                 variant="outlined"
                 label="First name"
                 type="text"
-                {...register('firstName', {
+                {...register('firstname', {
                   required: MessagesUserForm.FIRSTNAME_MANDATORY,
                 })}
-                error={Boolean(errors.firstName)}
-                helperText={errors.firstName?.message as ReactNode}
+                error={Boolean(errors.firstname)}
+                helperText={errors.firstname?.message as ReactNode}
               />
               <TextField
                 className={classes.textField}
@@ -177,9 +177,9 @@ function SignUpPatientDialog({
                 variant="outlined"
                 label="Enter First Name"
                 type="text"
-                {...register('lastName', { required: MessagesUserForm.LASTNAME_MANDATORY })}
-                error={Boolean(errors.lastName)}
-                helperText={errors.lastName?.message as ReactNode}
+                {...register('lastname', { required: MessagesUserForm.LASTNAME_MANDATORY })}
+                error={Boolean(errors.lastname)}
+                helperText={errors.lastname?.message as ReactNode}
               />
               <TextField
                 className={classes.textField}

@@ -4,16 +4,17 @@ import './App.scss';
 import PatientsContainer from './modules/patients/patients/adapters/in/components/PatientsContainer';
 import ProgramsContainer from './modules/professionals/programs/adapters/in/components/ProgramsContainer';
 import { Drawer } from './shared/components/Drawer';
-import SignUpProfessional from './modules/authentication/authentication/adapters/in/SignUpProfessional';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import CustomRecipesContainer from 'src/modules/professionals/custom-recipes/adapters/in/components/CustomRecipesContainer';
 import ProgramPlansContainer from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/ProgramPlansContainer';
 import Lab from 'src/modules/Lab/Lab';
 import PatientPlansContainer from 'src/modules/patients/patient-plans/adapters/in/components/PatientPlansContainer/PatientPlansContainer';
-import SignIn from './modules/authentication/authentication/adapters/in/SignIn';
 import PrivateRoute from './core/router/PrivateRoute';
 import PublicRoute from './core/router/PublicRoute';
+import Lab2 from './modules/Lab/Lab2';
+import SignIn from './modules/authentication/authentication/adapters/in/singIn/SignIn';
+import SignUpProfessional from './modules/authentication/authentication/adapters/in/SignUpProfessional/SingUpProfessional';
 
 function App() {
   return (
@@ -28,7 +29,14 @@ function App() {
               </PublicRoute>
             }
           />
-          <Route path="signup" element={<SignUpProfessional />} />
+          <Route
+            path="signup"
+            element={
+              <PublicRoute>
+                <SignUpProfessional />
+              </PublicRoute>
+            }
+          />
           <Route
             path="sidenav"
             element={
@@ -43,6 +51,7 @@ function App() {
             <Route path="programs" element={<ProgramsContainer />} />
             <Route path="programs/:programId/plans" element={<ProgramPlansContainer />} />
             <Route path="lab" element={<Lab />} />
+            <Route path="lab2" element={<Lab2 />} />
           </Route>
           {<Route path="*" element={<div>404</div>} />}
         </Routes>

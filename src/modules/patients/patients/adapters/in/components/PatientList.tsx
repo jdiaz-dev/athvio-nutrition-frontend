@@ -86,7 +86,7 @@ function PatientList() {
       if (searchWords.length === 1 && recentlyTypedWord) {
         const res = await refetchPatients({ input });
 
-        setMatchedRecords(res.data.getPatients.data.map((patient) => patient.user.firstName + ' ' + patient.user.lastName));
+        setMatchedRecords(res.data.getPatients.data.map((patient) => patient.user.firstname + ' ' + patient.user.lastname));
         setRecentlyTypedWord(false);
       }
     };

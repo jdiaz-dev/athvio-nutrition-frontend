@@ -4,6 +4,7 @@ import { AuthContext } from 'src/modules/authentication/authentication/adapters/
 
 function PublicRoute({ children }: { children: ReactNode }) {
   const { isAuthenticated } = useContext(AuthContext);
+
   if (isAuthenticated) {
     return <Navigate to="/sidenav/patients" />;
   }

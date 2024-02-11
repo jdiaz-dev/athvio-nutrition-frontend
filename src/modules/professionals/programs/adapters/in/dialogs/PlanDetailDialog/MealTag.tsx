@@ -35,7 +35,7 @@ function MealTag({ mealTag, componentTouched }: { mealTag: string; componentTouc
         >
           <TextField
             fullWidth
-            id="fullWidth"
+            id="outlined-basic"
             label="Meal Tag"
             autoComplete="off"
             value={_mealTag}
@@ -53,6 +53,7 @@ function MealTag({ mealTag, componentTouched }: { mealTag: string; componentTouc
         </Box>
       ) : (
         <div
+          style={{ borderBottom: '2px dashed', display: 'inline-block' }}
           onClick={() => {
             setEditMealTag(true);
           }}

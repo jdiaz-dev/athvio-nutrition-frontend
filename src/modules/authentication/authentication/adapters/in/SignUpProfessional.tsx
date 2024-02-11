@@ -21,16 +21,16 @@ function SignUpProfessional() {
   const [countryCode, setCountryCode] = useState<string | undefined>();
   const [countryName, setCountryName] = useState<string | undefined>('');
 
-  const { signUp } = useAuthentication();
+  const { signUpProfessional } = useAuthentication();
 
-  const signUpRequest = async ({ businessName, ...rest }: SetUserInfo) => {
+  const signUpRequest = async ({ company, ...rest }: SetUserInfo) => {
     console.log('----------dataUser', rest);
     let _user: SignUpProfessionalModel = { ...rest };
-    if (businessName) _user.professionalInfo = { businessName };
+    if (company) _user.professionalInfo = { company };
     if (countryName) _user.country = countryName;
     if (countryCode) _user.countryCode = countryCode;
     console.log('-----------data emptyu');
-    const { data } = await signUp(_user);
+    const { data } = await signUpProfessional(_user);
     console.log('-----------data', data);
     if (data) {
       dispatch(resetUser());
@@ -94,9 +94,9 @@ function SignUpProfessional() {
             variant="outlined"
             label="Enter First Name"
             type="text"
-            {...register('firstName', { required: MessagesUserForm.FIRSTNAME_MANDATORY })}
-            error={Boolean(errors.firstName)}
-            helperText={errors.firstName?.message as ReactNode}
+            {...register('firstname', { required: MessagesUserForm.FIRSTNAME_MANDATORY })}
+            error={Boolean(errors.firstname)}
+            helperText={errors.firstname?.message as ReactNode}
           />
           <TextField
             className={classes.textField}
@@ -104,9 +104,9 @@ function SignUpProfessional() {
             label="Enter Last Name"
             variant="outlined"
             type="text"
-            {...register('lastName', { required: MessagesUserForm.LASTNAME_MANDATORY })}
-            error={Boolean(errors.lastName)}
-            helperText={errors.lastName?.message as ReactNode}
+            {...register('lastname', { required: MessagesUserForm.LASTNAME_MANDATORY })}
+            error={Boolean(errors.lastname)}
+            helperText={errors.lastname?.message as ReactNode}
           />
           <TextField
             className={classes.textField}
@@ -114,9 +114,9 @@ function SignUpProfessional() {
             label="Enter Bussines Name"
             variant="outlined"
             type="text"
-            {...register('businessName', { required: false })}
-            error={Boolean(errors.businessName)}
-            helperText={errors.businessName?.message as ReactNode}
+            {...register('company', { required: false })}
+            error={Boolean(errors.company)}
+            helperText={errors.company?.message as ReactNode}
           />
           <CountryCodeSelect countryCode={countryCode} setCountryCode={setCountryCode} setCountryName={setCountryName} />
           <TextField

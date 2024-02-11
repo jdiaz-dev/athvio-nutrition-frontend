@@ -18,6 +18,8 @@ import MealTag from 'src/modules/professionals/programs/adapters/in/dialogs/Plan
 import { useMealDetailAdapter } from 'src/shared/hooks/useMealDetailAdapter';
 import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { styled } from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -30,6 +32,14 @@ const cardStyles = makeStyles()(() => {
     },
   };
 });
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
+
 const mealPlanCreatedChange = new Subject<boolean>();
 export const mealPlanCreatedChange$ = mealPlanCreatedChange.asObservable();
 
@@ -129,24 +139,32 @@ function MealDetail({
           setComponentTouched(false);
         }}
       >
-        <Grid item xs={8}>
-          <IconButton aria-label="Example" onClick={handleAnchorOpen}>
-            <FontAwesomeIcon icon={faEllipsisV} size="xs" />
-          </IconButton>
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleAnchorClose}
-            MenuListProps={{
-              'aria-labelledby': 'basic-button',
-            }}
-          >
-            <MenuItem onClick={() => deleteMealHandler()}>Delete meal</MenuItem>
-          </Menu>
+        <Grid container spacing={1}>
+          <Grid item xs={11}>
+            {/* <Item> */}
+            <MealTag mealTag={mealTag} componentTouched={componentTouched} />
+            {/* </Item> */}
+          </Grid>
+          <Grid item xs={1}>
+            {/* <Item> */}
+            <IconButton aria-label="Example" onClick={handleAnchorOpen}>
+              <FontAwesomeIcon icon={faEllipsisV} size="xs" />
+            </IconButton>
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleAnchorClose}
+              MenuListProps={{
+                'aria-labelledby': 'basic-button',
+              }}
+            >
+              <MenuItem onClick={() => deleteMealHandler()}>Delete meal</MenuItem>
+            </Menu>
+            {/* </Item> */}
+          </Grid>
         </Grid>
 
-        <MealTag mealTag={mealTag} componentTouched={componentTouched} />
         <CurrentModuleContext.Provider value={{ currentModule: Modules.PROGRAMS }}>
           <MealBuilder meal={meal()} />
         </CurrentModuleContext.Provider>

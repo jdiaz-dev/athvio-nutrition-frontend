@@ -22,6 +22,9 @@ import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import { assignmentWeekDayHook } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/assignmentWeekDayHook';
 import { calendarConfigurationHook } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/calendarConfigurationHook';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { Box } from '@mui/system';
+import CalendarStyled from 'src/shared/components/CalendarStyled/CalendarStyled';
+
 dayjs.extend(utc);
 
 function ProgramPlansContainer() {
@@ -66,28 +69,30 @@ function ProgramPlansContainer() {
       />
       <CurrentModuleContext.Provider value={{ currentModule: Modules.PROGRAMS }}>
         <ReloadRecordListContext.Provider value={{ reloadRecordList, setReloadRecordList }}>
-          <FullCalendar
-            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
-            initialView="dayGridFourWeek"
-            // eventClick={handleEventClick}
-            // dateClick={handleDateClick}
-            headerToolbar={false}
-            events={datesToShow}
-            editable={true} // enable draggable
-            datesSet={dateSetHelper}
-            eventContent={ProgramPlansHelper}
-            customRenderingReplacesEl={true}
-            unselectAuto={false}
-            views={{
-              dayGridFourWeek: {
-                type: 'dayGrid',
-                duration: { weeks: totalWeeks, specifiedWeeks: true },
-                listDayFormat: { weekday: 'long' },
-              },
-            }}
-            // dragScroll={true}
-            dayHeaders={false} // hide day headers
-            /* dayHeaderContent={(args) => {
+          <Box sx={{ position: 'relative' }}>
+            <CalendarStyled>
+              <FullCalendar
+                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
+                initialView="dayGridFourWeek"
+                // eventClick={handleEventClick}
+                // dateClick={handleDateClick}
+                headerToolbar={false}
+                events={datesToShow}
+                editable={true} // enable draggable
+                datesSet={dateSetHelper}
+                eventContent={ProgramPlansHelper}
+                customRenderingReplacesEl={true}
+                unselectAuto={false}
+                views={{
+                  dayGridFourWeek: {
+                    type: 'dayGrid',
+                    duration: { weeks: totalWeeks, specifiedWeeks: true },
+                    listDayFormat: { weekday: 'long' },
+                  },
+                }}
+                // dragScroll={true}
+                dayHeaders={false} // hide day headers
+                /* dayHeaderContent={(args) => {
             if (args.text === 'Sun') {
               return <div>Day1</div>;
             } else if (args.text === 'Mon') {
@@ -105,19 +110,20 @@ function ProgramPlansContainer() {
             }
             }} */
 
-            dayCellContent={() => {
-              counterDay++;
-              return <div>Day {counterDay}</div>;
-            }}
-            contentHeight={contentHeight}
-            titleFormat={{
-              weekday: undefined,
-            }}
-            eventDrop={handleOnDrop}
-            eventDataTransform={manageDragEffect}
-            progressiveEventRendering={true}
-          />
-
+                dayCellContent={() => {
+                  counterDay++;
+                  return <div>Day {counterDay}</div>;
+                }}
+                contentHeight={contentHeight}
+                titleFormat={{
+                  weekday: undefined,
+                }}
+                eventDrop={handleOnDrop}
+                eventDataTransform={manageDragEffect}
+                progressiveEventRendering={true}
+              />
+            </CalendarStyled>
+          </Box>
           <Button variant="contained" onClick={() => setWeekAction(WeekActions.ADD)}>
             Add week
           </Button>

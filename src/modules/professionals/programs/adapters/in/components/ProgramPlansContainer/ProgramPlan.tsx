@@ -42,6 +42,8 @@ function ProgramPlan({ program, planDayInfo }: { program: string; planDayInfo: P
   return (
     <>
       <PlanBucket planDayInfo={planDayInfo} handler={() => setOpenPlanDetailDialog(true)}>
+
+        {/* TODO: urgent - after to copy plan to another day, it doesn't show meals in dialog */}
         <CopyProgramPlan plan={planDayInfo._id as unknown as string} />
       </PlanBucket>
       <CustomTrashIcon handler={deletePlanHandler} />

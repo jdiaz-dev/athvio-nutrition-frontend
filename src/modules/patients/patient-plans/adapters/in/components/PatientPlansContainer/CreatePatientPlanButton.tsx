@@ -61,7 +61,7 @@ function CreatePatientPlanButton({ patient, assignedDate }: { patient: string; a
       };
     }
   }, [openPlanDetailDialog]);
-
+  console.log('-------------openPlanDetailDialog', openPlanDetailDialog)
   return (
     <>
       <CustomIconWrapper>

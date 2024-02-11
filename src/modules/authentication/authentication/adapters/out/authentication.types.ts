@@ -18,8 +18,8 @@ export type SignInRequest = {
 };
 
 export type SignUpProfessionalModel = {
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   email: string;
   password: string;
   phone: string;
@@ -27,12 +27,12 @@ export type SignUpProfessionalModel = {
   countryCode?: string;
   country?: string;
   professionalInfo?: {
-    businessName: string;
+    company: string;
   };
 };
 
 export type SetUserInfo = {
-  businessName: string;
+  company: string;
 } & Omit<SignUpProfessionalModel, 'countryCode' | 'professionalInfo'>;
 
 export type SignUpProfessionalRequest = {

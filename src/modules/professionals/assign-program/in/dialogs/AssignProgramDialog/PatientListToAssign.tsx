@@ -70,7 +70,7 @@ function PatientList() {
         const _input = searchWords.length > 0 ? { ...input, search: searchWords } : input;
         const res = await refetchPatients({ input: _input });
 
-        setMatchedRecords(res.data.getPatients.data.map((patient) => patient.user.firstName + ' ' + patient.user.lastName));
+        setMatchedRecords(res.data.getPatients.data.map((patient) => patient.user.firstname + ' ' + patient.user.lastname));
         setRecentlyTypedWord(false);
       }
     };

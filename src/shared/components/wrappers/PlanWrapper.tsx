@@ -7,10 +7,10 @@ const boxStyles = makeStyles()(() => {
       height: '120px',
       width: '100%',
       margin: 'auto',
-      backgroundColor: 'white',
+      backgroundColor: '#1e1e1e',
       marginTop: '-2px',
       // cursor: 'pointer',
-      border: '2px solid red',
+      // border: '2px solid red',
     },
   };
 });

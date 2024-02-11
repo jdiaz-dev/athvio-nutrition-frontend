@@ -9,20 +9,22 @@ import { Provider } from 'react-redux';
 import store from './core/configureStore';
 import { ApolloProvider } from '@apollo/client';
 import AuthProvider from './modules/authentication/authentication/adapters/in/providers/AuthProvider';
+import ThemeCustomization from './modules/Lab/themes';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   // <React.StrictMode>
-  <ApolloProvider client={apolloClient}>
-    <AuthProvider>
-      <Provider store={store}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </Provider>
-    </AuthProvider>
-  </ApolloProvider>,
-
+  <ThemeCustomization>
+    <ApolloProvider client={apolloClient}>
+      <AuthProvider>
+        <Provider store={store}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </Provider>
+      </AuthProvider>
+    </ApolloProvider>
+  </ThemeCustomization>,
   // </React.StrictMode>
 );
 

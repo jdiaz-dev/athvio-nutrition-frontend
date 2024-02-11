@@ -3,8 +3,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { SetUserInfo, SignUpProfessionalModel } from '../out/authentication.types';
 
 const initialState: SignUpProfessionalModel = {
-  firstName: '',
-  lastName: '',
+  firstname: '',
+  lastname: '',
   email: '',
   password: '',
   countryCode: '',
@@ -12,7 +12,7 @@ const initialState: SignUpProfessionalModel = {
   phone: '',
   acceptedTerms: false,
   professionalInfo: {
-    businessName: '',
+    company: '',
   },
 };
 
@@ -24,13 +24,13 @@ export const usersSlice = createSlice({
 
     setUserInfo: (state, action: PayloadAction<SetUserInfo>) => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, no-param-reassign
-      state.firstName = action.payload.firstName;
-      state.lastName = action.payload.lastName;
+      state.firstname = action.payload.firstname;
+      state.lastname = action.payload.lastname;
       state.email = action.payload.email;
       state.password = action.payload.password;
       state.country = action.payload.country;
       state.phone = action.payload.phone;
-      // state.professionalInfo.businessName = action.payload.businessName;
+      // state.professionalInfo.company = action.payload.company;
       return state;
     },
     setCountryCode: (state, action: PayloadAction<string>) => {

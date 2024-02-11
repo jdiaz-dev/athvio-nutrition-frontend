@@ -20,10 +20,10 @@ function PatientItem({ patient }: { patient: PatientBody }) {
     <>
       <StyledTableRow key={patient._id}>
         <StyledTableCell component="th" scope="row" onClick={() => setGoToPatientPlans(true)}>
-          <PatientBasicInfo firstName={patient.user.firstName} lastName={patient.user.lastName} />
+          <PatientBasicInfo firstname={patient.user.firstname} lastname={patient.user.lastname} />
         </StyledTableCell>
         <StyledTableCell component="th" scope="row">
-          <SelectPatientButton patient={{ _id: patient._id, firstName: patient.user.firstName, lastName: patient.user.lastName }} />
+          <SelectPatientButton patient={{ _id: patient._id, firstname: patient.user.firstname, lastname: patient.user.lastname }} />
         </StyledTableCell>
       </StyledTableRow>
     </>

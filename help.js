@@ -1,6 +1,17 @@
-const arr = ['a', 'b', 'c', 'd']
+/* 
+    config 
+    theme
+    const useConfig = () => useContext(ConfigContext);
+    componentes overriden
+    tenemos archivo de estilos
+    componentes partes del diseño
 
-const arrIndex = arr.find((item) => item === 'f')
 
-console.log(arrIndex)
-console.log(JSON.parse(undefined || 'false'))
+*/
+
+
+
+/* 
+    - check differences between days styles in lab and your calendar
+
+*/

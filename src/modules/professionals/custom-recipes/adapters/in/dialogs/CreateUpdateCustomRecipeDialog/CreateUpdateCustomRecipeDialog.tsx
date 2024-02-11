@@ -16,6 +16,7 @@ import RecipeNameInput from 'src/modules/professionals/custom-recipes/adapters/i
 import { CustomRecipeBody } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 import * as CustomRecipeBasicInfoSlice from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeBasicInfo';
 import { defaultRecipeName } from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeInitialState';
+import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -55,6 +56,8 @@ function CreateUpdateCustomRecipeDialog({
   setOpenCreateUpdateCustomRecipeDialog: (openDialog: boolean) => void;
   _customRecipe?: CustomRecipeBody;
 }) {
+  const authContext = useContext(AuthContext);
+
   const { classes } = cardStyles();
   const dispatch = useDispatch();
   const reloadRecordListContext = useContext(ReloadRecordListContext);
@@ -90,7 +93,11 @@ function CreateUpdateCustomRecipeDialog({
       });
       dispatch(CustomRecipeBasicInfoSlice.renameRecipeName(defaultRecipeName));
     } else {
-      await createCustomRecipe({ ...recipeNameBasicInfo, ...restCustomRecipe });
+      console.log('-----------authContext.professional', authContext.professional);
+      console.log('-----------recipeNameBasicInfo', recipeNameBasicInfo);
+      console.log('-----------restCustomRecipe', restCustomRecipe);
+
+      await createCustomRecipe({ ...recipeNameBasicInfo, ...restCustomRecipe, professional: authContext.professional });
       dispatch(CustomRecipeBasicInfoSlice.renameRecipeName(defaultRecipeName));
     }
   };

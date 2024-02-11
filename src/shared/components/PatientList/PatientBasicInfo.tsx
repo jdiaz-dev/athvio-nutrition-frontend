@@ -1,10 +1,10 @@
 import React from 'react';
 
-function PatientBasicInfo({ firstName, lastName, image }: { firstName: string; lastName: string; image?: string }) {
+function PatientBasicInfo({ firstname, lastname, image }: { firstname: string; lastname: string; image?: string }) {
   image;
   return (
     <>
-      {firstName} {lastName}
+      {firstname} {lastname}
     </>
   );
 }

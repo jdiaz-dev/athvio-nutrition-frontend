@@ -7,8 +7,8 @@ export interface GraphQLPatientInput extends GraphQLInput {
   state: PatientStates;
 }
 export type UserInfoForPatient = {
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   email: string;
 };
 
@@ -57,8 +57,8 @@ export type GetPatientsRequest = {
 export type PatientBody = {
   _id: string;
   user: {
-    firstName: string;
-    lastName: string;
+    firstname: string;
+    lastname: string;
     email: string;
   };
   groups: PatientGroup[];

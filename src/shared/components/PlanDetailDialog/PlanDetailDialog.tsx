@@ -39,6 +39,7 @@ function PlanDetailDialog({
 
   useEffect(() => {
     if (!closeIconDialog) {
+      console.log('------------entried');
       reloadRecordListContext.setReloadRecordList(true);
       setOpenPlanDetailDialog(false);
     }
@@ -52,7 +53,10 @@ function PlanDetailDialog({
     <>
       <Dialog
         open={openPlanDetailDialog}
-        onClose={() => setOpenPlanDetailDialog(false)}
+        onClose={() => {
+          console.log('--------------onclose?');
+          setOpenPlanDetailDialog(false);
+        }}
         maxWidth="xl"
         fullWidth={true}
         aria-labelledby="alert-dialog-title"
@@ -64,6 +68,7 @@ function PlanDetailDialog({
             <IconButton
               aria-label="close"
               onClick={() => {
+                console.log('--------------onclik?');
                 setOpenPlanDetailDialog(false);
               }}
               sx={{
@@ -82,14 +87,11 @@ function PlanDetailDialog({
             meals.map((meal, index) => (
               <MealDetail key={index} domainOwnerId={domainOwnerId} planOwnerId={planOwnerId as string} meal={meal} />
             ))}
-          <Button onClick={() => addMealPlanHandler()}>Add meal</Button>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setCloseIconDialog(false)}>Disagree</Button>
-          <Button onClick={() => setCloseIconDialog(false)} autoFocus>
-            Agree
+          <Button variant="contained" onClick={() => addMealPlanHandler()}>
+            Add meal
           </Button>
-        </DialogActions>
+        </DialogContent>
+        {/* <DialogActions></DialogActions> */}
       </Dialog>
     </>
   );

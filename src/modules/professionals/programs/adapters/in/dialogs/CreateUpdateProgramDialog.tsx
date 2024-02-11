@@ -56,8 +56,8 @@ function CreateUpdateProgramDialog({
 }) {
   const dispatch = useDispatch();
   const { classes } = cardStyles();
-  const reloadRecordListContext = useContext(ReloadRecordListContext);
   const authContext = useContext(AuthContext);
+  const reloadRecordListContext = useContext(ReloadRecordListContext);
 
   const programState = useSelector((state: ReduxStates) => state.programs.program);
   const [closeIconDialog, setCloseIconDialog] = useState(true);
@@ -137,7 +137,7 @@ function CreateUpdateProgramDialog({
         aria-describedby="dialog-description"
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
-          Create your custom recipe
+          Create your program
           {closeIconDialog ? (
             <IconButton
               aria-label="close"

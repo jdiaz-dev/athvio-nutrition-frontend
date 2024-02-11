@@ -5,8 +5,8 @@ export const SIGN_UP_PATIENT = gql`
     signUpPatient(input: $input) {
       _id
       userInfo {
-        firstName
-        lastName
+        firstname
+        lastname
       }
     }
   }
@@ -19,8 +19,8 @@ export const GET_CLIENTS = gql`
         _id
         user {
           _id
-          firstName
-          lastName
+          firstname
+          lastname
         }
         groups {
           _id

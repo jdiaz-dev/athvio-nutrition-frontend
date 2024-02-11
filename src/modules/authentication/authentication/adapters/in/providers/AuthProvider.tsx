@@ -1,46 +1,36 @@
-import { useMutation } from '@apollo/client';
-import { ApolloError } from 'apollo-boost';
-import React, { ReactNode } from 'react';
-import {
-  CredentialsSignIn,
-  SignInRequest,
-  SignInResponse,
-} from 'src/modules/authentication/authentication/adapters/out/authentication.types';
-import { SIGN_IN } from 'src/modules/authentication/authentication/adapters/out/authenticationQueries';
+import React, { ReactNode, useState } from 'react';
 import { createSessionCookies, getToken, getUserId } from 'src/modules/authentication/authentication/adapters/out/cookies';
 import { AuthContext } from '../context/AuthContext';
+import { useAuthentication } from '../../out/authenticationActions';
+import { CredentialsSignIn, JwtDto, SignUpProfessionalModel } from '../../out/authentication.types';
 
 function AuthProvider({ children }: { children: ReactNode }) {
-  const [signInHandler] = useMutation<SignInResponse, SignInRequest>(SIGN_IN);
+  const { signIn, signUpProfessional } = useAuthentication();
 
-  const isAuthenticated = Boolean(getToken());
+  const [isAuthenticated, setIsAuthenticated] = useState(Boolean(getToken()));
   const professional = getUserId();
-  const signIn = async (credentials: CredentialsSignIn): Promise<any> => {
-    try {
-      const { data } = await signInHandler({
-        variables: {
-          input: {
-            ...credentials,
-          },
-        },
-      });
 
-      if (data) {
-        console.log('--------data', data.signIn.token);
-        createSessionCookies({ ...data.signIn });
-      }
-    } catch (error) {
-      console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
-      return error;
-    }
+  const saveJwt = (data: JwtDto) => {
+    createSessionCookies({ ...data });
+    setIsAuthenticated(true);
   };
+  const signInHandler = async (credentials: CredentialsSignIn) => {
+    const { data } = await signIn(credentials);
+    if (data) saveJwt(data.signIn);
+  };
+  const signUpProfessionalHandler = async (body: SignUpProfessionalModel) => {
+    const { data } = await signUpProfessional(body);
+    if (data) saveJwt(data.signUpProfessional);
+  };
+  
   const signOut = () => {};
   return (
     <AuthContext.Provider
       value={{
         isAuthenticated,
         professional,
-        signIn,
+        signInHandler,
+        signUpProfessionalHandler,
         signOut,
       }}
     >

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
-import BaseTextareaAutosize from '@mui/base/TextareaAutosize';
+import { TextareaAutosize }  from '@mui/base/TextareaAutosize';
 import { styled } from '@mui/system';
 
 const blue = {
@@ -26,7 +26,7 @@ const grey = {
   900: '#1C2025',
 };
 
-const TextareaAutosize = styled(BaseTextareaAutosize)(
+const textareaAutosize = styled(TextareaAutosize)(
   ({ theme }) => `
   width: 320px;
   font-family: IBM Plex Sans, sans-serif;
@@ -58,6 +58,6 @@ const TextareaAutosize = styled(BaseTextareaAutosize)(
 
 export default function SelectedPatients() {
   const assignProgramState = useSelector((state: ReduxStates) => state.assignProgram);
-  const patients = assignProgramState.patients.map((patient) => `${patient.firstName} ${patient.lastName}`);
+  const patients = assignProgramState.patients.map((patient) => `${patient.firstname} ${patient.lastname}`);
   return <TextareaAutosize style={{ cursor: 'not-allowed' }} disabled aria-label="empty textarea" placeholder="Empty" value={patients} />;
 }
