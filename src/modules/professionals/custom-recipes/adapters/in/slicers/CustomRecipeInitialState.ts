@@ -1,5 +1,4 @@
 import { CustomRecipeInitialState } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
-import { getUserFromLocalStorage } from 'src/shared/helpers/LocalStorage';
 
 export const defaultRecipeName = 'Meal 1';
 export const customRecipeInitialState: CustomRecipeInitialState = {
@@ -17,7 +16,7 @@ export const customRecipeInitialState: CustomRecipeInitialState = {
     },
   },
   customRecipeBasicInfo: {
-    professional: getUserFromLocalStorage()._id,
+    professional: '',
     name: defaultRecipeName,
   },
 };

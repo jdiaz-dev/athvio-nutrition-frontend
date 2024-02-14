@@ -4,6 +4,7 @@ import { makeStyles } from 'tss-react/mui';
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Tree from './Tree';
+import ResponsiveAppBar from 'src/modules/Lab/Lab2';
 
 const useStyles = makeStyles()(() => {
   return {
@@ -24,12 +25,13 @@ export function Drawer() {
   return (
     <>
       <div className="main-container">
-        <div className={`sidebar ${classes.divSidebar}`}>
+       {/*  <div className={`sidebar ${classes.divSidebar}`}>
           <div>Apocalipsex</div>
           <Tree />
-        </div>
+        </div> */}
         <div className="app-container">
-          <Header></Header>
+          <ResponsiveAppBar />
+          {/* <Header></Header> */}
           <div className="containerOutler" style={{ height: '91vh' }}>
             <Outlet />
           </div>

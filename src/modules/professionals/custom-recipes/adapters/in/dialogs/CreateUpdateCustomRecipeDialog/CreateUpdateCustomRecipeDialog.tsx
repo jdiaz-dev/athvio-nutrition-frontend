@@ -83,20 +83,16 @@ function CreateUpdateCustomRecipeDialog({
   }, [_customRecipe]);
 
   const { _id, ...restCustomRecipe } = customRecipeDetailsState;
-
   const createUpdateCustomRecipeHandler = async () => {
     if (_customRecipe && _customRecipe._id) {
       await updateCustomRecipe({
         customRecipe: _id,
         ...restCustomRecipe,
         ...recipeNameBasicInfo,
+        professional: authContext.professional,
       });
       dispatch(CustomRecipeBasicInfoSlice.renameRecipeName(defaultRecipeName));
     } else {
-      console.log('-----------authContext.professional', authContext.professional);
-      console.log('-----------recipeNameBasicInfo', recipeNameBasicInfo);
-      console.log('-----------restCustomRecipe', restCustomRecipe);
-
       await createCustomRecipe({ ...recipeNameBasicInfo, ...restCustomRecipe, professional: authContext.professional });
       dispatch(CustomRecipeBasicInfoSlice.renameRecipeName(defaultRecipeName));
     }
