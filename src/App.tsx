@@ -15,6 +15,7 @@ import PublicRoute from './core/router/PublicRoute';
 import Lab2 from './modules/Lab/Lab2';
 import SignIn from './modules/authentication/authentication/adapters/in/singIn/SignIn';
 import SignUpProfessional from './modules/authentication/authentication/adapters/in/SignUpProfessional/SingUpProfessional';
+import Lab3 from './modules/Lab/Lab3/Lab3';
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
             <Route path="programs/:programId/plans" element={<ProgramPlansContainer />} />
             <Route path="lab" element={<Lab />} />
             <Route path="lab2" element={<Lab2 />} />
+            <Route path="lab3" element={<Lab3 />} />
           </Route>
           {<Route path="*" element={<div>404</div>} />}
         </Routes>
