@@ -12,51 +12,57 @@ const initialState: MenuProps = {
   openedComponent: 'buttons',
   openedHorizontalItem: null,
   isDashboardDrawerOpened: false,
-  isComponentDrawerOpened: true
+  isComponentDrawerOpened: true,
 };
+
+const jonapro = { name: 'jonapro' };
 
 export const endpoints = {
   key: 'api/menu',
   master: 'master',
-  dashboard: '/dashboard' // server URL
+  dashboard: '/dashboard', // server URL
 };
 
 export function useGetMenu() {
   const { data, isLoading, error, isValidating } = useSWR(endpoints.key + endpoints.dashboard, fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
-    revalidateOnReconnect: false
+    revalidateOnReconnect: false,
   });
 
   const memoizedValue = useMemo(
     () => ({
-      menu:[],// data?.dashboard as NavItemType,
+      menu: [], // data?.dashboard as NavItemType,
       menuLoading: isLoading,
       menuError: error,
       menuValidating: isValidating,
-      menuEmpty: !isLoading && !data?.length
+      menuEmpty: !isLoading && !data?.length,
     }),
-    [data, error, isLoading, isValidating]
+    [data, error, isLoading, isValidating],
   );
 
   return memoizedValue;
 }
 
 export function useGetMenuMaster() {
-  console.log('------------------endpoints.key', endpoints.key)
-  console.log('------------------endpoints.master', endpoints.master)
-  const { data, isLoading } = useSWR(endpoints.key + endpoints.master, () => initialState, {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false
+  console.log('------------------endpoints.key', endpoints.key);
+  console.log('------------------endpoints.master', endpoints.master);
+  const { data, isLoading, error, isValidating  } = useSWR(endpoints.key + endpoints.master, (arg1, arg2) => {
+    return initialState;
   });
-  console.log('---------------data', data)
+  console.log('---jona', { name: 'jona' });
+  console.log('---jonapro', jonapro);
+  console.log('---error', error);
+  console.log('---isLoading', isLoading);
+  console.log('---isValidating', isValidating);
+  console.log('---------------initialState', initialState);
+  console.log('---------------data useGetMenuMaster', data);
   const memoizedValue = useMemo(
     () => ({
       menuMaster: data as MenuProps,
-      menuMasterLoading: isLoading
+      menuMasterLoading: isLoading,
     }),
-    [data, isLoading]
+    [data, isLoading],
   );
 
   return memoizedValue;
@@ -70,7 +76,7 @@ export function handlerComponentDrawer(isComponentDrawerOpened: boolean) {
     (currentMenuMaster: any) => {
       return { ...currentMenuMaster, isComponentDrawerOpened };
     },
-    false
+    false,
   );
 }
 
@@ -82,7 +88,7 @@ export function handlerActiveComponent(openedComponent: string) {
     (currentMenuMaster: any) => {
       return { ...currentMenuMaster, openedComponent };
     },
-    false
+    false,
   );
 }
 
@@ -94,7 +100,7 @@ export function handlerDrawerOpen(isDashboardDrawerOpened: boolean) {
     (currentMenuMaster: any) => {
       return { ...currentMenuMaster, isDashboardDrawerOpened };
     },
-    false
+    false,
   );
 }
 
@@ -106,7 +112,7 @@ export function handlerHorizontalActiveItem(openedHorizontalItem: string | null)
     (currentMenuMaster: any) => {
       return { ...currentMenuMaster, openedHorizontalItem };
     },
-    false
+    false,
   );
 }
 
@@ -118,6 +124,6 @@ export function handlerActiveItem(openedItem: string) {
     (currentMenuMaster: any) => {
       return { ...currentMenuMaster, openedItem };
     },
-    false
+    false,
   );
 }

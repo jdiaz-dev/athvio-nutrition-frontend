@@ -14,7 +14,7 @@ import {
   Paper,
   Popper,
   Typography,
-  useMediaQuery
+  useMediaQuery,
 } from '@mui/material';
 
 // third-party
@@ -55,9 +55,9 @@ type VirtualElement = {
 };
 
 const PopperStyled = styled(Popper)(({ theme }) => ({
-  overflow: 'visible',
-  zIndex: 1202,
-  minWidth: 180,
+  'overflow': 'visible',
+  'zIndex': 1202,
+  'minWidth': 180,
   '&:before': {
     content: '""',
     display: 'block',
@@ -70,8 +70,8 @@ const PopperStyled = styled(Popper)(({ theme }) => ({
     zIndex: 120,
     borderWidth: '6px',
     borderStyle: 'solid',
-    borderColor: `${theme.palette.background.paper}  transparent transparent ${theme.palette.background.paper}`
-  }
+    borderColor: `${theme.palette.background.paper}  transparent transparent ${theme.palette.background.paper}`,
+  },
 }));
 
 const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, selectedItems, setSelectedLevel, selectedLevel }: Props) => {
@@ -80,8 +80,9 @@ const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, sele
 
   const { menuOrientation } = useConfig();
   const { menuMaster } = useGetMenuMaster();
-  const drawerOpen = true //menuMaster.isDashboardDrawerOpened;
-  const selectedID = menuMaster.openedHorizontalItem;
+  console.log('---------jeou', menuMaster);
+  const drawerOpen = true; //menuMaster.isDashboardDrawerOpened;
+  const selectedID = true; // menuMaster.openedHorizontalItem;
 
   const downLG = useMediaQuery(theme.breakpoints.down('lg'));
 
@@ -149,7 +150,7 @@ const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, sele
       style={{
         fontSize: 20,
         stroke: '1.5',
-        color: selectedID === currentItem.id ? theme.palette.primary.main : theme.palette.secondary.dark
+        color: selectedID === currentItem.id ? theme.palette.primary.main : theme.palette.secondary.dark,
       }}
     />
   ) : null;
@@ -282,15 +283,15 @@ const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, sele
           <ListItemButton
             selected={selectedID === currentItem.id}
             sx={{
-              p: 1,
-              my: 0.5,
-              mr: 1,
-              display: 'flex',
-              alignItems: 'center',
-              backgroundColor: 'inherit',
+              'p': 1,
+              'my': 0.5,
+              'mr': 1,
+              'display': 'flex',
+              'alignItems': 'center',
+              'backgroundColor': 'inherit',
               '&.Mui-selected': {
-                bgcolor: 'transparent'
-              }
+                bgcolor: 'transparent',
+              },
             }}
             onMouseEnter={handleClick}
             onClick={handleClick}
@@ -325,7 +326,7 @@ const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, sele
                 anchorEl={anchorEl}
                 placement="bottom-start"
                 style={{
-                  zIndex: 2001
+                  zIndex: 2001,
                 }}
               >
                 {({ TransitionProps }) => (
@@ -335,7 +336,7 @@ const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, sele
                         mt: 0.5,
                         py: 1.25,
                         boxShadow: theme.shadows[8],
-                        backgroundImage: 'none'
+                        backgroundImage: 'none',
                       }}
                     >
                       <ClickAwayListener onClickAway={handleClose}>
@@ -345,7 +346,7 @@ const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, sele
                               minWidth: 200,
                               overflowX: 'hidden',
                               overflowY: 'auto',
-                              maxHeight: 'calc(100vh - 170px)'
+                              maxHeight: 'calc(100vh - 170px)',
                             }}
                           >
                             {currentItem.id !== lastItemId ? items : moreItems}

@@ -15,7 +15,7 @@ export const SIGN_UP_PROFESSIONAL = gql`
   mutation _signUpProfessional($input: SignUpProfessionalDto!) {
     signUpProfessional(input: $input) {
       _id
-      userType,
+      userType
       token
     }
   }

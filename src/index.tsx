@@ -10,6 +10,7 @@ import store from './core/configureStore';
 import { ApolloProvider } from '@apollo/client';
 import AuthProvider from './modules/authentication/authentication/adapters/in/providers/AuthProvider';
 import ThemeCustomization from './modules/Lab/themes';
+import Locales from 'src/modules/Lab/Lab3/components/Locales';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
@@ -19,7 +20,9 @@ root.render(
       <AuthProvider>
         <Provider store={store}>
           <BrowserRouter>
-            <App />
+            <Locales>
+              <App />
+            </Locales>
           </BrowserRouter>
         </Provider>
       </AuthProvider>

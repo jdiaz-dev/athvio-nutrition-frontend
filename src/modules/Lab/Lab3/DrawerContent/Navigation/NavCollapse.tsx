@@ -15,7 +15,7 @@ import {
   Paper,
   Popper,
   Typography,
-  useMediaQuery
+  useMediaQuery,
 } from '@mui/material';
 
 // project import
@@ -48,9 +48,9 @@ type ListItemClick =
 
 // mini-menu - wrapper
 const PopperStyled = styled(Popper)(({ theme }) => ({
-  overflow: 'visible',
-  zIndex: 1202,
-  minWidth: 180,
+  'overflow': 'visible',
+  'zIndex': 1202,
+  'minWidth': 180,
   '&:before': {
     content: '""',
     display: 'block',
@@ -63,17 +63,17 @@ const PopperStyled = styled(Popper)(({ theme }) => ({
     transform: 'translateY(-50%) rotate(45deg)',
     zIndex: 120,
     borderLeft: `1px solid ${theme.palette.divider}`,
-    borderBottom: `1px solid ${theme.palette.divider}`
+    borderBottom: `1px solid ${theme.palette.divider}`,
   },
   '&[data-popper-placement="right-end"]': {
     '.MuiPaper-root': {
-      marginBottom: -8
+      marginBottom: -8,
     },
     '&:before': {
       top: 'auto',
-      bottom: 5
-    }
-  }
+      bottom: 5,
+    },
+  },
 }));
 
 // ==============================|| NAVIGATION - LIST COLLAPSE ||============================== //
@@ -91,7 +91,7 @@ interface Props {
 const NavCollapse = ({ menu, level, parentId, setSelectedItems, selectedItems, setSelectedLevel, selectedLevel }: Props) => {
   const theme = useTheme();
   const { menuMaster } = useGetMenuMaster();
-  const drawerOpen = menuMaster.isDashboardDrawerOpened;
+  const drawerOpen = true; //menuMaster.isDashboardDrawerOpened;
 
   const downLG = useMediaQuery(theme.breakpoints.down('lg'));
 
@@ -280,7 +280,7 @@ const NavCollapse = ({ menu, level, parentId, setSelectedItems, selectedItems, s
             selected={selected === menu.id}
             {...(!drawerOpen && {
               onMouseEnter: (e: ListItemClick) => handleClick(e, true),
-              onMouseLeave: handleClose
+              onMouseLeave: handleClose,
             })}
             onClick={(e: ListItemClick) => handleClick(e, true)}
             sx={{
@@ -288,32 +288,32 @@ const NavCollapse = ({ menu, level, parentId, setSelectedItems, selectedItems, s
               py: !drawerOpen && level === 1 ? 1.25 : 1,
               ...(drawerOpen && {
                 '&:hover': {
-                  bgcolor: theme.palette.mode === ThemeMode.DARK ? 'divider' : 'primary.lighter'
+                  bgcolor: theme.palette.mode === ThemeMode.DARK ? 'divider' : 'primary.lighter',
                 },
                 '&.Mui-selected': {
-                  bgcolor: 'transparent',
-                  color: iconSelectedColor,
-                  '&:hover': { color: iconSelectedColor, bgcolor: theme.palette.mode === ThemeMode.DARK ? 'divider' : 'transparent' }
-                }
+                  'bgcolor': 'transparent',
+                  'color': iconSelectedColor,
+                  '&:hover': { color: iconSelectedColor, bgcolor: theme.palette.mode === ThemeMode.DARK ? 'divider' : 'transparent' },
+                },
               }),
               ...(!drawerOpen && {
                 '&:hover': {
-                  bgcolor: 'transparent'
+                  bgcolor: 'transparent',
                 },
                 '&.Mui-selected': {
                   '&:hover': {
-                    bgcolor: 'transparent'
+                    bgcolor: 'transparent',
                   },
-                  bgcolor: 'transparent'
-                }
-              })
+                  'bgcolor': 'transparent',
+                },
+              }),
             }}
             {...(drawerOpen &&
               menu.isDropdown && {
                 'aria-controls': openCollapse ? `${menu.id}-menu` : undefined,
                 'aria-haspopup': true,
                 'aria-expanded': openCollapse ? 'true' : undefined,
-                onClick: handleClickCollapse
+                'onClick': handleClickCollapse,
               })}
           >
             {menuIcon && (
@@ -323,22 +323,22 @@ const NavCollapse = ({ menu, level, parentId, setSelectedItems, selectedItems, s
                   minWidth: 28,
                   color: selected === menu.id ? 'primary.main' : textColor,
                   ...(!drawerOpen && {
-                    borderRadius: 1.5,
-                    width: 36,
-                    height: 36,
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    'borderRadius': 1.5,
+                    'width': 36,
+                    'height': 36,
+                    'alignItems': 'center',
+                    'justifyContent': 'center',
                     '&:hover': {
-                      bgcolor: theme.palette.mode === ThemeMode.DARK ? 'secondary.light' : 'secondary.lighter'
-                    }
+                      bgcolor: theme.palette.mode === ThemeMode.DARK ? 'secondary.light' : 'secondary.lighter',
+                    },
                   }),
                   ...(!drawerOpen &&
                     selected === menu.id && {
-                      bgcolor: theme.palette.mode === ThemeMode.DARK ? 'primary.900' : 'primary.lighter',
+                      'bgcolor': theme.palette.mode === ThemeMode.DARK ? 'primary.900' : 'primary.lighter',
                       '&:hover': {
-                        bgcolor: theme.palette.mode === ThemeMode.DARK ? 'primary.darker' : 'primary.lighter'
-                      }
-                    })
+                        bgcolor: theme.palette.mode === ThemeMode.DARK ? 'primary.darker' : 'primary.lighter',
+                      },
+                    }),
                 }}
               >
                 {menuIcon}
@@ -371,12 +371,12 @@ const NavCollapse = ({ menu, level, parentId, setSelectedItems, selectedItems, s
                   color="secondary"
                   variant="outlined"
                   sx={{
-                    width: 20,
-                    height: 20,
-                    mr: '-5px',
-                    color: 'secondary.dark',
-                    borderColor: open ? 'primary.light' : 'secondary.light',
-                    '&:hover': { borderColor: open ? 'primary.main' : 'secondary.main' }
+                    'width': 20,
+                    'height': 20,
+                    'mr': '-5px',
+                    'color': 'secondary.dark',
+                    'borderColor': open ? 'primary.light' : 'secondary.light',
+                    '&:hover': { borderColor: open ? 'primary.main' : 'secondary.main' },
                   }}
                 >
                   {miniMenuOpened || open ? (
@@ -401,17 +401,17 @@ const NavCollapse = ({ menu, level, parentId, setSelectedItems, selectedItems, s
                 anchorEl={anchorEl}
                 placement="right-start"
                 style={{
-                  zIndex: 2001
+                  zIndex: 2001,
                 }}
                 popperOptions={{
                   modifiers: [
                     {
                       name: 'offset',
                       options: {
-                        offset: [-12, 1]
-                      }
-                    }
-                  ]
+                        offset: [-12, 1],
+                      },
+                    },
+                  ],
                 }}
               >
                 {({ TransitionProps }) => (
@@ -422,7 +422,7 @@ const NavCollapse = ({ menu, level, parentId, setSelectedItems, selectedItems, s
                         mt: 1.5,
                         boxShadow: theme.customShadows.z1,
                         backgroundImage: 'none',
-                        border: `1px solid ${theme.palette.divider}`
+                        border: `1px solid ${theme.palette.divider}`,
                       }}
                     >
                       <ClickAwayListener onClickAway={handleClose}>
@@ -431,7 +431,7 @@ const NavCollapse = ({ menu, level, parentId, setSelectedItems, selectedItems, s
                             sx={{
                               overflowX: 'hidden',
                               overflowY: 'auto',
-                              maxHeight: '50vh'
+                              maxHeight: '50vh',
                             }}
                           >
                             {navCollapse}
@@ -460,15 +460,15 @@ const NavCollapse = ({ menu, level, parentId, setSelectedItems, selectedItems, s
               onClick={handleCloseCollapse}
               anchorOrigin={{
                 vertical: 'bottom',
-                horizontal: 'right'
+                horizontal: 'right',
               }}
               transformOrigin={{
                 vertical: 'top',
-                horizontal: 'right'
+                horizontal: 'right',
               }}
               sx={{
                 '& .MuiPaper-root': { boxShadow: theme.shadows[2] },
-                '& .MuiListItemButton-root': { pl: 2 }
+                '& .MuiListItemButton-root': { pl: 2 },
               }}
             >
               {navCollapse}
@@ -488,14 +488,14 @@ const NavCollapse = ({ menu, level, parentId, setSelectedItems, selectedItems, s
             aria-describedby={popperId}
             sx={{
               '&.Mui-selected': {
-                bgcolor: 'transparent'
-              }
+                bgcolor: 'transparent',
+              },
             }}
           >
             <Box onClick={handlerIconLink} sx={FlexBox}>
               {menuIcon && <ListItemIcon sx={{ my: 'auto', minWidth: 28, color: theme.palette.secondary.dark }}>{menuIcon}</ListItemIcon>}
               {!menuIcon && level !== 1 && (
-                <ListItemIcon sx={{ my: 'auto', bgcolor: 'transparent', '&:hover': { bgcolor: 'transparent' } }}>
+                <ListItemIcon sx={{ 'my': 'auto', 'bgcolor': 'transparent', '&:hover': { bgcolor: 'transparent' } }}>
                   <Dot size={4} color={isSelected ? 'primary' : 'secondary'} />
                 </ListItemIcon>
               )}
@@ -516,15 +516,15 @@ const NavCollapse = ({ menu, level, parentId, setSelectedItems, selectedItems, s
                 anchorEl={anchorEl}
                 placement="right-start"
                 style={{
-                  zIndex: 2001
+                  zIndex: 2001,
                 }}
                 modifiers={[
                   {
                     name: 'offset',
                     options: {
-                      offset: [-10, 0]
-                    }
-                  }
+                      offset: [-10, 0],
+                    },
+                  },
                 ]}
               >
                 {({ TransitionProps }) => (
@@ -535,7 +535,7 @@ const NavCollapse = ({ menu, level, parentId, setSelectedItems, selectedItems, s
                         mt: 1.5,
                         py: 0.5,
                         boxShadow: theme.shadows[8],
-                        backgroundImage: 'none'
+                        backgroundImage: 'none',
                       }}
                     >
                       <ClickAwayListener onClickAway={handleClose}>
@@ -544,7 +544,7 @@ const NavCollapse = ({ menu, level, parentId, setSelectedItems, selectedItems, s
                             sx={{
                               overflowX: 'hidden',
                               overflowY: 'auto',
-                              maxHeight: '50vh'
+                              maxHeight: '50vh',
                             }}
                           >
                             {navCollapse}
