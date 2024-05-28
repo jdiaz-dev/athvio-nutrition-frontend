@@ -1,14 +1,9 @@
 {
   "compilerOptions": {
     "module": "esnext",
-    "target": "es6",
-    "lib": [
-      "dom",
-      "es6",
-      "es7",
-      "dom.iterable",
-      "esnext"
-    ],
+    "target": "ESNext",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "types": ["vite/client", "vite-plugin-svgr/client"],
     "baseUrl": ".",
     "rootDir": ".",
     "allowJs": true,
@@ -28,6 +23,7 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "test/**/*.ts",
-    "types/**/*.ts"
+    "types/**/*.ts",
+    "vite.config.mts"
   ]
 }
