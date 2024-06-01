@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 
 // material-ui
@@ -35,6 +35,7 @@ import { DownOutlined, GroupOutlined, RightOutlined } from '@ant-design/icons';
 // types
 import { NavItemType } from '../../../types/menu';
 import { MenuOrientation, ThemeMode } from 'src/shared/types/config';
+import { SidebarContext } from 'src/modules/Lab/Lab3/SidebarContext';
 
 // ==============================|| NAVIGATION - LIST GROUP ||============================== //
 
@@ -75,12 +76,12 @@ const PopperStyled = styled(Popper)(({ theme }) => ({
 }));
 
 const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, selectedItems, setSelectedLevel, selectedLevel }: Props) => {
+  const { openSidebar } = useContext(SidebarContext);
   const theme = useTheme();
   const { pathname } = useLocation();
 
   const { menuOrientation } = useConfig();
   const { menuMaster } = useGetMenuMaster();
-  const drawerOpen = true; //menuMaster.isDashboardDrawerOpened;
   const selectedID = true; // menuMaster.openedHorizontalItem;
 
   const downLG = useMediaQuery(theme.breakpoints.down('lg'));
@@ -256,7 +257,7 @@ const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, sele
           subheader={
             <>
               {item.title ? (
-                drawerOpen && (
+                openSidebar && (
                   <Box sx={{ pl: 3, mb: 1.5 }}>
                     <Typography variant="subtitle2" color={theme.palette.mode === ThemeMode.DARK ? 'textSecondary' : 'text.secondary'}>
                       {item.title}
@@ -273,7 +274,7 @@ const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, sele
               )}
             </>
           }
-          sx={{ mt: drawerOpen && item.title ? 1.5 : 0, py: 0, zIndex: 0 }}
+          sx={{ mt: openSidebar && item.title ? 1.5 : 0, py: 0, zIndex: 0 }}
         >
           {navCollapse}
         </List>

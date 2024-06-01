@@ -22,6 +22,7 @@ import { assignmentDateHook } from 'src/modules/patients/patient-plans/adapters/
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 import { Box } from '@mui/system';
 import CalendarStyled from 'src/shared/components/CalendarStyled/CalendarStyled';
+import Lab3 from 'src/modules/Lab/Lab3/Lab3';
 
 function PatientPlansCalendar() {
   const authContext = useContext(AuthContext);
@@ -114,6 +115,8 @@ function PatientPlansCalendar() {
       <CurrentModuleContext.Provider value={{ currentModule: Modules.CLIENT_PLANS }}>
         <ReloadRecordListContext.Provider value={{ reloadRecordList, setReloadRecordList }}>
           <Box sx={{ position: 'relative' }}>
+            <Lab3 />
+
             <CalendarStyled>
               <FullCalendar
                 plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}

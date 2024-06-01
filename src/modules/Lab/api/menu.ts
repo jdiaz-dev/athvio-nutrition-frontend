@@ -15,14 +15,13 @@ const initialState: MenuProps = {
   isComponentDrawerOpened: true,
 };
 
-const jonapro = { name: 'jonapro' };
-
 export const endpoints = {
   key: 'api/menu',
   master: 'master',
   dashboard: '/dashboard', // server URL
 };
 
+//todo: delete it
 export function useGetMenu() {
   const { data, isLoading, error, isValidating } = useSWR(endpoints.key + endpoints.dashboard, fetcher, {
     revalidateIfStale: false,
@@ -44,6 +43,7 @@ export function useGetMenu() {
   return memoizedValue;
 }
 
+//todo: delete it
 export function useGetMenuMaster() {
   const { data, isLoading, error, isValidating } = useSWR(endpoints.key + endpoints.master, () => initialState);
   const memoizedValue = useMemo(
@@ -81,6 +81,7 @@ export function handlerActiveComponent(openedComponent: string) {
   );
 }
 
+//todo: delete it
 export function handlerDrawerOpen(isDashboardDrawerOpened: boolean) {
   // to update local state based on key
 

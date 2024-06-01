@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 // material-ui
@@ -34,6 +34,7 @@ import { BorderOutlined, DownOutlined, UpOutlined, RightOutlined } from '@ant-de
 // types
 import { MenuOrientation, ThemeMode } from 'src/shared/types/config';
 import { NavItemType } from 'src/shared/types/menu';
+import { SidebarContext } from 'src/modules/Lab/Lab3/SidebarContext';
 
 type VirtualElement = {
   getBoundingClientRect: () => ClientRect | DOMRect;
@@ -89,9 +90,10 @@ interface Props {
 }
 
 const NavCollapse = ({ menu, level, parentId, setSelectedItems, selectedItems, setSelectedLevel, selectedLevel }: Props) => {
+  const { openSidebar } = useContext(SidebarContext);
+  
   const theme = useTheme();
   const { menuMaster } = useGetMenuMaster();
-  const drawerOpen = true; //menuMaster.isDashboardDrawerOpened;
 
   const downLG = useMediaQuery(theme.breakpoints.down('lg'));
 
@@ -115,7 +117,7 @@ const NavCollapse = ({ menu, level, parentId, setSelectedItems, selectedItems, s
   const handleClick = (event: ListItemClick, isRedirect: boolean) => {
     setAnchorEl(null);
     setSelectedLevel(level);
-    if (drawerOpen) {
+    if (openSidebar) {
       setOpen(!open);
       setSelected(!selected ? menu.id : null);
       setSelectedItems(!selected ? menu.id : '');
@@ -126,7 +128,7 @@ const NavCollapse = ({ menu, level, parentId, setSelectedItems, selectedItems, s
   };
 
   const handlerIconLink = () => {
-    if (!drawerOpen) {
+    if (!openSidebar) {
       if (menu.url) navigation(`${menu.url}`);
       setSelected(menu.id);
     }
@@ -134,7 +136,7 @@ const NavCollapse = ({ menu, level, parentId, setSelectedItems, selectedItems, s
 
   const handleHover = (event: React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLDivElement, MouseEvent> | undefined) => {
     setAnchorEl(event?.currentTarget);
-    if (!drawerOpen) {
+    if (!openSidebar) {
       setSelected(menu.id);
     }
   };
@@ -159,15 +161,15 @@ const NavCollapse = ({ menu, level, parentId, setSelectedItems, selectedItems, s
     } else {
       if (level === selectedLevel) {
         setOpen(false);
-        if (!miniMenuOpened && !drawerOpen && !selected) {
+        if (!miniMenuOpened && !openSidebar && !selected) {
           setSelected(null);
         }
-        if (drawerOpen) {
+        if (openSidebar) {
           setSelected(null);
         }
       }
     }
-  }, [selectedItems, level, selected, miniMenuOpened, drawerOpen, selectedLevel]);
+  }, [selectedItems, level, selected, miniMenuOpened, openSidebar, selectedLevel]);
 
   const { pathname } = useLocation();
 
@@ -265,9 +267,9 @@ const NavCollapse = ({ menu, level, parentId, setSelectedItems, selectedItems, s
   const isSelected = selected === menu.id;
   const borderIcon = level === 1 ? <BorderOutlined style={{ fontSize: '1rem' }} /> : false;
   const Icon = menu.icon!;
-  const menuIcon = menu.icon ? <Icon style={{ fontSize: drawerOpen ? '1rem' : '1.25rem' }} /> : borderIcon;
+  const menuIcon = menu.icon ? <Icon style={{ fontSize: openSidebar ? '1rem' : '1.25rem' }} /> : borderIcon;
   const textColor = theme.palette.mode === ThemeMode.DARK ? 'grey.400' : 'text.primary';
-  const iconSelectedColor = theme.palette.mode === ThemeMode.DARK && drawerOpen ? theme.palette.text.primary : theme.palette.primary.main;
+  const iconSelectedColor = theme.palette.mode === ThemeMode.DARK && openSidebar ? theme.palette.text.primary : theme.palette.primary.main;
   const popperId = miniMenuOpened ? `collapse-pop-${menu.id}` : undefined;
   const FlexBox = { display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' };
 
@@ -278,15 +280,15 @@ const NavCollapse = ({ menu, level, parentId, setSelectedItems, selectedItems, s
           <ListItemButton
             id={`${menu.id}-button`}
             selected={selected === menu.id}
-            {...(!drawerOpen && {
+            {...(!openSidebar && {
               onMouseEnter: (e: ListItemClick) => handleClick(e, true),
               onMouseLeave: handleClose,
             })}
             onClick={(e: ListItemClick) => handleClick(e, true)}
             sx={{
-              pl: drawerOpen ? `${level * 28}px` : 1.5,
-              py: !drawerOpen && level === 1 ? 1.25 : 1,
-              ...(drawerOpen && {
+              pl: openSidebar ? `${level * 28}px` : 1.5,
+              py: !openSidebar && level === 1 ? 1.25 : 1,
+              ...(openSidebar && {
                 '&:hover': {
                   bgcolor: theme.palette.mode === ThemeMode.DARK ? 'divider' : 'primary.lighter',
                 },
@@ -296,7 +298,7 @@ const NavCollapse = ({ menu, level, parentId, setSelectedItems, selectedItems, s
                   '&:hover': { color: iconSelectedColor, bgcolor: theme.palette.mode === ThemeMode.DARK ? 'divider' : 'transparent' },
                 },
               }),
-              ...(!drawerOpen && {
+              ...(!openSidebar && {
                 '&:hover': {
                   bgcolor: 'transparent',
                 },
@@ -308,7 +310,7 @@ const NavCollapse = ({ menu, level, parentId, setSelectedItems, selectedItems, s
                 },
               }),
             }}
-            {...(drawerOpen &&
+            {...(openSidebar &&
               menu.isDropdown && {
                 'aria-controls': openCollapse ? `${menu.id}-menu` : undefined,
                 'aria-haspopup': true,
@@ -322,7 +324,7 @@ const NavCollapse = ({ menu, level, parentId, setSelectedItems, selectedItems, s
                 sx={{
                   minWidth: 28,
                   color: selected === menu.id ? 'primary.main' : textColor,
-                  ...(!drawerOpen && {
+                  ...(!openSidebar && {
                     'borderRadius': 1.5,
                     'width': 36,
                     'height': 36,
@@ -332,7 +334,7 @@ const NavCollapse = ({ menu, level, parentId, setSelectedItems, selectedItems, s
                       bgcolor: theme.palette.mode === ThemeMode.DARK ? 'secondary.light' : 'secondary.lighter',
                     },
                   }),
-                  ...(!drawerOpen &&
+                  ...(!openSidebar &&
                     selected === menu.id && {
                       'bgcolor': theme.palette.mode === ThemeMode.DARK ? 'primary.900' : 'primary.lighter',
                       '&:hover': {
@@ -344,7 +346,7 @@ const NavCollapse = ({ menu, level, parentId, setSelectedItems, selectedItems, s
                 {menuIcon}
               </ListItemIcon>
             )}
-            {(drawerOpen || (!drawerOpen && level !== 1)) && (
+            {(openSidebar || (!openSidebar && level !== 1)) && (
               <ListItemText
                 primary={
                   <Typography variant="h6" color={selected === menu.id ? 'primary' : textColor}>
@@ -361,7 +363,7 @@ const NavCollapse = ({ menu, level, parentId, setSelectedItems, selectedItems, s
               />
             )}
 
-            {(drawerOpen || (!drawerOpen && level !== 1)) &&
+            {(openSidebar || (!openSidebar && level !== 1)) &&
               (menu?.url ? (
                 <IconButton
                   onClick={(event: ListItemClick) => {
@@ -395,7 +397,7 @@ const NavCollapse = ({ menu, level, parentId, setSelectedItems, selectedItems, s
                 </>
               ))}
 
-            {!drawerOpen && (
+            {!openSidebar && (
               <PopperStyled
                 open={miniMenuOpened}
                 anchorEl={anchorEl}
@@ -444,13 +446,13 @@ const NavCollapse = ({ menu, level, parentId, setSelectedItems, selectedItems, s
               </PopperStyled>
             )}
           </ListItemButton>
-          {drawerOpen && !menu?.isDropdown && (
+          {openSidebar && !menu?.isDropdown && (
             <Collapse in={open} timeout="auto" unmountOnExit>
               <List sx={{ p: 0 }}>{navCollapse}</List>
             </Collapse>
           )}
 
-          {drawerOpen && menu?.isDropdown && (
+          {openSidebar && menu?.isDropdown && (
             <Menu
               id={`${menu.id}-menu`}
               aria-labelledby={`${menu.id}-button`}

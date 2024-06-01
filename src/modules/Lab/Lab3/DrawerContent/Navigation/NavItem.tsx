@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import AdsClickIcon from '@mui/icons-material/AdsClick';
+import { useContext, useEffect } from 'react';
 import { Link, useLocation, matchPath } from 'react-router-dom';
 
 // material-ui
@@ -16,6 +15,7 @@ import { handlerHorizontalActiveItem, handlerActiveItem, handlerDrawerOpen, useG
 // types
 import { MenuOrientation, ThemeMode } from 'src/shared/types/config';
 import { LinkTarget, NavActionType, NavItemType } from 'src/shared/types/menu';
+import { SidebarContext } from 'src/modules/Lab/Lab3/SidebarContext';
 
 // ==============================|| NAVIGATION - LIST ITEM ||============================== //
 
@@ -26,10 +26,11 @@ interface Props {
 }
 
 const NavItem = ({ item, level, isParents = false }: Props) => {
+  const { openSidebar } = useContext(SidebarContext);
+
   const theme = useTheme();
 
   const { menuMaster } = useGetMenuMaster();
-  const drawerOpen = true; //menuMaster.isDashboardDrawerOpened;
   const openItem = true; //menuMaster.openedItem;
 
   const downLG = useMediaQuery(theme.breakpoints.down('lg'));
@@ -44,7 +45,7 @@ const NavItem = ({ item, level, isParents = false }: Props) => {
   const itemIcon = item.icon ? (
     <Icon
       style={{
-        fontSize: drawerOpen ? '1rem' : '1.25rem',
+        fontSize: openSidebar ? '1rem' : '1.25rem',
         ...(menuOrientation === MenuOrientation.HORIZONTAL && isParents && { fontSize: 20, stroke: '1.5' }),
       }}
     />
@@ -62,7 +63,7 @@ const NavItem = ({ item, level, isParents = false }: Props) => {
   }, [pathname]);
 
   const textColor = theme.palette.mode === ThemeMode.DARK ? 'grey.400' : 'text.primary';
-  const iconSelectedColor = theme.palette.mode === ThemeMode.DARK && drawerOpen ? 'text.primary' : 'primary.main';
+  const iconSelectedColor = theme.palette.mode === ThemeMode.DARK && openSidebar ? 'text.primary' : 'primary.main';
 
   return (
     <>
@@ -76,9 +77,9 @@ const NavItem = ({ item, level, isParents = false }: Props) => {
             selected={isSelected}
             sx={{
               zIndex: 1201,
-              pl: drawerOpen ? `${level * 28}px` : 1.5,
-              py: !drawerOpen && level === 1 ? 1.25 : 1,
-              ...(drawerOpen && {
+              pl: openSidebar ? `${level * 28}px` : 1.5,
+              py: !openSidebar && level === 1 ? 1.25 : 1,
+              ...(openSidebar && {
                 '&:hover': {
                   bgcolor: theme.palette.mode === ThemeMode.DARK ? 'divider' : 'primary.lighter',
                 },
@@ -92,7 +93,7 @@ const NavItem = ({ item, level, isParents = false }: Props) => {
                   },
                 },
               }),
-              ...(!drawerOpen && {
+              ...(!openSidebar && {
                 '&:hover': {
                   bgcolor: 'transparent',
                 },
@@ -113,7 +114,7 @@ const NavItem = ({ item, level, isParents = false }: Props) => {
                 sx={{
                   minWidth: 28,
                   color: isSelected ? iconSelectedColor : textColor,
-                  ...(!drawerOpen && {
+                  ...(!openSidebar && {
                     'borderRadius': 1.5,
                     'width': 36,
                     'height': 36,
@@ -123,7 +124,7 @@ const NavItem = ({ item, level, isParents = false }: Props) => {
                       bgcolor: theme.palette.mode === ThemeMode.DARK ? 'secondary.light' : 'secondary.lighter',
                     },
                   }),
-                  ...(!drawerOpen &&
+                  ...(!openSidebar &&
                     isSelected && {
                       'bgcolor': theme.palette.mode === ThemeMode.DARK ? 'primary.900' : 'primary.lighter',
                       '&:hover': {
@@ -134,10 +135,9 @@ const NavItem = ({ item, level, isParents = false }: Props) => {
               >
                 {/* here: */}
                 {itemIcon}
-                {/* <AdsClickIcon/> */}
               </ListItemIcon>
             )}
-            {(drawerOpen || (!drawerOpen && level !== 1)) && (
+            {(openSidebar || (!openSidebar && level !== 1)) && (
               <ListItemText
                 primary={
                   <Typography variant="h6" sx={{ color: isSelected ? iconSelectedColor : textColor }}>
@@ -146,7 +146,7 @@ const NavItem = ({ item, level, isParents = false }: Props) => {
                 }
               />
             )}
-            {(drawerOpen || (!drawerOpen && level !== 1)) && item.chip && (
+            {(openSidebar || (!openSidebar && level !== 1)) && item.chip && (
               <Chip
                 color={item.chip.color}
                 variant={item.chip.variant}
@@ -156,7 +156,7 @@ const NavItem = ({ item, level, isParents = false }: Props) => {
               />
             )}
           </ListItemButton>
-          {(drawerOpen || (!drawerOpen && level !== 1)) &&
+          {(openSidebar || (!openSidebar && level !== 1)) &&
             item?.actions &&
             item?.actions.map((action, index) => {
               const ActionIcon = action.icon!;
@@ -229,7 +229,7 @@ const NavItem = ({ item, level, isParents = false }: Props) => {
             <ListItemIcon
               sx={{
                 minWidth: 28,
-                ...(!drawerOpen && {
+                ...(!openSidebar && {
                   'borderRadius': 1.5,
                   'width': 28,
                   'height': 28,
@@ -239,7 +239,7 @@ const NavItem = ({ item, level, isParents = false }: Props) => {
                     bgcolor: 'transparent',
                   },
                 }),
-                ...(!drawerOpen &&
+                ...(!openSidebar &&
                   isSelected && {
                     'bgcolor': 'transparent',
                     '&:hover': {
@@ -256,7 +256,7 @@ const NavItem = ({ item, level, isParents = false }: Props) => {
             <ListItemIcon
               sx={{
                 color: isSelected ? 'primary.main' : 'secondary.dark',
-                ...(!drawerOpen && {
+                ...(!openSidebar && {
                   'borderRadius': 1.5,
                   'alignItems': 'center',
                   'justifyContent': 'flex-start',
@@ -264,7 +264,7 @@ const NavItem = ({ item, level, isParents = false }: Props) => {
                     bgcolor: 'transparent',
                   },
                 }),
-                ...(!drawerOpen &&
+                ...(!openSidebar &&
                   isSelected && {
                     'bgcolor': 'transparent',
                     '&:hover': {
@@ -283,7 +283,7 @@ const NavItem = ({ item, level, isParents = false }: Props) => {
               </Typography>
             }
           />
-          {(drawerOpen || (!drawerOpen && level !== 1)) && item.chip && (
+          {(openSidebar || (!openSidebar && level !== 1)) && item.chip && (
             <Chip
               color={item.chip.color}
               variant={item.chip.variant}

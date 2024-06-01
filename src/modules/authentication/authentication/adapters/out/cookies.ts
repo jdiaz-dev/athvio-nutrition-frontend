@@ -7,15 +7,15 @@ const ID = 'auth._id';
 
 export function createSessionCookies({ _id, userType, token }: JwtDto) {
   setCookie(null, ID, _id, {
-    maxAge: 3600,
+    maxAge: 7200,
     path: '/',
   });
   setCookie(null, USER_TPE, userType, {
-    maxAge: 3600,
+    maxAge: 7200,
     path: '/',
   });
   setCookie(null, TOKEN_COOKIE, token, {
-    maxAge: 3600,
+    maxAge: 7200,
     path: '/',
   });
 

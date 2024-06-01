@@ -10,7 +10,7 @@ import MenuUnfoldOutlined from '@ant-design/icons/MenuUnfoldOutlined';
 import MenuFoldOutlined from '@ant-design/icons/MenuFoldOutlined';
 import { SidebarContext } from 'src/modules/Lab/Lab3/SidebarContext';
 
-function ExpandSidebar() {
+function ExpansorPatientSidebar() {
   const { openSidebar, setOpenSidebar } = useContext(SidebarContext);
 
   const theme = useTheme();
@@ -18,7 +18,6 @@ function ExpandSidebar() {
   const { mode /* menuOrientation */ } = useConfig();
 
   const { menuMaster } = useGetMenuMaster();
-  const drawerOpen = true; // menuMaster.isDashboardDrawerOpened;
 
   // const isHorizontal = menuOrientation === MenuOrientation.HORIZONTAL && !downLG;
 
@@ -35,7 +34,7 @@ function ExpandSidebar() {
       edge="start"
       color="secondary"
       variant="light"
-      sx={{ color: 'text.primary', /* bgcolor: openSidebar ? 'transparent' : iconBackColor */ ml: { xs: 0, lg: -2 } }}
+      sx={{ color: 'text.primary', bgcolor: openSidebar ? 'transparent' : iconBackColor, ml: { xs: 0, lg: -2 } }}
     >
       {/* here: button to open menu */}
       {!openSidebar ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -43,4 +42,4 @@ function ExpandSidebar() {
   );
 }
 
-export default ExpandSidebar;
+export default ExpansorPatientSidebar;

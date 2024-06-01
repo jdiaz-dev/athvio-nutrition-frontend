@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import ClientSidebar from 'src/modules/Lab/Lab3/ClientSidebar';
-import ExpandSidebar from 'src/modules/Lab/Lab3/ExpandSidebar';
+import PatientSidebar from 'src/modules/Lab/Lab3/PatientSidebar';
 import { SidebarContext } from 'src/modules/Lab/Lab3/SidebarContext';
 
 const Lab3 = () => {
@@ -9,8 +8,7 @@ const Lab3 = () => {
   return (
     <>
       <SidebarContext.Provider value={{ openSidebar, setOpenSidebar }}>
-        <ClientSidebar />
-        <ExpandSidebar />
+        <PatientSidebar />
       </SidebarContext.Provider>
     </>
   );

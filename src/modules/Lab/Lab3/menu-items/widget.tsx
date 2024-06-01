@@ -2,48 +2,41 @@
 import { FormattedMessage } from 'react-intl';
 
 // assets
-import { LineChartOutlined, IdcardOutlined, DatabaseOutlined } from '@ant-design/icons';
+// import { LineChartOutlined } from '@ant-design/icons';//todo: remove
+import AdsClickIcon from '@mui/icons-material/AdsClick';
+import ChatIcon from '@mui/icons-material/Chat';
 
 // type
 import { NavItemType } from 'src/shared/types/menu';
 
-// icons
 const icons = {
-  LineChartOutlined,
-  IdcardOutlined,
-  DatabaseOutlined
+  ChatIcon,
+  AdsClickIcon,
 };
 
-// ==============================|| MENU ITEMS - DASHBOARD ||============================== //
-
+//todo: rename it file accoding to client options
 const widget: NavItemType = {
   id: 'group-widget',
   title: <FormattedMessage id="widgets" />,
-  icon: icons.IdcardOutlined,
+  icon: icons.ChatIcon,
   type: 'group',
   children: [
     {
-      id: 'statistics',
-      title: <FormattedMessage id="statistics" />,
+      id: 'chat',
+      title: <FormattedMessage id="chat" />,
       type: 'item',
       url: '/widget/statistics',
-      icon: icons.IdcardOutlined
+      icon: icons.ChatIcon,
     },
     {
-      id: 'data',
-      title: <FormattedMessage id="data" />,
+      id: 'goals',
+      title: <FormattedMessage id="goals" />,
       type: 'item',
       url: '/widget/data',
-      icon: icons.DatabaseOutlined
+      icon: icons.AdsClickIcon,
     },
-    {
-      id: 'chart',
-      title: <FormattedMessage id="chart" />,
-      type: 'item',
-      url: '/widget/chart',
-      icon: icons.LineChartOutlined
-    }
-  ]
+    
+  ],
 };
 
 export default widget;

@@ -10,7 +10,6 @@ import DrawerContent from './DrawerContent';
 import MiniDrawerStyled from './MiniDrawerStyled';
 
 import { DRAWER_WIDTH } from '../config';
-import { handlerDrawerOpen, useGetMenuMaster } from '../api/menu';
 import { SidebarContext } from 'src/modules/Lab/Lab3/SidebarContext';
 
 // ==============================|| MAIN LAYOUT - DRAWER ||============================== //
@@ -19,11 +18,10 @@ interface Props {
   window?: () => Window;
 }
 
-const ClientSidebar = ({ window }: Props) => {
+const PatientSidebar = ({ window }: Props) => {
   const { openSidebar, setOpenSidebar } = useContext(SidebarContext);
 
   const theme = useTheme();
-  const drawerOpen = true; // menuMaster.isDashboardDrawerOpened;  //here client navbar
   const matchDownMD = useMediaQuery(theme.breakpoints.down('lg'));
 
   // responsive drawer container
@@ -31,12 +29,12 @@ const ClientSidebar = ({ window }: Props) => {
 
   // header content
   const drawerContent = useMemo(() => <DrawerContent />, []);
-  const drawerHeader = useMemo(() => <DrawerHeader open={drawerOpen} />, [drawerOpen]);
+  const drawerHeader = useMemo(() => <DrawerHeader open={openSidebar} />, [openSidebar]);
 
   return (
-    <Box component="nav" sx={{ flexShrink: { md: 0 }, zIndex: 1200 }} aria-label="mailbox folders">
+    <Box component="nav" sx={{ flexShrink: { md: 0 }, zIndex: 1200 }} style={{ border: '2px solid red' }} aria-label="mailbox folders">
       {!matchDownMD ? (
-        <MiniDrawerStyled variant="permanent" open={openSidebar}>
+        <MiniDrawerStyled variant="persistent" open={openSidebar}>
           {drawerHeader}
           {/* //here */}
           {drawerContent}
@@ -69,4 +67,4 @@ const ClientSidebar = ({ window }: Props) => {
   );
 };
 
-export default ClientSidebar;
+export default PatientSidebar;

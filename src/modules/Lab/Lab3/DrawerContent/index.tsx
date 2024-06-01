@@ -8,13 +8,17 @@ import { useMediaQuery } from '@mui/material';
 import Navigation from './Navigation';
 import SimpleBar from '../../components/third-party/SimpleBar';
 import { useGetMenuMaster } from '../../api/menu';
+import { useContext } from 'react';
+import { SidebarContext } from 'src/modules/Lab/Lab3/SidebarContext';
+import ExpansorPatientSidebar from 'src/modules/Lab/Lab3/ExpansorPatientSidebar';
 
 // ==============================|| DRAWER CONTENT ||============================== //
 
 const DrawerContent = () => {
+  const { openSidebar } = useContext(SidebarContext);
+
   const theme = useTheme();
   const { menuMaster } = useGetMenuMaster();
-  const drawerOpen = true// menuMaster.isDashboardDrawerOpened; //here client navbar
   const matchDownMD = useMediaQuery(theme.breakpoints.down('lg'));
 
   return (
@@ -23,15 +27,15 @@ const DrawerContent = () => {
         sx={{
           '& .simplebar-content': {
             display: 'flex',
-            flexDirection: 'column'
-          }
+            flexDirection: 'column',
+          },
         }}
       >
         {/* here */}
         <Navigation />
-        {/* {drawerOpen && !matchDownMD && <NavCard />} */} {/* //x */}
+        {/* {openSidebar && !matchDownMD && <NavCard />} */} {/* //x */}
       </SimpleBar>
-      {/* <NavUser /> */} {/* //x */}
+      <ExpansorPatientSidebar />
     </>
   );
 };
