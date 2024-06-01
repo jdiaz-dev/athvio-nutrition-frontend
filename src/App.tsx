@@ -89,8 +89,11 @@ export default App;
 
 /*
 
-  urgent
+  urgent users submodules
     - realize import in backend
+    - goals
+    - notes
+    - statistics
 */
 
 /* 

@@ -45,18 +45,7 @@ export function useGetMenu() {
 }
 
 export function useGetMenuMaster() {
-  console.log('------------------endpoints.key', endpoints.key);
-  console.log('------------------endpoints.master', endpoints.master);
-  const { data, isLoading, error, isValidating  } = useSWR(endpoints.key + endpoints.master, (arg1, arg2) => {
-    return initialState;
-  });
-  console.log('---jona', { name: 'jona' });
-  console.log('---jonapro', jonapro);
-  console.log('---error', error);
-  console.log('---isLoading', isLoading);
-  console.log('---isValidating', isValidating);
-  console.log('---------------initialState', initialState);
-  console.log('---------------data useGetMenuMaster', data);
+  const { data, isLoading, error, isValidating } = useSWR(endpoints.key + endpoints.master, () => initialState);
   const memoizedValue = useMemo(
     () => ({
       menuMaster: data as MenuProps,

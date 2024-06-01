@@ -80,7 +80,6 @@ const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, sele
 
   const { menuOrientation } = useConfig();
   const { menuMaster } = useGetMenuMaster();
-  console.log('---------jeou', menuMaster);
   const drawerOpen = true; //menuMaster.isDashboardDrawerOpened;
   const selectedID = true; // menuMaster.openedHorizontalItem;
 
