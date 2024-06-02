@@ -114,7 +114,7 @@ function PatientPlansCalendar() {
 
       <CurrentModuleContext.Provider value={{ currentModule: Modules.CLIENT_PLANS }}>
         <ReloadRecordListContext.Provider value={{ reloadRecordList, setReloadRecordList }}>
-          <Box sx={{ position: 'relative' }}>
+          <Box sx={{ display: 'flex' }}>
             <Lab3 />
 
             <CalendarStyled>

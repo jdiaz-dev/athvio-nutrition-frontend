@@ -32,9 +32,17 @@ const PatientSidebar = ({ window }: Props) => {
   const drawerHeader = useMemo(() => <DrawerHeader open={openSidebar} />, [openSidebar]);
 
   return (
-    <Box component="nav" sx={{ flexShrink: { md: 0 }, zIndex: 1200 }} style={{ border: '2px solid red' }} aria-label="mailbox folders">
+    <Box component="nav" sx={{ flexShrink: { md: 0 }, zIndex: 1200 }} aria-label="mailbox folders">
       {!matchDownMD ? (
-        <MiniDrawerStyled variant="persistent" open={openSidebar}>
+        <MiniDrawerStyled
+          sx={{
+            '& .MuiDrawer-paper': {
+              position: 'relative',
+            },
+          }}
+          variant="permanent"
+          open={openSidebar}
+        >
           {drawerHeader}
           {/* //here */}
           {drawerContent}
@@ -42,7 +50,7 @@ const PatientSidebar = ({ window }: Props) => {
       ) : (
         <Drawer
           container={container}
-          variant="persistent"
+          variant="permanent"
           open={openSidebar}
           onClose={() => {
             setOpenSidebar(!openSidebar);
@@ -56,6 +64,7 @@ const PatientSidebar = ({ window }: Props) => {
               borderRight: `1px solid ${theme.palette.divider}`,
               backgroundImage: 'none',
               boxShadow: 'inherit',
+              position: 'relative',
             },
           }}
         >
