@@ -43,6 +43,7 @@
     "formik": "^2.4.5",
     "framer-motion": "^11.0.3",
     "graphql": "^16.6.0",
+    "graphql-ws": "^5.16.0",
     "i": "^0.3.7",
     "lodash": "^4.17.21",
     "nookies": "^2.5.2",

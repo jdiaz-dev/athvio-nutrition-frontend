@@ -98,6 +98,11 @@ export default App;
     - goals
     - notes
     - statistics
+
+  urgent technical fix
+    tdd patient chat
+      
+
 */
 
 /* 

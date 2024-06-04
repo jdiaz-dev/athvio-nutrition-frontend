@@ -1,4 +1,4 @@
-import { useContext, useMemo } from 'react';
+import { useContext, useEffect, useMemo } from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -11,6 +11,7 @@ import MiniDrawerStyled from './MiniDrawerStyled';
 
 import { DRAWER_WIDTH } from '../config';
 import { SidebarContext } from 'src/modules/Lab/Lab3/SidebarContext';
+import { useChat } from 'src/modules/patients/chat/adapters/out/ChatActions';
 
 // ==============================|| MAIN LAYOUT - DRAWER ||============================== //
 
@@ -20,7 +21,7 @@ interface Props {
 
 const PatientSidebar = ({ window }: Props) => {
   const { openSidebar, setOpenSidebar } = useContext(SidebarContext);
-
+  const {commentAddedSubscription} = useChat()
   const theme = useTheme();
   const matchDownMD = useMediaQuery(theme.breakpoints.down('lg'));
 
@@ -30,6 +31,9 @@ const PatientSidebar = ({ window }: Props) => {
   // header content
   const drawerContent = useMemo(() => <DrawerContent />, []);
   const drawerHeader = useMemo(() => <DrawerHeader open={openSidebar} />, [openSidebar]);
+  useEffect(() => {
+    commentAddedSubscription({})
+  },[])
 
   return (
     <Box component="nav" sx={{ flexShrink: { md: 0 }, zIndex: 1200 }} aria-label="mailbox folders">

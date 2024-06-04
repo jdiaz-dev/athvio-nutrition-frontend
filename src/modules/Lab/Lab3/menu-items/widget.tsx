@@ -22,15 +22,15 @@ const widget: NavItemType = {
   type: 'group',
   children: [
     {
-      id: 'chat',
-      title: <FormattedMessage id="chat" />,
+      id: 'Chat',
+      title: <FormattedMessage id="Chat" />,
       type: 'item',
       url: '/widget/statistics',
       icon: icons.ChatIcon,
     },
     {
-      id: 'goals',
-      title: <FormattedMessage id="goals" />,
+      id: 'Goals',
+      title: <FormattedMessage id="Goals" />,
       type: 'item',
       url: '/widget/data',
       icon: icons.AdsClickIcon,
