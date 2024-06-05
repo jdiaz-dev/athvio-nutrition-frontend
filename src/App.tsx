@@ -9,15 +9,15 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import CustomRecipesContainer from 'src/modules/professionals/custom-recipes/adapters/in/components/CustomRecipesContainer';
 import ProgramPlansContainer from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/ProgramPlansContainer';
 import Lab from 'src/modules/Lab/Lab';
-import PatientPlansContainer from 'src/modules/patients/patient-plans/adapters/in/components/PatientPlansContainer/PatientPlansContainer';
 import PrivateRoute from './core/router/PrivateRoute';
 import PublicRoute from './core/router/PublicRoute';
 import Lab2 from './modules/Lab/Lab2';
 import SignIn from './modules/authentication/authentication/adapters/in/singIn/SignIn';
 import SignUpProfessional from './modules/authentication/authentication/adapters/in/SignUpProfessional/SingUpProfessional';
-import Lab3 from './modules/Lab/Lab3/Lab3';
+import Lab3 from './modules/patients/patient-console/patient-sidebar/components/PatientSidebarContainer';
 import Lab4 from 'src/modules/Lab/Lab4';
 import Lab5 from 'src/modules/Lab/Lab5';
+import PatientConsoleContainer from 'src/modules/patients/patient-console/PatientConsoleContainer';
 
 function App() {
   return (
@@ -49,7 +49,8 @@ function App() {
             }
           >
             <Route path="patients" element={<PatientsContainer />} />
-            <Route path="patients/:patientId/plans" element={<PatientPlansContainer />} />
+            {/* <Route path="patients/:patientId/plans" element={<PatientPlansContainer />} /> */}
+            <Route path="patients/:patientId/plans" element={<PatientConsoleContainer />} />
             <Route path="custom Recipes" element={<CustomRecipesContainer />} />
             <Route path="programs" element={<ProgramsContainer />} />
             <Route path="programs/:programId/plans" element={<ProgramPlansContainer />} />
@@ -101,7 +102,7 @@ export default App;
 
   urgent technical fix
     tdd patient chat
-      
+
 
 */
 
