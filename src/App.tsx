@@ -17,7 +17,8 @@ import SignUpProfessional from './modules/authentication/authentication/adapters
 import Lab3 from './modules/patients/patient-console/patient-sidebar/components/PatientSidebarContainer';
 import Lab4 from 'src/modules/Lab/Lab4';
 import Lab5 from 'src/modules/Lab/Lab5';
-import PatientConsoleContainer from 'src/modules/patients/patient-console/PatientConsoleContainer';
+import Lab6 from 'src/modules/Lab/lab6/Lab6';
+import PatientConsoleContainer from 'src/modules/patients/patient-console/patient-console/in/components/PatientConsoleContainer';
 
 function App() {
   return (
@@ -59,6 +60,8 @@ function App() {
             <Route path="lab3" element={<Lab3 />} />
             <Route path="lab4" element={<Lab4 />} />
             <Route path="lab5" element={<Lab5 />} />
+            <Route path="lab6" element={<Lab6 />} />
+
           </Route>
           {<Route path="*" element={<div>404</div>} />}
         </Routes>

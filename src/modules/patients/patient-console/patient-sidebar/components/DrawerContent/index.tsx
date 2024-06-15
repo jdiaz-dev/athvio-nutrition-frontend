@@ -6,7 +6,7 @@ import { useMediaQuery } from '@mui/material';
 // import NavUser from './NavUser';
 // import NavCard from './NavCard';
 import Navigation from './Navigation';
-import SimpleBar from '../../../../../Lab/components/third-party/SimpleBar';
+import SimpleBar from 'src/shared/components/third-party/SimpleBar';
 import { useGetMenuMaster } from '../../../../../Lab/api/menu';
 import { useContext } from 'react';
 import { SidebarContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SidebarContext';

@@ -6,7 +6,7 @@ import { useTheme } from '@mui/material/styles';
 import { Avatar, Box, Chip, ListItemButton, ListItemIcon, ListItemText, Typography, useMediaQuery } from '@mui/material';
 
 // project import
-import Dot from '../../../../../../Lab/components/extended/Dot';
+import Dot from '../../../../../../../shared/components/extended/Dot';
 import IconButton from 'src/shared/components/IconButton';
 
 import useConfig from '../../../../../../Lab/hooks/useConfig';

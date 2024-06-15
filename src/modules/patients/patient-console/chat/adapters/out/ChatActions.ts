@@ -1,7 +1,11 @@
 import { ApolloError } from '@apollo/client';
 import { useDispatch } from 'react-redux';
 import { apolloClient } from 'src/graphql/ApolloClient';
-import { CREATE_PLAN_MEAL, DELETE_PLAN_MEAL, UPDATE_PLAN_MEAL } from 'src/modules/patients/patient-console/patient-plans/adapters/out/PlanMealQueries';
+import {
+  CREATE_PLAN_MEAL,
+  DELETE_PLAN_MEAL,
+  UPDATE_PLAN_MEAL,
+} from 'src/modules/patients/patient-console/patient-plans/adapters/out/PlanMealQueries';
 import { PatientPlanBody } from 'src/modules/patients/patient-console/patient-plans/adapters/out/patientPlan.types';
 import {
   AddPatientPlanRequest,
@@ -39,24 +43,23 @@ export function useChat() {
     }
   };
   const commentAddedSubscription = async (body: any): Promise<void> => {
+    body;
     try {
-      const response = apolloClient.subscribe<CommentAddedResponse>({
-        query: COMMENT_ADDED_SUBSCRIPTION,
-        /* variables: {
-          input: {
-            ...body,
+      const response = apolloClient
+        .subscribe<CommentAddedResponse>({
+          query: COMMENT_ADDED_SUBSCRIPTION,
+          variables: {
+            input: { professional: '66493c26091cb4d8d83bedaf', patients: ['66493d52091cb4d8d83bedc4'] },
           },
-        }, */
-
-      }).subscribe(({data, errors, extensions}) => {
-        console.log('-------data', data)
-        console.log('-------errors', errors)
-        console.log('-------extensions', extensions)
-
-      })
+        })
+        .subscribe(({ data, errors, extensions }) => {
+          console.log('-------data', data);
+          console.log('-------errors', errors);
+          console.log('-------extensions', extensions);
+        });
 
       if (response) {
-        console.log('-------response', response)
+        console.log('-------response', response);
         // dispatch(PatientPlanSlice.acceptNewPatientPlan(response.?.updatePlanMeal as PatientPlanBody));
       }
     } catch (error) {

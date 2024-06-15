@@ -20,10 +20,10 @@ import {
 
 // project import
 import NavItem from './NavItem';
-import Dot from '../../../../../../Lab/components/extended/Dot';
+import Dot from 'src/shared/components/extended/Dot';
 import IconButton from 'src/shared/components/IconButton';
-import SimpleBar from '../../../../../../Lab/components/third-party/SimpleBar';
-import Transitions from '../../../../../../Lab/components/extended/Transitions';
+import SimpleBar from 'src/shared/components/third-party/SimpleBar';
+import Transitions from 'src/shared/components/extended/Transitions';
 
 import useConfig from '../../../../../../Lab/hooks/useConfig';
 import { handlerActiveItem, useGetMenuMaster } from '../../../../../../Lab/api/menu';

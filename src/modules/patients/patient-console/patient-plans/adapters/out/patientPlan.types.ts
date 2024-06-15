@@ -47,6 +47,8 @@ export interface PatientPlans {
   data: PatientPlanBody[];
   meta: MetadataRecords;
 }
+
+//todo: delete response
 export interface GetPatientPlansResponse {
   getPatientPlans: PatientPlanBody[];
 }

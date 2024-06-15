@@ -37,7 +37,7 @@ import { createEvent, updateEvent, deleteEvent } from '../../../api/calender';
 import { CalendarOutlined, DeleteFilled } from '@ant-design/icons';
 
 // types
-import { SnackbarProps } from '../../../types/snackbar';
+import { SnackbarProps } from 'src/shared/types/snackbar';
 import { DateRange } from '../../../types/calendar';
 import IconButton from 'src/shared/components/IconButton';
 

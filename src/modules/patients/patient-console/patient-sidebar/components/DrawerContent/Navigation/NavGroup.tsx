@@ -23,8 +23,8 @@ import { FormattedMessage } from 'react-intl';
 // project import
 import NavItem from './NavItem';
 import NavCollapse from './NavCollapse';
-import SimpleBar from '../../../../../../Lab/components/third-party/SimpleBar';
-import Transitions from '../../../../../../Lab/components/extended/Transitions';
+import SimpleBar from 'src/shared/components/third-party/SimpleBar';
+import Transitions from '../../../../../../../shared/components/extended/Transitions';
 
 import useConfig from '../../../../../../Lab/hooks/useConfig';
 import { handlerHorizontalActiveItem, useGetMenuMaster } from '../../../../../../Lab/api/menu';

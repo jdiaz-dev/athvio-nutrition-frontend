@@ -29,6 +29,7 @@ function PatientPlansCalendar() {
   const { reloadRecordList, setReloadRecordList } = useReloadRecords();
   const [dateSet, setDateSet] = useState<{ dateStart: Date; dateEnd: Date } | null>(null);
   const [datesToShow, setDatesToShow] = useState<DateItem<PatientPlanDateExtendedProps>[]>([]);
+  
   const input = {
     professional: authContext.professional,
     patient: patientId as string,

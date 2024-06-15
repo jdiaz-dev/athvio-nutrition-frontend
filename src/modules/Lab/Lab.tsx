@@ -17,7 +17,6 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import timelinePlugin from '@fullcalendar/timeline';
 
 // project import
-import { PopupTransition } from './components/extended/Transitions';
 import CalendarStyled from 'src/shared/components/CalendarStyled/CalendarStyled';
 import Toolbar from './sections/apps/calendar/Toolbar';
 import AddEventForm from './sections/apps/calendar/AddEventForm';
@@ -26,6 +25,7 @@ import { useGetEvents, updateEvent } from './api/calender';
 // types
 import { PlusOutlined } from '@ant-design/icons';
 import { C } from '@fullcalendar/core/internal-common';
+import { PopupTransition } from 'src/shared/components/extended/Transitions';
 
 // ==============================|| CALENDAR - MAIN ||============================== //
 
