@@ -23,6 +23,7 @@ export type SignUpProfessionalModel = {
   email: string;
   password: string;
   phone: string;
+  photo?: string;
   acceptedTerms?: boolean;
   countryCode?: string;
   country?: string;

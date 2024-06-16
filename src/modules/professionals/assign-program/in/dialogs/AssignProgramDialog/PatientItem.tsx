@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react';
-import { PatientBody } from 'src/modules/patients/patients/adapters/out/patient.types';
 import { Navigate } from 'react-router-dom';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import { Modules } from 'src/shared/Consts';
 import PatientBasicInfo from 'src/shared/components/PatientList/PatientBasicInfo';
 import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
 import SelectPatientButton from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/SelectPatientButton';
+import { PatientBody } from 'src/modules/patients/patient-console/patient/out/patient';
 
 function PatientItem({ patient }: { patient: PatientBody }) {
   const currentModuleContext = useContext(CurrentModuleContext);

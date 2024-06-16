@@ -29,7 +29,12 @@ import ChatMessageSend from 'src/modules/Lab/lab6/sections/apps/chat/ChatMessage
 // import { ThemeMode } from 'config';
 import { ThemeMode } from 'src/shared/types/config';
 import { UserProfile } from 'src/shared/types/auth';
-import { useGetUsers } from 'src/modules/Lab/lab6/api/chat';
+import { useDispatch, useSelector } from 'react-redux';
+import { ChatBody } from 'src/modules/patients/patient-console/chat/adapters/out/chat';
+import { ReduxStates } from 'src/shared/types/types';
+import * as ChatSlice from 'src/modules/patients/patient-console/chat/adapters/in/slicers/ChatSlice';
+import * as PatientSlice from 'src/modules/patients/patient-console/patient/adapters/in/slicers/PatientSlice';
+import { AcceptNewPatient } from 'src/modules/patients/patient-console/patient/adapters/out/patient';
 
 const drawerWidth = 320;
 
@@ -38,41 +43,37 @@ const Main = styled('main', { shouldForwardProp: (prop: string) => prop !== 'ope
     flexGrow: 1,
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.shorter
+      duration: theme.transitions.duration.shorter,
     }),
     marginLeft: `-${drawerWidth}px`,
     [theme.breakpoints.down('lg')]: {
       paddingLeft: 0,
-      marginLeft: 0
+      marginLeft: 0,
     },
     ...(open && {
       width: `calc(100% - ${drawerWidth}px)`,
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.shorter
+        duration: theme.transitions.duration.shorter,
       }),
-      marginLeft: 0
-    })
-  })
+      marginLeft: 0,
+    }),
+  }),
 );
 
 // ==============================|| APPLICATION - CHAT ||============================== //
 
-export default function Chat() {
+export default function Chat({ patient, chat }: { patient: AcceptNewPatient; chat: ChatBody }) {
+  const dispatch = useDispatch();
   const theme = useTheme();
-  const { usersLoading, users } = useGetUsers();
-
   const downLG = useMediaQuery(theme.breakpoints.down('lg'));
   const downMD = useMediaQuery(theme.breakpoints.down('md'));
   const [emailDetails, setEmailDetails] = useState(false);
-  const [user, setUser] = useState<UserProfile>({});
 
-  useEffect(() => {
-    if (!usersLoading) {
-      const newUser = users.filter((item) => item.id?.toString() === '2')[0];
-      setUser(newUser);
-    }
-  }, [users, usersLoading]);
+  const patientState = useSelector((state: ReduxStates) => state.patient);
+  console.log('-----------patientState', patientState);
+  dispatch(ChatSlice.acceptNewChat(chat));
+  dispatch(PatientSlice.acceptNewPatient(patient));
 
   const handleUserChange = () => {
     setEmailDetails((prev) => !prev);
@@ -97,7 +98,6 @@ export default function Chat() {
         selectedUser={usersLoading || Object.keys(user).length === 0 ? null : user.id!}
       /> */}
 
-      {/* here: chat */}
       <Main theme={theme} open={openChatDrawer}>
         <Grid container>
           <Grid
@@ -108,8 +108,8 @@ export default function Chat() {
             sx={{
               transition: theme.transitions.create('width', {
                 easing: theme.transitions.easing.easeOut,
-                duration: theme.transitions.duration.shorter + 200
-              })
+                duration: theme.transitions.duration.shorter + 200,
+              }),
             }}
           >
             <MainCard
@@ -121,8 +121,8 @@ export default function Chat() {
                 borderRadius: emailDetails ? '0' : '0 4px 4px 0',
                 transition: theme.transitions.create('width', {
                   easing: theme.transitions.easing.easeOut,
-                  duration: theme.transitions.duration.shorter + 200
-                })
+                  duration: theme.transitions.duration.shorter + 200,
+                }),
               }}
             >
               <Grid container spacing={3}>
@@ -131,25 +131,38 @@ export default function Chat() {
                   xs={12}
                   sx={{ bgcolor: 'background.paper', pr: 2, pb: 2, borderBottom: '1px solid', borderBottomColor: 'divider' }}
                 >
-                  <ChatHeader {...{ loading: usersLoading, user, openChatDrawer, emailDetails, handleDrawerOpen, handleUserChange }} />
+                  <ChatHeader
+                    {...{
+                      //todo: implement loading?
+                      loading: false,
+                      patient: patientState,
+                      openChatDrawer,
+                      emailDetails,
+                      handleDrawerOpen,
+                      handleUserChange,
+                    }}
+                  />
                 </Grid>
                 <Grid item xs={12}>
-                  <ChatHistory theme={theme} user={user} />
+                  <ChatHistory theme={theme} patient={patient} />
                 </Grid>
                 <Grid item xs={12} sx={{ mt: 3, bgcolor: 'background.paper', borderTop: '1px solid', borderTopColor: 'divider' }}>
-                  <ChatMessageSend {...{ user }} />
+                  {/* todo: enable it */}
+                  {/* <ChatMessageSend {...{ user }} /> */}
                 </Grid>
               </Grid>
             </MainCard>
           </Grid>
           <Grid item xs={12} md={4} xl={3} sx={{ overflow: 'hidden', display: emailDetails ? 'flex' : 'none' }}>
             <Collapse orientation="horizontal" in={emailDetails && !downMD}>
-              <UserDetails user={user} onClose={handleUserChange} />
+              {/* todo: enable it */}
+              {/* <UserDetails user={user} onClose={handleUserChange} /> */}
             </Collapse>
           </Grid>
 
           <Dialog TransitionComponent={PopupTransition} onClose={handleUserChange} open={downMD && emailDetails} scroll="body">
-            <UserDetails user={user} onClose={handleUserChange} />
+            {/* todo: enable it */}
+            {/* <UserDetails user={user} onClose={handleUserChange} /> */}
           </Dialog>
         </Grid>
       </Main>

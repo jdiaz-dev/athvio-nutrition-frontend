@@ -14,7 +14,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 // project-import
-import UserAvatar from './UserAvatar';
+import UserAvatar from './CommenterAvatar';
 
 // assets
 import MenuFoldOutlined from '@ant-design/icons/MenuFoldOutlined';
@@ -30,11 +30,11 @@ import VideoCameraOutlined from '@ant-design/icons/VideoCameraOutlined';
 
 // types
 import IconButton from 'src/shared/components/IconButton';
-import { UserProfile } from 'src/shared/types/auth';
+import { AcceptNewPatient } from 'src/modules/patients/patient-console/patient/adapters/out/patient';
 
 interface Props {
   loading: boolean;
-  user: UserProfile;
+  patient: AcceptNewPatient;
   openChatDrawer: boolean;
   emailDetails: boolean;
   handleDrawerOpen: () => void;
@@ -43,7 +43,7 @@ interface Props {
 
 // ==============================|| CHAT HEADER ||============================== //
 
-export default function ChatHeader({ loading, user, openChatDrawer, emailDetails, handleDrawerOpen, handleUserChange }: Props) {
+export default function ChatHeader({ loading, patient, openChatDrawer, emailDetails, handleDrawerOpen, handleUserChange }: Props) {
   const [anchorEl, setAnchorEl] = useState<Element | (() => Element) | null | undefined>(null);
 
   const handleClickSort = (event: React.MouseEvent<HTMLButtonElement> | undefined) => {
@@ -61,7 +61,9 @@ export default function ChatHeader({ loading, user, openChatDrawer, emailDetails
           <IconButton onClick={handleDrawerOpen} color="secondary" size="large">
             {openChatDrawer ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
           </IconButton>
-          {loading && Object.keys(user).length === 0 ? (
+
+          {/* todo: what is doing with length? */}
+          {loading && Object.keys(patient.user).length === 0 ? (
             <List disablePadding>
               <ListItem disablePadding disableGutters>
                 <ListItemAvatar>
@@ -76,17 +78,13 @@ export default function ChatHeader({ loading, user, openChatDrawer, emailDetails
             </List>
           ) : (
             <>
-              <UserAvatar
-                user={{
-                  online_status: user.online_status,
-                  avatar: user.avatar,
-                  name: user.name
-                }}
-              />
+              <UserAvatar patient={patient} />
               <Stack>
-                <Typography variant="subtitle1">{user.name}</Typography>
+                <Typography variant="subtitle1">{patient.user.firstname}</Typography>
                 <Typography variant="caption" color="text.secondary">
-                  Active {user.lastMessage} ago
+                  {/* todo: implement last message? */}
+                  {/* Active {patient.user.lastMessage} ago */}
+                  Active ... ago
                 </Typography>
               </Stack>
             </>
@@ -115,17 +113,17 @@ export default function ChatHeader({ loading, user, openChatDrawer, emailDetails
             onClose={handleCloseSort}
             anchorOrigin={{
               vertical: 'bottom',
-              horizontal: 'right'
+              horizontal: 'right',
             }}
             transformOrigin={{
               vertical: 'top',
-              horizontal: 'right'
+              horizontal: 'right',
             }}
             sx={{
-              p: 0,
+              'p': 0,
               '& .MuiMenu-list': {
-                p: 0
-              }
+                p: 0,
+              },
             }}
           >
             <MenuItem onClick={handleCloseSort}>

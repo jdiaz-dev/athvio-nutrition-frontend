@@ -12,7 +12,6 @@ import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext
 import PatientDetail from 'src/modules/patients/patients/adapters/in/components/PatientDetail';
 import { GET_CLIENTS } from 'src/modules/patients/patients/adapters/out/PatientQueries';
 import {
-  PatientBody,
   GetPatientResponse,
   GetPatientsRequest,
   GraphQLPatientInput,
@@ -24,6 +23,7 @@ import Paginator from 'src/shared/components/Paginator';
 import { PatientStates } from 'src/shared/Consts';
 import { PatientStateContext } from 'src/modules/patients/patients/adapters/in/components/PatientStateContext';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { PatientBody } from 'src/modules/patients/patient-console/patient/out/patient';
 
 function PatientList() {
   const authContext = useContext(AuthContext);

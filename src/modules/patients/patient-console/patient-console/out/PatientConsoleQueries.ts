@@ -99,6 +99,7 @@ export const GET_PATIENT_FOR_CONSOLE = gql`
         _id
         commenter
         content
+        createdAt
       }
     }
     getPatient(patient: $patient) {
@@ -107,6 +108,8 @@ export const GET_PATIENT_FOR_CONSOLE = gql`
         _id
         firstname
         lastname
+        email
+        photo
       }
     }
   }

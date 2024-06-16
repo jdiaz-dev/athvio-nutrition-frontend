@@ -4,6 +4,8 @@ import customRecipeReducers from 'src/modules/professionals/custom-recipes/adapt
 import programsReducer from 'src/modules/professionals/programs/adapters/in/slicers/ProgramSlice';
 import assignProgramReducer from 'src/modules/professionals/assign-program/in/slicers/AssignProgramSlice';
 import patientPlansReducer from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/PatientPlanSlice';
+import ChatReducer from 'src/modules/patients/patient-console/chat/adapters/in/slicers/ChatSlice';
+import PatientReducer from 'src/modules/patients/patient-console/patient/adapters/in/slicers/PatientSlice';
 
 // const {applyMiddleware, combineReducers, createStore} = require('redux');
 import thunk from 'redux-thunk';
@@ -18,11 +20,13 @@ import thunk from 'redux-thunk';
 export default configureStore({
   reducer: {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    users: usersReducer,
+    users: usersReducer, //todo: change to authentification reducer
     customRecipes: customRecipeReducers,
     programs: programsReducer,
     assignProgram: assignProgramReducer,
     patientPlans: patientPlansReducer,
+    chat: ChatReducer,
+    patient: PatientReducer,
   },
   devTools: true,
   // enhancers

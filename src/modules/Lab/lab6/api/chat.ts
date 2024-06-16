@@ -2,38 +2,17 @@ import useSWR, { mutate } from 'swr';
 import { useMemo } from 'react';
 
 // utils
-import { fetcher, fetcherPost } from 'src/modules/Lab/utils/axios';
+import { fetcherPost } from 'src/modules/Lab/utils/axios';
 
 // types
-import { UserProfile } from 'src/shared/types/auth';
 import { ChatHistory } from 'src/modules/Lab/lab6/types/chat';
 
+//todo: remove it
 export const endpoints = {
   key: 'api/chat',
   list: '/users', // server URL
-  update: '/filter' // server URL
+  update: '/filter', // server URL
 };
-
-export function useGetUsers() {
-  const { data, isLoading, error, isValidating } = useSWR(endpoints.key + endpoints.list, fetcher, {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false
-  });
-
-  const memoizedValue = useMemo(
-    () => ({
-      users: data?.users as UserProfile[],
-      usersLoading: isLoading,
-      usersError: error,
-      usersValidating: isValidating,
-      usersEmpty: !isLoading && !data?.users?.length
-    }),
-    [data, error, isLoading, isValidating]
-  );
-
-  return memoizedValue;
-}
 
 export function useGetUserChat(userName: string) {
   const URL = [endpoints.key + endpoints.update, { user: userName, endpoints: 'chat' }];
@@ -41,7 +20,7 @@ export function useGetUserChat(userName: string) {
   const { data, isLoading, error, isValidating } = useSWR(URL, fetcherPost, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
-    revalidateOnReconnect: false
+    revalidateOnReconnect: false,
   });
 
   const memoizedValue = useMemo(
@@ -50,9 +29,9 @@ export function useGetUserChat(userName: string) {
       chatLoading: isLoading,
       chatError: error,
       chatValidating: isValidating,
-      chatEmpty: !isLoading && !data?.length
+      chatEmpty: !isLoading && !data?.length,
     }),
-    [data, error, isLoading, isValidating]
+    [data, error, isLoading, isValidating],
   );
 
   return memoizedValue;
@@ -68,7 +47,7 @@ export async function insertChat(userName: string, newChat: ChatHistory) {
       const addedChat: ChatHistory[] = [...currentChat, newChat];
       return addedChat;
     },
-    false
+    false,
   );
 
   // to hit server

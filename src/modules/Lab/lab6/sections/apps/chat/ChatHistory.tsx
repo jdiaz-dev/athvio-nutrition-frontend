@@ -10,31 +10,36 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 // project imports
-import UserAvatar from './UserAvatar';
+import CommenterAvatar from './CommenterAvatar';
 import ChatMessageAction from './ChatMessageAction';
 import SimpleBar from 'src/shared/components/third-party/SimpleBar';
-
 
 // assets
 import EditOutlined from '@ant-design/icons/EditOutlined';
 
 // types
 import IconButton from 'src/shared/components/IconButton';
-import { UserProfile } from 'src/shared/types/auth';
 import { useGetUserChat } from 'src/modules/Lab/lab6/api/chat';
 import CircularWithPath from 'src/modules/Lab/lab6/components/extended/progress/CircularWithPath';
 import { ThemeMode } from 'src/shared/types/config';
+import { AcceptNewPatient } from 'src/modules/patients/patient-console/patient/adapters/out/patient';
+import { useSelector } from 'react-redux';
+import { ReduxStates } from 'src/shared/types/types';
+import { Commenter } from 'src/modules/patients/patient-console/chat/adapters/out/chat';
 
 interface ChatHistoryProps {
   theme: Theme;
-  user: UserProfile;
+  patient: AcceptNewPatient;
 }
 
 // ==============================|| CHAT MESSAGE HISTORY ||============================== //
 
-export default function ChatHistory({ theme, user }: ChatHistoryProps) {
+export default function ChatHistory({ theme, patient }: ChatHistoryProps) {
+  const { user } = patient;
   const bottomRef = useRef(null);
-  const { chat, chatLoading } = useGetUserChat(user.name!);
+  const { chat, chatLoading } = useGetUserChat(user.firstname!);
+  const chatState = useSelector((state: ReduxStates) => state.chat);
+  console.log('-----------chatState', chatState);
 
   useEffect(() => {
     // @ts-ignore
@@ -53,19 +58,20 @@ export default function ChatHistory({ theme, user }: ChatHistoryProps) {
   return (
     <SimpleBar
       sx={{
-        overflowX: 'hidden',
-        height: 'calc(100vh - 410px)',
-        minHeight: 420,
+        'overflowX': 'hidden',
+        'height': 'calc(100vh - 410px)',
+        'minHeight': 420,
         '& .simplebar-content': {
-          height: '100%'
-        }
+          height: '100%',
+        },
       }}
     >
       <Box sx={{ pl: 1, pr: 3, height: '100%' }}>
         <Grid container spacing={2.5}>
-          {chat.map((history, index) => (
+          {chatState.comments.map((comment, index) => (
             <Grid item xs={12} key={index}>
-              {history.from !== user.name ? (
+              {/* for patient */}
+              {comment.commenter === Commenter.PATIENT ? (
                 <Stack spacing={1.25} direction="row" alignItems="flex-start">
                   <Grid container justifyContent="flex-end">
                     <Grid item xs={2} md={3} xl={4} />
@@ -82,14 +88,14 @@ export default function ChatHistory({ theme, user }: ChatHistoryProps) {
                             float: 'right',
                             bgcolor: theme.palette.primary.main,
                             boxShadow: 'none',
-                            ml: 1
+                            ml: 1,
                           }}
                         >
                           <CardContent sx={{ p: 1, pb: '8px !important', width: 'fit-content', ml: 'auto' }}>
                             <Grid container spacing={1}>
                               <Grid item xs={12}>
                                 <Typography variant="h6" color={theme.palette.grey[0]} sx={{ overflowWrap: 'anywhere' }}>
-                                  {history.text}
+                                  {comment.content}
                                 </Typography>
                               </Grid>
                             </Grid>
@@ -99,15 +105,15 @@ export default function ChatHistory({ theme, user }: ChatHistoryProps) {
                     </Grid>
                     <Grid item xs={12}>
                       <Typography align="right" variant="subtitle2" color="text.secondary">
-                        {history.time}
+                        {comment.createdAt}
                       </Typography>
                     </Grid>
                   </Grid>
-                  <UserAvatar user={{ online_status: 'available', avatar: 'avatar-1.png', name: 'User 1' }} />
+                  <CommenterAvatar user={{ online_status: 'available', avatar: 'avatar-1.png', name: 'User 1' }} />
                 </Stack>
               ) : (
                 <Stack direction="row" spacing={1.25} alignItems="flex-start">
-                  <UserAvatar user={{ online_status: user.online_status, avatar: user.avatar, name: user.name }} />
+                  <CommenterAvatar user={{ online_status: user.online_status, avatar: user.avatar, name: user.name }} />
 
                   <Grid container>
                     <Grid item xs={12} sm={7}>
@@ -116,14 +122,14 @@ export default function ChatHistory({ theme, user }: ChatHistoryProps) {
                           display: 'inline-block',
                           float: 'left',
                           bgcolor: theme.palette.mode === ThemeMode.DARK ? 'background.background' : 'grey.0',
-                          boxShadow: 'none'
+                          boxShadow: 'none',
                         }}
                       >
                         <CardContent sx={{ p: 1, pb: '8px !important' }}>
                           <Grid container spacing={1}>
                             <Grid item xs={12}>
                               <Typography variant="h6" color="text.primary" sx={{ overflowWrap: 'anywhere' }}>
-                                {history.text}
+                                {comment.content}
                               </Typography>
                             </Grid>
                           </Grid>
@@ -132,7 +138,7 @@ export default function ChatHistory({ theme, user }: ChatHistoryProps) {
                     </Grid>
                     <Grid item xs={12} sx={{ mt: 1 }}>
                       <Typography variant="subtitle2" color="text.secondary">
-                        {history.time}
+                        {comment.createdAt}
                       </Typography>
                     </Grid>
                   </Grid>

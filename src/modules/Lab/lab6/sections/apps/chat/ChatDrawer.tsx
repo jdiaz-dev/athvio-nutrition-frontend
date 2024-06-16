@@ -20,7 +20,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 // project imports
-import UserAvatar from './UserAvatar';
+import UserAvatar from './CommenterAvatar';
 import UserList from './UserList';
 
 import useAuth from 'hooks/useAuth';

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { PatientBody } from 'src/modules/patients/patients/adapters/out/patient.types';
 import { Navigate } from 'react-router-dom';
 import PatientBasicInfo from 'src/shared/components/PatientList/PatientBasicInfo';
 import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
 import ManagePatientGroup from 'src/modules/patients/patients/adapters/in/components/ManagePatientGroup';
 import PatientOptions from 'src/modules/patients/patients/adapters/in/components/PatientOptions';
+import { PatientBody } from 'src/modules/patients/patient-console/patient/out/patient';
 
 function PatientDetail({ patient }: { patient: PatientBody }) {
   const [goToPatientPlans, setGoToPatientPlans] = useState(false);

@@ -1,4 +1,5 @@
 import { Dayjs } from 'dayjs';
+import { PatientBody } from 'src/modules/patients/patient-console/patient/out/patient';
 import { PatientStates, ManagePatientGroupEnum } from 'src/shared/Consts';
 import { MetadataRecords } from 'src/shared/types/get-records.types';
 import { PatientGroup, GraphQLInput, PlanDayInfo } from 'src/shared/types/types';
@@ -19,7 +20,7 @@ export type AdditionalInfo = {
   weight?: number | null;
   birthday?: Dayjs | null | string;
   gender?: string;
-  profilePicture?: string;
+  photo?: string;
   countryCode?: string;
   country?: string;
   phone?: string;
@@ -54,16 +55,6 @@ export type GetPatientsRequest = {
   };
 };
 
-export type PatientBody = {
-  _id: string;
-  user: {
-    firstname: string;
-    lastname: string;
-    email: string;
-  };
-  groups: PatientGroup[];
-  state: string;
-};
 
 export type GetPatientResponse = {
   getPatients: {

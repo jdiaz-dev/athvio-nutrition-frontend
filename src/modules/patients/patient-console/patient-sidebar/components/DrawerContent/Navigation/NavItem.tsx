@@ -40,7 +40,6 @@ const NavItem = ({ item, level, isParents = false }: Props) => {
   if (item.target) {
     itemTarget = '_blank';
   }
-  /* here: final item */
   const Icon = item.icon!;
   const itemIcon = item.icon ? (
     <Icon
@@ -133,7 +132,6 @@ const NavItem = ({ item, level, isParents = false }: Props) => {
                     }),
                 }}
               >
-                {/* here: */}
                 {itemIcon}
               </ListItemIcon>
             )}

@@ -1,4 +1,6 @@
 import { SignUpProfessionalModel } from 'src/modules/authentication/authentication/adapters/out/authentication.types';
+import { ChatInitialState } from 'src/modules/patients/patient-console/chat/adapters/out/chat';
+import { PatientInitialState } from 'src/modules/patients/patient-console/patient/adapters/out/patient';
 import { PatientPlanInitialState } from 'src/modules/patients/patient-plans/adapters/out/patientPlan.types';
 import { AssignProgramInitialState } from 'src/modules/professionals/assign-program/out/AssignProgram.types';
 import { CustomRecipeInitialState } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
@@ -18,9 +20,9 @@ export type DataUser = {
 };
 
 export interface CountryList {
-  name: { common: string; };
-  idd: { root: string; suffixes: string[]; };
-  flags: { png: string; svg: string; };
+  name: { common: string };
+  idd: { root: string; suffixes: string[] };
+  flags: { png: string; svg: string };
 }
 
 export type PatientGroup = {
@@ -40,6 +42,8 @@ export type ReduxStates = {
   programs: ProgramInitialState;
   patientPlans: PatientPlanInitialState;
   assignProgram: AssignProgramInitialState;
+  chat: ChatInitialState;
+  patient: PatientInitialState;
 };
 
 export interface PlanDayInfo {

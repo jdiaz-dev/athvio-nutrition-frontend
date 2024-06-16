@@ -15,11 +15,12 @@ interface UserAvatarProps {
   user: UserProfile;
 }
 
-export default function UserAvatar({ user }: UserAvatarProps) {
+//here: use to queries(get professionald and patient to get the photo)
+export default function CommenterAvatar({ user }: UserAvatarProps) {
   return (
     <Badge
       overlap="circular"
-      badgeContent={<AvatarStatus status={user.online_status!} />}
+      badgeContent={<AvatarStatus status={'available'} />}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       sx={{
         '& .MuiBox-root': { width: 6, height: 6 },
@@ -28,7 +29,7 @@ export default function UserAvatar({ user }: UserAvatarProps) {
         '& svg': { bgcolor: 'common.white', borderRadius: '50%' }
       }}
     >
-      <Avatar alt={user.name} src={user.avatar && getImageUrl(`${user.avatar}`, ImagePath.USERS)} />
+      <Avatar alt={'user.name'} src={user.avatar && getImageUrl(`${user.avatar}`, ImagePath.USERS)} />
     </Badge>
   );
 }

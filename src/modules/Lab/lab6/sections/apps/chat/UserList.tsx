@@ -16,7 +16,7 @@ import Typography from '@mui/material/Typography';
 import { Chance } from 'chance';
 
 // project imports
-import UserAvatar from './UserAvatar';
+import UserAvatar from './CommenterAvatar';
 // import Dot from 'components/@extended/Dot';
 
 // assets
