@@ -1,7 +1,4 @@
-export enum Commenter {
-  PROFESSIONAL = 'professional',
-  PATIENT = 'patient',
-}
+import { Commenter } from "src/modules/patients/patient-console/chat/adapters/out/chat";
 
 export type CommentBody = {
   _id: string;

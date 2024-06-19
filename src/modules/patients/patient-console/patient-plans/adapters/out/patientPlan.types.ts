@@ -40,7 +40,7 @@ export interface GetPatientPlanResponse {
 } */
 
 export interface GetPatientPlansRequest {
-  input: GetRecordsPatientPlansBody;
+  patientPlans: GetRecordsPatientPlansBody;
 }
 
 export interface PatientPlans {

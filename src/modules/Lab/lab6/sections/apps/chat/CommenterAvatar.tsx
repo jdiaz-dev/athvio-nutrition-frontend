@@ -15,7 +15,7 @@ interface UserAvatarProps {
   user: UserProfile;
 }
 
-//here: use to queries(get professionald and patient to get the photo)
+//here: use to queries(get professionald and patient to get the photo), in lab6
 export default function CommenterAvatar({ user }: UserAvatarProps) {
   return (
     <Badge

@@ -76,7 +76,7 @@ export function usePatientPlan() {
       const response = await apolloClient.query<GetPatientPlansResponse, GetPatientPlansRequest>({
         query: GET_CLIENT_PLANS,
         variables: {
-          input: {
+          patientPlans: {
             ...body,
           },
         },
