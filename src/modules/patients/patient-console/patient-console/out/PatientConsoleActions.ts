@@ -18,16 +18,19 @@ export function usePatientConsole() {
         query: GET_PATIENT_FOR_CONSOLE,
         variables: {
           patientPlans: {
-            professional: '66493c26091cb4d8d83bedaf',
-            patient: '66493d52091cb4d8d83bedc4',
+            professional: '6673734729a8ffa437766dac',
+            patient: '66738999b3b27e362bca7ba7',
           },
           chat: {
-            professional: '66493c26091cb4d8d83bedaf',
-            patient: '66493d52091cb4d8d83bedc4',
+            professional: '6673734729a8ffa437766dac',
+            patient: '66738999b3b27e362bca7ba7',
           },
           patient: {
-            professional: '66493c26091cb4d8d83bedaf',
-            patient: '66493d52091cb4d8d83bedc4',
+            professional: '6673734729a8ffa437766dac',
+            patient: '66738999b3b27e362bca7ba7',
+          },
+          professional: {
+            professional: '6673734729a8ffa437766dac',
           },
         },
         fetchPolicy: 'network-only',
@@ -36,7 +39,6 @@ export function usePatientConsole() {
       if (response) {
         // dispatch(PatientPlanSlice.acceptNewPatientPlans(response.data.getPatientPlans));
       }
-      
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;

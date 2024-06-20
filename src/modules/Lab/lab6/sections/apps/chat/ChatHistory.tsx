@@ -22,22 +22,22 @@ import IconButton from 'src/shared/components/IconButton';
 import { useGetUserChat } from 'src/modules/Lab/lab6/api/chat';
 import CircularWithPath from 'src/modules/Lab/lab6/components/extended/progress/CircularWithPath';
 import { ThemeMode } from 'src/shared/types/config';
-import { AcceptNewPatient } from 'src/modules/patients/patient-console/patient/adapters/out/patient';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 import { Commenter } from 'src/modules/patients/patient-console/chat/adapters/out/chat';
+import { CommentBody } from 'src/modules/patients/patient-console/chat/adapters/out/chat.d';
 
 interface ChatHistoryProps {
   theme: Theme;
-  patient: AcceptNewPatient;
 }
 
 // ==============================|| CHAT MESSAGE HISTORY ||============================== //
 
-export default function ChatHistory({ theme, patient }: ChatHistoryProps) {
-  const { user } = patient;
+export default function ChatHistory({ theme }: ChatHistoryProps) {
   const bottomRef = useRef(null);
-  const { chat, chatLoading } = useGetUserChat(user.firstname!);
+
+  //todo: implment chat loading
+  const { chat, chatLoading } = useGetUserChat('');
   const chatState = useSelector((state: ReduxStates) => state.chat);
   console.log('-----------chatState', chatState);
 
@@ -45,7 +45,7 @@ export default function ChatHistory({ theme, patient }: ChatHistoryProps) {
     // @ts-ignore
     bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
     // eslint-disable-next-line
-  }, [chat]);
+  }, [chatState]);
 
   if (chatLoading) {
     return (
@@ -68,7 +68,7 @@ export default function ChatHistory({ theme, patient }: ChatHistoryProps) {
     >
       <Box sx={{ pl: 1, pr: 3, height: '100%' }}>
         <Grid container spacing={2.5}>
-          {chatState.comments.map((comment, index) => (
+          {chatState.comments.map((comment: CommentBody, index: number) => (
             <Grid item xs={12} key={index}>
               {/* for patient */}
               {comment.commenter === Commenter.PATIENT ? (
@@ -109,11 +109,11 @@ export default function ChatHistory({ theme, patient }: ChatHistoryProps) {
                       </Typography>
                     </Grid>
                   </Grid>
-                  <CommenterAvatar user={{ online_status: 'available', avatar: 'avatar-1.png', name: 'User 1' }} />
+                  <CommenterAvatar commenter={comment.commenter} />
                 </Stack>
               ) : (
                 <Stack direction="row" spacing={1.25} alignItems="flex-start">
-                  <CommenterAvatar user={{ online_status: user.online_status, avatar: user.avatar, name: user.name }} />
+                  <CommenterAvatar commenter={comment.commenter} />
 
                   <Grid container>
                     <Grid item xs={12} sm={7}>

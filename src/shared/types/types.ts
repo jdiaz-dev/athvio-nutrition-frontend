@@ -4,6 +4,7 @@ import { PatientInitialState } from 'src/modules/patients/patient-console/patien
 import { PatientPlanInitialState } from 'src/modules/patients/patient-plans/adapters/out/patientPlan.types';
 import { AssignProgramInitialState } from 'src/modules/professionals/assign-program/out/AssignProgram.types';
 import { CustomRecipeInitialState } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
+import { ProfessionalInitialState } from 'src/modules/professionals/professional/adapters/out/professional';
 import { ProgramInitialState } from 'src/modules/professionals/programs/adapters/out/program.types';
 import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 
@@ -44,6 +45,7 @@ export type ReduxStates = {
   assignProgram: AssignProgramInitialState;
   chat: ChatInitialState;
   patient: PatientInitialState;
+  professional: ProfessionalInitialState;
 };
 
 export interface PlanDayInfo {

@@ -1,4 +1,4 @@
-import { Commenter } from "src/modules/patients/patient-console/chat/adapters/out/chat";
+import { Commenter } from './chat';
 
 export type CommentBody = {
   _id: string;

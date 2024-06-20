@@ -1,7 +1,12 @@
 import { gql } from '@apollo/client';
 
 export const GET_PATIENT_FOR_CONSOLE = gql`
-  query _getPatientForConsole($patientPlans: GetPatientPlansDto!, $chat: GetChatDto!, $patient: GetPatientDto!) {
+  query _getPatientForConsole(
+    $patientPlans: GetPatientPlansDto!
+    $chat: GetChatDto!
+    $patient: GetPatientDto!
+    $professional: GetProfessionalDto!
+  ) {
     getPatientPlans(patientPlans: $patientPlans) {
       _id
       title
@@ -109,6 +114,15 @@ export const GET_PATIENT_FOR_CONSOLE = gql`
         firstname
         lastname
         email
+        photo
+      }
+    }
+    getProfessional(professional: $professional) {
+      _id
+      user {
+        _id
+        firstname
+        lastname
         photo
       }
     }

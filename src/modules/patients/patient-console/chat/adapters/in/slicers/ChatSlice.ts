@@ -1,6 +1,6 @@
+import { ChatBody } from 'src/modules/patients/patient-console/chat/adapters/out/chat.d';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { ChatBody } from 'src/modules/patients/patient-console/chat/adapters/out/chat';
 import { chatIntialState } from 'src/modules/patients/patient-console/chat/adapters/in/slicers/ChatInitialState';
 
 const chatSlice = createSlice({

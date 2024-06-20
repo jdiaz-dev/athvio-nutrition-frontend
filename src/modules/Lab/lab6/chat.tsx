@@ -28,13 +28,8 @@ import ChatMessageSend from 'src/modules/Lab/lab6/sections/apps/chat/ChatMessage
 //todo: remove it
 // import { ThemeMode } from 'config';
 import { ThemeMode } from 'src/shared/types/config';
-import { UserProfile } from 'src/shared/types/auth';
-import { useDispatch, useSelector } from 'react-redux';
-import { ChatBody } from 'src/modules/patients/patient-console/chat/adapters/out/chat';
+import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
-import * as ChatSlice from 'src/modules/patients/patient-console/chat/adapters/in/slicers/ChatSlice';
-import * as PatientSlice from 'src/modules/patients/patient-console/patient/adapters/in/slicers/PatientSlice';
-import { AcceptNewPatient } from 'src/modules/patients/patient-console/patient/adapters/out/patient';
 
 const drawerWidth = 320;
 
@@ -63,18 +58,13 @@ const Main = styled('main', { shouldForwardProp: (prop: string) => prop !== 'ope
 
 // ==============================|| APPLICATION - CHAT ||============================== //
 
-export default function Chat({ patient, chat }: { patient: AcceptNewPatient; chat: ChatBody }) {
-  const dispatch = useDispatch();
+export default function Chat() {
   const theme = useTheme();
   const downLG = useMediaQuery(theme.breakpoints.down('lg'));
   const downMD = useMediaQuery(theme.breakpoints.down('md'));
   const [emailDetails, setEmailDetails] = useState(false);
 
   const patientState = useSelector((state: ReduxStates) => state.patient);
-  console.log('-----------patientState', patientState);
-  dispatch(ChatSlice.acceptNewChat(chat));
-  dispatch(PatientSlice.acceptNewPatient(patient));
-
   const handleUserChange = () => {
     setEmailDetails((prev) => !prev);
   };
@@ -135,7 +125,6 @@ export default function Chat({ patient, chat }: { patient: AcceptNewPatient; cha
                     {...{
                       //todo: implement loading?
                       loading: false,
-                      patient: patientState,
                       openChatDrawer,
                       emailDetails,
                       handleDrawerOpen,
@@ -144,7 +133,7 @@ export default function Chat({ patient, chat }: { patient: AcceptNewPatient; cha
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <ChatHistory theme={theme} patient={patient} />
+                  <ChatHistory theme={theme} />
                 </Grid>
                 <Grid item xs={12} sx={{ mt: 3, bgcolor: 'background.paper', borderTop: '1px solid', borderTopColor: 'divider' }}>
                   {/* todo: enable it */}

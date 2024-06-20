@@ -1,8 +1,21 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import Chat from 'src/modules/Lab/lab6/chat';
 import { ChatBody } from 'src/modules/patients/patient-console/chat/adapters/out/chat';
+import * as ChatSlice from 'src/modules/patients/patient-console/chat/adapters/in/slicers/ChatSlice';
+import * as PatientSlice from 'src/modules/patients/patient-console/patient/adapters/in/slicers/PatientSlice';
+import * as ProfessionalSlice from 'src/modules/professionals/professional/adapters/in/slicers/ProfessionalSlice';
 
 function Lab6(/* chat: ChatBody */) {
+  const professional = {
+    _id: '6673734729a8ffa437766dac',
+    user: {
+      _id: '6673734729a8ffa437766daa',
+      firstname: 'pro',
+      lastname: 'pro',
+      photo: '',
+    },
+  };
   const patient = {
     _id: '66493d52091cb4d8d83bedc4',
     user: {
@@ -43,6 +56,11 @@ function Lab6(/* chat: ChatBody */) {
       },
     ],
   };
+  const dispatch = useDispatch();
+
+  dispatch(ChatSlice.acceptNewChat(chat));
+  dispatch(PatientSlice.acceptNewPatient(patient));
+  dispatch(ProfessionalSlice.acceptNewProfessional(professional));
 
   return (
     <>

@@ -31,10 +31,11 @@ import VideoCameraOutlined from '@ant-design/icons/VideoCameraOutlined';
 // types
 import IconButton from 'src/shared/components/IconButton';
 import { AcceptNewPatient } from 'src/modules/patients/patient-console/patient/adapters/out/patient';
+import { useSelector } from 'react-redux';
+import { ReduxStates } from 'src/shared/types/types';
 
 interface Props {
   loading: boolean;
-  patient: AcceptNewPatient;
   openChatDrawer: boolean;
   emailDetails: boolean;
   handleDrawerOpen: () => void;
@@ -43,7 +44,9 @@ interface Props {
 
 // ==============================|| CHAT HEADER ||============================== //
 
-export default function ChatHeader({ loading, patient, openChatDrawer, emailDetails, handleDrawerOpen, handleUserChange }: Props) {
+export default function ChatHeader({ loading, openChatDrawer, emailDetails, handleDrawerOpen, handleUserChange }: Props) {
+  const patientState = useSelector((state: ReduxStates) => state.patient);
+  
   const [anchorEl, setAnchorEl] = useState<Element | (() => Element) | null | undefined>(null);
 
   const handleClickSort = (event: React.MouseEvent<HTMLButtonElement> | undefined) => {
@@ -63,7 +66,7 @@ export default function ChatHeader({ loading, patient, openChatDrawer, emailDeta
           </IconButton>
 
           {/* todo: what is doing with length? */}
-          {loading && Object.keys(patient.user).length === 0 ? (
+          {loading && Object.keys(patientState.user).length === 0 ? (
             <List disablePadding>
               <ListItem disablePadding disableGutters>
                 <ListItemAvatar>
@@ -78,9 +81,9 @@ export default function ChatHeader({ loading, patient, openChatDrawer, emailDeta
             </List>
           ) : (
             <>
-              <UserAvatar patient={patient} />
+              <UserAvatar patient={patientState} />
               <Stack>
-                <Typography variant="subtitle1">{patient.user.firstname}</Typography>
+                <Typography variant="subtitle1">{patientState.user.firstname}</Typography>
                 <Typography variant="caption" color="text.secondary">
                   {/* todo: implement last message? */}
                   {/* Active {patient.user.lastMessage} ago */}

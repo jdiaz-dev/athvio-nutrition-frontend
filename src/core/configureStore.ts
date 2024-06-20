@@ -6,6 +6,7 @@ import assignProgramReducer from 'src/modules/professionals/assign-program/in/sl
 import patientPlansReducer from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/PatientPlanSlice';
 import ChatReducer from 'src/modules/patients/patient-console/chat/adapters/in/slicers/ChatSlice';
 import PatientReducer from 'src/modules/patients/patient-console/patient/adapters/in/slicers/PatientSlice';
+import ProfessionalReducer from 'src/modules/professionals/professional/adapters/in/slicers/ProfessionalSlice';
 
 // const {applyMiddleware, combineReducers, createStore} = require('redux');
 import thunk from 'redux-thunk';
@@ -27,6 +28,7 @@ export default configureStore({
     patientPlans: patientPlansReducer,
     chat: ChatReducer,
     patient: PatientReducer,
+    professional: ProfessionalReducer,
   },
   devTools: true,
   // enhancers
