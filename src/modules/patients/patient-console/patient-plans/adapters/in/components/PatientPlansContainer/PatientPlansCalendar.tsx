@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { DatesSetArg } from '@fullcalendar/core';
 
+import { Theme } from '@mui/material/styles';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction';
@@ -20,8 +21,12 @@ import { usePatientPlan } from 'src/modules/patients/patient-console/patient-pla
 import { assignmentDateHook } from 'src/modules/patients/patient-console/patient-plans/adapters/in/components/PatientPlansContainer/assignmentDateHook';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 import CalendarStyled from 'src/shared/components/CalendarStyled/CalendarStyled';
+import { useMediaQuery } from '@mui/material';
 
 function PatientPlansCalendar() {
+  const matchDownSM = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
+  const calendarRef = useRef<FullCalendar>(null);
+
   const authContext = useContext(AuthContext);
   const patientPlansState = useSelector((state: ReduxStates) => state.patientPlans.patientPlans || []);
   const { patientId } = useParams();
@@ -29,7 +34,7 @@ function PatientPlansCalendar() {
   const { reloadRecordList, setReloadRecordList } = useReloadRecords();
   const [dateSet, setDateSet] = useState<{ dateStart: Date; dateEnd: Date } | null>(null);
   const [datesToShow, setDatesToShow] = useState<DateItem<PatientPlanDateExtendedProps>[]>([]);
-  
+
   const input = {
     professional: authContext.professional,
     patient: patientId as string,
@@ -38,6 +43,17 @@ function PatientPlansCalendar() {
   };
 
   const { handleOnStart, handleOnDrop, manageDragEffect } = assignmentDateHook(patientId as string, setReloadRecordList);
+
+  useEffect(() => {
+    const calendarEl = calendarRef.current;
+    if (calendarEl) {
+      const calendarApi = calendarEl.getApi();
+      const newView = matchDownSM ? 'listWeek' : 'dayGridMonth';
+      calendarApi.changeView(newView);
+      // setCalendarView(newView);
+    }
+  }, [matchDownSM]);
+
   useEffect(() => {
     const getProgramHelper = async () => {
       await getPatientPlans(input);
@@ -102,7 +118,7 @@ function PatientPlansCalendar() {
         <ReloadRecordListContext.Provider value={{ reloadRecordList, setReloadRecordList }}>
           <CalendarStyled>
             <FullCalendar
-              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
+              plugins={[listPlugin, dayGridPlugin, timeGridPlugin, interactionPlugin]}
               // eventClick={handleEventClick}
               // dateClick={handleDateClick}
               headerToolbar={{
@@ -111,6 +127,7 @@ function PatientPlansCalendar() {
                 right: 'prev,next',
               }}
               events={datesToShow}
+              ref={calendarRef}
               editable={true}
               datesSet={dateSetHelper}
               eventContent={PatientPlansHelper}

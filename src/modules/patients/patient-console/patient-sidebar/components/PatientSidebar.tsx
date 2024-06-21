@@ -22,9 +22,9 @@ interface Props {
 }
 
 const PatientSidebar = ({ window }: Props) => {
+  const theme = useTheme();
   const { openSidebar, setOpenSidebar } = useContext(SidebarContext);
   const { commentAddedSubscription } = useChat();
-  const theme = useTheme();
   const matchDownMD = useMediaQuery(theme.breakpoints.down('lg'));
 
   // responsive drawer container

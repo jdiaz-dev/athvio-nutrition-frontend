@@ -17,7 +17,7 @@ import AvatarStatus from './AvatarStatus';
 // import Avatar from 'components/@extended/Avatar';
 
 import SimpleBar from 'src/shared/components/third-party/SimpleBar';
-import { getImageUrl, ImagePath } from 'src/modules/Lab/lab6/utils/getImageUrl';
+import { getImageUrl, ImagePath } from 'src/modules/patients/patients/adapters/in/utils/getImageUrl';
 
 // assets
 import CloseOutlined from '@ant-design/icons/CloseOutlined';
@@ -38,7 +38,7 @@ import IconButton from 'src/shared/components/IconButton';
 import MainCard from 'src/shared/components/MainCard/MainCard';
 import { ThemeMode } from 'src/shared/types/config';
 import { UserProfile } from 'src/shared/types/auth';
-import Avatar from 'src/modules/Lab/lab6/components/extended/Avatar';
+import Avatar from 'src/modules/patients/patient-console/chat/adapters/in/components/Avatar';
 
 type Props = {
   user: UserProfile;

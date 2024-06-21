@@ -81,6 +81,7 @@ export default function ChatHeader({ loading, openChatDrawer, emailDetails, hand
             </List>
           ) : (
             <>
+              {/* //todo: fix it */}
               <UserAvatar patient={patientState} />
               <Stack>
                 <Typography variant="subtitle1">{patientState.user.firstname}</Typography>

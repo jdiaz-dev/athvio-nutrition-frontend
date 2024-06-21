@@ -19,8 +19,7 @@ import EditOutlined from '@ant-design/icons/EditOutlined';
 
 // types
 import IconButton from 'src/shared/components/IconButton';
-import { useGetUserChat } from 'src/modules/Lab/lab6/api/chat';
-import CircularWithPath from 'src/modules/Lab/lab6/components/extended/progress/CircularWithPath';
+import CircularWithPath from 'src/modules/patients/patient-console/chat/adapters/in/components/CircularWithPath';
 import { ThemeMode } from 'src/shared/types/config';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
@@ -37,7 +36,8 @@ export default function ChatHistory({ theme }: ChatHistoryProps) {
   const bottomRef = useRef(null);
 
   //todo: implment chat loading
-  const { chat, chatLoading } = useGetUserChat('');
+  const chatLoading = false;
+  // const { chat, chatLoading } = useGetUserChat('');
   const chatState = useSelector((state: ReduxStates) => state.chat);
   console.log('-----------chatState', chatState);
 
@@ -70,8 +70,8 @@ export default function ChatHistory({ theme }: ChatHistoryProps) {
         <Grid container spacing={2.5}>
           {chatState.comments.map((comment: CommentBody, index: number) => (
             <Grid item xs={12} key={index}>
-              {/* for patient */}
-              {comment.commenter === Commenter.PATIENT ? (
+              {/* for professional */}
+              {comment.commenter === Commenter.PROFESSIONAL ? (
                 <Stack spacing={1.25} direction="row" alignItems="flex-start">
                   <Grid container justifyContent="flex-end">
                     <Grid item xs={2} md={3} xl={4} />

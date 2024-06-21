@@ -1,10 +1,10 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import Chat from 'src/modules/Lab/lab6/chat';
-import { ChatBody } from 'src/modules/patients/patient-console/chat/adapters/out/chat';
+import { ChatBody } from 'src/modules/patients/patient-console/chat/adapters/out/chat.d';
 import * as ChatSlice from 'src/modules/patients/patient-console/chat/adapters/in/slicers/ChatSlice';
 import * as PatientSlice from 'src/modules/patients/patient-console/patient/adapters/in/slicers/PatientSlice';
 import * as ProfessionalSlice from 'src/modules/professionals/professional/adapters/in/slicers/ProfessionalSlice';
+import Chat from 'src/modules/patients/patient-console/patient-console/in/components/chat';
 
 function Lab6(/* chat: ChatBody */) {
   const professional = {
@@ -64,7 +64,7 @@ function Lab6(/* chat: ChatBody */) {
 
   return (
     <>
-      <Chat patient={patient} chat={chat} />
+      <Chat />
     </>
   );
 }

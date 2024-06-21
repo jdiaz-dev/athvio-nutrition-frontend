@@ -3,10 +3,10 @@ import Badge from '@mui/material/Badge';
 
 // project imports
 import AvatarStatus from './AvatarStatus';
-import { getImageUrl, ImagePath } from 'src/modules/Lab/lab6/utils/getImageUrl';
+import { getImageUrl, ImagePath } from 'src/modules/patients/patients/adapters/in/utils/getImageUrl';
 
 // types
-import Avatar from 'src/modules/Lab/lab6/components/extended/Avatar';
+import Avatar from 'src/modules/patients/patient-console/chat/adapters/in/components/Avatar';
 import { UserProfile } from 'src/shared/types/auth';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';

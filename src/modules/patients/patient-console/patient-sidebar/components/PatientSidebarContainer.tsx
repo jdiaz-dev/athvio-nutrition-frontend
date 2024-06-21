@@ -3,7 +3,7 @@ import PatientSidebar from 'src/modules/patients/patient-console/patient-sidebar
 import { SidebarContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SidebarContext';
 
 const PatientSidebarContainer = () => {
-  const [openSidebar, setOpenSidebar] = useState(true);
+  const [openSidebar, setOpenSidebar] = useState(false);
 
   return (
     <>

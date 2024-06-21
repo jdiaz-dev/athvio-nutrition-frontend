@@ -19,11 +19,11 @@ import { PopupTransition } from 'src/shared/components/extended/Transitions';
 
 //todo: remove it
 // import ChatHeader from 'sections/apps/chat/ChatHeader';
-import ChatHeader from 'src/modules/Lab/lab6/sections/apps/chat/ChatHeader';
-import ChatDrawer from 'src/modules/Lab/lab6/sections/apps/chat/ChatDrawer';
-import ChatHistory from 'src/modules/Lab/lab6/sections/apps/chat/ChatHistory';
-import UserDetails from 'src/modules/Lab/lab6/sections/apps/chat/UserDetails';
-import ChatMessageSend from 'src/modules/Lab/lab6/sections/apps/chat/ChatMessageSend';
+import ChatHeader from 'src/modules/patients/patient-console/chat/adapters/in/components/chat/ChatHeader';
+import ChatDrawer from 'src/modules/patients/patient-console/chat/adapters/in/components/chat/ChatDrawer';
+import ChatHistory from 'src/modules/patients/patient-console/chat/adapters/in/components/chat/ChatHistory';
+import UserDetails from 'src/modules/patients/patient-console/chat/adapters/in/components/chat/UserDetails';
+import ChatMessageSend from 'src/modules/patients/patient-console/chat/adapters/in/components/chat/ChatMessageSend';
 
 //todo: remove it
 // import { ThemeMode } from 'config';
@@ -80,7 +80,7 @@ export default function Chat() {
   }, [downLG]);
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', width: '50%' }}>
       {/* <ChatDrawer
         openChatDrawer={openChatDrawer}
         handleDrawerOpen={handleDrawerOpen}

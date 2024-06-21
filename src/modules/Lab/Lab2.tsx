@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
+import { style } from '@mui/system';
 
 type page = {
   page: string;
@@ -45,9 +46,9 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
+    <AppBar position="static" style={{ height: '60px' }}>
+      <Container maxWidth="xl" style={{ position: 'absolute', height: 'inherit' }}>
+        <Toolbar disableGutters style={{ height: 'inherit' }}>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"

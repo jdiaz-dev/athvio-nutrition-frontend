@@ -25,7 +25,7 @@ import { SnackbarProps } from 'src/shared/types/snackbar';
 import MainCard from 'src/shared/components/MainCard/MainCard';
 import IconButton from 'src/shared/components/IconButton';
 import { UserProfile } from 'src/shared/types/auth';
-import incrementer from 'src/modules/Lab/lab6/utils/incrementer';
+import incrementer from 'src/modules/patients/patients/adapters/in/utils/incrementer';
 import { openSnackbar } from 'src/modules/Lab/lab6/api/snackbar';
 
 interface Props {
