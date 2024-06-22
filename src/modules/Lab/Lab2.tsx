@@ -46,7 +46,7 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static" style={{ height: '60px' }}>
+    <AppBar position="sticky" style={{ height: '9vh' }}>
       <Container maxWidth="xl" style={{ position: 'absolute', height: 'inherit' }}>
         <Toolbar disableGutters style={{ height: 'inherit' }}>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />

@@ -80,7 +80,7 @@ export default function Chat() {
   }, [downLG]);
 
   return (
-    <Box sx={{ display: 'flex', width: '50%' }}>
+    <Box sx={{ display: 'flex', width: '50%', zIndex: 1, position: 'absolute', top: '12.3%', left: '45%', border: '1px solid white' }}>
       {/* <ChatDrawer
         openChatDrawer={openChatDrawer}
         handleDrawerOpen={handleDrawerOpen}

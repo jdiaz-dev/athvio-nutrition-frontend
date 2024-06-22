@@ -9,12 +9,11 @@ function PatientConsoleContainer() {
   const { getPatientForConsole } = usePatientConsole();
   return (
     <>
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{ display: 'flex', position: 'relative', height: '91vh', overflow: 'hidden' }}>
         <PatientSidebarContainer />
         <PatientPlansContainer />
       </Box>
-
-      {/* <ChatContainer /> */}
+      <ChatContainer />
     </>
   );
 }

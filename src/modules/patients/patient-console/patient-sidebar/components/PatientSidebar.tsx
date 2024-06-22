@@ -43,14 +43,13 @@ const PatientSidebar = ({ window }: Props) => {
         <PatientDrawerStyled
           sx={{
             '& .MuiDrawer-paper': {
-              position: 'relative',
+              position: 'absolute',
             },
           }}
           variant="permanent"
           open={openSidebar}
         >
           {drawerHeader}
-          {/* //here */}
           {drawerContent}
         </PatientDrawerStyled>
       ) : (

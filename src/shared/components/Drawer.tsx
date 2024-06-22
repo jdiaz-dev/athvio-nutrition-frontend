@@ -24,18 +24,10 @@ export function Drawer() {
 
   return (
     <>
-      <div className="main-container">
-       {/*  <div className={`sidebar ${classes.divSidebar}`}>
-          <div>Apocalipsex</div>
-          <Tree />
-        </div> */}
-        <div className="app-container">
-          <ResponsiveAppBar />
-          {/* <Header></Header> */}
-          <div className="containerOutler" style={{ height: '91vh' }}>
-            <Outlet />
-          </div>
-        </div>
+      <ResponsiveAppBar />
+      {/* <Header></Header> */}
+      <div className="containerOutler" style={{ height: '91vh' }}>
+        <Outlet />
       </div>
     </>
   );
