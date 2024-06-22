@@ -7,13 +7,30 @@ import ChatContainer from 'src/modules/patients/patient-console/chat/adapters/in
 
 function PatientConsoleContainer() {
   const { getPatientForConsole } = usePatientConsole();
+  getPatientForConsole({
+    patientPlans: {
+      professional: '6673734729a8ffa437766dac',
+      patient: '66738999b3b27e362bca7ba7',
+    },
+    chat: {
+      professional: '6673734729a8ffa437766dac',
+      patient: '66738999b3b27e362bca7ba7',
+    },
+    patient: {
+      professional: '6673734729a8ffa437766dac',
+      patient: '66738999b3b27e362bca7ba7',
+    },
+    professional: {
+      professional: '6673734729a8ffa437766dac',
+    },
+  });
   return (
     <>
       <Box sx={{ display: 'flex', position: 'relative', height: '91vh', overflow: 'hidden' }}>
         <PatientSidebarContainer />
         <PatientPlansContainer />
       </Box>
-      <ChatContainer />
+      {/* <ChatContainer /> */}
     </>
   );
 }

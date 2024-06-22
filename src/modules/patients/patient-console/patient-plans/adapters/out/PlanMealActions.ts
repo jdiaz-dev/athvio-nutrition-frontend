@@ -28,6 +28,7 @@ export function usePatientPlanMeal() {
           },
         },
       });
+      console.log('----------response', response)
       if (response) {
         dispatch(PatientPlanSlice.acceptNewPatientPlan(response.data?.addPlanMeal as PatientPlanBody));
       }

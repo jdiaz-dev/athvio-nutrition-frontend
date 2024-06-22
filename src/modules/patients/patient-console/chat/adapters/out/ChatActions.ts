@@ -9,11 +9,17 @@ import {
   CreatePatientPlanMealInput,
 } from 'src/modules/patients/patient-console/patient-plans/adapters/out/planMeal.types';
 import * as PatientPlanSlice from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/PatientPlanSlice';
-import { CommentAddedResponse, GetChatInput, GetChatRequest, GetChatResponse } from 'src/modules/patients/patient-console/chat/adapters/out/chat';
+import {
+  CommentAddedResponse,
+  GetChatInput,
+  GetChatRequest,
+  GetChatResponse,
+} from 'src/modules/patients/patient-console/chat/adapters/out/chat';
 import { COMMENT_ADDED_SUBSCRIPTION } from 'src/modules/patients/patient-console/chat/adapters/out/ChatQueries';
 
 export function useChat() {
   const dispatch = useDispatch();
+
   const saveChatComment = async (body: GetChatInput): Promise<void> => {
     try {
       const response = await apolloClient.mutate<GetChatResponse, GetChatRequest>({
