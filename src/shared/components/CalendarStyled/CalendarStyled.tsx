@@ -7,6 +7,7 @@ import { ThemeDirection } from 'src/shared/types/config';
 
 // ==============================|| CALENDAR - STYLED ||============================== //
 
+//todo: use styles in programs? 
 const ExperimentalStyled = styled(Box)(({ theme }) => ({
   'width': '100%', //'calc(100% + 2px)',
   'marginLeft': -1,

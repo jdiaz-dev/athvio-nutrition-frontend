@@ -41,6 +41,8 @@ interface UserListProps {
 export default function UserList({ setUser, search, selectedUser }: UserListProps) {
   const theme = useTheme();
   const [data, setData] = useState<UserProfile[]>([]);
+
+  //todo: implmement users loading
   const { usersLoading, users } = useGetUsers();
 
   useEffect(() => {

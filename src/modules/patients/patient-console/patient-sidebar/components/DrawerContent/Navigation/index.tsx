@@ -9,13 +9,12 @@ import NavItem from './NavItem';
 import NavGroup from './NavGroup';
 import menuItem from '../../menu-items';
 
-import { HORIZONTAL_MAX_ITEM } from '../../../../../../Lab/config';
-
 // types
 import { NavItemType } from 'src/shared/types/menu';
 import { MenuOrientation } from 'src/shared/types/config';
 import { SidebarContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SidebarContext';
 import useConfig from 'src/shared/hooks/useConfig';
+import { ThemeEnum } from 'src/shared/Consts';
 
 // ==============================|| DRAWER CONTENT - NAVIGATION ||============================== //
 
@@ -31,7 +30,7 @@ const Navigation = () => {
 
   const isHorizontal = menuOrientation === MenuOrientation.HORIZONTAL && !downLG;
 
-  const lastItem = isHorizontal ? HORIZONTAL_MAX_ITEM : null;
+  const lastItem = isHorizontal ? ThemeEnum.HORIZONTAL_MAX_ITEM : null;
   let lastItemIndex = menuItem.items.length - 1;
   let remItems: NavItemType[] = [];
   let lastItemId: string;

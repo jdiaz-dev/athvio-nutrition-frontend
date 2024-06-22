@@ -2,13 +2,13 @@
 import { styled, Theme, CSSObject } from '@mui/material/styles';
 import Drawer from '@mui/material/Drawer';
 import { ThemeMode } from 'src/shared/types/config';
-import { DRAWER_WIDTH } from 'src/modules/Lab/config';
+import { ThemeEnum } from 'src/shared/Consts';
 
 // project import
 
 const openedMixin = (theme: Theme) =>
   ({
-    width: DRAWER_WIDTH,
+    width: ThemeEnum.DRAWER_WIDTH,
     borderRight: '1px solid',
     borderRightColor: theme.palette.divider,
     transition: theme.transitions.create('width', {
@@ -34,7 +34,7 @@ const closedMixin = (theme: Theme) =>
 // ==============================|| DRAWER - MINI STYLED ||============================== //
 
 const PatientDrawerStyled = styled(Drawer, { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }) => ({
-  width: DRAWER_WIDTH,
+  width: ThemeEnum.DRAWER_WIDTH,
   flexShrink: 0,
   whiteSpace: 'nowrap',
   boxSizing: 'border-box',

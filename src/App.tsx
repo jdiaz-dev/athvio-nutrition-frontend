@@ -11,13 +11,8 @@ import ProgramPlansContainer from 'src/modules/professionals/programs/adapters/i
 import Lab from 'src/modules/Lab/Lab';
 import PrivateRoute from './core/router/PrivateRoute';
 import PublicRoute from './core/router/PublicRoute';
-import Lab2 from './modules/Lab/Lab2';
 import SignIn from './modules/authentication/authentication/adapters/in/singIn/SignIn';
 import SignUpProfessional from './modules/authentication/authentication/adapters/in/SignUpProfessional/SingUpProfessional';
-import Lab3 from './modules/patients/patient-console/patient-sidebar/components/PatientSidebarContainer';
-import Lab4 from 'src/modules/Lab/Lab4';
-import Lab5 from 'src/modules/Lab/Lab5';
-import ChatContainer from 'src/modules/patients/patient-console/chat/adapters/in/components/ChatContainer';
 import PatientConsoleContainer from 'src/modules/patients/patient-console/patient-console/in/components/PatientConsoleContainer';
 
 function App() {
@@ -29,7 +24,7 @@ function App() {
             path="signin"
             element={
               <PublicRoute>
-                <SignIn />  
+                <SignIn />
               </PublicRoute>
             }
           />
@@ -56,12 +51,6 @@ function App() {
             <Route path="programs" element={<ProgramsContainer />} />
             <Route path="programs/:programId/plans" element={<ProgramPlansContainer />} />
             <Route path="lab" element={<Lab />} />
-            <Route path="lab2" element={<Lab2 />} />
-            <Route path="lab3" element={<Lab3 />} />
-            <Route path="lab4" element={<Lab4 />} />
-            <Route path="lab5" element={<Lab5 />} />
-            <Route path="lab6" element={<ChatContainer />} />
-
           </Route>
           {<Route path="*" element={<div>404</div>} />}
         </Routes>

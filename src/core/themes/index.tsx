@@ -5,14 +5,14 @@ import { CssBaseline, StyledEngineProvider } from '@mui/material';
 import { createTheme, ThemeOptions, ThemeProvider, Theme, TypographyVariantsOptions } from '@mui/material/styles';
 
 // project import
-import useConfig from '../hooks/useConfig';
+import useConfig from '../../modules/Lab/hooks/useConfig';
 import Palette from './palette';
 import Typography from './typography';
 import CustomShadows from './shadows';
 import componentsOverride from './overrides';
 
 // types
-import { CustomShadowProps } from '../types/theme';
+import { CustomShadowProps } from './theme';
 
 // types
 type ThemeCustomizationProps = {

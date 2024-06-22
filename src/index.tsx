@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 import store from './core/configureStore';
 import { ApolloProvider } from '@apollo/client';
 import AuthProvider from './modules/authentication/authentication/adapters/in/providers/AuthProvider';
-import ThemeCustomization from './modules/Lab/themes';
+import ThemeCustomization from './core/themes';
 import Locales from 'src/modules/patients/patient-console/patient-sidebar/components/Locales';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);

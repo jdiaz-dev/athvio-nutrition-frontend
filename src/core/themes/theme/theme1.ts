@@ -1,12 +1,12 @@
 // types
-import { PaletteThemeProps } from '../../types/theme';
+import { PaletteThemeProps } from '../theme';
 import { PalettesProps } from '@ant-design/colors';
 import { PaletteColorOptions } from '@mui/material/styles';
 import { ThemeMode } from 'src/shared/types/config';
 
-// ==============================|| PRESET THEME - ORANGE THEME5 ||============================== //
+// ==============================|| PRESET THEME - DEFAULT ||============================== //
 
-const Theme5 = (colors: PalettesProps, mode: ThemeMode): PaletteThemeProps => {
+const Theme1 = (colors: PalettesProps, mode: ThemeMode): PaletteThemeProps => {
   const { grey } = colors;
   const greyColors: PaletteColorOptions = {
     0: grey[0],
@@ -29,18 +29,18 @@ const Theme5 = (colors: PalettesProps, mode: ThemeMode): PaletteThemeProps => {
   };
   const contrastText = '#fff';
 
-  let primaryColors = ['#fff4e6', '#ffdfb8', '#ffc98f', '#ffb066', '#ff943d', '#f27013', '#cc5206', '#a63a00', '#802800', '#591900'];
-  let errorColors = ['#FDE8E7', '#F25E52', '#F04134', '#EE3B2F', '#E92A21'];
-  let warningColors = ['#FFF7E0', '#FFC926', '#FFBF00', '#FFB900', '#FFA900'];
-  let infoColors = ['#E0F4F5', '#26B0BA', '#00A2AE', '#009AA7', '#008694'];
-  let successColors = ['#E0F5EA', '#26B56E', '#00A854', '#00A04D', '#008D3A'];
+  let primaryColors = ['#D6E4FF', '#D6E4FF', '#ADC8FF', '#84A9FF', '#6690FF', '#3366FF', '#254EDB', '#1939B7', '#102693', '#102693'];
+  let errorColors = ['#FFE7D3', '#FF805D', '#FF4528', '#DB271D', '#930C1A'];
+  let warningColors = ['#FFF6D0', '#FFCF4E', '#FFB814', '#DB970E', '#935B06'];
+  let infoColors = ['#DCF0FF', '#7EB9FF', '#549BFF', '#3D78DB', '#1A3D93'];
+  let successColors = ['#EAFCD4', '#8AE65B', '#58D62A', '#3DB81E', '#137C0D'];
 
   if (mode === ThemeMode.DARK) {
-    primaryColors = ['#32221a', '#4a2b18', '#5e371b', '#7d4319', '#a85317', '#d26415', '#e9883a', '#f4a962', '#f8c48c', '#fbdbb5'];
-    errorColors = ['#321d1d', '#7d2e28', '#d13c31', '#e66859', '#f8baaf'];
-    warningColors = ['#342c1a', '#836611', '#dda705', '#e9bf28', '#f8e577'];
-    infoColors = ['#1a2628', '#11595f', '#058e98', '#1ea6aa', '#64cfcb'];
-    successColors = ['#1a2721', '#115c36', '#05934c', '#1da65d', '#61ca8b'];
+    primaryColors = ['#1c2134', '#1f294d', '#243462', '#273e83', '#2c4db0', '#305bdd', '#567fe9', '#80a4f4', '#a9c5f8', '#d2e2fb'];
+    errorColors = ['#341d1b', '#b03725', '#dd3f27', '#e9664d', '#fbd6c9'];
+    warningColors = ['#342a1a', '#83631a', '#dda116', '#e9ba3a', '#fbefb5'];
+    infoColors = ['#202734', '#416fb0', '#4c88dd', '#74a8e9', '#ecf4fb'];
+    successColors = ['#1f2e1c', '#449626', '#4fba28', '#74cf4d', '#e3fbd2'];
   }
 
   return {
@@ -57,7 +57,6 @@ const Theme5 = (colors: PalettesProps, mode: ThemeMode): PaletteThemeProps => {
       900: primaryColors[9],
       contrastText
     },
-
     secondary: {
       lighter: greyColors[100],
       100: greyColors[100],
@@ -110,4 +109,4 @@ const Theme5 = (colors: PalettesProps, mode: ThemeMode): PaletteThemeProps => {
   };
 };
 
-export default Theme5;
+export default Theme1;

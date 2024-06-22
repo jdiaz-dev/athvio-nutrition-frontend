@@ -6,9 +6,8 @@ import { useMediaQuery } from '@mui/material';
 import DrawerHeaderStyled from './DrawerHeaderStyled';
 import Logo from '../../../../../Lab/components/logo';
 import useConfig from '../../../../../Lab/hooks/useConfig';
+import { MenuOrientation } from 'src/shared/types/config';
 
-// types
-import { MenuOrientation } from '../../../../../Lab/types/config';
 
 // ==============================|| DRAWER HEADER ||============================== //
 

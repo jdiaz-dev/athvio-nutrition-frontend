@@ -5,7 +5,7 @@ import { alpha, Theme } from '@mui/material/styles';
 import { ThemeMode } from 'src/shared/types/config';
 
 // types
-import { CustomShadowProps } from '../types/theme';
+import { CustomShadowProps } from './theme';
 
 // ==============================|| DEFAULT THEME - CUSTOM SHADOWS ||============================== //
 

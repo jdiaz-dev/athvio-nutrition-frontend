@@ -2,9 +2,7 @@ import React from 'react';
 import { makeStyles } from 'tss-react/mui';
 
 import { Outlet } from 'react-router-dom';
-import Header from './Header';
-import Tree from './Tree';
-import ResponsiveAppBar from 'src/modules/Lab/Lab2';
+import NavBar from 'src/core/components/NavBar';
 
 const useStyles = makeStyles()(() => {
   return {
@@ -20,12 +18,12 @@ const useStyles = makeStyles()(() => {
 });
 
 export function Drawer() {
+  //todo: delete styles
   const { classes } = useStyles();
 
   return (
     <>
-      <ResponsiveAppBar />
-      {/* <Header></Header> */}
+      <NavBar />
       <div className="containerOutler" style={{ height: '91vh' }}>
         <Outlet />
       </div>

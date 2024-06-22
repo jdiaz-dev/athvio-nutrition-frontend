@@ -1,3 +1,5 @@
+import { DefaultConfigProps, MenuOrientation, ThemeDirection, ThemeMode } from 'src/shared/types/config';
+
 export const REST_COUNTRIES_URL = 'https://restcountries.com/v3.1/all?fields=name,idd,flags';
 export const baseHeight = 150;
 export const baseWeek = 1;
@@ -94,3 +96,19 @@ export enum PatientStatesActions {
 export enum MessagesForOkDialog {
   PROGRAM_ASSIGNED = 'Program assignment queued!',
 }
+
+export enum ThemeEnum {
+  DRAWER_WIDTH = 260,
+  HORIZONTAL_MAX_ITEM = 7,
+}
+
+export const themeConfig: DefaultConfigProps = {
+  fontFamily: `'Public Sans', sans-serif`,
+  i18n: 'en',
+  menuOrientation: MenuOrientation.VERTICAL,
+  miniDrawer: false,
+  container: true,
+  mode: ThemeMode.DARK,
+  presetColor: 'default',
+  themeDirection: ThemeDirection.LTR,
+};

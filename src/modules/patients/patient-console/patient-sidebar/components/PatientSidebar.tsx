@@ -11,9 +11,9 @@ import PatientDrawerStyled from './PatientDrawerStyled';
 
 
 //todo: move config?
-import { DRAWER_WIDTH } from '../../../../Lab/config';
 import { SidebarContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SidebarContext';
 import { useChat } from 'src/modules/patients/patient-console/chat/adapters/out/ChatActions';
+import { ThemeEnum } from 'src/shared/Consts';
 
 // ==============================|| MAIN LAYOUT - DRAWER ||============================== //
 
@@ -65,7 +65,7 @@ const PatientSidebar = ({ window }: Props) => {
             'display': { xs: 'block', lg: 'none' },
             '& .MuiDrawer-paper': {
               boxSizing: 'border-box',
-              width: DRAWER_WIDTH,
+              width: ThemeEnum.DRAWER_WIDTH,
               borderRight: `1px solid ${theme.palette.divider}`,
               backgroundImage: 'none',
               boxShadow: 'inherit',

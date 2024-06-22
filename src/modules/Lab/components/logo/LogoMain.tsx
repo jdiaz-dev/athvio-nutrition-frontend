@@ -1,6 +1,6 @@
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { ThemeMode } from '../../types/config';
+import { ThemeMode } from 'src/shared/types/config';
 
 /**
  * if you want to use image instead of <svg> uncomment following.

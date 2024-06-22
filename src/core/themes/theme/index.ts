@@ -10,7 +10,7 @@ import Theme7 from './theme7';
 import Theme8 from './theme8';
 
 // types
-import { PaletteThemeProps } from '../../types/theme';
+import { PaletteThemeProps } from '../theme';
 import { PalettesProps } from '@ant-design/colors';
 import { ThemeMode, PresetColor } from 'src/shared/types/config';
 

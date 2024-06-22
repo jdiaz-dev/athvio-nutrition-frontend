@@ -1,12 +1,12 @@
 // types
-import { PaletteThemeProps } from '../../types/theme';
+import { PaletteThemeProps } from '../theme';
 import { PalettesProps } from '@ant-design/colors';
 import { PaletteColorOptions } from '@mui/material/styles';
 import { ThemeMode } from 'src/shared/types/config';
 
-// ==============================|| PRESET THEME - DARK GREEN THEME3 ||============================== //
+// ==============================|| PRESET THEME - TEAL THEME6 ||============================== //
 
-const Theme4 = (colors: PalettesProps, mode: ThemeMode): PaletteThemeProps => {
+const Theme6 = (colors: PalettesProps, mode: ThemeMode): PaletteThemeProps => {
   const { grey } = colors;
   const greyColors: PaletteColorOptions = {
     0: grey[0],
@@ -29,14 +29,14 @@ const Theme4 = (colors: PalettesProps, mode: ThemeMode): PaletteThemeProps => {
   };
   const contrastText = '#fff';
 
-  let primaryColors = ['#E6F3EC', '#84c297', '#5eb57d', '#3da866', '#1f9c53', '#068e44', '#006933', '#004222', '#001c0f', '#000000'];
+  let primaryColors = ['#e1f0ef', '#c8e3e2', '#9ad6d6', '#71c6c9', '#4bb5bd', '#2aa1af', '#1a7b8a', '#0e5563', '#06323d', '#021217'];
   let errorColors = ['#FDE8E7', '#F25E52', '#F04134', '#EE3B2F', '#E92A21'];
   let warningColors = ['#FFF7E0', '#FFC926', '#FFBF00', '#FFB900', '#FFA900'];
   let infoColors = ['#E0F4F5', '#26B0BA', '#00A2AE', '#009AA7', '#008694'];
   let successColors = ['#E0F5EA', '#26B56E', '#00A854', '#00A04D', '#008D3A'];
 
   if (mode === ThemeMode.DARK) {
-    primaryColors = ['#1a231f', '#173123', '#174029', '#13502f', '#0e6737', '#0a7d3e', '#1f8f4e', '#3ba162', '#5cb07a', '#82bf95'];
+    primaryColors = ['#1c2628', '#1d3539', '#22454a', '#23595f', '#26737c', '#288d99', '#47a6ad', '#6dbec0', '#96d0d0', '#c5dfde'];
     errorColors = ['#321d1d', '#7d2e28', '#d13c31', '#e66859', '#f8baaf'];
     warningColors = ['#342c1a', '#836611', '#dda705', '#e9bf28', '#f8e577'];
     infoColors = ['#1a2628', '#11595f', '#058e98', '#1ea6aa', '#64cfcb'];
@@ -109,4 +109,4 @@ const Theme4 = (colors: PalettesProps, mode: ThemeMode): PaletteThemeProps => {
   };
 };
 
-export default Theme4;
+export default Theme6;

@@ -1,5 +1,5 @@
 // types
-import { PaletteThemeProps } from '../../types/theme';
+import { PaletteThemeProps } from '../theme';
 import { PalettesProps } from '@ant-design/colors';
 import { PaletteColorOptions } from '@mui/material/styles';
 
