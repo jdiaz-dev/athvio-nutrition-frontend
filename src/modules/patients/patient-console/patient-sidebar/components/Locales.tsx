@@ -2,7 +2,7 @@ import { ReactNode, useEffect, useState } from 'react';
 
 // third-party
 import { IntlProvider, MessageFormatElement } from 'react-intl';
-import useConfig from 'src/modules/patients/patient-console/patient-sidebar/hooks/useConfig';
+import useConfig from 'src/shared/hooks/useConfig';
 import { I18n } from 'src/shared/types/config';
 
 // project import

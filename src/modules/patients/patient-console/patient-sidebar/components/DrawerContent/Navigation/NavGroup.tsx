@@ -26,7 +26,6 @@ import NavCollapse from './NavCollapse';
 import SimpleBar from 'src/shared/components/third-party/SimpleBar';
 import Transitions from '../../../../../../../shared/components/extended/Transitions';
 
-import useConfig from '../../../../../../Lab/hooks/useConfig';
 import { handlerHorizontalActiveItem, useGetMenuMaster } from '../../../../../../Lab/api/menu';
 
 // assets
@@ -36,6 +35,7 @@ import { DownOutlined, GroupOutlined, RightOutlined } from '@ant-design/icons';
 import { NavItemType } from '../../../../../../Lab/types/menu';
 import { MenuOrientation, ThemeMode } from 'src/shared/types/config';
 import { SidebarContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SidebarContext';
+import useConfig from 'src/shared/hooks/useConfig';
 
 // ==============================|| NAVIGATION - LIST GROUP ||============================== //
 

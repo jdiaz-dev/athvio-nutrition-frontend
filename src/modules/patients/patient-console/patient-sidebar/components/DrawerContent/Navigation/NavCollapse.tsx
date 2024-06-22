@@ -25,7 +25,6 @@ import IconButton from 'src/shared/components/IconButton';
 import SimpleBar from 'src/shared/components/third-party/SimpleBar';
 import Transitions from 'src/shared/components/extended/Transitions';
 
-import useConfig from '../../../../../../Lab/hooks/useConfig';
 import { handlerActiveItem, useGetMenuMaster } from '../../../../../../Lab/api/menu';
 
 // assets
@@ -35,6 +34,7 @@ import { BorderOutlined, DownOutlined, UpOutlined, RightOutlined } from '@ant-de
 import { MenuOrientation, ThemeMode } from 'src/shared/types/config';
 import { NavItemType } from 'src/shared/types/menu';
 import { SidebarContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SidebarContext';
+import useConfig from 'src/shared/hooks/useConfig';
 
 type VirtualElement = {
   getBoundingClientRect: () => ClientRect | DOMRect;

@@ -9,13 +9,13 @@ import { Avatar, Box, Chip, ListItemButton, ListItemIcon, ListItemText, Typograp
 import Dot from '../../../../../../../shared/components/extended/Dot';
 import IconButton from 'src/shared/components/IconButton';
 
-import useConfig from '../../../../../../Lab/hooks/useConfig';
 import { handlerHorizontalActiveItem, handlerActiveItem, handlerDrawerOpen, useGetMenuMaster } from '../../../../../../Lab/api/menu';
 
 // types
 import { MenuOrientation, ThemeMode } from 'src/shared/types/config';
 import { LinkTarget, NavActionType, NavItemType } from 'src/shared/types/menu';
 import { SidebarContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SidebarContext';
+import useConfig from 'src/shared/hooks/useConfig';
 
 // ==============================|| NAVIGATION - LIST ITEM ||============================== //
 

@@ -1,3 +1,4 @@
+//todo: remove it
 import { UserProfile } from "src/shared/types/auth";
 
 export type History = {

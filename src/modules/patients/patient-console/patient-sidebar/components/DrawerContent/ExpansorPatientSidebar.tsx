@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { useTheme } from '@mui/material/styles';
 
-import useConfig from 'src/modules/Lab/hooks/useConfig';
 import { ThemeMode } from 'src/shared/types/config';
 import MenuUnfoldOutlined from '@ant-design/icons/MenuUnfoldOutlined';
 import MenuFoldOutlined from '@ant-design/icons/MenuFoldOutlined';
 import { SidebarContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SidebarContext';
 import IconButton from 'src/shared/components/IconButton';
+import useConfig from 'src/shared/hooks/useConfig';
 
 function ExpansorPatientSidebar() {
   const { openSidebar, setOpenSidebar } = useContext(SidebarContext);
