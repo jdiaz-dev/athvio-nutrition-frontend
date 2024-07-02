@@ -27,6 +27,7 @@ function ProgramPlan({ program, planDayInfo }: { program: string; planDayInfo: P
   };
   useEffect(() => {
     const deletePlanHelper = async () => {
+      //todo: delete first in redux after in db
       await deletePlan({
         professional: authContext.professional,
         program,

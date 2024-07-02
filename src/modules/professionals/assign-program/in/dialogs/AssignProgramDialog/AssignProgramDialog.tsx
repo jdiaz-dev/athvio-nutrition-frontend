@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button, Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
 
-import { makeStyles } from 'tss-react/mui';
 import CloseIcon from '@mui/icons-material/Close';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -34,7 +33,6 @@ function AssignProgramDialog({
   const programState = useSelector((state: ReduxStates) => state.programs.program);
   const assignProgramState = useSelector((state: ReduxStates) => state.assignProgram);
   const [closeIconDialog, setCloseIconDialog] = useState(true);
-  console.log('-----------assignProgramState', assignProgramState)
 
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk } = useMessageDialog();
   const { assignProgram } = useAssignProgram();

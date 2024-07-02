@@ -30,7 +30,7 @@ function PatientConsoleContainer() {
         <PatientSidebarContainer />
         <PatientPlansContainer />
       </Box>
-      {/* <ChatContainer /> */}
+      <ChatContainer />
     </>
   );
 }

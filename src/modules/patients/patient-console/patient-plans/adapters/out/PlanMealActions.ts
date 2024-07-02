@@ -1,7 +1,11 @@
 import { ApolloError } from '@apollo/client';
 import { useDispatch } from 'react-redux';
 import { apolloClient } from 'src/graphql/ApolloClient';
-import { CREATE_PLAN_MEAL, DELETE_PLAN_MEAL, UPDATE_PLAN_MEAL } from 'src/modules/patients/patient-console/patient-plans/adapters/out/PlanMealQueries';
+import {
+  CREATE_PLAN_MEAL,
+  DELETE_PLAN_MEAL,
+  UPDATE_PLAN_MEAL,
+} from 'src/modules/patients/patient-console/patient-plans/adapters/out/PlanMealQueries';
 import { PatientPlanBody } from 'src/modules/patients/patient-console/patient-plans/adapters/out/patientPlan.types';
 import {
   AddPatientPlanRequest,
@@ -28,7 +32,6 @@ export function usePatientPlanMeal() {
           },
         },
       });
-      console.log('----------response', response)
       if (response) {
         dispatch(PatientPlanSlice.acceptNewPatientPlan(response.data?.addPlanMeal as PatientPlanBody));
       }

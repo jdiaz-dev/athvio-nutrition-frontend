@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
-import React, { useContext, useEffect, useState } from 'react';
-import { Button } from '@mui/material';
+import React, { memo, useContext, useEffect, useMemo, useState } from 'react';
 import PlanDetailDialog from 'src/shared/components/PlanDetailDialog/PlanDetailDialog';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
@@ -12,7 +11,7 @@ import CustomAddIcon from 'src/shared/components/Icons/CustomAddIcon';
 import DuplicatePatientPlan from 'src/modules/patients/patient-console/patient-plans/adapters/in/components/PatientPlansContainer/DuplicateProgramPlan';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
-function CreatePatientPlanButton({ patient, assignedDate }: { patient: string; assignedDate: Date }) {
+const CreatePatientPlanButton = memo(function CreatePatientPlanButton({ patient, assignedDate }: { patient: string; assignedDate: Date }) {
   const authContext = useContext(AuthContext);
   const patientPlanState = useSelector((state: ReduxStates) => state.patientPlans.patientPlan);
   const { createPatientPlan, deletePatientPlan } = usePatientPlan();
@@ -27,6 +26,7 @@ function CreatePatientPlanButton({ patient, assignedDate }: { patient: string; a
         patient,
         assignedDate,
       };
+      //todo: create patient plan only in redux
       await createPatientPlan(input);
       setPlanCreated(true);
     };
@@ -37,6 +37,7 @@ function CreatePatientPlanButton({ patient, assignedDate }: { patient: string; a
   }, [authContext.professional, openPlanDetailDialog]);
 
   useEffect(() => {
+    //todo: delete patient plan only in redux
     const deletePatientPlanHandler = async () => {
       const input = {
         professional: authContext.professional,
@@ -61,7 +62,8 @@ function CreatePatientPlanButton({ patient, assignedDate }: { patient: string; a
       };
     }
   }, [openPlanDetailDialog]);
-  console.log('-------------openPlanDetailDialog', openPlanDetailDialog)
+  const openPlanDetailDialogMemoized = useMemo(() => openPlanDetailDialog, [openPlanDetailDialog]);
+
   return (
     <>
       <CustomIconWrapper>
@@ -70,19 +72,20 @@ function CreatePatientPlanButton({ patient, assignedDate }: { patient: string; a
       <CustomIconWrapper>
         <DuplicatePatientPlan patient={patient} assignedDate={assignedDate} />
       </CustomIconWrapper>
-      {openPlanDetailDialog && patientPlanState._id.length > 0 ? (
+      {/* here: enhance logic to open dialog that it is being created, test use useMemo */}
+      {openPlanDetailDialogMemoized && patientPlanState?._id.length > 0 ? (
         <PlanContext.Provider value={{ isFromRecentlyCreatedPlan: true }}>
           <PlanDetailDialog
-            openPlanDetailDialog={openPlanDetailDialog}
+            openPlanDetailDialog={openPlanDetailDialogMemoized}
             setOpenPlanDetailDialog={setOpenPlanDetailDialog}
             domainOwnerId={patient}
             planOwnerId={patientPlanState._id}
           />
         </PlanContext.Provider>
       ) : (
-        openPlanDetailDialog && (
+        openPlanDetailDialogMemoized && (
           <PlanDetailDialog
-            openPlanDetailDialog={openPlanDetailDialog}
+            openPlanDetailDialog={openPlanDetailDialogMemoized}
             setOpenPlanDetailDialog={setOpenPlanDetailDialog}
             domainOwnerId={patient}
           />
@@ -90,6 +93,5 @@ function CreatePatientPlanButton({ patient, assignedDate }: { patient: string; a
       )}
     </>
   );
-}
-
+});
 export default CreatePatientPlanButton;

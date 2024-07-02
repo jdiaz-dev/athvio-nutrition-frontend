@@ -86,6 +86,8 @@ function MealDetail({
   const createUpdateMealHandler = async () => {
     const { _id, ...restMealDetail } = mealDetailsState;
     if (mealDetailsState._id.length == 0) {
+      //todo: push meal in patient plan in redux, push meals in program in redux
+      //todo: create patient plan with meals in db, create program with meals in db 
       await createMeal({
         professional: authContext.professional,
         domainOwnerId,
@@ -98,6 +100,9 @@ function MealDetail({
 
       if (planContext.isFromRecentlyCreatedPlan) mealPlanCreatedChange.next(true);
     } else {
+      //todo: update meal in patient plan in redux, update meals in program in redux
+      //todo: update patient plan with meals in db, update program with meals in db 
+      
       await updateMeal({
         professional: authContext.professional,
         domainOwnerId,

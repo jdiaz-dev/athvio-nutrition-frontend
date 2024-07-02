@@ -1,6 +1,5 @@
 import { Modules } from 'src/shared/Consts';
 import { usePlanMeal } from 'src/modules/professionals/programs/adapters/out/MealActions';
-// import { usePatientPlan } from 'src/modules/patients/patient-plans/adapters/out/PatientPlanActions';
 import { usePatientPlanMeal } from 'src/modules/patients/patient-console/patient-plans/adapters/out/PlanMealActions';
 import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 

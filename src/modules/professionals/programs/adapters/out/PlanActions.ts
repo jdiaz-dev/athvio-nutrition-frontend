@@ -40,6 +40,7 @@ export function usePlan() {
           },
         },
       });
+
       const lastPlanCreatedIndex = (response.data?.addProgramPlan as ProgramBody).plans.length - 1;
       dispatch(PlanSlice.acceptNewPlans(response.data?.addProgramPlan.plans as Plan[]));
       dispatch(PlanSlice.acceptNewPlan(response.data?.addProgramPlan.plans[lastPlanCreatedIndex] as Plan));

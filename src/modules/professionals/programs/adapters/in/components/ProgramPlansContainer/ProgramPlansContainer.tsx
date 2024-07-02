@@ -93,22 +93,22 @@ function ProgramPlansContainer() {
                 // dragScroll={true}
                 dayHeaders={false} // hide day headers
                 /* dayHeaderContent={(args) => {
-            if (args.text === 'Sun') {
-              return <div>Day1</div>;
-            } else if (args.text === 'Mon') {
-              return <div>Day2</div>;
-            } else if (args.text === 'Tue') {
-              return <div>Day3</div>;
-            } else if (args.text === 'Wed') {
-              return <div>Day4</div>;
-            } else if (args.text === 'Thu') {
-              return <div>Day5</div>;
-            } else if (args.text === 'Fri') {
-              return <div>Day6</div>;
-            } else {
-              return <div>Day7</div>;
-            }
-            }} */
+                if (args.text === 'Sun') {
+                  return <div>Day1</div>;
+                } else if (args.text === 'Mon') {
+                  return <div>Day2</div>;
+                } else if (args.text === 'Tue') {
+                  return <div>Day3</div>;
+                } else if (args.text === 'Wed') {
+                  return <div>Day4</div>;
+                } else if (args.text === 'Thu') {
+                  return <div>Day5</div>;
+                } else if (args.text === 'Fri') {
+                  return <div>Day6</div>;
+                } else {
+                  return <div>Day7</div>;
+                }
+                }} */
 
                 dayCellContent={() => {
                   counterDay++;

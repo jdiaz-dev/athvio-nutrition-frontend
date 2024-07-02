@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { memo, useContext, useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -14,7 +14,7 @@ import MealDetail from 'src/shared/components/PlanDetailDialog/MealDetail';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import { Modules } from 'src/shared/Consts';
 
-function PlanDetailDialog({
+const PlanDetailDialog = memo(function PlanDetailDialog({
   openPlanDetailDialog,
   setOpenPlanDetailDialog,
   domainOwnerId,
@@ -26,6 +26,7 @@ function PlanDetailDialog({
   planOwnerId?: string;
 }) {
   const reloadRecordListContext = useContext(ReloadRecordListContext);
+
   const currentModuleContext = useContext(CurrentModuleContext);
   const planState =
     currentModuleContext.currentModule === Modules.PROGRAMS
@@ -33,13 +34,13 @@ function PlanDetailDialog({
       : useSelector((state: ReduxStates) => state.patientPlans.patientPlan);
   const [meals, setMeals] = useState<Meal[]>([]);
   const [closeIconDialog, setCloseIconDialog] = useState(true);
+
   useEffect(() => {
     setMeals(planState?.meals || []);
   }, [planState]);
 
   useEffect(() => {
     if (!closeIconDialog) {
-      console.log('------------entried');
       reloadRecordListContext.setReloadRecordList(true);
       setOpenPlanDetailDialog(false);
     }
@@ -48,13 +49,11 @@ function PlanDetailDialog({
   const addMealPlanHandler = () => {
     setMeals(meals.concat([{ ...programInitialState.mealBasicInfo, ...programInitialState.mealDetails }]));
   };
-
   return (
     <>
       <Dialog
         open={openPlanDetailDialog}
         onClose={() => {
-          console.log('--------------onclose?');
           setOpenPlanDetailDialog(false);
         }}
         maxWidth="xl"
@@ -68,7 +67,7 @@ function PlanDetailDialog({
             <IconButton
               aria-label="close"
               onClick={() => {
-                console.log('--------------onclik?');
+                reloadRecordListContext.setReloadRecordList(true)
                 setOpenPlanDetailDialog(false);
               }}
               sx={{
@@ -95,6 +94,6 @@ function PlanDetailDialog({
       </Dialog>
     </>
   );
-}
+});
 
 export default PlanDetailDialog;

@@ -57,13 +57,11 @@ function PatientPlansCalendar() {
   useEffect(() => {
     const getProgramHelper = async () => {
       await getPatientPlans(input);
+      setReloadRecordList(false);
     };
 
-    if (authContext.professional) {
-      void getProgramHelper();
-      setReloadRecordList(false);
-    }
-  }, [authContext.professional, reloadRecordList]);
+    if (reloadRecordList) void getProgramHelper();
+  }, [reloadRecordList]);
 
   useEffect(() => {
     // const   = patientPlansState.plans.length > 0 ? patientPlansState.plans[patientPlansState.plans.length - 1].week : baseWeek;

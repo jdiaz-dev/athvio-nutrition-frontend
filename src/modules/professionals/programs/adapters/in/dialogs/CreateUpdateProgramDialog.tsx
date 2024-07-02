@@ -65,7 +65,6 @@ function CreateUpdateProgramDialog({
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk } = useMessageDialog();
   const [createUpdateProgramStateUpdate, setCreateUpdateProgramStateUpdated] = useState(false);
   const { createProgram, updateProgram } = useProgram();
-  console.log('--------reloadRecordListContext', reloadRecordListContext);
   const {
     register,
     handleSubmit,
@@ -91,7 +90,7 @@ function CreateUpdateProgramDialog({
         const { _id, professional, name, description, ...restProgram } = programState;
         await updateProgram({
           program: _id,
-          professional:authContext.professional,
+          professional: authContext.professional,
           name,
           description,
         });
@@ -100,7 +99,7 @@ function CreateUpdateProgramDialog({
         reset();
       } else {
         const { professional, name, description } = programState;
-        await createProgram({ professional:authContext.professional, name, description });
+        await createProgram({ professional: authContext.professional, name, description });
         setMessage('Program created successfully');
         setCreateUpdateProgramStateUpdated(false);
         reset();

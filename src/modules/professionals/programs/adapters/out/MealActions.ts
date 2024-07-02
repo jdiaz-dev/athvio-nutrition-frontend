@@ -15,7 +15,7 @@ import {
 } from 'src/modules/professionals/programs/adapters/out/meal.types';
 import { CREATE_MEAL, DELETE_MEAL, UPDATE_MEAL } from 'src/modules/professionals/programs/adapters/out/MealQueries';
 
-import { Plan } from 'src/modules/professionals/programs/adapters/out/program.types';
+import { Plan, ProgramBody } from 'src/modules/professionals/programs/adapters/out/program.types';
 
 export function usePlanMeal() {
   const dispatch = useDispatch();

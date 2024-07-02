@@ -31,7 +31,6 @@ const DrawerContent = () => {
           },
         }}
       >
-        {/* here */}
         <Navigation />
         {/* {openSidebar && !matchDownMD && <NavCard />} */} {/* //x */}
       </SimpleBar>

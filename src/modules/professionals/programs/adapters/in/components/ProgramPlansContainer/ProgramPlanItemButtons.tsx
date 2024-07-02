@@ -16,10 +16,11 @@ function ProgramPlanItemButtons({ planDay, planWeek, program }: { planDay: numbe
   const planState = useSelector((state: ReduxStates) => state.programs.plan);
   const { createPlan, deletePlan } = usePlan();
   const [openPlanDetailDialog, setOpenPlanDetailDialog] = useState(false);
-  const [planCrated, setPlanCrated] = useState(false);
+  const [planCreated, setPlanCreated] = useState(false);
   const [mealPlanCreated, setMealPlanCreated] = useState(false);
-
   useEffect(() => {
+    //todo: create program plan only in redux
+    //todo: only if exists meals in program plan save it in db
     const createProgramPlanHandler = async () => {
       const input = {
         professional: authContext.professional,
@@ -28,7 +29,7 @@ function ProgramPlanItemButtons({ planDay, planWeek, program }: { planDay: numbe
         day: planDay,
       };
       await createPlan(input);
-      setPlanCrated(true);
+      setPlanCreated(true);
     };
 
     if (openPlanDetailDialog) {
@@ -37,6 +38,7 @@ function ProgramPlanItemButtons({ planDay, planWeek, program }: { planDay: numbe
   }, [authContext.professional, openPlanDetailDialog]);
 
   useEffect(() => {
+    //todo: delete program plan only in redux
     const deletePlanHandler = async () => {
       const input = {
         professional: authContext.professional,
@@ -45,7 +47,7 @@ function ProgramPlanItemButtons({ planDay, planWeek, program }: { planDay: numbe
       };
       await deletePlan(input);
     };
-    if (planCrated && !mealPlanCreated && !openPlanDetailDialog) {
+    if (planCreated && !mealPlanCreated && !openPlanDetailDialog) {
       void deletePlanHandler();
     }
   }, [openPlanDetailDialog]);
@@ -61,11 +63,17 @@ function ProgramPlanItemButtons({ planDay, planWeek, program }: { planDay: numbe
       };
     }
   }, [openPlanDetailDialog]);
+  console.log('-----------openPlanDetailDialog', openPlanDetailDialog, planState._id, planCreated);
 
   return (
     <>
       <CustomIconWrapper>
-        <CustomAddIcon handler={() => setOpenPlanDetailDialog(true)} />
+        <CustomAddIcon
+          handler={() => {
+            console.log('--------------jelou');
+            setOpenPlanDetailDialog(true);
+          }}
+        />
       </CustomIconWrapper>
       <CustomIconWrapper>
         <DuplicateProgramPlan newWeek={planWeek} newDay={planDay} />

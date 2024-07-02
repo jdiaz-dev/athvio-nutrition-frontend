@@ -18,7 +18,6 @@ interface UserAvatarProps {
   user: UserProfile;
 }
 
-//here: use to queries(get professionald and patient to get the photo), in lab6
 export default function CommenterAvatar({ commenter }: { commenter: Commenter }) {
   const commenterState =
     commenter === Commenter.PATIENT
