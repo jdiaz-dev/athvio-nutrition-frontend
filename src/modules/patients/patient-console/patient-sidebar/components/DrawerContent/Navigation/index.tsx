@@ -15,6 +15,7 @@ import { MenuOrientation } from 'src/shared/types/config';
 import { SidebarContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SidebarContext';
 import useConfig from 'src/shared/hooks/useConfig';
 import { ThemeEnum } from 'src/shared/Consts';
+import ChatIcon from '@mui/icons-material/Chat';
 
 // ==============================|| DRAWER CONTENT - NAVIGATION ||============================== //
 

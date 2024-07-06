@@ -8,28 +8,19 @@ import Dialog from '@mui/material/Dialog';
 import Grid from '@mui/material/Grid';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-// project import
 //todo: remove it
-// import MainCard from 'components/MainCard';
 import MainCard from 'src/shared/components/MainCard/MainCard';
 
 //todo: remove it
 // import { PopupTransition } from 'components/@extended/Transitions';
 import { PopupTransition } from 'src/shared/components/extended/Transitions';
 
-//todo: remove it
-// import ChatHeader from 'sections/apps/chat/ChatHeader';
 import ChatHeader from 'src/modules/patients/patient-console/chat/adapters/in/components/chat/ChatHeader';
-import ChatDrawer from 'src/modules/patients/patient-console/chat/adapters/in/components/chat/ChatDrawer';
 import ChatHistory from 'src/modules/patients/patient-console/chat/adapters/in/components/chat/ChatHistory';
-import UserDetails from 'src/modules/patients/patient-console/chat/adapters/in/components/chat/UserDetails';
 import ChatMessageSend from 'src/modules/patients/patient-console/chat/adapters/in/components/chat/ChatMessageSend';
 
 //todo: remove it
-// import { ThemeMode } from 'config';
 import { ThemeMode } from 'src/shared/types/config';
-import { useSelector } from 'react-redux';
-import { ReduxStates } from 'src/shared/types/types';
 
 const drawerWidth = 320;
 
@@ -56,15 +47,12 @@ const Main = styled('main', { shouldForwardProp: (prop: string) => prop !== 'ope
   }),
 );
 
-// ==============================|| APPLICATION - CHAT ||============================== //
-
 export default function Chat() {
   const theme = useTheme();
   const downLG = useMediaQuery(theme.breakpoints.down('lg'));
   const downMD = useMediaQuery(theme.breakpoints.down('md'));
   const [emailDetails, setEmailDetails] = useState(false);
 
-  const patientState = useSelector((state: ReduxStates) => state.patient);
   const handleUserChange = () => {
     setEmailDetails((prev) => !prev);
   };
@@ -80,14 +68,18 @@ export default function Chat() {
   }, [downLG]);
 
   return (
-    <Box sx={{ display: 'flex', width: '50%', zIndex: 1, position: 'absolute', top: '12.3%', left: '45%', border: '1px solid white' }}>
-      {/* <ChatDrawer
-        openChatDrawer={openChatDrawer}
-        handleDrawerOpen={handleDrawerOpen}
-        setUser={setUser}
-        selectedUser={usersLoading || Object.keys(user).length === 0 ? null : user.id!}
-      /> */}
-
+    <Box
+      sx={{
+        display: 'flex',
+        width: '50%',
+        height: '50px',
+        zIndex: 2,
+        position: 'absolute',
+        top: '1%',
+        left: '45%',
+        border: '1px solid white',
+      }}
+    >
       <Main theme={theme} open={openChatDrawer}>
         <Grid container>
           <Grid
@@ -137,7 +129,7 @@ export default function Chat() {
                 </Grid>
                 <Grid item xs={12} sx={{ mt: 3, bgcolor: 'background.paper', borderTop: '1px solid', borderTopColor: 'divider' }}>
                   {/* todo: enable it */}
-                  {/* <ChatMessageSend {...{ user }} /> */}
+                  <ChatMessageSend />
                 </Grid>
               </Grid>
             </MainCard>

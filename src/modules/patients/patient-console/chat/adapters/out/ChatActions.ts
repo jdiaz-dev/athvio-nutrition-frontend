@@ -1,59 +1,49 @@
 import { ApolloError } from '@apollo/client';
 import { useDispatch } from 'react-redux';
 import { apolloClient } from 'src/graphql/ApolloClient';
-import { CREATE_PLAN_MEAL } from 'src/modules/patients/patient-console/patient-plans/adapters/out/PlanMealQueries';
-import { PatientPlanBody } from 'src/modules/patients/patient-console/patient-plans/adapters/out/patientPlan.types';
 import {
-  AddPatientPlanRequest,
-  AddPatientPlanResponse,
-  CreatePatientPlanMealInput,
-} from 'src/modules/patients/patient-console/patient-plans/adapters/out/planMeal.types';
-import * as PatientPlanSlice from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/PatientPlanSlice';
-import {
+  CommendAddedSubscriptionInput,
+  CommendAddedSubscriptionRequest,
   CommentAddedResponse,
-  GetChatInput,
-  GetChatRequest,
-  GetChatResponse,
-} from 'src/modules/patients/patient-console/chat/adapters/out/chat';
-import { COMMENT_ADDED_SUBSCRIPTION } from 'src/modules/patients/patient-console/chat/adapters/out/ChatQueries';
+  SaveChatInput,
+  SaveChatRequest,
+  SaveChatResponse,
+} from 'src/modules/patients/patient-console/chat/adapters/out/chat.d';
+import { COMMENT_ADDED_SUBSCRIPTION, SAVE_CHAT_COMMENT } from 'src/modules/patients/patient-console/chat/adapters/out/ChatQueries';
+import * as ChatSlice from 'src/modules/patients/patient-console/chat/adapters/in/slicers/ChatSlice';
 
 export function useChat() {
   const dispatch = useDispatch();
 
-  const saveChatComment = async (body: GetChatInput): Promise<void> => {
+  const saveChatComment = async (body: SaveChatInput): Promise<void> => {
     try {
-      const response = await apolloClient.mutate<GetChatResponse, GetChatRequest>({
-        mutation: CREATE_PLAN_MEAL,
+      const response = await apolloClient.mutate<SaveChatResponse, SaveChatRequest>({
+        mutation: SAVE_CHAT_COMMENT,
         variables: {
-          chat: {
+          input: {
             ...body,
           },
         },
       });
-      if (response) {
-        // dispatch(PatientPlanSlice.acceptNewPatientPlan(response.data?.addPlanMeal as PatientPlanBody));
-      }
+      if (response.data) dispatch(ChatSlice.newPatientCommentReceived(response.data.saveChatComment.comments[0]));
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
     }
   };
 
-  //todo: fix comment added
-  const commentAddedSubscription = async (body: any): Promise<void> => {
-    body;
+  const commentAddedSubscription = async (body: CommendAddedSubscriptionInput): Promise<void> => {
+    console.log('-----------body subs', body);
     try {
       const response = apolloClient
-        .subscribe<CommentAddedResponse>({
+        .subscribe<CommentAddedResponse, CommendAddedSubscriptionRequest>({
           query: COMMENT_ADDED_SUBSCRIPTION,
           variables: {
-            input: { professional: '66493c26091cb4d8d83bedaf', patients: ['66493d52091cb4d8d83bedc4'] },
+            input: body,
           },
         })
         .subscribe(({ data, errors, extensions }) => {
-          console.log('-------data', data);
-          console.log('-------errors', errors);
-          console.log('-------extensions', extensions);
+          if (data) dispatch(ChatSlice.newPatientCommentReceived(data.commentAddedByPatient.comments[0]));
         });
 
       if (response) {

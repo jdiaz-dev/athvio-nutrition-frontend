@@ -1,6 +1,6 @@
 import { Fragment, useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
-
+import ChatIcon from '@mui/icons-material/Chat';
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
 import {
@@ -24,8 +24,9 @@ import { FormattedMessage } from 'react-intl';
 import NavItem from './NavItem';
 import NavCollapse from './NavCollapse';
 import SimpleBar from 'src/shared/components/third-party/SimpleBar';
-import Transitions from '../../../../../../../shared/components/extended/Transitions';
+import Transitions from 'src/shared/components/extended/Transitions';
 
+//todo: delete it
 import { handlerHorizontalActiveItem, useGetMenuMaster } from '../../../../../../Lab/api/menu';
 
 // assets
@@ -115,7 +116,6 @@ const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, sele
       }
     });
   };
-
   const checkSelectedOnload = (data: NavItemType) => {
     const childrens = data.children ? data.children : [];
     childrens.forEach((itemCheck: NavItemType) => {
@@ -155,6 +155,7 @@ const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, sele
     />
   ) : null;
 
+  //here: sidebar item
   const navCollapse = item.children?.map((menuItem, index) => {
     switch (menuItem.type) {
       case 'collapse':

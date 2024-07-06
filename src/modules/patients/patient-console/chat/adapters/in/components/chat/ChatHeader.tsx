@@ -12,11 +12,9 @@ import MenuItem from '@mui/material/MenuItem';
 import Skeleton from '@mui/material/Skeleton';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-
-// project-import
+import CloseIcon from '@mui/icons-material/Close';
 import UserAvatar from './CommenterAvatar';
 
-// assets
 import MenuFoldOutlined from '@ant-design/icons/MenuFoldOutlined';
 import MenuUnfoldOutlined from '@ant-design/icons/MenuUnfoldOutlined';
 import AudioMutedOutlined from '@ant-design/icons/AudioMutedOutlined';
@@ -46,7 +44,7 @@ interface Props {
 
 export default function ChatHeader({ loading, openChatDrawer, emailDetails, handleDrawerOpen, handleUserChange }: Props) {
   const patientState = useSelector((state: ReduxStates) => state.patient);
-  
+
   const [anchorEl, setAnchorEl] = useState<Element | (() => Element) | null | undefined>(null);
 
   const handleClickSort = (event: React.MouseEvent<HTMLButtonElement> | undefined) => {
@@ -97,17 +95,8 @@ export default function ChatHeader({ loading, openChatDrawer, emailDetails, hand
       </Grid>
       <Grid item>
         <Stack direction="row" alignItems="center" justifyContent="flex-end" spacing={1}>
-          <IconButton size="large" color="secondary">
-            <PhoneOutlined />
-          </IconButton>
-          <IconButton size="large" color="secondary">
-            <VideoCameraOutlined />
-          </IconButton>
-          <IconButton onClick={handleUserChange} size="large" color={emailDetails ? 'error' : 'secondary'}>
-            {emailDetails ? <CloseOutlined /> : <InfoCircleOutlined />}
-          </IconButton>
           <IconButton onClick={handleClickSort} size="large" color="secondary">
-            <MoreOutlined />
+            <CloseIcon />
           </IconButton>
           <Menu
             id="simple-menu"

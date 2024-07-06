@@ -1,4 +1,4 @@
-import { Commenter } from './chat';
+import { Commenter } from './chat.enum';
 
 export type CommentBody = {
   _id: string;
@@ -16,8 +16,13 @@ export type ChatBody = {
 
 export type ChatInitialState = ChatBody;
 
+export type CommendAddedSubscriptionInput = GetChatInput;
+export type CommendAddedSubscriptionRequest = {
+  input: CommendAddedSubscriptionInput;
+};
+
 export type CommentAddedResponse = {
-  commentAdded: CommentAddedResponse;
+  commentAddedByPatient: Omit<ChatBody, 'professional'>;
 };
 
 export type GetChatInput = {
@@ -31,4 +36,18 @@ export type GetChatRequest = {
 
 export type GetChatResponse = {
   getChat: ChatBody;
+};
+
+export type SaveChatInput = {
+  professional: string;
+  patient: string;
+  comment: Pick<CommentBody, 'commenter' | 'content'>;
+};
+
+export type SaveChatRequest = {
+  input: SaveChatInput;
+};
+
+export type SaveChatResponse = {
+  saveChatComment: ChatBody;
 };

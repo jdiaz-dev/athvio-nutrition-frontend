@@ -10,7 +10,7 @@ import Avatar from 'src/modules/patients/patient-console/chat/adapters/in/compon
 import { UserProfile } from 'src/shared/types/auth';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
-import { Commenter } from 'src/modules/patients/patient-console/chat/adapters/out/chat';
+import { Commenter } from 'src/modules/patients/patient-console/chat/adapters/out/chat.enum';
 
 // ==============================|| CHAT USER AVATAR WITH STATUS ICON ||============================== //
 

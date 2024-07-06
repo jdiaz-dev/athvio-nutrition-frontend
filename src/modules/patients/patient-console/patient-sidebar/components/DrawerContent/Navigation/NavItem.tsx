@@ -1,5 +1,5 @@
-import { useContext, useEffect } from 'react';
-import { Link, useLocation, matchPath } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -9,13 +9,16 @@ import { Avatar, Box, Chip, ListItemButton, ListItemIcon, ListItemText, Typograp
 import Dot from '../../../../../../../shared/components/extended/Dot';
 import IconButton from 'src/shared/components/IconButton';
 
-import { handlerHorizontalActiveItem, handlerActiveItem, handlerDrawerOpen, useGetMenuMaster } from '../../../../../../Lab/api/menu';
+//todo: delete it
+import { handlerHorizontalActiveItem, useGetMenuMaster } from '../../../../../../Lab/api/menu';
 
 // types
 import { MenuOrientation, ThemeMode } from 'src/shared/types/config';
 import { LinkTarget, NavActionType, NavItemType } from 'src/shared/types/menu';
 import { SidebarContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SidebarContext';
+import { SelelecteSlideContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SelectedSlideContext';
 import useConfig from 'src/shared/hooks/useConfig';
+import { AvailableSlides } from 'src/modules/patients/patient-console/patient-sidebar/utils/sidebar.enum';
 
 // ==============================|| NAVIGATION - LIST ITEM ||============================== //
 
@@ -27,11 +30,9 @@ interface Props {
 
 const NavItem = ({ item, level, isParents = false }: Props) => {
   const { openSidebar } = useContext(SidebarContext);
-
+  const { selectedSlide, setSelectedSlide } = useContext(SelelecteSlideContext);
+  const [isSelected, setIsSelected] = useState(false);
   const theme = useTheme();
-
-  const { menuMaster } = useGetMenuMaster();
-  const openItem = true; //menuMaster.openedItem;
 
   const downLG = useMediaQuery(theme.breakpoints.down('lg'));
 
@@ -52,14 +53,9 @@ const NavItem = ({ item, level, isParents = false }: Props) => {
     false
   );
 
-  const { pathname } = useLocation();
-  const isSelected = !!matchPath({ path: item.url!, end: false }, pathname) || openItem === item.id;
-
-  // active menu item on page load
   useEffect(() => {
-    if (pathname === item.url) handlerActiveItem(item.id!);
-    // eslint-disable-next-line
-  }, [pathname]);
+    setIsSelected(selectedSlide == item.slide ? true : false);
+  }, [selectedSlide]);
 
   const textColor = theme.palette.mode === ThemeMode.DARK ? 'grey.400' : 'text.primary';
   const iconSelectedColor = theme.palette.mode === ThemeMode.DARK && openSidebar ? 'text.primary' : 'primary.main';
@@ -69,10 +65,6 @@ const NavItem = ({ item, level, isParents = false }: Props) => {
       {menuOrientation === MenuOrientation.VERTICAL || downLG ? (
         <Box sx={{ position: 'relative' }}>
           <ListItemButton
-            component={Link}
-            to={item.url!}
-            target={itemTarget}
-            disabled={item.disabled}
             selected={isSelected}
             sx={{
               zIndex: 1201,
@@ -104,9 +96,9 @@ const NavItem = ({ item, level, isParents = false }: Props) => {
                 },
               }),
             }}
-            {...(downLG && {
-              onClick: () => handlerDrawerOpen(false),
-            })}
+            onClick={() => {
+              setSelectedSlide(item.slide as AvailableSlides);
+            }}
           >
             {itemIcon && (
               <ListItemIcon

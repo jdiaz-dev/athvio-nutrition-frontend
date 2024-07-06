@@ -9,10 +9,8 @@ import DrawerHeader from './DrawerHeader';
 import DrawerContent from './DrawerContent';
 import PatientDrawerStyled from './PatientDrawerStyled';
 
-
 //todo: move config?
 import { SidebarContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SidebarContext';
-import { useChat } from 'src/modules/patients/patient-console/chat/adapters/out/ChatActions';
 import { ThemeEnum } from 'src/shared/Consts';
 
 // ==============================|| MAIN LAYOUT - DRAWER ||============================== //
@@ -24,7 +22,6 @@ interface Props {
 const PatientSidebar = ({ window }: Props) => {
   const theme = useTheme();
   const { openSidebar, setOpenSidebar } = useContext(SidebarContext);
-  const { commentAddedSubscription } = useChat();
   const matchDownMD = useMediaQuery(theme.breakpoints.down('lg'));
 
   // responsive drawer container
@@ -33,9 +30,6 @@ const PatientSidebar = ({ window }: Props) => {
   // header content
   const drawerContent = useMemo(() => <DrawerContent />, []);
   const drawerHeader = useMemo(() => <DrawerHeader open={openSidebar} />, [openSidebar]);
-  useEffect(() => {
-    commentAddedSubscription({});
-  }, []);
 
   return (
     <Box component="nav" sx={{ flexShrink: { md: 0 }, zIndex: 1200 }} aria-label="mailbox folders">

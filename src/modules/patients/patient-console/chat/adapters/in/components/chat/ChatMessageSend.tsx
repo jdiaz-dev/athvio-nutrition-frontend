@@ -5,13 +5,14 @@ import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Popper from '@mui/material/Popper';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
+import { useSelector } from 'react-redux';
 
 // third party
 import EmojiPicker, { SkinTones, EmojiClickData } from 'emoji-picker-react';
 
 // project import
 
-import { insertChat, useGetUsers } from 'src/modules/Lab/lab6/api/chat';
+// import { insertChat, useGetUsers } from 'src/modules/Lab/lab6/api/chat';
 
 // assets
 import PaperClipOutlined from '@ant-design/icons/PaperClipOutlined';
@@ -25,8 +26,10 @@ import { SnackbarProps } from 'src/shared/types/snackbar';
 import MainCard from 'src/shared/components/MainCard/MainCard';
 import IconButton from 'src/shared/components/IconButton';
 import { UserProfile } from 'src/shared/types/auth';
-import incrementer from 'src/modules/patients/patients/adapters/in/utils/incrementer';
-import { openSnackbar } from 'src/modules/Lab/lab6/api/snackbar';
+import { ReduxStates } from 'src/shared/types/types';
+import { openSnackbar } from 'src/shared/components/snackbar';
+import { useChat } from 'src/modules/patients/patient-console/chat/adapters/out/ChatActions';
+import { Commenter } from 'src/modules/patients/patient-console/chat/adapters/out/chat.enum';
 
 interface Props {
   user: UserProfile;
@@ -34,9 +37,10 @@ interface Props {
 
 // ==============================|| CHAT - MESSAGE SEND ||============================== //
 
-export default function ChatMessageSend({ user }: Props) {
-  const { users } = useGetUsers();
-
+export default function ChatMessageSend() {
+  const professionalState = useSelector((state: ReduxStates) => state.professional);
+  const patientState = useSelector((state: ReduxStates) => state.patient);
+  const { saveChatComment } = useChat();
   const [anchorElEmoji, setAnchorElEmoji] = useState<any>(); /** No single type can cater for all elements */
 
   const handleOnEmojiButtonClick = (event: React.MouseEvent<HTMLButtonElement> | undefined) => {
@@ -54,19 +58,15 @@ export default function ChatMessageSend({ user }: Props) {
         message: 'Message required',
         variant: 'alert',
         alert: {
-          color: 'error'
-        }
+          color: 'error',
+        },
       } as SnackbarProps);
     } else {
-      const d = new Date();
-      const newMessage = {
-        id: Number(incrementer(users.length)),
-        from: 'User1',
-        to: user.name,
-        text: message,
-        time: d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      };
-      insertChat(user.name!, newMessage);
+      saveChatComment({
+        professional: professionalState._id,
+        patient: patientState._id,
+        comment: { content: message, commenter: Commenter.PROFESSIONAL },
+      });
     }
     setMessage('');
   };
@@ -103,8 +103,8 @@ export default function ChatMessageSend({ user }: Props) {
         onKeyDown={handleEnter}
         variant="standard"
         sx={{
-          pr: 2,
-          '& .MuiInput-root:before': { borderBottomColor: 'divider' }
+          'pr': 2,
+          '& .MuiInput-root:before': { borderBottomColor: 'divider' },
         }}
       />
       <Stack direction="row" justifyContent="space-between" alignItems="center">

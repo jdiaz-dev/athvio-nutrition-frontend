@@ -23,29 +23,33 @@ import CircularWithPath from 'src/modules/patients/patient-console/chat/adapters
 import { ThemeMode } from 'src/shared/types/config';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
-import { Commenter } from 'src/modules/patients/patient-console/chat/adapters/out/chat';
+import { Commenter } from 'src/modules/patients/patient-console/chat/adapters/out/chat.enum';
 import { CommentBody } from 'src/modules/patients/patient-console/chat/adapters/out/chat.d';
+import { useChat } from 'src/modules/patients/patient-console/chat/adapters/out/ChatActions';
 
 interface ChatHistoryProps {
   theme: Theme;
 }
 
-// ==============================|| CHAT MESSAGE HISTORY ||============================== //
-
 export default function ChatHistory({ theme }: ChatHistoryProps) {
+  const professionalState = useSelector((state: ReduxStates) => state.professional);
+  const patientState = useSelector((state: ReduxStates) => state.patient);
+  const { commentAddedSubscription } = useChat();
   const bottomRef = useRef(null);
 
   //todo: implment chat loading
   const chatLoading = false;
-  // const { chat, chatLoading } = useGetUserChat('');
   const chatState = useSelector((state: ReduxStates) => state.chat);
-  console.log('-----------chatState', chatState);
 
   useEffect(() => {
     // @ts-ignore
     bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
-    // eslint-disable-next-line
   }, [chatState]);
+  useEffect(() => {
+    if (professionalState._id && patientState._id) {
+      commentAddedSubscription({ professional: professionalState._id, patient: patientState._id });
+    }
+  }, [professionalState, patientState]);
 
   if (chatLoading) {
     return (
@@ -59,8 +63,8 @@ export default function ChatHistory({ theme }: ChatHistoryProps) {
     <SimpleBar
       sx={{
         'overflowX': 'hidden',
-        'height': 'calc(100vh - 410px)',
-        'minHeight': 420,
+        'height': 'calc(100vh - 310px)',
+        'minHeight': 320,
         '& .simplebar-content': {
           height: '100%',
         },
