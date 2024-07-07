@@ -1,5 +1,5 @@
 import { Dayjs } from 'dayjs';
-import { PatientBody } from 'src/modules/patients/patient-console/patient/out/patient';
+import { PatientBody } from 'src/modules/patients/patient-console/patient/adapters/out/patient';
 import { PatientStates, ManagePatientGroupEnum } from 'src/shared/Consts';
 import { MetadataRecords } from 'src/shared/types/get-records.types';
 import { PatientGroup, GraphQLInput, PlanDayInfo } from 'src/shared/types/types';

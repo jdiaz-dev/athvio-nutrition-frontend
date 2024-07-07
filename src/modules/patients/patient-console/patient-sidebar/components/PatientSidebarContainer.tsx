@@ -13,15 +13,15 @@ const PatientSidebarContainer = () => {
 
   return (
     <>
-      <SidebarContext.Provider value={{ openSidebar, setOpenSidebar }}>
-        <SelelecteSlideContext.Provider value={{ selectedSlide, setSelectedSlide }}>
-          <ChatContext.Provider value={{ openChat, setOpenChat }}>
+      <ChatContext.Provider value={{ openChat, setOpenChat }}>
+        <SidebarContext.Provider value={{ openSidebar, setOpenSidebar }}>
+          <SelelecteSlideContext.Provider value={{ selectedSlide, setSelectedSlide }}>
             <PatientSidebar />
-            <div style={{ width: '150px', color:'white' }}>v: {selectedSlide}</div>
-          </ChatContext.Provider>
-        </SelelecteSlideContext.Provider>
-      </SidebarContext.Provider>
-      <ChatContainer />
+            <div style={{ width: '150px', color: 'white' }}>v: {selectedSlide}</div>
+          </SelelecteSlideContext.Provider>
+        </SidebarContext.Provider>
+        {openChat && <ChatContainer />}
+      </ChatContext.Provider>
     </>
   );
 };

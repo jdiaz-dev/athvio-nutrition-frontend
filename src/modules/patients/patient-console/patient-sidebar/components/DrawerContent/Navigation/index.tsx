@@ -16,6 +16,7 @@ import { SidebarContext } from 'src/modules/patients/patient-console/patient-sid
 import useConfig from 'src/shared/hooks/useConfig';
 import { ThemeEnum } from 'src/shared/Consts';
 import ChatIcon from '@mui/icons-material/Chat';
+import NavItemForChat from 'src/modules/patients/patient-console/patient-sidebar/components/DrawerContent/Navigation/NavItemForChat';
 
 // ==============================|| DRAWER CONTENT - NAVIGATION ||============================== //
 
@@ -56,6 +57,7 @@ const Navigation = () => {
     switch (item.type) {
       case 'group':
         if (item.url && item.id !== lastItemId) {
+          console.log('-------------entried');
           return (
             <List key={item.id} {...(isHorizontal && { sx: { mt: 0.5 } })}>
               {!isHorizontal && index !== 0 && <Divider sx={{ my: 0.5 }} />}
@@ -79,9 +81,10 @@ const Navigation = () => {
         );
       default:
         return (
-          <Typography key={item.id} variant="h6" color="error" align="center">
-            Fix - Navigation Group
-          </Typography>
+          <List key={item.id} {...(isHorizontal && { sx: { mt: 0.5 } })}>
+            {!isHorizontal && index !== 0 && <Divider sx={{ my: 0.5 }} />}
+            <NavItemForChat item={item} level={1} isParents />
+          </List>
         );
     }
   });

@@ -22,14 +22,6 @@ const widget: NavItemType = {
   icon: icons.ChatIcon,
   type: 'group',
   children: [
-    /* {
-      id: 'Chat',
-      title: <FormattedMessage id="Chat" />,
-      type: 'item',
-      url: '/widget/statistics',
-      icon: icons.ChatIcon,
-      slide: AvailableSlides.ANALITYCS,
-    }, */
     {
       id: 'Goals',
       title: <FormattedMessage id="Goals" />,

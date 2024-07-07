@@ -37,6 +37,7 @@ import { NavItemType } from '../../../../../../Lab/types/menu';
 import { MenuOrientation, ThemeMode } from 'src/shared/types/config';
 import { SidebarContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SidebarContext';
 import useConfig from 'src/shared/hooks/useConfig';
+import NavItemForSidebar from 'src/modules/patients/patient-console/patient-sidebar/components/DrawerContent/Navigation/NavItemForSidebar';
 
 // ==============================|| NAVIGATION - LIST GROUP ||============================== //
 
@@ -156,7 +157,7 @@ const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, sele
   ) : null;
 
   //here: sidebar item
-  const navCollapse = item.children?.map((menuItem, index) => {
+  const navItems = item.children?.map((menuItem, index) => {
     switch (menuItem.type) {
       case 'collapse':
         return (
@@ -172,7 +173,7 @@ const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, sele
           />
         );
       case 'item':
-        return <NavItem key={menuItem.id} item={menuItem} level={1} />;
+        return <NavItemForSidebar key={menuItem.id} item={menuItem} level={1} />;
       default:
         return (
           <Typography key={menuItem.id} variant="h6" color="error" align="center">
@@ -181,6 +182,7 @@ const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, sele
         );
     }
   });
+  const navCollapse = [...navItems]
 
   const moreItems = remItems.map((itemRem: NavItemType, i) => (
     <Fragment key={i}>

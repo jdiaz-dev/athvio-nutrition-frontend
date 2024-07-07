@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 // material-ui
@@ -16,22 +16,13 @@ import { handlerHorizontalActiveItem, useGetMenuMaster } from '../../../../../..
 import { MenuOrientation, ThemeMode } from 'src/shared/types/config';
 import { LinkTarget, NavActionType, NavItemType } from 'src/shared/types/menu';
 import { SidebarContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SidebarContext';
-import { SelelecteSlideContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SelectedSlideContext';
 import useConfig from 'src/shared/hooks/useConfig';
-import { AvailableSlides } from 'src/modules/patients/patient-console/patient-sidebar/utils/sidebar.enum';
+import { NavItemProps } from 'src/modules/patients/patient-console/patient-sidebar/types/patient-sidebar';
 
 // ==============================|| NAVIGATION - LIST ITEM ||============================== //
 
-interface Props {
-  item: NavItemType;
-  level: number;
-  isParents?: boolean;
-}
-
-const NavItem = ({ item, level, isParents = false }: Props) => {
+const NavItem = ({ item, level, isParents = false, isSelected, onClickHandler }: NavItemProps) => {
   const { openSidebar } = useContext(SidebarContext);
-  const { selectedSlide, setSelectedSlide } = useContext(SelelecteSlideContext);
-  const [isSelected, setIsSelected] = useState(false);
   const theme = useTheme();
 
   const downLG = useMediaQuery(theme.breakpoints.down('lg'));
@@ -53,10 +44,6 @@ const NavItem = ({ item, level, isParents = false }: Props) => {
     false
   );
 
-  useEffect(() => {
-    setIsSelected(selectedSlide == item.slide ? true : false);
-  }, [selectedSlide]);
-
   const textColor = theme.palette.mode === ThemeMode.DARK ? 'grey.400' : 'text.primary';
   const iconSelectedColor = theme.palette.mode === ThemeMode.DARK && openSidebar ? 'text.primary' : 'primary.main';
 
@@ -65,7 +52,8 @@ const NavItem = ({ item, level, isParents = false }: Props) => {
       {menuOrientation === MenuOrientation.VERTICAL || downLG ? (
         <Box sx={{ position: 'relative' }}>
           <ListItemButton
-            selected={isSelected}
+            {...(isSelected && { selected: isSelected })}
+            // selected={isSelected}
             sx={{
               zIndex: 1201,
               pl: openSidebar ? `${level * 28}px` : 1.5,
@@ -96,9 +84,7 @@ const NavItem = ({ item, level, isParents = false }: Props) => {
                 },
               }),
             }}
-            onClick={() => {
-              setSelectedSlide(item.slide as AvailableSlides);
-            }}
+            onClick={onClickHandler}
           >
             {itemIcon && (
               <ListItemIcon
