@@ -1,19 +1,9 @@
-// import { Link } from 'react-router-dom';
-
-// material-ui
 import { Grid, Stack, Typography } from '@mui/material';
 
-// project import
-// import useAuth from 'hooks/useAuth';
-// import AuthLogin from 'sections/auth/auth-forms/AuthLogin';
 import AuthWrapper from '../authWrapper/AuthWrapper';
 import SignInForm from './SignInForm';
 
-// ================================|| LOGIN ||================================ //
-
 const SignIn = () => {
-  // const { isLoggedIn } = useAuth();
-
   return (
     <AuthWrapper>
       <Grid container spacing={3}>

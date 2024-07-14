@@ -31,7 +31,7 @@ export function getToken() {
   const cookies = parseCookies();
   return cookies[TOKEN_COOKIE];
 }
-export function getUserId() {
+export function getProfessionalId() {
   const cookies = parseCookies();
   return cookies[ID];
 }

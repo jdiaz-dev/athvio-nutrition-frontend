@@ -1,5 +1,5 @@
 import React, { ReactNode, useState } from 'react';
-import { createSessionCookies, getToken, getUserId } from 'src/modules/authentication/authentication/adapters/out/cookies';
+import { createSessionCookies, getToken, getProfessionalId } from 'src/modules/authentication/authentication/adapters/out/cookies';
 import { AuthContext } from '../context/AuthContext';
 import { useAuthentication } from '../../out/authenticationActions';
 import { CredentialsSignIn, JwtDto, SignUpProfessionalModel } from '../../out/authentication.types';
@@ -8,7 +8,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
   const { signIn, signUpProfessional } = useAuthentication();
 
   const [isAuthenticated, setIsAuthenticated] = useState(Boolean(getToken()));
-  const professional = getUserId();
+  const professional = getProfessionalId();
 
   const saveJwt = (data: JwtDto) => {
     createSessionCookies({ ...data });

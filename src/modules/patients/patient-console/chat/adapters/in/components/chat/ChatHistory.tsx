@@ -31,6 +31,8 @@ interface ChatHistoryProps {
   theme: Theme;
 }
 
+//here: implement error handling with redux
+//custom queries to manage errors: https://redux-toolkit.js.org/rtk-query/usage/customizing-queries#unpacking-deeply-nested-graphql-data
 export default function ChatHistory({ theme }: ChatHistoryProps) {
   const professionalState = useSelector((state: ReduxStates) => state.professional);
   const patientState = useSelector((state: ReduxStates) => state.patient);
