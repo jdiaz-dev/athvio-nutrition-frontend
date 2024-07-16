@@ -14,7 +14,9 @@ export type ChatBody = {
   comments: CommentBody[];
 };
 
-export type ChatInitialState = ChatBody;
+export type ChatInitialState = {
+  chat: { data: ChatBody; loading: boolean; error: string | null };
+};
 
 export type CommendAddedSubscriptionInput = GetChatInput;
 export type CommendAddedSubscriptionRequest = {

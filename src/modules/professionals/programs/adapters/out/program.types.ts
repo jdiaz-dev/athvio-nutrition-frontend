@@ -101,7 +101,7 @@ export type ProgramPlanDateExtendedProps = {
 
 export interface ProgramInitialState {
   programs: Programs | null;
-  program: ProgramBody;
+  program: { data: ProgramBody; loading: boolean; error: string | null };
   plans: Plan[];
   plan: Plan;
   mealBasicInfo: MealBasicInfo;

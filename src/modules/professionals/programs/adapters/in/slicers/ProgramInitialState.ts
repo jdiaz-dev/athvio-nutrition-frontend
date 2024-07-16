@@ -4,12 +4,9 @@ export const defaultMealTag = 'First meal';
 export const programInitialState: ProgramInitialState = {
   programs: null,
   program: {
-    professional: '',
-    _id: '',
-    name: '',
-    description: '',
-    programTags: [],
-    plans: [],
+    data: { professional: '', _id: '', name: '', description: '', programTags: [], plans: [] },
+    loading: false,
+    error: null,
   },
   plans: [],
   plan: {

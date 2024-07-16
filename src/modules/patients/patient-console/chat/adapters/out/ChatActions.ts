@@ -25,10 +25,9 @@ export function useChat() {
           },
         },
       });
-      if (response.data) dispatch(ChatSlice.newPatientCommentReceived(response.data.saveChatComment.comments[0]));
+      if (response.data) dispatch(ChatSlice.newCommentReceived(response.data.saveChatComment.comments[0]));
     } catch (error) {
-      console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
-      throw error;
+      dispatch(ChatSlice.addChatCommentFailure((error as ApolloError).graphQLErrors[0].message));
     }
   };
 
@@ -43,7 +42,7 @@ export function useChat() {
           },
         })
         .subscribe(({ data, errors, extensions }) => {
-          if (data) dispatch(ChatSlice.newPatientCommentReceived(data.commentAddedByPatient.comments[0]));
+          if (data) dispatch(ChatSlice.newCommentReceived(data.commentAddedByPatient.comments[0]));
         });
 
       if (response) {

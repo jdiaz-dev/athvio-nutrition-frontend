@@ -43,12 +43,12 @@ export function useProgram() {
         },
       });
       if (response) {
+        console.log('----------------------respñonse',response);
         dispatch(ProgramSlice.resetProgramItem());
       }
-      console.log(response);
     } catch (error) {
-      console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
-      throw error;
+      console.log('---------error in action', (error as ApolloError).graphQLErrors[0].message);
+      dispatch(ProgramSlice.programError((error as ApolloError).graphQLErrors[0].message));
     }
   };
   const getProgram = async (body: ProgramInput) => {

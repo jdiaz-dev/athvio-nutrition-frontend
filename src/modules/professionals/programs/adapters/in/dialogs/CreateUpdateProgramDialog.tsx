@@ -15,35 +15,7 @@ import { useProgram } from 'src/modules/professionals/programs/adapters/out/Prog
 import * as ProgramSlice from 'src/modules/professionals/programs/adapters/in/slicers/ProgramSlice';
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
-
-const cardStyles = makeStyles()(() => {
-  return {
-    card: {
-      minWidth: 275,
-      width: '70%',
-      margin: '0px auto',
-      padding: '0px',
-    },
-    form: {
-      width: '100%',
-    },
-    textField: {
-      width: '90%',
-      marginTop: '15px',
-    },
-    button: {
-      'backgroundColor': 'blue',
-      'width': '90%',
-      'color': 'white',
-      'height': '45px',
-      'marginTop': '15px',
-      'marginBottom': '15px',
-      '&:hover': {
-        backgroundColor: 'blue',
-      },
-    },
-  };
-});
+import SnackbarMesssage from 'src/shared/components/SnackbarMessage';
 
 function CreateUpdateProgramDialog({
   openCreateUpdateProgramDialog,
@@ -59,7 +31,7 @@ function CreateUpdateProgramDialog({
   const authContext = useContext(AuthContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
 
-  const programState = useSelector((state: ReduxStates) => state.programs.program);
+  const { data: programState, error } = useSelector((state: ReduxStates) => state.programs.program);
   const [closeIconDialog, setCloseIconDialog] = useState(true);
 
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk } = useMessageDialog();
@@ -87,7 +59,7 @@ function CreateUpdateProgramDialog({
     const createUpdateProgramHelper = async () => {
       if (_program && _program._id) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { _id, professional, name, description, ...restProgram } = programState;
+        const { _id, professional, name, description, ..._restProgram } = programState;
         await updateProgram({
           program: _id,
           professional: authContext.professional,
@@ -102,7 +74,7 @@ function CreateUpdateProgramDialog({
         await createProgram({ professional: authContext.professional, name, description });
         setMessage('Program created successfully');
         setCreateUpdateProgramStateUpdated(false);
-        reset();
+        // reset();//todo: manage reset properly
       }
       setOpenDialog(true);
     };
@@ -185,12 +157,42 @@ function CreateUpdateProgramDialog({
             </form>
           </Card>
         </DialogContent>
-        {openDialog && (
+        {/* {openDialog && (
           <MessageDialog openDialog={openDialog} setOpenDialog={setOpenDialog} message={message} setMessageOk={setMessageOk} />
-        )}
+        )} */}
       </Dialog>
+      {error && <SnackbarMesssage message={error} messageCleaner={ProgramSlice.programErrorCleaner} />}
     </>
   );
 }
 
 export default CreateUpdateProgramDialog;
+
+const cardStyles = makeStyles()(() => {
+  return {
+    card: {
+      minWidth: 275,
+      width: '70%',
+      margin: '0px auto',
+      padding: '0px',
+    },
+    form: {
+      width: '100%',
+    },
+    textField: {
+      width: '90%',
+      marginTop: '15px',
+    },
+    button: {
+      'backgroundColor': 'blue',
+      'width': '90%',
+      'color': 'white',
+      'height': '45px',
+      'marginTop': '15px',
+      'marginBottom': '15px',
+      '&:hover': {
+        backgroundColor: 'blue',
+      },
+    },
+  };
+});
