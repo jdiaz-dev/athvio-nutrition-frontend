@@ -4,6 +4,7 @@ import { AuthContext } from 'src/modules/authentication/authentication/adapters/
 
 function PrivateRoute({ children }: { children: ReactNode }) {
   const { isAuthenticated } = useContext(AuthContext);
+  console.log('----------isAuthenticated', isAuthenticated);
   if (!isAuthenticated) {
     return <Navigate to="/signin" />;
   }

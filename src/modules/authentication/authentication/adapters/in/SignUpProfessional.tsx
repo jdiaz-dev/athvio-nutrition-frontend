@@ -24,14 +24,12 @@ function SignUpProfessional() {
   const { signUpProfessional } = useAuthentication();
 
   const signUpRequest = async ({ company, ...rest }: SetUserInfo) => {
-    console.log('----------dataUser', rest);
     let _user: SignUpProfessionalModel = { ...rest };
     if (company) _user.professionalInfo = { company };
     if (countryName) _user.country = countryName;
     if (countryCode) _user.countryCode = countryCode;
-    console.log('-----------data emptyu');
     const { data } = await signUpProfessional(_user);
-    console.log('-----------data', data);
+
     if (data) {
       dispatch(resetUser());
       saveDataUser(data.signUpProfessional);

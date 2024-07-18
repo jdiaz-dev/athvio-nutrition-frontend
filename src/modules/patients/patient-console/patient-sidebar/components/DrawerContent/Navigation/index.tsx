@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Box, Divider, List, Typography, useMediaQuery } from '@mui/material';
+import { Box, Divider, List, useMediaQuery } from '@mui/material';
 
 // project import
 import NavItem from './NavItem';
@@ -15,7 +15,6 @@ import { MenuOrientation } from 'src/shared/types/config';
 import { SidebarContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SidebarContext';
 import useConfig from 'src/shared/hooks/useConfig';
 import { ThemeEnum } from 'src/shared/Consts';
-import ChatIcon from '@mui/icons-material/Chat';
 import NavItemForChat from 'src/modules/patients/patient-console/patient-sidebar/components/DrawerContent/Navigation/NavItemForChat';
 
 // ==============================|| DRAWER CONTENT - NAVIGATION ||============================== //
@@ -57,7 +56,6 @@ const Navigation = () => {
     switch (item.type) {
       case 'group':
         if (item.url && item.id !== lastItemId) {
-          console.log('-------------entried');
           return (
             <List key={item.id} {...(isHorizontal && { sx: { mt: 0.5 } })}>
               {!isHorizontal && index !== 0 && <Divider sx={{ my: 0.5 }} />}

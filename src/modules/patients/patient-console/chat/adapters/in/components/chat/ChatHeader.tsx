@@ -1,14 +1,11 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 
 // material-ui
 import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import Skeleton from '@mui/material/Skeleton';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -17,20 +14,12 @@ import UserAvatar from './CommenterAvatar';
 
 import MenuFoldOutlined from '@ant-design/icons/MenuFoldOutlined';
 import MenuUnfoldOutlined from '@ant-design/icons/MenuUnfoldOutlined';
-import AudioMutedOutlined from '@ant-design/icons/AudioMutedOutlined';
-import CloseOutlined from '@ant-design/icons/CloseOutlined';
-import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
-import DownloadOutlined from '@ant-design/icons/DownloadOutlined';
-import InfoCircleOutlined from '@ant-design/icons/InfoCircleOutlined';
-import MoreOutlined from '@ant-design/icons/MoreOutlined';
-import PhoneOutlined from '@ant-design/icons/PhoneOutlined';
-import VideoCameraOutlined from '@ant-design/icons/VideoCameraOutlined';
 
 // types
 import IconButton from 'src/shared/components/IconButton';
-import { AcceptNewPatient } from 'src/modules/patients/patient-console/patient/adapters/out/patient';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
+import { ChatContext } from 'src/modules/patients/patient-console/patient-sidebar/context/ChatContext';
 
 interface Props {
   loading: boolean;
@@ -44,15 +33,9 @@ interface Props {
 
 export default function ChatHeader({ loading, openChatDrawer, emailDetails, handleDrawerOpen, handleUserChange }: Props) {
   const patientState = useSelector((state: ReduxStates) => state.patient);
-
-  const [anchorEl, setAnchorEl] = useState<Element | (() => Element) | null | undefined>(null);
-
-  const handleClickSort = (event: React.MouseEvent<HTMLButtonElement> | undefined) => {
-    setAnchorEl(event?.currentTarget);
-  };
-
-  const handleCloseSort = () => {
-    setAnchorEl(null);
+  const chatContext = useContext(ChatContext);
+  const handleChat = (event: React.MouseEvent<HTMLButtonElement> | undefined) => {
+    chatContext.setOpenChat(false);
   };
 
   return (
@@ -95,49 +78,9 @@ export default function ChatHeader({ loading, openChatDrawer, emailDetails, hand
       </Grid>
       <Grid item>
         <Stack direction="row" alignItems="center" justifyContent="flex-end" spacing={1}>
-          <IconButton onClick={handleClickSort} size="large" color="secondary">
+          <IconButton onClick={handleChat} size="large" color="secondary">
             <CloseIcon />
           </IconButton>
-          <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleCloseSort}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'right',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            sx={{
-              'p': 0,
-              '& .MuiMenu-list': {
-                p: 0,
-              },
-            }}
-          >
-            <MenuItem onClick={handleCloseSort}>
-              <ListItemIcon>
-                <DownloadOutlined />
-              </ListItemIcon>
-              <Typography>Archive</Typography>
-            </MenuItem>
-            <MenuItem onClick={handleCloseSort}>
-              <ListItemIcon>
-                <AudioMutedOutlined />
-              </ListItemIcon>
-              <Typography>Muted</Typography>
-            </MenuItem>
-            <MenuItem onClick={handleCloseSort}>
-              <ListItemIcon>
-                <DeleteOutlined />
-              </ListItemIcon>
-              <Typography>Delete</Typography>
-            </MenuItem>
-          </Menu>
         </Stack>
       </Grid>
     </Grid>

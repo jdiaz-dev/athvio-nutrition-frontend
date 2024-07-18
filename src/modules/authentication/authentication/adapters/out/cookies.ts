@@ -18,13 +18,12 @@ export function createSessionCookies({ _id, userType, token }: JwtDto) {
     maxAge: 7200,
     path: '/',
   });
+}
 
-  /* if (refreshToken) {
-    setCookie(null, REFRESH_TOKEN_COOKIE, refreshToken, {
-      maxAge: COOKIE_EXPIRATION_TIME,
-      path: '/',
-    });
-  } */
+export function cleanSessionCookies() {
+  destroyCookie(null, ID, { path: '/' });
+  destroyCookie(null, USER_TPE, { path: '/' });
+  destroyCookie(null, TOKEN_COOKIE, { path: '/' });
 }
 
 export function getToken() {
@@ -35,8 +34,3 @@ export function getProfessionalId() {
   const cookies = parseCookies();
   return cookies[ID];
 }
-
-/*  export function getRefreshToken() {
-    const cookies = parseCookies()
-    return cookies[REFRESH_TOKEN_COOKIE]
-  } */

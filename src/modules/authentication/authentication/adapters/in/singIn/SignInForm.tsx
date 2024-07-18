@@ -1,14 +1,11 @@
-import React, { useContext } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
 
-// material-ui
 import {
   Button,
   Checkbox,
   FormControlLabel,
   FormHelperText,
   Grid,
-  Link,
   InputAdornment,
   InputLabel,
   OutlinedInput,
@@ -16,30 +13,26 @@ import {
   Typography,
 } from '@mui/material';
 
-// third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 
-// project import
 import AnimateButton from '../shared/AnimateButton';
 
 // import useAuth from 'hooks/useAuth';
 import useScriptRef from '../hooks/useScriptRef'; // TODO: check it
 
-// assets
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
-import { preload } from 'swr'; //x
 import { AuthContext } from '../context/AuthContext';
 import IconButton from 'src/shared/components/IconButton';
 
 // ============================|| JWT - LOGIN ||============================ //
 
 const SignInForm = (/* { isDemo = false }: { isDemo?: boolean } */) => {
-  const [checked, setChecked] = React.useState(false);
+  const [checked, setChecked] = useState(false);
 
   const { signInHandler } = useContext(AuthContext);
   const scriptedRef = useScriptRef();
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -69,9 +62,6 @@ const SignInForm = (/* { isDemo = false }: { isDemo?: boolean } */) => {
               setSubmitting(false);
             }
           } catch (err: any) {
-            // console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
-
-            console.error(err);
             if (scriptedRef.current) {
               setStatus({ success: false });
               setErrors({ submit: err.message });

@@ -39,8 +39,7 @@ export default function ChatHistory({ theme }: ChatHistoryProps) {
 
   //todo: implment chat loading
   const chatLoading = false;
-  const { data: chatState, error } = useSelector((state: ReduxStates) => state.chat.chat);
-  console.log('------------error', error)
+  const { data: chatState } = useSelector((state: ReduxStates) => state.chat.chat);
   useEffect(() => {
     // @ts-ignore
     bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
