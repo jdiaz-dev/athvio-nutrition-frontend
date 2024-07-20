@@ -10,7 +10,7 @@ import { DatesSetArg } from '@fullcalendar/core';
 dayjs.extend(utc);
 
 export const calendarConfigurationHook = (reloadRecordList: boolean) => {
-  const programState = useSelector((state: ReduxStates) => state.programs.program);
+  const { data: programState } = useSelector((state: ReduxStates) => state.programs.program);
   const [totalWeeks, setTotalWeeks] = useState<number>(baseWeek);
   const [dateSet, setDateSet] = useState<{ dateStart: Date; dateEnd: Date } | null>(null);
   const [contentHeight, setContentHeight] = useState<number>(baseHeight);

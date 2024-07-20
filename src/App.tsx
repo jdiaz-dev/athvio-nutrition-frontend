@@ -90,7 +90,12 @@ export default App;
     - realize import in backend
     - goals
     - notes
+
     - statistics
+    - meditions: antropometric meditions, analytic meditions
+    - nutrium: planification: macronutrien planification(planification time)
+
+
 
   urgent technical fix
     tdd patient chat
