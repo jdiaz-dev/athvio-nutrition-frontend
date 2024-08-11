@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Card, Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
-import CloseIcon from '@mui/icons-material/Close';
 
 import NutrientsDetail from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/NutrientsDetail';
 import * as CustomRecipeDetailsSlice from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeDetailsSlice';
@@ -17,6 +16,7 @@ import { CustomRecipeBody } from 'src/modules/professionals/custom-recipes/adapt
 import * as CustomRecipeBasicInfoSlice from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeBasicInfo';
 import { defaultRecipeName } from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeInitialState';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -67,20 +67,7 @@ function CreateUpdateCustomRecipeDialog({
   const { createCustomRecipe, updateCustomRecipe } = useCustomRecipe();
 
   const [componentTouched, setComponentTouched] = useState(false);
-  const [closeIconDialog, setCloseIconDialog] = useState(true);
-
-  useEffect(() => {
-    if (_customRecipe !== undefined) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { name, ...rest } = _customRecipe;
-      dispatch(CustomRecipeDetailsSlice.acceptNewMealDetail(rest));
-    } else {
-      dispatch(CustomRecipeDetailsSlice.reinitializeMeal());
-    }
-    return () => {
-      dispatch(CustomRecipeDetailsSlice.reinitializeMeal());
-    };
-  }, [_customRecipe]);
+  const [closedIconDialog, setClosedIconDialog] = useState(true);
 
   const { _id, ...restCustomRecipe } = customRecipeDetailsState;
   const createUpdateCustomRecipeHandler = async () => {
@@ -97,13 +84,33 @@ function CreateUpdateCustomRecipeDialog({
       dispatch(CustomRecipeBasicInfoSlice.renameRecipeName(defaultRecipeName));
     }
   };
+  const closeIconDialogHandler = () => {
+    if (componentTouched) {
+      void createUpdateCustomRecipeHandler();
+      setComponentTouched(false);
+    }
+    setClosedIconDialog(false);
+  };
 
   useEffect(() => {
-    if (!closeIconDialog) {
+    if (_customRecipe !== undefined) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { name, ...rest } = _customRecipe;
+      dispatch(CustomRecipeDetailsSlice.acceptNewMealDetail(rest));
+    } else {
+      dispatch(CustomRecipeDetailsSlice.reinitializeMeal());
+    }
+    return () => {
+      dispatch(CustomRecipeDetailsSlice.reinitializeMeal());
+    };
+  }, [_customRecipe]);
+
+  useEffect(() => {
+    if (!closedIconDialog) {
       reloadRecordListContext.setReloadRecordList(true);
       setOpenCreateUpdateCustomRecipeDialog(false);
     }
-  }, [closeIconDialog]);
+  }, [closedIconDialog]);
 
   return (
     <>
@@ -121,26 +128,7 @@ function CreateUpdateCustomRecipeDialog({
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
           Create your custom recipe
-          {closeIconDialog ? (
-            <IconButton
-              aria-label="close"
-              onClick={() => {
-                if (componentTouched) {
-                  void createUpdateCustomRecipeHandler();
-                  setComponentTouched(false);
-                }
-                setCloseIconDialog(false);
-              }}
-              sx={{
-                position: 'absolute',
-                right: 8,
-                top: 8,
-                color: (theme) => theme.palette.grey[500],
-              }}
-            >
-              <CloseIcon />
-            </IconButton>
-          ) : null}
+          <CloseDialogIcon closedIconDialog={closedIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
         </DialogTitle>
         <DialogContent
           dividers={true}

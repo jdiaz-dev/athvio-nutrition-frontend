@@ -6,6 +6,7 @@ import { AssignProgramInitialState } from 'src/modules/professionals/assign-prog
 import { CustomRecipeInitialState } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 import { ProfessionalInitialState } from 'src/modules/professionals/professional/adapters/out/professional';
 import { ProgramInitialState } from 'src/modules/professionals/programs/adapters/out/program.types';
+import { QuestionaryConfigInitialState } from 'src/modules/professionals/questionary-config/adapters/out/QuestionaryConfig';
 import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 
 export type DateItem<T> = {
@@ -46,6 +47,7 @@ export type ReduxStates = {
   chat: ChatInitialState;
   patient: PatientInitialState;
   professional: ProfessionalInitialState;
+  questionaryConfig:QuestionaryConfigInitialState;
 };
 
 export interface PlanDayInfo {

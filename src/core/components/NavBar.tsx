@@ -16,17 +16,30 @@ import { Link } from 'react-router-dom';
 import { style } from '@mui/system';
 import { useAuthentication } from 'src/modules/authentication/authentication/adapters/out/authenticationActions';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import ListItem from '@mui/material/ListItem';
 
 type page = {
   page: string;
   url: string;
 };
-const pages: page[] = [
+const navBarPages: page[] = [
   { page: 'Patients', url: '/sidenav/patients' },
   { page: 'Custom recipes', url: '/sidenav/custom recipes' },
   { page: 'Programs', url: '/sidenav/programs' },
 ];
 
+const professionalPages: page[] = [
+  // { page: 'Profile', url: 'professional/Profile' },
+  { page: 'Configuration and preferences', url: '/sidenav/professional/preferences' },
+];
+const handleClick = (event, url) => {
+  event.preventDefault();
+  // Your custom logic here, e.g., navigate to the URL using a router
+  console.log('Navigate to:', url);
+};
 function NabBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -99,7 +112,7 @@ function NabBar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map(({ page }) => (
+              {navBarPages.map(({ page }) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">
                     <Link to={page}>{page}</Link>
@@ -128,10 +141,12 @@ function NabBar() {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map(({ page }) => (
-              <Link key={page} to={page}>
-                <Button sx={{ my: 2, color: 'white', display: 'block' }}> {page}</Button>
-              </Link>
+            {navBarPages.map((page, index) => (
+              <ListItem key={index} disablePadding disableGutters>
+                <ListItemButton selected={false} component={Link} alignItems="center" to={page.url}>
+                  <ListItemText primary={page.page} />
+                </ListItemButton>
+              </ListItem>
             ))}
           </Box>
 
@@ -157,9 +172,16 @@ function NabBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">Profile</Typography>
-              </MenuItem>
+              {professionalPages.map((page) => (
+                <MenuItem disableGutters key={page.page} onClick={handleCloseUserMenu}>
+                  <ListItem disablePadding disableGutters>
+                    <ListItemButton selected={false} component={Link} alignItems="center" to={page.url}>
+                      <ListItemText primary={page.page} />
+                    </ListItemButton>
+                  </ListItem>
+                </MenuItem>
+              ))}
+
               <MenuItem onClick={signOut}>
                 <Typography textAlign="center">Logout</Typography>
               </MenuItem>

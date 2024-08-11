@@ -369,3 +369,9 @@ const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, sele
 };
 
 export default NavGroup;
+
+/* 
+  array for original state (only for display data)
+  array for modified state (manage push and pull operations)
+
+*/

@@ -14,6 +14,7 @@ import PublicRoute from './core/router/PublicRoute';
 import SignIn from './modules/authentication/authentication/adapters/in/singIn/SignIn';
 import SignUpProfessional from './modules/authentication/authentication/adapters/in/SignUpProfessional/SingUpProfessional';
 import PatientConsoleContainer from 'src/modules/patients/patient-console/patient-console/in/components/PatientConsoleContainer';
+import QuestionaryDetailContainer from 'src/modules/professionals/questionary-config/adapters/in/components/QuestionaryDetailContainer';
 
 function App() {
   return (
@@ -47,6 +48,8 @@ function App() {
             <Route path="patients" element={<PatientsContainer />} />
             {/* <Route path="patients/:patientId/plans" element={<PatientPlansContainer />} /> */}
             <Route path="patients/:patientId/plans" element={<PatientConsoleContainer />} />
+            <Route path="professional" element={<PatientConsoleContainer />} />
+            <Route path="professional/preferences" element={<QuestionaryDetailContainer />} />
             <Route path="custom Recipes" element={<CustomRecipesContainer />} />
             <Route path="programs" element={<ProgramsContainer />} />
             <Route path="programs/:programId/plans" element={<ProgramPlansContainer />} />
@@ -94,8 +97,6 @@ export default App;
     - statistics
     - meditions: antropometric meditions, analytic meditions
     - nutrium: planification: macronutrien planification(planification time)
-
-
 
   urgent technical fix
     tdd patient chat

@@ -53,7 +53,6 @@ const NavItem = ({ item, level, isParents = false, isSelected, onClickHandler }:
         <Box sx={{ position: 'relative' }}>
           <ListItemButton
             {...(isSelected && { selected: isSelected })}
-            // selected={isSelected}
             sx={{
               zIndex: 1201,
               pl: openSidebar ? `${level * 28}px` : 1.5,
