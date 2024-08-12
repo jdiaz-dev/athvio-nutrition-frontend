@@ -7,11 +7,11 @@ export const questionaryConfigInitialState: QuestionaryConfigInitialState = {
     questionaryGroups: [],
   },
   questionaryDetails:[],
-  enableQuestionaryDetails: [],
+  isEnabledQuestionaryDetails: [],
   otherQuestionaryDetail: {
     _id: '',
     fieldName: '',
     associatedQuestion: '',
-    enabled: true,
+    isEnabled: true,
   },
 };

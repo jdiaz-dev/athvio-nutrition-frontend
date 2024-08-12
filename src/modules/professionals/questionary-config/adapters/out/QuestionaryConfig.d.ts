@@ -1,9 +1,9 @@
 export type QuestionaryDetail = {
-  _id?: string;
+  _id: string;
   fieldName: string;
   associatedQuestion: string;
   // fieldOptions?: string | string[];
-  enabled: boolean;
+  isEnabled: boolean;
 };
 
 export type QuestionaryGroup = {
@@ -18,7 +18,7 @@ export type Questionary = {
 };
 
 export type QuestionaryConfigBody = Questionary & {
-  _id?: string;
+  _id: string;
   professional: string;
 };
 
@@ -34,12 +34,13 @@ export type GetQuestionaryConfigResponse = {
   getQuestionary: QuestionaryConfigBody;
 };
 
+export type IsEnabledQuestionaryDetails = Pick<QuestionaryDetail, 'isEnabled'> & { questionaryDetail: string };
+
 export type EnableQuestionaryDetailsBody = {
   questionary: string;
   professional: string;
   questionaryGroup: string;
-  questionaryDetails: string[];
-  enabled: boolean;
+  questionaryDetails: IsEnabledQuestionaryDetails[];
 };
 
 export type EnableQuestionaryDetailRequest = {
@@ -69,7 +70,7 @@ export type AddOtherQuestionaryDetailResponse = {
 
 export type UpdateOtherQuestionaryDetailBody = AddOtherQuestionaryDetailBody & {
   questionaryDetail: string;
-  questionaryDetailInput: QuestionaryDetailInput & { enabled: boolean };
+  questionaryDetailInput: QuestionaryDetailInput & { isEnabled: boolean };
 };
 export type UpdateOtherQuestionaryDetailRequest = {
   input: UpdateOtherQuestionaryDetailBody;
@@ -88,11 +89,11 @@ export type DeleteOtherQuestionaryDetailResponse = {
   deleteOtherQuestionaryDetail: QuestionaryConfigBody;
 };
 
-export type EnableQuestionaryDetails = Pick<QuestionaryDetail, 'enabled'> & { questionaryDetail: string };
+
 
 export type QuestionaryConfigInitialState = {
   questionaryConfig: QuestionaryConfigBody;
   questionaryDetails: QuestionaryDetail[];
-  enableQuestionaryDetails: EnableQuestionaryDetails[];
+  isEnabledQuestionaryDetails: IsEnabledQuestionaryDetails[];
   otherQuestionaryDetail: QuestionaryDetail;
 };

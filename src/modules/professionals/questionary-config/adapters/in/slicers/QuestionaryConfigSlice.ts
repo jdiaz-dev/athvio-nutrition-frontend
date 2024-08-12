@@ -1,7 +1,7 @@
 import { combineReducers, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { questionaryConfigInitialState } from 'src/modules/professionals/questionary-config/adapters/in/slicers/QuestionaryConfigInitialState';
 import {
-  EnableQuestionaryDetails,
+  IsEnabledQuestionaryDetails,
   QuestionaryConfigBody,
   QuestionaryDetail,
 } from 'src/modules/professionals/questionary-config/adapters/out/QuestionaryConfig';
@@ -10,51 +10,58 @@ const questionaryConfigSlice = createSlice({
   name: 'questionaryConfig',
   initialState: questionaryConfigInitialState.questionaryConfig,
   reducers: {
-    initializeNewQuestionaryConfig: (state, action: PayloadAction<QuestionaryConfigBody>) => {
+    initializeQuestionaryConfig: (state, action: PayloadAction<QuestionaryConfigBody>) => {
       state = action.payload;
       return state;
     },
   },
 });
-export const { initializeNewQuestionaryConfig } = questionaryConfigSlice.actions;
+export const { initializeQuestionaryConfig } = questionaryConfigSlice.actions;
 
 const questionaryDetailsSlice = createSlice({
-  name: 'enableQuestionaryDetail',
+  name: 'questionaryDetails',
   initialState: questionaryConfigInitialState.questionaryDetails,
   reducers: {
     initializeQuestionaryDetails: (state, action: PayloadAction<QuestionaryDetail[]>) => {
       state = action.payload;
       return state;
     },
-    manageEnabledInQuestionaryDetail: (state, action: PayloadAction<EnableQuestionaryDetails>) => {
-      // state.enabled = action.payload.enabled;
+    updateIsEnabledQuestionaryDetail: (state, action: PayloadAction<IsEnabledQuestionaryDetails>) => {
+      const { questionaryDetail, isEnabled } = action.payload;
+      state = state.map((item) => (item._id === questionaryDetail ? { ...item, isEnabled } : item));
       return state;
     },
   },
 });
+export const { initializeQuestionaryDetails, updateIsEnabledQuestionaryDetail } = questionaryDetailsSlice.actions;
 
-
-const enableQuestionaryDetailsSlice = createSlice({
+const isEnabledQuestionaryDetailsSlice = createSlice({
   name: 'enableQuestionaryDetail',
-  initialState: questionaryConfigInitialState.enableQuestionaryDetails,
+  initialState: questionaryConfigInitialState.isEnabledQuestionaryDetails,
   reducers: {
-    initializeNewEnabledQuestionaryDetail: (state, action: PayloadAction<EnableQuestionaryDetails[]>) => {
+    initializeNewEnabledQuestionaryDetail: (state, action: PayloadAction<IsEnabledQuestionaryDetails[]>) => {
       state = action.payload;
       return state;
     },
-    updateEnabledQuestionaryDetail: (state, action: PayloadAction<EnableQuestionaryDetails>) => {
-      // state.enabled = action.payload.enabled;
+    manageIsEnabledQuestionaryDetails: (state, action: PayloadAction<IsEnabledQuestionaryDetails>) => {
+      const itemFound = state.find((item) => item.questionaryDetail === action.payload.questionaryDetail);
+
+      if (itemFound) {
+        state = state.filter((item) => item.questionaryDetail !== itemFound.questionaryDetail);
+      } else {
+        state.push(action.payload);
+      }
       return state;
     },
-    resetQuestionaryDetail: (state) => {
-      state = questionaryConfigInitialState.enableQuestionaryDetails;
+    resetIsEnabledQuestionaryDetails: (state) => {
+      state = questionaryConfigInitialState.isEnabledQuestionaryDetails;
       return state;
     },
   },
 });
 
-export const { initializeNewEnabledQuestionaryDetail, updateEnabledQuestionaryDetail, resetQuestionaryDetail } =
-  enableQuestionaryDetailsSlice.actions;
+export const { initializeNewEnabledQuestionaryDetail, manageIsEnabledQuestionaryDetails, resetIsEnabledQuestionaryDetails } =
+  isEnabledQuestionaryDetailsSlice.actions;
 
 const otherQuestionaryDetailSlice = createSlice({
   name: 'otherQuestionaryDetail',
@@ -80,6 +87,7 @@ export const { initializeOtherQuestionaryDetail, updateOtherQuestionaryDetail, r
 
 export default combineReducers({
   questionaryConfig: questionaryConfigSlice.reducer,
-  enableQuestionaryDetails: enableQuestionaryDetailsSlice.reducer,
+  questionaryDetails: questionaryDetailsSlice.reducer,
+  isEnabledQuestionaryDetails: isEnabledQuestionaryDetailsSlice.reducer,
   otherQuestionaryDetail: otherQuestionaryDetailSlice.reducer,
 });

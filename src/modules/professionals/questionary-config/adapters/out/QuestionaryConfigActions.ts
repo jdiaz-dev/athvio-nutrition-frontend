@@ -28,14 +28,14 @@ export function useQuestionaryConfig() {
           },
         },
       });
-      dispatch(QuestionaryConfigSlice.initializeNewQuestionaryConfig(response.data?.getQuestionary));
+      dispatch(QuestionaryConfigSlice.initializeQuestionaryConfig(response.data.getQuestionary));
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
     }
   };
 
-  const enableQuestionaryDetail = async (body: EnableQuestionaryDetailsBody): Promise<void> => {
+  const enableQuestionaryDetails = async (body: EnableQuestionaryDetailsBody): Promise<void> => {
     try {
       const response = await apolloClient.mutate<EnableQuestionaryDetailResponse, EnableQuestionaryDetailRequest>({
         mutation: ENABLE_QUESTIONARY_DETAILS,
@@ -45,12 +45,15 @@ export function useQuestionaryConfig() {
           },
         },
       });
-      /* dispatch(QuestionaryConfigSlice.initializeNewEnabledQuestionaryDetail(response.data?.enableQuestionaryDetail)); */
+      if (response.data) {
+        dispatch(QuestionaryConfigSlice.initializeQuestionaryConfig(response.data.enableQuestionaryDetails));
+        dispatch(QuestionaryConfigSlice.resetIsEnabledQuestionaryDetails());
+      }
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
     }
   };
 
-  return { getQuestionary, enableQuestionaryDetail };
+  return { getQuestionary, enableQuestionaryDetails };
 }

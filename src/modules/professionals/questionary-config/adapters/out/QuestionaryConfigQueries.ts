@@ -13,7 +13,7 @@ export const GET_QUESTIONARY = gql`
           fieldName
           fieldOptions
           fieldType
-          enabled
+          isEnabled
           associatedQuestion
           _id
         }
@@ -36,7 +36,7 @@ export const ENABLE_QUESTIONARY_DETAILS = gql`
           fieldName
           fieldOptions
           fieldType
-          enabled
+          isEnabled
           associatedQuestion
           _id
         }

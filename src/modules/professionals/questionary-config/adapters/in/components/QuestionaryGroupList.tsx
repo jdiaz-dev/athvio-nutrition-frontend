@@ -17,9 +17,9 @@ const style = {
 };
 
 function QuestionaryGroupList() {
-  const questionaryConfigDetail = useSelector((state: ReduxStates) => state.questionaryConfig.questionaryConfig);
-
   const authContext = useContext(AuthContext);
+  
+  const { _id, questionaryGroups } = useSelector((state: ReduxStates) => state.questionaryConfig.questionaryConfig);
   const { getQuestionary } = useQuestionaryConfig();
 
   useEffect(() => {
@@ -31,8 +31,8 @@ function QuestionaryGroupList() {
 
   return (
     <List sx={style} aria-label="mailbox folders">
-      {questionaryConfigDetail.questionaryGroups.map((questionaryGroup, index) => (
-        <QuestionaryGroupItem key={index} questionaryGroup={questionaryGroup} />
+      {questionaryGroups.map((questionaryGroup, index) => (
+        <QuestionaryGroupItem key={index} questionary={_id} questionaryGroup={questionaryGroup} />
       ))}
     </List>
   );
