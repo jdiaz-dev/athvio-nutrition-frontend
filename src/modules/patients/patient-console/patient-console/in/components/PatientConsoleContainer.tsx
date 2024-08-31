@@ -12,19 +12,14 @@ function PatientConsoleContainer() {
   const { getPatientForConsole } = usePatientConsole();
 
   if (patientId) {
+    const professionalPatient = {
+      professional: authContext.professional,
+      patient: patientId,
+    };
     getPatientForConsole({
-      patientPlans: {
-        professional: authContext.professional,
-        patient: patientId,
-      },
-      chat: {
-        professional: authContext.professional,
-        patient: patientId,
-      },
-      patient: {
-        professional: authContext.professional,
-        patient: patientId,
-      },
+      patientPlans: professionalPatient,
+      chat: professionalPatient,
+      patient: professionalPatient,
       professional: {
         professional: authContext.professional,
       },

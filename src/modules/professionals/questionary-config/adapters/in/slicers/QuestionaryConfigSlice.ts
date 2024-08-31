@@ -1,10 +1,12 @@
 import { combineReducers, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { otherQuestionaryDetailSlice } from 'src/modules/professionals/questionary-config/adapters/in/slicers/CustomQuestionaryConfigDetailsSlice';
 import { questionaryConfigInitialState } from 'src/modules/professionals/questionary-config/adapters/in/slicers/QuestionaryConfigInitialState';
 import {
   IsEnabledQuestionaryDetails,
   QuestionaryConfigBody,
   QuestionaryDetail,
 } from 'src/modules/professionals/questionary-config/adapters/out/QuestionaryConfig';
+import { ReduxStates } from 'src/shared/types/types';
 
 const questionaryConfigSlice = createSlice({
   name: 'questionaryConfig',
@@ -31,6 +33,11 @@ const questionaryDetailsSlice = createSlice({
       state = state.map((item) => (item._id === questionaryDetail ? { ...item, isEnabled } : item));
       return state;
     },
+
+    /* addOtherQuestionaryDetail(state, action: PayloadAction<AddOtherQuestionaryDetailInput>) {
+      state.push({ ...action.payload, isEnabled: true });
+      return state;
+    }, */
   },
 });
 export const { initializeQuestionaryDetails, updateIsEnabledQuestionaryDetail } = questionaryDetailsSlice.actions;
@@ -63,31 +70,9 @@ const isEnabledQuestionaryDetailsSlice = createSlice({
 export const { initializeNewEnabledQuestionaryDetail, manageIsEnabledQuestionaryDetails, resetIsEnabledQuestionaryDetails } =
   isEnabledQuestionaryDetailsSlice.actions;
 
-const otherQuestionaryDetailSlice = createSlice({
-  name: 'otherQuestionaryDetail',
-  initialState: questionaryConfigInitialState.otherQuestionaryDetail,
-  reducers: {
-    initializeOtherQuestionaryDetail: (state, action: PayloadAction<QuestionaryDetail>) => {
-      state = action.payload;
-      return state;
-    },
-    updateOtherQuestionaryDetail: (state, action: PayloadAction<QuestionaryDetail>) => {
-      state = action.payload;
-      return state;
-    },
-    resetOtherQuestionaryDetail: (state) => {
-      state = questionaryConfigInitialState.otherQuestionaryDetail;
-      return state;
-    },
-  },
-});
-
-export const { initializeOtherQuestionaryDetail, updateOtherQuestionaryDetail, resetOtherQuestionaryDetail } =
-  otherQuestionaryDetailSlice.actions;
-
 export default combineReducers({
   questionaryConfig: questionaryConfigSlice.reducer,
   questionaryDetails: questionaryDetailsSlice.reducer,
   isEnabledQuestionaryDetails: isEnabledQuestionaryDetailsSlice.reducer,
-  otherQuestionaryDetail: otherQuestionaryDetailSlice.reducer,
+  otherQuestionaryDetails: otherQuestionaryDetailSlice.reducer,
 });

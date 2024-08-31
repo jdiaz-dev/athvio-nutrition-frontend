@@ -72,7 +72,7 @@ const CreatePatientPlanButton = memo(function CreatePatientPlanButton({ patient,
       <CustomIconWrapper>
         <DuplicatePatientPlan patient={patient} assignedDate={assignedDate} />
       </CustomIconWrapper>
-      {/* here: enhance logic to open dialog that it is being created, test use useMemo */}
+      {/* todo: enhance logic to open dialog that it is being created, test use useMemo */}
       {openPlanDetailDialogMemoized && patientPlanState?._id.length > 0 ? (
         <PlanContext.Provider value={{ isFromRecentlyCreatedPlan: true }}>
           <PlanDetailDialog

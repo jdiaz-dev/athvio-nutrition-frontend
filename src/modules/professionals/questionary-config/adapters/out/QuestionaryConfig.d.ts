@@ -6,6 +6,10 @@ export type QuestionaryDetail = {
   isEnabled: boolean;
 };
 
+export type QuestionaryDetailState = Omit<QuestionaryDetail> & {
+  status: string;
+};
+
 export type QuestionaryGroup = {
   _id: string;
   title: string;
@@ -51,49 +55,54 @@ export type EnableQuestionaryDetailResponse = {
   enableQuestionaryDetails: QuestionaryConfigBody;
 };
 
-export type QuestionaryDetailInput = {
-  fieldName: string;
-  associatedQuestion: string;
+export type AddOtherQuestionaryDetailInput = Pick<QuestionaryDetail, 'fieldName' | 'associatedQuestion'> & {
+  questionaryDetail: string;
+};
+
+export type AddOtherQuestionaryDetail = AddOtherQuestionaryDetailInput & {
+  questionaryDetail: string;
 };
 
 export type AddOtherQuestionaryDetailBody = GetQuestionaryConfigBody & {
   questionary: string;
   questionaryGroup: string;
-  questionaryDetailInput: QuestionaryDetailInput;
+  questionaryDetailsInput: AddOtherQuestionaryDetailInput[];
 };
-export type AddOtherQuestionaryDetailRequest = {
-  input: AddOtherQuestionaryDetailBody;
-};
-export type AddOtherQuestionaryDetailResponse = {
-  addOtherQuestionaryDetail: QuestionaryConfigBody;
+export type UpdateOtherQuestionaryDetailInput = Omit<QuestionaryDetail, '_id'> & {
+  questionaryDetail: string;
 };
 
 export type UpdateOtherQuestionaryDetailBody = AddOtherQuestionaryDetailBody & {
-  questionaryDetail: string;
-  questionaryDetailInput: QuestionaryDetailInput & { isEnabled: boolean };
-};
-export type UpdateOtherQuestionaryDetailRequest = {
-  input: UpdateOtherQuestionaryDetailBody;
-};
-export type UpdateOtherQuestionaryDetailResponse = {
-  updateOtherQuestionaryDetail: QuestionaryConfigBody;
+  questionaryDetailsInput: UpdateOtherQuestionaryDetailInput[];
 };
 
-export type DeleteOtherQuestionaryDetailBody = Omit<AddOtherQuestionaryDetailBody, 'questionaryDetailInput'> & {
-  questionaryDetail: string;
+export type DeleteOtherQuestionaryDetailBody = Omit<AddOtherQuestionaryDetailBody, 'questionaryDetailsInput'> & {
+  questionaryDetails: string[];
 };
-export type DeleteOtherQuestionaryDetailRequest = {
-  input: DeleteOtherQuestionaryDetailBody;
+export type OtherQuestionaryDetailsCrudRequest = {
+  toAdd: AddOtherQuestionaryDetailBody;
+  toUpdate: UpdateOtherQuestionaryDetailBody;
+  toDelete: DeleteOtherQuestionaryDetailBody;
+  shouldToAdd: boolean;
+  shouldToUpdate: boolean;
+  shouldToDelete: boolean;
 };
-export type DeleteOtherQuestionaryDetailResponse = {
-  deleteOtherQuestionaryDetail: QuestionaryConfigBody;
+export type DeleteOtherQuestionaryDetailsCrudResponse = {
+  addOtherQuestionaryDetails?: QuestionaryConfigBody;
+  updateOtherQuestionaryDetails?: QuestionaryConfigBody;
+  deleteOtherQuestionaryDetails?: QuestionaryConfigBody;
 };
-
-
 
 export type QuestionaryConfigInitialState = {
   questionaryConfig: QuestionaryConfigBody;
   questionaryDetails: QuestionaryDetail[];
   isEnabledQuestionaryDetails: IsEnabledQuestionaryDetails[];
-  otherQuestionaryDetail: QuestionaryDetail;
+  otherQuestionaryDetails: QuestionaryDetailState[];
+
+  /* {
+    currentState: QuestionaryDetail[];
+    added: AddOtherQuestionaryDetail[];
+    updated: UpdateOtherQuestionaryDetailInput[];
+    deleted: string[];
+  }; */
 };

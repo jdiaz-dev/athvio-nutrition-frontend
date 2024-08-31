@@ -6,12 +6,7 @@ export const questionaryConfigInitialState: QuestionaryConfigInitialState = {
     professional: '',
     questionaryGroups: [],
   },
-  questionaryDetails:[],
+  questionaryDetails: [],
   isEnabledQuestionaryDetails: [],
-  otherQuestionaryDetail: {
-    _id: '',
-    fieldName: '',
-    associatedQuestion: '',
-    isEnabled: true,
-  },
+  otherQuestionaryDetails: [],
 };

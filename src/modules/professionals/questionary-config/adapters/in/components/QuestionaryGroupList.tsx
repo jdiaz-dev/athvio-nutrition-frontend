@@ -18,10 +18,9 @@ const style = {
 
 function QuestionaryGroupList() {
   const authContext = useContext(AuthContext);
-  
+
   const { _id, questionaryGroups } = useSelector((state: ReduxStates) => state.questionaryConfig.questionaryConfig);
   const { getQuestionary } = useQuestionaryConfig();
-
   useEffect(() => {
     const getQuestionaryHelper = async () => {
       await getQuestionary({ professional: authContext.professional });
