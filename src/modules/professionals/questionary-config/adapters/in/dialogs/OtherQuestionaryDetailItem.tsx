@@ -1,5 +1,6 @@
 import { ChangeEvent } from 'react';
 import { Box, Checkbox, TextField } from '@mui/material';
+import CheckIcon from '@mui/icons-material/Check';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -31,17 +32,21 @@ function OtherQuestionaryDetailItem({ questionaryDetail: questionaryDetailData }
     dispatch(CustomQuestionaryConfigDetailsSlice.updateOther({ ...rest, _id: _id as string, associatedQuestion: e.target.value }));
   };
 
+  const enableQuestionaryDetailHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    dispatch(CustomQuestionaryConfigDetailsSlice.updateOther({ ...rest, _id: _id as string, isEnabled: !questionaryDetailData.isEnabled }));
+  };
   const deleteCustomQuestionaryDetailHandler = () => {
     dispatch(CustomQuestionaryConfigDetailsSlice.deleteOther(_id as string));
   };
   return (
     <Accordion>
-      <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+      <AccordionSummary aria-controls="panel1d-content" id="panel1d-header" style={{ display: 'flex' }}>
         <Typography variant="h6">{questionaryDetailData.associatedQuestion}</Typography>
+        <CheckIcon style={{ color: questionaryDetailData.isEnabled ? 'green' : '' }} />
       </AccordionSummary>
       <AccordionDetails>
         <Typography>
-        <TextField
+          <TextField
             className={classes.textField}
             id="outlined-basic"
             variant="outlined"
@@ -65,7 +70,13 @@ function OtherQuestionaryDetailItem({ questionaryDetail: questionaryDetailData }
 
           <Box component="section" style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div>
-              Enabled: <Checkbox className="size-large" checked={questionaryDetailData.isEnabled ? true : false} color="success" />
+              Enabled:{' '}
+              <Checkbox
+                className="size-large"
+                onChange={enableQuestionaryDetailHandler}
+                checked={questionaryDetailData.isEnabled ? true : false}
+                color="success"
+              />
             </div>
             <DeleteForeverIcon onClick={deleteCustomQuestionaryDetailHandler} />
           </Box>

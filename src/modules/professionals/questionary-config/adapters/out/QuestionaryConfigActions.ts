@@ -70,12 +70,12 @@ export function useQuestionaryConfig() {
         },
       });
       console.log('---------response.data', response.data);
-      if (response.data?.addOtherQuestionaryDetails) {
-        dispatch(QuestionaryConfigSlice.initializeQuestionaryConfig(response.data.addOtherQuestionaryDetails));
+      if (response.data?.deleteOtherQuestionaryDetails) {
+        dispatch(QuestionaryConfigSlice.initializeQuestionaryConfig(response.data?.deleteOtherQuestionaryDetails));
       } else if (response.data?.updateOtherQuestionaryDetails) {
         dispatch(QuestionaryConfigSlice.initializeQuestionaryConfig(response.data.updateOtherQuestionaryDetails));
-      } else if (response.data?.deleteOtherQuestionaryDetails) {
-        dispatch(QuestionaryConfigSlice.initializeQuestionaryConfig(response.data?.deleteOtherQuestionaryDetails));
+      } else if (response.data?.addOtherQuestionaryDetails) {
+        dispatch(QuestionaryConfigSlice.initializeQuestionaryConfig(response.data.addOtherQuestionaryDetails));
       }
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);

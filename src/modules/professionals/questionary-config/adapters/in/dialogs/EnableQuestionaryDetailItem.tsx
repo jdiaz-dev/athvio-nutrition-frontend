@@ -30,7 +30,7 @@ function EnableQuestionaryDetailItem({
   return (
     <ListItem
       onClick={manageEnabledHandler}
-      style={{ border: questionaryDetail.isEnabled ? '2px solid green' : '', cursor: 'pointer' }}
+      style={{ cursor: 'pointer' }}
       secondaryAction={
         <IconButton aria-label="enabler">
           <CheckIcon style={{ color: questionaryDetail.isEnabled ? 'green' : '' }} />
