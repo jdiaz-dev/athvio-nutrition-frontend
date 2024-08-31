@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Button, Card } from '@mui/material';
 
-import OtherQuestionaryDetailItem from 'src/modules/professionals/questionary-config/adapters/in/dialogs/OtherQuestionaryDetailItem';
+import CustomQuestionaryDetailItem from 'src/modules/professionals/questionary-config/adapters/in/dialogs/CustomQuestionaryDetailItem';
 import { QuestionaryDetail, QuestionaryGroup } from 'src/modules/professionals/questionary-config/adapters/out/QuestionaryConfig';
 import MainCard from 'src/shared/components/MainCard/MainCard';
 import { useDispatch } from 'react-redux';
@@ -10,7 +10,7 @@ import { useQuestionaryConfig } from 'src/modules/professionals/questionary-conf
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 const temporalId = 'temporalId';
-function OtherQuestionaryDetailsManager({
+function CustomQuestionaryDetailsManager({
   questionary,
   questionaryGroup,
   questionaryDetails,
@@ -20,16 +20,16 @@ function OtherQuestionaryDetailsManager({
   questionaryDetails: QuestionaryDetail[];
 }) {
   const dispatch = useDispatch();
-  const { otherQuestionaryDetailsCRUD } = useQuestionaryConfig();
+  const { customQuestionaryDetailsCRUD } = useQuestionaryConfig();
   const authContext = useContext(AuthContext);
 
-  const otherQuestionaryDetails = CustomQuestionaryConfigDetailsSlice.useSelectAllEntities();
+  const customQuestionaryDetails = CustomQuestionaryConfigDetailsSlice.useSelectAllEntities();
 
   useEffect(() => {
-    dispatch(CustomQuestionaryConfigDetailsSlice.initializeOtherQuestionaryDetails([...questionaryDetails]));
+    dispatch(CustomQuestionaryConfigDetailsSlice.initializeCustomQuestionaryDetails([...questionaryDetails]));
   }, [questionaryDetails]);
 
-  const addOtherQuestionaryDetailHandler = () => {
+  const addCustomQuestionaryDetailHandler = () => {
     const improvisedRamdon = Math.random() * 1000 * Math.random() * 1000;
 
     const newQuestionaryDetail = {
@@ -39,37 +39,37 @@ function OtherQuestionaryDetailsManager({
       isEnabled: true,
       status: '',
     };
-    dispatch(CustomQuestionaryConfigDetailsSlice.addOther(newQuestionaryDetail));
+    dispatch(CustomQuestionaryConfigDetailsSlice.addCustom(newQuestionaryDetail));
   };
 
-  const otherQuestionaryDetailsHandler = async () => {
+  const customQuestionaryDetailsHandler = async () => {
     const baseData = {
       professional: authContext.professional,
       questionary,
       questionaryGroup: questionaryGroup._id,
     };
 
-    const toAdd = otherQuestionaryDetails
+    const toAdd = customQuestionaryDetails
       .filter(
         (item) => item._id.includes(temporalId) && item.status !== CustomQuestionaryConfigDetailsSlice.CustomQuestionaryDetailState.DELETED,
       )
       .map(({ _id, status, ...rest }) => ({ ...rest }));
 
-    const toUpdate = otherQuestionaryDetails
+    const toUpdate = customQuestionaryDetails
       .filter(
         (item) =>
           !item._id.includes(temporalId) && item.status === CustomQuestionaryConfigDetailsSlice.CustomQuestionaryDetailState.UPDATED,
       )
       .map(({ _id, status, ...rest }) => ({ ...rest, questionaryDetail: _id }));
 
-    const toDelete = otherQuestionaryDetails
+    const toDelete = customQuestionaryDetails
       .filter(
         (item) =>
           !item._id.includes(temporalId) && item.status === CustomQuestionaryConfigDetailsSlice.CustomQuestionaryDetailState.DELETED,
       )
       .map(({ _id }) => _id);
 
-    await otherQuestionaryDetailsCRUD({
+    await customQuestionaryDetailsCRUD({
       toAdd: {
         ...baseData,
         questionaryDetailsInput: toAdd,
@@ -91,16 +91,16 @@ function OtherQuestionaryDetailsManager({
   return (
     <>
       <MainCard>
-        {otherQuestionaryDetails
+        {customQuestionaryDetails
           .filter((item) => item.status !== CustomQuestionaryConfigDetailsSlice.CustomQuestionaryDetailState.DELETED)
           .map((questionaryDetail, index) => (
-            <OtherQuestionaryDetailItem key={index} questionaryDetail={questionaryDetail} />
+            <CustomQuestionaryDetailItem key={index} questionaryDetail={questionaryDetail} />
           ))}
-        <Button variant="contained" onClick={addOtherQuestionaryDetailHandler}>
+        <Button variant="contained" onClick={addCustomQuestionaryDetailHandler}>
           Add question
         </Button>
         <Card variant="outlined">
-          <Button variant="contained" onClick={otherQuestionaryDetailsHandler}>
+          <Button variant="contained" onClick={customQuestionaryDetailsHandler}>
             Save
           </Button>
         </Card>
@@ -109,4 +109,4 @@ function OtherQuestionaryDetailsManager({
   );
 }
 
-export default OtherQuestionaryDetailsManager;
+export default CustomQuestionaryDetailsManager;

@@ -268,7 +268,7 @@ export default function UserDetails({ user, onClose }: Props) {
                         <FileSyncOutlined />
                       </Avatar>
                       <Stack>
-                        <Typography>Other</Typography>
+                        <Typography>Custom</Typography>
                         <Typography color="text.secondary">49 files, 193MB</Typography>
                       </Stack>
                     </Stack>

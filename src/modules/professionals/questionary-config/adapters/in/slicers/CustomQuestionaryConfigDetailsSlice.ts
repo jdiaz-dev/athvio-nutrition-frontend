@@ -13,36 +13,36 @@ export const questionaryDetailsAdapter = createEntityAdapter({
   sortComparer: (a, b) => a._id.localeCompare(b._id),
 });
 
-export const otherQuestionaryDetailSlice = createSlice({
-  name: 'otherQuestionaryDetails',
+export const customQuestionaryDetailSlice = createSlice({
+  name: 'customQuestionaryDetails',
   initialState: questionaryDetailsAdapter.getInitialState(),
   reducers: {
-    initializeOtherQuestionaryDetails(state, action: PayloadAction<QuestionaryDetailState[]>) {
+    initializeCustomQuestionaryDetails(state, action: PayloadAction<QuestionaryDetailState[]>) {
       questionaryDetailsAdapter.setAll(
         state,
         action.payload.map((item) => ({ ...item, status: '' })),
       );
     },
-    addOther: (state, action: PayloadAction<QuestionaryDetailState>) => {
+    addCustom: (state, action: PayloadAction<QuestionaryDetailState>) => {
       questionaryDetailsAdapter.addOne(state, { ...action.payload, status: CustomQuestionaryDetailState.CREATED });
     },
-    updateOther: (state, action: PayloadAction<QuestionaryDetail>) => {
+    updateCustom: (state, action: PayloadAction<QuestionaryDetail>) => {
       const { _id, ...rest } = action.payload;
       questionaryDetailsAdapter.updateOne(state, { id: _id, changes: { ...rest, status: CustomQuestionaryDetailState.UPDATED } });
     },
-    deleteOther: (state, action: PayloadAction<string>) => {
+    deleteCustom: (state, action: PayloadAction<string>) => {
       questionaryDetailsAdapter.updateOne(state, { id: action.payload, changes: { status: CustomQuestionaryDetailState.DELETED } });
     },
   },
 });
 
-export const { initializeOtherQuestionaryDetails, addOther, updateOther, deleteOther } = otherQuestionaryDetailSlice.actions;
+export const { initializeCustomQuestionaryDetails, addCustom, updateCustom, deleteCustom } = customQuestionaryDetailSlice.actions;
 
 const { selectAll } = questionaryDetailsAdapter.getSelectors<any>((state) => state);
 
 export const useSelectAllEntities = () => {
   return useSelector((state: ReduxStates) => {
-    const res = selectAll(state.questionaryConfig.otherQuestionaryDetails);
+    const res = selectAll(state.questionaryConfig.customQuestionaryDetails);
     return res;
   });
 };

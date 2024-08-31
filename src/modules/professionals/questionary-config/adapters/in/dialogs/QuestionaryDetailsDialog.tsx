@@ -5,7 +5,7 @@ import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 import * as QuestionaryConfigSlice from 'src/modules/professionals/questionary-config/adapters/in/slicers/QuestionaryConfigSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
-import OtherQuestionaryDetailsManager from 'src/modules/professionals/questionary-config/adapters/in/dialogs/OtherQuestionaryDetailsManager';
+import CustomQuestionaryDetailsManager from 'src/modules/professionals/questionary-config/adapters/in/dialogs/CustomQuestionaryDetailsManager';
 import DefaultQuestionaryDetailsManager from 'src/modules/professionals/questionary-config/adapters/in/dialogs/DefaultQuestionaryDetailsManager';
 
 function QuestionaryDetailsDialog({
@@ -49,8 +49,8 @@ function QuestionaryDetailsDialog({
           <CloseDialogIcon closedIconDialog={closedIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
         </DialogTitle>
         <DialogContent dividers={true} style={{ minHeight: '900px' }}>
-          {questionaryGroup.title === 'Otros' ? (
-            <OtherQuestionaryDetailsManager
+          {questionaryGroup.title === 'Personalizado' ? (
+            <CustomQuestionaryDetailsManager
               questionary={questionary}
               questionaryGroup={questionaryGroup}
               questionaryDetails={questionaryDetails}

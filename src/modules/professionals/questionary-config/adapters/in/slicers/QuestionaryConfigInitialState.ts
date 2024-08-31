@@ -8,5 +8,5 @@ export const questionaryConfigInitialState: QuestionaryConfigInitialState = {
   },
   questionaryDetails: [],
   isEnabledQuestionaryDetails: [],
-  otherQuestionaryDetails: [],
+  customQuestionaryDetails: [],
 };

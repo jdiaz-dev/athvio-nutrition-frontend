@@ -1,5 +1,5 @@
 import { combineReducers, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { otherQuestionaryDetailSlice } from 'src/modules/professionals/questionary-config/adapters/in/slicers/CustomQuestionaryConfigDetailsSlice';
+import { customQuestionaryDetailSlice } from 'src/modules/professionals/questionary-config/adapters/in/slicers/CustomQuestionaryConfigDetailsSlice';
 import { questionaryConfigInitialState } from 'src/modules/professionals/questionary-config/adapters/in/slicers/QuestionaryConfigInitialState';
 import {
   IsEnabledQuestionaryDetails,
@@ -34,7 +34,7 @@ const questionaryDetailsSlice = createSlice({
       return state;
     },
 
-    /* addOtherQuestionaryDetail(state, action: PayloadAction<AddOtherQuestionaryDetailInput>) {
+    /* addCustomQuestionaryDetail(state, action: PayloadAction<AddCustomQuestionaryDetailInput>) {
       state.push({ ...action.payload, isEnabled: true });
       return state;
     }, */
@@ -74,5 +74,5 @@ export default combineReducers({
   questionaryConfig: questionaryConfigSlice.reducer,
   questionaryDetails: questionaryDetailsSlice.reducer,
   isEnabledQuestionaryDetails: isEnabledQuestionaryDetailsSlice.reducer,
-  otherQuestionaryDetails: otherQuestionaryDetailSlice.reducer,
+  customQuestionaryDetails: customQuestionaryDetailSlice.reducer,
 });

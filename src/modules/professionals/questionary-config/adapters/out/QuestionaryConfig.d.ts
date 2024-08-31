@@ -55,54 +55,54 @@ export type EnableQuestionaryDetailResponse = {
   enableQuestionaryDetails: QuestionaryConfigBody;
 };
 
-export type AddOtherQuestionaryDetailInput = Pick<QuestionaryDetail, 'fieldName' | 'associatedQuestion'> & {
+export type AddCustomQuestionaryDetailInput = Pick<QuestionaryDetail, 'fieldName' | 'associatedQuestion'> & {
   questionaryDetail: string;
 };
 
-export type AddOtherQuestionaryDetail = AddOtherQuestionaryDetailInput & {
+export type AddCustomQuestionaryDetail = AddCustomQuestionaryDetailInput & {
   questionaryDetail: string;
 };
 
-export type AddOtherQuestionaryDetailBody = GetQuestionaryConfigBody & {
+export type AddCustomQuestionaryDetailBody = GetQuestionaryConfigBody & {
   questionary: string;
   questionaryGroup: string;
-  questionaryDetailsInput: AddOtherQuestionaryDetailInput[];
+  questionaryDetailsInput: AddCustomQuestionaryDetailInput[];
 };
-export type UpdateOtherQuestionaryDetailInput = Omit<QuestionaryDetail, '_id'> & {
+export type UpdateCustomQuestionaryDetailInput = Omit<QuestionaryDetail, '_id'> & {
   questionaryDetail: string;
 };
 
-export type UpdateOtherQuestionaryDetailBody = AddOtherQuestionaryDetailBody & {
-  questionaryDetailsInput: UpdateOtherQuestionaryDetailInput[];
+export type UpdateCustomQuestionaryDetailBody = AddCustomQuestionaryDetailBody & {
+  questionaryDetailsInput: UpdateCustomQuestionaryDetailInput[];
 };
 
-export type DeleteOtherQuestionaryDetailBody = Omit<AddOtherQuestionaryDetailBody, 'questionaryDetailsInput'> & {
+export type DeleteCustomQuestionaryDetailBody = Omit<AddCustomQuestionaryDetailBody, 'questionaryDetailsInput'> & {
   questionaryDetails: string[];
 };
-export type OtherQuestionaryDetailsCrudRequest = {
-  toAdd: AddOtherQuestionaryDetailBody;
-  toUpdate: UpdateOtherQuestionaryDetailBody;
-  toDelete: DeleteOtherQuestionaryDetailBody;
+export type CustomQuestionaryDetailsCrudRequest = {
+  toAdd: AddCustomQuestionaryDetailBody;
+  toUpdate: UpdateCustomQuestionaryDetailBody;
+  toDelete: DeleteCustomQuestionaryDetailBody;
   shouldToAdd: boolean;
   shouldToUpdate: boolean;
   shouldToDelete: boolean;
 };
-export type DeleteOtherQuestionaryDetailsCrudResponse = {
-  addOtherQuestionaryDetails?: QuestionaryConfigBody;
-  updateOtherQuestionaryDetails?: QuestionaryConfigBody;
-  deleteOtherQuestionaryDetails?: QuestionaryConfigBody;
+export type DeleteCustomQuestionaryDetailsCrudResponse = {
+  addCustomQuestionaryDetails?: QuestionaryConfigBody;
+  updateCustomQuestionaryDetails?: QuestionaryConfigBody;
+  deleteCustomQuestionaryDetails?: QuestionaryConfigBody;
 };
 
 export type QuestionaryConfigInitialState = {
   questionaryConfig: QuestionaryConfigBody;
   questionaryDetails: QuestionaryDetail[];
   isEnabledQuestionaryDetails: IsEnabledQuestionaryDetails[];
-  otherQuestionaryDetails: QuestionaryDetailState[];
+  customQuestionaryDetails: QuestionaryDetailState[];
 
   /* {
     currentState: QuestionaryDetail[];
-    added: AddOtherQuestionaryDetail[];
-    updated: UpdateOtherQuestionaryDetailInput[];
+    added: AddCustomQuestionaryDetail[];
+    updated: UpdateCustomQuestionaryDetailInput[];
     deleted: string[];
   }; */
 };

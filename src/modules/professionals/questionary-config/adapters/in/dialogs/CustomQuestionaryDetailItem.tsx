@@ -20,23 +20,23 @@ const cardStyles = makeStyles()(() => {
   };
 });
 
-function OtherQuestionaryDetailItem({ questionaryDetail: questionaryDetailData }: { questionaryDetail: QuestionaryDetail }) {
+function CustomQuestionaryDetailItem({ questionaryDetail: questionaryDetailData }: { questionaryDetail: QuestionaryDetail }) {
   const dispatch = useDispatch();
   const { classes } = cardStyles();
   const { _id, ...rest } = questionaryDetailData;
 
   const fieldNameHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    dispatch(CustomQuestionaryConfigDetailsSlice.updateOther({ ...rest, _id: _id as string, fieldName: e.target.value }));
+    dispatch(CustomQuestionaryConfigDetailsSlice.updateCustom({ ...rest, _id: _id as string, fieldName: e.target.value }));
   };
   const associatedQuestionHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    dispatch(CustomQuestionaryConfigDetailsSlice.updateOther({ ...rest, _id: _id as string, associatedQuestion: e.target.value }));
+    dispatch(CustomQuestionaryConfigDetailsSlice.updateCustom({ ...rest, _id: _id as string, associatedQuestion: e.target.value }));
   };
 
   const enableQuestionaryDetailHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    dispatch(CustomQuestionaryConfigDetailsSlice.updateOther({ ...rest, _id: _id as string, isEnabled: !questionaryDetailData.isEnabled }));
+    dispatch(CustomQuestionaryConfigDetailsSlice.updateCustom({ ...rest, _id: _id as string, isEnabled: !questionaryDetailData.isEnabled }));
   };
   const deleteCustomQuestionaryDetailHandler = () => {
-    dispatch(CustomQuestionaryConfigDetailsSlice.deleteOther(_id as string));
+    dispatch(CustomQuestionaryConfigDetailsSlice.deleteCustom(_id as string));
   };
   return (
     <Accordion>
@@ -85,4 +85,4 @@ function OtherQuestionaryDetailItem({ questionaryDetail: questionaryDetailData }
     </Accordion>
   );
 }
-export default OtherQuestionaryDetailItem;
+export default CustomQuestionaryDetailItem;

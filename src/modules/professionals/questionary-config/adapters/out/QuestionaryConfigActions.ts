@@ -9,13 +9,13 @@ import {
   GetQuestionaryConfigBody,
   GetQuestionaryConfigRequest,
   GetQuestionaryConfigResponse,
-  OtherQuestionaryDetailsCrudRequest,
-  DeleteOtherQuestionaryDetailsCrudResponse,
+  CustomQuestionaryDetailsCrudRequest,
+  DeleteCustomQuestionaryDetailsCrudResponse,
 } from 'src/modules/professionals/questionary-config/adapters/out/QuestionaryConfig';
 import {
   ENABLE_QUESTIONARY_DETAILS,
   GET_QUESTIONARY,
-  OTHER_QUESTIONARY_DETAILS_CRUD,
+  CUSTOM_QUESTIONARY_DETAILS_CRUD,
 } from 'src/modules/professionals/questionary-config/adapters/out/QuestionaryConfigQueries';
 
 export function useQuestionaryConfig() {
@@ -60,22 +60,22 @@ export function useQuestionaryConfig() {
       throw error;
     }
   };
-  const otherQuestionaryDetailsCRUD = async (body: OtherQuestionaryDetailsCrudRequest): Promise<void> => {
+  const customQuestionaryDetailsCRUD = async (body: CustomQuestionaryDetailsCrudRequest): Promise<void> => {
     try {
       console.log('---------body', body);
-      const response = await apolloClient.mutate<DeleteOtherQuestionaryDetailsCrudResponse, OtherQuestionaryDetailsCrudRequest>({
-        mutation: OTHER_QUESTIONARY_DETAILS_CRUD,
+      const response = await apolloClient.mutate<DeleteCustomQuestionaryDetailsCrudResponse, CustomQuestionaryDetailsCrudRequest>({
+        mutation: CUSTOM_QUESTIONARY_DETAILS_CRUD,
         variables: {
           ...body,
         },
       });
       console.log('---------response.data', response.data);
-      if (response.data?.deleteOtherQuestionaryDetails) {
-        dispatch(QuestionaryConfigSlice.initializeQuestionaryConfig(response.data?.deleteOtherQuestionaryDetails));
-      } else if (response.data?.updateOtherQuestionaryDetails) {
-        dispatch(QuestionaryConfigSlice.initializeQuestionaryConfig(response.data.updateOtherQuestionaryDetails));
-      } else if (response.data?.addOtherQuestionaryDetails) {
-        dispatch(QuestionaryConfigSlice.initializeQuestionaryConfig(response.data.addOtherQuestionaryDetails));
+      if (response.data?.deleteCustomQuestionaryDetails) {
+        dispatch(QuestionaryConfigSlice.initializeQuestionaryConfig(response.data?.deleteCustomQuestionaryDetails));
+      } else if (response.data?.updateCustomQuestionaryDetails) {
+        dispatch(QuestionaryConfigSlice.initializeQuestionaryConfig(response.data.updateCustomQuestionaryDetails));
+      } else if (response.data?.addCustomQuestionaryDetails) {
+        dispatch(QuestionaryConfigSlice.initializeQuestionaryConfig(response.data.addCustomQuestionaryDetails));
       }
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
@@ -83,5 +83,5 @@ export function useQuestionaryConfig() {
     }
   };
 
-  return { getQuestionary, enableQuestionaryDetails, otherQuestionaryDetailsCRUD };
+  return { getQuestionary, enableQuestionaryDetails, customQuestionaryDetailsCRUD };
 }
