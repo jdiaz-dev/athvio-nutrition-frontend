@@ -17,8 +17,8 @@ const icons = {
 
 //todo: rename it file accoding to client options
 const widget: NavItemType = {
-  id: 'group-widget',
-  title: <FormattedMessage id="widgets" />,
+  id: 'group-applications',
+  title: <FormattedMessage id="Panels" />,
   icon: icons.ChatIcon,
   type: 'group',
   children: [

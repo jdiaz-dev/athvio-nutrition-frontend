@@ -6,7 +6,7 @@ function PublicRoute({ children }: { children: ReactNode }) {
   const { isAuthenticated } = useContext(AuthContext);
 
   if (isAuthenticated) {
-    return <Navigate to="/sidenav/patients" />;
+    return <Navigate to="/coach/patients" />;
   }
   return <>{children}</>;
 }

@@ -38,7 +38,7 @@ function App() {
             }
           />
           <Route
-            path="sidenav"
+            path="coach"
             element={
               <PrivateRoute>
                 <Drawer />

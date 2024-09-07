@@ -1,20 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
 import NavItem from 'src/modules/patients/patient-console/patient-sidebar/components/DrawerContent/Navigation/NavItem';
-import { SelelecteSlideContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SelectedSlideContext';
+import { SelelecteṔanelContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SelectedPanelContext';
 import { NavItemProps } from 'src/modules/patients/patient-console/patient-sidebar/types/patient-sidebar';
 import { AvailableSlides } from 'src/modules/patients/patient-console/patient-sidebar/utils/sidebar.enum';
 
 function itemForSidebar(WrappedNavItemComponent: any) {
   return function (props: NavItemProps) {
-    const { selectedSlide, setSelectedSlide } = useContext(SelelecteSlideContext);
+    const { selectedPanel, setSelectedPanel } = useContext(SelelecteṔanelContext);
     const [isSelected, setIsSelected] = useState(false);
 
     useEffect(() => {
-      setIsSelected(selectedSlide == props.item.slide ? true : false);
-    }, [selectedSlide]);
+      setIsSelected(selectedPanel == props.item.slide ? true : false);
+    }, [selectedPanel]);
 
     const onClickHandler = () => {
-      setSelectedSlide(props.item.slide as AvailableSlides);
+      setSelectedPanel(props.item.slide as AvailableSlides);
     };
 
     const params: NavItemProps = { isSelected, onClickHandler, ...props };

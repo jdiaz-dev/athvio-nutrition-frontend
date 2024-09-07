@@ -56,7 +56,7 @@ function ProgramPlansContainer() {
   }, [authContext.professional, reloadRecordList]);
 
   if (redirectToProgramList) {
-    const path = `/sidenav/Programs`;
+    const path = `/coach/programs`;
     return <Navigate replace to={path} />;
   }
   let counterDay = 0;

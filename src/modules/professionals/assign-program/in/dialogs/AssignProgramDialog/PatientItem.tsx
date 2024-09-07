@@ -12,7 +12,7 @@ function PatientItem({ patient }: { patient: PatientBody }) {
   const [goToPatientPlans, setGoToPatientPlans] = useState(false);
 
   if (currentModuleContext.currentModule === Modules.CLIENTS && goToPatientPlans) {
-    const path = `/sidenav/Patients/${patient._id}/plans`;
+    const path = `/coach/patients/${patient._id}/plans`;
     return <Navigate replace to={path} />;
   }
 

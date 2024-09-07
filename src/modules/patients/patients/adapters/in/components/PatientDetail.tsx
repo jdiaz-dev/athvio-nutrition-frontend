@@ -9,7 +9,7 @@ import { PatientBody } from 'src/modules/patients/patient-console/patient/adapte
 function PatientDetail({ patient }: { patient: PatientBody }) {
   const [goToPatientPlans, setGoToPatientPlans] = useState(false);
   if (goToPatientPlans) {
-    const path = `/sidenav/Patients/${patient._id}/plans`;
+    const path = `/coach/patients/${patient._id}/plans`;
     return <Navigate replace to={path} />;
   }
 

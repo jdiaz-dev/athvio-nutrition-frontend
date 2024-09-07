@@ -1,6 +1,6 @@
 // project import
 import chat from 'src/modules/patients/patient-console/patient-sidebar/components/menu-items/chat';
-import widget from './widget';
+import panels from './panels';
 
 // types
 import { NavItemType } from 'src/shared/types/menu';
@@ -8,7 +8,7 @@ import { NavItemType } from 'src/shared/types/menu';
 // ==============================|| MENU ITEMS ||============================== //
 
 const menuItems: { items: NavItemType[] } = {
-  items: [chat, widget],
+  items: [chat, panels],
 };
 
 export default menuItems;

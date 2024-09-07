@@ -26,14 +26,14 @@ type page = {
   url: string;
 };
 const navBarPages: page[] = [
-  { page: 'Patients', url: '/sidenav/patients' },
-  { page: 'Custom recipes', url: '/sidenav/custom recipes' },
-  { page: 'Programs', url: '/sidenav/programs' },
+  { page: 'Patients', url: '/coach/patients' },
+  { page: 'Custom recipes', url: '/coach/custom recipes' },
+  { page: 'Programs', url: '/coach/programs' },
 ];
 
 const professionalPages: page[] = [
   // { page: 'Profile', url: 'professional/Profile' },
-  { page: 'Configuration and preferences', url: '/sidenav/professional/preferences' },
+  { page: 'Configuration and preferences', url: '/coach/professional/preferences' },
 ];
 const handleClick = (event, url) => {
   event.preventDefault();
