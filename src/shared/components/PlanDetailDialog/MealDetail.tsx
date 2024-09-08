@@ -87,7 +87,7 @@ function MealDetail({
     const { _id, ...restMealDetail } = mealDetailsState;
     if (mealDetailsState._id.length == 0) {
       //todo: push meal in patient plan in redux, push meals in program in redux
-      //todo: create patient plan with meals in db, create program with meals in db 
+      //todo: create patient plan with meals in db, create program with meals in db
       await createMeal({
         professional: authContext.professional,
         domainOwnerId,
@@ -101,8 +101,8 @@ function MealDetail({
       if (planContext.isFromRecentlyCreatedPlan) mealPlanCreatedChange.next(true);
     } else {
       //todo: update meal in patient plan in redux, update meals in program in redux
-      //todo: update patient plan with meals in db, update program with meals in db 
-      
+      //todo: update patient plan with meals in db, update program with meals in db
+
       await updateMeal({
         professional: authContext.professional,
         domainOwnerId,
@@ -130,7 +130,7 @@ function MealDetail({
   return (
     <>
       <Card
-        style={{ width: '55%', padding: '10px' }}
+        style={{ width: '90%', padding: '10px' }}
         sx={{ minWidth: 275 }}
         className={classes.card}
         variant="outlined"
@@ -146,13 +146,10 @@ function MealDetail({
       >
         <Grid container spacing={1}>
           <Grid item xs={11}>
-            {/* <Item> */}
             <MealTag mealTag={mealTag} componentTouched={componentTouched} />
-            {/* </Item> */}
           </Grid>
           <Grid item xs={1}>
-            {/* <Item> */}
-            <IconButton aria-label="Example" onClick={handleAnchorOpen}>
+            <IconButton style={{ marginLeft: '55%' }} aria-label="Example" onClick={handleAnchorOpen}>
               <FontAwesomeIcon icon={faEllipsisV} size="xs" />
             </IconButton>
             <Menu
@@ -166,7 +163,6 @@ function MealDetail({
             >
               <MenuItem onClick={() => deleteMealHandler()}>Delete meal</MenuItem>
             </Menu>
-            {/* </Item> */}
           </Grid>
         </Grid>
 

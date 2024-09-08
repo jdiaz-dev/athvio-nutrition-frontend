@@ -63,14 +63,12 @@ function ProgramPlanItemButtons({ planDay, planWeek, program }: { planDay: numbe
       };
     }
   }, [openPlanDetailDialog]);
-  console.log('-----------openPlanDetailDialog', openPlanDetailDialog, planState._id, planCreated);
 
   return (
     <>
       <CustomIconWrapper>
         <CustomAddIcon
           handler={() => {
-            console.log('--------------jelou');
             setOpenPlanDetailDialog(true);
           }}
         />

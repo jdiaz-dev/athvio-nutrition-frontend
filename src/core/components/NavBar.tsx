@@ -26,14 +26,14 @@ type page = {
   url: string;
 };
 const navBarPages: page[] = [
-  { page: 'Patients', url: '/coach/patients' },
-  { page: 'Custom recipes', url: '/coach/custom recipes' },
-  { page: 'Programs', url: '/coach/programs' },
+  { page: 'Patients', url: '/professional/patients' },
+  { page: 'Custom recipes', url: '/professional/custom recipes' },
+  { page: 'Programs', url: '/professional/programs' },
 ];
 
 const professionalPages: page[] = [
   // { page: 'Profile', url: 'professional/Profile' },
-  { page: 'Configuration and preferences', url: '/coach/professional/preferences' },
+  { page: 'Configuration and preferences', url: '/professional/professional/preferences' },
 ];
 const handleClick = (event, url) => {
   event.preventDefault();

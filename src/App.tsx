@@ -38,7 +38,7 @@ function App() {
             }
           />
           <Route
-            path="coach"
+            path="professional"
             element={
               <PrivateRoute>
                 <Drawer />

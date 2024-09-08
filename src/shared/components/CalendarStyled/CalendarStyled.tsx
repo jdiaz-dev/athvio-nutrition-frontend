@@ -11,7 +11,7 @@ import { ThemeDirection } from 'src/shared/types/config';
 const ExperimentalStyled = styled(Box)(({ theme }) => ({
   'width': '100%', //'calc(100% + 2px)',
   'marginLeft': -1,
-  'marginBottom': '-50px',
+  // 'marginBottom': '-50px',
 
   // hide license message
   '& .fc-license-message': {

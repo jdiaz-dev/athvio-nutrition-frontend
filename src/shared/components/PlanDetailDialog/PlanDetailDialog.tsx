@@ -14,11 +14,13 @@ import { Modules } from 'src/shared/Consts';
 import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 
 const PlanDetailDialog = memo(function PlanDetailDialog({
+  planDay,
   openPlanDetailDialog,
   setOpenPlanDetailDialog,
   domainOwnerId,
   planOwnerId,
 }: {
+  planDay: number;
   openPlanDetailDialog: boolean;
   setOpenPlanDetailDialog: (openPlanDetailDialog: boolean) => void;
   domainOwnerId: string;
@@ -59,13 +61,13 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
         onClose={() => {
           setOpenPlanDetailDialog(false);
         }}
-        maxWidth="xl"
+        maxWidth="md"
         fullWidth={true}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
-          Create your custom pro recipeeee
+          Day {planDay}
           <CloseDialogIcon closedIconDialog={closedIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
         </DialogTitle>
         <DialogContent>

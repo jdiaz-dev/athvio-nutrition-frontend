@@ -23,7 +23,7 @@ function ProgramPlansHelper(arg: EventContentArg) {
   } else {
     return (
       <PlanWrapper>
-        <ProgramPlan program={program} planDayInfo={planDayInfo} />
+        <ProgramPlan program={program} planDay={planDay} planDayInfo={planDayInfo} />
       </PlanWrapper>
     );
   }

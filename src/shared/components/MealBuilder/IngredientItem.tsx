@@ -44,72 +44,42 @@ function IngredientItem({ displayedIngredient: { name, amount, label, ...rest } 
   };
   return (
     <>
-      <StyledTableRow key={name} classes={{ root: classes.container }}>
-        <StyledTableCell
-          style={{ opacity: displayOverlay ? 0.8 : 1 }}
-          onMouseEnter={() => {
-            setDisplayOverlay(true);
-          }}
-          align="right"
-        >
+      <StyledTableRow
+        key={name}
+        classes={{ root: classes.container }}
+        onMouseEnter={() => {
+          setDisplayOverlay(true);
+        }}
+        onMouseLeave={() => {
+          setDisplayOverlay(false);
+        }}
+        style={{ opacity: displayOverlay ? 0.8 : 1 }}
+      >
+        <StyledTableCell align="left">
           {amount} {`${label}${amount > 1 ? 's' : ''}`}
         </StyledTableCell>
-        <StyledTableCell
-          style={{ opacity: displayOverlay ? 0.8 : 1 }}
-          onMouseEnter={() => {
-            setDisplayOverlay(true);
-          }}
-          component="th"
-          scope="row"
-        >
+        <StyledTableCell align="left" component="th" scope="row">
           {name}
         </StyledTableCell>
-        <StyledTableCell
-          style={{ opacity: displayOverlay ? 0.8 : 1 }}
-          onMouseEnter={() => {
-            setDisplayOverlay(true);
-          }}
-          align="right"
-        >
-          {rest.protein}
-        </StyledTableCell>
-        <StyledTableCell
-          style={{ opacity: displayOverlay ? 0.8 : 1 }}
-          onMouseEnter={() => {
-            setDisplayOverlay(true);
-          }}
-          align="right"
-        >
-          {rest.carbs}
-        </StyledTableCell>
-        <StyledTableCell
-          style={{ opacity: displayOverlay ? 0.8 : 1 }}
-          onMouseEnter={() => {
-            setDisplayOverlay(true);
-          }}
-          align="right"
-        >
-          {rest.fat}
-        </StyledTableCell>
-        <StyledTableCell
-          style={{ opacity: displayOverlay ? 0.8 : 1 }}
-          onMouseEnter={() => {
-            setDisplayOverlay(true);
-          }}
-          align="right"
-        >
-          {rest.calories}
-        </StyledTableCell>
+        <StyledTableCell align="left">{rest.protein}</StyledTableCell>
+        <StyledTableCell align="left">{rest.carbs}</StyledTableCell>
+        <StyledTableCell align="left">{rest.fat}</StyledTableCell>
+        <StyledTableCell align="left">{rest.calories}</StyledTableCell>
         <td
           style={{
             zIndex: displayOverlay ? 1 : -1,
-          }}
-          onMouseLeave={() => {
-            setDisplayOverlay(false);
+            display: 'flex',
+            justifyContent: 'end',
           }}
           className={classes.overlay}
         >
-          <DeleteIcon onClick={deleteIngredientHandlder} />
+          <DeleteIcon
+            style={{
+              marginTop: '0.6%',
+              display: 'block',
+            }}
+            onClick={deleteIngredientHandlder}
+          />
         </td>
       </StyledTableRow>
     </>

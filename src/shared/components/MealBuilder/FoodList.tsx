@@ -172,37 +172,27 @@ function FoodList() {
           <Typography>Add food</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <SearcherBar
-            setSearchWords={setSearchWords}
-            matchedRecords={matchedRecords}
-            setChoosedWord={setChoosedWord}
-            setRecentlyTypedWord={setRecentlyTypedWord}
-          />
-          <DatabaseSelector database={database} setDatabase={setDatabase} setDatabaseChanged={setDatabaseChanged} />
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
+            <SearcherBar
+              setSearchWords={setSearchWords}
+              matchedRecords={matchedRecords}
+              setChoosedWord={setChoosedWord}
+              setRecentlyTypedWord={setRecentlyTypedWord}
+            />
+            <DatabaseSelector database={database} setDatabase={setDatabase} setDatabaseChanged={setDatabaseChanged} />
+          </div>
           {foods.length > 0 && (
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 350 }} size="small" aria-label="customized table">
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell style={{ padding: '1px', border: '1px solid red' }} width={'25%'}>
-                      Amount
-                    </StyledTableCell>
-                    <StyledTableCell style={{ padding: '1px', border: '1px solid red' }} width={'45%'}>
-                      Food
-                    </StyledTableCell>
-                    <StyledTableCell style={{ padding: '1px', border: '1px solid red' }} width={'5%'}>
-                      Protein
-                    </StyledTableCell>
-                    <StyledTableCell style={{ padding: '1px', border: '1px solid red' }} width={'5%'}>
-                      Carbs
-                    </StyledTableCell>
-                    <StyledTableCell style={{ padding: '1px', border: '1px solid red' }} width={'5%'}>
-                      Fat
-                    </StyledTableCell>
-                    <StyledTableCell style={{ padding: '1px', border: '1px solid red' }} width={'5%'}>
-                      Calories
-                    </StyledTableCell>
-                    <StyledTableCell style={{ padding: '1px', border: '1px solid red' }} width={'5%'}></StyledTableCell>
+                    <StyledTableCell width={'25%'}>Amount</StyledTableCell>
+                    <StyledTableCell width={'45%'}>Food</StyledTableCell>
+                    <StyledTableCell width={'5%'}>Protein</StyledTableCell>
+                    <StyledTableCell width={'5%'}>Carbs</StyledTableCell>
+                    <StyledTableCell width={'5%'}>Fat</StyledTableCell>
+                    <StyledTableCell width={'5%'}>Calories</StyledTableCell>
+                    <StyledTableCell width={'5%'}></StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody style={{ maxHeight: '10px' }}>

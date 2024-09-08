@@ -58,7 +58,7 @@ function Program(program: ProgramBody) {
   };
 
   if (goToProgramPlans) {
-    const path = `/coach/programs/${program._id}/plans`;
+    const path = `/professional/programs/${program._id}/plans`;
     return <Navigate replace to={path} />;
   }
 

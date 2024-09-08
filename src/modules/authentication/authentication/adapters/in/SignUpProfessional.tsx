@@ -46,7 +46,7 @@ function SignUpProfessional() {
   const { classes } = styles();
 
   if (authContext.isAuthenticated) {
-    return <Navigate replace to="/coach/patients" />;
+    return <Navigate replace to="/professional/patients" />;
   }
 
   return (

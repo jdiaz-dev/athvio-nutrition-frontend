@@ -1,14 +1,13 @@
-/* eslint-disable max-len */
-import React, { useContext, useEffect, useState } from 'react';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import React, { useContext, useEffect } from 'react';
 
 import FullCalendar from '@fullcalendar/react'; // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
+import { makeStyles } from 'tss-react/mui';
 
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import ProgramPlansHelper from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/ProgramPlansHelper';
 
 import dayjs from 'dayjs';
@@ -27,13 +26,21 @@ import CalendarStyled from 'src/shared/components/CalendarStyled/CalendarStyled'
 
 dayjs.extend(utc);
 
+const styles = makeStyles()(() => {
+  return {
+    button: {
+      width: '150px',
+      margin: '15px 20px 15px 20px',
+    },
+  };
+});
+
 function ProgramPlansContainer() {
   const { programId } = useParams();
   const authContext = useContext(AuthContext);
   const { getProgram } = useProgram();
 
   const { reloadRecordList, setReloadRecordList } = useReloadRecords();
-  const [redirectToProgramList, setRedirectToProgramList] = useState(false);
 
   const { handleOnDrop, manageDragEffect } = assignmentWeekDayHook(programId as string);
   const { dateSetHelper, setWeekAction, datesToShow, totalWeeks, maxWeekWithPlans, contentHeight } =
@@ -55,21 +62,14 @@ function ProgramPlansContainer() {
     }
   }, [authContext.professional, reloadRecordList]);
 
-  if (redirectToProgramList) {
-    const path = `/coach/programs`;
-    return <Navigate replace to={path} />;
-  }
   let counterDay = 0;
+  const { classes } = styles();
+  console.log('------------datesToShow', datesToShow);
   return (
     <>
-      <ArrowBackIcon
-        onClick={() => {
-          setRedirectToProgramList(true);
-        }}
-      />
       <CurrentModuleContext.Provider value={{ currentModule: Modules.PROGRAMS }}>
         <ReloadRecordListContext.Provider value={{ reloadRecordList, setReloadRecordList }}>
-          <Box sx={{ position: 'relative' }}>
+          <Box sx={{ width: '96%', margin: '0 auto', marginTop: '2.4%' }}>
             <CalendarStyled>
               <FullCalendar
                 plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
@@ -115,6 +115,8 @@ function ProgramPlansContainer() {
                   return <div>Day {counterDay}</div>;
                 }}
                 contentHeight={contentHeight}
+                height={'auto'} //allowed me to void have overflow: scroll
+                initialDate={'1999-01-01'} //to void focus in day
                 titleFormat={{
                   weekday: undefined,
                 }}
@@ -124,11 +126,11 @@ function ProgramPlansContainer() {
               />
             </CalendarStyled>
           </Box>
-          <Button variant="contained" onClick={() => setWeekAction(WeekActions.ADD)}>
+          <Button className={classes.button} variant="contained" onClick={() => setWeekAction(WeekActions.ADD)}>
             Add week
           </Button>
           {maxWeekWithPlans < totalWeeks && (
-            <Button variant="contained" onClick={() => setWeekAction(WeekActions.REMOVE)}>
+            <Button className={classes.button} variant="contained" onClick={() => setWeekAction(WeekActions.REMOVE)}>
               Remove week
             </Button>
           )}

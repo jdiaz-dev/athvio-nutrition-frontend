@@ -18,8 +18,7 @@ function CookingInstructions({ cookingInstructions }: { cookingInstructions: str
       >
         <TextField
           id="outlined-textarea"
-          label="Multiline Placeholder"
-          placeholder="Placeholder"
+          label="Directions"
           multiline
           fullWidth
           defaultValue={cookingInstructions}

@@ -32,37 +32,35 @@ function SearcherBar({
   }, []);
 
   return (
-    <div>
-      <Stack spacing={3} sx={{ width: 500 }}>
-        <Autocomplete
-          multiple
-          id="tags-outlined"
-          options={matchedRecords}
-          getOptionLabel={(option) => {
-            return option;
-          }}
-          onChange={(e, values) => {
-            setSearchWords(values as string[]);
-            setChoosedWord(true);
-          }}
-          freeSolo
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          onInputChange={(e: any, value: string) => {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-            if (value !== '') onInputChange(value);
-          }}
-          renderTags={(value: readonly string[], getTagProps) =>
-            value.map((option: string, index: number) => (
-              // eslint-disable-next-line react/jsx-key
-              <Chip variant="outlined" label={option} {...getTagProps({ index })} />
-            ))
-          }
-          renderInput={(params) => {
-            return <TextField {...params} label="filterSelectedOptions" placeholder="Favorites" />;
-          }}
-        />
-      </Stack>
-    </div>
+    <Stack spacing={3} sx={{ width: '70%' }}>
+      <Autocomplete
+        multiple
+        id="tags-outlined"
+        options={matchedRecords}
+        getOptionLabel={(option) => {
+          return option;
+        }}
+        onChange={(e, values) => {
+          setSearchWords(values as string[]);
+          setChoosedWord(true);
+        }}
+        freeSolo
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        onInputChange={(e: any, value: string) => {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          if (value !== '') onInputChange(value);
+        }}
+        renderTags={(value: readonly string[], getTagProps) =>
+          value.map((option: string, index: number) => (
+            // eslint-disable-next-line react/jsx-key
+            <Chip variant="outlined" label={option} {...getTagProps({ index })} />
+          ))
+        }
+        renderInput={(params) => {
+          return <TextField {...params} label="search" />;
+        }}
+      />
+    </Stack>
   );
 }
 

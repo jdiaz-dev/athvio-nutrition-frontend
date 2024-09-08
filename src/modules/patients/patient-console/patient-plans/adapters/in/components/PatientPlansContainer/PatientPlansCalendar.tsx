@@ -116,7 +116,7 @@ function PatientPlansCalendar() {
         <ReloadRecordListContext.Provider value={{ reloadRecordList, setReloadRecordList }}>
           <CalendarStyled>
             <FullCalendar
-              plugins={[listPlugin, dayGridPlugin, timeGridPlugin, interactionPlugin]}
+              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
               // eventClick={handleEventClick}
               // dateClick={handleDateClick}
               headerToolbar={{

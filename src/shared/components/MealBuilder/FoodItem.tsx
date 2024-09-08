@@ -123,50 +123,46 @@ function FoodItem({ food }: { food: Food }) {
       {foodManager !== null && (
         <StyledTableRow key={foodManager.name}>
           <StyledTableCell style={{ padding: '3px', paddingLeft: '7px' }} align="right">
-            <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
-              <div style={{ border: '1px solid blue' }}>
-                <TextField
-                  inputProps={{ style: { fontSize: 'revert', height: '11px', width: '38px' } }}
-                  InputLabelProps={{ style: { fontSize: 'revert' } }}
-                  style={{ width: '100%' }}
-                  id="standard-number"
-                  size="small"
-                  variant="standard"
-                  type={'number'}
-                  value={foodManager.measure.amount}
-                  onChange={(e) => {
-                    setFoodManager({
-                      ...foodManager,
-                      measure: { ...foodManager.measure, amount: Number(e.target.value) },
-                    });
-                  }}
-                />
-              </div>
-              <div style={{ border: '1px solid blue' }}>
-                <FormControl sx={{ m: 1, maxWidth: 85 }} size="small" style={{ margin: 0 }} variant="standard">
-                  <InputLabel id="demo-customized-select-label">Measure</InputLabel>
-                  <Select
-                    labelId="demo-select-small-label"
-                    id="demo-select-small"
-                    value={measure !== null ? measure : ''}
-                    label="measure"
-                    style={{ width: '85px', border: '2px solid brown' }}
-                    input={<BootstrapInput componentsProps={{ input: { style: { padding: '50px' } } }} />}
-                    onChange={handleMeasureChange}
-                  >
-                    {foodManager.availableMeasures &&
-                      foodManager.availableMeasures.map((measure, index) => {
-                        const value = `${measure.label} ${measure.weightInGrams}`;
-                        return (
-                          <MenuItem key={index} value={value}>
-                            {measure.label === MeasureSizes.GRAM_LABEL ? measure.label : `${measure.label} (${measure.weightInGrams}g)`}
-                          </MenuItem>
-                        );
-                      })}
-                  </Select>
-                </FormControl>
-              </div>
-              <div style={{ border: '1px solid blue' }}>{foodManager.measure.weightInGrams}g</div>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <TextField
+                inputProps={{ style: { fontSize: 'revert', height: '25px' } }}
+                InputLabelProps={{ style: { fontSize: 'revert' } }}
+                style={{ width: '25%', marginTop: '8%' }}
+                id="standard-number"
+                size="small"
+                variant="standard"
+                type={'number'}
+                value={foodManager.measure.amount}
+                onChange={(e) => {
+                  setFoodManager({
+                    ...foodManager,
+                    measure: { ...foodManager.measure, amount: Number(e.target.value) },
+                  });
+                }}
+              />
+              <FormControl sx={{ m: 1, maxWidth: 85 }} size="small" style={{ margin: 0 }} variant="standard">
+                <InputLabel id="demo-customized-select-label">Measure</InputLabel>
+                <Select
+                  labelId="demo-select-small-label"
+                  id="demo-select-small"
+                  value={measure !== null ? measure : ''}
+                  label="measure"
+                  style={{ width: '85px' }}
+                  input={<BootstrapInput componentsProps={{ input: { style: { padding: '50px' } } }} />}
+                  onChange={handleMeasureChange}
+                >
+                  {foodManager.availableMeasures &&
+                    foodManager.availableMeasures.map((measure, index) => {
+                      const value = `${measure.label} ${measure.weightInGrams}`;
+                      return (
+                        <MenuItem key={index} value={value}>
+                          {measure.label === MeasureSizes.GRAM_LABEL ? measure.label : `${measure.label} (${measure.weightInGrams}g)`}
+                        </MenuItem>
+                      );
+                    })}
+                </Select>
+              </FormControl>
+              <div style={{ width: '20%' }}>{foodManager.measure.weightInGrams}g</div>
             </div>
           </StyledTableCell>
           <StyledTableCell style={{ padding: '4px' }} component="th" scope="row">

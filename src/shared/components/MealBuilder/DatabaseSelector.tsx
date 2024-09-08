@@ -20,7 +20,7 @@ function DatabaseSelector({
   };
 
   return (
-    <div>
+    <div style={{ width: '29%' }}>
       {data?.getFoodDatabases && (
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Database</InputLabel>

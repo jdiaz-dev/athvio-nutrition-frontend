@@ -70,7 +70,7 @@ const SignUpProfessionalForm = () => {
   }, []);
 
   if (isAuthenticated) {
-    return <Navigate replace to="/coach/patients" />;
+    return <Navigate replace to="/professional/patients" />;
   }
   return (
     <>

@@ -20,26 +20,26 @@ function IngredientList({ meal }: { meal: MealDataForBuilder }) {
   return (
     <>
       <FoddAddedContext.Provider value={{ foodAdded, setFoodAdded }}>
-        <TableContainer component={Paper}>
+        <TableContainer style={{marginBottom:'6px'}} component={Paper}>
           <Table sx={{ minWidth: 350 }} size="small" aria-label="customized table">
             <TableHead>
               <TableRow>
-                <StyledTableCell style={styleTableCell} width={'16%'}>
+                <StyledTableCell style={styleTableCell} align="left" width={'16%'}>
                   Amount
                 </StyledTableCell>
-                <StyledTableCell style={styleTableCell} align="right">
+                <StyledTableCell style={styleTableCell} align="left">
                   Food
                 </StyledTableCell>
-                <StyledTableCell style={styleTableCell} align="right">
+                <StyledTableCell style={styleTableCell} align="left">
                   Protein&nbsp;(g)
                 </StyledTableCell>
-                <StyledTableCell style={styleTableCell} align="right">
+                <StyledTableCell style={styleTableCell} align="left">
                   Carbs&nbsp;(g)
                 </StyledTableCell>
-                <StyledTableCell style={styleTableCell} align="right">
+                <StyledTableCell style={styleTableCell} align="left">
                   Fat&nbsp;(g)
                 </StyledTableCell>
-                <StyledTableCell style={styleTableCell} align="right">
+                <StyledTableCell style={styleTableCell} align="left">
                   Calories&nbsp;(kcal)
                 </StyledTableCell>
               </TableRow>
@@ -63,10 +63,10 @@ function IngredientList({ meal }: { meal: MealDataForBuilder }) {
                 <StyledTableRow>
                   <StyledTableCell align="right"></StyledTableCell>
                   <StyledTableCell align="right">Total</StyledTableCell>
-                  <StyledTableCell align="right">{meal.macros.protein}</StyledTableCell>
-                  <StyledTableCell align="right">{meal.macros.carbs}</StyledTableCell>
-                  <StyledTableCell align="right">{meal.macros.fat}</StyledTableCell>
-                  <StyledTableCell align="right">{meal.macros.calories}</StyledTableCell>
+                  <StyledTableCell align="left">{meal.macros.protein}</StyledTableCell>
+                  <StyledTableCell align="left">{meal.macros.carbs}</StyledTableCell>
+                  <StyledTableCell align="left">{meal.macros.fat}</StyledTableCell>
+                  <StyledTableCell align="left">{meal.macros.calories}</StyledTableCell>
                 </StyledTableRow>
               </TableBody>
             }
