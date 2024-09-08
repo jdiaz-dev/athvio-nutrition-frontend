@@ -43,7 +43,7 @@ export function useProgram() {
         },
       });
       if (response) {
-        console.log('----------------------respñonse',response);
+        console.log('----------------------respñonse', response);
         dispatch(ProgramSlice.resetProgramItem());
       }
     } catch (error) {
@@ -105,7 +105,10 @@ export function useProgram() {
           },
         },
       });
-      if (response) dispatch(ProgramSlice.resetProgramItem());
+      if (response.data) {
+        // dispatch(ProgramSlice.acceptNewProgram(response.data.updateProgram));
+        // dispatch(ProgramSlice.resetProgramItem());
+      }
       console.log(response);
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);

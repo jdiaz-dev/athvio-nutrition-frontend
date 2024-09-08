@@ -7,7 +7,7 @@ import { ThemeDirection } from 'src/shared/types/config';
 
 // ==============================|| CALENDAR - STYLED ||============================== //
 
-//todo: use styles in programs? 
+//todo: use styles in programs?
 const ExperimentalStyled = styled(Box)(({ theme }) => ({
   'width': '100%', //'calc(100% + 2px)',
   'marginLeft': -1,
@@ -62,6 +62,12 @@ const ExperimentalStyled = styled(Box)(({ theme }) => ({
     borderRadius: 4,
     backgroundColor: theme.palette.primary.main,
     border: 'none',
+    // height: '500px',
+  },
+
+  //here: custom height
+  '.css-uk8nkx-externalBox': {
+    height: 'auto',
   },
 
   '& .fc-h-event .fc-event-main': {

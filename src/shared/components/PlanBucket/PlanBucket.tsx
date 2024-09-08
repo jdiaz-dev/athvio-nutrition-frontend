@@ -19,7 +19,7 @@ function PlanBucket({ children, planDayInfo, handler }: { children: ReactNode; p
     <div style={{ width: '100%' }}>
       <div className={classes.numberMealsContainer}>
         <div style={{ width: '70%' }} onClick={handler}>
-          {planDayInfo.meals?.length} meals
+          {/* {planDayInfo.meals?.length} meals */}
         </div>
         <div style={{ width: '30%' }}>
           {children}

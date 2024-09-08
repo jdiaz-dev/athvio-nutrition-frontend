@@ -64,7 +64,7 @@ function ProgramPlansContainer() {
 
   let counterDay = 0;
   const { classes } = styles();
-  console.log('------------datesToShow', datesToShow);
+
   return (
     <>
       <CurrentModuleContext.Provider value={{ currentModule: Modules.PROGRAMS }}>

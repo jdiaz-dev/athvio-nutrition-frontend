@@ -1,7 +1,7 @@
 import { SignUpProfessionalModel } from 'src/modules/authentication/authentication/adapters/out/authentication.types';
 import { ChatInitialState } from 'src/modules/patients/patient-console/chat/adapters/out/chat';
 import { PatientInitialState } from 'src/modules/patients/patient-console/patient/adapters/out/patient';
-import { PatientPlanInitialState } from 'src/modules/patients/patient-plans/adapters/out/patientPlan.types';
+import { PatientPlanInitialState } from 'src/modules/patients/patient-console/patient-plans/adapters/out/patientPlan.types';
 import { AssignProgramInitialState } from 'src/modules/professionals/assign-program/out/AssignProgram.types';
 import { CustomRecipeInitialState } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 import { ProfessionalInitialState } from 'src/modules/professionals/professional/adapters/out/professional';
@@ -47,7 +47,7 @@ export type ReduxStates = {
   chat: ChatInitialState;
   patient: PatientInitialState;
   professional: ProfessionalInitialState;
-  questionaryConfig:QuestionaryConfigInitialState;
+  questionaryConfig: QuestionaryConfigInitialState;
 };
 
 export interface PlanDayInfo {

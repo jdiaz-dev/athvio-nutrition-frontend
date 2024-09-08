@@ -73,12 +73,7 @@ export interface UpdateProgramRequest {
 }
 
 export interface UpdateProgramResponse {
-  data: {
-    updateProgram: {
-      _id: string;
-      name: string;
-    };
-  };
+  updateProgram: ProgramBody;
 }
 
 export interface DeleteProgramRequest {

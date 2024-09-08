@@ -98,11 +98,4 @@ export type QuestionaryConfigInitialState = {
   questionaryDetails: QuestionaryDetail[];
   isEnabledQuestionaryDetails: IsEnabledQuestionaryDetails[];
   customQuestionaryDetails: QuestionaryDetailState[];
-
-  /* {
-    currentState: QuestionaryDetail[];
-    added: AddCustomQuestionaryDetail[];
-    updated: UpdateCustomQuestionaryDetailInput[];
-    deleted: string[];
-  }; */
 };

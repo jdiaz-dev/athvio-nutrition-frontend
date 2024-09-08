@@ -166,8 +166,6 @@ function CreateUpdateProgramDialog({
   );
 }
 
-export default CreateUpdateProgramDialog;
-
 const cardStyles = makeStyles()(() => {
   return {
     card: {
@@ -196,3 +194,5 @@ const cardStyles = makeStyles()(() => {
     },
   };
 });
+
+export default CreateUpdateProgramDialog;

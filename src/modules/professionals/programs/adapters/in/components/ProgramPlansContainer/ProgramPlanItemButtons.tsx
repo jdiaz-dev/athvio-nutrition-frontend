@@ -80,6 +80,7 @@ function ProgramPlanItemButtons({ planDay, planWeek, program }: { planDay: numbe
       {openPlanDetailDialog && planState._id.length > 0 ? (
         <PlanContext.Provider value={{ isFromRecentlyCreatedPlan: true }}>
           <PlanDetailDialog
+            planDay={planDay}
             openPlanDetailDialog={openPlanDetailDialog}
             setOpenPlanDetailDialog={setOpenPlanDetailDialog}
             domainOwnerId={program}
@@ -89,6 +90,7 @@ function ProgramPlanItemButtons({ planDay, planWeek, program }: { planDay: numbe
       ) : (
         openPlanDetailDialog && (
           <PlanDetailDialog
+            planDay={planDay}
             openPlanDetailDialog={openPlanDetailDialog}
             setOpenPlanDetailDialog={setOpenPlanDetailDialog}
             domainOwnerId={program}
