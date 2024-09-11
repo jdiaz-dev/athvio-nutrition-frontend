@@ -1,9 +1,8 @@
 import React, { ReactNode, useContext, useEffect, useState } from 'react';
-import { Button, Card, Dialog, DialogContent, DialogTitle, IconButton, TextField } from '@mui/material';
+import { Button, Card, Dialog, DialogContent, DialogTitle, TextField } from '@mui/material';
 
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { makeStyles } from 'tss-react/mui';
-import CloseIcon from '@mui/icons-material/Close';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -16,6 +15,7 @@ import * as ProgramSlice from 'src/modules/professionals/programs/adapters/in/sl
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 import SnackbarMesssage from 'src/shared/components/SnackbarMessage';
+import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 
 function CreateUpdateProgramDialog({
   openCreateUpdateProgramDialog,
@@ -32,7 +32,7 @@ function CreateUpdateProgramDialog({
   const reloadRecordListContext = useContext(ReloadRecordListContext);
 
   const { data: programState, error } = useSelector((state: ReduxStates) => state.programs.program);
-  const [closeIconDialog, setCloseIconDialog] = useState(true);
+  const [closedIconDialog, setClosedIconDialog] = useState(true);
 
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk } = useMessageDialog();
   const [createUpdateProgramStateUpdate, setCreateUpdateProgramStateUpdated] = useState(false);
@@ -69,11 +69,13 @@ function CreateUpdateProgramDialog({
         setMessage('Program updated successfully');
         setCreateUpdateProgramStateUpdated(false);
         reset();
+        setOpenCreateUpdateProgramDialog(false);
       } else {
         const { professional, name, description } = programState;
         await createProgram({ professional: authContext.professional, name, description });
         setMessage('Program created successfully');
         setCreateUpdateProgramStateUpdated(false);
+        setOpenCreateUpdateProgramDialog(false);
         // reset();//todo: manage reset properly
       }
       setOpenDialog(true);
@@ -94,6 +96,10 @@ function CreateUpdateProgramDialog({
     setCreateUpdateProgramStateUpdated(true);
   };
 
+  const closeIconDialogHandler = () => {
+    setOpenCreateUpdateProgramDialog(false);
+    setClosedIconDialog(false);
+  };
   return (
     <>
       <Dialog
@@ -109,22 +115,7 @@ function CreateUpdateProgramDialog({
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
           Create your program
-          {closeIconDialog ? (
-            <IconButton
-              aria-label="close"
-              onClick={() => {
-                setCloseIconDialog(false);
-              }}
-              sx={{
-                position: 'absolute',
-                right: 8,
-                top: 8,
-                color: (theme) => theme.palette.grey[500],
-              }}
-            >
-              <CloseIcon />
-            </IconButton>
-          ) : null}
+          <CloseDialogIcon closedIconDialog={closedIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
         </DialogTitle>
         <DialogContent dividers={true} style={{ minHeight: '900px' }}>
           <Card className={classes.card} variant="outlined">

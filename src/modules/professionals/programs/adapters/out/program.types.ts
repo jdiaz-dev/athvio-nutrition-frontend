@@ -30,13 +30,7 @@ export interface CreateProgramRequest {
 }
 
 export interface CreateProgramResponse {
-  data: {
-    createProgram: {
-      _id: string;
-      name: string;
-      description: string;
-    };
-  };
+  createProgram: ProgramBody;
 }
 
 export interface ProgramInput {

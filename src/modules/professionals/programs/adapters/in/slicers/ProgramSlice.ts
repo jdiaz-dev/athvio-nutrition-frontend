@@ -13,8 +13,21 @@ const programsSlice = createSlice({
       state = action.payload;
       return state;
     },
+    acceptCreatedProgram: (state, action: PayloadAction<ProgramBody>) => {
+      if (state) state.data.push(action.payload);
+      return state;
+    },
+    acceptUpdatedProgram: (state, action: PayloadAction<ProgramBody>) => {
+      if (state) {
+        const indexFound = state.data.findIndex((item) => item._id === action.payload._id);
+        state.data[indexFound] = action.payload;
+      }
+      return state;
+    },
   },
 });
+export const { acceptNewPrograms, acceptCreatedProgram, acceptUpdatedProgram } = programsSlice.actions;
+
 export const programError = createAction<string>('programError');
 export const programErrorCleaner = createAction('programErrorCleaner');
 
@@ -50,7 +63,6 @@ const programSlice = createSlice({
   },
 });
 
-export const { acceptNewPrograms } = programsSlice.actions;
 export const { acceptNewProgram, setNameAndDescription, resetProgramItem } = programSlice.actions;
 
 export default combineReducers({
