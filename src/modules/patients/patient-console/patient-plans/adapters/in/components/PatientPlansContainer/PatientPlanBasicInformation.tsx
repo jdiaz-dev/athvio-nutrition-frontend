@@ -57,6 +57,7 @@ function PatientPlanBasicInformation({ patient, plan }: { patient: string; plan:
         <CopyPatientPlan plan={plan._id as unknown as string} />
       </PlanBucket>
       {openPlanDetailDialog && (
+        /* todo: pass date or weekday as param */
         <PlanDetailDialog
           openPlanDetailDialog={openPlanDetailDialog}
           setOpenPlanDetailDialog={setOpenPlanDetailDialog}

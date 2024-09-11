@@ -72,9 +72,7 @@ export interface UpdatePatientPlanRequest {
 }
 
 export interface UpdatePatientPlanResponse {
-  data: {
-    updatePatientPlan: PatientPlanBody;
-  };
+  updatePatientPlan: PatientPlanBody;
 }
 export interface DeletePatientPlanInput {
   professional: string;

@@ -42,7 +42,7 @@ function PatientPlansCalendar() {
     limit: 30,
   };
 
-  const { handleOnStart, handleOnDrop, manageDragEffect } = assignmentDateHook(patientId as string, setReloadRecordList);
+  const { handleOnStart, handleOnDrop, manageDragEffect } = assignmentDateHook(patientId as string);
 
   useEffect(() => {
     const calendarEl = calendarRef.current;

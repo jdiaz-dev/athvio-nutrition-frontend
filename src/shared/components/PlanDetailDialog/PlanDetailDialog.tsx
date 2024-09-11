@@ -14,17 +14,17 @@ import { Modules } from 'src/shared/Consts';
 import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 
 const PlanDetailDialog = memo(function PlanDetailDialog({
-  planDay,
   openPlanDetailDialog,
   setOpenPlanDetailDialog,
   domainOwnerId,
   planOwnerId,
+  planDay,
 }: {
-  planDay: number;
   openPlanDetailDialog: boolean;
   setOpenPlanDetailDialog: (openPlanDetailDialog: boolean) => void;
   domainOwnerId: string;
   planOwnerId?: string;
+  planDay: number;
 }) {
   const reloadRecordListContext = useContext(ReloadRecordListContext);
 

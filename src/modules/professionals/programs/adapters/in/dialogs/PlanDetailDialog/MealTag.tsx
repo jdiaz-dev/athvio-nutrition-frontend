@@ -40,7 +40,13 @@ function MealTag({ mealTag, componentTouched }: { mealTag: string; componentTouc
             autoComplete="off"
             value={_mealTag}
             onChange={(e) => {
-              _setMealTag(e.target.value);
+              const word = e.target.value;
+              const firstLetter = word.charAt(0);
+              const firstLetterCap = firstLetter.toUpperCase();
+              const remainingLetters = word.slice(1);
+              const capitalizedWord = firstLetterCap + remainingLetters;
+
+              _setMealTag(capitalizedWord);
             }}
             onMouseLeave={() => {
               if (_mealTag.length === 0) _setMealTag(defaultMealTag);

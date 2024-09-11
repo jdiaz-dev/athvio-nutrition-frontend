@@ -12,6 +12,11 @@ const patientPlansSlice = createSlice({
       state = action.payload;
       return state;
     },
+    modififyingSpecificPatientPlan: (state, action: PayloadAction<PatientPlanBody>) => {
+      const patientPlanIndex = state.findIndex((item) => (item._id = action.payload._id));
+      state[patientPlanIndex] = action.payload;
+      return state;
+    },
   },
 });
 
@@ -43,7 +48,7 @@ const patientPlanSlice = createSlice({
   },
 });
 
-export const { acceptNewPatientPlans } = patientPlansSlice.actions;
+export const { acceptNewPatientPlans, modififyingSpecificPatientPlan } = patientPlansSlice.actions;
 export const { acceptNewPatientPlan, setNameAndDescription, duplicatingPatientPlan, resetPatientPlanItem } = patientPlanSlice.actions;
 
 export default combineReducers({

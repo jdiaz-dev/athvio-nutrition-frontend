@@ -10,6 +10,7 @@ import CreatePatientPlanButton from 'src/modules/patients/patient-console/patien
 // it is a function not  a component, therefore doesn't support hooks
 function PatientPlansHelper(arg: EventContentArg) {
   const { patient, patientPlanDayInfo, assignedDate } = arg.event.extendedProps as PatientPlanDateExtendedProps;
+
   if (patientPlanDayInfo._id === null) {
     return (
       <PlanWrapper>
@@ -21,7 +22,7 @@ function PatientPlansHelper(arg: EventContentArg) {
   } else {
     return (
       <PlanWrapper>
-        <PatientPlanBasicInformation patient={patient} plan={patientPlanDayInfo} />;
+        <PatientPlanBasicInformation patient={patient} plan={patientPlanDayInfo} />
       </PlanWrapper>
     );
   }

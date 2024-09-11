@@ -9,7 +9,7 @@ import { ReduxStates } from 'src/shared/types/types';
 export const assignmentWeekDayHook = (programId: string) => {
   const authContext = useContext(AuthContext);
   authContext;
-  const programState = useSelector((state: ReduxStates) => state.programs.program);
+  const { data: programState } = useSelector((state: ReduxStates) => state.programs.program);
   const { updatePlanAssignedWeekDay } = usePlan();
 
   const handleOnDrop = async (info: EventDropArg) => {

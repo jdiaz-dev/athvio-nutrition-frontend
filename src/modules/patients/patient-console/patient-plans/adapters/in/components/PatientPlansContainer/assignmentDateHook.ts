@@ -9,7 +9,7 @@ import { ReduxStates } from 'src/shared/types/types';
 import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
-export const assignmentDateHook = (patientId: string, setReloadRecordList: (val: boolean) => void) => {
+export const assignmentDateHook = (patientId: string) => {
   const authContext = useContext(AuthContext);
   authContext;
   const patientPlanState = useSelector((state: ReduxStates) => state.patientPlans.patientPlan);
@@ -40,7 +40,6 @@ export const assignmentDateHook = (patientId: string, setReloadRecordList: (val:
       patientPlan: patientPlanState._id,
       assignedDate: newMonthDay,
     });
-    setReloadRecordList(true);
   };
   const manageDragEffect = (e: EventInput) => {
     if ((e.extendedProps as PatientPlanDateExtendedProps).patientPlanDayInfo._id) {

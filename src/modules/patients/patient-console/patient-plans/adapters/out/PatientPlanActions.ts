@@ -102,8 +102,9 @@ export function usePatientPlan() {
           },
         },
       });
-      response;
-      // dispatch(PatientPlanSlice.acceptNewPatientPlan(response.data?.updateMeal.plans as unknown as Plan[]));
+      if (response.data) {
+        dispatch(PatientPlanSlice.modififyingSpecificPatientPlan(response.data?.updatePatientPlan));
+      }
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
