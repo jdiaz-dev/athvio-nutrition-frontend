@@ -70,6 +70,7 @@ function IngredientItem({ displayedIngredient: { name, amount, label, ...rest } 
             zIndex: displayOverlay ? 1 : -1,
             display: 'flex',
             justifyContent: 'end',
+            paddingRight: '4px',
           }}
           className={classes.overlay}
         >
@@ -77,6 +78,7 @@ function IngredientItem({ displayedIngredient: { name, amount, label, ...rest } 
             style={{
               marginTop: '0.6%',
               display: 'block',
+              cursor: 'pointer',
             }}
             onClick={deleteIngredientHandlder}
           />

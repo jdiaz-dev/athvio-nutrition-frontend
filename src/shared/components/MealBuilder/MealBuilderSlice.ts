@@ -10,7 +10,7 @@ import {
 import { IngredientType } from 'src/shared/Consts';
 
 const fixProblemWithDecimals = (num1: number, num2: number) => {
-  return (num1 * 100 + num2 * 100) / 100;
+  return parseFloat((num1 + num2).toFixed(2));
 };
 
 const recalculateGeneralMacros = (foodMacros: Macros, macrosToAdd: Macros): Macros => ({

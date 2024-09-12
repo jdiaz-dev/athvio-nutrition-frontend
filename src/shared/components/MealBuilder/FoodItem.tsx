@@ -181,10 +181,7 @@ function FoodItem({ food }: { food: Food }) {
             {foodManager.macros.calories}
           </StyledTableCell>
           <StyledTableCell align="right" width={'5%'} style={{ padding: '0px', paddingRight: '7px' }}>
-            <AddIcon
-              //  style={{ fontSize: '12px', height: '24px' }}
-              onClick={chooseIngredient}
-            />
+            <AddIcon style={{ cursor: 'pointer' }} onClick={chooseIngredient} />
           </StyledTableCell>
         </StyledTableRow>
       )}
