@@ -120,9 +120,7 @@ export function usePatientPlan() {
           },
         },
       });
-      console.log('---------response', response);
-      // getPatientPlans({ professional: body.professional, patient: body.patient });
-      if (response) dispatch(PatientPlanSlice.acceptNewPatientPlan(response.data?.duplicatePatientPlan as PatientPlanBody));
+      if (response.data) dispatch(PatientPlanSlice.acceptNewPatientPlan(response.data.duplicatePatientPlan));
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;

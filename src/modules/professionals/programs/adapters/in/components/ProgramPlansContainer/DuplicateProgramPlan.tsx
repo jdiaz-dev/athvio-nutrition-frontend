@@ -7,7 +7,7 @@ import { AuthContext } from 'src/modules/authentication/authentication/adapters/
 
 function DuplicateProgramPlan({ newWeek, newDay }: { newWeek: number; newDay: number }) {
   const authContext = useContext(AuthContext);
-  const programState = useSelector((state: ReduxStates) => state.programs.program);
+  const { data: programState } = useSelector((state: ReduxStates) => state.programs.program);
   const planState = useSelector((state: ReduxStates) => state.programs.plan);
 
   const { duplicateProgramPlan } = usePlan();
