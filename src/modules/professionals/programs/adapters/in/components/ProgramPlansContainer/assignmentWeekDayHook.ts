@@ -8,26 +8,40 @@ import { ReduxStates } from 'src/shared/types/types';
 
 export const assignmentWeekDayHook = (programId: string) => {
   const authContext = useContext(AuthContext);
-  authContext;
   const { data: programState } = useSelector((state: ReduxStates) => state.programs.program);
   const { updatePlanAssignedWeekDay } = usePlan();
 
-  const handleOnDrop = async (info: EventDropArg) => {
+  const getOnDropProgramDay = (info: EventDropArg) => {
+    const programDays: any[] = (info.event._context.options as any).events;
+
     const daysMoved = info.delta.days;
-    const indexPlan = programState.plans.findIndex(
-      (plan) => plan._id === (info.event.extendedProps as ProgramPlanDateExtendedProps).planDayInfo._id,
-    );
+    const dayExtendedProps = info.oldEvent.extendedProps as ProgramPlanDateExtendedProps;
+    const indexPlan = programState.plans.findIndex((plan) => plan._id === dayExtendedProps.planDayInfo._id);
+
+    const dayToDrop = programState.plans[indexPlan].day + daysMoved;
+    const programDay = programDays.filter((item) => item.extendedProps.planDay === dayToDrop);
     const { _id } = programState.plans[indexPlan];
 
-    const day = programState.plans[indexPlan].day + daysMoved;
+    return {
+      dayToDrop,
+      isProgramDayAssigned: programDay[0].extendedProps.planDayInfo._id ? true : false,
+      planId: _id,
+    };
+  };
+  const handleOnDrop = async (info: EventDropArg) => {
+    const { dayToDrop, isProgramDayAssigned, planId } = getOnDropProgramDay(info);
 
-    await updatePlanAssignedWeekDay({
-      professional: authContext.professional,
-      program: programId,
-      plan: _id,
-      day: day,
-      week: day % 7 ? Math.floor(day / 7) + 1 : Math.floor(day / 7),
-    });
+    if (isProgramDayAssigned) {
+      info.revert();
+    } else {
+      await updatePlanAssignedWeekDay({
+        professional: authContext.professional,
+        program: programId,
+        plan: planId,
+        day: dayToDrop,
+        week: dayToDrop % 7 ? Math.floor(dayToDrop / 7) + 1 : Math.floor(dayToDrop / 7),
+      });
+    }
   };
   const manageDragEffect = (e: EventInput) => {
     if ((e.extendedProps as ProgramPlanDateExtendedProps).planDayInfo._id) {
@@ -35,6 +49,7 @@ export const assignmentWeekDayHook = (programId: string) => {
     } else {
       e.editable = false;
     }
+
     return e;
   };
   return { handleOnDrop, manageDragEffect };
