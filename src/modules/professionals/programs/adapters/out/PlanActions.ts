@@ -77,8 +77,10 @@ export function usePlan() {
           },
         },
       });
-      dispatch(ProgramSlice.acceptNewProgram(response.data?.duplicateProgramPlan as ProgramBody));
-      // dispatch(PlanSlice.acceptNewPlans(response.data?.duplicateProgramPlan.plans as Plan[]));
+      if (response.data) {
+        dispatch(ProgramSlice.acceptNewProgram(response.data.duplicateProgramPlan as ProgramBody));
+        dispatch(PlanSlice.acceptNewPlans(response.data.duplicateProgramPlan.plans as Plan[]));
+      }
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
