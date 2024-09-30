@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 
 import { Paper, Table, TableContainer, TableHead, TableRow } from '@mui/material';
 import TableBody from '@mui/material/TableBody';
-import FoodList from 'src/shared/components/MealBuilder/FoodList';
 import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
 import { FoddAddedContext } from 'src/shared/components/MealBuilder/FoddAddedContext';
 import IngredientItem from 'src/shared/components/MealBuilder/IngredientItem';
@@ -20,7 +19,7 @@ function IngredientList({ meal }: { meal: MealDataForBuilder }) {
   return (
     <>
       <FoddAddedContext.Provider value={{ foodAdded, setFoodAdded }}>
-        <TableContainer style={{marginBottom:'6px'}} component={Paper}>
+        <TableContainer style={{ marginBottom: '6px' }} component={Paper}>
           <Table sx={{ minWidth: 350 }} size="small" aria-label="customized table">
             <TableHead>
               <TableRow>
@@ -72,7 +71,6 @@ function IngredientList({ meal }: { meal: MealDataForBuilder }) {
             }
           </Table>
         </TableContainer>
-        <FoodList />
       </FoddAddedContext.Provider>
     </>
   );

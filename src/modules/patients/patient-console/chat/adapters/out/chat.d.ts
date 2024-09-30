@@ -24,7 +24,7 @@ export type CommendAddedSubscriptionRequest = {
 };
 
 export type CommentAddedResponse = {
-  commentAddedByPatient: Omit<ChatBody, 'professional'>;
+  patientMessaged: Omit<ChatBody, 'professional'>;
 };
 
 export type GetChatInput = {

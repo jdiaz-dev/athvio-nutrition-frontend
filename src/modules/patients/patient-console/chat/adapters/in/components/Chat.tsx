@@ -128,7 +128,6 @@ export default function Chat() {
                   <ChatHistory theme={theme} />
                 </Grid>
                 <Grid item xs={12} sx={{ mt: 3, bgcolor: 'background.paper', borderTop: '1px solid', borderTopColor: 'divider' }}>
-                  {/* todo: enable it */}
                   <ChatMessageSend />
                 </Grid>
               </Grid>
