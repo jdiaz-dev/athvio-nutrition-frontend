@@ -2,6 +2,7 @@ import { ApolloError } from '@apollo/client';
 import { useDispatch } from 'react-redux';
 import { apolloClient } from 'src/graphql/ApolloClient';
 import * as PlanSlice from 'src/modules/professionals/programs/adapters/in/slicers/PlanSlice';
+import * as ProgramSlice from 'src/modules/professionals/programs/adapters/in/slicers/ProgramSlice';
 import {
   CreateMealBody,
   CreateMealResponse,
@@ -15,7 +16,7 @@ import {
 } from 'src/modules/professionals/programs/adapters/out/meal.types';
 import { CREATE_MEAL, DELETE_MEAL, UPDATE_MEAL } from 'src/modules/professionals/programs/adapters/out/MealQueries';
 
-import { Plan, ProgramBody } from 'src/modules/professionals/programs/adapters/out/program.types';
+import { Plan } from 'src/modules/professionals/programs/adapters/out/program.types';
 
 export function usePlanMeal() {
   const dispatch = useDispatch();
@@ -47,7 +48,10 @@ export function usePlanMeal() {
           },
         },
       });
-      dispatch(PlanSlice.acceptNewPlans(response.data?.updateMeal.plans as unknown as Plan[]));
+      if (response.data) {
+        dispatch(ProgramSlice.acceptNewProgram(response.data.updateMeal));
+        dispatch(PlanSlice.acceptNewPlans(response.data.updateMeal.plans as unknown as Plan[]));
+      }
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
