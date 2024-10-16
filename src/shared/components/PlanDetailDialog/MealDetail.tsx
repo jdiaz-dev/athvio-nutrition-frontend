@@ -20,6 +20,7 @@ import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
+import * as ProgramSlice from 'src/modules/professionals/programs/adapters/in/slicers/ProgramSlice';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -69,9 +70,9 @@ function MealDetail({
 
   const { createMeal, updateMeal, deleteMeal } = useMealDetailAdapter(currentModuleContext.currentModule);
   const [componentTouched, setComponentTouched] = useState(false);
+  const [mouseEntered, setMouseEntered] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-
   const handleAnchorOpen = (event: React.MouseEvent<HTMLButtonElement | HTMLOrSVGElement>) => {
     setAnchorEl(event.currentTarget as HTMLElement);
   };
@@ -81,7 +82,6 @@ function MealDetail({
   const componentClickedHandler = () => {
     dispatch(MealBasicInfoSlice.acceptNewMealBasicInfo({ position, mealTag, name }));
     dispatch(MealDetailsSlice.acceptNewMealDetail(mealDetails));
-    setComponentTouched(true);
   };
   const createUpdateMealHandler = async () => {
     const { _id, ...restMealDetail } = mealDetailsState;
@@ -125,8 +125,26 @@ function MealDetail({
       meal: mealDetailsState._id,
     });
   };
+  const componentTouchedHandler = () => {
+    if (!componentTouched) {
+      componentClickedHandler();
+      setComponentTouched(true);
+    }
+  };
+  const untouchedComponetHandler = () => {
+    if (componentTouched) void createUpdateMealHandler();
+    setComponentTouched(false);
+    setMouseEntered(false);
+  };
+  const mouseEnteredHandler = () => {
+    dispatch(ProgramSlice.acceptNewProgram({ _id: '', description: '', name: '', plans: [], professional: '', programTags: [] }));
 
-  const meal = () => (componentTouched ? mealDetailsState : mealDetails);
+    /* if (!mouseEntered) {
+      componentClickedHandler();
+      setMouseEntered(true);
+    } */
+  };
+  const meal = () => (componentTouched || mouseEntered ? mealDetailsState : mealDetails);
   return (
     <>
       <Card
@@ -134,15 +152,9 @@ function MealDetail({
         sx={{ minWidth: 275 }}
         className={classes.card}
         variant="outlined"
-        onClick={() => {
-          if (!componentTouched) {
-            componentClickedHandler();
-          }
-        }}
-        onMouseLeave={() => {
-          if (componentTouched) void createUpdateMealHandler();
-          setComponentTouched(false);
-        }}
+        onClick={componentTouchedHandler}
+        // onMouseEnter={mouseEnteredHandler}
+        onMouseLeave={untouchedComponetHandler}
       >
         <Grid container spacing={1}>
           <Grid item xs={11}>

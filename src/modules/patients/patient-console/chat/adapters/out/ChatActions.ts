@@ -9,7 +9,7 @@ import {
   SaveChatRequest,
   SaveChatResponse,
 } from 'src/modules/patients/patient-console/chat/adapters/out/chat.d';
-import { COMMENT_ADDED_SUBSCRIPTION, SAVE_CHAT_COMMENT } from 'src/modules/patients/patient-console/chat/adapters/out/ChatQueries';
+import { PATIENT_MESSAGED_SUBSCRIPTION, SAVE_CHAT_COMMENT } from 'src/modules/patients/patient-console/chat/adapters/out/ChatQueries';
 import * as ChatSlice from 'src/modules/patients/patient-console/chat/adapters/in/slicers/ChatSlice';
 
 export function useChat() {
@@ -32,17 +32,16 @@ export function useChat() {
   };
 
   const commentAddedSubscription = async (body: CommendAddedSubscriptionInput): Promise<void> => {
-    console.log('-----------body subs', body);
     try {
       const response = apolloClient
         .subscribe<CommentAddedResponse, CommendAddedSubscriptionRequest>({
-          query: COMMENT_ADDED_SUBSCRIPTION,
+          query: PATIENT_MESSAGED_SUBSCRIPTION,
           variables: {
             input: body,
           },
         })
         .subscribe(({ data, errors, extensions }) => {
-          if (data) dispatch(ChatSlice.newCommentReceived(data.commentAddedByPatient.comments[0]));
+          if (data) dispatch(ChatSlice.newCommentReceived(data.patientMessaged.comments[0]));
         });
 
       if (response) {

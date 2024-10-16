@@ -9,9 +9,9 @@ function MealTag({ mealTag, componentTouched }: { mealTag: string; componentTouc
   const [_mealTag, _setMealTag] = useState(mealTag);
   const [editMealTag, setEditMealTag] = useState(false);
 
-  useEffect(() => {
+  /* useEffect(() => {
     _setMealTag(mealTag);
-  }, [mealTag]);
+  }, [mealTag]); */
 
   useEffect(() => {
     const renameMealTagHelper = () => {

@@ -22,6 +22,9 @@ export const calendarConfigurationHook = (reloadRecordList: boolean) => {
   useEffect(() => {
     const weeksBasedOnPlans = programState.plans.length > 0 ? programState.plans[programState.plans.length - 1].week : baseWeek;
 
+    console.log('------------weeksBasedOnPlans', weeksBasedOnPlans);
+    console.log('------------programState.plans', programState.plans);
+
     const fullWeekTableWithDates = (): DateItem<ProgramPlanDateExtendedProps>[] => {
       let dateStart = dayjs(dateSet ? dateSet.dateStart : new Date());
       let dateItem: DateItem<ProgramPlanDateExtendedProps>;

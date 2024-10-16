@@ -54,6 +54,7 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
   const addMealPlanHandler = () => {
     setMeals(meals.concat([{ ...programInitialState.mealBasicInfo, ...programInitialState.mealDetails }]));
   };
+  console.log('-------------openPlanDetailDialog', openPlanDetailDialog);
   return (
     <>
       <Dialog
@@ -79,7 +80,6 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
             Add meal
           </Button>
         </DialogContent>
-        {/* <DialogActions></DialogActions> */}
       </Dialog>
     </>
   );

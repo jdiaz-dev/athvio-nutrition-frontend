@@ -15,7 +15,7 @@ function MealList({ meals, handler }: { meals: Meal[]; handler: () => void }) {
           ></ListItemText>
           <List style={{ padding: 0 }}>
             {meal.ingredientDetails.map((item, index2) => (
-              <ListItemText key={index2}/*  style={{ border: '1px solid red' }} */ secondary={item.ingredient?.name} />
+              <ListItemText key={index2} secondary={item.ingredient?.name} />
             ))}
           </List>
         </>

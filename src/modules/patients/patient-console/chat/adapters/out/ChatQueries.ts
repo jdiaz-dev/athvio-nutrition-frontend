@@ -29,9 +29,9 @@ export const SAVE_CHAT_COMMENT = gql`
   }
 `;
 
-export const COMMENT_ADDED_SUBSCRIPTION = gql`
-  subscription _commentAddedByPatient($input: SubscribeCommentAddedDto!) {
-    commentAddedByPatient(input: $input) {
+export const PATIENT_MESSAGED_SUBSCRIPTION = gql`
+  subscription _patientMessaged($input: SubscribePublishedMessageDto!) {
+    patientMessaged(input: $input) {
       _id
       patient
       comments {
