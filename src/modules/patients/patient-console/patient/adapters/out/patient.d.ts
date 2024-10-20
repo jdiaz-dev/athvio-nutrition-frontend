@@ -1,3 +1,5 @@
+import { PatientGroup } from "src/shared/types/types";
+
 export type PatientBody = {
   _id: string;
   user: {
