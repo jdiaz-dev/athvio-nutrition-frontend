@@ -65,13 +65,13 @@ function Program(program: ProgramBody) {
   return (
     <>
       <StyledTableRow key={program.name}>
-        <StyledTableCell align="right" onClick={() => setGoToProgramPlans(true)}>
+        <StyledTableCell width={'20%'} align="center" onClick={() => setGoToProgramPlans(true)}>
           {program.name}
         </StyledTableCell>
-        <StyledTableCell align="right" onClick={() => setGoToProgramPlans(true)}>
+        <StyledTableCell align="center" onClick={() => setGoToProgramPlans(true)}>
           {program.description}
         </StyledTableCell>
-        <StyledTableCell align="right">
+        <StyledTableCell align="center">
           <Chip
             style={chipStyle(program.plans.length)}
             label="Assign program"
@@ -81,7 +81,7 @@ function Program(program: ProgramBody) {
             }}
           />
         </StyledTableCell>
-        <StyledTableCell align="right">
+        <StyledTableCell width={'5%'} align="center">
           <Grid item xs={8}>
             <IconButton aria-label="Example" onClick={handleAnchorOpen}>
               <FontAwesomeIcon icon={faEllipsisV} size="xs" />

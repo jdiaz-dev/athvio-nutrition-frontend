@@ -19,18 +19,21 @@ function ProgramsContainer() {
   return (
     <>
       <ReloadRecordListContext.Provider value={{ reloadRecordList, setReloadRecordList }}>
-        <Stack spacing={2} direction="row" sx={{ width: '100%' }}>
-          <Button variant="contained" onClick={() => setOpenCreateUpdateProgramDialog(true)}>
-            Add program
-          </Button>
-        </Stack>
-        <ProgramList />
-        {openCreateUpdateProgramDialog && (
-          <CreateUpdateProgramDialog
-            openCreateUpdateProgramDialog={openCreateUpdateProgramDialog}
-            setOpenCreateUpdateProgramDialog={setOpenCreateUpdateProgramDialog}
-          />
-        )}
+        <div style={{ width: '90%', margin: '0 auto' }}>
+          <Stack spacing={2} direction="row" sx={{ width: '100%' }} style={{ marginTop: '15px' }}>
+            <div style={{ width: '80%', textAlign: 'left', height: '42px', lineHeight: '42px', fontWeight: 'bold' }}>Programs</div>
+            <Button style={{ width: '20%' }} variant="contained" onClick={() => setOpenCreateUpdateProgramDialog(true)}>
+              Create program
+            </Button>
+          </Stack>
+          <ProgramList />
+          {openCreateUpdateProgramDialog && (
+            <CreateUpdateProgramDialog
+              openCreateUpdateProgramDialog={openCreateUpdateProgramDialog}
+              setOpenCreateUpdateProgramDialog={setOpenCreateUpdateProgramDialog}
+            />
+          )}
+        </div>
       </ReloadRecordListContext.Provider>
     </>
   );

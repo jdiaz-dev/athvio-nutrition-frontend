@@ -82,13 +82,16 @@ function ProgramList() {
         setChoosedWord={setChoosedWord}
         setRecentlyTypedWord={setRecentlyTypedWord}
       />
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} style={{ marginTop: '15px' }}>
         <Table aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell width={'15%'}>Name </StyledTableCell>
-              <StyledTableCell align="right">Description</StyledTableCell>
-              <StyledTableCell align="right"></StyledTableCell>
+              <StyledTableCell width={'20%'} align="center">
+                Name{' '}
+              </StyledTableCell>
+              <StyledTableCell width={'55%'} align="center">Description</StyledTableCell>
+              <StyledTableCell align="center"></StyledTableCell>
+              <StyledTableCell width={'5%'} align="center"></StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>

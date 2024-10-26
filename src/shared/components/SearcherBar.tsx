@@ -32,7 +32,7 @@ function SearcherBar({
   }, []);
 
   return (
-    <Stack spacing={3} sx={{ width: '70%' }}>
+    <Stack spacing={3} sx={{ width: '100%' }} style={{ marginTop: '12px' }}>
       <Autocomplete
         multiple
         id="tags-outlined"

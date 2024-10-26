@@ -140,11 +140,11 @@ function NabBar() {
           >
             LOGO
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, width: '90%' }}>
             {navBarPages.map((page, index) => (
-              <ListItem key={index} disablePadding disableGutters>
+              <ListItem style={{ width: '14%', textAlign: 'center' }} key={index} disablePadding disableGutters>
                 <ListItemButton selected={false} component={Link} alignItems="center" to={page.url}>
-                  <ListItemText primary={page.page} />
+                  <ListItemText style={{ textAlign: 'center' }} primary={page.page} />
                 </ListItemButton>
               </ListItem>
             ))}
