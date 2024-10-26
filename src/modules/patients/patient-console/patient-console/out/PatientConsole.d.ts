@@ -24,6 +24,6 @@ export type GetPatientForConsoleRequest = {
 export type GetPatientForConsoleResponse = {
   getPatientPlans: PatientPlanBody[];
   getChat: ChatBody;
-  getPatient: PatientBody;
+  getPatientForWeb: PatientBody;
   getProfessional: ProfessionalBody;
 };

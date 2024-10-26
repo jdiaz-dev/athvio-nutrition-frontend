@@ -4,7 +4,7 @@ export const GET_PATIENT_FOR_CONSOLE = gql`
   query _getPatientForConsole(
     $patientPlans: GetPatientPlansDto!
     $chat: GetChatDto!
-    $patient: GetPatientDto!
+    $patient: GetPatientForWebDto!
     $professional: GetProfessionalDto!
   ) {
     getPatientPlans(patientPlans: $patientPlans) {
@@ -107,7 +107,7 @@ export const GET_PATIENT_FOR_CONSOLE = gql`
         createdAt
       }
     }
-    getPatient(patient: $patient) {
+    getPatientForWeb(patient: $patient) {
       _id
       user {
         _id

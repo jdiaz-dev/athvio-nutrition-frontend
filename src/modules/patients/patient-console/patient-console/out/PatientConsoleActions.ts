@@ -25,7 +25,7 @@ export function usePatientConsole() {
       if (response) {
         dispatch(PatientPlanSlice.acceptNewPatientPlans(response.data.getPatientPlans));
         dispatch(ChatSlice.acceptNewPatientChat(response.data.getChat));
-        dispatch(PatientSlice.acceptNewPatient(response.data.getPatient));
+        dispatch(PatientSlice.acceptNewPatient(response.data.getPatientForWeb));
         dispatch(ProfessionalSlice.acceptNewProfessional(response.data.getProfessional));
       }
     } catch (error) {
