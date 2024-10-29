@@ -23,6 +23,7 @@ import { calendarConfigurationHook } from 'src/modules/professionals/programs/ad
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 import { Box } from '@mui/system';
 import CalendarStyled from 'src/shared/components/CalendarStyled/CalendarStyled';
+import { EventSourceInput } from '@fullcalendar/core';
 
 dayjs.extend(utc);
 
@@ -77,7 +78,7 @@ function ProgramPlansContainer() {
                 // eventClick={handleEventClick}
                 // dateClick={handleDateClick}
                 headerToolbar={false}
-                events={datesToShow}
+                events={datesToShow as EventSourceInput}
                 editable={true} // enable draggable
                 datesSet={dateSetHelper}
                 eventContent={ProgramPlansHelper}
