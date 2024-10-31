@@ -14,11 +14,9 @@ import { AuthContext } from 'src/modules/authentication/authentication/adapters/
 
 //todo: check all the params 
 function ProgramPlan({ program, planDay, planDayInfo }: { program: string; planDay: number; planDayInfo: PlanDayInfo }) {
-  console.log(program, planDay, JSON.stringify(planDayInfo, null, 4))
   const authContext = useContext(AuthContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const [openPlanDetailDialog, setOpenPlanDetailDialog] = useState(false);
-  console.log(openPlanDetailDialog)
 
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk, alert, setAlert } = useMessageDialog();
 
@@ -42,7 +40,6 @@ function ProgramPlan({ program, planDay, planDayInfo }: { program: string; planD
 
     if (messageOk) void deletePlanHelper();
   }, [messageOk]);
-  console.log('--------------openPlanDetailDialog 2x', openPlanDetailDialog)
   return (
     <>
       <PlanBucket planDayInfo={planDayInfo} handler={() => setOpenPlanDetailDialog(true)}>
