@@ -82,7 +82,7 @@ function ProgramPlansContainer() {
                 editable={true} // enable draggable
                 datesSet={dateSetHelper}
                 eventContent={ProgramPlansHelper}
-                customRenderingReplacesEl={true}
+                customRenderingReplaces={true}
                 unselectAuto={false}
                 views={{
                   dayGridFourWeek: {
