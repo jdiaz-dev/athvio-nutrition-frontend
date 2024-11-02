@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import FullCalendar from '@fullcalendar/react'; // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
@@ -24,6 +24,7 @@ import { AuthContext } from 'src/modules/authentication/authentication/adapters/
 import { Box } from '@mui/system';
 import CalendarStyled from 'src/shared/components/CalendarStyled/CalendarStyled';
 import { EventSourceInput } from '@fullcalendar/core';
+import { PlanDialogContext, defaultPlanDay } from 'src/shared/context/PlanDialogContext';
 
 dayjs.extend(utc);
 
@@ -42,6 +43,7 @@ function ProgramPlansContainer() {
   const { getProgram } = useProgram();
 
   const { reloadRecordList, setReloadRecordList } = useReloadRecords();
+  const [planDay, setPlanDay] = useState<number>(defaultPlanDay);
 
   const { handleOnDrop, manageDragEffect } = assignmentWeekDayHook(programId as string);
   const { dateSetHelper, setWeekAction, datesToShow, totalWeeks, maxWeekWithPlans, contentHeight } =
@@ -70,30 +72,31 @@ function ProgramPlansContainer() {
     <>
       <CurrentModuleContext.Provider value={{ currentModule: Modules.PROGRAMS }}>
         <ReloadRecordListContext.Provider value={{ reloadRecordList, setReloadRecordList }}>
-          <Box sx={{ width: '96%', margin: '0 auto', marginTop: '2.4%' }}>
-            <CalendarStyled>
-              <FullCalendar
-                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
-                initialView="dayGridFourWeek"
-                // eventClick={handleEventClick}
-                // dateClick={handleDateClick}
-                headerToolbar={false}
-                events={datesToShow as EventSourceInput}
-                editable={true} // enable draggable
-                datesSet={dateSetHelper}
-                eventContent={ProgramPlansHelper}
-                customRenderingReplaces={true}
-                unselectAuto={false}
-                views={{
-                  dayGridFourWeek: {
-                    type: 'dayGrid',
-                    duration: { weeks: totalWeeks, specifiedWeeks: true },
-                    listDayFormat: { weekday: 'long' },
-                  },
-                }}
-                // dragScroll={true}
-                dayHeaders={false} // hide day headers
-                /* dayHeaderContent={(args) => {
+          <PlanDialogContext.Provider value={{ planDay, setPlanDay }}>
+            <Box sx={{ width: '96%', margin: '0 auto', marginTop: '2.4%' }}>
+              <CalendarStyled>
+                <FullCalendar
+                  plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
+                  initialView="dayGridFourWeek"
+                  // eventClick={handleEventClick}
+                  // dateClick={handleDateClick}
+                  headerToolbar={false}
+                  events={datesToShow as EventSourceInput}
+                  editable={true} // enable draggable
+                  datesSet={dateSetHelper}
+                  eventContent={ProgramPlansHelper}
+                  customRenderingReplaces={true}
+                  unselectAuto={false}
+                  views={{
+                    dayGridFourWeek: {
+                      type: 'dayGrid',
+                      duration: { weeks: totalWeeks, specifiedWeeks: true },
+                      listDayFormat: { weekday: 'long' },
+                    },
+                  }}
+                  // dragScroll={true}
+                  dayHeaders={false} // hide day headers
+                  /* dayHeaderContent={(args) => {
                 if (args.text === 'Sun') {
                   return <div>Day1</div>;
                 } else if (args.text === 'Mon') {
@@ -111,30 +114,31 @@ function ProgramPlansContainer() {
                 }
                 }} */
 
-                dayCellContent={() => {
-                  counterDay++;
-                  return <div>Day {counterDay}</div>;
-                }}
-                contentHeight={contentHeight}
-                height={'auto'} //allowed me to void have overflow: scroll
-                initialDate={'1999-01-01'} //to void focus in day
-                titleFormat={{
-                  weekday: undefined,
-                }}
-                eventDrop={handleOnDrop}
-                eventDataTransform={manageDragEffect}
-                progressiveEventRendering={true}
-              />
-            </CalendarStyled>
-          </Box>
-          <Button className={classes.button} variant="contained" onClick={() => setWeekAction(WeekActions.ADD)}>
-            Add week
-          </Button>
-          {maxWeekWithPlans < totalWeeks && (
-            <Button className={classes.button} variant="contained" onClick={() => setWeekAction(WeekActions.REMOVE)}>
-              Remove week
+                  dayCellContent={() => {
+                    counterDay++;
+                    return <div>Day {counterDay}</div>;
+                  }}
+                  contentHeight={contentHeight}
+                  height={'auto'} //allowed me to void have overflow: scroll
+                  initialDate={'1999-01-01'} //to void focus in day
+                  titleFormat={{
+                    weekday: undefined,
+                  }}
+                  eventDrop={handleOnDrop}
+                  eventDataTransform={manageDragEffect}
+                  progressiveEventRendering={true}
+                />
+              </CalendarStyled>
+            </Box>
+            <Button className={classes.button} variant="contained" onClick={() => setWeekAction(WeekActions.ADD)}>
+              Add week
             </Button>
-          )}
+            {maxWeekWithPlans < totalWeeks && (
+              <Button className={classes.button} variant="contained" onClick={() => setWeekAction(WeekActions.REMOVE)}>
+                Remove week
+              </Button>
+            )}
+          </PlanDialogContext.Provider>
         </ReloadRecordListContext.Provider>
       </CurrentModuleContext.Provider>
     </>

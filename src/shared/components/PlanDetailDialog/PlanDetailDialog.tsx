@@ -12,6 +12,7 @@ import MealDetail from 'src/shared/components/PlanDetailDialog/MealDetail';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import { Modules } from 'src/shared/Consts';
 import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
+import { PlanDialogContext, defaultPlanDay } from 'src/shared/context/PlanDialogContext';
 
 const PlanDetailDialog = memo(function PlanDetailDialog({
   openPlanDetailDialog,
@@ -26,6 +27,7 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
   planOwnerId?: string;
   planDay: number;
 }) {
+  const planDialogContext = useContext(PlanDialogContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
 
   const currentModuleContext = useContext(CurrentModuleContext);
@@ -50,17 +52,19 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
   const closeIconDialogHandler = () => {
     reloadRecordListContext.setReloadRecordList(true);
     setOpenPlanDetailDialog(false);
+    planDialogContext.setPlanDay(defaultPlanDay);
   };
   const addMealPlanHandler = () => {
     setMeals(meals.concat([{ ...programInitialState.mealBasicInfo, ...programInitialState.mealDetails }]));
   };
-  console.log('-------------openPlanDetailDialog', openPlanDetailDialog);
+
   return (
     <>
       <Dialog
         open={openPlanDetailDialog}
         onClose={() => {
           setOpenPlanDetailDialog(false);
+          planDialogContext.setPlanDay(defaultPlanDay);
         }}
         maxWidth="md"
         fullWidth={true}
@@ -74,7 +78,7 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
         <DialogContent>
           {domainOwnerId &&
             meals.map((meal, index) => (
-              <MealDetail key={index} domainOwnerId={domainOwnerId} planOwnerId={planOwnerId as string} meal={meal} />
+              <MealDetail key={index} domainOwnerId={domainOwnerId} planOwnerId={planOwnerId as string} meal={meal} planDay={planDay} />
             ))}
           <Button variant="contained" onClick={() => addMealPlanHandler()}>
             Add meal

@@ -11,12 +11,14 @@ import CustomTrashIcon from 'src/shared/components/Icons/CustomTrashIcon';
 import PlanBucket from 'src/shared/components/PlanBucket/PlanBucket';
 import CopyProgramPlan from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/CopyProgramPlan';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { PlanDialogContext } from 'src/shared/context/PlanDialogContext';
 
-//todo: check all the params 
+//todo: check all the params
 function ProgramPlan({ program, planDay, planDayInfo }: { program: string; planDay: number; planDayInfo: PlanDayInfo }) {
   const authContext = useContext(AuthContext);
+  const planDialogContext = useContext(PlanDialogContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
-  const [openPlanDetailDialog, setOpenPlanDetailDialog] = useState(false);
+  const [openPlanDetailDialog, setOpenPlanDetailDialog] = useState(planDialogContext.planDay === planDay ? true : false);
 
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk, alert, setAlert } = useMessageDialog();
 

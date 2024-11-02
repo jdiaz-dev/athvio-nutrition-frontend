@@ -21,6 +21,7 @@ import { AuthContext } from 'src/modules/authentication/authentication/adapters/
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import * as ProgramSlice from 'src/modules/professionals/programs/adapters/in/slicers/ProgramSlice';
+import { PlanDialogContext } from 'src/shared/context/PlanDialogContext';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -48,13 +49,16 @@ function MealDetail({
   domainOwnerId,
   planOwnerId,
   meal: { position, mealTag, name, ...mealDetails },
+  planDay,
 }: {
   domainOwnerId: string;
   planOwnerId: string;
   meal: Meal;
+  planDay: number;
 }) {
   const { classes } = cardStyles();
   const authContext = useContext(AuthContext);
+  const planDialogContext = useContext(PlanDialogContext);
   const currentModuleContext = useContext(CurrentModuleContext);
   const planContext = useContext(PlanContext);
   const mealBasicInfoState =
@@ -113,6 +117,7 @@ function MealDetail({
           ...restMealDetail,
         },
       });
+      planDialogContext.setPlanDay(planDay);
     }
   };
   const deleteMealHandler = async () => {
