@@ -49,11 +49,10 @@ export function usePlanMeal() {
         },
       });
       if (response.data) {
-
         dispatch(PlanSlice.acceptNewPlans(response.data.updateMeal.plans as unknown as Plan[]));
-        
+
         //todo: delete this
-        // dispatch(ProgramSlice.acceptNewProgram(response.data.updateMeal));
+        dispatch(ProgramSlice.acceptNewProgram(response.data.updateMeal));
       }
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
