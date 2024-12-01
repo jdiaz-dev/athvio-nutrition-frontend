@@ -101,6 +101,11 @@ const ExperimentalStyled = styled(Box)(({ theme }) => ({
     backgroundColor: theme.palette.grey[100],
   },
 
+  //to remove the background color of the current day
+  '.fc-day-today': {
+    backgroundColor: 'transparent !important' /* Remove background highlight */,
+    fontWeight: 'normal !important' /* Remove bold text */,
+  },
   '& .fc .fc-day': {
     cursor: 'pointer',
   },
