@@ -2,6 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { InvalidCountries, REST_COUNTRIES_URL } from 'src/shared/Consts';
 import { CountryList } from 'src/shared/types/types';
+import { makeStyles } from 'tss-react/mui';
+
+const cardStyles = makeStyles()(() => {
+  return {
+    container: {
+      width: '100%',
+      margin: '0px auto',
+      marginTop: '15px',
+    },
+  };
+});
 
 function CountryCodeSelect({
   countryCode,
@@ -68,10 +79,12 @@ function CountryCodeSelect({
     setCountryCode(countryCode);
     setCountryName(countryName);
   };
+
+  const { classes } = cardStyles();
   return (
-    <div>
+    <div className={classes.container}>
       {countries[0] && (
-        <Box sx={{ minWidth: 120 }}>
+        <Box>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Country</InputLabel>
             <Select

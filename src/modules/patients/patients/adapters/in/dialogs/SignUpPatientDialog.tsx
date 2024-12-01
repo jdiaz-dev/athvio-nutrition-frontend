@@ -37,22 +37,25 @@ const cardStyles = makeStyles()(() => {
       padding: '0px',
     },
     form: {
-      width: '100%',
+      width: '90%',
+      margin: '0 auto',
+    },
+    accordion: {
+      marginTop: '10px',
     },
     textField: {
-      width: '90%',
+      width: '100%',
+      margin: '0px auto',
       marginTop: '15px',
     },
     button: {
-      'backgroundColor': 'blue',
-      'width': '90%',
-      'color': 'white',
-      'height': '45px',
-      'marginTop': '15px',
-      'marginBottom': '15px',
-      '&:hover': {
+      width: '100%',
+      height: '45px',
+      marginTop: '15px',
+      marginBottom: '15px',
+      /* '&:hover': {
         backgroundColor: 'blue',
-      },
+      }, */
     },
   };
 });
@@ -205,7 +208,7 @@ function SignUpPatientDialog({
                 })()}
               />
 
-              <div>
+              <div className={classes.accordion}>
                 <Accordion expanded={panelExpanded === 'panel1'} onChange={handleChangeAditionalInfo('panel1')}>
                   <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
                     <Typography>Add aditional details</Typography>
@@ -248,7 +251,14 @@ function SignUpPatientDialog({
                       helperText={errors.weight?.message as ReactNode}
                     />
                     <div>
-                      <ToggleButtonGroup color="primary" value={gender} exclusive onChange={handleChangeGender} aria-label="Platform">
+                      <ToggleButtonGroup
+                        className={classes.textField}
+                        color="primary"
+                        value={gender}
+                        exclusive
+                        onChange={handleChangeGender}
+                        aria-label="Platform"
+                      >
                         <ToggleButton value="male">Male</ToggleButton>
                         <ToggleButton value="female">Female</ToggleButton>
                         <ToggleButton value="prefer not to say">Prefer not to say</ToggleButton>
@@ -256,7 +266,7 @@ function SignUpPatientDialog({
                     </div>
 
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DatePicker value={birthday} onChange={(newValue) => setBirthday(newValue)} />
+                      <DatePicker className={classes.textField} value={birthday} onChange={(newValue) => setBirthday(newValue)} />
                     </LocalizationProvider>
 
                     <CountryCodeSelect countryCode={countryCode} setCountryCode={setCountryCode} setCountryName={setCountryName} />
@@ -274,7 +284,7 @@ function SignUpPatientDialog({
                 </Accordion>
               </div>
 
-              <Button className={classes.button} size="small" type="submit">
+              <Button className={classes.button} variant="contained" type="submit">
                 Add patient
               </Button>
             </form>
@@ -286,4 +296,4 @@ function SignUpPatientDialog({
   );
 }
 
-export default SignUpPatientDialog
+export default SignUpPatientDialog;
