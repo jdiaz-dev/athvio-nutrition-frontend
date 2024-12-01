@@ -2,8 +2,6 @@ import React, { ReactNode, useContext, useEffect, useState } from 'react';
 import { Button, Card, Dialog, DialogContent, DialogTitle, TextField } from '@mui/material';
 
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { makeStyles } from 'tss-react/mui';
-
 import { useDispatch, useSelector } from 'react-redux';
 
 import MessageDialog from 'src/shared/dialogs/MessageDialog';
@@ -16,6 +14,7 @@ import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 import SnackbarMesssage from 'src/shared/components/SnackbarMessage';
 import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
+import { formStyles } from 'src/shared/styles/styles';
 
 function CreateUpdateProgramDialog({
   openCreateUpdateProgramDialog,
@@ -27,7 +26,7 @@ function CreateUpdateProgramDialog({
   _program?: ProgramBody;
 }) {
   const dispatch = useDispatch();
-  const { classes } = cardStyles();
+  const { classes } = formStyles();
   const authContext = useContext(AuthContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
 
@@ -109,7 +108,7 @@ function CreateUpdateProgramDialog({
         }}
         scroll="paper"
         fullWidth={true}
-        maxWidth="md"
+        maxWidth="sm"
         aria-labelledby="dialog-title"
         aria-describedby="dialog-description"
       >
@@ -117,11 +116,11 @@ function CreateUpdateProgramDialog({
           Create your program
           <CloseDialogIcon closedIconDialog={closedIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
         </DialogTitle>
-        <DialogContent dividers={true} style={{ minHeight: '900px' }}>
+        <DialogContent dividers={true}>
           <Card className={classes.card} variant="outlined">
             <form className={classes.form} onSubmit={handleSubmit(onSubmitProgram as any as SubmitHandler<FieldValues>)}>
               <TextField
-                fullWidth
+                className={classes.textField}
                 id="outlined-basic"
                 variant="outlined"
                 label="Name"
@@ -135,14 +134,14 @@ function CreateUpdateProgramDialog({
               />
 
               <TextField
-                fullWidth
+                className={classes.textField}
                 id="fullWidth"
                 label="Description"
                 defaultValue={programState.description}
                 {...register('description', { required: false })}
               />
 
-              <Button variant="contained" type="submit">
+              <Button className={classes.button} variant="contained" type="submit">
                 Save
               </Button>
             </form>
@@ -156,34 +155,5 @@ function CreateUpdateProgramDialog({
     </>
   );
 }
-
-const cardStyles = makeStyles()(() => {
-  return {
-    card: {
-      minWidth: 275,
-      width: '70%',
-      margin: '0px auto',
-      padding: '0px',
-    },
-    form: {
-      width: '100%',
-    },
-    textField: {
-      width: '90%',
-      marginTop: '15px',
-    },
-    button: {
-      'backgroundColor': 'blue',
-      'width': '90%',
-      'color': 'white',
-      'height': '45px',
-      'marginTop': '15px',
-      'marginBottom': '15px',
-      '&:hover': {
-        backgroundColor: 'blue',
-      },
-    },
-  };
-});
 
 export default CreateUpdateProgramDialog;

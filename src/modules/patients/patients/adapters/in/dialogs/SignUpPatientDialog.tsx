@@ -1,5 +1,5 @@
 import React, { ReactNode, useContext, useState } from 'react';
-import { Button, Card, Dialog, DialogContent, TextField } from '@mui/material';
+import { Button, Card, Dialog, DialogContent, DialogTitle, TextField } from '@mui/material';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -27,38 +27,8 @@ import { Accordion, AccordionDetails, AccordionSummary } from 'src/shared/compon
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
-
-const cardStyles = makeStyles()(() => {
-  return {
-    card: {
-      minWidth: 275,
-      width: '70%',
-      margin: '0px auto',
-      padding: '0px',
-    },
-    form: {
-      width: '90%',
-      margin: '0 auto',
-    },
-    accordion: {
-      marginTop: '10px',
-    },
-    textField: {
-      width: '100%',
-      margin: '0px auto',
-      marginTop: '15px',
-    },
-    button: {
-      width: '100%',
-      height: '45px',
-      marginTop: '15px',
-      marginBottom: '15px',
-      /* '&:hover': {
-        backgroundColor: 'blue',
-      }, */
-    },
-  };
-});
+import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
+import { formStyles } from 'src/shared/styles/styles';
 
 function SignUpPatientDialog({
   openCreatePatientDialog,
@@ -67,7 +37,7 @@ function SignUpPatientDialog({
   openCreatePatientDialog: boolean;
   setOpenCreatePatientDialog: (openDialog: boolean) => void;
 }) {
-  const { classes } = cardStyles();
+  const { classes } = formStyles();
   const {
     register,
     handleSubmit,
@@ -86,6 +56,7 @@ function SignUpPatientDialog({
   const [birthday, setBirthday] = React.useState<Dayjs | null | string>(null);
   const [gender, setGender] = useState<string>('');
   const [userInfo, setUserInfo] = useState<UserInfoForPatient>({ email: '', firstname: '', lastname: '' });
+  const [closedIconDialog, setClosedIconDialog] = useState(true);
 
   const handleChangeAditionalInfo = (panel: string) => (event: React.SyntheticEvent, newPanelExpanded: boolean) => {
     setPanelExpanded(newPanelExpanded ? panel : false);
@@ -148,6 +119,10 @@ function SignUpPatientDialog({
     }
   };
 
+  const closeIconDialogHandler = () => {
+    setOpenCreatePatientDialog(false);
+  };
+
   return (
     <>
       <Dialog
@@ -155,10 +130,14 @@ function SignUpPatientDialog({
         onClose={() => setOpenCreatePatientDialog(false)}
         scroll="paper"
         fullWidth={true}
-        maxWidth="md"
+        maxWidth="sm"
         aria-labelledby="dialog-title"
         aria-describedby="dialog-description"
       >
+        <DialogTitle sx={{ m: 0, p: 2 }}>
+          Add patient
+          <CloseDialogIcon closedIconDialog={closedIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
+        </DialogTitle>
         <DialogContent dividers={true}>
           <Card className={classes.card} variant="outlined">
             <form className={classes.form} onSubmit={handleSubmit(onSubmit as unknown as SubmitHandler<FieldValues>)}>

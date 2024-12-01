@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Card, Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
-import { makeStyles } from 'tss-react/mui';
+import { Card, Dialog, DialogContent, DialogTitle } from '@mui/material';
 
-import NutrientsDetail from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/NutrientsDetail';
 import * as CustomRecipeDetailsSlice from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeDetailsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCustomRecipe } from 'src/modules/professionals/custom-recipes/adapters/out/CustomRecipeActions';
@@ -17,35 +15,7 @@ import * as CustomRecipeBasicInfoSlice from 'src/modules/professionals/custom-re
 import { defaultRecipeName } from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeInitialState';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
-
-const cardStyles = makeStyles()(() => {
-  return {
-    card: {
-      minWidth: 275,
-      width: '70%',
-      margin: '0px auto',
-      padding: '0px',
-    },
-    form: {
-      width: '100%',
-    },
-    textField: {
-      width: '90%',
-      marginTop: '15px',
-    },
-    button: {
-      'backgroundColor': 'blue',
-      'width': '90%',
-      'color': 'white',
-      'height': '45px',
-      'marginTop': '15px',
-      'marginBottom': '15px',
-      '&:hover': {
-        backgroundColor: 'blue',
-      },
-    },
-  };
-});
+import { formStyles } from 'src/shared/styles/styles';
 
 function CreateUpdateCustomRecipeDialog({
   openCreateUpdateCustomRecipeDialog,
@@ -58,7 +28,7 @@ function CreateUpdateCustomRecipeDialog({
 }) {
   const authContext = useContext(AuthContext);
 
-  const { classes } = cardStyles();
+  const { classes } = formStyles();
   const dispatch = useDispatch();
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const customRecipeDetailsState = useSelector((state: ReduxStates) => state.customRecipes.customRecipeDetails);
@@ -122,7 +92,7 @@ function CreateUpdateCustomRecipeDialog({
         }}
         scroll="paper"
         fullWidth={true}
-        maxWidth="xl"
+        maxWidth="sm"
         aria-labelledby="dialog-title"
         aria-describedby="dialog-description"
       >
@@ -130,14 +100,10 @@ function CreateUpdateCustomRecipeDialog({
           Create your custom recipe
           <CloseDialogIcon closedIconDialog={closedIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
         </DialogTitle>
-        <DialogContent
-          dividers={true}
-          style={{ minHeight: '900px', display: 'flex', justifyContent: 'space-between', border: '2px solid brown' }}
-        >
+        <DialogContent dividers={true} style={{ minHeight: '900px', display: 'flex', justifyContent: 'space-between' }}>
           <Card
-            style={{ width: '55%' }}
-            sx={{ minWidth: 275 }}
             className={classes.card}
+            style={{ padding: '20px' }}
             variant="outlined"
             onClick={() => {
               if (!componentTouched) {
@@ -150,7 +116,7 @@ function CreateUpdateCustomRecipeDialog({
               <MealBuilder meal={{ _id, ...restCustomRecipe }} />
             </CurrentModuleContext.Provider>
           </Card>
-          <NutrientsDetail />
+          {/* <NutrientsDetail /> */}
         </DialogContent>
       </Dialog>
     </>

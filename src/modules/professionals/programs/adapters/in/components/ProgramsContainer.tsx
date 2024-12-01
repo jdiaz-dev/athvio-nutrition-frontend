@@ -1,4 +1,3 @@
-// eslint-disable-next-line max-len
 import React, { useEffect, useState } from 'react';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { useReloadRecords } from 'src/shared/hooks/useReloadRecords';
