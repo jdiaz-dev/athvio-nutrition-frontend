@@ -28,7 +28,7 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
   planDay: number;
 }) {
   const planDialogContext = useContext(PlanDialogContext);
-  // const reloadRecordListContext = useContext(ReloadRecordListContext);
+  const reloadRecordListContext = useContext(ReloadRecordListContext);
 
   const currentModuleContext = useContext(CurrentModuleContext);
   const planState =
@@ -44,13 +44,13 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
 
   useEffect(() => {
     if (!closedIconDialog) {
-      // reloadRecordListContext.setReloadRecordList(true);
+      reloadRecordListContext.setReloadRecordList(true);
       setOpenPlanDetailDialog(false);
     }
   }, [closedIconDialog]);
 
   const closeIconDialogHandler = () => {
-    // reloadRecordListContext.setReloadRecordList(true);
+    reloadRecordListContext.setReloadRecordList(true);
     setOpenPlanDetailDialog(false);
     planDialogContext.setPlanDay(defaultPlanDay);
   };
