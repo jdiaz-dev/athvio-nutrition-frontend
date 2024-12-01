@@ -90,7 +90,7 @@ function CreateUpdateCustomRecipeDialog({
           setOpenCreateUpdateCustomRecipeDialog(false);
           dispatch(CustomRecipeDetailsSlice.reinitializeMeal());
         }}
-        scroll="paper"
+        scroll="body"
         fullWidth={true}
         maxWidth="sm"
         aria-labelledby="dialog-title"
@@ -100,7 +100,7 @@ function CreateUpdateCustomRecipeDialog({
           Create your custom recipe
           <CloseDialogIcon closedIconDialog={closedIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
         </DialogTitle>
-        <DialogContent dividers={true} style={{ minHeight: '900px', display: 'flex', justifyContent: 'space-between' }}>
+        <DialogContent dividers={true} style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Card
             className={classes.card}
             style={{ padding: '20px' }}

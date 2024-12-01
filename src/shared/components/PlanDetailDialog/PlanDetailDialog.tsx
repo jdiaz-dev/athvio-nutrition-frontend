@@ -66,6 +66,7 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
           setOpenPlanDetailDialog(false);
           planDialogContext.setPlanDay(defaultPlanDay);
         }}
+        scroll='body'
         maxWidth="md"
         fullWidth={true}
         aria-labelledby="alert-dialog-title"

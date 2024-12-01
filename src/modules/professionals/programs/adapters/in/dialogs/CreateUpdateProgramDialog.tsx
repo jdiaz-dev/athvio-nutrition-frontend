@@ -106,7 +106,7 @@ function CreateUpdateProgramDialog({
         onClose={() => {
           setOpenCreateUpdateProgramDialog(false);
         }}
-        scroll="paper"
+        scroll="body"
         fullWidth={true}
         maxWidth="sm"
         aria-labelledby="dialog-title"

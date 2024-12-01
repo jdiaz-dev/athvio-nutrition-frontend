@@ -128,7 +128,7 @@ function SignUpPatientDialog({
       <Dialog
         open={openCreatePatientDialog}
         onClose={() => setOpenCreatePatientDialog(false)}
-        scroll="paper"
+        scroll="body"
         fullWidth={true}
         maxWidth="sm"
         aria-labelledby="dialog-title"
