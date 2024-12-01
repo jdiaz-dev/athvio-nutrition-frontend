@@ -38,7 +38,7 @@ function QuestionaryDetailsDialog({
         onClose={() => {
           setOpenQuestionaryGroupDialog(false);
         }}
-        scroll="paper"
+        scroll="body"
         fullWidth={true}
         maxWidth="md"
         aria-labelledby="dialog-title"
