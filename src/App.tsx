@@ -105,6 +105,11 @@ export default App;
 */
 
 /* 
-  stayed
-    check default path
+  - implement addProgramPlan and mealCrud in PlanDetailDialog component (1 day)
+  - implements meals array slice as store (crud), we already have meal slice (1 day)
+  - implement addMeal, updateMeal and deleteMeal pointing to redux store in mealDetail (1 day)
+  - refactor to point to meals array slice from MealDetail component (1 day)
+
+  - endpoint to create patient plan (1 day)
+  - complete implementation with (2 days)
 */
