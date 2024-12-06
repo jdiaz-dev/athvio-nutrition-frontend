@@ -23,7 +23,7 @@ function CustomQuestionaryDetailsManager({
   const { customQuestionaryDetailsCRUD } = useQuestionaryConfig();
   const authContext = useContext(AuthContext);
 
-  const customQuestionaryDetails = CustomQuestionaryConfigDetailsSlice.useSelectAllEntities();
+  const customQuestionaryDetailsState = CustomQuestionaryConfigDetailsSlice.useSelectAllEntities();
 
   useEffect(() => {
     dispatch(CustomQuestionaryConfigDetailsSlice.initializeCustomQuestionaryDetails([...questionaryDetails]));
@@ -49,20 +49,20 @@ function CustomQuestionaryDetailsManager({
       questionaryGroup: questionaryGroup._id,
     };
 
-    const toAdd = customQuestionaryDetails
+    const toAdd = customQuestionaryDetailsState
       .filter(
         (item) => item._id.includes(temporalId) && item.status !== CustomQuestionaryConfigDetailsSlice.CustomQuestionaryDetailState.DELETED,
       )
       .map(({ _id, status, ...rest }) => ({ ...rest }));
 
-    const toUpdate = customQuestionaryDetails
+    const toUpdate = customQuestionaryDetailsState
       .filter(
         (item) =>
           !item._id.includes(temporalId) && item.status === CustomQuestionaryConfigDetailsSlice.CustomQuestionaryDetailState.UPDATED,
       )
       .map(({ _id, status, ...rest }) => ({ ...rest, questionaryDetail: _id }));
 
-    const toDelete = customQuestionaryDetails
+    const toDelete = customQuestionaryDetailsState
       .filter(
         (item) =>
           !item._id.includes(temporalId) && item.status === CustomQuestionaryConfigDetailsSlice.CustomQuestionaryDetailState.DELETED,
@@ -91,7 +91,7 @@ function CustomQuestionaryDetailsManager({
   return (
     <>
       <MainCard>
-        {customQuestionaryDetails
+        {customQuestionaryDetailsState
           .filter((item) => item.status !== CustomQuestionaryConfigDetailsSlice.CustomQuestionaryDetailState.DELETED)
           .map((questionaryDetail, index) => (
             <CustomQuestionaryDetailItem key={index} questionaryDetail={questionaryDetail} />
