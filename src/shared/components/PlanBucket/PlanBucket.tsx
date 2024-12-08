@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import MealList from 'src/shared/components/PlanBucket/MealList';
+import MealNamesList from 'src/shared/components/PlanBucket/MealNamesList';
 import CustomDraggable from 'src/shared/components/Icons/CustomDraggable';
 import { PlanDayInfo } from 'src/shared/types/types';
 import { makeStyles } from 'tss-react/mui';
@@ -26,7 +26,7 @@ function PlanBucket({ children, planDayInfo, handler }: { children: ReactNode; p
           <CustomDraggable />
         </div>
       </div>
-      <MealList meals={planDayInfo.meals || []} handler={handler} />
+      <MealNamesList meals={planDayInfo.meals || []} handler={handler} />
     </div>
   );
 }

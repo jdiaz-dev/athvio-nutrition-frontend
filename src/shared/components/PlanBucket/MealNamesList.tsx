@@ -1,8 +1,8 @@
 import React from 'react';
-import { List, ListItem, ListItemText } from '@mui/material';
+import { List, ListItemText } from '@mui/material';
 import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 
-function MealList({ meals, handler }: { meals: Meal[]; handler: () => void }) {
+function MealNamesList({ meals, handler }: { meals: Meal[]; handler: () => void }) {
   return (
     <List onClick={handler}>
       {meals?.map((meal, index1) => (
@@ -24,4 +24,4 @@ function MealList({ meals, handler }: { meals: Meal[]; handler: () => void }) {
   );
 }
 
-export default MealList;
+export default MealNamesList;
