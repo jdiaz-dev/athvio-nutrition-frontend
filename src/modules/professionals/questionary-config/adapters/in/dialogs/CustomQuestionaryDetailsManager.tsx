@@ -26,7 +26,11 @@ function CustomQuestionaryDetailsManager({
   const customQuestionaryDetailsState = CustomQuestionaryConfigDetailsSlice.useSelectAllEntities();
 
   useEffect(() => {
-    dispatch(CustomQuestionaryConfigDetailsSlice.initializeCustomQuestionaryDetails([...questionaryDetails]));
+    dispatch(
+      CustomQuestionaryConfigDetailsSlice.initializeCustomQuestionaryDetails([
+        ...questionaryDetails.map((item) => ({ ...item, status: '' })),
+      ]),
+    );
   }, [questionaryDetails]);
 
   const addCustomQuestionaryDetailHandler = () => {

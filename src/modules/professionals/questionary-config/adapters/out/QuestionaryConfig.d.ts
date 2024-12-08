@@ -6,7 +6,7 @@ export type QuestionaryDetail = {
   isEnabled: boolean;
 };
 
-export type QuestionaryDetailState = Omit<QuestionaryDetail> & {
+export type QuestionaryDetailState = QuestionaryDetail & {
   status: string;
 };
 
@@ -55,9 +55,7 @@ export type EnableQuestionaryDetailResponse = {
   enableQuestionaryDetails: QuestionaryConfigBody;
 };
 
-export type AddCustomQuestionaryDetailInput = Pick<QuestionaryDetail, 'fieldName' | 'associatedQuestion'> & {
-  questionaryDetail: string;
-};
+export type AddCustomQuestionaryDetailInput = Pick<QuestionaryDetail, 'fieldName' | 'associatedQuestion' | 'isEnabled'>;
 
 export type AddCustomQuestionaryDetail = AddCustomQuestionaryDetailInput & {
   questionaryDetail: string;

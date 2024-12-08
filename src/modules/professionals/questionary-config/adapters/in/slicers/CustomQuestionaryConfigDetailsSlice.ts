@@ -20,7 +20,7 @@ export const customQuestionaryDetailSlice = createSlice({
     initializeCustomQuestionaryDetails(state, action: PayloadAction<QuestionaryDetailState[]>) {
       questionaryDetailsAdapter.setAll(
         state,
-        action.payload.map((item) => ({ ...item, status: '' })),
+        action.payload,
       );
     },
     addCustom: (state, action: PayloadAction<QuestionaryDetailState>) => {
