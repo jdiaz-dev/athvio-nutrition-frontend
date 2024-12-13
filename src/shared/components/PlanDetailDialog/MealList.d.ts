@@ -1,60 +1,8 @@
 import { ReduxItemtatus } from 'src/shared/Consts';
+import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 
-export type QuestionaryDetail = {
-  _id: string;
-  fieldName: string;
-  associatedQuestion: string;
-  // fieldOptions?: string | string[];
-  isEnabled: boolean;
-};
-
-export type QuestionaryDetailState = QuestionaryDetail & {
+export type MealWithStatus = Meal & {
   status: ReduxItemtatus;
-};
-
-export type QuestionaryGroup = {
-  _id: string;
-  title: string;
-  description?: string;
-  questionaryDetails: QuestionaryDetail[];
-};
-
-export type Questionary = {
-  questionaryGroups: QuestionaryGroup[];
-};
-
-export type QuestionaryConfigBody = Questionary & {
-  _id: string;
-  professional: string;
-};
-
-export type GetQuestionaryConfigBody = {
-  professional: string;
-};
-
-export type GetQuestionaryConfigRequest = {
-  input: GetQuestionaryConfigBody;
-};
-
-export type GetQuestionaryConfigResponse = {
-  getQuestionary: QuestionaryConfigBody;
-};
-
-export type IsEnabledQuestionaryDetails = Pick<QuestionaryDetail, 'isEnabled'> & { questionaryDetail: string };
-
-export type EnableQuestionaryDetailsBody = {
-  questionary: string;
-  professional: string;
-  questionaryGroup: string;
-  questionaryDetails: IsEnabledQuestionaryDetails[];
-};
-
-export type EnableQuestionaryDetailRequest = {
-  input: EnableQuestionaryDetailsBody;
-};
-
-export type EnableQuestionaryDetailResponse = {
-  enableQuestionaryDetails: QuestionaryConfigBody;
 };
 
 export type AddCustomQuestionaryDetailInput = Pick<QuestionaryDetail, 'fieldName' | 'associatedQuestion' | 'isEnabled'>;
@@ -79,6 +27,7 @@ export type UpdateCustomQuestionaryDetailBody = AddCustomQuestionaryDetailBody &
 export type DeleteCustomQuestionaryDetailBody = Omit<AddCustomQuestionaryDetailBody, 'questionaryDetailsInput'> & {
   questionaryDetails: string[];
 };
+
 export type CustomQuestionaryDetailsCrudRequest = {
   toAddInput: AddCustomQuestionaryDetailBody;
   toUpdateInput: UpdateCustomQuestionaryDetailBody;

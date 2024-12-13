@@ -78,6 +78,9 @@ export const useMealDetailAdapter = (currentModule: string) => {
     }
   };
 
-  return { 
-  createMeal, updateMeal, deleteMeal };
+  return {
+    createMeal,
+    updateMeal,
+    deleteMeal,
+  };
 };

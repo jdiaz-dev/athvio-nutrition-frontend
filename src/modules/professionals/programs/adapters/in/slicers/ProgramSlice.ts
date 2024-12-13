@@ -1,6 +1,7 @@
 import { combineReducers, createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { mealBasicInfoSlice } from 'src/modules/professionals/programs/adapters/in/slicers/MealBasicInfoSlice';
 import { mealDetailsSlice } from 'src/modules/professionals/programs/adapters/in/slicers/MealDetailsSlice';
+import { mealListSlice } from 'src/modules/professionals/programs/adapters/in/slicers/MealsListSlice';
 import { planSlice, plansSlice } from 'src/modules/professionals/programs/adapters/in/slicers/PlanSlice';
 import { programInitialState } from 'src/modules/professionals/programs/adapters/in/slicers/ProgramInitialState';
 import { ProgramBody, Programs } from 'src/modules/professionals/programs/adapters/out/program.types';
@@ -70,6 +71,7 @@ export default combineReducers({
   program: programSlice.reducer,
   plans: plansSlice.reducer,
   plan: planSlice.reducer,
+  meals: mealListSlice.reducer,
   mealDetails: mealDetailsSlice.reducer,
   mealBasicInfo: mealBasicInfoSlice.reducer,
 });

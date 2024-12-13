@@ -1,9 +1,10 @@
 import { Meal, MealBasicInfo, MealDetails } from 'src/shared/components/PlanDetailDialog/Meal.types';
+import { MealWithStatus } from 'src/shared/components/PlanDetailDialog/MealList';
 import { GetRecordsBody, MetadataRecords } from 'src/shared/types/get-records.types';
 import { PlanDayInfo } from 'src/shared/types/types';
 
 export interface Plan {
-  _id: string;
+  _id?: string;
   title: string;
   week: number;
   day: number;
@@ -93,6 +94,7 @@ export interface ProgramInitialState {
   program: { data: ProgramBody; loading: boolean; error: string | null };
   plans: Plan[];
   plan: Plan;
+  meals: MealWithStatus[];
   mealBasicInfo: MealBasicInfo;
   mealDetails: MealDetails;
 }

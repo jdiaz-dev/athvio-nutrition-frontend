@@ -43,14 +43,14 @@ export const ENABLE_QUESTIONARY_DETAILS = gql`
 
 export const CUSTOM_QUESTIONARY_DETAILS_CRUD = gql`
   mutation _customQuestionDetailsCrud(
-    $toAdd: AddCustomQuestionaryDetailsDto!
-    $toUpdate: UpdateCustomQuestionaryDetailsDto!
-    $toDelete: DeleteCustomQuestionaryDetailsDto!
+    $toAddInput: AddCustomQuestionaryDetailsDto!
+    $toUpdateInput: UpdateCustomQuestionaryDetailsDto!
+    $toDeleteInput: DeleteCustomQuestionaryDetailsDto!
     $shouldToAdd: Boolean!
     $shouldToUpdate: Boolean!
     $shouldToDelete: Boolean!
   ) {
-    addCustomQuestionaryDetails(toAdd: $toAdd) @include(if: $shouldToAdd) {
+    addCustomQuestionaryDetails(toAddInput: $toAddInput) @include(if: $shouldToAdd) {
       _id
       createdAt
       professional
@@ -66,7 +66,7 @@ export const CUSTOM_QUESTIONARY_DETAILS_CRUD = gql`
         }
       }
     }
-    updateCustomQuestionaryDetails(toUpdate: $toUpdate) @include(if: $shouldToUpdate) {
+    updateCustomQuestionaryDetails(toUpdateInput: $toUpdateInput) @include(if: $shouldToUpdate) {
       _id
       createdAt
       professional
@@ -82,7 +82,7 @@ export const CUSTOM_QUESTIONARY_DETAILS_CRUD = gql`
         }
       }
     }
-    deleteCustomQuestionaryDetails(toDelete: $toDelete) @include(if: $shouldToDelete) {
+    deleteCustomQuestionaryDetails(toDeleteInput: $toDeleteInput) @include(if: $shouldToDelete) {
       _id
       createdAt
       professional

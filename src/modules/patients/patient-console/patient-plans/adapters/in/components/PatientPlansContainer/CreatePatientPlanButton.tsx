@@ -1,11 +1,10 @@
 /* eslint-disable max-len */
 import React, { memo, useContext, useEffect, useMemo, useState } from 'react';
-import PlanDetailDialog from 'src/shared/components/PlanDetailDialog/PlanDetailDialog';
+import PlanDetailDialog, { mealPlanCreatedChange$ } from 'src/shared/components/PlanDetailDialog/PlanDetailDialog';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 import { PlanContext } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/PlanContext';
 import { usePatientPlan } from 'src/modules/patients/patient-console/patient-plans/adapters/out/PatientPlanActions';
-import { mealPlanCreatedChange$ } from 'src/shared/components/PlanDetailDialog/MealDetail';
 import CustomIconWrapper from 'src/shared/components/Icons/CustomIconWrapper';
 import CustomAddIcon from 'src/shared/components/Icons/CustomAddIcon';
 import DuplicatePatientPlan from 'src/modules/patients/patient-console/patient-plans/adapters/in/components/PatientPlansContainer/DuplicateProgramPlan';

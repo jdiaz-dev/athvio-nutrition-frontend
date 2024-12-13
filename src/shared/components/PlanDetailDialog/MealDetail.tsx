@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
 import React, { useState } from 'react';
 import { Card, Grid, IconButton, Menu, MenuItem } from '@mui/material';
-import { Subject } from 'rxjs';
 import { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as MealDetailsSlice from 'src/modules/professionals/programs/adapters/in/slicers/MealDetailsSlice';
@@ -21,7 +20,10 @@ import { AuthContext } from 'src/modules/authentication/authentication/adapters/
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import * as ProgramSlice from 'src/modules/professionals/programs/adapters/in/slicers/ProgramSlice';
+import * as MealsListSlice from 'src/modules/professionals/programs/adapters/in/slicers/MealsListSlice';
 import { PlanDialogContext } from 'src/shared/context/PlanDialogContext';
+import { MealWithStatus } from 'src/shared/components/PlanDetailDialog/MealList';
+import { generateTemporalId } from 'src/shared/helpers/functions';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -42,9 +44,6 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const mealPlanCreatedChange = new Subject<boolean>();
-export const mealPlanCreatedChange$ = mealPlanCreatedChange.asObservable();
-
 function MealDetail({
   domainOwnerId,
   planOwnerId,
@@ -53,7 +52,7 @@ function MealDetail({
 }: {
   domainOwnerId: string;
   planOwnerId: string;
-  meal: Meal;
+  meal: MealWithStatus;
   planDay: number;
 }) {
   const { classes } = cardStyles();
@@ -87,37 +86,16 @@ function MealDetail({
     dispatch(MealBasicInfoSlice.acceptNewMealBasicInfo({ position, mealTag, name }));
     dispatch(MealDetailsSlice.acceptNewMealDetail(mealDetails));
   };
-  const createUpdateMealHandler = async () => {
+  const updateMealHandler = async () => {
     const { _id, ...restMealDetail } = mealDetailsState;
-    if (mealDetailsState._id.length == 0) {
-      //todo: push meal in patient plan in redux, push meals in program in redux
-      //todo: create patient plan with meals in db, create program with meals in db
-      await createMeal({
-        professional: authContext.professional,
-        domainOwnerId,
-        planOwnerId,
-        mealBody: {
+    if (mealDetailsState.ingredientDetails.length > 0) {
+      dispatch(
+        MealsListSlice.updateMeal({
           ...mealBasicInfoState,
           ...restMealDetail,
-        },
-      });
-
-      if (planContext.isFromRecentlyCreatedPlan) mealPlanCreatedChange.next(true);
-    } else {
-      //todo: update meal in patient plan in redux, update meals in program in redux
-      //todo: update patient plan with meals in db, update program with meals in db
-
-      await updateMeal({
-        professional: authContext.professional,
-        domainOwnerId,
-        planOwnerId,
-        meal: _id,
-        mealBody: {
-          ...mealBasicInfoState,
-          ...restMealDetail,
-        },
-      });
-      planDialogContext.setPlanDay(planDay);
+          _id,
+        }),
+      );
     }
   };
   const deleteMealHandler = async () => {
@@ -137,7 +115,7 @@ function MealDetail({
     }
   };
   const untouchedComponetHandler = () => {
-    if (componentTouched) void createUpdateMealHandler();
+    if (componentTouched) void updateMealHandler();
     setComponentTouched(false);
     setMouseEntered(false);
   };

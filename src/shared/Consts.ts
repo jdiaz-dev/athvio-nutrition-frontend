@@ -3,6 +3,7 @@ import { DefaultConfigProps, MenuOrientation, ThemeDirection, ThemeMode } from '
 export const REST_COUNTRIES_URL = 'https://restcountries.com/v3.1/all?fields=name,idd,flags';
 export const baseHeight = 150;
 export const baseWeek = 1;
+export const temporalId = 'temporalId';
 
 export enum LocalStorageEnum {
   dataUser = 'dataUser',
@@ -95,6 +96,13 @@ export enum PatientStatesActions {
 
 export enum MessagesForOkDialog {
   PROGRAM_ASSIGNED = 'Program assignment queued!',
+}
+
+export enum ReduxItemtatus {
+  INITIALIZED = '',
+  CREATED = 'created',
+  UPDATED = 'updated',
+  DELETED = 'deleted',
 }
 
 export enum ThemeEnum {

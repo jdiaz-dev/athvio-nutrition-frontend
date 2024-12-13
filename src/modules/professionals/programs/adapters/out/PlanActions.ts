@@ -30,7 +30,7 @@ import { Plan, ProgramBody } from 'src/modules/professionals/programs/adapters/o
 export function usePlan() {
   const dispatch = useDispatch();
 
-  const createPlan = async (body: CreateProgramPlanBody): Promise<void> => {
+  const createProgramPlan = async (body: CreateProgramPlanBody): Promise<void> => {
     try {
       const response = await apolloClient.mutate<CreateProgramPlanResponse, CreateProgramPlanRequest>({
         mutation: CREATE_PROGRAM_PLAN,
@@ -106,5 +106,5 @@ export function usePlan() {
       throw error;
     }
   };
-  return { createPlan, updatePlanAssignedWeekDay, duplicateProgramPlan, deletePlan };
+  return { createProgramPlan, updatePlanAssignedWeekDay, duplicateProgramPlan, deletePlan };
 }

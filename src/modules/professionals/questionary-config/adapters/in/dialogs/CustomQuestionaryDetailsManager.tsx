@@ -8,8 +8,9 @@ import { useDispatch } from 'react-redux';
 import * as CustomQuestionaryConfigDetailsSlice from 'src/modules/professionals/questionary-config/adapters/in/slicers/CustomQuestionaryConfigDetailsSlice';
 import { useQuestionaryConfig } from 'src/modules/professionals/questionary-config/adapters/out/QuestionaryConfigActions';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { generateTemporalId } from 'src/shared/helpers/functions';
+import { ReduxItemtatus, temporalId } from 'src/shared/Consts';
 
-const temporalId = 'temporalId';
 function CustomQuestionaryDetailsManager({
   questionary,
   questionaryGroup,
@@ -28,20 +29,18 @@ function CustomQuestionaryDetailsManager({
   useEffect(() => {
     dispatch(
       CustomQuestionaryConfigDetailsSlice.initializeCustomQuestionaryDetails([
-        ...questionaryDetails.map((item) => ({ ...item, status: '' })),
+        ...questionaryDetails.map((item) => ({ ...item, status: ReduxItemtatus.INITIALIZED })),
       ]),
     );
   }, [questionaryDetails]);
 
   const addCustomQuestionaryDetailHandler = () => {
-    const improvisedRamdon = Math.random() * 1000 * Math.random() * 1000;
-
     const newQuestionaryDetail = {
-      _id: temporalId + improvisedRamdon,
+      _id: generateTemporalId(),
       associatedQuestion: '¿Cuál es la pregunta?',
       fieldName: 'Nombre de para este campo',
       isEnabled: true,
-      status: '',
+      status: ReduxItemtatus.INITIALIZED,
     };
     dispatch(CustomQuestionaryConfigDetailsSlice.addCustom(newQuestionaryDetail));
   };
@@ -53,42 +52,36 @@ function CustomQuestionaryDetailsManager({
       questionaryGroup: questionaryGroup._id,
     };
 
-    const toAdd = customQuestionaryDetailsState
+    const toAddInput = customQuestionaryDetailsState
       .filter(
-        (item) => item._id.includes(temporalId) && item.status !== CustomQuestionaryConfigDetailsSlice.CustomQuestionaryDetailState.DELETED,
+        (item) => item._id.includes(temporalId) && item.status !== ReduxItemtatus.DELETED && item.status !== ReduxItemtatus.INITIALIZED,
       )
       .map(({ _id, status, ...rest }) => ({ ...rest }));
 
-    const toUpdate = customQuestionaryDetailsState
-      .filter(
-        (item) =>
-          !item._id.includes(temporalId) && item.status === CustomQuestionaryConfigDetailsSlice.CustomQuestionaryDetailState.UPDATED,
-      )
+    const toUpdateInput = customQuestionaryDetailsState
+      .filter((item) => !item._id.includes(temporalId) && item.status === ReduxItemtatus.UPDATED)
       .map(({ _id, status, ...rest }) => ({ ...rest, questionaryDetail: _id }));
 
-    const toDelete = customQuestionaryDetailsState
-      .filter(
-        (item) =>
-          !item._id.includes(temporalId) && item.status === CustomQuestionaryConfigDetailsSlice.CustomQuestionaryDetailState.DELETED,
-      )
+    const toDeleteInput = customQuestionaryDetailsState
+      .filter((item) => !item._id.includes(temporalId) && item.status === ReduxItemtatus.DELETED)
       .map(({ _id }) => _id);
 
     await customQuestionaryDetailsCRUD({
-      toAdd: {
+      toAddInput: {
         ...baseData,
-        questionaryDetailsInput: toAdd,
+        questionaryDetailsInput: toAddInput,
       },
-      toUpdate: {
+      toUpdateInput: {
         ...baseData,
-        questionaryDetailsInput: toUpdate,
+        questionaryDetailsInput: toUpdateInput,
       },
-      toDelete: {
+      toDeleteInput: {
         ...baseData,
-        questionaryDetails: toDelete,
+        questionaryDetails: toDeleteInput,
       },
-      shouldToAdd: toAdd.length >= 1 ? true : false,
-      shouldToUpdate: toUpdate.length >= 1 ? true : false,
-      shouldToDelete: toDelete.length >= 1 ? true : false,
+      shouldToAdd: toAddInput.length >= 1 ? true : false,
+      shouldToUpdate: toUpdateInput.length >= 1 ? true : false,
+      shouldToDelete: toDeleteInput.length >= 1 ? true : false,
     });
   };
 
@@ -96,7 +89,7 @@ function CustomQuestionaryDetailsManager({
     <>
       <MainCard>
         {customQuestionaryDetailsState
-          .filter((item) => item.status !== CustomQuestionaryConfigDetailsSlice.CustomQuestionaryDetailState.DELETED)
+          .filter((item) => item.status !== ReduxItemtatus.DELETED)
           .map((questionaryDetail, index) => (
             <CustomQuestionaryDetailItem key={index} questionaryDetail={questionaryDetail} />
           ))}

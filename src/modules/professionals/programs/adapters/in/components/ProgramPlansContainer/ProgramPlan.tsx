@@ -5,29 +5,33 @@ import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext
 import MessageDialog from 'src/shared/dialogs/MessageDialog';
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
 import { ProgramMessages } from 'src/shared/Consts';
-import { PlanDayInfo } from 'src/shared/types/types';
+import { PlanDayInfo, ReduxStates } from 'src/shared/types/types';
 
 import CustomTrashIcon from 'src/shared/components/Icons/CustomTrashIcon';
 import PlanBucket from 'src/shared/components/PlanBucket/PlanBucket';
 import CopyProgramPlan from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/CopyProgramPlan';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 import { PlanDialogContext } from 'src/shared/context/PlanDialogContext';
+import * as MealsListSlice from 'src/modules/professionals/programs/adapters/in/slicers/MealsListSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 //todo: check all the params
 function ProgramPlan({ program, planDay, planDayInfo }: { program: string; planDay: number; planDayInfo: PlanDayInfo }) {
+  const dispatch = useDispatch();
   const authContext = useContext(AuthContext);
   const planDialogContext = useContext(PlanDialogContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
+  
+  const programPlanState = useSelector((state: ReduxStates) => state.programs.plans).find((_plan) => _plan._id === planDayInfo._id);
+  const meals = useSelector((state: ReduxStates) => state.programs.meals);
+  
   const [openPlanDetailDialog, setOpenPlanDetailDialog] = useState(planDialogContext.planDay === planDay ? true : false);
 
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk, alert, setAlert } = useMessageDialog();
 
+
   const { deletePlan } = usePlan();
-  const deletePlanHandler = () => {
-    setOpenDialog(true);
-    setMessage(ProgramMessages.REMOVE_PLAN);
-    setAlert(true);
-  };
+
   useEffect(() => {
     const deletePlanHelper = async () => {
       //todo: delete first in redux after in db
@@ -42,9 +46,23 @@ function ProgramPlan({ program, planDay, planDayInfo }: { program: string; planD
 
     if (messageOk) void deletePlanHelper();
   }, [messageOk]);
+
+  const deletePlanHandler = () => {
+    setOpenDialog(true);
+    setMessage(ProgramMessages.REMOVE_PLAN);
+    setAlert(true);
+  };
+
+  const programPlanClickedHandler = () => {
+    setOpenPlanDetailDialog(true);
+    if (programPlanState) {
+      dispatch(MealsListSlice.initializeMeals(programPlanState.meals));
+    }
+  };
+
   return (
     <>
-      <PlanBucket planDayInfo={planDayInfo} handler={() => setOpenPlanDetailDialog(true)}>
+      <PlanBucket planDayInfo={planDayInfo} handler={programPlanClickedHandler}>
         {/* TODO: urgent - after to copy plan to another day, it doesn't show meals in dialog */}
         <CopyProgramPlan plan={planDayInfo._id as unknown as string} />
       </PlanBucket>

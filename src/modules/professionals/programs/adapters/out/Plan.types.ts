@@ -1,8 +1,25 @@
 import { Plan, ProgramBody } from 'src/modules/professionals/programs/adapters/out/program.types';
+import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 
-export interface CreateProgramPlanBody extends Omit<Plan, '_id' | 'title' | 'meals'> {
+/* 
+export interface Plan {
+  _id?: string;
+  title: string;
+  week: number;
+  day: number;
+  meals: Meal[];
+}
+*/
+
+type MealBody = Omit<Meal, '_id'>;
+type PlanBody = Pick<Plan, 'title' | 'week' | 'day'> & {
+  meals: MealBody[];
+};
+
+export interface CreateProgramPlanBody {
   professional: string;
   program: string;
+  planBody: PlanBody;
 }
 
 export interface UpdatePlanAssignedWeekDayBody extends CreateProgramPlanBody {

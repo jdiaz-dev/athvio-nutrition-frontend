@@ -1,13 +1,9 @@
 import { createEntityAdapter, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 import { QuestionaryDetail, QuestionaryDetailState } from 'src/modules/professionals/questionary-config/adapters/out/QuestionaryConfig';
+import { ReduxItemtatus } from 'src/shared/Consts';
 import { ReduxStates } from 'src/shared/types/types';
 
-export enum CustomQuestionaryDetailState {
-  CREATED = 'created',
-  UPDATED = 'updated',
-  DELETED = 'deleted',
-}
 export const questionaryDetailsAdapter = createEntityAdapter({
   selectId: (questionaryDetail: QuestionaryDetailState) => questionaryDetail._id,
   sortComparer: (a, b) => a._id.localeCompare(b._id),
@@ -18,20 +14,17 @@ export const customQuestionaryDetailSlice = createSlice({
   initialState: questionaryDetailsAdapter.getInitialState(),
   reducers: {
     initializeCustomQuestionaryDetails(state, action: PayloadAction<QuestionaryDetailState[]>) {
-      questionaryDetailsAdapter.setAll(
-        state,
-        action.payload,
-      );
+      questionaryDetailsAdapter.setAll(state, action.payload);
     },
     addCustom: (state, action: PayloadAction<QuestionaryDetailState>) => {
-      questionaryDetailsAdapter.addOne(state, { ...action.payload, status: CustomQuestionaryDetailState.CREATED });
+      questionaryDetailsAdapter.addOne(state, { ...action.payload, status: ReduxItemtatus.CREATED });
     },
     updateCustom: (state, action: PayloadAction<QuestionaryDetail>) => {
       const { _id, ...rest } = action.payload;
-      questionaryDetailsAdapter.updateOne(state, { id: _id, changes: { ...rest, status: CustomQuestionaryDetailState.UPDATED } });
+      questionaryDetailsAdapter.updateOne(state, { id: _id, changes: { ...rest, status: ReduxItemtatus.UPDATED } });
     },
     deleteCustom: (state, action: PayloadAction<string>) => {
-      questionaryDetailsAdapter.updateOne(state, { id: action.payload, changes: { status: CustomQuestionaryDetailState.DELETED } });
+      questionaryDetailsAdapter.updateOne(state, { id: action.payload, changes: { status: ReduxItemtatus.DELETED } });
     },
   },
 });
