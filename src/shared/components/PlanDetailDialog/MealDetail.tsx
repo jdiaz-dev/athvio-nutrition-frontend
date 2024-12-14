@@ -15,15 +15,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
 import MealTag from 'src/modules/professionals/programs/adapters/in/dialogs/PlanDetailDialog/MealTag';
 import { useMealDetailAdapter } from 'src/shared/hooks/useMealDetailAdapter';
-import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-import * as ProgramSlice from 'src/modules/professionals/programs/adapters/in/slicers/ProgramSlice';
 import * as MealsListSlice from 'src/modules/professionals/programs/adapters/in/slicers/MealsListSlice';
 import { PlanDialogContext } from 'src/shared/context/PlanDialogContext';
 import { MealWithStatus } from 'src/shared/components/PlanDetailDialog/MealList';
-import { generateTemporalId } from 'src/shared/helpers/functions';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -101,12 +98,7 @@ function MealDetail({
   const deleteMealHandler = async () => {
     setAnchorEl(null);
     setComponentTouched(false);
-    await deleteMeal({
-      professional: authContext.professional,
-      domainOwnerId,
-      planOwnerId,
-      meal: mealDetailsState._id,
-    });
+    dispatch(MealsListSlice.deleteMeal(mealDetailsState._id));
   };
   const componentTouchedHandler = () => {
     if (!componentTouched) {
@@ -119,14 +111,7 @@ function MealDetail({
     setComponentTouched(false);
     setMouseEntered(false);
   };
-  const mouseEnteredHandler = () => {
-    dispatch(ProgramSlice.acceptNewProgram({ _id: '', description: '', name: '', plans: [], professional: '', programTags: [] }));
 
-    /* if (!mouseEntered) {
-      componentClickedHandler();
-      setMouseEntered(true);
-    } */
-  };
   const meal = () => (componentTouched || mouseEntered ? mealDetailsState : mealDetails);
   return (
     <>
@@ -136,7 +121,6 @@ function MealDetail({
         className={classes.card}
         variant="outlined"
         onClick={componentTouchedHandler}
-        // onMouseEnter={mouseEnteredHandler}
         onMouseLeave={untouchedComponetHandler}
       >
         <Grid container spacing={1}>

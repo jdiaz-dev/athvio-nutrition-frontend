@@ -48,29 +48,6 @@ export function usePatientPlan() {
     }
   };
 
-  /* const getPatientPlan = async (body: ProgramInput) => {
-    try {
-      const response = await apolloClient.query<GetProgramResponse, GetProgramRequest>({
-        query: GET_PROGRAM,
-        variables: {
-          input: {
-            ...body,
-          },
-        },
-        fetchPolicy: 'network-only',
-      });
-
-      if (response) {
-        dispatch(ProgramSlice.acceptNewProgram(response.data.getProgram));
-        dispatch(PatientPlanSlice.acceptNewPlans(response.data.getProgram.plans));
-      }
-
-      return response;
-    } catch (error) {
-      console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
-      throw error;
-    }
-  }; */
   const getPatientPlans = async (body: GetRecordsPatientPlansBody) => {
     try {
       const response = await apolloClient.query<GetPatientPlansResponse, GetPatientPlansRequest>({

@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import React, { memo, useContext, useEffect, useMemo, useState } from 'react';
-import PlanDetailDialog, { mealPlanCreatedChange$ } from 'src/shared/components/PlanDetailDialog/PlanDetailDialog';
+import PlanDetailDialog, { savedPlanButton$ } from 'src/shared/components/PlanDetailDialog/PlanDetailDialog';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 import { PlanContext } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/PlanContext';
@@ -52,7 +52,7 @@ const CreatePatientPlanButton = memo(function CreatePatientPlanButton({ patient,
 
   useEffect(() => {
     if (openPlanDetailDialog) {
-      const subscription = mealPlanCreatedChange$.subscribe((val) => {
+      const subscription = savedPlanButton$.subscribe((val) => {
         setMealPlanCreated(val);
       });
 

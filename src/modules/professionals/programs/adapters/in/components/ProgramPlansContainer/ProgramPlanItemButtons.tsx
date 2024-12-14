@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import React, { useContext, useEffect, useState } from 'react';
-import PlanDetailDialog, { mealPlanCreatedChange$ } from 'src/shared/components/PlanDetailDialog/PlanDetailDialog';
+import PlanDetailDialog, { savedPlanButton$ } from 'src/shared/components/PlanDetailDialog/PlanDetailDialog';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 import { usePlan } from 'src/modules/professionals/programs/adapters/out/PlanActions';
@@ -22,41 +22,33 @@ function ProgramPlanItemButtons({ planDay, planWeek, program }: { planDay: numbe
   const dispatch = useDispatch();
   const { createProgramPlan } = usePlan();
   const [openPlanDetailDialog, setOpenPlanDetailDialog] = useState(false);
-  const [planCreated, setPlanCreated] = useState(false);
-  const [mealPlanCreated, setMealPlanCreated] = useState(false);
-  useEffect(() => {
-    //todo: create program plan only in redux
-    //todo: only if exists meals in program plan save it in db
-    const createProgramPlanHandler = async () => {
-      const meals = mealsState
-        .filter(
-          (item) => item._id.includes(temporalId) && item.status !== ReduxItemtatus.DELETED && item.status !== ReduxItemtatus.INITIALIZED,
-        )
-        .map(({ _id, status, ...rest }) => ({ ...rest }));
+  const [planSaved, setPlanSaved] = useState(false);
 
-      const input: CreateProgramPlanBody = {
-        professional: authContext.professional,
-        program,
-        planBody: {
-          week: planWeek,
-          day: planDay,
-          title: '',
-          meals,
-        },
-      };
-      await createProgramPlan(input);
-      // setPlanCreated(true);
+  const createProgramPlanHandler = async () => {
+    const meals = mealsState
+      .filter(
+        (item) => item._id.includes(temporalId) && item.status !== ReduxItemtatus.DELETED && item.status !== ReduxItemtatus.INITIALIZED,
+      )
+      .map(({ _id, status, ...rest }) => ({ ...rest }));
+
+    const input: CreateProgramPlanBody = {
+      professional: authContext.professional,
+      program,
+      planBody: {
+        week: planWeek,
+        day: planDay,
+        title: '',
+        meals,
+      },
     };
-
-    if (planCreated) {
-      void createProgramPlanHandler();
-    }
-  }, [planCreated]);
+    await createProgramPlan(input);
+    setPlanSaved(false);
+  };
 
   useEffect(() => {
     if (openPlanDetailDialog) {
-      const subscription = mealPlanCreatedChange$.subscribe((val) => {
-        setPlanCreated(val);
+      const subscription = savedPlanButton$.subscribe((saved: boolean) => {
+        setPlanSaved(saved);
       });
 
       return () => {
@@ -64,6 +56,12 @@ function ProgramPlanItemButtons({ planDay, planWeek, program }: { planDay: numbe
       };
     }
   }, [openPlanDetailDialog]);
+
+  useEffect(() => {
+    if (planSaved) {
+      void createProgramPlanHandler();
+    }
+  }, [planSaved]);
 
   const programPlanClickedHandler = () => {
     setOpenPlanDetailDialog(true);

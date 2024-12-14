@@ -69,9 +69,8 @@ export function useQuestionaryConfig() {
           ...body,
         },
       });
-      console.log('---------response.data', response.data);
       if (response.data?.deleteCustomQuestionaryDetails) {
-        dispatch(QuestionaryConfigSlice.initializeQuestionaryConfig(response.data?.deleteCustomQuestionaryDetails));
+        dispatch(QuestionaryConfigSlice.initializeQuestionaryConfig(response.data.deleteCustomQuestionaryDetails));
       } else if (response.data?.updateCustomQuestionaryDetails) {
         dispatch(QuestionaryConfigSlice.initializeQuestionaryConfig(response.data.updateCustomQuestionaryDetails));
       } else if (response.data?.addCustomQuestionaryDetails) {

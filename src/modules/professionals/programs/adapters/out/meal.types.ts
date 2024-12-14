@@ -9,38 +9,28 @@ interface MealBody {
   mealBody: Meal;
 }
 export interface CreateMealBody extends Omit<MealBody, '_id' | 'mealBody'> {
-  mealBody: Omit<Meal, '_id'>;
-}
-
-export interface CreateMealRequest {
-  input: CreateMealBody;
-}
-
-export interface CreateMealResponse {
-  createMeal: ProgramBody;
+  meals: Omit<Meal, '_id'>[];
 }
 
 export interface UpdateMealBody extends Omit<MealBody, '_id' | 'mealBody'> {
-  meal: string;
-  mealBody: Pick<Meal, 'position' | 'mealTag'>;
-}
-
-export interface UpdateMealRequest {
-  input: UpdateMealBody;
-}
-
-export interface UpdateMealResponse {
-  updateMeal: ProgramBody;
+  meals: (Omit<Meal, '_id'> & { meal: string })[];
 }
 
 export interface DeleteMealBody extends Omit<MealBody, '_id' | 'mealBody'> {
-  meal: string;
+  meals: string[];
 }
 
-export interface DeleteMealRequest {
-  input: DeleteMealBody;
+export interface ProgramPlanMealCrudRequest {
+  toAddInput: CreateMealBody;
+  toUpdateInput: UpdateMealBody;
+  toDeleteInput: DeleteMealBody;
+  shouldToAdd: boolean;
+  shouldToUpdate: boolean;
+  shouldToDelete: boolean;
 }
 
-export interface DeleteMealResponse {
+export interface ProgramPlanMealCrudResponse {
+  createMeal: ProgramBody;
+  updateMeal: ProgramBody;
   deleteMeal: ProgramBody;
 }

@@ -7,20 +7,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 import { DialogTitle } from '@mui/material';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
-import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 import MealDetail from 'src/shared/components/PlanDetailDialog/MealDetail';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
-import { Modules } from 'src/shared/Consts';
+import { Modules, ReduxItemtatus } from 'src/shared/Consts';
 import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 import { PlanDialogContext, defaultPlanDay } from 'src/shared/context/PlanDialogContext';
-import { AssigmentForProgram, MealsForProgram, usePlanAdapter } from 'src/shared/hooks/usePlanAdater';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 import { Subject } from 'rxjs';
 import * as MealsListSlice from 'src/modules/professionals/programs/adapters/in/slicers/MealsListSlice';
 import { generateTemporalId } from 'src/shared/helpers/functions';
 
-const mealPlanCreatedChange = new Subject<boolean>();
-export const mealPlanCreatedChange$ = mealPlanCreatedChange.asObservable();
+const savedPlanButton = new Subject<boolean>();
+export const savedPlanButton$ = savedPlanButton.asObservable();
 
 const PlanDetailDialog = memo(function PlanDetailDialog({
   openPlanDetailDialog,
@@ -35,25 +32,13 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
   planOwnerId?: string;
   planDay: number;
 }) {
-  const authContext = useContext(AuthContext);
   const planDialogContext = useContext(PlanDialogContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const currentModuleContext = useContext(CurrentModuleContext);
   const dispatch = useDispatch();
 
-  const planState =
-    currentModuleContext.currentModule === Modules.PROGRAMS
-      ? useSelector((state: ReduxStates) => state.programs.plans).find((_plan) => _plan._id === planOwnerId)
-      : useSelector((state: ReduxStates) => state.patientPlans.patientPlan);
-
-  const mealss = useSelector((state: ReduxStates) => state.programs.meals);
-  const [meals, setMeals] = useState<Meal[]>([]);
+  const mealsState = useSelector((state: ReduxStates) => state.programs.meals);
   const [closedIconDialog, setClosedIconDialog] = useState(true);
-  const { createPlan } = usePlanAdapter(currentModuleContext.currentModule);
-
-  useEffect(() => {
-    setMeals(planState?.meals || []);
-  }, [planState]);
 
   useEffect(() => {
     if (!closedIconDialog) {
@@ -74,21 +59,8 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
   };
 
   const savePlanHandler = async () => {
-    /* if (currentModuleContext.currentModule === Modules.PROGRAMS) {
-      await createPlan<AssigmentForProgram, MealsForProgram>({
-        professional: authContext.professional,
-        entityOwnerOfMealsId: domainOwnerId as string,
-        assigmentOfMeals: {
-          week: 1,
-          day: 1,
-        },
-        bodyWithMeals: {
-          meals: meals,
-          title: 'title',
-        },
-      });
-    } */
-    mealPlanCreatedChange.next(true);
+    savedPlanButton.next(true);
+    setOpenPlanDetailDialog(false);
   };
   return (
     <>
@@ -110,9 +82,11 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
         </DialogTitle>
         <DialogContent>
           {domainOwnerId &&
-            mealss.map((meal, index) => (
-              <MealDetail key={index} domainOwnerId={domainOwnerId} planOwnerId={planOwnerId as string} meal={meal} planDay={planDay} />
-            ))}
+            mealsState
+              .filter((meal) => meal.status != ReduxItemtatus.DELETED)
+              .map((meal, index) => (
+                <MealDetail key={index} domainOwnerId={domainOwnerId} planOwnerId={planOwnerId as string} meal={meal} planDay={planDay} />
+              ))}
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <Button
               variant="contained"
