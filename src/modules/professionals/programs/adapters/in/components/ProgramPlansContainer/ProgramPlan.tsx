@@ -24,13 +24,12 @@ function ProgramPlan({ program, planDay, planDayInfo }: { program: string; planD
   const reloadRecordListContext = useContext(ReloadRecordListContext);
 
   const programPlanState = useSelector((state: ReduxStates) => state.programs.plans).find((_plan) => _plan._id === planDayInfo._id);
-  const mealsState = useSelector((state: ReduxStates) => state.programs.meals);
+  const mealListState = useSelector((state: ReduxStates) => state.programs.mealList);
 
   const [openPlanDetailDialog, setOpenPlanDetailDialog] = useState(planDialogContext.planDay === planDay ? true : false);
   const [planSaved, setPlanSaved] = useState(false);
 
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk, alert, setAlert } = useMessageDialog();
-
 
   const { deletePlan } = usePlan();
   const { programPlanMealCRUD } = usePlanMeal();
@@ -41,17 +40,17 @@ function ProgramPlan({ program, planDay, planDayInfo }: { program: string; planD
       plan: planDayInfo._id as string,
     };
 
-    const toAddInput = mealsState
+    const toAddInput = mealListState
       .filter(
         (item) => item._id.includes(temporalId) && item.status !== ReduxItemtatus.DELETED && item.status !== ReduxItemtatus.INITIALIZED,
       )
       .map(({ _id, status, ...rest }) => ({ ...rest }));
 
-    const toUpdateInput = mealsState
+    const toUpdateInput = mealListState
       .filter((item) => !item._id.includes(temporalId) && item.status === ReduxItemtatus.UPDATED)
       .map(({ _id, status, ...rest }) => ({ ...rest, meal: _id }));
 
-    const toDeleteInput = mealsState
+    const toDeleteInput = mealListState
       .filter((item) => !item._id.includes(temporalId) && item.status === ReduxItemtatus.DELETED)
       .map(({ _id }) => _id);
     await programPlanMealCRUD({
@@ -128,13 +127,7 @@ function ProgramPlan({ program, planDay, planDayInfo }: { program: string; planD
       </PlanBucket>
       <CustomTrashIcon handler={deletePlanHandler} />
       {openPlanDetailDialog && (
-        <PlanDetailDialog
-          planDay={planDay}
-          openPlanDetailDialog={openPlanDetailDialog}
-          setOpenPlanDetailDialog={setOpenPlanDetailDialog}
-          domainOwnerId={program}
-          planOwnerId={planDayInfo._id || ''}
-        />
+        <PlanDetailDialog planDay={planDay} openPlanDetailDialog={openPlanDetailDialog} setOpenPlanDetailDialog={setOpenPlanDetailDialog} />
       )}
       {openDialog && (
         <MessageDialog openDialog={openDialog} setOpenDialog={setOpenDialog} message={message} setMessageOk={setMessageOk} alert={alert} />

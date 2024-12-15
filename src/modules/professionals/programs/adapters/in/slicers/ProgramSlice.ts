@@ -71,7 +71,7 @@ export default combineReducers({
   program: programSlice.reducer,
   plans: plansSlice.reducer,
   plan: planSlice.reducer,
-  meals: mealListSlice.reducer,
+  mealList: mealListSlice.reducer,
   mealDetails: mealDetailsSlice.reducer,
   mealBasicInfo: mealBasicInfoSlice.reducer,
 });

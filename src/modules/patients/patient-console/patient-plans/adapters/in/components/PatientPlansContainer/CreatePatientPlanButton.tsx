@@ -3,7 +3,6 @@ import React, { memo, useContext, useEffect, useMemo, useState } from 'react';
 import PlanDetailDialog, { savedPlanButton$ } from 'src/shared/components/PlanDetailDialog/PlanDetailDialog';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
-import { PlanContext } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/PlanContext';
 import { usePatientPlan } from 'src/modules/patients/patient-console/patient-plans/adapters/out/PatientPlanActions';
 import CustomIconWrapper from 'src/shared/components/Icons/CustomIconWrapper';
 import CustomAddIcon from 'src/shared/components/Icons/CustomAddIcon';
@@ -73,21 +72,10 @@ const CreatePatientPlanButton = memo(function CreatePatientPlanButton({ patient,
       </CustomIconWrapper>
       {/* todo: enhance logic to open dialog that it is being created, test use useMemo */}
       {openPlanDetailDialogMemoized && patientPlanState?._id.length > 0 ? (
-        <PlanContext.Provider value={{ isFromRecentlyCreatedPlan: true }}>
-          <PlanDetailDialog
-            openPlanDetailDialog={openPlanDetailDialogMemoized}
-            setOpenPlanDetailDialog={setOpenPlanDetailDialog}
-            domainOwnerId={patient}
-            planOwnerId={patientPlanState._id}
-          />
-        </PlanContext.Provider>
+        <PlanDetailDialog openPlanDetailDialog={openPlanDetailDialogMemoized} setOpenPlanDetailDialog={setOpenPlanDetailDialog} />
       ) : (
         openPlanDetailDialogMemoized && (
-          <PlanDetailDialog
-            openPlanDetailDialog={openPlanDetailDialogMemoized}
-            setOpenPlanDetailDialog={setOpenPlanDetailDialog}
-            domainOwnerId={patient}
-          />
+          <PlanDetailDialog openPlanDetailDialog={openPlanDetailDialogMemoized} setOpenPlanDetailDialog={setOpenPlanDetailDialog} />
         )
       )}
     </>

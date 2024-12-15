@@ -4,7 +4,6 @@ import PlanDetailDialog, { savedPlanButton$ } from 'src/shared/components/PlanDe
 import { useDispatch, useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 import { usePlan } from 'src/modules/professionals/programs/adapters/out/PlanActions';
-import { PlanContext } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/PlanContext';
 import DuplicateProgramPlan from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/DuplicateProgramPlan';
 import CustomAddIcon from 'src/shared/components/Icons/CustomAddIcon';
 import CustomIconWrapper from 'src/shared/components/Icons/CustomIconWrapper';
@@ -17,7 +16,7 @@ function ProgramPlanItemButtons({ planDay, planWeek, program }: { planDay: numbe
   const authContext = useContext(AuthContext);
 
   const planState = useSelector((state: ReduxStates) => state.programs.plan);
-  const mealsState = useSelector((state: ReduxStates) => state.programs.meals);
+  const mealListState = useSelector((state: ReduxStates) => state.programs.mealList);
 
   const dispatch = useDispatch();
   const { createProgramPlan } = usePlan();
@@ -25,7 +24,7 @@ function ProgramPlanItemButtons({ planDay, planWeek, program }: { planDay: numbe
   const [planSaved, setPlanSaved] = useState(false);
 
   const createProgramPlanHandler = async () => {
-    const meals = mealsState
+    const meals = mealListState
       .filter(
         (item) => item._id.includes(temporalId) && item.status !== ReduxItemtatus.DELETED && item.status !== ReduxItemtatus.INITIALIZED,
       )
@@ -77,22 +76,13 @@ function ProgramPlanItemButtons({ planDay, planWeek, program }: { planDay: numbe
       </CustomIconWrapper>
 
       {openPlanDetailDialog && planState._id.length > 0 ? (
-        <PlanContext.Provider value={{ isFromRecentlyCreatedPlan: true }}>
-          <PlanDetailDialog
-            planDay={planDay}
-            openPlanDetailDialog={openPlanDetailDialog}
-            setOpenPlanDetailDialog={setOpenPlanDetailDialog}
-            domainOwnerId={program}
-            planOwnerId={planState._id}
-          />
-        </PlanContext.Provider>
+        <PlanDetailDialog planDay={planDay} openPlanDetailDialog={openPlanDetailDialog} setOpenPlanDetailDialog={setOpenPlanDetailDialog} />
       ) : (
         openPlanDetailDialog && (
           <PlanDetailDialog
             planDay={planDay}
             openPlanDetailDialog={openPlanDetailDialog}
             setOpenPlanDetailDialog={setOpenPlanDetailDialog}
-            domainOwnerId={program}
           />
         )
       )}

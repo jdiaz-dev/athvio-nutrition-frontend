@@ -4,7 +4,7 @@ import { GetRecordsBody, MetadataRecords } from 'src/shared/types/get-records.ty
 import { PlanDayInfo } from 'src/shared/types/types';
 
 export interface Plan {
-  _id?: string;
+  _id: string;
   title: string;
   week: number;
   day: number;
@@ -94,7 +94,7 @@ export interface ProgramInitialState {
   program: { data: ProgramBody; loading: boolean; error: string | null };
   plans: Plan[];
   plan: Plan;
-  meals: MealWithStatus[];
+  mealList: MealWithStatus[];
   mealBasicInfo: MealBasicInfo;
   mealDetails: MealDetails;
 }

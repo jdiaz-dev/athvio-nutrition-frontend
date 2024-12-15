@@ -22,14 +22,10 @@ export const savedPlanButton$ = savedPlanButton.asObservable();
 const PlanDetailDialog = memo(function PlanDetailDialog({
   openPlanDetailDialog,
   setOpenPlanDetailDialog,
-  domainOwnerId,
-  planOwnerId,
   planDay,
 }: {
   openPlanDetailDialog: boolean;
   setOpenPlanDetailDialog: (openPlanDetailDialog: boolean) => void;
-  domainOwnerId: string;
-  planOwnerId?: string;
   planDay: number;
 }) {
   const planDialogContext = useContext(PlanDialogContext);
@@ -37,7 +33,10 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
   const currentModuleContext = useContext(CurrentModuleContext);
   const dispatch = useDispatch();
 
-  const mealsState = useSelector((state: ReduxStates) => state.programs.meals);
+  const mealListState =
+    currentModuleContext.currentModule === Modules.PROGRAMS
+      ? useSelector((state: ReduxStates) => state.programs.mealList)
+      : useSelector((state: ReduxStates) => state.patientPlans.mealList);
   const [closedIconDialog, setClosedIconDialog] = useState(true);
 
   useEffect(() => {
@@ -81,12 +80,11 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
           <CloseDialogIcon closedIconDialog={closedIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
         </DialogTitle>
         <DialogContent>
-          {domainOwnerId &&
-            mealsState
-              .filter((meal) => meal.status != ReduxItemtatus.DELETED)
-              .map((meal, index) => (
-                <MealDetail key={index} domainOwnerId={domainOwnerId} planOwnerId={planOwnerId as string} meal={meal} planDay={planDay} />
-              ))}
+          {mealListState
+            .filter((meal) => meal.status != ReduxItemtatus.DELETED)
+            .map((meal, index) => (
+              <MealDetail key={index} meal={meal} />
+            ))}
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <Button
               variant="contained"

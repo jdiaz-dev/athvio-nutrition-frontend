@@ -3,6 +3,7 @@ import { patientPlanInitialState } from 'src/modules/patients/patient-console/pa
 import { mealBasicInfoSlice } from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/MealBasicInfoSlice';
 import { mealDetailsSlice } from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/MealDetailsSlice';
 import { PatientPlanBody } from 'src/modules/patients/patient-console/patient-plans/adapters/out/patientPlan.types';
+import { mealListSlice } from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/MealsListSlice';
 
 const patientPlansSlice = createSlice({
   name: 'patientPlans',
@@ -54,6 +55,7 @@ export const { acceptNewPatientPlan, setNameAndDescription, duplicatingPatientPl
 export default combineReducers({
   patientPlans: patientPlansSlice.reducer,
   patientPlan: patientPlanSlice.reducer,
+  mealList: mealListSlice.reducer,
   mealDetails: mealDetailsSlice.reducer,
   mealBasicInfo: mealBasicInfoSlice.reducer,
 });

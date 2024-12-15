@@ -10,12 +10,9 @@ import MealBuilder from 'src/shared/components/MealBuilder/MealBuilder';
 import { Modules } from 'src/shared/Consts';
 import { ReduxStates } from 'src/shared/types/types';
 import { makeStyles } from 'tss-react/mui';
-import { PlanContext } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/PlanContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
 import MealTag from 'src/modules/professionals/programs/adapters/in/dialogs/PlanDetailDialog/MealTag';
-import { useMealDetailAdapter } from 'src/shared/hooks/useMealDetailAdapter';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import * as MealsListSlice from 'src/modules/professionals/programs/adapters/in/slicers/MealsListSlice';
@@ -41,22 +38,9 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-function MealDetail({
-  domainOwnerId,
-  planOwnerId,
-  meal: { position, mealTag, name, ...mealDetails },
-  planDay,
-}: {
-  domainOwnerId: string;
-  planOwnerId: string;
-  meal: MealWithStatus;
-  planDay: number;
-}) {
+function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { meal: MealWithStatus }) {
   const { classes } = cardStyles();
-  const authContext = useContext(AuthContext);
-  const planDialogContext = useContext(PlanDialogContext);
   const currentModuleContext = useContext(CurrentModuleContext);
-  const planContext = useContext(PlanContext);
   const mealBasicInfoState =
     currentModuleContext.currentModule === Modules.PROGRAMS
       ? useSelector((state: ReduxStates) => state.programs.mealBasicInfo)
@@ -68,7 +52,6 @@ function MealDetail({
 
   const dispatch = useDispatch();
 
-  const { createMeal, updateMeal, deleteMeal } = useMealDetailAdapter(currentModuleContext.currentModule);
   const [componentTouched, setComponentTouched] = useState(false);
   const [mouseEntered, setMouseEntered] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

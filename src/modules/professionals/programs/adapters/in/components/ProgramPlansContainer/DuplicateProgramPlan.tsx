@@ -16,7 +16,7 @@ function DuplicateProgramPlan({ newWeek, newDay }: { newWeek: number; newDay: nu
       professional: authContext.professional,
       program: programState._id,
       plan: planState._id,
-      week: newWeek,
+      week: newWeek, // t0do: fix it
       day: newDay,
     });
   };

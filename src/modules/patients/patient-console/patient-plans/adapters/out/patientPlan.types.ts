@@ -1,4 +1,5 @@
 import { Meal, MealBasicInfo, MealDetails } from 'src/shared/components/PlanDetailDialog/Meal.types';
+import { MealWithStatus } from 'src/shared/components/PlanDetailDialog/MealList';
 import { GetRecordsBody, MetadataRecords } from 'src/shared/types/get-records.types';
 
 export interface Plan {
@@ -102,6 +103,7 @@ export type ProgramPlanDateExtendedProps = {
 export interface PatientPlanInitialState {
   patientPlans: PatientPlanBody[];
   patientPlan: PatientPlanBody;
+  mealList: MealWithStatus[];
   mealBasicInfo: MealBasicInfo;
   mealDetails: MealDetails;
 }
