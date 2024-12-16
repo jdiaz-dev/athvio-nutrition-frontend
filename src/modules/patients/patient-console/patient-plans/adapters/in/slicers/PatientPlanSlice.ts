@@ -14,8 +14,16 @@ const patientPlansSlice = createSlice({
       return state;
     },
     modififyingSpecificPatientPlan: (state, action: PayloadAction<PatientPlanBody>) => {
-      const patientPlanIndex = state.findIndex((item) => (item._id = action.payload._id));
-      state[patientPlanIndex] = action.payload;
+      const patientPlanIndex = state.findIndex((item) => item._id === action.payload._id);
+      if (patientPlanIndex !== -1) state[patientPlanIndex] = action.payload;
+      return state;
+    },
+    addNewPatientPlan: (state, action: PayloadAction<PatientPlanBody>) => {
+      state.push(action.payload);
+
+      if (state.length > 0) {
+        state.sort((a, b) => new Date(b.assignedDate).getTime() - new Date(a.assignedDate).getTime());
+      }
       return state;
     },
   },
@@ -49,7 +57,7 @@ const patientPlanSlice = createSlice({
   },
 });
 
-export const { acceptNewPatientPlans, modififyingSpecificPatientPlan } = patientPlansSlice.actions;
+export const { acceptNewPatientPlans, modififyingSpecificPatientPlan, addNewPatientPlan } = patientPlansSlice.actions;
 export const { acceptNewPatientPlan, setNameAndDescription, duplicatingPatientPlan, resetPatientPlanItem } = patientPlanSlice.actions;
 
 export default combineReducers({

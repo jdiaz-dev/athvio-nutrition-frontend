@@ -2,30 +2,16 @@ import { PatientPlanBody } from 'src/modules/patients/patient-console/patient-pl
 import { Meal, MealBasicInfo, MealDetails } from 'src/shared/components/PlanDetailDialog/Meal.types';
 import { GetRecordsBody, MetadataRecords } from 'src/shared/types/get-records.types';
 
-export interface Plan {
-  _id: string;
-  title?: string;
-  week: number;
-  day: number;
-  meals: Meal[];
-}
-
-export interface PlanMealBody {
+export type PlanMealBody = {
   professional: string;
   patient: string;
   patientPlan: string;
-  mealBody: Omit<Meal, '_id'>;
-}
+  meals: Meal[];
+};
 
-export type CreatePatientPlanMealInput = PlanMealBody;
-
-export interface AddPatientPlanRequest {
-  input: CreatePatientPlanMealInput;
-}
-
-export interface AddPatientPlanResponse {
-  addPlanMeal: PatientPlanBody;
-}
+type CreatePatientPlanMealInput = Omit<PlanMealBody, 'meals'> & {
+  meals: Omit<Meal, '_id'>[];
+};
 
 export interface GetPatientPlansRequest {
   input: GetRecordsBody;
@@ -35,47 +21,27 @@ export interface PatientPlans {
   data: PatientPlanBody[];
   meta: MetadataRecords;
 }
-/* export interface GetPatientPlansResponse {
-  getPatientPlans: PatientPlans;
-} */
 
-export interface UpdatePatientPlanMealInput extends CreatePatientPlanMealInput {
-  meal: string;
+export type UpdatePatientPlanMealInput = CreatePatientPlanMealInput;
+
+export type DeletePlanMealInput = Omit<PlanMealBody, 'meals'> & {
+  meals: string[];
+};
+
+export interface PatientPlanMealsCrudRequest {
+  toAddInput: CreatePatientPlanMealInput;
+  toUpdateInput: UpdatePatientPlanMealInput;
+  toDeleteInput: DeletePlanMealInput;
+  shouldToAdd: boolean;
+  shouldToUpdate: boolean;
+  shouldToDelete: boolean;
 }
 
-export interface UpdatePlanMealRequest {
-  input: UpdatePatientPlanMealInput;
-}
-
-export interface UpdatePlanMealResponse {
+export interface PatientPlanMealsCrudResponse {
+  addPlanMeal: PatientPlanBody;
   updatePlanMeal: PatientPlanBody;
-}
-
-export interface DeletePlanMealInput {
-  professional: string;
-  patient: string;
-  patientPlan: string;
-  meal: string;
-}
-
-export interface DeletePlanMealRequest {
-  input: DeletePlanMealInput;
-}
-
-export interface DeletePlanMealResponse {
   deletePlanMeal: PatientPlanBody;
 }
-/* 
-export interface PlanDayInfo {
-  _id: string | null;
-  totalMeals: number | null;
-}
-export type ProgramPlanDateExtendedProps = {
-  plan: PlanDayInfo;
-  program: string;
-  planDay: number;
-  planWeek: number;
-}; */
 
 export interface PatientPlanInitialState {
   patientPlans: PatientPlans | null;

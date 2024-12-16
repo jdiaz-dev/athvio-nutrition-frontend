@@ -19,6 +19,7 @@ export interface PatientPlanBody extends Omit<Plan, 'week' | 'day'> {
 
 export interface CreatePatientPlanInput extends Pick<PatientPlanBody, 'patient' | 'assignedDate' | 'title'> {
   professional: string;
+  meals: Omit<Meal, '_id'>[];
 }
 
 export interface CreatePatientPlanRequest {
@@ -32,13 +33,6 @@ export interface CreatePatientPlanResponse {
 export interface GetRecordsPatientPlansBody extends GetRecordsBody {
   patient: string;
 }
-/* export interface GetPatientPlanRequest {
-  input: ProgramInput;
-}
-
-export interface GetPatientPlanResponse {
-  getPatientPlan: PatientPlanBody;
-} */
 
 export interface GetPatientPlansRequest {
   patientPlans: GetRecordsPatientPlansBody;
@@ -88,17 +82,6 @@ export interface DeletePatientPlanRequest {
 export interface DeletePatientPlanResponse {
   deleteCustomRecipe: PatientPlanBody;
 }
-/* 
-export interface PlanDayInfo {
-  _id: string | null;
-  totalMeals: number | null;
-}
-export type ProgramPlanDateExtendedProps = {
-  plan: PlanDayInfo;
-  program: string;
-  planDay: number;
-  planWeek: number;
-}; */
 
 export interface PatientPlanInitialState {
   patientPlans: PatientPlanBody[];

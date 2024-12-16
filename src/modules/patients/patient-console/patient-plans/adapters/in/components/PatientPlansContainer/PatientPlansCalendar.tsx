@@ -28,13 +28,12 @@ function PatientPlansCalendar() {
   const calendarRef = useRef<FullCalendar>(null);
 
   const authContext = useContext(AuthContext);
-  const patientPlansState = useSelector((state: ReduxStates) => state.patientPlans.patientPlans || []);
+  const patientPlansState = useSelector((state: ReduxStates) => state.patientPlans.patientPlans);
   const { patientId } = useParams();
   const { getPatientPlans } = usePatientPlan();
   const { reloadRecordList, setReloadRecordList } = useReloadRecords();
   const [dateSet, setDateSet] = useState<{ dateStart: Date; dateEnd: Date } | null>(null);
   const [datesToShow, setDatesToShow] = useState<DateItem<PatientPlanDateExtendedProps>[]>([]);
-
   const input = {
     professional: authContext.professional,
     patient: patientId as string,

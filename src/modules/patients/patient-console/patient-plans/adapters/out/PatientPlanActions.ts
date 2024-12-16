@@ -2,7 +2,6 @@ import { ApolloError } from '@apollo/client';
 import { useDispatch } from 'react-redux';
 import { apolloClient } from 'src/graphql/ApolloClient';
 import {
-  PatientPlanBody,
   CreatePatientPlanInput,
   CreatePatientPlanRequest,
   CreatePatientPlanResponse,
@@ -41,7 +40,7 @@ export function usePatientPlan() {
           },
         },
       });
-      if (response) dispatch(PatientPlanSlice.acceptNewPatientPlan(response.data?.createPatientPlan as PatientPlanBody));
+      if (response.data) dispatch(PatientPlanSlice.addNewPatientPlan(response.data.createPatientPlan));
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
@@ -60,7 +59,7 @@ export function usePatientPlan() {
         fetchPolicy: 'network-only',
       });
 
-      if (response) {
+      if (response.data) {
         dispatch(PatientPlanSlice.acceptNewPatientPlans(response.data.getPatientPlans));
       }
     } catch (error) {

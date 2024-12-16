@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React from 'react';
 import { EventContentArg } from '@fullcalendar/core';
 import { PatientPlanDateExtendedProps } from 'src/modules/patients/patients/adapters/out/patient.types';
@@ -22,7 +21,7 @@ function PatientPlansHelper(arg: EventContentArg) {
   } else {
     return (
       <PlanWrapper>
-        <PatientPlanBasicInformation patient={patient} plan={patientPlanDayInfo} />
+        <PatientPlanBasicInformation patient={patient} assignedDate={assignedDate} plan={patientPlanDayInfo} />
       </PlanWrapper>
     );
   }

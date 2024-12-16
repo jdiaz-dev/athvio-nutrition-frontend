@@ -46,7 +46,6 @@ export function useChat() {
 
       if (response) {
         console.log('-------response', response);
-        // dispatch(PatientPlanSlice.acceptNewPatientPlan(response.?.updatePlanMeal as PatientPlanBody));
       }
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);

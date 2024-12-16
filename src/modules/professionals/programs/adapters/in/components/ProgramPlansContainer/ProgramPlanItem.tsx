@@ -71,6 +71,18 @@ function ProgramPlanItem({ program, planDay, planDayInfo }: { program: string; p
     });
     setPlanSaved(false);
   };
+  const deletePlanHandler = () => {
+    setOpenDialog(true);
+    setMessage(ProgramMessages.REMOVE_PLAN);
+    setAlert(true);
+  };
+
+  const programPlanClickedHandler = () => {
+    setOpenPlanDetailDialog(true);
+    if (programPlanState) {
+      dispatch(MealsListSlice.initializeMeals(programPlanState.meals));
+    }
+  };
 
   useEffect(() => {
     if (openPlanDetailDialog) {
@@ -104,19 +116,6 @@ function ProgramPlanItem({ program, planDay, planDayInfo }: { program: string; p
       void programPlanMealsHandler();
     }
   }, [planSaved]);
-
-  const deletePlanHandler = () => {
-    setOpenDialog(true);
-    setMessage(ProgramMessages.REMOVE_PLAN);
-    setAlert(true);
-  };
-
-  const programPlanClickedHandler = () => {
-    setOpenPlanDetailDialog(true);
-    if (programPlanState) {
-      dispatch(MealsListSlice.initializeMeals(programPlanState.meals));
-    }
-  };
 
   return (
     <>

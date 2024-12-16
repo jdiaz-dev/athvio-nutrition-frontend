@@ -1,8 +1,15 @@
 import { gql } from '@apollo/client';
 
-export const CREATE_PLAN_MEAL = gql`
-  mutation _addPlanMeal($input: AddPlanMealDto!) {
-    addPlanMeal(input: $input) {
+export const PATIENT_PLAN_MEALS_CRUD = gql`
+  mutation _patientPlanMealsCrud(
+    $toAddInput: AddPlanMealDto!
+    $toUpdateInput: UpdatePlanMealDto!
+    $toDeleteInput: DeletePlanMealDto!
+    $shouldToAdd: Boolean!
+    $shouldToUpdate: Boolean!
+    $shouldToDelete: Boolean!
+  ) {
+    addPlanMeal(toAddInput: $toAddInput) @include(if: $shouldToAdd) {
       _id
       assignedDate
       title
@@ -91,12 +98,7 @@ export const CREATE_PLAN_MEAL = gql`
         }
       }
     }
-  }
-`;
-
-export const UPDATE_PLAN_MEAL = gql`
-  mutation _updatePlanMeal($input: UpdatePlanMealDto!) {
-    updatePlanMeal(input: $input) {
+    updatePlanMeal(toUpdateInput: $toUpdateInput) @include(if: $shouldToUpdate) {
       _id
       assignedDate
       title
@@ -185,12 +187,7 @@ export const UPDATE_PLAN_MEAL = gql`
         }
       }
     }
-  }
-`;
-
-export const DELETE_PLAN_MEAL = gql`
-  mutation _deletePlanMeal($input: DeletePlanMealDto!) {
-    deletePlanMeal(input: $input) {
+    deletePlanMeal(toDeleteInput: $toDeleteInput) @include(if: $shouldToDelete) {
       _id
       assignedDate
       title
