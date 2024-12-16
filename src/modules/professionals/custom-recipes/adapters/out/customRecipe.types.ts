@@ -5,7 +5,6 @@ export interface CustomRecipeBasicInfo {
   professional: string;
   name: string;
 }
-
 export interface CustomRecipeBody extends CustomRecipeBasicInfo, MealBuilderBody {}
 export type CreateCustomRecipeBody = Omit<CustomRecipeBody, '_id'>;
 

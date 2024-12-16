@@ -16,7 +16,7 @@ export const programInitialState: ProgramInitialState = {
     day: 0,
     meals: [],
   },
-  meals: [],
+  mealList: [],
   mealBasicInfo: {
     position: 0,
     mealTag: defaultMealTag,

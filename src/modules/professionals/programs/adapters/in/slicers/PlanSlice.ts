@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { programInitialState } from 'src/modules/professionals/programs/adapters/in/slicers/ProgramInitialState';
 import { Plan } from 'src/modules/professionals/programs/adapters/out/program.types';
 
+//todo: analize if still is necesary to manage plan slice and plans slice
 export const plansSlice = createSlice({
   name: 'plans',
   initialState: programInitialState.plans,

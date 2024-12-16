@@ -1,7 +1,7 @@
 import { combineReducers, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { patientPlanInitialState } from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/PatientPlanInitialState';
-import { mealBasicInfoSlice } from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/MealBasicInfoSlice';
-import { mealDetailsSlice } from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/MealDetailsSlice';
+import { patientPlanMealBasicInfoSlice } from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/MealBasicInfoSlice';
+import { patientPlanMealDetailsSlice } from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/MealDetailsSlice';
 import { PatientPlanBody } from 'src/modules/patients/patient-console/patient-plans/adapters/out/patientPlan.types';
 import { mealListSlice } from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/MealsListSlice';
 
@@ -56,6 +56,6 @@ export default combineReducers({
   patientPlans: patientPlansSlice.reducer,
   patientPlan: patientPlanSlice.reducer,
   mealList: mealListSlice.reducer,
-  mealDetails: mealDetailsSlice.reducer,
-  mealBasicInfo: mealBasicInfoSlice.reducer,
+  mealDetails: patientPlanMealDetailsSlice.reducer,
+  mealBasicInfo: patientPlanMealBasicInfoSlice.reducer,
 });

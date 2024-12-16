@@ -12,7 +12,7 @@ import { CreateProgramPlanBody } from 'src/modules/professionals/programs/adapte
 import * as MealsListSlice from 'src/modules/professionals/programs/adapters/in/slicers/MealsListSlice';
 import { ReduxItemtatus, temporalId } from 'src/shared/Consts';
 
-function ProgramPlanItemButtons({ planDay, planWeek, program }: { planDay: number; planWeek: number; program: string }) {
+function CreateProgramPlanItemButton({ planDay, planWeek, program }: { planDay: number; planWeek: number; program: string }) {
   const authContext = useContext(AuthContext);
 
   const planState = useSelector((state: ReduxStates) => state.programs.plan);
@@ -22,6 +22,7 @@ function ProgramPlanItemButtons({ planDay, planWeek, program }: { planDay: numbe
   const { createProgramPlan } = usePlan();
   const [openPlanDetailDialog, setOpenPlanDetailDialog] = useState(false);
   const [planSaved, setPlanSaved] = useState(false);
+  const stringDay = `Day ${planDay.toString()}`;
 
   const createProgramPlanHandler = async () => {
     const meals = mealListState
@@ -76,11 +77,15 @@ function ProgramPlanItemButtons({ planDay, planWeek, program }: { planDay: numbe
       </CustomIconWrapper>
 
       {openPlanDetailDialog && planState._id.length > 0 ? (
-        <PlanDetailDialog planDay={planDay} openPlanDetailDialog={openPlanDetailDialog} setOpenPlanDetailDialog={setOpenPlanDetailDialog} />
+        <PlanDetailDialog
+          planDay={stringDay}
+          openPlanDetailDialog={openPlanDetailDialog}
+          setOpenPlanDetailDialog={setOpenPlanDetailDialog}
+        />
       ) : (
         openPlanDetailDialog && (
           <PlanDetailDialog
-            planDay={planDay}
+            planDay={stringDay}
             openPlanDetailDialog={openPlanDetailDialog}
             setOpenPlanDetailDialog={setOpenPlanDetailDialog}
           />
@@ -90,4 +95,4 @@ function ProgramPlanItemButtons({ planDay, planWeek, program }: { planDay: numbe
   );
 }
 
-export default ProgramPlanItemButtons;
+export default CreateProgramPlanItemButton;

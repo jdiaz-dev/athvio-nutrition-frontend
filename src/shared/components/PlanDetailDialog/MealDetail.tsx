@@ -3,8 +3,6 @@ import React, { useState } from 'react';
 import { Card, Grid, IconButton, Menu, MenuItem } from '@mui/material';
 import { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import * as MealDetailsSlice from 'src/modules/professionals/programs/adapters/in/slicers/MealDetailsSlice';
-import * as MealBasicInfoSlice from 'src/modules/professionals/programs/adapters/in/slicers/MealBasicInfoSlice';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import MealBuilder from 'src/shared/components/MealBuilder/MealBuilder';
 import { Modules } from 'src/shared/Consts';
@@ -15,9 +13,10 @@ import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
 import MealTag from 'src/modules/professionals/programs/adapters/in/dialogs/PlanDetailDialog/MealTag';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-import * as MealsListSlice from 'src/modules/professionals/programs/adapters/in/slicers/MealsListSlice';
-import { PlanDialogContext } from 'src/shared/context/PlanDialogContext';
 import { MealWithStatus } from 'src/shared/components/PlanDetailDialog/MealList';
+import { useMealDetailsSlicers } from 'src/shared/hooks/useMealDetailSlicers';
+import { useMealBuilderSlicers } from 'src/shared/hooks/useMealBuilderSlicers';
+import { useMealListSlicers } from 'src/shared/hooks/useMealListSlicers';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -51,6 +50,9 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
       : useSelector((state: ReduxStates) => state.patientPlans.mealDetails);
 
   const dispatch = useDispatch();
+  const { acceptNewMealBasicInfo } = useMealDetailsSlicers(currentModuleContext.currentModule);
+  const { acceptNewMealDetail } = useMealBuilderSlicers(currentModuleContext.currentModule);
+  const { updateMeal, deleteMeal } = useMealListSlicers(currentModuleContext.currentModule);
 
   const [componentTouched, setComponentTouched] = useState(false);
   const [mouseEntered, setMouseEntered] = useState(false);
@@ -63,14 +65,14 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
     setAnchorEl(null);
   };
   const componentClickedHandler = () => {
-    dispatch(MealBasicInfoSlice.acceptNewMealBasicInfo({ position, mealTag, name }));
-    dispatch(MealDetailsSlice.acceptNewMealDetail(mealDetails));
+    dispatch(acceptNewMealBasicInfo({ position, mealTag, name }));
+    dispatch(acceptNewMealDetail(mealDetails));
   };
   const updateMealHandler = async () => {
     const { _id, ...restMealDetail } = mealDetailsState;
     if (mealDetailsState.ingredientDetails.length > 0) {
       dispatch(
-        MealsListSlice.updateMeal({
+        updateMeal({
           ...mealBasicInfoState,
           ...restMealDetail,
           _id,
@@ -81,7 +83,7 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
   const deleteMealHandler = async () => {
     setAnchorEl(null);
     setComponentTouched(false);
-    dispatch(MealsListSlice.deleteMeal(mealDetailsState._id));
+    dispatch(deleteMeal(mealDetailsState._id));
   };
   const componentTouchedHandler = () => {
     if (!componentTouched) {

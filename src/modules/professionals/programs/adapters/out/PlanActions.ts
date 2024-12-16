@@ -42,6 +42,7 @@ export function usePlan() {
       });
       if (response.data) {
         dispatch(ProgramSlice.acceptNewProgram(response.data.addProgramPlan));
+        dispatch(PlanSlice.acceptNewPlans(response.data.addProgramPlan.plans));
       }
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);

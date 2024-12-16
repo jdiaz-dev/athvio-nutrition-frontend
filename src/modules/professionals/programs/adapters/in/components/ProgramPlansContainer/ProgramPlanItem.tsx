@@ -11,25 +11,24 @@ import CustomTrashIcon from 'src/shared/components/Icons/CustomTrashIcon';
 import PlanBucket from 'src/shared/components/PlanBucket/PlanBucket';
 import CopyProgramPlan from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/CopyProgramPlan';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
-import { PlanDialogContext } from 'src/shared/context/PlanDialogContext';
 import * as MealsListSlice from 'src/modules/professionals/programs/adapters/in/slicers/MealsListSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { usePlanMeal } from 'src/modules/professionals/programs/adapters/out/MealActions';
 
 //todo: check all the params
-function ProgramPlan({ program, planDay, planDayInfo }: { program: string; planDay: number; planDayInfo: PlanDayInfo }) {
+function ProgramPlanItem({ program, planDay, planDayInfo }: { program: string; planDay: number; planDayInfo: PlanDayInfo }) {
   const dispatch = useDispatch();
   const authContext = useContext(AuthContext);
-  const planDialogContext = useContext(PlanDialogContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
 
   const programPlanState = useSelector((state: ReduxStates) => state.programs.plans).find((_plan) => _plan._id === planDayInfo._id);
   const mealListState = useSelector((state: ReduxStates) => state.programs.mealList);
 
-  const [openPlanDetailDialog, setOpenPlanDetailDialog] = useState(planDialogContext.planDay === planDay ? true : false);
+  const [openPlanDetailDialog, setOpenPlanDetailDialog] = useState(false);
   const [planSaved, setPlanSaved] = useState(false);
 
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk, alert, setAlert } = useMessageDialog();
+  const stringDay = `Day ${planDay.toString()}`;
 
   const { deletePlan } = usePlan();
   const { programPlanMealCRUD } = usePlanMeal();
@@ -127,7 +126,11 @@ function ProgramPlan({ program, planDay, planDayInfo }: { program: string; planD
       </PlanBucket>
       <CustomTrashIcon handler={deletePlanHandler} />
       {openPlanDetailDialog && (
-        <PlanDetailDialog planDay={planDay} openPlanDetailDialog={openPlanDetailDialog} setOpenPlanDetailDialog={setOpenPlanDetailDialog} />
+        <PlanDetailDialog
+          planDay={stringDay}
+          openPlanDetailDialog={openPlanDetailDialog}
+          setOpenPlanDetailDialog={setOpenPlanDetailDialog}
+        />
       )}
       {openDialog && (
         <MessageDialog openDialog={openDialog} setOpenDialog={setOpenDialog} message={message} setMessageOk={setMessageOk} alert={alert} />
@@ -136,4 +139,4 @@ function ProgramPlan({ program, planDay, planDayInfo }: { program: string; planD
   );
 }
 
-export default ProgramPlan;
+export default ProgramPlanItem;

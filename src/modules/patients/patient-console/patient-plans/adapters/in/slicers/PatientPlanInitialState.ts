@@ -15,6 +15,7 @@ export const patientPlanInitialState: PatientPlanInitialState = {
     mealTag: defaultMealTag,
     name: 'Meal name',
   },
+  mealList: [],
   mealDetails: {
     _id: '',
     ingredientDetails: [],

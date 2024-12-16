@@ -11,10 +11,9 @@ import MealDetail from 'src/shared/components/PlanDetailDialog/MealDetail';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import { Modules, ReduxItemtatus } from 'src/shared/Consts';
 import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
-import { PlanDialogContext, defaultPlanDay } from 'src/shared/context/PlanDialogContext';
 import { Subject } from 'rxjs';
-import * as MealsListSlice from 'src/modules/professionals/programs/adapters/in/slicers/MealsListSlice';
 import { generateTemporalId } from 'src/shared/helpers/functions';
+import { useMealListSlicers } from 'src/shared/hooks/useMealListSlicers';
 
 const savedPlanButton = new Subject<boolean>();
 export const savedPlanButton$ = savedPlanButton.asObservable();
@@ -26,13 +25,12 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
 }: {
   openPlanDetailDialog: boolean;
   setOpenPlanDetailDialog: (openPlanDetailDialog: boolean) => void;
-  planDay: number;
+  planDay: string;
 }) {
-  const planDialogContext = useContext(PlanDialogContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const currentModuleContext = useContext(CurrentModuleContext);
   const dispatch = useDispatch();
-
+  const { addMeal } = useMealListSlicers(currentModuleContext.currentModule);
   const mealListState =
     currentModuleContext.currentModule === Modules.PROGRAMS
       ? useSelector((state: ReduxStates) => state.programs.mealList)
@@ -49,12 +47,9 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
   const closeIconDialogHandler = () => {
     reloadRecordListContext.setReloadRecordList(true);
     setOpenPlanDetailDialog(false);
-    planDialogContext.setPlanDay(defaultPlanDay);
   };
   const addMealPlanHandler = () => {
-    dispatch(
-      MealsListSlice.addMeal({ ...programInitialState.mealBasicInfo, ...programInitialState.mealDetails, _id: generateTemporalId() }),
-    );
+    dispatch(addMeal({ ...programInitialState.mealBasicInfo, ...programInitialState.mealDetails, _id: generateTemporalId() }));
   };
 
   const savePlanHandler = async () => {
@@ -67,7 +62,6 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
         open={openPlanDetailDialog}
         onClose={() => {
           setOpenPlanDetailDialog(false);
-          planDialogContext.setPlanDay(defaultPlanDay);
         }}
         scroll="body"
         maxWidth="md"
@@ -76,7 +70,7 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
-          Day {planDay}
+          {planDay}
           <CloseDialogIcon closedIconDialog={closedIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
         </DialogTitle>
         <DialogContent>

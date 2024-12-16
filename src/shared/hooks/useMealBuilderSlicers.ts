@@ -1,18 +1,21 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as customRecipeDetailsImports from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeDetailsSlice';
-import * as ProgramMealDetailImport from 'src/modules/professionals/programs/adapters/in/slicers/MealDetailsSlice';
+import * as programMealDetailImport from 'src/modules/professionals/programs/adapters/in/slicers/MealDetailsSlice';
+import * as patientPlanMealDetailsImports from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/MealDetailsSlice';
 import { Modules } from 'src/shared/Consts';
 
 const { customRecipeDetailsSlice, ...customRecipeDetailsSlicers } = customRecipeDetailsImports;
-const { mealDetailsSlice, ...programMealDetailSlicers } = ProgramMealDetailImport;
+const { programPlanMealDetailsSlice, ...programPlanMealDetailSlicers } = programMealDetailImport;
+const { patientPlanMealDetailsSlice, ...patientPlanMealDetailSlicers } = patientPlanMealDetailsImports;
 
-export const useMealBuilderSlicers = (currentModule: string) => {
+//for custom recipes, programs and patients (all modules that contain meal details)
+export const useMealBuilderSlicers = (currentModule: Modules) => {
   let slicer;
   if (currentModule === Modules.CUSTOM_RECIPES) {
-    slicer = customRecipeDetailsSlicers;
-    customRecipeDetailsSlicers;
+    slicer = { ...customRecipeDetailsSlicers };
+  } else if (currentModule === Modules.PROGRAMS) {
+    slicer = { ...programPlanMealDetailSlicers };
   } else {
-    slicer = programMealDetailSlicers;
+    slicer = { ...patientPlanMealDetailSlicers };
   }
   return { ...slicer };
 };
