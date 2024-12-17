@@ -14,6 +14,7 @@ import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 import { Subject } from 'rxjs';
 import { generateTemporalId } from 'src/shared/helpers/functions';
 import { useMealListSlicers } from 'src/shared/hooks/useMealListSlicers';
+import CancelAndSaveButtons from 'src/shared/components/CancelAndSaveButtons';
 
 const savedPlanButton = new Subject<boolean>();
 export const savedPlanButton$ = savedPlanButton.asObservable();
@@ -45,7 +46,7 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
   }, [closedIconDialog]);
 
   const closeIconDialogHandler = () => {
-    reloadRecordListContext.setReloadRecordList(true);
+    // reloadRecordListContext.setReloadRecordList(true);
     setOpenPlanDetailDialog(false);
   };
   const addMealPlanHandler = () => {
@@ -80,24 +81,12 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
               <MealDetail key={index} meal={meal} />
             ))}
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Button
-              variant="contained"
-              onClick={() => addMealPlanHandler()}
-              size="large"
-              style={{ marginTop: '-15px', width: '90%', marginBottom: '20px' }}
-            >
+            <Button variant="contained" onClick={() => addMealPlanHandler()} size="large" style={{ width: '90%', marginBottom: '20px' }}>
               Add meal
             </Button>
           </div>
 
-          <div style={{ width: '90%', margin: '0 auto', display: 'flex', justifyContent: 'right' }}>
-            <Button variant="contained" style={{ marginRight: '20px', background: 'yellow', color: 'black' }}>
-              Cancelar
-            </Button>
-            <Button variant="contained" onClick={savePlanHandler}>
-              Guardar
-            </Button>
-          </div>
+          <CancelAndSaveButtons cancelHandler={closeIconDialogHandler} saveHandler={savePlanHandler} />
         </DialogContent>
       </Dialog>
     </>

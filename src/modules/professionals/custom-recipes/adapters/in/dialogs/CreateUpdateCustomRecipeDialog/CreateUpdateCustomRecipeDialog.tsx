@@ -16,6 +16,7 @@ import { defaultRecipeName } from 'src/modules/professionals/custom-recipes/adap
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 import { formStyles } from 'src/shared/styles/styles';
+import CancelAndSaveButtons from 'src/shared/components/CancelAndSaveButtons';
 
 function CreateUpdateCustomRecipeDialog({
   openCreateUpdateCustomRecipeDialog,
@@ -49,17 +50,19 @@ function CreateUpdateCustomRecipeDialog({
         professional: authContext.professional,
       });
       dispatch(CustomRecipeBasicInfoSlice.renameRecipeName(defaultRecipeName));
+      setOpenCreateUpdateCustomRecipeDialog(false);
     } else {
       await createCustomRecipe({ ...recipeNameBasicInfo, ...restCustomRecipe, professional: authContext.professional });
       dispatch(CustomRecipeBasicInfoSlice.renameRecipeName(defaultRecipeName));
+      setOpenCreateUpdateCustomRecipeDialog(false);
     }
   };
   const closeIconDialogHandler = () => {
     if (componentTouched) {
-      void createUpdateCustomRecipeHandler();
       setComponentTouched(false);
     }
     setClosedIconDialog(false);
+    setOpenCreateUpdateCustomRecipeDialog(false);
   };
 
   useEffect(() => {
@@ -92,7 +95,7 @@ function CreateUpdateCustomRecipeDialog({
         }}
         scroll="body"
         fullWidth={true}
-        maxWidth="sm"
+        maxWidth="md"
         aria-labelledby="dialog-title"
         aria-describedby="dialog-description"
       >
@@ -100,10 +103,10 @@ function CreateUpdateCustomRecipeDialog({
           Create your custom recipe
           <CloseDialogIcon closedIconDialog={closedIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
         </DialogTitle>
-        <DialogContent dividers={true} style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <DialogContent dividers={true}>
           <Card
             className={classes.card}
-            style={{ padding: '20px' }}
+            style={{ padding: '20px', marginBottom: '15px' }}
             variant="outlined"
             onClick={() => {
               if (!componentTouched) {
@@ -116,6 +119,8 @@ function CreateUpdateCustomRecipeDialog({
               <MealBuilder meal={{ _id, ...restCustomRecipe }} />
             </CurrentModuleContext.Provider>
           </Card>
+          <CancelAndSaveButtons cancelHandler={closeIconDialogHandler} saveHandler={createUpdateCustomRecipeHandler} />
+
           {/* <NutrientsDetail /> */}
         </DialogContent>
       </Dialog>

@@ -13,12 +13,7 @@ export interface CreateCustomRecipeRequest {
 }
 
 export interface CreateCustomRecipeResponse {
-  data: {
-    createCustomRecipe: {
-      _id: string;
-      name: string;
-    };
-  };
+  createCustomRecipe: CustomRecipeBody;
 }
 
 export interface UpdateCustomRecipeBody extends Omit<CustomRecipeBody, '_id'> {
@@ -30,12 +25,7 @@ export interface UpdateCustomRecipeRequest {
 }
 
 export interface UpdateCustomRecipeResponse {
-  data: {
-    updateCustomRecipe: {
-      _id: string;
-      name: string;
-    };
-  };
+  updateCustomRecipe: CustomRecipeBody;
 }
 
 export interface GetCustomRecipeRequest {

@@ -24,7 +24,7 @@ const cardStyles = makeStyles()(() => {
       minWidth: 275,
       width: '70%',
       margin: '0px auto',
-      marginBottom: '30px',
+      marginBottom: '15px',
       padding: '0px',
     },
   };

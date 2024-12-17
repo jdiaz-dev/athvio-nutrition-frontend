@@ -38,7 +38,7 @@ export function useCustomRecipe() {
           },
         },
       });
-      response;
+      if (response.data) dispatch(CustomRecipeSlicers.addCustomRecipe(response.data.createCustomRecipe));
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
@@ -56,8 +56,7 @@ export function useCustomRecipe() {
         fetchPolicy: 'network-only',
       });
 
-      if (response) dispatch(CustomRecipeSlicers.showCustomRecipes(response.data.getCustomRecipes));
-      return response;
+      if (response.data) dispatch(CustomRecipeSlicers.showCustomRecipes(response.data.getCustomRecipes));
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
@@ -73,8 +72,7 @@ export function useCustomRecipe() {
           },
         },
       });
-      response;
-      console.log(response);
+      if (response.data) dispatch(CustomRecipeSlicers.updateCustomRecipe(response.data.updateCustomRecipe));
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
