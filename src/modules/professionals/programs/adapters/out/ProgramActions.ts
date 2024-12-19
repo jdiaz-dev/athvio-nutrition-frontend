@@ -62,12 +62,10 @@ export function useProgram() {
         },
         fetchPolicy: 'network-only',
       });
-      if (response) {
+      if (response.data) {
         dispatch(ProgramSlice.acceptNewProgram(response.data.getProgram));
         dispatch(PlanSlice.acceptNewPlans(response.data.getProgram.plans));
       }
-
-      return response;
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
