@@ -11,8 +11,7 @@ import * as AssignProgramSlice from 'src/modules/professionals/assign-program/in
 function StartDaySelector() {
   const dispatch = useDispatch();
 
-  const plansState = useSelector((state: ReduxStates) => state.programs.program).plans;
-  console.log('------------plansState', plansState)
+  const plansState = useSelector((state: ReduxStates) => state.programs.program.data.plans);
   const assignProgramState = useSelector((state: ReduxStates) => state.assignProgram);
 
   const [highestPlanDay] = useState<number>(plansState[plansState.length - 1].day);

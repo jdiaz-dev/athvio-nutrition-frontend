@@ -30,7 +30,7 @@ function AssignProgramDialog({
 }) {
   const dispatch = useDispatch();
   const reloadRecordListContext = useContext(ReloadRecordListContext);
-  const programState = useSelector((state: ReduxStates) => state.programs.program);
+  const programState = useSelector((state: ReduxStates) => state.programs.program.data);
   const assignProgramState = useSelector((state: ReduxStates) => state.assignProgram);
   const [closeIconDialog, setCloseIconDialog] = useState(true);
 
