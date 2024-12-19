@@ -25,24 +25,26 @@ function StartDaySelector() {
   }
 
   return (
-    <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Starting day</InputLabel>
-        <Select<number>
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={assignProgramState.startingDay}
-          label="day"
-          onChange={selectDayHandler}
-        >
-          {days.map((day, index) => (
-            <MenuItem key={index} value={day}>
-              Day {day}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </Box>
+    <>
+      <div style={{ fontWeight: 'bold', marginBottom: '5px' }}>Starting day</div>
+      <Box sx={{ minWidth: 120 }}>
+        <FormControl fullWidth>
+          <Select<number>
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={assignProgramState.startingDay}
+            label="day"
+            onChange={selectDayHandler}
+          >
+            {days.map((day, index) => (
+              <MenuItem key={index} value={day}>
+                Day {day}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
+    </>
   );
 }
 

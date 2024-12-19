@@ -11,15 +11,11 @@ function AssigmentStartDate() {
   const dispatch = useDispatch();
 
   return (
-    <div>
-      date picker
+    <div style={{ marginBottom: '15px' }}>
+      <text style={{ fontWeight: 'bold' }}>Assigment start day</text>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DemoContainer components={['DatePicker']}>
-          <DatePicker
-            label="Basic date picker"
-            // value={date}
-            onChange={(newDate) => dispatch(AssignProgramSlice.assignStartDate(newDate as Dayjs))}
-          />
+          <DatePicker onChange={(newDate) => dispatch(AssignProgramSlice.assignStartDate(newDate as Dayjs))} />
         </DemoContainer>
       </LocalizationProvider>
     </div>

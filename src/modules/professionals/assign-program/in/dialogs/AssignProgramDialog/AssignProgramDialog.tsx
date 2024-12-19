@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
+import { Card, Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
 
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -18,6 +18,7 @@ import StartDaySelector from 'src/modules/professionals/assign-program/in/dialog
 import { useAssignProgram } from 'src/modules/professionals/assign-program/out/AssignProgramActions';
 import { MessagesForOkDialog } from 'src/shared/Consts';
 import * as AssignProgramSlice from 'src/modules/professionals/assign-program/in/slicers/AssignProgramSlice';
+import CancelAndSaveButtons from 'src/shared/components/CancelAndSaveButtons';
 
 function AssignProgramDialog({
   openAssignPogramDialog,
@@ -47,6 +48,10 @@ function AssignProgramDialog({
     };
   }, [_program]);
 
+  const closeDialogHandler = () => {
+    setOpenAssignPogramDialog(false);
+    dispatch(AssignProgramSlice.resetAssignmets());
+  };
   const assignProgramHandler = async () => {
     await assignProgram({
       professional: programState.professional,
@@ -78,10 +83,8 @@ function AssignProgramDialog({
     <>
       <Dialog
         open={openAssignPogramDialog}
-        onClose={() => {
-          setOpenAssignPogramDialog(false);
-        }}
-        scroll="paper"
+        onClose={closeDialogHandler}
+        scroll="body"
         fullWidth={true}
         maxWidth="md"
         aria-labelledby="dialog-title"
@@ -94,6 +97,7 @@ function AssignProgramDialog({
               aria-label="close"
               onClick={() => {
                 setCloseIconDialog(false);
+                dispatch(AssignProgramSlice.resetAssignmets());
               }}
               sx={{
                 position: 'absolute',
@@ -106,20 +110,26 @@ function AssignProgramDialog({
             </IconButton>
           ) : null}
         </DialogTitle>
-        <DialogContent dividers={true} style={{ minHeight: '900px', display: 'flex', justifyContent: 'space-between' }}>
-          <div style={{ width: '68%' }}>
-            <PatientList />
-          </div>
-          <div>
-            <SelectedPatients />
-            <AssigmentStartDate />
-            <StartDaySelector />
-            <Button variant="contained" type="submit" onClick={assignProgramHandler}>
-              Save
-            </Button>
-          </div>
-
-          {/* </Card> */}
+        <DialogContent dividers={true} style={{ minHeight: '500px' }}>
+          <Card
+            style={{
+              margin: '0 auto',
+              padding: '10px',
+              display: 'flex',
+              justifyContent: 'space-between',
+              marginBottom: '20px',
+            }}
+          >
+            <div style={{ width: '70%' }}>
+              <PatientList />
+            </div>
+            <div>
+              <SelectedPatients />
+              <AssigmentStartDate />
+              <StartDaySelector />
+            </div>
+          </Card>
+          <CancelAndSaveButtons cancelHandler={closeDialogHandler} saveHandler={assignProgramHandler} styles={{ width: '100%' }} />
         </DialogContent>
         {openDialog && (
           <MessageDialog openDialog={openDialog} setOpenDialog={setOpenDialog} message={message} setMessageOk={setMessageOk} />

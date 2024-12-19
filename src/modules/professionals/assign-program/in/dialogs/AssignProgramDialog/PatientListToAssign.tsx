@@ -18,7 +18,7 @@ import Paginator from 'src/shared/components/Paginator';
 import { PatientStates } from 'src/shared/Consts';
 import PatientItem from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/PatientItem';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
-import { PatientBody } from 'src/modules/patients/patient-console/patient/out/patient';
+import { PatientBody } from 'src/modules/patients/patient-console/patient/adapters/out/patient';
 
 function PatientList() {
   const authContext = useContext(AuthContext);
@@ -90,7 +90,7 @@ function PatientList() {
       />
 
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table aria-label="simple table">
           <TableHead>
             <TableRow>
               <StyledTableCell>Name</StyledTableCell>
