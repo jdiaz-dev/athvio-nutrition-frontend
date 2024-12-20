@@ -95,8 +95,8 @@ export const CREATE_CLIENT_PLAN = gql`
 `;
 
 export const GET_CLIENT_PLANS = gql`
-  query _getPatientPlans($patientPlans: GetPatientPlansDto!) {
-    getPatientPlans(patientPlans: $patientPlans) {
+  query _getPatientPlansForWeb($patientPlans: GetPatientPlansForWebDto!) {
+    getPatientPlansForWeb(patientPlans: $patientPlans) {
       _id
       title
       assignedDate

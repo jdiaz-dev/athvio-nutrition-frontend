@@ -5,7 +5,7 @@ export type CredentialsSignIn = {
 
 export type JwtDto = {
   _id: string;
-  userType: string;
+  role: string;
   token: string;
 };
 

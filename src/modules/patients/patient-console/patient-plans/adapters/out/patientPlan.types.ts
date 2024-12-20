@@ -45,7 +45,7 @@ export interface PatientPlans {
 
 //todo: delete response
 export interface GetPatientPlansResponse {
-  getPatientPlans: PatientPlanBody[];
+  getPatientPlansForWeb: PatientPlanBody[];
 }
 
 export interface UpdatePatientPlanInput extends CreatePatientPlanInput {

@@ -23,7 +23,7 @@ export function usePatientConsole() {
         fetchPolicy: 'network-only',
       });
       if (response) {
-        dispatch(PatientPlanSlice.acceptNewPatientPlans(response.data.getPatientPlans));
+        dispatch(PatientPlanSlice.acceptNewPatientPlans(response.data.getPatientPlansForWeb));
         dispatch(ChatSlice.acceptNewPatientChat(response.data.getChat));
         dispatch(PatientSlice.acceptNewPatient(response.data.getPatientForWeb));
         dispatch(ProfessionalSlice.acceptNewProfessional(response.data.getProfessional));

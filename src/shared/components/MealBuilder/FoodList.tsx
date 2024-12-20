@@ -49,7 +49,7 @@ function FoodList() {
   const [databaseChanged, setDatabaseChanged] = useState<boolean>(false);
 
   const [panelExpanded, setPanelExpanded] = useState<string | false>(false);
-  const { loading, refetch } = useQuery<GetFoodsResponse, GetFoodRequest>(GET_FOODS, {
+  const { loading, refetch } = useQuery<GetFoodsResponse, GetFoodRequest>(GET_FOODS, {  
     skip: true,
     fetchPolicy: 'network-only',
   });

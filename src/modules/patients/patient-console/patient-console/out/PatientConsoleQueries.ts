@@ -2,12 +2,12 @@ import { gql } from '@apollo/client';
 
 export const GET_PATIENT_FOR_CONSOLE = gql`
   query _getPatientForConsole(
-    $patientPlans: GetPatientPlansDto!
+    $patientPlans: GetPatientPlansForWebDto!
     $chat: GetChatDto!
     $patient: GetPatientForWebDto!
     $professional: GetProfessionalDto!
   ) {
-    getPatientPlans(patientPlans: $patientPlans) {
+    getPatientPlansForWeb(patientPlans: $patientPlans) {
       _id
       title
       assignedDate

@@ -22,7 +22,7 @@ export type GetPatientForConsoleRequest = {
 };
 
 export type GetPatientForConsoleResponse = {
-  getPatientPlans: PatientPlanBody[];
+  getPatientPlansForWeb: PatientPlanBody[];
   getChat: ChatBody;
   getPatientForWeb: PatientBody;
   getProfessional: ProfessionalBody;
