@@ -18,12 +18,12 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 
 import IconButton from 'src/shared/components/IconButton';
-import AnimateButton from '../shared/AnimateButton';
-import useScriptRef from '../hooks/useScriptRef';
+import AnimateButton from '../../shared/AnimateButton';
+import useScriptRef from '../../hooks/useScriptRef';
 import { strengthColor, strengthIndicator } from 'src/modules/authentication/authentication/adapters/in/shared/password-strength';
 
 // types
-import { StringColorProps } from '../types/password';
+import { StringColorProps } from '../../types/password';
 
 // assets
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';

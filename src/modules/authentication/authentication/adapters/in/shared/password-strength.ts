@@ -1,7 +1,17 @@
 /**
  * Password validator for login pages
  */
-import { NumbColorFunc, StringBoolFunc, StringNumFunc } from '../types/password';
+export interface StringColorProps {
+  id?: string;
+  label?: string;
+  color?: string;
+  primary?: string;
+  secondary?: string;
+}
+
+export type StringBoolFunc = (s: string) => boolean;
+export type StringNumFunc = (s: string) => number;
+export type NumbColorFunc = (n: number) => StringColorProps | undefined;
 
 // has number
 const hasNumber: StringBoolFunc = (number) => new RegExp(/[0-9]/).test(number);

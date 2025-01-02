@@ -16,13 +16,13 @@ import {
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 
-import AnimateButton from '../shared/AnimateButton';
+import AnimateButton from '../../shared/AnimateButton';
 
 // import useAuth from 'hooks/useAuth';
-import useScriptRef from '../hooks/useScriptRef'; // TODO: check it
+import useScriptRef from '../../hooks/useScriptRef'; // TODO: check it
 
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 import IconButton from 'src/shared/components/IconButton';
 
 // ============================|| JWT - LOGIN ||============================ //

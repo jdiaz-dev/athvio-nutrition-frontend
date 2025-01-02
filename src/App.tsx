@@ -11,12 +11,12 @@ import ProgramPlansContainer from 'src/modules/professionals/programs/adapters/i
 import Lab from 'src/modules/Lab/Lab';
 import PrivateRoute from './core/router/PrivateRoute';
 import PublicRoute from './core/router/PublicRoute';
-import SignIn from './modules/authentication/authentication/adapters/in/singIn/SignIn';
-import SignUpProfessional from './modules/authentication/authentication/adapters/in/SignUpProfessional/SingUpProfessional';
+import SignIn from './modules/authentication/authentication/adapters/in/components/singIn/SignIn';
+import SignUpProfessional from './modules/authentication/authentication/adapters/in/components/SignUpProfessional/SingUpProfessional';
 import PatientConsoleContainer from 'src/modules/patients/patient-console/patient-console/in/components/PatientConsoleContainer';
 import QuestionaryDetailContainer from 'src/modules/professionals/questionary-config/adapters/in/components/QuestionaryDetailContainer';
-import ActivatePatient from 'src/modules/authentication/authentication/adapters/in/ActivatePatient/ActivatePatient';
-import Congratulations from 'src/modules/authentication/authentication/adapters/in/Congratulations';
+import ActivatePatient from 'src/modules/authentication/authentication/adapters/in/components/ActivatePatient/ActivatePatient';
+import Congratulations from 'src/modules/authentication/authentication/adapters/in/components/Congratulations';
 
 function App() {
   return (

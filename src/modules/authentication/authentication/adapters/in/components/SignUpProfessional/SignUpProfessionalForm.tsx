@@ -21,21 +21,21 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 
 import IconButton from 'src/shared/components/IconButton';
-import AnimateButton from '../shared/AnimateButton';
+import AnimateButton from '../../shared/AnimateButton';
 
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 
-import useScriptRef from '../hooks/useScriptRef';
+import useScriptRef from '../../hooks/useScriptRef';
 import { strengthColor, strengthIndicator } from 'src/modules/authentication/authentication/adapters/in/shared/password-strength';
 
 // types
 import { SnackbarProps } from 'src/shared/types/snackbar'; //TODO: remove it?
-import { StringColorProps } from '../types/password';
+import { StringColorProps } from '../../types/password';
 
 // assets
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 import CountryCodeSelect from 'src/shared/components/CountryCodeSelect';
-import { SignUpProfessionalModel } from '../../out/authentication.types';
+import { SignUpProfessionalModel } from '../../../out/authentication.types';
 import { ApolloError } from 'apollo-boost';
 
 // ============================|| JWT - REGISTER ||============================ //
