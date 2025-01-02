@@ -1,3 +1,5 @@
+import { User } from 'src/modules/authentication/users/adapters/out/user';
+
 export type CredentialsSignIn = {
   email: string;
   password: string;
@@ -42,4 +44,17 @@ export type SignUpProfessionalRequest = {
 
 export type SignUpProfessionalResponse = {
   signUpProfessional: JwtDto;
+};
+
+export type ActivatePatientBody = {
+  user: string;
+  password: string;
+};
+
+export type ActivatePatientRequest = {
+  input: ActivatePatientBody;
+};
+
+export type ActivatePatientResponse = {
+  activatePatient: User;
 };

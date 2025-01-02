@@ -1,4 +1,4 @@
-import { ApolloError, FetchResult } from '@apollo/client';
+import { FetchResult } from '@apollo/client';
 import { apolloClient } from 'src/graphql/ApolloClient';
 import {
   SignUpProfessionalModel,
@@ -7,8 +7,11 @@ import {
   SignInResponse,
   SignInRequest,
   CredentialsSignIn,
+  ActivatePatientRequest,
+  ActivatePatientResponse,
+  ActivatePatientBody,
 } from './authentication.types';
-import { SIGN_IN, SIGN_UP_PROFESSIONAL } from './authenticationQueries';
+import { ACTIVATE_PATIENT, SIGN_IN, SIGN_UP_PROFESSIONAL } from './authenticationQueries';
 
 export function useAuthentication() {
   const signIn = async (credentials: CredentialsSignIn): Promise<FetchResult<SignInResponse>> => {
@@ -32,5 +35,14 @@ export function useAuthentication() {
     });
     return res;
   };
-  return { signIn, signUpProfessional };
+  const activatePatient = async (body: ActivatePatientBody): Promise<FetchResult<ActivatePatientResponse>> => {
+    const res = await apolloClient.mutate<ActivatePatientResponse, ActivatePatientRequest>({
+      mutation: ACTIVATE_PATIENT,
+      variables: {
+        input: body,
+      },
+    });
+    return res;
+  };
+  return { signIn, signUpProfessional, activatePatient };
 }

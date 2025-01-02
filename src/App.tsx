@@ -15,6 +15,8 @@ import SignIn from './modules/authentication/authentication/adapters/in/singIn/S
 import SignUpProfessional from './modules/authentication/authentication/adapters/in/SignUpProfessional/SingUpProfessional';
 import PatientConsoleContainer from 'src/modules/patients/patient-console/patient-console/in/components/PatientConsoleContainer';
 import QuestionaryDetailContainer from 'src/modules/professionals/questionary-config/adapters/in/components/QuestionaryDetailContainer';
+import ActivatePatient from 'src/modules/authentication/authentication/adapters/in/ActivatePatient/ActivatePatient';
+import Congratulations from 'src/modules/authentication/authentication/adapters/in/Congratulations';
 
 function App() {
   return (
@@ -34,6 +36,22 @@ function App() {
             element={
               <PublicRoute>
                 <SignUpProfessional />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="activate/:user"
+            element={
+              <PublicRoute>
+                <ActivatePatient />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="congratulations"
+            element={
+              <PublicRoute>
+                <Congratulations />
               </PublicRoute>
             }
           />

@@ -10,15 +10,6 @@ const SignIn = () => {
         <Grid item xs={12}>
           <Stack direction="row" justifyContent="space-between" alignItems="baseline" sx={{ mb: { xs: -0.5, sm: 0.5 } }}>
             <Typography variant="h3">SignIn</Typography>
-            {/* <Typography
-              component={Link}
-              to={isLoggedIn ? '/auth/register' : '/register'}
-              variant="body1"
-              sx={{ textDecoration: 'none' }}
-              color="primary"
-            >
-              Don&apos;t have an account?
-            </Typography> */}
           </Stack>
         </Grid>
         <Grid item xs={12}>

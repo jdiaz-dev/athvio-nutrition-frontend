@@ -1,5 +1,5 @@
 import { useEffect, useState, SyntheticEvent, useContext } from 'react';
-import { Navigate, Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 // material-ui
 import {
@@ -20,18 +20,16 @@ import {
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 
-// project import
 import IconButton from 'src/shared/components/IconButton';
 import AnimateButton from '../shared/AnimateButton';
 
 import { AuthContext } from '../context/AuthContext';
 
 import useScriptRef from '../hooks/useScriptRef';
-import { openSnackbar } from 'src/shared/components/snackbar';
-import { strengthColor, strengthIndicator } from './password-strength';
+import { strengthColor, strengthIndicator } from 'src/modules/authentication/authentication/adapters/in/shared/password-strength';
 
 // types
-import { SnackbarProps } from 'src/shared/types/snackbar';//TODO: remove it?
+import { SnackbarProps } from 'src/shared/types/snackbar'; //TODO: remove it?
 import { StringColorProps } from '../types/password';
 
 // assets
@@ -45,7 +43,6 @@ import { ApolloError } from 'apollo-boost';
 const SignUpProfessionalForm = () => {
   const { isAuthenticated, signUpProfessionalHandler } = useContext(AuthContext);
   const scriptedRef = useScriptRef();
-  const navigate = useNavigate();
 
   const [countryCode, setCountryCode] = useState<string | undefined>();
   const [countryName, setCountryName] = useState<string | undefined>('');
@@ -120,9 +117,9 @@ const SignUpProfessionalForm = () => {
           } catch (error: any) {
             console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors[0].extensions.response.message[0]);
             // throw error;
-            console.log('----------scriptedRef.current', scriptedRef.current)
+            console.log('----------scriptedRef.current', scriptedRef.current);
             if (scriptedRef.current) {
-              console.log('------------entried')
+              console.log('------------entried');
               setStatus({ success: false });
               setErrors({ submit: (error as ApolloError).graphQLErrors[0].extensions.response.messsage[0] });
               setSubmitting(false);

@@ -19,3 +19,11 @@ export const SIGN_UP_PROFESSIONAL = gql`
     }
   }
 `;
+
+export const ACTIVATE_PATIENT = gql`
+  mutation _activatePatient($input: ActivatePatientDto!) {
+    activatePatient(input: $input) {
+      _id
+    }
+  }
+`;
