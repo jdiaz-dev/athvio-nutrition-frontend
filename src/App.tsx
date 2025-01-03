@@ -131,3 +131,32 @@ export default App;
   - endpoint to create patient plan (1 day)
   - complete implementation with (2 days)
 */
+
+
+/* 
+  prioritary backlog
+   - feat: add name of program at the beginning of the plan
+   - fix: fix the amount of days when try to assing a program plan to a patient 
+   - fix: when I have program plans created, and add another program plan, the amount of programs is being reduced
+   - bug: I have 13 days to to choose, but I only can see 7 days
+   - fix: cooking instructions is too slow (web app)
+   - fix: problems at moment to get chat after loging (mobile)
+   - analysis: planify logging
+   - feat: implement logging
+   - infra:  analyzate if I will use domain in aws
+   - security : void ddos attack  
+   - fix: fix problem at moment to rename meal in plans and program
+   - fix: validation of loging against backend 
+   - logo: use react logo
+   - fix: use another icon for copy paste
+   - remove: remove icon at side of calendar
+   - add name of the patient
+
+*/
+
+/* 
+  cancer
+  diabetes
+  osteoarthritis
+
+*/
