@@ -25,7 +25,7 @@ import IconButton from 'src/shared/components/IconButton';
 import SimpleBar from 'src/shared/components/third-party/SimpleBar';
 import Transitions from 'src/shared/components/extended/Transitions';
 
-import { handlerActiveItem, useGetMenuMaster } from '../../../../../../Lab/api/menu';
+import { handlerActiveItem, useGetMenuMaster } from '../../../api/menu';
 
 // assets
 import { BorderOutlined, DownOutlined, UpOutlined, RightOutlined } from '@ant-design/icons';

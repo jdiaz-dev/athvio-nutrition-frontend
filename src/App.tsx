@@ -8,7 +8,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import CustomRecipesContainer from 'src/modules/professionals/custom-recipes/adapters/in/components/CustomRecipesContainer';
 import ProgramPlansContainer from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/ProgramPlansContainer';
-import Lab from 'src/modules/Lab/Lab';
 import PrivateRoute from './core/router/PrivateRoute';
 import PublicRoute from './core/router/PublicRoute';
 import SignIn from './modules/authentication/authentication/adapters/in/components/singIn/SignIn';
@@ -71,7 +70,6 @@ function App() {
             <Route path="custom Recipes" element={<CustomRecipesContainer />} />
             <Route path="programs" element={<ProgramsContainer />} />
             <Route path="programs/:programId/plans" element={<ProgramPlansContainer />} />
-            <Route path="lab" element={<Lab />} />
           </Route>
           {<Route path="*" element={<div>404</div>} />}
         </Routes>
@@ -139,15 +137,15 @@ export default App;
   - fix: use another icon for copy paste
   - remove: remove icon at side of calendar
   - fix: add name of patient in program plans
-   - fix: when I have program plans created, and add another program plan, the amount of programs is being reduced
-   - fix: problems at moment to get chat after loging (mobile)
-   - analysis: planify logging
-   - feat: implement logging
-   - infra:  analyzate if I will use domain in aws
-   - security : void ddos attack  
-   - fix: validation of loging against backend 
-   - logo: use react logo
-   - add name of the patient
+  - fix: when I have program plans created, and add another program plan, the amount of programs is being reduced
+  - fix: problems at moment to get chat after loging (mobile)
+  - analysis: planify logging
+  - feat: implement logging
+  - infra:  analyzate if I will use domain in aws
+  - security: void ddos attack  
+  - fix: validation of loging against backend 
+  - logo: use react logo
+  - add name of the patient
 */
 
 /* 

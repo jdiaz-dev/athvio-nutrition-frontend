@@ -10,7 +10,7 @@ import Dot from '../../../../../../../shared/components/extended/Dot';
 import IconButton from 'src/shared/components/IconButton';
 
 //todo: delete it
-import { handlerHorizontalActiveItem, useGetMenuMaster } from '../../../../../../Lab/api/menu';
+import { handlerHorizontalActiveItem, useGetMenuMaster } from '../../../api/menu';
 
 // types
 import { MenuOrientation, ThemeMode } from 'src/shared/types/config';

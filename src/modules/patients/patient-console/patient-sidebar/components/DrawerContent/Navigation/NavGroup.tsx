@@ -1,6 +1,5 @@
 import { Fragment, useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
-import ChatIcon from '@mui/icons-material/Chat';
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
 import {
@@ -27,13 +26,13 @@ import SimpleBar from 'src/shared/components/third-party/SimpleBar';
 import Transitions from 'src/shared/components/extended/Transitions';
 
 //todo: delete it
-import { handlerHorizontalActiveItem, useGetMenuMaster } from '../../../../../../Lab/api/menu';
+import { handlerHorizontalActiveItem, useGetMenuMaster } from '../../../api/menu';
 
 // assets
 import { DownOutlined, GroupOutlined, RightOutlined } from '@ant-design/icons';
 
 // types
-import { NavItemType } from '../../../../../../Lab/types/menu';
+import { NavItemType } from 'src/modules/patients/patient-console/patient-sidebar/types/menu';
 import { MenuOrientation, ThemeMode } from 'src/shared/types/config';
 import { SidebarContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SidebarContext';
 import useConfig from 'src/shared/hooks/useConfig';
@@ -182,7 +181,7 @@ const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, sele
         );
     }
   });
-  const navCollapse = [...navItems]
+  const navCollapse = [...navItems];
 
   const moreItems = remItems.map((itemRem: NavItemType, i) => (
     <Fragment key={i}>

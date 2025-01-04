@@ -1,7 +1,7 @@
 import { createContext, ReactNode } from 'react';
 
 // project import
-import useLocalStorage from '../../modules/Lab/hooks/useLocalStorage';
+import useLocalStorage from 'src/shared/hooks/useLocalStorage';
 
 // types
 import { CustomizationProps, FontFamily, I18n, MenuOrientation, PresetColor, ThemeDirection, ThemeMode } from 'src/shared/types/config';

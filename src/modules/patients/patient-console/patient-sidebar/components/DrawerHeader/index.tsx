@@ -4,7 +4,7 @@ import { useMediaQuery } from '@mui/material';
 
 // project import
 import DrawerHeaderStyled from './DrawerHeaderStyled';
-import Logo from '../../../../../Lab/components/logo';
+import Logo from 'src/modules/patients/patient-console/patient-sidebar/components/logo';
 import { MenuOrientation } from 'src/shared/types/config';
 import useConfig from 'src/shared/hooks/useConfig';
 

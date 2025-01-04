@@ -1,3 +1,5 @@
+//todo: delete this axios file
+
 import axios, { AxiosRequestConfig } from 'axios';
 
 //https://mock-data-api-nextjs.vercel.app/

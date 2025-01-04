@@ -2,7 +2,7 @@ import useSWR, { mutate } from 'swr';
 import { useMemo } from 'react';
 
 // Project-imports
-import { fetcher } from '../utils/axios';
+import { fetcher } from './axios';
 
 // types
 import { MenuProps, NavItemType } from '../types/menu';
