@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import FullCalendar from '@fullcalendar/react'; // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
@@ -14,7 +14,7 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { useReloadRecords } from 'src/shared/hooks/useReloadRecords';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { Modules, WeekActions } from 'src/shared/Consts';
 import { useProgram } from 'src/modules/professionals/programs/adapters/out/ProgramActions';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
@@ -24,6 +24,8 @@ import { AuthContext } from 'src/modules/authentication/authentication/adapters/
 import { Box } from '@mui/system';
 import CalendarStyled from 'src/shared/components/CalendarStyled/CalendarStyled';
 import { EventSourceInput } from '@fullcalendar/core';
+import { useSelector } from 'react-redux';
+import { ReduxStates } from 'src/shared/types/types';
 
 dayjs.extend(utc);
 
@@ -40,6 +42,7 @@ function ProgramPlansContainer() {
   const { programId } = useParams();
   const authContext = useContext(AuthContext);
   const { getProgram } = useProgram();
+  const { data: programState } = useSelector((state: ReduxStates) => state.programs.program);
 
   const { reloadRecordList, setReloadRecordList } = useReloadRecords();
 
@@ -70,7 +73,10 @@ function ProgramPlansContainer() {
     <>
       <CurrentModuleContext.Provider value={{ currentModule: Modules.PROGRAMS }}>
         <ReloadRecordListContext.Provider value={{ reloadRecordList, setReloadRecordList }}>
-          <Box sx={{ width: '96%', margin: '0 auto', marginTop: '2.4%' }}>
+          <Box sx={{ width: '96%', margin: '0 auto', marginTop: '1%' }}>
+            <Typography variant="h5" align="left" style={{ marginBottom: '6px' }}>
+              {programState.name}
+            </Typography>
             <CalendarStyled>
               <FullCalendar
                 plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
@@ -117,7 +123,7 @@ function ProgramPlansContainer() {
                 }}
                 contentHeight={contentHeight}
                 height={'auto'} //allowed me to void have overflow: scroll
-                initialDate={'1999-01-01'} //to void focus in day
+                initialDate={'1999-01-01'} //to void focus in current day
                 titleFormat={{
                   weekday: undefined,
                 }}

@@ -63,7 +63,6 @@ function PatientPlansCalendar() {
   }, [reloadRecordList]);
 
   useEffect(() => {
-    // const   = patientPlansState.plans.length > 0 ? patientPlansState.plans[patientPlansState.plans.length - 1].week : baseWeek;
     const fullWeekTableWithDates = (): DateItem<PatientPlanDateExtendedProps>[] => {
       let dateStart = dayjs(dateSet ? dateSet.dateStart : new Date());
       let dateItem: DateItem<PatientPlanDateExtendedProps>;
@@ -99,9 +98,6 @@ function PatientPlansCalendar() {
 
     if (datesToShow.length === 0 || reloadRecordList || patientPlansState) {
       setDatesToShow(fullWeekTableWithDates());
-      // setMaxWeekWithPlans(weeksBasedOnPlans);
-      // setTotalWeeks(handleWeekAction());
-      // setWeekAction(WeekActions.NEUTRAL);
     }
   }, [reloadRecordList, dateSet, patientPlansState /* weekAction */]);
 

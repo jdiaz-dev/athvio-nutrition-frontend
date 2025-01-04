@@ -38,7 +38,7 @@ export const assignmentWeekDayHook = (programId: string) => {
         professional: authContext.professional,
         program: programId,
         plan: planId,
-        day: dayToDrop,
+        day: dayToDrop,//todo : fix this typescript error
         week: dayToDrop % 7 ? Math.floor(dayToDrop / 7) + 1 : Math.floor(dayToDrop / 7),
       });
     }

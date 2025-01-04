@@ -13,16 +13,10 @@ function StartDaySelector() {
 
   const plansState = useSelector((state: ReduxStates) => state.programs.program.data.plans);
   const assignProgramState = useSelector((state: ReduxStates) => state.assignProgram);
-
-  const [highestPlanDay] = useState<number>(plansState[plansState.length - 1].day);
+  console.log('-----------plansState', plansState);
   const selectDayHandler = (event: SelectChangeEvent<number>) => {
     dispatch(AssignProgramSlice.assignStartingDay(event.target.value as unknown as number));
   };
-
-  const days: number[] = [];
-  for (let x = 1; x <= highestPlanDay; x++) {
-    days.push(x);
-  }
 
   return (
     <>
@@ -36,7 +30,7 @@ function StartDaySelector() {
             label="day"
             onChange={selectDayHandler}
           >
-            {days.map((day, index) => (
+            {plansState.map(({ day }, index) => (
               <MenuItem key={index} value={day}>
                 Day {day}
               </MenuItem>
