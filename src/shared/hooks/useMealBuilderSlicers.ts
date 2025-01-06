@@ -14,7 +14,7 @@ export const useMealBuilderSlicers = (currentModule: Modules) => {
     slicer = { ...customRecipeDetailsSlicers };
   } else if (currentModule === Modules.PROGRAMS) {
     slicer = { ...programPlanMealDetailSlicers };
-  } else {
+  } else { //patient plans
     slicer = { ...patientPlanMealDetailSlicers };
   }
   return { ...slicer };

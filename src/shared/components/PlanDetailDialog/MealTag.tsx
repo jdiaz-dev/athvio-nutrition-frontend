@@ -9,10 +9,6 @@ function MealTag({ mealTag, componentTouched }: { mealTag: string; componentTouc
   const [_mealTag, _setMealTag] = useState(mealTag);
   const [editMealTag, setEditMealTag] = useState(false);
 
-  /* useEffect(() => {
-    _setMealTag(mealTag);
-  }, [mealTag]); */
-
   useEffect(() => {
     const renameMealTagHelper = () => {
       if (_mealTag.length === 0) {
@@ -49,7 +45,9 @@ function MealTag({ mealTag, componentTouched }: { mealTag: string; componentTouc
               _setMealTag(capitalizedWord);
             }}
             onMouseLeave={() => {
-              if (_mealTag.length === 0) _setMealTag(defaultMealTag);
+              if (_mealTag.length === 0) {
+                _setMealTag(defaultMealTag);
+              }
               setEditMealTag(false);
             }}
             onClick={() => {

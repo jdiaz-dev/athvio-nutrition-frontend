@@ -10,7 +10,7 @@ import { ReduxStates } from 'src/shared/types/types';
 import { makeStyles } from 'tss-react/mui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
-import MealTag from 'src/modules/professionals/programs/adapters/in/dialogs/PlanDetailDialog/MealTag';
+import MealTag from 'src/shared/components/PlanDetailDialog/MealTag';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { MealWithStatus } from 'src/shared/components/PlanDetailDialog/MealList';
@@ -70,7 +70,11 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
   };
   const updateMealHandler = async () => {
     const { _id, ...restMealDetail } = mealDetailsState;
-    if (mealDetailsState.ingredientDetails.length > 0) {
+    if (
+      mealDetailsState.ingredientDetails.length > 0 ||
+      mealBasicInfoState.mealTag.length > 0 ||
+      mealDetails.cookingInstructions.length > 0
+    ) {
       dispatch(
         updateMeal({
           ...mealBasicInfoState,
