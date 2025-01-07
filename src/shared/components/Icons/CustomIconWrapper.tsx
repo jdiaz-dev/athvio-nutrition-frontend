@@ -5,8 +5,7 @@ import { makeStyles } from 'tss-react/mui';
 const styles = makeStyles()(() => {
   return {
     wrapper: {
-      width: '50%',
-      height: '100%',
+      width: '100%',
       cursor: 'pointer',
       display: 'block',
       padding: '10%',

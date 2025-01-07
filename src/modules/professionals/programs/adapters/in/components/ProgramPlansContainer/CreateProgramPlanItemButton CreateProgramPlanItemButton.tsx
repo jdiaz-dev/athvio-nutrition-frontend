@@ -12,6 +12,8 @@ import { CreateProgramPlanBody } from 'src/modules/professionals/programs/adapte
 import * as MealsListSlice from 'src/modules/professionals/programs/adapters/in/slicers/MealsListSlice';
 import { ReduxItemtatus, temporalId } from 'src/shared/Consts';
 
+type Visibility = React.CSSProperties['visibility'];
+
 function CreateProgramPlanItemButton({ planDay, planWeek, program }: { planDay: number; planWeek: number; program: string }) {
   const authContext = useContext(AuthContext);
 
@@ -22,6 +24,7 @@ function CreateProgramPlanItemButton({ planDay, planWeek, program }: { planDay: 
   const { createProgramPlan } = usePlan();
   const [openPlanDetailDialog, setOpenPlanDetailDialog] = useState(false);
   const [planSaved, setPlanSaved] = useState(false);
+  const [displayIcons, setDisplayIcons] = useState<Visibility>('hidden');
   const stringDay = `Day ${planDay.toString()}`;
 
   const createProgramPlanHandler = async () => {
@@ -69,12 +72,16 @@ function CreateProgramPlanItemButton({ planDay, planWeek, program }: { planDay: 
   };
   return (
     <>
-      <CustomIconWrapper>
-        <CustomAddIcon handler={programPlanClickedHandler} />
-      </CustomIconWrapper>
-      <CustomIconWrapper>
-        <DuplicateProgramPlan newWeek={planWeek} newDay={planDay} />
-      </CustomIconWrapper>
+      <div style={{ width: '100%' }} onMouseEnter={() => setDisplayIcons('visible')} onMouseLeave={() => setDisplayIcons('hidden')}>
+        <div style={{ width: '70%', margin: '0 auto', display: 'flex', background: 'black', visibility: displayIcons }}>
+          <CustomIconWrapper>
+            <CustomAddIcon handler={programPlanClickedHandler} />
+          </CustomIconWrapper>
+          <CustomIconWrapper>
+            <DuplicateProgramPlan newWeek={planWeek} newDay={planDay} />
+          </CustomIconWrapper>
+        </div>
+      </div>
 
       {openPlanDetailDialog && planState._id.length > 0 ? (
         <PlanDetailDialog

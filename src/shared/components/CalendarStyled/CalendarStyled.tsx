@@ -8,6 +8,7 @@ import { ThemeDirection } from 'src/shared/types/config';
 // ==============================|| CALENDAR - STYLED ||============================== //
 
 //todo: use styles in programs?
+
 const ExperimentalStyled = styled(Box)(({ theme }) => ({
   'width': '100%', //'calc(100% + 2px)',
   'marginLeft': -1,
@@ -35,6 +36,24 @@ const ExperimentalStyled = styled(Box)(({ theme }) => ({
     'fontFamily': theme.typography.fontFamily,
   },
 
+  // Calendar cells
+  '& .fc .fc-daygrid-day': {
+    position: 'relative', // Ensures the cell is the reference point for its pseudo-element
+    paddingBottom: '20px', // Reserve space for the turquoise line
+  },
+
+  // Line aligned at the bottom
+  '& .fc .fc-daygrid-day::after': {
+    content: '""',
+    position: 'absolute',
+    bottom: 4,
+    left: 2,
+    width: '98%',
+    height: '2px',
+    backgroundColor: theme.palette.primary.main,
+    zIndex: 1,
+  },
+
   // date text
   '& .fc .fc-daygrid-day-top': {
     'display': 'grid',
@@ -42,6 +61,8 @@ const ExperimentalStyled = styled(Box)(({ theme }) => ({
       textAlign: 'center',
       marginTop: 12,
       marginBottom: 12,
+      color: 'turquoise',
+      fontWeight: 'bold',
     },
   },
 
@@ -60,14 +81,19 @@ const ExperimentalStyled = styled(Box)(({ theme }) => ({
     marginLeft: 4,
     marginBottom: 6,
     borderRadius: 4,
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: 'transparent', //to void co   lor in event, before the color was : theme.palette.primary.main,
+    // backgroundColor: theme.palette.primary.main,
+    // position: 'absolute',
     border: 'none',
-    // height: '500px',
   },
 
+  /* 'fc .fc-daygrid-body-natural .fc-daygrid-day-events': {
+    height: '100%',
+  }, */
   //here: custom height
   '.css-uk8nkx-externalBox': {
-    height: 'auto',
+    height: '100%',
+    // minHeight: '100%',
   },
 
   '& .fc-h-event .fc-event-main': {

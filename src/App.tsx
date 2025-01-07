@@ -145,6 +145,7 @@ export default App;
   - fix: validation of loging against backend 
   - logo: use react logo
   - add name of the patient
+  - fix: is receiving 3 messsages when subscribe to web socket  in chat (mobile) 
 */
 
 /* 

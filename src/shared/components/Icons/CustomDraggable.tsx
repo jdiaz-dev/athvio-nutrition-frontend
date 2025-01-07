@@ -1,12 +1,14 @@
 import React from 'react';
-import PanToolIcon from '@mui/icons-material/PanTool';
 import { makeStyles } from 'tss-react/mui';
+import ZoomOutMapTwoToneIcon from '@mui/icons-material/ZoomOutMapTwoTone';
 
 const styles = makeStyles()(() => {
   return {
     icon: {
-      width: '45%',
+      width: '39%',
       marginRight: '3px',
+      rotate: '45deg',
+      cursor: 'grab',
     },
   };
 });
@@ -14,7 +16,7 @@ const styles = makeStyles()(() => {
 function CustomDraggable() {
   const { classes } = styles();
 
-  return <PanToolIcon className={classes.icon} />;
+  return <ZoomOutMapTwoToneIcon className={classes.icon} />;
 }
 
 export default CustomDraggable;

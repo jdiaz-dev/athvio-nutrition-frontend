@@ -37,3 +37,12 @@ export const hoverIcon = {
     backgroundColor: '#5f5870',
   },
 };
+
+export const iconStyles = makeStyles()(() => {
+  return {
+    icon: {
+      width: '100%',
+      height: '100%',
+    },
+  };
+});

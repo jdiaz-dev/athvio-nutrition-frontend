@@ -1,6 +1,6 @@
 import React from 'react';
-import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import { makeStyles } from 'tss-react/mui';
+import ContentCopyTwoToneIcon from '@mui/icons-material/ContentCopyTwoTone';
 
 const styles = makeStyles()(() => {
   return {
@@ -14,7 +14,7 @@ const styles = makeStyles()(() => {
 function CustomCopyIcon({ handler }: { handler: () => void }) {
   const { classes } = styles();
 
-  return <ContentPasteIcon className={classes.icon} onClick={handler} />;
+  return <ContentCopyTwoToneIcon className={classes.icon} onClick={handler} />;
 }
 
 export default CustomCopyIcon;

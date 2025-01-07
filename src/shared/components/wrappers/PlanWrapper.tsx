@@ -1,16 +1,16 @@
+import { R } from '@fullcalendar/core/internal-common';
 import React, { ReactNode } from 'react';
 import { makeStyles } from 'tss-react/mui';
 
 const boxStyles = makeStyles()(() => {
   return {
     externalBox: {
-      height: '120px',
+      minHeight: '90px',
       width: '100%',
-      margin: 'auto',
+      margin: '0 auto',
       backgroundColor: '#1e1e1e',
       marginTop: '-2px',
       // cursor: 'pointer',
-      // border: '2px solid red',
     },
   };
 });

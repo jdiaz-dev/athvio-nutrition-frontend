@@ -1,8 +1,11 @@
 import React from 'react';
-import ContentPasteIcon from '@mui/icons-material/ContentPaste';
+import ContentPasteGoIcon from '@mui/icons-material/ContentPasteGo';
+import { iconStyles } from 'src/shared/styles/styles';
 
 function CustomPasteIcon({ handler }: { handler: () => void }) {
-  return <ContentPasteIcon onClick={handler} />;
+  const { classes } = iconStyles();
+
+  return <ContentPasteGoIcon className={classes.icon} onClick={handler} />;
 }
 
 export default CustomPasteIcon;
