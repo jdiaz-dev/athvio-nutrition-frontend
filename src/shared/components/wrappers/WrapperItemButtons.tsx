@@ -1,16 +1,25 @@
-import React, { ReactNode } from 'react';
-import { makeStyles } from 'tss-react/mui';
+import React, { ReactNode, useState } from 'react';
 
-const wrapperStyles = makeStyles()(() => {
-  return {
-    container: { display: 'flex', marginTop: '12.5%' },
-  };
-});
+type Visibility = React.CSSProperties['visibility'];
 
 function WrapperItemButtons({ children }: { children: ReactNode }) {
-  const { classes } = wrapperStyles();
+  const [displayIcons, setDisplayIcons] = useState<Visibility>('hidden');
 
-  return <div className={classes.container}>{children}</div>;
+  return (
+    <div style={{ width: '100%' }} onMouseEnter={() => setDisplayIcons('visible')} onMouseLeave={() => setDisplayIcons('hidden')}>
+      <div
+        style={{
+          width: '70%',
+          margin: '0 auto',
+          display: 'flex',
+          background: 'black',
+          visibility: displayIcons,
+        }}
+      >
+        {children}
+      </div>
+    </div>
+  );
 }
 
 export default WrapperItemButtons;

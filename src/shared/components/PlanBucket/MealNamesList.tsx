@@ -9,7 +9,7 @@ function MealNamesList({ meals, handler }: { meals: Meal[]; handler: () => void 
         <>
           <ListItemText
             key={index1}
-            style={{ padding: 0 }}
+            style={{ padding: 0, overflow: 'hidden' }}
             primary={meal.mealTag}
             primaryTypographyProps={{ fontWeight: 'bold' }}
           ></ListItemText>

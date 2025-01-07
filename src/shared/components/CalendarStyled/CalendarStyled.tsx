@@ -25,7 +25,7 @@ const ExperimentalStyled = styled(Box)(({ theme }) => ({
   // basic style
   '& .fc': {
     '--fc-bg-event-opacity': 1,
-    '--fc-border-color': theme.palette.divider,
+    '--fc-border-color': theme.palette.primary.main, // theme.palette.divider,
     '--fc-daygrid-event-dot-width': '10px',
     '--fc-today-bg-color': theme.palette.primary.lighter,
     '--fc-list-event-dot-width': '10px',
@@ -43,7 +43,7 @@ const ExperimentalStyled = styled(Box)(({ theme }) => ({
   },
 
   // Line aligned at the bottom
-  '& .fc .fc-daygrid-day::after': {
+  /* '& .fc .fc-daygrid-day::after': {
     content: '""',
     position: 'absolute',
     bottom: 4,
@@ -52,7 +52,7 @@ const ExperimentalStyled = styled(Box)(({ theme }) => ({
     height: '2px',
     backgroundColor: theme.palette.primary.main,
     zIndex: 1,
-  },
+  }, */
 
   // date text
   '& .fc .fc-daygrid-day-top': {
@@ -61,7 +61,7 @@ const ExperimentalStyled = styled(Box)(({ theme }) => ({
       textAlign: 'center',
       marginTop: 12,
       marginBottom: 12,
-      color: 'turquoise',
+      color: '#1E8E98' /* 'turquoise' */,
       fontWeight: 'bold',
     },
   },
@@ -87,9 +87,6 @@ const ExperimentalStyled = styled(Box)(({ theme }) => ({
     border: 'none',
   },
 
-  /* 'fc .fc-daygrid-body-natural .fc-daygrid-day-events': {
-    height: '100%',
-  }, */
   //here: custom height
   '.css-uk8nkx-externalBox': {
     height: '100%',

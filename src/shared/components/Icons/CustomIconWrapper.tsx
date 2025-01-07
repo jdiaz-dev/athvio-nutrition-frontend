@@ -6,6 +6,7 @@ const styles = makeStyles()(() => {
   return {
     wrapper: {
       width: '100%',
+      height: '100%',
       cursor: 'pointer',
       display: 'block',
       padding: '10%',
