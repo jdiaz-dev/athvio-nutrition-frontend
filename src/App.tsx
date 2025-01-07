@@ -132,7 +132,6 @@ export default App;
 
 /* 
   prioritary backlog
-  - fix: fix problem at moment to rename meal in plans and program
   - fix: cooking instructions is too slow (web app)
   - fix: use another icon for copy paste
   - remove: remove icon at side of calendar
