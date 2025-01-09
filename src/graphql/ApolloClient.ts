@@ -6,14 +6,16 @@ import { onError } from '@apollo/client/link/error';
 import { getToken } from 'src/modules/authentication/authentication/adapters/out/cookies';
 import { getMainDefinition } from '@apollo/client/utilities';
 
+const httpUrl = process.env.REACT_APP_GRAPHQL_HTTP_URI;
+const wsUrl = process.env.REACT_APP_GRAPHQL_WS_URI;
+
 const httpLink = new HttpLink({
-  uri: 'http://localhost:57343/graphql',
+  uri: httpUrl,
 });
 
 const wsLink = new GraphQLWsLink(
   createClient({
-    url: 'ws://localhost:57343/graphql',
-    
+    url: wsUrl as string,
   }),
 );
 

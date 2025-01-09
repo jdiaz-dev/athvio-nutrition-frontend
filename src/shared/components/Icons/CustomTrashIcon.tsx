@@ -1,14 +1,15 @@
 import React from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { makeStyles } from 'tss-react/mui';
-import { hoverIcon } from 'src/shared/styles/styles';
 
-const styles = makeStyles()(() => {
+const styles = makeStyles()((theme) => {
   return {
     trash: {
-      ...hoverIcon,
-      marginLeft: '80%',
-      marginBottom: '2px',
+      'marginLeft': '80%',
+      'marginBottom': '2px',
+      '&:hover': {
+        backgroundColor: theme.palette.primary.main,
+      },
     },
   };
 });

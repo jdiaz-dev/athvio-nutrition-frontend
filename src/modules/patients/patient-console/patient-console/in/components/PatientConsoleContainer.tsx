@@ -42,7 +42,7 @@ function PatientConsoleContainer() {
           <SidebarContext.Provider value={{ openSidebar, setOpenSidebar }}>
             <SelelecteṔanelContext.Provider value={{ selectedPanel, setSelectedPanel }}>
               <PatientSidebarContainer />
-              <div style={{ width: '150px', color: 'white' }}>v: {selectedPanel}</div>
+              <div style={{ width: '1px', color: 'white' }}>{/* v: */} {selectedPanel}</div>
             </SelelecteṔanelContext.Provider>
           </SidebarContext.Provider>
           {openChat && <ChatContainer />}

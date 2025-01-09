@@ -8,16 +8,12 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
-import { style } from '@mui/system';
-import { useAuthentication } from 'src/modules/authentication/authentication/adapters/out/authenticationActions';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListItem from '@mui/material/ListItem';
 
@@ -80,7 +76,7 @@ function NabBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            {/* LOGO */}
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>

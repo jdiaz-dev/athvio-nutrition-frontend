@@ -32,12 +32,6 @@ export const formStyles = makeStyles()(() => {
   };
 });
 
-export const hoverIcon = {
-  '&:hover': {
-    backgroundColor: '#5f5870',
-  },
-};
-
 export const iconStyles = makeStyles()(() => {
   return {
     icon: {

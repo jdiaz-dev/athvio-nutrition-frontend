@@ -25,7 +25,7 @@ const ExperimentalStyled = styled(Box)(({ theme }) => ({
   // basic style
   '& .fc': {
     '--fc-bg-event-opacity': 1,
-    '--fc-border-color': theme.palette.primary.main, // theme.palette.divider,
+    '--fc-border-color':  theme.palette.divider,
     '--fc-daygrid-event-dot-width': '10px',
     '--fc-today-bg-color': theme.palette.primary.lighter,
     '--fc-list-event-dot-width': '10px',
