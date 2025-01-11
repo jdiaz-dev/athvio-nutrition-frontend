@@ -5,7 +5,7 @@ import { useTheme } from '@mui/material/styles';
 import { Box, Drawer, useMediaQuery } from '@mui/material';
 
 // project import
-import DrawerHeader from './DrawerHeader';
+import PatientAvatar from './PatientAvatar/PatientAvatar';
 import DrawerContent from './DrawerContent';
 import PatientDrawerStyled from './PatientDrawerStyled';
 
@@ -29,7 +29,7 @@ const PatientSidebar = ({ window }: Props) => {
 
   // header content
   const drawerContent = useMemo(() => <DrawerContent />, []);
-  const drawerHeader = useMemo(() => <DrawerHeader open={openSidebar} />, [openSidebar]);
+  const patientAvatar = useMemo(() => <PatientAvatar open={openSidebar} />, [openSidebar]);
 
   return (
     <Box component="nav" sx={{ flexShrink: { md: 0 }, zIndex: 1200 }} aria-label="mailbox folders">
@@ -43,7 +43,7 @@ const PatientSidebar = ({ window }: Props) => {
           variant="permanent"
           open={openSidebar}
         >
-          {drawerHeader}
+          {patientAvatar}
           {drawerContent}
         </PatientDrawerStyled>
       ) : (
@@ -67,7 +67,7 @@ const PatientSidebar = ({ window }: Props) => {
             },
           }}
         >
-          {drawerHeader}
+          {patientAvatar}
           {drawerContent}
         </Drawer>
       )}

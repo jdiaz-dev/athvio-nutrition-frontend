@@ -24,6 +24,7 @@ function ExpansorPatientSidebar() {
       color="secondary"
       variant="light"
       sx={{ color: 'text.primary', bgcolor: openSidebar ? 'transparent' : iconBackColor, ml: { xs: 0, lg: -2 } }}
+      style={{ marginLeft: '9px' }}
     >
       {!openSidebar ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
     </IconButton>

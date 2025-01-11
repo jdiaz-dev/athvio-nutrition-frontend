@@ -10,12 +10,12 @@ import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListItem from '@mui/material/ListItem';
+import Logo from 'src/core/components/logo/Logo';
 
 type page = {
   page: string;
@@ -31,11 +31,7 @@ const professionalPages: page[] = [
   // { page: 'Profile', url: 'professional/Profile' },
   { page: 'Configuration and preferences', url: '/professional/professional/preferences' },
 ];
-const handleClick = (event, url) => {
-  event.preventDefault();
-  // Your custom logic here, e.g., navigate to the URL using a router
-  console.log('Navigate to:', url);
-};
+
 function NabBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -60,25 +56,8 @@ function NabBar() {
     <AppBar position="sticky" style={{ height: '9vh' }}>
       <Container maxWidth="xl" style={{ position: 'absolute', height: 'inherit' }}>
         <Toolbar disableGutters style={{ height: 'inherit' }}>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            {/* LOGO */}
-          </Typography>
-
+          {/* todo: refactor to remove open parameter */}
+          <Logo />
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -117,25 +96,6 @@ function NabBar() {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography>
           <Box sx={{ display: { xs: 'none', md: 'flex' }, width: '90%' }}>
             {navBarPages.map((page, index) => (
               <ListItem style={{ width: '14%', textAlign: 'center' }} key={index} disablePadding disableGutters>
