@@ -133,14 +133,11 @@ export default App;
 /* 
   prioritary backlog
   - fix: cooking instructions is too slow (web app)
-  - fix: use another icon for copy paste
   - remove: remove icon at side of calendar
   - fix: add name of patient in program plans
   - fix: when I have program plans created, and add another program plan, the amount of programs is being reduced
-  - fix: problems at moment to get chat after loging (mobile)
   - analysis: planify logging
   - feat: implement logging
-  - infra:  analyzate if I will use domain in aws
   - security: void ddos attack  
   - fix: validation of loging against backend 
   - logo: use react logo
