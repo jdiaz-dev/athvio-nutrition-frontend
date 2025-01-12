@@ -10,43 +10,6 @@ import { makeStyles } from 'tss-react/mui';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
-const cardStyles = makeStyles()(() => {
-  return {
-    card: {
-      minWidth: 275,
-      width: '70%',
-      margin: '0px auto',
-      padding: '0px',
-    },
-    form: {
-      width: '100%',
-    },
-    textField: {
-      width: '90%',
-      marginTop: '15px',
-    },
-    button: {
-      'backgroundColor': '#0355d8',
-      'width': '90%',
-      'color': 'white',
-      'height': '45px',
-      'marginTop': '15px',
-      'marginBottom': '15px',
-      '&:hover': {
-        backgroundColor: 'blue',
-      },
-    },
-    buttonDisabled: {
-      backgroundColor: '#629ef7',
-      width: '90%',
-      color: 'black',
-      height: '45px',
-      marginTop: '15px',
-      marginBottom: '15px',
-    },
-  };
-});
-
 function CreatePatientGroupDialog({
   openCreatePatientGroupDialog,
   setOpenCreatePatientGroupDialog,
@@ -108,7 +71,7 @@ function CreatePatientGroupDialog({
                 {...register('groupName', { required: true })}
               />
 
-              <Button className={isValid ? classes.button : classes.buttonDisabled} size="small" type="submit" disabled={!isValid}>
+              <Button className={classes.button} variant="contained" type="submit" disabled={!isValid}>
                 Create group
               </Button>
             </form>
@@ -120,3 +83,33 @@ function CreatePatientGroupDialog({
 }
 
 export default CreatePatientGroupDialog;
+
+const cardStyles = makeStyles()(() => {
+  return {
+    card: {
+      minWidth: 275,
+      width: '70%',
+      margin: '0px auto',
+      padding: '0px',
+    },
+    form: {
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'column', // Align items vertically
+      alignItems: 'center', // Center items horizontally
+      justifyContent: 'center', // Center items vertically
+      padding: '20px 0',
+    },
+    textField: {
+      width: '90%',
+      marginTop: '15px',
+    },
+    button: {
+      width: '90%',
+      color: 'white',
+      height: '45px',
+      marginTop: '15px',
+      marginBottom: '15px',
+    },
+  };
+});

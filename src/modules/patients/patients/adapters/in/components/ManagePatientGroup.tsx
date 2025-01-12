@@ -40,7 +40,7 @@ function ManagePatientGroup(props: { patient: string; assignedGroups: PatientGro
     reloadRecordListContext.setReloadRecordList(true);
   };
 
-  const assignedGroup = (group: PatientGroup) => <Chip label={group.groupName} style={{ backgroundColor: 'red' }} variant="outlined" />;
+  const assignedGroup = (group: PatientGroup) => <Chip label={group.groupName} variant="outlined" />;
 
   const unassignedGroup = (group: PatientGroup) => (
     <Chip label={group.groupName} variant="outlined" onClick={() => void managePatientGroupHandler(group, ManagePatientGroupEnum.ADD)} />
@@ -56,33 +56,11 @@ function ManagePatientGroup(props: { patient: string; assignedGroups: PatientGro
           onDelete={() => {
             void managePatientGroupHandler(group, ManagePatientGroupEnum.REMOVE);
           }}
+          color="success"
         />
       ))}
-      {/*  <Box
-        sx={{
-          '& > :not(style)': {
-            m: 1,
-          },
-        }}
-      >
-        <IconButton aria-label="Example">
-          <FontAwesomeIcon icon={faEllipsisV} />
-        </IconButton>
 
-      </Box> */}
       <Chip label="+" variant="outlined" onClick={handleAnchorOpen} />
-
-      {/* <Box
-        sx={{
-          '& > :not(style)': {
-            m: 2,
-          },
-        }}
-      >
-        <Icon color="primary" onClick={handleAnchorOpen}>
-          add_circle
-        </Icon>
-      </Box> */}
 
       <Menu
         id="basic-menu"

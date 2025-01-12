@@ -1,4 +1,4 @@
-import React, { BaseSyntheticEvent, useContext } from 'react';
+import React, { useContext } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import {
@@ -47,7 +47,7 @@ function EditPatientGroup({
       <Box
         component="form"
         sx={{
-          '& > :not(style)': { m: 1, width: '25ch' },
+          '& > :not(style)': { m: 1, width: '90%' },
         }}
         noValidate
         autoComplete="off"

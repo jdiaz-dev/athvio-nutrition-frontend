@@ -1,12 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { Dialog, DialogContent, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import { GetPatientGroupsRequest, GetPatientGroupsResponse } from 'src/modules/professionals/patient-groups/adapters/out/PatientGroup.types';
+import { Dialog, DialogContent, Paper, Table, TableBody, TableContainer, TableHead, TableRow } from '@mui/material';
+import {
+  GetPatientGroupsRequest,
+  GetPatientGroupsResponse,
+} from 'src/modules/professionals/patient-groups/adapters/out/PatientGroup.types';
 import { GET_CLIENT_GROUPS } from 'src/modules/professionals/patient-groups/adapters/out/PatientGroupQueries';
 import DeletePatientGroup from 'src/modules/professionals/patient-groups/adapters/in/dialogs/PatientGroupListDialog/DeletePatientGroup';
 import EditPatientGroup from 'src/modules/professionals/patient-groups/adapters/in/dialogs/PatientGroupListDialog/EditPatientGroup';
 import { PatientGroupsContext } from 'src/modules/patients/patients/adapters/in/components/PatientsContainer';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
 
 function PatientGroupListDialog({
   openPatientGroupListDialog,
@@ -62,17 +66,18 @@ function PatientGroupListDialog({
             <TableContainer component={Paper}>
               <Table sx={{ width: '100%' }} aria-label="simple table">
                 <TableHead>
-                  <TableRow>
-                    <TableCell>Group</TableCell>
-                  </TableRow>
+                  <StyledTableRow>
+                    <StyledTableCell width={'90%'}>Group</StyledTableCell>
+                    <StyledTableCell></StyledTableCell>
+                  </StyledTableRow>
                 </TableHead>
                 <TableBody>
                   {data?.getPatientGroups.map((group) => (
-                    <TableRow key={group._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                      <TableCell component="th" scope="row">
+                    <StyledTableRow key={group._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                      <StyledTableCell component="th" scope="row">
                         {!editGroup ? (
                           <div
-                            style={{ borderColor: 'red' }}
+                            style={{ cursor: 'pointer' }}
                             onClick={() => {
                               setEditGroup(true);
                             }}
@@ -87,11 +92,11 @@ function PatientGroupListDialog({
                             setReloadPatientGroupList={setReloadPatientGroupList}
                           />
                         )}
-                      </TableCell>
-                      <TableCell component="th" scope="row">
+                      </StyledTableCell>
+                      <StyledTableCell component="th" scope="row" align="right">
                         <DeletePatientGroup patientGroup={group._id} setReloadPatientGroupList={setReloadPatientGroupList} />
-                      </TableCell>
-                    </TableRow>
+                      </StyledTableCell>
+                    </StyledTableRow>
                   ))}
                 </TableBody>
               </Table>

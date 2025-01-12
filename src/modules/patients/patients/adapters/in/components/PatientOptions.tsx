@@ -115,10 +115,12 @@ export default function PatientOptions({ patient }: { patient: string }) {
               <ArchiveIcon />
               {PatientStatesActions.ARCHIVE}
             </MenuItem>
-            <MenuItem disableRipple>
+
+            {/* todo: enable message (chat) with patient from this button */}
+            {/* <MenuItem disableRipple>
               <ChatBubbleIcon />
               Message
-            </MenuItem>
+            </MenuItem> */}
           </>
         )}
       </StyledMenu>

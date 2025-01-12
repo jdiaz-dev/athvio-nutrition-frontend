@@ -143,6 +143,9 @@ export default App;
   - logo: use react logo
   - add name of the patient
   - fix: is receiving 3 messsages when subscribe to web socket  in chat (mobile) 
+  - fix: security with database ip address
+  - fix: security with graphql 
+  - fix: security with cors, grqphql and websockets
 */
 
 /* 

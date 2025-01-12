@@ -50,7 +50,7 @@ function DeletePatientGroup({
   };
   return (
     <>
-      <DeleteForeverIcon onClick={handleAnchorOpen} />
+      <DeleteForeverIcon style={{ cursor: 'pointer' }} onClick={handleAnchorOpen} />
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}

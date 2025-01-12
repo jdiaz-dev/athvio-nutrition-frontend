@@ -11,11 +11,7 @@ import { useSearcher } from 'src/shared/hooks/useSearcher';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import PatientDetail from 'src/modules/patients/patients/adapters/in/components/PatientDetail';
 import { GET_CLIENTS } from 'src/modules/patients/patients/adapters/out/PatientQueries';
-import {
-  GetPatientResponse,
-  GetPatientsRequest,
-  GraphQLPatientInput,
-} from 'src/modules/patients/patients/adapters/out/patient.types';
+import { GetPatientResponse, GetPatientsRequest, GraphQLPatientInput } from 'src/modules/patients/patients/adapters/out/patient.types';
 import { useQuery } from '@apollo/client';
 import { StyledTableCell } from 'src/shared/components/CustomizedTable';
 import { usePaginator } from 'src/shared/hooks/usePaginator';
@@ -23,7 +19,7 @@ import Paginator from 'src/shared/components/Paginator';
 import { PatientStates } from 'src/shared/Consts';
 import { PatientStateContext } from 'src/modules/patients/patients/adapters/in/components/PatientStateContext';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
-import { PatientBody } from 'src/modules/patients/patient-console/patient/out/patient';
+import { PatientBody } from 'src/modules/patients/patient-console/patient/adapters/out/patient';
 
 function PatientList() {
   const authContext = useContext(AuthContext);
@@ -105,7 +101,7 @@ function PatientList() {
       />
 
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ minWidth: 650 }}>
           <TableHead>
             <TableRow>
               <StyledTableCell>Name</StyledTableCell>
