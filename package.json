@@ -78,7 +78,7 @@
     "test": "vite test",
     "eject": "vite eject",
     "serve": "vite preview",
-    "sync-prod":"aws s3 sync dist/ s3://nutrition.athvio.com"
+    "sync:prod":"aws s3 sync dist/ s3://nutrition.athvio.com"
   },
   "eslintConfig": {
     "extends": [
