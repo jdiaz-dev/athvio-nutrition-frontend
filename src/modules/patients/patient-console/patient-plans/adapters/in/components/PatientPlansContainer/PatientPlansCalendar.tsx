@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { DatesSetArg } from '@fullcalendar/core';
 
@@ -19,7 +19,6 @@ import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import { Modules } from 'src/shared/Consts';
 import { usePatientPlan } from 'src/modules/patients/patient-console/patient-plans/adapters/out/PatientPlanActions';
 import { assignmentDateHook } from 'src/modules/patients/patient-console/patient-plans/adapters/in/components/PatientPlansContainer/assignmentDateHook';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 import CalendarStyled from 'src/shared/components/CalendarStyled/CalendarStyled';
 import { useMediaQuery } from '@mui/material';
 
@@ -27,7 +26,6 @@ function PatientPlansCalendar() {
   const matchDownSM = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
   const calendarRef = useRef<FullCalendar>(null);
 
-  const authContext = useContext(AuthContext);
   const patientPlansState = useSelector((state: ReduxStates) => state.patientPlans.patientPlans);
   const { patientId } = useParams();
   const { getPatientPlans } = usePatientPlan();
@@ -101,6 +99,7 @@ function PatientPlansCalendar() {
   }, [reloadRecordList, dateSet, patientPlansState /* weekAction */]);
 
   const dateSetHelper = (dateInfo: DatesSetArg) => {
+    console.log('---------dateInfo', dateInfo);
     setDateSet({ dateStart: dateInfo.start, dateEnd: dateInfo.end });
   };
 
