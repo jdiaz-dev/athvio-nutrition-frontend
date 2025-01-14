@@ -18,6 +18,7 @@ import {
   UpdateProgramResponse,
   GetProgramResponse,
   GetProgramRequest,
+  GetProgramsBody,
 } from 'src/modules/professionals/programs/adapters/out/program.types';
 
 import {
@@ -27,7 +28,6 @@ import {
   GET_PROGRAMS,
   UPDATE_PROGRAM,
 } from 'src/modules/professionals/programs/adapters/out/ProgramQueries';
-import { GetRecordsBody } from 'src/shared/types/get-records.types';
 
 export function useProgram() {
   const dispatch = useDispatch();
@@ -71,7 +71,7 @@ export function useProgram() {
       throw error;
     }
   };
-  const getPrograms = async (body: GetRecordsBody) => {
+  const getPrograms = async (body: GetProgramsBody) => {
     try {
       const response = await apolloClient.query<GetProgramsResponse, GetProgramsRequest>({
         query: GET_PROGRAMS,

@@ -26,7 +26,7 @@ function PatientConsoleContainer() {
       patient: patientId,
     };
     getPatientForConsole({
-      patientPlans: professionalPatient,
+      patientPlans: { patient: patientId },
       chat: professionalPatient,
       patient: professionalPatient,
       professional: {
@@ -42,7 +42,9 @@ function PatientConsoleContainer() {
           <SidebarContext.Provider value={{ openSidebar, setOpenSidebar }}>
             <SelelecteṔanelContext.Provider value={{ selectedPanel, setSelectedPanel }}>
               <PatientSidebarContainer />
-              <div style={{ width: '1px', color: 'white' }}>{/* v: */} {selectedPanel}</div>
+              <div style={{ width: '1px', color: 'white' }}>
+                {/* v: */} {selectedPanel}
+              </div>
             </SelelecteṔanelContext.Provider>
           </SidebarContext.Provider>
           {openChat && <ChatContainer />}

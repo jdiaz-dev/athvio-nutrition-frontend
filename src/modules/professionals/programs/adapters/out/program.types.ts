@@ -47,8 +47,9 @@ export interface GetProgramRequest {
   input: ProgramInput;
 }
 
+export type GetProgramsBody = GetRecordsBody & { professional: string };
 export interface GetProgramsRequest {
-  input: GetRecordsBody;
+  input: GetProgramsBody;
 }
 
 export interface Programs {

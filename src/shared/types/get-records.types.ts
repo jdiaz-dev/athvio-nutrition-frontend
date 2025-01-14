@@ -1,5 +1,4 @@
 export interface GetRecordsBody {
-  professional: string;
   offset: number;
   limit: number;
   search?: string[];

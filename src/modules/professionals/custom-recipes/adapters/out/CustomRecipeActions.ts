@@ -16,6 +16,7 @@ import {
   DeleteCustomRecipeResponse,
   DeleteCustomRecipeBody,
   CreateCustomRecipeBody,
+  GetCustomRecipesBody,
 } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 import {
   CREATE_CUSTOM_RECIPE,
@@ -23,7 +24,6 @@ import {
   GET_CUSTOM_RECIPES,
   UPDATE_CUSTOM_RECIPE,
 } from 'src/modules/professionals/custom-recipes/adapters/out/CustomRecipeQueries';
-import { GetRecordsBody } from 'src/shared/types/get-records.types';
 
 export function useCustomRecipe() {
   const dispatch = useDispatch();
@@ -44,7 +44,7 @@ export function useCustomRecipe() {
       throw error;
     }
   };
-  const getCustomRecipes = async (body: GetRecordsBody) => {
+  const getCustomRecipes = async (body: GetCustomRecipesBody) => {
     try {
       const response = await apolloClient.query<GetCustomRecipesResponse, GetCustomRecipeRequest>({
         query: GET_CUSTOM_RECIPES,

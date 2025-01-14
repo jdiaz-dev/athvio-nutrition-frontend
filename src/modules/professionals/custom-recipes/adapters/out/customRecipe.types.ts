@@ -28,8 +28,9 @@ export interface UpdateCustomRecipeResponse {
   updateCustomRecipe: CustomRecipeBody;
 }
 
+export type GetCustomRecipesBody = GetRecordsBody & { professional: string };
 export interface GetCustomRecipeRequest {
-  input: GetRecordsBody;
+  input: GetCustomRecipesBody;
 }
 
 export interface CustomRecipes {

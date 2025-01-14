@@ -35,7 +35,6 @@ function PatientPlansCalendar() {
   const [dateSet, setDateSet] = useState<{ dateStart: Date; dateEnd: Date } | null>(null);
   const [datesToShow, setDatesToShow] = useState<DateItem<PatientPlanDateExtendedProps>[]>([]);
   const input = {
-    professional: authContext.professional,
     patient: patientId as string,
     offset: 0,
     limit: 30,
