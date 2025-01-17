@@ -11,11 +11,13 @@ function SearcherBar({
   matchedRecords,
   setChoosedWord,
   setRecentlyTypedWord,
+  styles,
 }: {
   setSearchWords: React.Dispatch<React.SetStateAction<string[]>>;
   matchedRecords: string[];
   setChoosedWord: React.Dispatch<React.SetStateAction<boolean>>;
   setRecentlyTypedWord: React.Dispatch<React.SetStateAction<boolean>>;
+  styles?: React.CSSProperties;
 }) {
   const onInputChange = (text: string) => {
     inputChange.next(text);
@@ -32,7 +34,7 @@ function SearcherBar({
   }, []);
 
   return (
-    <Stack spacing={1} style={{ width: '70%' }}>
+    <Stack spacing={1} style={{ width: '100%', ...styles }}>
       <Autocomplete
         multiple
         id="tags-outlined"

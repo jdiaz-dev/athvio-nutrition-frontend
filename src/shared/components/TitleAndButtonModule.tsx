@@ -11,7 +11,7 @@ function TitleAndButtonModule({
   buttonHandler: () => void;
 }) {
   return (
-    <Stack spacing={2} direction="row" sx={{ width: '100%' }} style={{ marginTop: '15px' }}>
+    <Stack spacing={2} direction="row" sx={{ width: '100%' }} style={{ marginTop: '15px', marginBottom: '15px' }}>
       <div style={{ width: '80%', textAlign: 'left', height: '42px', lineHeight: '42px', fontWeight: 'bold' }}>{titleModule}</div>
       <Button style={{ width: '20%' }} variant="contained" onClick={buttonHandler}>
         {buttonName}

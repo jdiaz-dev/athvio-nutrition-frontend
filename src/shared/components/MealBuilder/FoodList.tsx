@@ -178,6 +178,7 @@ function FoodList() {
               matchedRecords={matchedRecords}
               setChoosedWord={setChoosedWord}
               setRecentlyTypedWord={setRecentlyTypedWord}
+              styles={{ width: '70%' }}
             />
             <DatabaseSelector database={database} setDatabase={setDatabase} setDatabaseChanged={setDatabaseChanged} />
           </div>
