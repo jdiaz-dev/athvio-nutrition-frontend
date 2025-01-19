@@ -49,7 +49,7 @@ function QuestionaryDetailsDialog({
           <CloseDialogIcon closedIconDialog={closedIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
         </DialogTitle>
         <DialogContent dividers={true} style={{ minHeight: '900px' }}>
-          {questionaryGroup.title === 'Personalizado' ? (
+          {questionaryGroup.title === 'Customized' ? (
             <CustomQuestionaryDetailsManager
               questionary={questionary}
               questionaryGroup={questionaryGroup}
