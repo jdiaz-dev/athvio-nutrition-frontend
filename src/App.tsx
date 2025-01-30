@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.scss';
 import PatientsContainer from './modules/patients/patients/adapters/in/components/PatientsContainer';
 import ProgramsContainer from './modules/professionals/programs/adapters/in/components/ProgramsContainer';
@@ -22,6 +22,7 @@ function App() {
     <div className="App">
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Routes>
+          <Route path="/" element={<Navigate to="/signin" replace />} />
           <Route
             path="signin"
             element={
