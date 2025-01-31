@@ -7,10 +7,14 @@ import { ThemeDirection } from 'src/shared/types/config';
 
 // ==============================|| CALENDAR - STYLED ||============================== //
 
-//todo: use styles in programs?
+interface StyledProps {
+  withStylesForCustomScroller?: boolean;
+}
 
-const ExperimentalStyled = styled(Box)(({ theme }) => ({
-  'width': '100%', //'calc(100% + 2px)',
+const ExperimentalStyled = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'withStylesForCustomScroller', // Ensures 'withStylesForCustomScroller' is not passed to the DOM
+})<StyledProps>(({ theme, withStylesForCustomScroller }) => ({
+  'width': '100%',
   'marginLeft': -1,
   // 'marginBottom': '-50px',
 
@@ -18,14 +22,28 @@ const ExperimentalStyled = styled(Box)(({ theme }) => ({
   '& .fc-license-message': {
     display: 'none',
   },
-  '& .fc .fc-daygrid .fc-scroller-liquid-absolute': {
-    overflow: 'scroll !important', //only for days of calendar
-  },
+
+  ...(withStylesForCustomScroller && {
+    '& .fc .fc-daygrid-body': {
+      overflowY: 'auto !important',
+      maxHeight: 'calc(100vh - 150px) !important',
+    },
+
+    '& .fc .fc-scroller': {
+      overflowY: 'auto !important',
+      maxHeight: '100%',
+    },
+
+    '.css-uk8nkx-externalBox': {
+      height: '100%',
+      overflowY: 'auto',
+    },
+  }),
 
   // basic style
   '& .fc': {
     '--fc-bg-event-opacity': 1,
-    '--fc-border-color':  theme.palette.divider,
+    '--fc-border-color': theme.palette.divider,
     '--fc-daygrid-event-dot-width': '10px',
     '--fc-today-bg-color': theme.palette.primary.lighter,
     '--fc-list-event-dot-width': '10px',

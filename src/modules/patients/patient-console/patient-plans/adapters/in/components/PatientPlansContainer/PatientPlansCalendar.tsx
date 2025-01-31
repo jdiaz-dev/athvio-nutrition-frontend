@@ -107,7 +107,7 @@ function PatientPlansCalendar() {
     <>
       <CurrentModuleContext.Provider value={{ currentModule: Modules.CLIENT_PLANS }}>
         <ReloadRecordListContext.Provider value={{ reloadRecordList, setReloadRecordList }}>
-          <CalendarStyled>
+          <CalendarStyled withStylesForCustomScroller={true}>
             <FullCalendar
               plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
               // eventClick={handleEventClick}

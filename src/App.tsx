@@ -64,7 +64,6 @@ function App() {
             }
           >
             <Route path="patients" element={<PatientsContainer />} />
-            {/* <Route path="patients/:patientId/plans" element={<PatientPlansContainer />} /> */}
             <Route path="patients/:patientId/plans" element={<PatientConsoleContainer />} />
             <Route path="professional" element={<PatientConsoleContainer />} />
             <Route path="professional/preferences" element={<QuestionaryDetailContainer />} />
@@ -139,14 +138,12 @@ export default App;
   - fix: when I have program plans created, and add another program plan, the amount of programs is being reduced
   - analysis: planify logging
   - feat: implement logging
-  - security: void ddos attack  
   - fix: validation of loging against backend 
   - logo: use react logo
-  - add name of the patient
   - fix: is receiving 3 messsages when subscribe to web socket  in chat (mobile) 
   - fix: security with database ip address
-  - fix: security with graphql 
-  - fix: security with cors, grqphql and websockets
+  - fix: create react production config
+  - fix: calendar in patient plans is not showing the entire calendar  
 */
 
 /* 
