@@ -7,7 +7,7 @@ import { usePatientConsole } from 'src/modules/patients/patient-console/patient-
 import PatientPlansContainer from 'src/modules/patients/patient-console/patient-plans/adapters/in/components/PatientPlansContainer/PatientPlansContainer';
 import PatientSidebarContainer from 'src/modules/patients/patient-console/patient-sidebar/components/PatientSidebarContainer';
 import { ChatContext } from 'src/modules/patients/patient-console/patient-sidebar/context/ChatContext';
-import { SelelecteṔanelContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SelectedPanelContext';
+import { SelelectePanelContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SelectedPanelContext';
 import { SidebarContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SidebarContext';
 import { AvailableSlides } from 'src/modules/patients/patient-console/patient-sidebar/utils/sidebar.enum';
 
@@ -37,20 +37,27 @@ function PatientConsoleContainer() {
 
   return (
     <>
-      <Box sx={{ display: 'flex', position: 'relative', height: '91vh', overflow: 'hidden' }}>
-        <ChatContext.Provider value={{ openChat, setOpenChat }}>
-          <SidebarContext.Provider value={{ openSidebar, setOpenSidebar }}>
-            <SelelecteṔanelContext.Provider value={{ selectedPanel, setSelectedPanel }}>
+      <Box
+        sx={{
+          display: 'flex',
+          position: 'relative',
+          height: '91vh',
+          overflow: 'hidden',
+        }}
+      >
+        <SidebarContext.Provider value={{ openSidebar, setOpenSidebar }}>
+          <ChatContext.Provider value={{ openChat, setOpenChat }}>
+            <SelelectePanelContext.Provider value={{ selectedPanel, setSelectedPanel }}>
               <PatientSidebarContainer />
               <div style={{ width: '1px', color: 'white' }}>
                 {/* v: */} {selectedPanel}
               </div>
-            </SelelecteṔanelContext.Provider>
-          </SidebarContext.Provider>
-          {openChat && <ChatContainer />}
-        </ChatContext.Provider>
+            </SelelectePanelContext.Provider>
+            {openChat && <ChatContainer />}
+          </ChatContext.Provider>
 
-        <PatientPlansContainer />
+          <PatientPlansContainer />
+        </SidebarContext.Provider>
       </Box>
     </>
   );

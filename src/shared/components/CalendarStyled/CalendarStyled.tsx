@@ -16,7 +16,7 @@ const ExperimentalStyled = styled(Box, {
 })<StyledProps>(({ theme, withStylesForCustomScroller }) => ({
   'width': '100%',
   'marginLeft': -1,
-  // 'marginBottom': '-50px',
+  'transition': 'width 0.4s ease-in-out, opacity 0.3s ease-in-out',
 
   // hide license message
   '& .fc-license-message': {
@@ -52,6 +52,7 @@ const ExperimentalStyled = styled(Box, {
     'color': theme.palette.text.primary,
     'backgroundColor': theme.palette.background.paper,
     'fontFamily': theme.typography.fontFamily,
+    'transition': 'opacity 0.3s ease-in-out',
   },
 
   // Calendar cells

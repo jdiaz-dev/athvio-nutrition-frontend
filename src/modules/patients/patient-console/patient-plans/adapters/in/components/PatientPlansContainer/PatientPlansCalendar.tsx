@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { DatesSetArg } from '@fullcalendar/core';
 
@@ -21,11 +21,12 @@ import { usePatientPlan } from 'src/modules/patients/patient-console/patient-pla
 import { assignmentDateHook } from 'src/modules/patients/patient-console/patient-plans/adapters/in/components/PatientPlansContainer/assignmentDateHook';
 import CalendarStyled from 'src/shared/components/CalendarStyled/CalendarStyled';
 import { useMediaQuery } from '@mui/material';
+import { SidebarContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SidebarContext';
 
 function PatientPlansCalendar() {
   const matchDownSM = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
   const calendarRef = useRef<FullCalendar>(null);
-
+  const sidebarContext = useContext(SidebarContext);
   const patientPlansState = useSelector((state: ReduxStates) => state.patientPlans.patientPlans);
   const { patientId } = useParams();
   const { getPatientPlans } = usePatientPlan();
@@ -58,6 +59,15 @@ function PatientPlansCalendar() {
 
     if (reloadRecordList) void getProgramHelper();
   }, [reloadRecordList]);
+  useEffect(() => {
+    if (calendarRef.current) {
+      setTimeout(() => {
+        // Triggers a reflow, ensure that fullcalendar resize after to open/close the patientSideBar
+        window.dispatchEvent(new Event('resize'));
+        calendarRef.current.getApi().updateSize();
+      }, 300);
+    }
+  }, [sidebarContext.openSidebar]);
 
   useEffect(() => {
     const fullWeekTableWithDates = (): DateItem<PatientPlanDateExtendedProps>[] => {

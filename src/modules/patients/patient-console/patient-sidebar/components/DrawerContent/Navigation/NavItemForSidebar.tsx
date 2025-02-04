@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import NavItem from 'src/modules/patients/patient-console/patient-sidebar/components/DrawerContent/Navigation/NavItem';
-import { SelelecteṔanelContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SelectedPanelContext';
+import { SelelectePanelContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SelectedPanelContext';
 import { NavItemProps } from 'src/modules/patients/patient-console/patient-sidebar/types/patient-sidebar';
 import { AvailableSlides } from 'src/modules/patients/patient-console/patient-sidebar/utils/sidebar.enum';
 
 function itemForSidebar(WrappedNavItemComponent: any) {
   return function (props: NavItemProps) {
-    const { selectedPanel, setSelectedPanel } = useContext(SelelecteṔanelContext);
+    const { selectedPanel, setSelectedPanel } = useContext(SelelectePanelContext);
     const [isSelected, setIsSelected] = useState(false);
 
     useEffect(() => {

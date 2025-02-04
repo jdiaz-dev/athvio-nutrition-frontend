@@ -28,8 +28,8 @@ const PatientSidebar = ({ window }: Props) => {
   const container = window !== undefined ? () => window().document.body : undefined;
 
   // header content
-  const drawerContent = useMemo(() => <DrawerContent />, []);
   const patientAvatar = useMemo(() => <PatientAvatar open={openSidebar} />, [openSidebar]);
+  const drawerContent = useMemo(() => <DrawerContent />, []);
 
   return (
     <Box component="nav" sx={{ flexShrink: { md: 0 }, zIndex: 1200 }} aria-label="mailbox folders">
