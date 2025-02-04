@@ -60,13 +60,13 @@ function PatientPlansCalendar() {
     if (reloadRecordList) void getProgramHelper();
   }, [reloadRecordList]);
   useEffect(() => {
-    if (calendarRef.current) {
-      setTimeout(() => {
-        // Triggers a reflow, ensure that fullcalendar resize after to open/close the patientSideBar
-        window.dispatchEvent(new Event('resize'));
+    setTimeout(() => {
+      // Triggers a reflow, ensure that fullcalendar resize after to open/close the patientSideBar
+      window.dispatchEvent(new Event('resize'));
+      if (calendarRef.current) {
         calendarRef.current.getApi().updateSize();
-      }, 300);
-    }
+      }
+    }, 300);
   }, [sidebarContext.openSidebar]);
 
   useEffect(() => {
