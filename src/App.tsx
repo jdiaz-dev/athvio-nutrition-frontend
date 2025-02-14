@@ -144,11 +144,21 @@ export default App;
   - fix: security with database ip address
   - fix: create react production config
   - fix: calendar in patient plans is not showing the entire calendar  
+  
+  - fix: add cursor pointer in program list
+  - fix: remove the ingredient from meal at the first click
+  - fix: add ingredient from food list at the first click 
+  - fix: fix title of meal in program plan
 */
 
 /* 
   cancer
   diabetes
   osteoarthritis
+
+*/
+
+/* 
+import recipe
 
 */
