@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
-export const CREATE_CUSTOM_RECIPE = gql`
-  mutation _createCustomRecipe($input: CreateCustomRecipeDto!) {
-    createCustomRecipe(input: $input) {
+export const CREATE_NUTRITIONAL_MEAL = gql`
+  mutation _createNutritionalMeal($input: CreateNutritionalMealDto!) {
+    createNutritionalMeal(input: $input) {
       _id
       name
       professional
@@ -10,8 +10,6 @@ export const CREATE_CUSTOM_RECIPE = gql`
       ingredientDetails {
         ingredientType
         customIngredient {
-          amount
-          label
           name
           ingredients {
             name
@@ -114,9 +112,9 @@ export const CREATE_CUSTOM_RECIPE = gql`
   }
 `;
 
-export const GET_CUSTOM_RECIPES = gql`
-  query _getCustomRecipes($input: GetCustomRecipesDto!) {
-    getCustomRecipes(input: $input) {
+export const GET_NUTRITIONAL_MEALS = gql`
+  query _getNutritionalMeals($input: GetNutritionalMealsDto!) {
+    getNutritionalMeals(input: $input) {
       data {
         _id
         professional
@@ -232,9 +230,9 @@ export const GET_CUSTOM_RECIPES = gql`
   }
 `;
 
-export const UPDATE_CUSTOM_RECIPE = gql`
-  mutation _updateCustomRecipe($input: UpdateCustomRecipeDto!) {
-    updateCustomRecipe(input: $input) {
+export const UPDATE_NUTRITIONAL_MEAL = gql`
+  mutation _updateNutritionalMeal($input: UpdateNutritionalMealDto!) {
+    updateNutritionalMeal(input: $input) {
       _id
       name
       professional
@@ -344,9 +342,9 @@ export const UPDATE_CUSTOM_RECIPE = gql`
   }
 `;
 
-export const DELETE_CUSTOM_RECIPE = gql`
-  mutation _deleteCustomRecipe($input: DeleteCustomRecipeDto!) {
-    deleteCustomRecipe(input: $input) {
+export const DELETE_NUTRITIONAL_MEAL = gql`
+  mutation _deleteNutritionalMeal($input: DeleteNutritionalMealDto!) {
+    deleteNutritionalMeal(input: $input) {
       _id
       name
       professional
@@ -354,8 +352,6 @@ export const DELETE_CUSTOM_RECIPE = gql`
       ingredientDetails {
         ingredientType
         customIngredient {
-          amount
-          label
           name
           ingredients {
             name
@@ -378,6 +374,8 @@ export const DELETE_CUSTOM_RECIPE = gql`
         equivalents {
           ingredientType
           customIngredient {
+            amount
+            label
             name
             ingredients {
               name

@@ -23,7 +23,7 @@ export default configureStore({
   reducer: {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     users: usersReducer, //todo: change to authentification reducer
-    customRecipes: customRecipeReducers,
+    nutritionalMeals: customRecipeReducers,
     programs: programsReducer,
     assignProgram: assignProgramReducer,
     patientPlans: patientPlansReducer,

@@ -3,7 +3,7 @@ import { customRecipeInitialState } from 'src/modules/professionals/custom-recip
 
 export const customRecipeName = createSlice({
   name: 'customRecipeBasicInfo',
-  initialState: customRecipeInitialState.customRecipeBasicInfo,
+  initialState: customRecipeInitialState.nutritionalMealBasicInfo,
   reducers: {
     renameRecipeName: (state, action: PayloadAction<string>) => {
       state.name = action.payload;

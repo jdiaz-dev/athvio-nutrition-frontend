@@ -40,7 +40,7 @@ export type GraphQLInput = {
 
 export type ReduxStates = {
   users: SignUpProfessionalModel;
-  customRecipes: CustomRecipeInitialState;
+  nutritionalMeals: CustomRecipeInitialState;
   programs: ProgramInitialState;
   patientPlans: PatientPlanInitialState;
   assignProgram: AssignProgramInitialState;

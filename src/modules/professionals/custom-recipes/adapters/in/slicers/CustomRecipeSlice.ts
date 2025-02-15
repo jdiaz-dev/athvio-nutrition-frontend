@@ -2,23 +2,25 @@ import { combineReducers, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { customRecipeName } from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeBasicInfo';
 import { customRecipeDetailsSlice } from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeDetailsSlice';
 import { customRecipeInitialState } from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeInitialState';
-import { CustomRecipeBody, CustomRecipes } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
+import { NutritionalMealBody, NutritionalMeals } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 
 const customRecipesSlices = createSlice({
-  name: 'customRecipes',
-  initialState: customRecipeInitialState.customRecipes,
+  name: 'nutritionalMeals',
+  initialState: customRecipeInitialState.nutritionalMeals,
   reducers: {
-    showCustomRecipes: (state, action: PayloadAction<CustomRecipes>) => {
+    showCustomRecipes: (state, action: PayloadAction<NutritionalMeals>) => {
       state = action.payload;
       return state;
     },
-    addCustomRecipe: (state, action: PayloadAction<CustomRecipeBody>) => {
+    addCustomRecipe: (state, action: PayloadAction<NutritionalMealBody>) => {
       state?.data.push(action.payload);
       return state;
     },
-    updateCustomRecipe: (state, action: PayloadAction<CustomRecipeBody>) => {
+    updateCustomRecipe: (state, action: PayloadAction<NutritionalMealBody>) => {
       const indexFound = state?.data.findIndex((item) => item._id === action.payload._id);
-      if (indexFound && indexFound !== -1 && state?.data) state.data[indexFound] = action.payload;
+      if (indexFound !== undefined && indexFound !== -1 && state?.data) {
+        state.data[indexFound] = action.payload;
+      }
 
       return state;
     },
@@ -28,7 +30,7 @@ const customRecipesSlices = createSlice({
 export const { showCustomRecipes, addCustomRecipe, updateCustomRecipe } = customRecipesSlices.actions;
 
 export default combineReducers({
-  customRecipes: customRecipesSlices.reducer,
-  customRecipeDetails: customRecipeDetailsSlice.reducer,
-  customRecipeBasicInfo: customRecipeName.reducer,
+  nutritionalMeals: customRecipesSlices.reducer,
+  nutritionalMealDetails: customRecipeDetailsSlice.reducer,
+  nutritionalMealBasicInfo: customRecipeName.reducer,
 });

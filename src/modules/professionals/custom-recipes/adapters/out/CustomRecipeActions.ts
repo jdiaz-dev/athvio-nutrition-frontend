@@ -5,49 +5,49 @@ import { apolloClient } from 'src/graphql/ApolloClient';
 import * as CustomRecipeSlicers from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeSlice';
 import * as CustomRecipeDetailsSlice from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeDetailsSlice';
 import {
-  CreateCustomRecipeRequest,
-  CreateCustomRecipeResponse,
-  GetCustomRecipeRequest,
-  GetCustomRecipesResponse,
-  UpdateCustomRecipeBody,
-  UpdateCustomRecipeResponse,
-  UpdateCustomRecipeRequest,
-  DeleteCustomRecipeRequest,
-  DeleteCustomRecipeResponse,
-  DeleteCustomRecipeBody,
-  CreateCustomRecipeBody,
-  GetCustomRecipesBody,
+  CreateNutritionalMealRequest,
+  CreateNutritionalMealResponse,
+  GettNutritionalMealRequest,
+  GetNutritionalMealsResponse,
+  UpdateNutritionalMealBody,
+  UpdateNutritionalMealResponse,
+  UpdateNutritionalMealRequest,
+  DeleteNutritionalMealRequest,
+  DeleteNutritionalMealResponse,
+  DeleteNutritionalMealBody,
+  CreateNutritionalMealBody,
+  GetNutritionalMealsBody,
 } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 import {
-  CREATE_CUSTOM_RECIPE,
-  DELETE_CUSTOM_RECIPE,
-  GET_CUSTOM_RECIPES,
-  UPDATE_CUSTOM_RECIPE,
+  CREATE_NUTRITIONAL_MEAL,
+  DELETE_NUTRITIONAL_MEAL,
+  GET_NUTRITIONAL_MEALS,
+  UPDATE_NUTRITIONAL_MEAL,
 } from 'src/modules/professionals/custom-recipes/adapters/out/CustomRecipeQueries';
 
 export function useCustomRecipe() {
   const dispatch = useDispatch();
 
-  const createCustomRecipe = async (body: CreateCustomRecipeBody): Promise<void> => {
+  const createCustomRecipe = async (body: CreateNutritionalMealBody): Promise<void> => {
     try {
-      const response = await apolloClient.mutate<CreateCustomRecipeResponse, CreateCustomRecipeRequest>({
-        mutation: CREATE_CUSTOM_RECIPE,
+      const response = await apolloClient.mutate<CreateNutritionalMealResponse, CreateNutritionalMealRequest>({
+        mutation: CREATE_NUTRITIONAL_MEAL,
         variables: {
           input: {
             ...body,
           },
         },
       });
-      if (response.data) dispatch(CustomRecipeSlicers.addCustomRecipe(response.data.createCustomRecipe));
+      if (response.data) dispatch(CustomRecipeSlicers.addCustomRecipe(response.data.createNutritionalMeal));
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
     }
   };
-  const getCustomRecipes = async (body: GetCustomRecipesBody) => {
+  const getCustomRecipes = async (body: GetNutritionalMealsBody) => {
     try {
-      const response = await apolloClient.query<GetCustomRecipesResponse, GetCustomRecipeRequest>({
-        query: GET_CUSTOM_RECIPES,
+      const response = await apolloClient.query<GetNutritionalMealsResponse, GettNutritionalMealRequest>({
+        query: GET_NUTRITIONAL_MEALS,
         variables: {
           input: {
             ...body,
@@ -56,33 +56,33 @@ export function useCustomRecipe() {
         fetchPolicy: 'network-only',
       });
 
-      if (response.data) dispatch(CustomRecipeSlicers.showCustomRecipes(response.data.getCustomRecipes));
+      if (response.data) dispatch(CustomRecipeSlicers.showCustomRecipes(response.data.getNutritionalMeals));
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
     }
   };
-  const updateCustomRecipe = async (body: UpdateCustomRecipeBody): Promise<void> => {
+  const updateCustomRecipe = async (body: UpdateNutritionalMealBody): Promise<void> => {
     try {
-      const response = await apolloClient.mutate<UpdateCustomRecipeResponse, UpdateCustomRecipeRequest>({
-        mutation: UPDATE_CUSTOM_RECIPE,
+      const response = await apolloClient.mutate<UpdateNutritionalMealResponse, UpdateNutritionalMealRequest>({
+        mutation: UPDATE_NUTRITIONAL_MEAL,
         variables: {
           input: {
             ...body,
           },
         },
       });
-      if (response.data) dispatch(CustomRecipeSlicers.updateCustomRecipe(response.data.updateCustomRecipe));
+      if (response.data) dispatch(CustomRecipeSlicers.updateCustomRecipe(response.data.updateNutritionalMeal));
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
     }
   };
 
-  const deleteCustomRecipe = async (body: DeleteCustomRecipeBody): Promise<void> => {
+  const deleteNutritionalMeal = async (body: DeleteNutritionalMealBody): Promise<void> => {
     try {
-      const response = await apolloClient.mutate<DeleteCustomRecipeResponse, DeleteCustomRecipeRequest>({
-        mutation: DELETE_CUSTOM_RECIPE,
+      const response = await apolloClient.mutate<DeleteNutritionalMealResponse, DeleteNutritionalMealRequest>({
+        mutation: DELETE_NUTRITIONAL_MEAL,
         variables: {
           input: {
             ...body,
@@ -96,5 +96,5 @@ export function useCustomRecipe() {
       throw error;
     }
   };
-  return { createCustomRecipe, getCustomRecipes, updateCustomRecipe, deleteCustomRecipe };
+  return { createCustomRecipe, getCustomRecipes, updateCustomRecipe, deleteNutritionalMeal };
 }

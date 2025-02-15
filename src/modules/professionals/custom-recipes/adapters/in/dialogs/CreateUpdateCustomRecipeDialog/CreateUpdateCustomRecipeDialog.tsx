@@ -10,7 +10,7 @@ import { Modules } from 'src/shared/Consts';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import MealBuilder from 'src/shared/components/MealBuilder/MealBuilder';
 import RecipeNameInput from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateCustomRecipeDialog/RecipeNameInput';
-import { CustomRecipeBody } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
+import { NutritionalMealBody } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 import * as CustomRecipeBasicInfoSlice from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeBasicInfo';
 import { defaultRecipeName } from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeInitialState';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
@@ -25,15 +25,15 @@ function CreateUpdateCustomRecipeDialog({
 }: {
   openCreateUpdateCustomRecipeDialog: boolean;
   setOpenCreateUpdateCustomRecipeDialog: (openDialog: boolean) => void;
-  _customRecipe?: CustomRecipeBody;
+  _customRecipe?: NutritionalMealBody;
 }) {
   const authContext = useContext(AuthContext);
 
   const { classes } = formStyles();
   const dispatch = useDispatch();
   const reloadRecordListContext = useContext(ReloadRecordListContext);
-  const customRecipeDetailsState = useSelector((state: ReduxStates) => state.customRecipes.customRecipeDetails);
-  const recipeNameBasicInfo = useSelector((state: ReduxStates) => state.customRecipes.customRecipeBasicInfo);
+  const customRecipeDetailsState = useSelector((state: ReduxStates) => state.nutritionalMeals.nutritionalMealDetails);
+  const recipeNameBasicInfo = useSelector((state: ReduxStates) => state.nutritionalMeals.nutritionalMealBasicInfo);
 
   const { createCustomRecipe, updateCustomRecipe } = useCustomRecipe();
 
@@ -44,7 +44,7 @@ function CreateUpdateCustomRecipeDialog({
   const createUpdateCustomRecipeHandler = async () => {
     if (_customRecipe && _customRecipe._id) {
       await updateCustomRecipe({
-        customRecipe: _id,
+        nutritionalMeal: _id,
         ...restCustomRecipe,
         ...recipeNameBasicInfo,
         professional: authContext.professional,
@@ -66,6 +66,7 @@ function CreateUpdateCustomRecipeDialog({
   };
 
   useEffect(() => {
+    console.log('-------_customRecipe', _customRecipe);
     if (_customRecipe !== undefined) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { name, ...rest } = _customRecipe;

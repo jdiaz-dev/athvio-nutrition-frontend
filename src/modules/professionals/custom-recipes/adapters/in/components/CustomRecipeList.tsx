@@ -18,7 +18,7 @@ import Paginator from 'src/shared/components/Paginator';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 function CustomRecipeList() {
-  const customRecipeList = useSelector((state: ReduxStates) => state.customRecipes.customRecipes);
+  const customRecipeList = useSelector((state: ReduxStates) => state.nutritionalMeals.nutritionalMeals);
 
   const authContext = useContext(AuthContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
@@ -45,8 +45,8 @@ function CustomRecipeList() {
   useEffect(() => {
     const getCustomRecipesHelper = async () => {
       const res = await getCustomRecipes(input);
-      setLength(res.data.getCustomRecipes.meta.total);
-      if (choosedWord && res.data.getCustomRecipes.meta.total <= rowsPerPage) {
+      setLength(res.data.getNutritionalMeals.meta.total);
+      if (choosedWord && res.data.getNutritionalMeals.meta.total <= rowsPerPage) {
         setCurrentPage(0);
       }
     };

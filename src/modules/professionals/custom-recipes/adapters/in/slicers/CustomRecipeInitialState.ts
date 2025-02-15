@@ -2,8 +2,8 @@ import { CustomRecipeInitialState } from 'src/modules/professionals/custom-recip
 
 export const defaultRecipeName = 'Meal 1';
 export const customRecipeInitialState: CustomRecipeInitialState = {
-  customRecipes: null,
-  customRecipeDetails: {
+  nutritionalMeals: null,
+  nutritionalMealDetails: {
     _id: '',
     ingredientDetails: [],
     cookingInstructions: '',
@@ -15,7 +15,7 @@ export const customRecipeInitialState: CustomRecipeInitialState = {
       weightInGrams: 0,
     },
   },
-  customRecipeBasicInfo: {
+  nutritionalMealBasicInfo: {
     professional: '',
     name: defaultRecipeName,
   },

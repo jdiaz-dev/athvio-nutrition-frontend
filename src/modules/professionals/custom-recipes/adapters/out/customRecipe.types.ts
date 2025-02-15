@@ -1,68 +1,68 @@
 import { MealBuilderBody } from 'src/shared/components/MealBuilder/MealBuilder.types';
 import { GetRecordsBody } from 'src/shared/types/get-records.types';
 
-export interface CustomRecipeBasicInfo {
+export interface NutritionalMealBasicInfo {
   professional: string;
   name: string;
 }
-export interface CustomRecipeBody extends CustomRecipeBasicInfo, MealBuilderBody {}
-export type CreateCustomRecipeBody = Omit<CustomRecipeBody, '_id'>;
+export interface NutritionalMealBody extends NutritionalMealBasicInfo, MealBuilderBody {}
+export type CreateNutritionalMealBody = Omit<NutritionalMealBody, '_id'>;
 
-export interface CreateCustomRecipeRequest {
-  input: CreateCustomRecipeBody;
+export interface CreateNutritionalMealRequest {
+  input: CreateNutritionalMealBody;
 }
 
-export interface CreateCustomRecipeResponse {
-  createCustomRecipe: CustomRecipeBody;
+export interface CreateNutritionalMealResponse {
+  createNutritionalMeal: NutritionalMealBody;
 }
 
-export interface UpdateCustomRecipeBody extends Omit<CustomRecipeBody, '_id'> {
-  customRecipe: string;
+export interface UpdateNutritionalMealBody extends Omit<NutritionalMealBody, '_id'> {
+  nutritionalMeal: string;
 }
 
-export interface UpdateCustomRecipeRequest {
-  input: UpdateCustomRecipeBody;
+export interface UpdateNutritionalMealRequest {
+  input: UpdateNutritionalMealBody;
 }
 
-export interface UpdateCustomRecipeResponse {
-  updateCustomRecipe: CustomRecipeBody;
+export interface UpdateNutritionalMealResponse {
+  updateNutritionalMeal: NutritionalMealBody;
 }
 
-export type GetCustomRecipesBody = GetRecordsBody & { professional: string };
-export interface GetCustomRecipeRequest {
-  input: GetCustomRecipesBody;
+export type GetNutritionalMealsBody = GetRecordsBody & { professional: string };
+export interface GettNutritionalMealRequest {
+  input: GetNutritionalMealsBody;
 }
 
-export interface CustomRecipes {
-  data: CustomRecipeBody[];
+export interface NutritionalMeals {
+  data: NutritionalMealBody[];
   meta: {
     total: number;
     offset: number;
     limit: number;
   };
 }
-export interface GetCustomRecipesResponse {
-  getCustomRecipes: CustomRecipes;
+export interface GetNutritionalMealsResponse {
+  getNutritionalMeals: NutritionalMeals;
 }
 
-export interface DeleteCustomRecipeBody {
+export interface DeleteNutritionalMealBody {
   professional: string;
-  customRecipe: string;
+  nutritionalMeal: string;
 }
 
-export interface DeleteCustomRecipeRequest {
-  input: DeleteCustomRecipeBody;
+export interface DeleteNutritionalMealRequest {
+  input: DeleteNutritionalMealBody;
 }
 
-export interface DeleteCustomRecipeResponse {
-  deleteCustomRecipe: {
+export interface DeleteNutritionalMealResponse {
+  deleteNutritionalMeal: {
     _id: string;
     name: string;
   };
 }
 
 export interface CustomRecipeInitialState {
-  customRecipes: CustomRecipes | null;
-  customRecipeBasicInfo: CustomRecipeBasicInfo;
-  customRecipeDetails: MealBuilderBody;
+  nutritionalMeals: NutritionalMeals | null;
+  nutritionalMealBasicInfo: NutritionalMealBasicInfo;
+  nutritionalMealDetails: MealBuilderBody;
 }

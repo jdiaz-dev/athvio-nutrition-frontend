@@ -6,14 +6,14 @@ import { Button, Grid, Menu, MenuItem } from '@mui/material';
 import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
 import { useCustomRecipe } from 'src/modules/professionals/custom-recipes/adapters/out/CustomRecipeActions';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
-import { CustomRecipeBody } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
+import { NutritionalMealBody } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
-function CustomRecipe(customRecipe: CustomRecipeBody) {
+function CustomRecipe(customRecipe: NutritionalMealBody) {
   const authContext = useContext(AuthContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const [openCreateUpdateCustomRecipeDialog, setOpenCreateUpdateCustomRecipeDialog] = useState(false);
-  const { deleteCustomRecipe } = useCustomRecipe();
+  const { deleteNutritionalMeal } = useCustomRecipe();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -28,9 +28,9 @@ function CustomRecipe(customRecipe: CustomRecipeBody) {
   };
 
   const deleteCustomRecipeHandler = () => {
-    void deleteCustomRecipe({
+    void deleteNutritionalMeal({
       professional: authContext.professional,
-      customRecipe: customRecipe._id || '',
+      nutritionalMeal: customRecipe._id || '',
     });
     reloadRecordListContext.setReloadRecordList(true);
   };
