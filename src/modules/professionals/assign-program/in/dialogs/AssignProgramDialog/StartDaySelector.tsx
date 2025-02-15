@@ -13,7 +13,7 @@ function StartDaySelector() {
 
   const plansState = useSelector((state: ReduxStates) => state.programs.program.data.plans);
   const assignProgramState = useSelector((state: ReduxStates) => state.assignProgram);
-  console.log('-----------plansState', plansState);
+
   const selectDayHandler = (event: SelectChangeEvent<number>) => {
     dispatch(AssignProgramSlice.assignStartingDay(event.target.value as unknown as number));
   };

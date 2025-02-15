@@ -117,9 +117,7 @@ const SignUpProfessionalForm = () => {
           } catch (error: any) {
             console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors[0].extensions.response.message[0]);
             // throw error;
-            console.log('----------scriptedRef.current', scriptedRef.current);
             if (scriptedRef.current) {
-              console.log('------------entried');
               setStatus({ success: false });
               setErrors({ submit: (error as ApolloError).graphQLErrors[0].extensions.response.messsage[0] });
               setSubmitting(false);

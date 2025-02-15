@@ -9,7 +9,6 @@ import {
 } from 'src/modules/professionals/assign-program/out/AssignProgram.types';
 
 export function useAssignProgram() {
-
   const assignProgram = async (body: AssignProgramBody): Promise<void> => {
     try {
       const response = await apolloClient.mutate<AssignProgramResponse, AssignProgramRequest>({
@@ -21,7 +20,6 @@ export function useAssignProgram() {
         },
       });
       if (response) {
-        console.log('-----------response', response)
         // dispatch(ProgramSlice.resetProgramItem());
       }
     } catch (error) {

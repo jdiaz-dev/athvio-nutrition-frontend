@@ -37,7 +37,7 @@ function NutritionalMealItem(nutritionalMeal: NutritionalMealBody) {
 
   return (
     <>
-      <StyledTableRow key={nutritionalMeal.name}>
+      <StyledTableRow key={nutritionalMeal.name} style={{ cursor: 'pointer' }}>
         <StyledTableCell onClick={() => setOpenCreateUpdateNutritionalMealDialog(true)} align="right">
           {nutritionalMeal.name}
         </StyledTableCell>
@@ -54,17 +54,6 @@ function NutritionalMealItem(nutritionalMeal: NutritionalMealBody) {
           {nutritionalMeal.macros.calories}
         </StyledTableCell>
         <StyledTableCell align="right">
-          {/*  <Box
-            sx={{
-              '& > :not(style)': {
-                m: 1,
-              },
-            }}
-          >
-            <IconButton aria-label="Example">
-              <FontAwesomeIcon icon={faEllipsisV} />
-            </IconButton>
-          </Box> */}
           <Grid item xs={8}>
             <DeleteSharpIcon onClick={handleAnchorOpen} style={{ cursor: 'pointer' }} />
             <Menu

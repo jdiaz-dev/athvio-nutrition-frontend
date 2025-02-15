@@ -8,7 +8,7 @@ import Paper from '@mui/material/Paper';
 import { StyledTableCell } from 'src/shared/components/CustomizedTable';
 import { useNutritionalMeal } from 'src/modules/professionals/nutritional-meals/adapters/out/NutritionalMealActions';
 import { useSelector } from 'react-redux';
-import NutritionalMeal from 'src/modules/professionals/nutritional-meals/adapters/in/components/NutritionalMealItem';
+import NutritionalMealItem from 'src/modules/professionals/nutritional-meals/adapters/in/components/NutritionalMealItem';
 import { useSearcher } from 'src/shared/hooks/useSearcher';
 import SearcherBar from 'src/shared/components/SearcherBar';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
@@ -45,6 +45,8 @@ function NutritionalMealList() {
   useEffect(() => {
     const getNutritionalMealsHelper = async () => {
       const res = await getNutritionalMeals(input);
+
+      //todo : fix this
       setLength(res.data.getNutritionalMeals.meta.total);
       if (choosedWord && res.data.getNutritionalMeals.meta.total <= rowsPerPage) {
         setCurrentPage(0);
@@ -63,13 +65,17 @@ function NutritionalMealList() {
 
   useEffect(() => {
     const getPatientsForSearcher = async () => {
-      if (searchWords.length === 1 && recentlyTypedWord) {
-        const res = await getNutritionalMeals(input);
-
-        setMatchedRecords(res.data.getNutritionalMeals.data.map((meal) => meal.name));
-        setRecentlyTypedWord(false);
-      }
+      const res = await getNutritionalMeals(input);
+      //todo : fix this
+      setMatchedRecords(res.data.getNutritionalMeals.data.map((meal) => meal.name));
+      setRecentlyTypedWord(false);
     };
+
+    if (searchWords.length === 1 && recentlyTypedWord) {
+      console.log('--------searchWords', searchWords);
+      console.log('--------entried');
+      getPatientsForSearcher();
+    }
 
     void getPatientsForSearcher();
   }, [searchWords, recentlyTypedWord]);
@@ -98,7 +104,7 @@ function NutritionalMealList() {
             {nutritionalMealList &&
               nutritionalMealList?.data.map((meal, index) => (
                 <React.Fragment key={index}>
-                  <NutritionalMeal {...meal} />
+                  <NutritionalMealItem {...meal} />
                 </React.Fragment>
               ))}
           </TableBody>

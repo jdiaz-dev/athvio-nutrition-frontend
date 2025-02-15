@@ -62,7 +62,6 @@ export function useQuestionaryConfig() {
   };
   const customQuestionaryDetailsCRUD = async (body: CustomQuestionaryDetailsCrudRequest): Promise<void> => {
     try {
-      console.log('---------body', body);
       const response = await apolloClient.mutate<CustomQuestionaryDetailsCrudResponse, CustomQuestionaryDetailsCrudRequest>({
         mutation: CUSTOM_QUESTIONARY_DETAILS_CRUD,
         variables: {

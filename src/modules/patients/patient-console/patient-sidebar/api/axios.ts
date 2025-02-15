@@ -17,7 +17,7 @@ axiosServices.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 axiosServices.interceptors.response.use(
@@ -27,14 +27,13 @@ axiosServices.interceptors.response.use(
       window.location.pathname = '/login';
     }
     return Promise.reject((error.response && error.response.data) || 'Wrong Services');
-  }
+  },
 );
 
 export default axiosServices;
 
 export const fetcher = async (args: string | [string, AxiosRequestConfig]) => {
   const [url, config] = Array.isArray(args) ? args : [args];
-  console.log('------url', url)
   const res = await axiosServices.get(url, { ...config });
 
   return res.data;

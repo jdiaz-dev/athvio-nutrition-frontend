@@ -55,7 +55,6 @@ export const calendarConfigurationHook = (reloadRecordList: boolean) => {
     };
     const handleWeekAction = (): number => {
       if (weekAction === WeekActions.READY) {
-        console.log('-------------weeksBasedOnPlans', weeksBasedOnPlans);
         return weeksBasedOnPlans;
       } else if (weekAction === WeekActions.ADD) {
         return totalWeeks + 1;
@@ -67,8 +66,6 @@ export const calendarConfigurationHook = (reloadRecordList: boolean) => {
     };
 
     if (dateSet !== null || reloadRecordList) {
-      console.log('-------------entried???');
-      console.log('-------------weekAction', weekAction);
       setDatesToShow(fullWeekTableWithDates());
       setMaxWeekWithPlans(weeksBasedOnPlans);
       setTotalWeeks(handleWeekAction());

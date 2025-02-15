@@ -45,7 +45,6 @@ export function useChat() {
         });
 
       if (response) {
-        console.log('-------response', response);
       }
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
