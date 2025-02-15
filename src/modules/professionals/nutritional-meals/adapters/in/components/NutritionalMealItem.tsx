@@ -66,7 +66,7 @@ function NutritionalMealItem(nutritionalMeal: NutritionalMealBody) {
             </IconButton>
           </Box> */}
           <Grid item xs={8}>
-            <DeleteSharpIcon onClick={handleAnchorOpen} />
+            <DeleteSharpIcon onClick={handleAnchorOpen} style={{ cursor: 'pointer' }} />
             <Menu
               id="basic-menu"
               anchorEl={anchorEl}

@@ -69,6 +69,7 @@ function CreateUpdateNutritionalMealDialog({
     if (_nutritionalMeal !== undefined) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { name, ...rest } = _nutritionalMeal;
+      dispatch(NutritionalMealBasicInfoSlice.renameNutritionalMeal(name));
       dispatch(NutritionalMealDetailsSlice.acceptNewMealDetail(rest));
     } else {
       dispatch(NutritionalMealDetailsSlice.reinitializeMeal());
@@ -114,10 +115,7 @@ function CreateUpdateNutritionalMealDialog({
               }
             }}
           >
-            <NutritionalMealNameInput
-              nutritionalMeal={_nutritionalMeal?.name || mealNameBasicInfo.name}
-              parentComponentTouched={componentTouched}
-            />
+            <NutritionalMealNameInput />
             <CurrentModuleContext.Provider value={{ currentModule: Modules.NUTRITIONAL_MEALS }}>
               <MealBuilder meal={{ _id, ...restNutritionalMeal }} />
             </CurrentModuleContext.Provider>
