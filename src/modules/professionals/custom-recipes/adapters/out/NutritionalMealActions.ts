@@ -2,8 +2,8 @@
 import { ApolloError } from '@apollo/client';
 import { useDispatch } from 'react-redux';
 import { apolloClient } from 'src/graphql/ApolloClient';
-import * as CustomRecipeSlicers from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeSlice';
-import * as CustomRecipeDetailsSlice from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeDetailsSlice';
+import * as NutritionalMealSlicers from 'src/modules/professionals/custom-recipes/adapters/in/slicers/NutritionalMealSlice';
+import * as NutritionalMealDetailsSlice from 'src/modules/professionals/custom-recipes/adapters/in/slicers/NutritionalMealDetailsSlice';
 import {
   CreateNutritionalMealRequest,
   CreateNutritionalMealResponse,
@@ -17,18 +17,18 @@ import {
   DeleteNutritionalMealBody,
   CreateNutritionalMealBody,
   GetNutritionalMealsBody,
-} from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
+} from 'src/modules/professionals/custom-recipes/adapters/out/nutritionalMeal.types';
 import {
   CREATE_NUTRITIONAL_MEAL,
   DELETE_NUTRITIONAL_MEAL,
   GET_NUTRITIONAL_MEALS,
   UPDATE_NUTRITIONAL_MEAL,
-} from 'src/modules/professionals/custom-recipes/adapters/out/CustomRecipeQueries';
+} from 'src/modules/professionals/custom-recipes/adapters/out/NutritionalMealQueries';
 
-export function useCustomRecipe() {
+export function useNutritionalMeal() {
   const dispatch = useDispatch();
 
-  const createCustomRecipe = async (body: CreateNutritionalMealBody): Promise<void> => {
+  const createNutritionalMeal = async (body: CreateNutritionalMealBody): Promise<void> => {
     try {
       const response = await apolloClient.mutate<CreateNutritionalMealResponse, CreateNutritionalMealRequest>({
         mutation: CREATE_NUTRITIONAL_MEAL,
@@ -38,13 +38,13 @@ export function useCustomRecipe() {
           },
         },
       });
-      if (response.data) dispatch(CustomRecipeSlicers.addCustomRecipe(response.data.createNutritionalMeal));
+      if (response.data) dispatch(NutritionalMealSlicers.addNutritionalMeal(response.data.createNutritionalMeal));
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
     }
   };
-  const getCustomRecipes = async (body: GetNutritionalMealsBody) => {
+  const getNutritionalMeals = async (body: GetNutritionalMealsBody) => {
     try {
       const response = await apolloClient.query<GetNutritionalMealsResponse, GettNutritionalMealRequest>({
         query: GET_NUTRITIONAL_MEALS,
@@ -56,13 +56,13 @@ export function useCustomRecipe() {
         fetchPolicy: 'network-only',
       });
 
-      if (response.data) dispatch(CustomRecipeSlicers.showCustomRecipes(response.data.getNutritionalMeals));
+      if (response.data) dispatch(NutritionalMealSlicers.showNutritionalMeals(response.data.getNutritionalMeals));
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
     }
   };
-  const updateCustomRecipe = async (body: UpdateNutritionalMealBody): Promise<void> => {
+  const updateNutritionalMeal = async (body: UpdateNutritionalMealBody): Promise<void> => {
     try {
       const response = await apolloClient.mutate<UpdateNutritionalMealResponse, UpdateNutritionalMealRequest>({
         mutation: UPDATE_NUTRITIONAL_MEAL,
@@ -72,7 +72,7 @@ export function useCustomRecipe() {
           },
         },
       });
-      if (response.data) dispatch(CustomRecipeSlicers.updateCustomRecipe(response.data.updateNutritionalMeal));
+      if (response.data) dispatch(NutritionalMealSlicers.updateNutritionalMeal(response.data.updateNutritionalMeal));
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
@@ -89,12 +89,12 @@ export function useCustomRecipe() {
           },
         },
       });
-      if (response) dispatch(CustomRecipeDetailsSlice.reinitializeMeal());
+      if (response) dispatch(NutritionalMealDetailsSlice.reinitializeMeal());
       console.log(response);
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
     }
   };
-  return { createCustomRecipe, getCustomRecipes, updateCustomRecipe, deleteNutritionalMeal };
+  return { createNutritionalMeal, getNutritionalMeals, updateNutritionalMeal, deleteNutritionalMeal };
 }

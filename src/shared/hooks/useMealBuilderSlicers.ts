@@ -1,4 +1,4 @@
-import * as customRecipeDetailsImports from 'src/modules/professionals/custom-recipes/adapters/in/slicers/CustomRecipeDetailsSlice';
+import * as customRecipeDetailsImports from 'src/modules/professionals/custom-recipes/adapters/in/slicers/NutritionalMealDetailsSlice';
 import * as programMealDetailImport from 'src/modules/professionals/programs/adapters/in/slicers/MealDetailsSlice';
 import * as patientPlanMealDetailsImports from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/MealDetailsSlice';
 import { Modules } from 'src/shared/Consts';

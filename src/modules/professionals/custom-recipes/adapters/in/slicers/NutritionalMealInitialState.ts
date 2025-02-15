@@ -1,7 +1,7 @@
-import { CustomRecipeInitialState } from 'src/modules/professionals/custom-recipes/adapters/out/customRecipe.types';
+import { NutritionalMealInitialState } from 'src/modules/professionals/custom-recipes/adapters/out/nutritionalMeal.types';
 
-export const defaultRecipeName = 'Meal 1';
-export const customRecipeInitialState: CustomRecipeInitialState = {
+export const defaultNutritionalMeal = 'Meal 1';
+export const nutritionalMealInitialState: NutritionalMealInitialState = {
   nutritionalMeals: null,
   nutritionalMealDetails: {
     _id: '',
@@ -17,6 +17,6 @@ export const customRecipeInitialState: CustomRecipeInitialState = {
   },
   nutritionalMealBasicInfo: {
     professional: '',
-    name: defaultRecipeName,
+    name: defaultNutritionalMeal,
   },
 };

@@ -48,7 +48,7 @@ export enum ManagePatientGroupEnum {
 export enum Modules {
   CLIENTS = 'patients',
   PROGRAMS = 'programs',
-  CUSTOM_RECIPES = 'customRecipes',
+  NUTRITIONAL_MEALS = 'meals',
   CLIENT_PLANS = 'patientPlans',
 }
 

@@ -6,9 +6,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { StyledTableCell } from 'src/shared/components/CustomizedTable';
-import { useCustomRecipe } from 'src/modules/professionals/custom-recipes/adapters/out/CustomRecipeActions';
+import { useNutritionalMeal } from 'src/modules/professionals/custom-recipes/adapters/out/NutritionalMealActions';
 import { useSelector } from 'react-redux';
-import CustomRecipe from 'src/modules/professionals/custom-recipes/adapters/in/components/CustomRecipe';
+import NutritionalMeal from 'src/modules/professionals/custom-recipes/adapters/in/components/NutritionalMealItem';
 import { useSearcher } from 'src/shared/hooks/useSearcher';
 import SearcherBar from 'src/shared/components/SearcherBar';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
@@ -17,8 +17,8 @@ import { usePaginator } from 'src/shared/hooks/usePaginator';
 import Paginator from 'src/shared/components/Paginator';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
-function CustomRecipeList() {
-  const customRecipeList = useSelector((state: ReduxStates) => state.nutritionalMeals.nutritionalMeals);
+function NutritionalMealList() {
+  const nutritionalMealList = useSelector((state: ReduxStates) => state.nutritionalMeals.nutritionalMeals);
 
   const authContext = useContext(AuthContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
@@ -34,7 +34,7 @@ function CustomRecipeList() {
   } = useSearcher();
   const { length, setLength, offset, setOffset, rowsPerPage, currentPage, setCurrentPage } = usePaginator(5);
 
-  const { getCustomRecipes } = useCustomRecipe();
+  const { getNutritionalMeals } = useNutritionalMeal();
   const input: GraphQLInput = {
     professional: authContext.professional,
     offset: searchWords.length == 1 ? 0 : offset,
@@ -43,30 +43,30 @@ function CustomRecipeList() {
   if (searchWords.length > 0) input.search = searchWords;
 
   useEffect(() => {
-    const getCustomRecipesHelper = async () => {
-      const res = await getCustomRecipes(input);
+    const getNutritionalMealsHelper = async () => {
+      const res = await getNutritionalMeals(input);
       setLength(res.data.getNutritionalMeals.meta.total);
       if (choosedWord && res.data.getNutritionalMeals.meta.total <= rowsPerPage) {
         setCurrentPage(0);
       }
     };
 
-    const getCustomRecipesFn = () => {
+    const getNutritionalMealsFn = () => {
       if (authContext.professional || reloadRecordListContext.reloadRecordList || choosedWord) {
-        void getCustomRecipesHelper();
+        void getNutritionalMealsHelper();
         setChoosedWord(false);
         reloadRecordListContext.setReloadRecordList(false);
       }
     };
-    getCustomRecipesFn();
+    getNutritionalMealsFn();
   }, [authContext.professional, reloadRecordListContext.reloadRecordList, choosedWord, offset]);
 
   useEffect(() => {
     const getPatientsForSearcher = async () => {
       if (searchWords.length === 1 && recentlyTypedWord) {
-        const res = await getCustomRecipes(input);
+        const res = await getNutritionalMeals(input);
 
-        setMatchedRecords(res.data.getCustomRecipes.data.map((recipe) => recipe.name));
+        setMatchedRecords(res.data.getNutritionalMeals.data.map((meal) => meal.name));
         setRecentlyTypedWord(false);
       }
     };
@@ -86,7 +86,7 @@ function CustomRecipeList() {
         <Table aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell width={'15%'}>Recipe name </StyledTableCell>
+              <StyledTableCell width={'15%'}>Meal name </StyledTableCell>
               <StyledTableCell align="right">Total Protein&nbsp;(g)</StyledTableCell>
               <StyledTableCell align="right">Total Carbs&nbsp;(g)</StyledTableCell>
               <StyledTableCell align="right">Total Fat&nbsp;(g)</StyledTableCell>
@@ -95,10 +95,10 @@ function CustomRecipeList() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {customRecipeList &&
-              customRecipeList?.data.map((customRecipe, index) => (
+            {nutritionalMealList &&
+              nutritionalMealList?.data.map((meal, index) => (
                 <React.Fragment key={index}>
-                  <CustomRecipe {...customRecipe} />
+                  <NutritionalMeal {...meal} />
                 </React.Fragment>
               ))}
           </TableBody>
@@ -116,4 +116,4 @@ function CustomRecipeList() {
   );
 }
 
-export default CustomRecipeList;
+export default NutritionalMealList;

@@ -61,7 +61,7 @@ export interface DeleteNutritionalMealResponse {
   };
 }
 
-export interface CustomRecipeInitialState {
+export interface NutritionalMealInitialState {
   nutritionalMeals: NutritionalMeals | null;
   nutritionalMealBasicInfo: NutritionalMealBasicInfo;
   nutritionalMealDetails: MealBuilderBody;
