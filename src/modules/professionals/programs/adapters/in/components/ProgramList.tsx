@@ -43,7 +43,7 @@ function ProgramList() {
   if (searchWords.length > 0) input.search = searchWords;
 
   useEffect(() => {
-    const getProgramHelper = async () => {
+    const getProgramsHelper = async () => {
       const res = await getPrograms(input);
       setLength(res.data.getPrograms.meta.total);
       if (choosedWord && res.data.getPrograms.meta.total <= rowsPerPage) {
@@ -51,14 +51,14 @@ function ProgramList() {
       }
     };
 
-    const getCustomRecipesFn = () => {
+    const getProgramsFn = () => {
       if (authContext.professional || reloadRecordListContext.reloadRecordList || choosedWord) {
-        void getProgramHelper();
+        void getProgramsHelper();
         setChoosedWord(false);
         reloadRecordListContext.setReloadRecordList(false);
       }
     };
-    getCustomRecipesFn();
+    getProgramsFn();
   }, [authContext.professional, reloadRecordListContext.reloadRecordList, choosedWord, offset]);
 
   useEffect(() => {

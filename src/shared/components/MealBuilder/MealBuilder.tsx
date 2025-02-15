@@ -8,7 +8,7 @@ import IngredientList from 'src/shared/components/MealBuilder/IngredientList';
 import { MealDataForBuilder } from 'src/shared/components/MealBuilder/MealBuilder.types';
 import FoodList from 'src/shared/components/MealBuilder/FoodList';
 
-// VERY IMPORTANT: this component is used (shared) in custom-recipes, program and patient-plan modules
+// VERY IMPORTANT: this component is used (shared) in nutritional-meals, program and patient-plan modules
 function MealBuilder({ meal }: { meal: MealDataForBuilder }) {
   const [panelExpanded, setPanelExpanded] = useState<string | false>(false);
 

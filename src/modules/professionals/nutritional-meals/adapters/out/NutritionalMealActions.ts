@@ -2,8 +2,8 @@
 import { ApolloError } from '@apollo/client';
 import { useDispatch } from 'react-redux';
 import { apolloClient } from 'src/graphql/ApolloClient';
-import * as NutritionalMealSlicers from 'src/modules/professionals/custom-recipes/adapters/in/slicers/NutritionalMealSlice';
-import * as NutritionalMealDetailsSlice from 'src/modules/professionals/custom-recipes/adapters/in/slicers/NutritionalMealDetailsSlice';
+import * as NutritionalMealSlicers from 'src/modules/professionals/nutritional-meals/adapters/in/slicers/NutritionalMealSlice';
+import * as NutritionalMealDetailsSlice from 'src/modules/professionals/nutritional-meals/adapters/in/slicers/NutritionalMealDetailsSlice';
 import {
   CreateNutritionalMealRequest,
   CreateNutritionalMealResponse,
@@ -17,13 +17,13 @@ import {
   DeleteNutritionalMealBody,
   CreateNutritionalMealBody,
   GetNutritionalMealsBody,
-} from 'src/modules/professionals/custom-recipes/adapters/out/nutritionalMeal.types';
+} from 'src/modules/professionals/nutritional-meals/adapters/out/nutritionalMeal.types';
 import {
   CREATE_NUTRITIONAL_MEAL,
   DELETE_NUTRITIONAL_MEAL,
   GET_NUTRITIONAL_MEALS,
   UPDATE_NUTRITIONAL_MEAL,
-} from 'src/modules/professionals/custom-recipes/adapters/out/NutritionalMealQueries';
+} from 'src/modules/professionals/nutritional-meals/adapters/out/NutritionalMealQueries';
 
 export function useNutritionalMeal() {
   const dispatch = useDispatch();

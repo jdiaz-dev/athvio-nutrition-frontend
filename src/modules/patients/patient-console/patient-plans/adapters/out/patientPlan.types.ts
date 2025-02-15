@@ -80,7 +80,7 @@ export interface DeletePatientPlanRequest {
 }
 
 export interface DeletePatientPlanResponse {
-  deleteCustomRecipe: PatientPlanBody;
+  deletePatientPlan: PatientPlanBody;
 }
 
 export interface PatientPlanInitialState {

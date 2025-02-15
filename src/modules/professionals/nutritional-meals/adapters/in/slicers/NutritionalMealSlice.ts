@@ -1,8 +1,8 @@
 import { combineReducers, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { nutritionalMealName } from 'src/modules/professionals/custom-recipes/adapters/in/slicers/NutritionalMealBasicInfo';
-import { nutritionalMealDetailsSlice } from 'src/modules/professionals/custom-recipes/adapters/in/slicers/NutritionalMealDetailsSlice';
-import { nutritionalMealInitialState } from 'src/modules/professionals/custom-recipes/adapters/in/slicers/NutritionalMealInitialState';
-import { NutritionalMealBody, NutritionalMeals } from 'src/modules/professionals/custom-recipes/adapters/out/nutritionalMeal.types';
+import { nutritionalMealName } from 'src/modules/professionals/nutritional-meals/adapters/in/slicers/NutritionalMealBasicInfo';
+import { nutritionalMealDetailsSlice } from 'src/modules/professionals/nutritional-meals/adapters/in/slicers/NutritionalMealDetailsSlice';
+import { nutritionalMealInitialState } from 'src/modules/professionals/nutritional-meals/adapters/in/slicers/NutritionalMealInitialState';
+import { NutritionalMealBody, NutritionalMeals } from 'src/modules/professionals/nutritional-meals/adapters/out/nutritionalMeal.types';
 
 const nutritionalMealSlices = createSlice({
   name: 'nutritionalMeals',

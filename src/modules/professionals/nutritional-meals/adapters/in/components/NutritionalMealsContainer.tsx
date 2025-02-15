@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import NutritionalMealList from 'src/modules/professionals/custom-recipes/adapters/in/components/NutritionalMealList';
+import NutritionalMealList from 'src/modules/professionals/nutritional-meals/adapters/in/components/NutritionalMealList';
 // eslint-disable-next-line max-len
-import CreateUpdateNutritionalMealDialog from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateNutritionalMealDialog/CreateUpdateNutritionalMealDialog';
+import CreateUpdateNutritionalMealDialog from 'src/modules/professionals/nutritional-meals/adapters/in/dialogs/CreateUpdateNutritionalMealDialog/CreateUpdateNutritionalMealDialog';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { useReloadRecords } from 'src/shared/hooks/useReloadRecords';
 import ModulesWrapper from 'src/shared/components/wrappers/ModulesWrapper';

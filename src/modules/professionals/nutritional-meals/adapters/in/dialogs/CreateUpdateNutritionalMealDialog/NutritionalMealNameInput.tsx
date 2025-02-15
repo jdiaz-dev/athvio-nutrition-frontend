@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Box, TextField } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import * as NutritionalMealBasicInfoSlice from 'src/modules/professionals/custom-recipes/adapters/in/slicers/NutritionalMealBasicInfo';
-import { defaultNutritionalMeal } from 'src/modules/professionals/custom-recipes/adapters/in/slicers/NutritionalMealInitialState';
+import * as NutritionalMealBasicInfoSlice from 'src/modules/professionals/nutritional-meals/adapters/in/slicers/NutritionalMealBasicInfo';
+import { defaultNutritionalMeal } from 'src/modules/professionals/nutritional-meals/adapters/in/slicers/NutritionalMealInitialState';
 
 function NutritionalMealNameInput({ nutritionalMeal, parentComponentTouched }: { nutritionalMeal: string; parentComponentTouched: boolean }) {
   const dispatch = useDispatch();

@@ -1,7 +1,7 @@
 import { programInitialState } from 'src/modules/professionals/programs/adapters/in/slicers/ProgramInitialState';
-import { recipeBuilderSlice } from 'src/shared/components/MealBuilder/MealBuilderSlice';
+import { mealBuilderSlice } from 'src/shared/components/MealBuilder/MealBuilderSlice';
 
-export const programPlanMealDetailsSlice = recipeBuilderSlice('mealDetails', programInitialState.mealDetails);
+export const programPlanMealDetailsSlice = mealBuilderSlice('mealDetails', programInitialState.mealDetails);
 
 export const { acceptNewMealDetail, addIngredient, removeIngredient, renameCookingInstruction, reinitializeMeal } =
 programPlanMealDetailsSlice.actions;

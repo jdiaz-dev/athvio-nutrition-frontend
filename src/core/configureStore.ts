@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import usersReducer from 'src/modules/authentication/authentication/adapters/in/UserSlice';
-import customRecipeReducers from 'src/modules/professionals/custom-recipes/adapters/in/slicers/NutritionalMealSlice';
+import nutritionalMealReducers from 'src/modules/professionals/nutritional-meals/adapters/in/slicers/NutritionalMealSlice';
 import programsReducer from 'src/modules/professionals/programs/adapters/in/slicers/ProgramSlice';
 import assignProgramReducer from 'src/modules/professionals/assign-program/in/slicers/AssignProgramSlice';
 import patientPlansReducer from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/PatientPlanSlice';
@@ -23,7 +23,7 @@ export default configureStore({
   reducer: {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     users: usersReducer, //todo: change to authentification reducer
-    nutritionalMeals: customRecipeReducers,
+    nutritionalMeals: nutritionalMealReducers,
     programs: programsReducer,
     assignProgram: assignProgramReducer,
     patientPlans: patientPlansReducer,

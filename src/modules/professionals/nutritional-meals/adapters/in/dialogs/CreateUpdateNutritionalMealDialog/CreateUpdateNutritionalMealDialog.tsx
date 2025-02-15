@@ -1,18 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Card, Dialog, DialogContent, DialogTitle } from '@mui/material';
 
-import * as NutritionalMealDetailsSlice from 'src/modules/professionals/custom-recipes/adapters/in/slicers/NutritionalMealDetailsSlice';
+import * as NutritionalMealDetailsSlice from 'src/modules/professionals/nutritional-meals/adapters/in/slicers/NutritionalMealDetailsSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNutritionalMeal } from 'src/modules/professionals/custom-recipes/adapters/out/NutritionalMealActions';
+import { useNutritionalMeal } from 'src/modules/professionals/nutritional-meals/adapters/out/NutritionalMealActions';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { ReduxStates } from 'src/shared/types/types';
 import { Modules } from 'src/shared/Consts';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import MealBuilder from 'src/shared/components/MealBuilder/MealBuilder';
-import NutritionalMealNameInput from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateNutritionalMealDialog/NutritionalMealNameInput';
-import { NutritionalMealBody } from 'src/modules/professionals/custom-recipes/adapters/out/nutritionalMeal.types';
-import * as NutritionalMealBasicInfoSlice from 'src/modules/professionals/custom-recipes/adapters/in/slicers/NutritionalMealBasicInfo';
-import { defaultNutritionalMeal } from 'src/modules/professionals/custom-recipes/adapters/in/slicers/NutritionalMealInitialState';
+import NutritionalMealNameInput from 'src/modules/professionals/nutritional-meals/adapters/in/dialogs/CreateUpdateNutritionalMealDialog/NutritionalMealNameInput';
+import { NutritionalMealBody } from 'src/modules/professionals/nutritional-meals/adapters/out/nutritionalMeal.types';
+import * as NutritionalMealBasicInfoSlice from 'src/modules/professionals/nutritional-meals/adapters/in/slicers/NutritionalMealBasicInfo';
+import { defaultNutritionalMeal } from 'src/modules/professionals/nutritional-meals/adapters/in/slicers/NutritionalMealInitialState';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 import { formStyles } from 'src/shared/styles/styles';

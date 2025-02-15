@@ -1,4 +1,4 @@
-import { NutritionalMealInitialState } from 'src/modules/professionals/custom-recipes/adapters/out/nutritionalMeal.types';
+import { NutritionalMealInitialState } from 'src/modules/professionals/nutritional-meals/adapters/out/nutritionalMeal.types';
 
 export const defaultNutritionalMeal = 'Meal 1';
 export const nutritionalMealInitialState: NutritionalMealInitialState = {

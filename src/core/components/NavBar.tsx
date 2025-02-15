@@ -23,7 +23,7 @@ type page = {
 };
 const navBarPages: page[] = [
   { page: 'Patients', url: '/professional/patients' },
-  { page: 'Custom recipes', url: '/professional/custom recipes' },
+  { page: 'Meals', url: '/professional/meals' },
   { page: 'Programs', url: '/professional/programs' },
 ];
 

@@ -78,7 +78,8 @@ function FoodItem({ food }: { food: Food }) {
 
   const chooseIngredient = () => {
     let ingredientDetailCustomRecipe: IngredientDetail;
-    if (foodManager !== null && foodManager.measure.amount > 0 && foodManager.foodDatabase === FoodDatabases.CUSTOM_RECIPES) {
+    //todo: remove comment
+    /* if (foodManager !== null && foodManager.measure.amount > 0 && foodManager.foodDatabase === FoodDatabases.CUSTOM_RECIPES) {
       ingredientDetailCustomRecipe = {
         ingredientType: IngredientType.CUSTOM_INGREDIENT,
         customIngredient: {
@@ -98,7 +99,8 @@ function FoodItem({ food }: { food: Food }) {
       });
       dispatch(addIngredient(ingredientDetailCustomRecipe));
       foddAddedContext.setFoodAdded(true);
-    } else if (
+    } else */
+    if (
       foodManager !== null &&
       foodManager.measure.amount > 0 &&
       (foodManager.foodDatabase === FoodDatabases.ALL || foodManager.foodDatabase === FoodDatabases.SYSTEM)

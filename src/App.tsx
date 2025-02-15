@@ -6,7 +6,7 @@ import ProgramsContainer from './modules/professionals/programs/adapters/in/comp
 import { Drawer } from './shared/components/Drawer';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import NutritionalMealsContainer from 'src/modules/professionals/custom-recipes/adapters/in/components/NutritionalMealsContainer';
+import NutritionalMealsContainer from 'src/modules/professionals/nutritional-meals/adapters/in/components/NutritionalMealsContainer';
 import ProgramPlansContainer from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/ProgramPlansContainer';
 import PrivateRoute from './core/router/PrivateRoute';
 import PublicRoute from './core/router/PublicRoute';
@@ -67,7 +67,7 @@ function App() {
             <Route path="patients/:patientId/plans" element={<PatientConsoleContainer />} />
             <Route path="professional" element={<PatientConsoleContainer />} />
             <Route path="professional/preferences" element={<QuestionaryDetailContainer />} />
-            <Route path="custom Recipes" element={<NutritionalMealsContainer />} />
+            <Route path="meals" element={<NutritionalMealsContainer />} />
             <Route path="programs" element={<ProgramsContainer />} />
             <Route path="programs/:programId/plans" element={<ProgramPlansContainer />} />
           </Route>
@@ -155,10 +155,5 @@ export default App;
   cancer
   diabetes
   osteoarthritis
-
-*/
-
-/* 
-import recipe
 
 */

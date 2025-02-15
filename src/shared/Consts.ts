@@ -30,11 +30,6 @@ export enum ProgramMessages {
   REMOVE_PLAN = 'Are you sure to delete this plan?',
 }
 
-/* export enum CustomRecipeMessages {
-  CREATED = 'Custom Recipe created successfully',
-  UPDATED = 'Custom Recipe updated successfully',
-} */
-
 export enum UserType {
   PROFESSIONAL = 'professional',
   CLIENT = 'patient',
@@ -82,7 +77,6 @@ export enum IngredientType {
 export enum FoodDatabases {
   ALL = 'ALL',
   SYSTEM = 'SYSTEM',
-  CUSTOM_RECIPES = 'CUSTOM_RECIPES',
 }
 export enum PatientStates {
   ACTIVE = 'active',

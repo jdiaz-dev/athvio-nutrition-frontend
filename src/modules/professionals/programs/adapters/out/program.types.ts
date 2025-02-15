@@ -77,7 +77,7 @@ export interface DeleteProgramRequest {
 }
 
 export interface DeleteProgamResponse {
-  deleteCustomRecipe: {
+  deleteProgram: {
     _id: string;
     name: string;
   };

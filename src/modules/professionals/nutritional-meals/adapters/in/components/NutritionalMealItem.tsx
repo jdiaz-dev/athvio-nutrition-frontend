@@ -1,12 +1,12 @@
 import React, { useContext, useState } from 'react';
 // eslint-disable-next-line max-len
-import CreateUpdateNutritionalMealDialog from 'src/modules/professionals/custom-recipes/adapters/in/dialogs/CreateUpdateNutritionalMealDialog/CreateUpdateNutritionalMealDialog';
+import CreateUpdateNutritionalMealDialog from 'src/modules/professionals/nutritional-meals/adapters/in/dialogs/CreateUpdateNutritionalMealDialog/CreateUpdateNutritionalMealDialog';
 import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
 import { Button, Grid, Menu, MenuItem } from '@mui/material';
 import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
-import { useNutritionalMeal } from 'src/modules/professionals/custom-recipes/adapters/out/NutritionalMealActions';
+import { useNutritionalMeal } from 'src/modules/professionals/nutritional-meals/adapters/out/NutritionalMealActions';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
-import { NutritionalMealBody } from 'src/modules/professionals/custom-recipes/adapters/out/nutritionalMeal.types';
+import { NutritionalMealBody } from 'src/modules/professionals/nutritional-meals/adapters/out/nutritionalMeal.types';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 function NutritionalMealItem(nutritionalMeal: NutritionalMealBody) {

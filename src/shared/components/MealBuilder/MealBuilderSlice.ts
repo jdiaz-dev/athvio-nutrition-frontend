@@ -21,7 +21,7 @@ const recalculateGeneralMacros = (foodMacros: Macros, macrosToAdd: Macros): Macr
   weightInGrams: fixProblemWithDecimals(foodMacros.weightInGrams, macrosToAdd.weightInGrams),
 });
 
-export const recipeBuilderSlice = (sliceName: string, initState: MealBuilderBody) => {
+export const mealBuilderSlice = (sliceName: string, initState: MealBuilderBody) => {
   return createSlice({
     name: sliceName,
     initialState: initState,
