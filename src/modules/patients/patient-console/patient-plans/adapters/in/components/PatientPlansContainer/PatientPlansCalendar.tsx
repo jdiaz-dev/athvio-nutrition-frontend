@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { DatesSetArg } from '@fullcalendar/core';
-
 import { Theme } from '@mui/material/styles';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -20,8 +19,10 @@ import { Modules } from 'src/shared/Consts';
 import { usePatientPlan } from 'src/modules/patients/patient-console/patient-plans/adapters/out/PatientPlanActions';
 import { assignmentDateHook } from 'src/modules/patients/patient-console/patient-plans/adapters/in/components/PatientPlansContainer/assignmentDateHook';
 import CalendarStyled from 'src/shared/components/CalendarStyled/CalendarStyled';
-import { useMediaQuery } from '@mui/material';
+import { Box, useMediaQuery } from '@mui/material';
 import { SidebarContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SidebarContext';
+import { DateSet } from 'src/modules/patients/patient-console/patient-plans/adapters/helpers/PatientPlans';
+import CalendarHeader from 'src/modules/patients/patient-console/patient-plans/adapters/in/components/PatientPlansContainer/CalendarHeader';
 
 function PatientPlansCalendar() {
   const matchDownSM = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
@@ -31,7 +32,7 @@ function PatientPlansCalendar() {
   const { patientId } = useParams();
   const { getPatientPlans } = usePatientPlan();
   const { reloadRecordList, setReloadRecordList } = useReloadRecords();
-  const [dateSet, setDateSet] = useState<{ dateStart: Date; dateEnd: Date } | null>(null);
+  const [dateSet, setDateSet] = useState<DateSet | null>(null);
   const [datesToShow, setDatesToShow] = useState<DateItem<PatientPlanDateExtendedProps>[]>([]);
   const input = {
     patient: patientId as string,
@@ -42,12 +43,9 @@ function PatientPlansCalendar() {
   const { handleOnStart, handleOnDrop, manageDragEffect } = assignmentDateHook(patientId as string);
 
   useEffect(() => {
-    const calendarEl = calendarRef.current;
-    if (calendarEl) {
-      const calendarApi = calendarEl.getApi();
-      const newView = matchDownSM ? 'listWeek' : 'dayGridMonth';
-      calendarApi.changeView(newView);
-      // setCalendarView(newView);
+    if (calendarRef.current) {
+      const calendarApi = calendarRef.current.getApi();
+      calendarApi.changeView(matchDownSM ? 'listWeek' : 'dayGridMonth');
     }
   }, [matchDownSM]);
 
@@ -57,8 +55,9 @@ function PatientPlansCalendar() {
       setReloadRecordList(false);
     };
 
-    if (reloadRecordList) void fetchPlans();
+    if (reloadRecordList) fetchPlans();
   }, [reloadRecordList]);
+
   useEffect(() => {
     setTimeout(() => {
       // Triggers a reflow, ensure that fullcalendar resize after to open/close the patientSideBar
@@ -72,12 +71,11 @@ function PatientPlansCalendar() {
   useEffect(() => {
     const fullWeekTableWithDates = (): DateItem<PatientPlanDateExtendedProps>[] => {
       let dateStart = dayjs(dateSet ? dateSet.dateStart : new Date());
-
       const dates: DateItem<PatientPlanDateExtendedProps>[] = [];
+
       while (dateStart < dayjs(dateSet ? dateSet.dateEnd : new Date())) {
-        const planIndex = patientPlansState.findIndex((plan) => {
-          return dayjs(plan.assignedDate).toString() === dateStart.toString();
-        });
+        const planIndex = patientPlansState.findIndex((plan) => dayjs(plan.assignedDate).toString() === dateStart.toString());
+
         dates.push({
           title: '',
           date: dateStart.toDate(),
@@ -90,78 +88,46 @@ function PatientPlansCalendar() {
             assignedDate: new Date(dateStart.toString()),
           },
         });
+
         dateStart = dateStart.add(1, 'day');
       }
       return dates;
     };
 
-    if (datesToShow.length === 0 || reloadRecordList || patientPlansState) {
+    if (!datesToShow.length || reloadRecordList || patientPlansState) {
       setDatesToShow(fullWeekTableWithDates());
     }
-  }, [reloadRecordList, dateSet, patientPlansState /* weekAction */]);
+  }, [reloadRecordList, dateSet, patientPlansState]);
 
-  const dateSetHelper = (dateInfo: DatesSetArg) => {
+  const handleDateSet = (dateInfo: DatesSetArg) => {
     setDateSet({ dateStart: dateInfo.start, dateEnd: dateInfo.end });
   };
 
+  const handlePrev = () => calendarRef.current?.getApi().prev();
+  const handleNext = () => calendarRef.current?.getApi().next();
+
   return (
-    <>
-      <CurrentModuleContext.Provider value={{ currentModule: Modules.CLIENT_PLANS }}>
-        <ReloadRecordListContext.Provider value={{ reloadRecordList, setReloadRecordList }}>
-          <CalendarStyled withStylesForCustomScroller={true}>
-            <FullCalendar
-              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
-              // eventClick={handleEventClick}
-              // dateClick={handleDateClick}
-              headerToolbar={{
-                left: 'title',
-                center: '',
-                right: 'prev,next',
-              }}
-              events={datesToShow}
-              ref={calendarRef}
-              editable={true}
-              datesSet={dateSetHelper}
-              eventContent={PatientPlansHelper}
-              // handleCustomRendering={eventNewDiv}
+    <CurrentModuleContext.Provider value={{ currentModule: Modules.CLIENT_PLANS }}>
+      <ReloadRecordListContext.Provider value={{ reloadRecordList, setReloadRecordList }}>
+        <CalendarStyled withStylesForCustomScroller={true}>
+          <CalendarHeader dateSet={dateSet} handleCalendarNext={handlePrev} handleCalendarPrev={handleNext} />
 
-              // dayHeaders={false}
-              /* dayHeaderContent={(args) => {
-            if (args.text === 'Sun') {
-              return <div>Day1</div>;
-            } else if (args.text === 'Mon') {
-              return <div>Day2</div>;
-            } else if (args.text === 'Tue') {
-              return <div>Day3</div>;
-            } else if (args.text === 'Wed') {
-              return <div>Day4</div>;
-            } else if (args.text === 'Thu') {
-              return <div>Day5</div>;
-            } else if (args.text === 'Fri') {
-              return <div>Day6</div>;
-            } else {
-              return <div>Day7</div>;
-            }
-            }} */
-
-              // eslint-disable-next-line @typescript-eslint/no-unused-vars
-              /* dayCellContent={(info, create) => {
-              counterDay++;
-              return <div>Day {counterDay}</div>;
-            }} */
-              // contentHeight={contentHeight}
-              titleFormat={{
-                year: 'numeric',
-                month: 'long',
-              }}
-              eventDragStart={handleOnStart}
-              eventDrop={handleOnDrop}
-              eventDataTransform={manageDragEffect}
-            />
-          </CalendarStyled>
-        </ReloadRecordListContext.Provider>
-      </CurrentModuleContext.Provider>
-    </>
+          <FullCalendar
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
+            headerToolbar={false}
+            events={datesToShow}
+            ref={calendarRef}
+            editable={true}
+            datesSet={handleDateSet}
+            eventContent={PatientPlansHelper}
+            titleFormat={{ year: 'numeric', month: 'long' }}
+            eventDragStart={handleOnStart}
+            eventDrop={handleOnDrop}
+            eventDataTransform={manageDragEffect}
+          />
+        </CalendarStyled>
+      </ReloadRecordListContext.Provider>
+    </CurrentModuleContext.Provider>
   );
 }
 
