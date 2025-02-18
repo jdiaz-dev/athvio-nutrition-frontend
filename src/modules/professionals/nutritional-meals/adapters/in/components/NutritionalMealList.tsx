@@ -72,8 +72,6 @@ function NutritionalMealList() {
     };
 
     if (searchWords.length === 1 && recentlyTypedWord) {
-      console.log('--------searchWords', searchWords);
-      console.log('--------entried');
       getPatientsForSearcher();
     }
 

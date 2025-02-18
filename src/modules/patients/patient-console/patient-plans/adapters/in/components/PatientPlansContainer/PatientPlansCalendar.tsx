@@ -52,12 +52,12 @@ function PatientPlansCalendar() {
   }, [matchDownSM]);
 
   useEffect(() => {
-    const getProgramHelper = async () => {
+    const fetchPlans = async () => {
       await getPatientPlans(input);
       setReloadRecordList(false);
     };
 
-    if (reloadRecordList) void getProgramHelper();
+    if (reloadRecordList) void fetchPlans();
   }, [reloadRecordList]);
   useEffect(() => {
     setTimeout(() => {
@@ -72,18 +72,13 @@ function PatientPlansCalendar() {
   useEffect(() => {
     const fullWeekTableWithDates = (): DateItem<PatientPlanDateExtendedProps>[] => {
       let dateStart = dayjs(dateSet ? dateSet.dateStart : new Date());
-      let dateItem: DateItem<PatientPlanDateExtendedProps>;
-
-      let planDay = 1;
-      let planWeek = 1;
-      let planIndex: number;
 
       const dates: DateItem<PatientPlanDateExtendedProps>[] = [];
       while (dateStart < dayjs(dateSet ? dateSet.dateEnd : new Date())) {
-        planIndex = patientPlansState.findIndex((plan) => {
+        const planIndex = patientPlansState.findIndex((plan) => {
           return dayjs(plan.assignedDate).toString() === dateStart.toString();
         });
-        dateItem = {
+        dates.push({
           title: '',
           date: dateStart.toDate(),
           extendedProps: {
@@ -94,11 +89,8 @@ function PatientPlansCalendar() {
             },
             assignedDate: new Date(dateStart.toString()),
           },
-        };
-        dateStart = dayjs(dateStart).set('date', dateStart.get('date') + 1);
-        planWeek = planDay % 7 === 0 ? planWeek + 1 : planWeek;
-        planDay++;
-        dates.push(dateItem);
+        });
+        dateStart = dateStart.add(1, 'day');
       }
       return dates;
     };
@@ -109,7 +101,6 @@ function PatientPlansCalendar() {
   }, [reloadRecordList, dateSet, patientPlansState /* weekAction */]);
 
   const dateSetHelper = (dateInfo: DatesSetArg) => {
-    console.log('---------dateInfo', dateInfo);
     setDateSet({ dateStart: dateInfo.start, dateEnd: dateInfo.end });
   };
 
