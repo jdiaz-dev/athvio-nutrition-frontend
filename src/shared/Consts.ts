@@ -75,7 +75,6 @@ export enum IngredientType {
 }
 
 export enum FoodDatabases {
-  ALL = 'ALL',
   SYSTEM = 'SYSTEM',
 }
 export enum PatientStates {

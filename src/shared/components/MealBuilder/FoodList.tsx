@@ -37,7 +37,7 @@ function FoodList() {
     setRecentlyTypedWord,
   } = useSearcher();
   const { length, setLength, offset, setOffset, rowsPerPage, currentPage, setCurrentPage } = usePaginator(5);
-  const [database, setDatabase] = useState<string>(FoodDatabases.ALL);
+  const [database, setDatabase] = useState<string>(FoodDatabases.SYSTEM);
 
   const [foods, setFoods] = useState<Food[]>([]);
   const [providerFoods, setProviderFoods] = useState<Food[]>([]);
@@ -66,7 +66,7 @@ function FoodList() {
     setPanelExpanded(newPanelExpanded ? panel : false);
   };
 
-  const isSpecialPagination = () => database === FoodDatabases.ALL || database === FoodDatabases.SYSTEM;
+  const isSpecialPagination = () => database === FoodDatabases.SYSTEM;
   const input: InputGetFoods = {
     professional: authContext.professional,
     offset: offset,
@@ -75,7 +75,7 @@ function FoodList() {
   };
 
   useEffect(() => {
-    const manageRequestToDefaultDB = () => database === FoodDatabases.ALL && makeRequestToDefaultDB;
+    const manageRequestToDefaultDB = () => database === FoodDatabases.SYSTEM && makeRequestToDefaultDB;
     const isRequestToDefaultDB = manageRequestToDefaultDB();
     let _input: InputGetFoods = searchWords.length > 0 ? { ...input, search: searchWords } : input;
 

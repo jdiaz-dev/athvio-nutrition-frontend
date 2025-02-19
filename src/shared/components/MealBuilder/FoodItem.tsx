@@ -78,33 +78,7 @@ function FoodItem({ food }: { food: Food }) {
 
   const chooseIngredient = () => {
     let ingredientDetailCustomRecipe: IngredientDetail;
-    //todo: remove comment
-    /* if (foodManager !== null && foodManager.measure.amount > 0 && foodManager.foodDatabase === FoodDatabases.CUSTOM_RECIPES) {
-      ingredientDetailCustomRecipe = {
-        ingredientType: IngredientType.CUSTOM_INGREDIENT,
-        customIngredient: {
-          name: foodManager.name,
-          label: foodManager.measure.label,
-          amount: foodManager.measure.amount,
-          ingredients: [],
-          macros: foodManager.macros,
-        },
-        equivalents: [],
-      };
-
-      foodManager.ingredientDetails?.forEach((ingredientDetail) => {
-        if (ingredientDetail.customIngredient) throw Error('you cannot add a custom ingredient to a custom recipe');
-
-        ingredientDetailCustomRecipe.customIngredient?.ingredients.push(ingredientDetail.ingredient as Ingredient);
-      });
-      dispatch(addIngredient(ingredientDetailCustomRecipe));
-      foddAddedContext.setFoodAdded(true);
-    } else */
-    if (
-      foodManager !== null &&
-      foodManager.measure.amount > 0 &&
-      (foodManager.foodDatabase === FoodDatabases.ALL || foodManager.foodDatabase === FoodDatabases.SYSTEM)
-    ) {
+    if (foodManager !== null && foodManager.measure.amount > 0 && foodManager.foodDatabase === FoodDatabases.SYSTEM) {
       ingredientDetailCustomRecipe = {
         ingredientType: IngredientType.UNIQUE_INGREDIENT,
         ingredient: {
