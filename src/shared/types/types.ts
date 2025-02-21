@@ -8,7 +8,7 @@ import { ProfessionalInitialState } from 'src/modules/professionals/professional
 import { ProgramInitialState } from 'src/modules/professionals/programs/adapters/out/program.types';
 import { QuestionaryConfigInitialState } from 'src/modules/professionals/questionary-config/adapters/out/QuestionaryConfig';
 import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
-import { DiseaseInitialState } from 'src/modules/diseases/adapters/out/disease';
+import { NutritionBuilderInitialState } from 'src/modules/nutrition-builder/adapters/out/nutritionBuilder';
 
 export type DateItem<T> = {
   title: string;
@@ -49,7 +49,7 @@ export type ReduxStates = {
   patient: PatientInitialState;
   professional: ProfessionalInitialState;
   questionaryConfig: QuestionaryConfigInitialState;
-  diseases: DiseaseInitialState;
+  nutritionBuilder: NutritionBuilderInitialState;
 };
 
 export interface PlanDayInfo {

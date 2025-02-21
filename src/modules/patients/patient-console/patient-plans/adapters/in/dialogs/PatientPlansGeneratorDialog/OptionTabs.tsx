@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import { useDisease } from 'src/modules/diseases/adapters/out/DiseaseActions';
+import { useNutritionBuilder } from 'src/modules/nutrition-builder/adapters/out/NutritionBuilderActions';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 
@@ -30,14 +30,13 @@ function a11yProps(index: number) {
 }
 
 function OptionTabs() {
-  const diseasesState = useSelector((state: ReduxStates) => state.diseases.diseases);
-
+  const diseasesState = useSelector((state: ReduxStates) => state.nutritionBuilder);
   const [value, setValue] = React.useState(0);
-  const { getDiseases } = useDisease();
+  const { getNutritionBuilderParameters } = useNutritionBuilder();
 
   useEffect(() => {
     const fetchDiseases = async () => {
-      await getDiseases();
+      await getNutritionBuilderParameters();
     };
     fetchDiseases();
   }, []);

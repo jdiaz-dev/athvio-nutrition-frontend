@@ -1,0 +1,28 @@
+import { ApolloError } from '@apollo/client';
+import { useDispatch } from 'react-redux';
+import { apolloClient } from 'src/graphql/ApolloClient';
+import * as nutritionBuilderSlice from 'src/modules/nutrition-builder/adapters/in/slicers/NutritionBuilderSlice';
+
+import { GetNutritionBuilderParametersResponse } from 'src/modules/nutrition-builder/adapters/out/nutritionBuilder';
+import { GET_NUTRITION_BUILDER } from 'src/modules/nutrition-builder/adapters/out/NutritionBuilderQueries';
+
+export function useNutritionBuilder() {
+  const dispatch = useDispatch();
+
+  const getNutritionBuilderParameters = async () => {
+    try {
+      const response = await apolloClient.query<GetNutritionBuilderParametersResponse>({
+        query: GET_NUTRITION_BUILDER,
+        fetchPolicy: 'network-only',
+      });
+      if (response.data) {
+        dispatch(nutritionBuilderSlice.initializeParameters(response.data));
+      }
+    } catch (error) {
+      console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
+      throw error;
+    }
+  };
+
+  return { getNutritionBuilderParameters };
+}

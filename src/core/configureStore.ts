@@ -8,15 +8,9 @@ import ChatReducer from 'src/modules/patients/patient-console/chat/adapters/in/s
 import PatientReducer from 'src/modules/patients/patient-console/patient/adapters/in/slicers/PatientSlice';
 import ProfessionalReducer from 'src/modules/professionals/professional/adapters/in/slicers/ProfessionalSlice';
 import QuestionaryConfigReducer from 'src/modules/professionals/questionary-config/adapters/in/slicers/QuestionaryConfigSlice';
-import DiseasesReducer from 'src/modules/diseases/adapters/in/slicers/DiseasesSlice';
+import NutritionBuilderReducer from 'src/modules/nutrition-builder/adapters/in/slicers/NutritionBuilderSlice';
 
-// const {applyMiddleware, combineReducers, createStore} = require('redux');
 import thunk from 'redux-thunk';
-
-/* const middleware = async () => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-return
-  return (process.env.NODE_ENV !== 'production' ? [await import('redux-immutable-state-invariant'), thunk] : [thunk]) as any;
-}; */
 
 // Note passing middleware as the last argument to createStore requires redux@>=3.1.0
 // const store = createStore(reducer);
@@ -32,15 +26,7 @@ export default configureStore({
     patient: PatientReducer,
     professional: ProfessionalReducer,
     questionaryConfig: QuestionaryConfigReducer,
-    diseases: DiseasesReducer,
+    nutritionBuilder: NutritionBuilderReducer,
   },
   devTools: true,
-  // enhancers
-
-  /* middleware: [
-    () => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-return
-      return (process.env.NODE_ENV !== 'production' ? [import('redux-immutable-state-invariant'), thunk] : [thunk]) as any;
-    },
-  ], */
 });

@@ -82,7 +82,7 @@ export enum PatientStates {
   ARCHIVED = 'archived',
 }
 
-export enum PatientStatesActions {
+export enum PatientStatesActions {  
   ACTIVATE = 'activate',
   ARCHIVE = 'archive',
 }
