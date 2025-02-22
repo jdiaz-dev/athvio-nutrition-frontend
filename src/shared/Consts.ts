@@ -98,6 +98,13 @@ export enum ReduxItemtatus {
   DELETED = 'deleted',
 }
 
+export enum NutriBuilderParamStatus {
+  SELECTED = 'SELECTED',
+  UNSELECTED = 'UNSELECTED',
+  INITIALIZED = 'INITIALIZED',
+}
+
+
 export enum ThemeEnum {
   DRAWER_WIDTH = 260,
   HORIZONTAL_MAX_ITEM = 7,

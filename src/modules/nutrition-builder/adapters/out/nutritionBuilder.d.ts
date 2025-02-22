@@ -1,6 +1,6 @@
-import { ParametersStatus } from 'src/modules/nutrition-builder/helpers/enums';
 import { Meal, MealBasicInfo, MealDetails } from 'src/shared/components/PlanDetailDialog/Meal.types';
 import { MealWithStatus } from 'src/shared/components/PlanDetailDialog/MealList';
+import { NutriBuilderParamStatus } from 'src/shared/Consts';
 import { GetRecordsBody, MetadataRecords } from 'src/shared/types/get-records.types';
 import { PlanDayInfo } from 'src/shared/types/types';
 
@@ -25,8 +25,22 @@ export type GetNutritionBuilderParametersResponse = {
   getNutritionalPreferences: NutritionalPreferenceBody[];
 };
 
+export type BuildNutritionalPlanInput = {
+  diseaseCauses: string[];
+  nutritionalPreferences: string[];
+  diseases: string[];
+};
+
+export type BuildNutritionalPlanRequest = {
+  input: BuildNutritionalPlanInput;
+};
+
+export type BuildNutritionalPlanResponse = {
+  buildNutritionalPlan: unknown;
+};
+
 export type NutritionBuilderInitialState = {
-  diseaseCauses: (DiseaseCauseBody & { status: ParametersStatus })[];
-  diseases: (DiseaseBody & { status: ParametersStatus })[];
-  nutritionalPreferences: (NutritionalPreferenceBody & { status: ParametersStatus })[];
+  diseaseCauses: (DiseaseCauseBody & { status: NutriBuilderParamStatus })[];
+  diseases: (DiseaseBody & { status: NutriBuilderParamStatus })[];
+  nutritionalPreferences: (NutritionalPreferenceBody & { status: NutriBuilderParamStatus })[];
 };

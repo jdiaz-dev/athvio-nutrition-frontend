@@ -3,7 +3,12 @@ import { useDispatch } from 'react-redux';
 import { apolloClient } from 'src/graphql/ApolloClient';
 import * as nutritionBuilderSlice from 'src/modules/nutrition-builder/adapters/in/slicers/NutritionBuilderSlice';
 
-import { GetNutritionBuilderParametersResponse } from 'src/modules/nutrition-builder/adapters/out/nutritionBuilder';
+import {
+  BuildNutritionalPlanInput,
+  BuildNutritionalPlanRequest,
+  BuildNutritionalPlanResponse,
+  GetNutritionBuilderParametersResponse,
+} from 'src/modules/nutrition-builder/adapters/out/nutritionBuilder';
 import { GET_NUTRITION_BUILDER } from 'src/modules/nutrition-builder/adapters/out/NutritionBuilderQueries';
 
 export function useNutritionBuilder() {
@@ -23,6 +28,23 @@ export function useNutritionBuilder() {
       throw error;
     }
   };
+  const buildNutritionalPlan = async (body: BuildNutritionalPlanInput) => {
 
-  return { getNutritionBuilderParameters };
+    console.log('------body', body)
+    /* try {
+      const response = await apolloClient.mutate<BuildNutritionalPlanResponse, BuildNutritionalPlanRequest>({
+        mutation: GET_NUTRITION_BUILDER,
+        variables: {
+          input: {
+            ...body,
+          },
+        },
+      });
+    } catch (error) {
+      console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
+      throw error;
+    } */
+  };
+
+  return { getNutritionBuilderParameters, buildNutritionalPlan };
 }
