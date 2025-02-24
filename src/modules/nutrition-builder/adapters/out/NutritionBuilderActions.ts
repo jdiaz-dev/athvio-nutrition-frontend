@@ -7,17 +7,17 @@ import {
   BuildNutritionalPlanInput,
   BuildNutritionalPlanRequest,
   BuildNutritionalPlanResponse,
-  GetNutritionBuilderParametersResponse,
+  GetProgramBuilderParametersResponse,
 } from 'src/modules/nutrition-builder/adapters/out/nutritionBuilder';
-import { GET_NUTRITION_BUILDER } from 'src/modules/nutrition-builder/adapters/out/NutritionBuilderQueries';
+import { GET_PROGRAM_BUILDER } from 'src/modules/nutrition-builder/adapters/out/NutritionBuilderQueries';
 
 export function useNutritionBuilder() {
   const dispatch = useDispatch();
 
   const getNutritionBuilderParameters = async () => {
     try {
-      const response = await apolloClient.query<GetNutritionBuilderParametersResponse>({
-        query: GET_NUTRITION_BUILDER,
+      const response = await apolloClient.query<GetProgramBuilderParametersResponse>({
+        query: GET_PROGRAM_BUILDER,
         fetchPolicy: 'network-only',
       });
       if (response.data) {
@@ -33,7 +33,7 @@ export function useNutritionBuilder() {
     console.log('------body', body)
     /* try {
       const response = await apolloClient.mutate<BuildNutritionalPlanResponse, BuildNutritionalPlanRequest>({
-        mutation: GET_NUTRITION_BUILDER,
+        mutation: GET_PROGRAM_BUILDER,
         variables: {
           input: {
             ...body,

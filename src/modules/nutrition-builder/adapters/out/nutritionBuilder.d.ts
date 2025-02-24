@@ -19,10 +19,10 @@ export type NutritionalPreferenceBody = {
   name: string;
 };
 
-export type GetNutritionBuilderParametersResponse = {
-  getDiseaseCauses: DiseaseCauseBody[];
-  getDiseases: DiseaseBody[];
-  getNutritionalPreferences: NutritionalPreferenceBody[];
+export type GetProgramBuilderParametersResponse = {
+  getAllDiseaseCauses: DiseaseCauseBody[];
+  getAllDiseases: DiseaseBody[];
+  getAllNutritionalPreferences: NutritionalPreferenceBody[];
 };
 
 export type BuildNutritionalPlanInput = {

@@ -1,19 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { nutritionBuilderInitialState } from 'src/modules/nutrition-builder/adapters/in/slicers/NutritionBuilderInitialState';
-import { GetNutritionBuilderParametersResponse } from 'src/modules/nutrition-builder/adapters/out/nutritionBuilder';
+import { GetProgramBuilderParametersResponse } from 'src/modules/nutrition-builder/adapters/out/nutritionBuilder';
 import { NutriBuilderParamStatus } from 'src/shared/Consts';
 
 const nutritionBuilderSlice = createSlice({
   name: 'nutritionBuilder',
   initialState: nutritionBuilderInitialState,
   reducers: {
-    initializeParameters: (state, action: PayloadAction<GetNutritionBuilderParametersResponse>) => {
-      state.diseaseCauses = action.payload.getDiseaseCauses.map((item) => ({ ...item, status: NutriBuilderParamStatus.INITIALIZED }));
-      state.nutritionalPreferences = action.payload.getNutritionalPreferences.map((item) => ({
+    initializeParameters: (state, action: PayloadAction<GetProgramBuilderParametersResponse>) => {
+      state.diseaseCauses = action.payload.getAllDiseaseCauses.map((item) => ({ ...item, status: NutriBuilderParamStatus.INITIALIZED }));
+      state.nutritionalPreferences = action.payload.getAllNutritionalPreferences.map((item) => ({
         ...item,
         status: NutriBuilderParamStatus.INITIALIZED,
       }));
-      state.diseases = action.payload.getDiseases.map((item) => ({ ...item, status: NutriBuilderParamStatus.INITIALIZED }));
+      state.diseases = action.payload.getAllDiseases.map((item) => ({ ...item, status: NutriBuilderParamStatus.INITIALIZED }));
       return state;
     },
     updateDiseaseCause(state, action: PayloadAction<{ _id: string; status: NutriBuilderParamStatus }>) {

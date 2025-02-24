@@ -1,16 +1,16 @@
 import { gql } from '@apollo/client';
 
-export const GET_NUTRITION_BUILDER = gql`
-  query _getNutritionBuilderParameters {
-    getDiseases {
+export const GET_PROGRAM_BUILDER = gql`
+  query _getProgramBuilderParameters {
+    getAllDiseases {
       _id
       name
     }
-    getDiseaseCauses {
+    getAllDiseaseCauses {
       _id
       name
     }
-    getNutritionalPreferences {
+    getAllNutritionalPreferences {
       _id
       name
     }
