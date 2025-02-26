@@ -3,6 +3,8 @@ import { MealWithStatus } from 'src/shared/components/PlanDetailDialog/MealList'
 import { NutriBuilderParamStatus } from 'src/shared/Consts';
 import { GetRecordsBody, MetadataRecords } from 'src/shared/types/get-records.types';
 import { PlanDayInfo } from 'src/shared/types/types';
+import { Dayjs } from 'dayjs';
+import { PatientPlanBody } from 'src/modules/patients/patient-console/patient-plans/adapters/out/patientPlan.types';
 
 export type DiseaseCauseBody = {
   _id: string;
@@ -29,6 +31,8 @@ export type BuildNutritionalPlanInput = {
   diseaseCauses: string[];
   nutritionalPreferences: string[];
   diseases: string[];
+  patient: string;
+  startDate: Dayjs;
 };
 
 export type BuildNutritionalPlanRequest = {
@@ -36,7 +40,7 @@ export type BuildNutritionalPlanRequest = {
 };
 
 export type BuildNutritionalPlanResponse = {
-  buildNutritionalPlan: unknown;
+  generateNutritionalPlanForPatient: PatientPlanBody[];
 };
 
 export type NutritionBuilderInitialState = {

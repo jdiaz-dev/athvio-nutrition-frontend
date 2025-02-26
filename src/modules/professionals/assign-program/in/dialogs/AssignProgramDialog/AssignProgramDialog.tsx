@@ -1,10 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Card, Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
-
 import CloseIcon from '@mui/icons-material/Close';
-
 import { useDispatch, useSelector } from 'react-redux';
-
 import MessageDialog from 'src/shared/dialogs/MessageDialog';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { ReduxStates } from 'src/shared/types/types';
@@ -13,12 +10,13 @@ import * as ProgramSlice from 'src/modules/professionals/programs/adapters/in/sl
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
 import PatientList from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/PatientListToAssign';
 import SelectedPatients from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/SelectedPatients';
-import AssigmentStartDate from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/AssigmentStartDate';
+import AssigmentStartDate from 'src/shared/components/AssigmentStartDate';
 import StartDaySelector from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/StartDaySelector';
 import { useAssignProgram } from 'src/modules/professionals/assign-program/out/AssignProgramActions';
 import { MessagesForOkDialog } from 'src/shared/Consts';
 import * as AssignProgramSlice from 'src/modules/professionals/assign-program/in/slicers/AssignProgramSlice';
 import CancelAndSaveButtons from 'src/shared/components/CancelAndSaveButtons';
+import { Dayjs } from 'dayjs';
 
 function AssignProgramDialog({
   openAssignPogramDialog,
@@ -63,6 +61,9 @@ function AssignProgramDialog({
     setMessage(MessagesForOkDialog.PROGRAM_ASSIGNED);
     setOpenDialog(true);
     dispatch(AssignProgramSlice.resetAssignmets());
+  };
+  const datePickedHandler = (newDate: Dayjs | null) => {
+    dispatch(AssignProgramSlice.assignStartDate(newDate as Dayjs));
   };
   useEffect(() => {
     if (!openDialog && messageOk) {
@@ -125,7 +126,7 @@ function AssignProgramDialog({
             </div>
             <div>
               <SelectedPatients />
-              <AssigmentStartDate />
+              <AssigmentStartDate datePickedHandler={datePickedHandler} />
               <StartDaySelector />
             </div>
           </Card>

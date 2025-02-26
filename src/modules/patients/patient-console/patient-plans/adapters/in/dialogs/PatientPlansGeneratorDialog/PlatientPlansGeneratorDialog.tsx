@@ -1,10 +1,14 @@
-import React from 'react';
-import { Button, Dialog, DialogContent, DialogTitle } from '@mui/material';
+import React, { useState } from 'react';
+import { Dialog, DialogContent, DialogTitle } from '@mui/material';
 import ParameterList from 'src/modules/patients/patient-console/patient-plans/adapters/in/dialogs/PatientPlansGeneratorDialog/ParameterList';
 import { useNutritionBuilder } from 'src/modules/nutrition-builder/adapters/out/NutritionBuilderActions';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 import { NutriBuilderParamStatus } from 'src/shared/Consts';
+import AssigmentStartDate from 'src/shared/components/AssigmentStartDate';
+import { Dayjs } from 'dayjs';
+import CancelAndSaveButtons from 'src/shared/components/CancelAndSaveButtons';
+import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 
 function PlatientPlansGeneratorDialog({
   openPlatientPlansGeneratorDialog,
@@ -14,10 +18,20 @@ function PlatientPlansGeneratorDialog({
   setOpenPlatientPlansGeneratorDialog: (openDialog: boolean) => void;
 }) {
   const nutritionBuilderState = useSelector((state: ReduxStates) => state.nutritionBuilder);
-  const { buildNutritionalPlan } = useNutritionBuilder();
+  const patientState = useSelector((state: ReduxStates) => state.patient);
+  const { generateNutritionalPlanForPatient } = useNutritionBuilder();
+  const [closedIconDialog, setClosedIconDialog] = useState(true);
+  const [startDate, setStartDate] = useState<Dayjs>();
 
-  const handler = () => {
-    buildNutritionalPlan({
+  const datePickedHandler = (newDate: Dayjs | null) => {
+    setStartDate(newDate as Dayjs);
+  };
+  const closeIconDialogHandler = () => {
+    setClosedIconDialog(false);
+    setOpenPlatientPlansGeneratorDialog(false);
+  };
+  const saveButtonHandler = async () => {
+    await generateNutritionalPlanForPatient({
       diseaseCauses: nutritionBuilderState.diseaseCauses
         .filter((item) => item.status === NutriBuilderParamStatus.SELECTED)
         .map((item) => item._id),
@@ -25,7 +39,10 @@ function PlatientPlansGeneratorDialog({
       nutritionalPreferences: nutritionBuilderState.nutritionalPreferences
         .filter((item) => item.status === NutriBuilderParamStatus.SELECTED)
         .map((item) => item._id),
+      patient: patientState._id,
+      startDate: startDate as Dayjs,
     });
+    setOpenPlatientPlansGeneratorDialog(false);
   };
   return (
     <>
@@ -40,27 +57,12 @@ function PlatientPlansGeneratorDialog({
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
           Nutritional plan generator
-          {/* {closeIconDialog ? (
-            <IconButton
-              aria-label="close"
-              onClick={() => {
-                setCloseIconDialog(false);
-                dispatch(AssignProgramSlice.resetAssignmets());
-              }}
-              sx={{
-                position: 'absolute',
-                right: 8,
-                top: 8,
-                color: (theme) => theme.palette.grey[500],
-              }}
-            >
-              <CloseIcon />
-            </IconButton>
-          ) : null} */}
+          <CloseDialogIcon closedIconDialog={closedIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
         </DialogTitle>
         <DialogContent dividers={true}>
+          <AssigmentStartDate datePickedHandler={datePickedHandler} />
           <ParameterList />
-          <Button onClick={handler}>Build</Button>
+          <CancelAndSaveButtons cancelHandler={closeIconDialogHandler} saveHandler={saveButtonHandler} />
         </DialogContent>
       </Dialog>
     </>
