@@ -30,15 +30,15 @@ function PlatientPlansGeneratorDialog({
     setClosedIconDialog(false);
     setOpenPlatientPlansGeneratorDialog(false);
   };
-  const saveButtonHandler = async () => {
-    await generateNutritionalPlanForPatient({
+  const saveButtonHandler = () => {
+    generateNutritionalPlanForPatient({
       diseaseCauses: nutritionBuilderState.diseaseCauses
         .filter((item) => item.status === NutriBuilderParamStatus.SELECTED)
-        .map((item) => item._id),
-      diseases: nutritionBuilderState.diseases.filter((item) => item.status === NutriBuilderParamStatus.SELECTED).map((item) => item._id),
+        .map((item) => item.id),
+      diseases: nutritionBuilderState.diseases.filter((item) => item.status === NutriBuilderParamStatus.SELECTED).map((item) => item.id),
       nutritionalPreferences: nutritionBuilderState.nutritionalPreferences
         .filter((item) => item.status === NutriBuilderParamStatus.SELECTED)
-        .map((item) => item._id),
+        .map((item) => item.id),
       patient: patientState._id,
       startDate: startDate as Dayjs,
     });

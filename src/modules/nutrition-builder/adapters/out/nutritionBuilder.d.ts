@@ -7,17 +7,17 @@ import { Dayjs } from 'dayjs';
 import { PatientPlanBody } from 'src/modules/patients/patient-console/patient-plans/adapters/out/patientPlan.types';
 
 export type DiseaseCauseBody = {
-  _id: string;
+  id: string;
   name: string;
 };
 
 export type DiseaseBody = {
-  _id: string;
+  id: string;
   name: string;
 };
 
 export type NutritionalPreferenceBody = {
-  _id: string;
+  id: string;
   name: string;
 };
 

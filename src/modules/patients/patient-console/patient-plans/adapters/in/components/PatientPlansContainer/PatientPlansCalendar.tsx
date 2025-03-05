@@ -12,19 +12,21 @@ import { DateItem, ReduxStates } from 'src/shared/types/types';
 import { PatientPlanDateExtendedProps } from 'src/modules/patients/patients/adapters/out/patient.types';
 import { useReloadRecords } from 'src/shared/hooks/useReloadRecords';
 import dayjs from 'dayjs';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import { Modules } from 'src/shared/Consts';
 import { usePatientPlan } from 'src/modules/patients/patient-console/patient-plans/adapters/out/PatientPlanActions';
 import { assignmentDateHook } from 'src/modules/patients/patient-console/patient-plans/adapters/in/components/PatientPlansContainer/assignmentDateHook';
 import CalendarStyled from 'src/shared/components/CalendarStyled/CalendarStyled';
-import { Box, useMediaQuery } from '@mui/material';
+import { useMediaQuery } from '@mui/material';
 import { SidebarContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SidebarContext';
 import { DateSet } from 'src/modules/patients/patient-console/patient-plans/adapters/helpers/PatientPlans';
+import * as PatientPlanSlice from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/PatientPlanSlice';
 import CalendarHeader from 'src/modules/patients/patient-console/patient-plans/adapters/in/components/PatientPlansContainer/CalendarHeader';
 
 function PatientPlansCalendar() {
+  const dispatch = useDispatch();
   const matchDownSM = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
   const calendarRef = useRef<FullCalendar>(null);
   const sidebarContext = useContext(SidebarContext);
@@ -99,6 +101,11 @@ function PatientPlansCalendar() {
     }
   }, [reloadRecordList, dateSet, patientPlansState]);
 
+  useEffect(() => {
+    return () => {
+      dispatch(PatientPlanSlice.resetPatientPlans());
+    };
+  }, []);
   const handleDateSet = (dateInfo: DatesSetArg) => {
     setDateSet({ dateStart: dateInfo.start, dateEnd: dateInfo.end });
   };

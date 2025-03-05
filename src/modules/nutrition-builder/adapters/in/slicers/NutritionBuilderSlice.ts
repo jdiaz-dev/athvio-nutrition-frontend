@@ -16,18 +16,18 @@ const nutritionBuilderSlice = createSlice({
       state.diseases = action.payload.getAllDiseases.map((item) => ({ ...item, status: NutriBuilderParamStatus.INITIALIZED }));
       return state;
     },
-    updateDiseaseCause(state, action: PayloadAction<{ _id: string; status: NutriBuilderParamStatus }>) {
-      const index = state.diseaseCauses.findIndex((item) => item._id === action.payload._id);
+    updateDiseaseCause(state, action: PayloadAction<{ id: string; status: NutriBuilderParamStatus }>) {
+      const index = state.diseaseCauses.findIndex((item) => item.id === action.payload.id);
       if (index !== -1) state.diseaseCauses[index].status = action.payload.status;
       return state;
     },
-    updateNutritionalPreference(state, action: PayloadAction<{ _id: string; status: NutriBuilderParamStatus }>) {
-      const index = state.nutritionalPreferences.findIndex((item) => item._id === action.payload._id);
+    updateNutritionalPreference(state, action: PayloadAction<{ id: string; status: NutriBuilderParamStatus }>) {
+      const index = state.nutritionalPreferences.findIndex((item) => item.id === action.payload.id);
       if (index !== -1) state.nutritionalPreferences[index].status = action.payload.status;
       return state;
     },
-    updateDisease(state, action: PayloadAction<{ _id: string; status: NutriBuilderParamStatus }>) {
-      const index = state.diseases.findIndex((item) => item._id === action.payload._id);
+    updateDisease(state, action: PayloadAction<{ id: string; status: NutriBuilderParamStatus }>) {
+      const index = state.diseases.findIndex((item) => item.id === action.payload.id);
       if (index !== -1) state.diseases[index].status = action.payload.status;
       return state;
     },
