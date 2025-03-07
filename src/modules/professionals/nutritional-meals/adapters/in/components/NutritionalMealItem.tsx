@@ -27,6 +27,9 @@ function NutritionalMealItem(nutritionalMeal: NutritionalMealBody) {
     setAnchorEl(null);
   };
 
+  const nutritionalMealClickedHandler = () => {
+    setOpenCreateUpdateNutritionalMealDialog(true);
+  }
   const deleteNutritionalMealHandler = () => {
     void deleteNutritionalMeal({
       professional: authContext.professional,
@@ -38,19 +41,19 @@ function NutritionalMealItem(nutritionalMeal: NutritionalMealBody) {
   return (
     <>
       <StyledTableRow key={nutritionalMeal.name} style={{ cursor: 'pointer' }}>
-        <StyledTableCell onClick={() => setOpenCreateUpdateNutritionalMealDialog(true)} align="right">
+        <StyledTableCell onClick={nutritionalMealClickedHandler} align="right">
           {nutritionalMeal.name}
         </StyledTableCell>
-        <StyledTableCell onClick={() => setOpenCreateUpdateNutritionalMealDialog(true)} align="right">
+        <StyledTableCell onClick={nutritionalMealClickedHandler} align="right">
           {nutritionalMeal.macros.protein}
         </StyledTableCell>
-        <StyledTableCell onClick={() => setOpenCreateUpdateNutritionalMealDialog(true)} align="right">
+        <StyledTableCell onClick={nutritionalMealClickedHandler} align="right">
           {nutritionalMeal.macros.carbs}
         </StyledTableCell>
-        <StyledTableCell onClick={() => setOpenCreateUpdateNutritionalMealDialog(true)} align="right">
+        <StyledTableCell onClick={nutritionalMealClickedHandler} align="right">
           {nutritionalMeal.macros.fat}
         </StyledTableCell>
-        <StyledTableCell onClick={() => setOpenCreateUpdateNutritionalMealDialog(true)} align="right">
+        <StyledTableCell onClick={nutritionalMealClickedHandler} align="right">
           {nutritionalMeal.macros.calories}
         </StyledTableCell>
         <StyledTableCell align="right">
