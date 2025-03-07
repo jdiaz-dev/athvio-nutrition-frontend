@@ -43,19 +43,13 @@ function NutritionalMealList() {
   if (searchWords.length > 0) input.search = searchWords;
 
   useEffect(() => {
-    const getNutritionalMealsHelper = async () => {
-      const res = await getNutritionalMeals(input);
-
-      //todo : fix this
-      setLength(res.data.getNutritionalMeals.meta.total);
-      if (choosedWord && res.data.getNutritionalMeals.meta.total <= rowsPerPage) {
-        setCurrentPage(0);
-      }
+    const fetchNutritionalMeals = async () => {
+      await getNutritionalMeals(input);
     };
 
     const getNutritionalMealsFn = () => {
       if (authContext.professional || reloadRecordListContext.reloadRecordList || choosedWord) {
-        void getNutritionalMealsHelper();
+        void fetchNutritionalMeals();
         setChoosedWord(false);
         reloadRecordListContext.setReloadRecordList(false);
       }
@@ -65,9 +59,8 @@ function NutritionalMealList() {
 
   useEffect(() => {
     const getPatientsForSearcher = async () => {
-      const res = await getNutritionalMeals(input);
-      //todo : fix this
-      setMatchedRecords(res.data.getNutritionalMeals.data.map((meal) => meal.name));
+      await getNutritionalMeals(input);
+      if (nutritionalMealList) setMatchedRecords(nutritionalMealList.data.map((meal) => meal.name));
       setRecentlyTypedWord(false);
     };
 
@@ -78,6 +71,14 @@ function NutritionalMealList() {
     void getPatientsForSearcher();
   }, [searchWords, recentlyTypedWord]);
 
+  useEffect(() => {
+    if (nutritionalMealList) {
+      setLength(nutritionalMealList.meta.total);
+      if (choosedWord && nutritionalMealList.meta.total <= rowsPerPage) {
+        setCurrentPage(0);
+      }
+    }
+  }, [nutritionalMealList]);
   return (
     <>
       <SearcherBar

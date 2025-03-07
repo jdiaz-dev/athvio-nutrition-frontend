@@ -13,7 +13,11 @@ const nutritionalMealSlices = createSlice({
       return state;
     },
     addNutritionalMeal: (state, action: PayloadAction<NutritionalMealBody>) => {
-      state?.data.push(action.payload);
+      if (state?.data) {
+        state.data.push(action.payload);
+        state.meta.total = state.meta.total + 1;
+      }
+
       return state;
     },
     updateNutritionalMeal: (state, action: PayloadAction<NutritionalMealBody>) => {
