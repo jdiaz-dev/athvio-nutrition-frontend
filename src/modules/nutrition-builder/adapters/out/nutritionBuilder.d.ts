@@ -27,7 +27,18 @@ export type GetProgramBuilderParametersResponse = {
   getAllNutritionalPreferences: NutritionalPreferenceBody[];
 };
 
-export type BuildNutritionalPlanInput = {
+export type AdditionalParams = {
+  totalDays: number;
+  mealsByDay: number;
+  macros: {
+    carbs: number;
+    protein: number;
+    fat: number;
+    calories: number;
+  };
+};
+
+export type BuildNutritionalPlanInput = AdditionalParams & {
   diseaseCauses: string[];
   nutritionalPreferences: string[];
   diseases: string[];
@@ -43,7 +54,7 @@ export type BuildNutritionalPlanResponse = {
   generateNutritionalPlanForPatient: PatientPlanBody[];
 };
 
-export type NutritionBuilderInitialState = {
+export type NutritionBuilderInitialState = AdditionalParams & {
   diseaseCauses: (DiseaseCauseBody & { status: NutriBuilderParamStatus })[];
   diseases: (DiseaseBody & { status: NutriBuilderParamStatus })[];
   nutritionalPreferences: (NutritionalPreferenceBody & { status: NutriBuilderParamStatus })[];

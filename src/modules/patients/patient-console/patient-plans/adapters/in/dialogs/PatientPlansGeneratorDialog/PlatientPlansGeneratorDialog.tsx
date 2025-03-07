@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog, DialogContent, DialogTitle } from '@mui/material';
+import { Dialog, DialogContent, DialogTitle, TextField } from '@mui/material';
 import ParameterList from 'src/modules/patients/patient-console/patient-plans/adapters/in/dialogs/PatientPlansGeneratorDialog/ParameterList';
 import { useNutritionBuilder } from 'src/modules/nutrition-builder/adapters/out/NutritionBuilderActions';
 import { useSelector } from 'react-redux';
@@ -9,6 +9,8 @@ import AssigmentStartDate from 'src/shared/components/AssigmentStartDate';
 import { Dayjs } from 'dayjs';
 import CancelAndSaveButtons from 'src/shared/components/CancelAndSaveButtons';
 import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
+import PatientMacros from 'src/modules/patients/patient-console/patient-plans/adapters/in/dialogs/PatientPlansGeneratorDialog/PatientMacros';
+import * as nutritionBuilderSlice from 'src/modules/nutrition-builder/adapters/in/slicers/NutritionBuilderSlice';
 
 function PlatientPlansGeneratorDialog({
   openPlatientPlansGeneratorDialog,
@@ -41,6 +43,9 @@ function PlatientPlansGeneratorDialog({
         .map((item) => item.id),
       patient: patientState._id,
       startDate: startDate as Dayjs,
+      totalDays: nutritionBuilderState.totalDays,
+      mealsByDay: nutritionBuilderState.mealsByDay,
+      macros: nutritionBuilderState.macros,
     });
     setOpenPlatientPlansGeneratorDialog(false);
   };
@@ -60,7 +65,26 @@ function PlatientPlansGeneratorDialog({
           <CloseDialogIcon closedIconDialog={closedIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
         </DialogTitle>
         <DialogContent dividers={true}>
-          <AssigmentStartDate datePickedHandler={datePickedHandler} />
+          <div style={{ display: 'flex' }}>
+            <AssigmentStartDate datePickedHandler={datePickedHandler} />
+            <div style={{ width: '55%', display: 'flex', paddingTop: '2.5%', justifyContent: 'space-around' }}>
+              <TextField
+                id="outlined-number"
+                label="Total days"
+                type="number"
+                value={nutritionBuilderState.totalDays}
+                onChange={(event) => nutritionBuilderSlice.updateTotalDays(parseInt(event.target.value))}
+              />
+              <TextField
+                id="outlined-number"
+                label="Meals by day"
+                type="number"
+                value={nutritionBuilderState.mealsByDay}
+                onChange={(event) => nutritionBuilderSlice.updateMealsByDay(parseInt(event.target.value))}
+              />
+              <PatientMacros />
+            </div>
+          </div>
           <ParameterList />
           <CancelAndSaveButtons cancelHandler={closeIconDialogHandler} saveHandler={saveButtonHandler} />
         </DialogContent>

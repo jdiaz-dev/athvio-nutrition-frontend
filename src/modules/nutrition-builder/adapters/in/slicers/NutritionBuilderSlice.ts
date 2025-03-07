@@ -31,8 +31,43 @@ const nutritionBuilderSlice = createSlice({
       if (index !== -1) state.diseases[index].status = action.payload.status;
       return state;
     },
+    updateTotalDays(state, action: PayloadAction<number>) {
+      state.totalDays = action.payload;
+      return state;
+    },
+    updateMealsByDay(state, action: PayloadAction<number>) {
+      state.mealsByDay = action.payload;
+      return state;
+    },
+    updateCarbs(state, action: PayloadAction<number>) {
+      state.macros.carbs = action.payload;
+      return state;
+    },
+    updateProtein(state, action: PayloadAction<number>) {
+      state.macros.protein = action.payload;
+      return state;
+    },
+    updateFat(state, action: PayloadAction<number>) {
+      state.macros.fat = action.payload;
+      return state;
+    },
+    updateCalories(state, action: PayloadAction<number>) {
+      state.macros.calories = action.payload;
+      return state;
+    },
   },
 });
-export const { initializeParameters, updateDiseaseCause, updateNutritionalPreference, updateDisease } = nutritionBuilderSlice.actions;
+export const {
+  initializeParameters,
+  updateDiseaseCause,
+  updateNutritionalPreference,
+  updateDisease,
+  updateTotalDays,
+  updateMealsByDay,
+  updateCarbs,
+  updateProtein,
+  updateFat,
+  updateCalories,
+} = nutritionBuilderSlice.actions;
 
 export default nutritionBuilderSlice.reducer;
