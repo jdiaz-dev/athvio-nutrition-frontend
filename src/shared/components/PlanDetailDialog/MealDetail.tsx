@@ -17,6 +17,8 @@ import { MealWithStatus } from 'src/shared/components/PlanDetailDialog/MealList'
 import { useMealDetailsSlicers } from 'src/shared/hooks/useMealDetailSlicers';
 import { useMealBuilderSlicers } from 'src/shared/hooks/useMealBuilderSlicers';
 import { useMealListSlicers } from 'src/shared/hooks/useMealListSlicers';
+import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
+import ImportMealDialog from 'src/shared/components/ImportMealDialog/ImportMealDialog';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -56,6 +58,7 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
 
   const [componentTouched, setComponentTouched] = useState(false);
   const [mouseEntered, setMouseEntered] = useState(false);
+  const [openImportMealDialog, setOpenImportMealDialog] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleAnchorOpen = (event: React.MouseEvent<HTMLButtonElement | HTMLOrSVGElement>) => {
@@ -116,8 +119,9 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
           <Grid item xs={11}>
             <MealTag mealTag={mealTag} componentTouched={componentTouched} />
           </Grid>
-          <Grid item xs={1}>
-            <IconButton style={{ marginLeft: '55%' }} aria-label="Example" onClick={handleAnchorOpen}>
+          <Grid item xs={1} style={{ height: '45px' }}>
+            <SystemUpdateAltIcon style={{ marginBottom: '10px', cursor: 'pointer' }} onClick={() => setOpenImportMealDialog(true)} />
+            <IconButton style={{ marginLeft: '55%', marginTop: '-78px' }} aria-label="Example" onClick={handleAnchorOpen}>
               <FontAwesomeIcon icon={faEllipsisV} size="xs" />
             </IconButton>
             <Menu
@@ -137,6 +141,7 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
         <CurrentModuleContext.Provider value={{ currentModule: Modules.PROGRAMS }}>
           <MealBuilder meal={meal()} />
         </CurrentModuleContext.Provider>
+        <ImportMealDialog openImportMealDialog={openImportMealDialog} setOpenImportMealDialog={setOpenImportMealDialog} />
       </Card>
     </>
   );

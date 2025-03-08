@@ -82,7 +82,7 @@ export enum PatientStates {
   ARCHIVED = 'archived',
 }
 
-export enum PatientStatesActions {  
+export enum PatientStatesActions {
   ACTIVATE = 'activate',
   ARCHIVE = 'archive',
 }
@@ -104,7 +104,6 @@ export enum NutriBuilderParamStatus {
   INITIALIZED = 'INITIALIZED',
 }
 
-
 export enum ThemeEnum {
   DRAWER_WIDTH = 260,
   HORIZONTAL_MAX_ITEM = 7,
@@ -120,3 +119,9 @@ export const themeConfig: DefaultConfigProps = {
   presetColor: 'theme8',
   themeDirection: ThemeDirection.LTR,
 };
+
+export enum NutritionalMealDatabases {
+  ALL = 'ALL',
+  SYSTEM = 'SYSTEM',
+  CUSTOM_RECIPES = 'CUSTOM RECIPES',
+}

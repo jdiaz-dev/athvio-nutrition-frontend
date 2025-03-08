@@ -1,4 +1,5 @@
 import { MealBuilderBody } from 'src/shared/components/MealBuilder/MealBuilder.types';
+import { NutritionalMealDatabases } from 'src/shared/Consts';
 import { GetRecordsBody } from 'src/shared/types/get-records.types';
 
 export interface NutritionalMealBasicInfo {
@@ -28,7 +29,7 @@ export interface UpdateNutritionalMealResponse {
   updateNutritionalMeal: NutritionalMealBody;
 }
 
-export type GetNutritionalMealsBody = GetRecordsBody & { professional: string };
+export type GetNutritionalMealsBody = GetRecordsBody & { professional: string; database: NutritionalMealDatabases };
 export interface GettNutritionalMealRequest {
   input: GetNutritionalMealsBody;
 }

@@ -87,45 +87,43 @@ function CreateUpdateNutritionalMealDialog({
   }, [closedIconDialog]);
 
   return (
-    <>
-      <Dialog
-        open={openCreateUpdateNutritionalMealDialog}
-        onClose={() => {
-          setOpenCreateUpdateNutritionalMealDialog(false);
-          dispatch(NutritionalMealDetailsSlice.reinitializeMeal());
-        }}
-        scroll="body"
-        fullWidth={true}
-        maxWidth="md"
-        aria-labelledby="dialog-title"
-        aria-describedby="dialog-description"
-      >
-        <DialogTitle sx={{ m: 0, p: 2 }}>
-          Create your custom meal
-          <CloseDialogIcon closedIconDialog={closedIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
-        </DialogTitle>
-        <DialogContent dividers={true}>
-          <Card
-            className={classes.card}
-            style={{ padding: '20px', marginBottom: '15px' }}
-            variant="outlined"
-            onClick={() => {
-              if (!componentTouched) {
-                setComponentTouched(true);
-              }
-            }}
-          >
-            <NutritionalMealNameInput />
-            <CurrentModuleContext.Provider value={{ currentModule: Modules.NUTRITIONAL_MEALS }}>
-              <MealBuilder meal={{ _id, ...restNutritionalMeal }} />
-            </CurrentModuleContext.Provider>
-          </Card>
-          <CancelAndSaveButtons cancelHandler={closeIconDialogHandler} saveHandler={createUpdateNutritionalMealHandler} />
+    <Dialog
+      open={openCreateUpdateNutritionalMealDialog}
+      onClose={() => {
+        setOpenCreateUpdateNutritionalMealDialog(false);
+        dispatch(NutritionalMealDetailsSlice.reinitializeMeal());
+      }}
+      scroll="body"
+      fullWidth={true}
+      maxWidth="md"
+      aria-labelledby="dialog-title"
+      aria-describedby="dialog-description"
+    >
+      <DialogTitle sx={{ m: 0, p: 2 }}>
+        Create your custom meal
+        <CloseDialogIcon closedIconDialog={closedIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
+      </DialogTitle>
+      <DialogContent dividers={true}>
+        <Card
+          className={classes.card}
+          style={{ padding: '20px', marginBottom: '15px' }}
+          variant="outlined"
+          onClick={() => {
+            if (!componentTouched) {
+              setComponentTouched(true);
+            }
+          }}
+        >
+          <NutritionalMealNameInput />
+          <CurrentModuleContext.Provider value={{ currentModule: Modules.NUTRITIONAL_MEALS }}>
+            <MealBuilder meal={{ _id, ...restNutritionalMeal }} />
+          </CurrentModuleContext.Provider>
+        </Card>
+        <CancelAndSaveButtons cancelHandler={closeIconDialogHandler} saveHandler={createUpdateNutritionalMealHandler} />
 
-          {/* <NutrientsDetail /> */}
-        </DialogContent>
-      </Dialog>
-    </>
+        {/* <NutrientsDetail /> */}
+      </DialogContent>
+    </Dialog>
   );
 }
 export default CreateUpdateNutritionalMealDialog;

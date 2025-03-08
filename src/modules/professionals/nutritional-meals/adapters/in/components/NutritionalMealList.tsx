@@ -16,6 +16,7 @@ import { GraphQLInput, ReduxStates } from 'src/shared/types/types';
 import { usePaginator } from 'src/shared/hooks/usePaginator';
 import Paginator from 'src/shared/components/Paginator';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { NutritionalMealDatabases } from 'src/shared/Consts';
 
 function NutritionalMealList() {
   const nutritionalMealList = useSelector((state: ReduxStates) => state.nutritionalMeals.nutritionalMeals);
@@ -44,7 +45,7 @@ function NutritionalMealList() {
 
   useEffect(() => {
     const fetchNutritionalMeals = async () => {
-      await getNutritionalMeals(input);
+      await getNutritionalMeals({ ...input, database: NutritionalMealDatabases.ALL });
     };
 
     const getNutritionalMealsFn = () => {
@@ -59,7 +60,7 @@ function NutritionalMealList() {
 
   useEffect(() => {
     const getPatientsForSearcher = async () => {
-      await getNutritionalMeals(input);
+      await getNutritionalMeals({ ...input, database: NutritionalMealDatabases.ALL });
       if (nutritionalMealList) setMatchedRecords(nutritionalMealList.data.map((meal) => meal.name));
       setRecentlyTypedWord(false);
     };

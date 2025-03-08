@@ -11,12 +11,12 @@ function DatabaseSelector({
 }: {
   database: string;
   setDatabase: (database: string) => void;
-  setDatabaseChanged: (databaseChanged: boolean) => void;
+  setDatabaseChanged?: (databaseChanged: boolean) => void;
 }) {
   const { data } = useQuery<GetFoodDatabasesResponse>(GET_FOOD_DATABASES);
   const handleChange = (event: SelectChangeEvent) => {
     setDatabase(event.target.value);
-    setDatabaseChanged(true);
+    if (setDatabaseChanged) setDatabaseChanged(true);
   };
 
   return (

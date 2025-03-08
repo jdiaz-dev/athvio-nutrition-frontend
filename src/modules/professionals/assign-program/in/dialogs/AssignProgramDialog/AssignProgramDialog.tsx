@@ -17,6 +17,7 @@ import { MessagesForOkDialog } from 'src/shared/Consts';
 import * as AssignProgramSlice from 'src/modules/professionals/assign-program/in/slicers/AssignProgramSlice';
 import CancelAndSaveButtons from 'src/shared/components/CancelAndSaveButtons';
 import { Dayjs } from 'dayjs';
+import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 
 function AssignProgramDialog({
   openAssignPogramDialog,
@@ -65,6 +66,10 @@ function AssignProgramDialog({
   const datePickedHandler = (newDate: Dayjs | null) => {
     dispatch(AssignProgramSlice.assignStartDate(newDate as Dayjs));
   };
+  const closeIconDialogHandler = () => {
+    setCloseIconDialog(false);
+    dispatch(AssignProgramSlice.resetAssignmets());
+  };
   useEffect(() => {
     if (!openDialog && messageOk) {
       setOpenAssignPogramDialog(false);
@@ -93,23 +98,7 @@ function AssignProgramDialog({
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
           Assign program
-          {closeIconDialog ? (
-            <IconButton
-              aria-label="close"
-              onClick={() => {
-                setCloseIconDialog(false);
-                dispatch(AssignProgramSlice.resetAssignmets());
-              }}
-              sx={{
-                position: 'absolute',
-                right: 8,
-                top: 8,
-                color: (theme) => theme.palette.grey[500],
-              }}
-            >
-              <CloseIcon />
-            </IconButton>
-          ) : null}
+          <CloseDialogIcon closedIconDialog={closeIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
         </DialogTitle>
         <DialogContent dividers={true} style={{ minHeight: '500px' }}>
           <Card

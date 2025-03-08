@@ -20,7 +20,7 @@ import { useSearcher } from 'src/shared/hooks/useSearcher';
 import { usePaginator } from 'src/shared/hooks/usePaginator';
 import { GET_AUTOCOMPLETE_FOOD_NAMES, GET_FOODS } from 'src/shared/components/MealBuilder/FoodQueries';
 import FoodItem from 'src/shared/components/MealBuilder/FoodItem';
-import DatabaseSelector from 'src/shared/components/MealBuilder/DatabaseSelector';
+import DatabaseSelector from 'src/shared/components/DatabaseSelector';
 import { FoodDatabases, SpecialPagination } from 'src/shared/Consts';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
