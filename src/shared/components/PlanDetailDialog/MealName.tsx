@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { renameMealTag } from 'src/modules/professionals/programs/adapters/in/slicers/MealBasicInfoSlice';
+import { changeName } from 'src/modules/professionals/programs/adapters/in/slicers/MealBasicInfoSlice';
 import { Box, TextField } from '@mui/material';
-import { defaultMealTag } from 'src/modules/professionals/programs/adapters/in/slicers/ProgramInitialState';
 
-function MealTag({ mealTag, componentTouched }: { mealTag: string; componentTouched: boolean }) {
+const defaultName = 'Meal name';
+function MealName({ mame, componentTouched }: { mame: string; componentTouched: boolean }) {
   const dispatch = useDispatch();
-  const [_mealTag, _setMealTag] = useState(mealTag);
+  const [_name, _setName] = useState(mame);
   const [editMealTag, setEditMealTag] = useState(false);
 
   useEffect(() => {
     const renameMealTagHelper = () => {
-      if (_mealTag.length === 0) {
-        dispatch(renameMealTag(defaultMealTag));
+      if (_name.length === 0) {
+        dispatch(changeName(defaultName));
       } else {
-        dispatch(renameMealTag(_mealTag));
+        dispatch(changeName(_name));
       }
     };
     if (!editMealTag || !componentTouched) renameMealTagHelper();
@@ -32,15 +32,15 @@ function MealTag({ mealTag, componentTouched }: { mealTag: string; componentTouc
           <TextField
             fullWidth
             id="outlined-basic"
-            label="Meal Tag"
+            label="Name"
             autoComplete="off"
-            value={_mealTag}
+            value={_name}
             onChange={(e) => {
-              _setMealTag(e.target.value);
+              _setName(e.target.value);
             }}
             onMouseLeave={() => {
-              if (_mealTag.length === 0) {
-                _setMealTag(defaultMealTag);
+              if (_name.length === 0) {
+                _setName(defaultName);
               }
               setEditMealTag(false);
             }}
@@ -51,16 +51,22 @@ function MealTag({ mealTag, componentTouched }: { mealTag: string; componentTouc
         </Box>
       ) : (
         <div
-          style={{ borderBottom: '2px dashed', display: 'inline-block' }}
+          style={{
+            height: '85%',
+            paddingTop: '1.3%',
+            borderBottom: '2px dashed',
+            display: 'inline-block',
+            alignItems: 'center',
+          }}
           onClick={() => {
             setEditMealTag(true);
           }}
         >
-          {_mealTag}
+          {_name}
         </div>
       )}
     </>
   );
 }
 
-export default MealTag;
+export default MealName;

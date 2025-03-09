@@ -14,6 +14,10 @@ export const mealBasicInfoSlice = (sliceName: string, initialState: MealBasicInf
         state.mealTag = action.payload;
         return state;
       },
+      changeName: (state, action: PayloadAction<string>) => {
+        state.name = action.payload;
+        return state;
+      },
     },
   });
 };

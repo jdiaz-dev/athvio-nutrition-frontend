@@ -32,6 +32,20 @@ const professionalPages: page[] = [
   { page: 'Configuration and preferences', url: '/professional/professional/preferences' },
 ];
 
+function ToolbarItems({ style }: { style?: React.CSSProperties }) {
+  return (
+    <>
+      {navBarPages.map((page, index) => (
+        <ListItem style={style} key={index} disablePadding disableGutters>
+          <ListItemButton selected={false} component={Link} alignItems="center" to={page.url}>
+            <ListItemText style={{ textAlign: 'center' }} primary={page.page} />
+          </ListItemButton>
+        </ListItem>
+      ))}
+    </>
+  );
+}
+
 function NabBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -87,23 +101,11 @@ function NabBar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {navBarPages.map(({ page }) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">
-                    <Link to={page}>{page}</Link>
-                  </Typography>
-                </MenuItem>
-              ))}
+              <ToolbarItems />
             </Menu>
           </Box>
           <Box sx={{ display: { xs: 'none', md: 'flex' }, width: '90%' }}>
-            {navBarPages.map((page, index) => (
-              <ListItem style={{ width: '14%', textAlign: 'center' }} key={index} disablePadding disableGutters>
-                <ListItemButton selected={false} component={Link} alignItems="center" to={page.url}>
-                  <ListItemText style={{ textAlign: 'center' }} primary={page.page} />
-                </ListItemButton>
-              </ListItem>
-            ))}
+            <ToolbarItems style={{ width: '14%', textAlign: 'center' }} />
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

@@ -9,7 +9,7 @@ import { Modules } from 'src/shared/Consts';
 import { makeStyles } from 'tss-react/mui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
-import MealTag from 'src/shared/components/PlanDetailDialog/MealTag';
+import MealName from 'src/shared/components/PlanDetailDialog/MealName';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { MealWithStatus } from 'src/shared/components/PlanDetailDialog/MealList';
@@ -19,6 +19,7 @@ import { useMealListSlicers } from 'src/shared/hooks/useMealListSlicers';
 import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
 import ImportMealDialog from 'src/shared/components/ImportMealDialog/ImportMealDialog';
 import { useMealsStates } from 'src/shared/components/PlanDetailDialog/useMealsStates';
+import MealTagSelector from 'src/shared/components/PlanDetailDialog/MealTagSelector';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -50,7 +51,6 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
   const { updateMeal, deleteMeal } = useMealListSlicers(currentModuleContext.currentModule);
 
   const [componentTouched, setComponentTouched] = useState(false);
-  const [mouseEntered, setMouseEntered] = useState(false);
   const [openImportMealDialog, setOpenImportMealDialog] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -94,10 +94,11 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
   const untouchedComponetHandler = () => {
     if (componentTouched) void updateMealHandler();
     setComponentTouched(false);
-    setMouseEntered(false);
   };
 
-  const meal = () => (componentTouched || mouseEntered ? mealDetailsState : mealDetails);
+  const _meal = () => (componentTouched ? mealDetailsState : mealDetails);
+  const _mealTag = () => (componentTouched ? mealBasicInfoState.mealTag : mealTag);
+  const _mealName = () => (componentTouched ? mealBasicInfoState.name : name);
   return (
     <>
       <Card
@@ -109,8 +110,9 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
         onMouseLeave={untouchedComponetHandler}
       >
         <Grid container spacing={1}>
-          <Grid item xs={11}>
-            <MealTag mealTag={mealTag} componentTouched={componentTouched} />
+          <Grid item xs={11} style={{ display: 'flex' }}>
+            <MealTagSelector mealTag={_mealTag()} />
+            <MealName mame={_mealName()} componentTouched={componentTouched} />
           </Grid>
           <Grid item xs={1} style={{ height: '45px' }}>
             <SystemUpdateAltIcon style={{ marginBottom: '10px', cursor: 'pointer' }} onClick={() => setOpenImportMealDialog(true)} />
@@ -132,7 +134,7 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
         </Grid>
 
         <CurrentModuleContext.Provider value={{ currentModule: Modules.PROGRAMS }}>
-          <MealBuilder meal={meal()} />
+          <MealBuilder meal={_meal()} />
           <ImportMealDialog openImportMealDialog={openImportMealDialog} setOpenImportMealDialog={setOpenImportMealDialog} />
         </CurrentModuleContext.Provider>
       </Card>
