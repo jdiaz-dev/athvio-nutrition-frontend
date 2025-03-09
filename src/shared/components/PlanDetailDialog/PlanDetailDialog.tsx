@@ -3,18 +3,18 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import { programInitialState } from 'src/modules/professionals/programs/adapters/in/slicers/ProgramInitialState';
-import { useDispatch, useSelector } from 'react-redux';
-import { ReduxStates } from 'src/shared/types/types';
+import { useDispatch } from 'react-redux';
 import { DialogTitle } from '@mui/material';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import MealDetail from 'src/shared/components/PlanDetailDialog/MealDetail';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
-import { Modules, ReduxItemtatus } from 'src/shared/Consts';
+import { ReduxItemtatus } from 'src/shared/Consts';
 import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 import { Subject } from 'rxjs';
 import { generateTemporalId } from 'src/shared/helpers/functions';
 import { useMealListSlicers } from 'src/shared/hooks/useMealListSlicers';
 import CancelAndSaveButtons from 'src/shared/components/CancelAndSaveButtons';
+import { useMealsStates } from 'src/shared/components/PlanDetailDialog/useMealsStates';
 
 const savedPlanButton = new Subject<boolean>();
 export const savedPlanButton$ = savedPlanButton.asObservable();
@@ -32,10 +32,7 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
   const currentModuleContext = useContext(CurrentModuleContext);
   const dispatch = useDispatch();
   const { addMeal } = useMealListSlicers(currentModuleContext.currentModule);
-  const mealListState =
-    currentModuleContext.currentModule === Modules.PROGRAMS
-      ? useSelector((state: ReduxStates) => state.programs.mealList)
-      : useSelector((state: ReduxStates) => state.patientPlans.mealList);
+  const { mealListState } = useMealsStates(currentModuleContext.currentModule);
   const [closedIconDialog, setClosedIconDialog] = useState(true);
 
   useEffect(() => {

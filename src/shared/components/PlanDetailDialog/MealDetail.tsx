@@ -2,11 +2,10 @@
 import React, { useState } from 'react';
 import { Card, Grid, IconButton, Menu, MenuItem } from '@mui/material';
 import { useContext } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import MealBuilder from 'src/shared/components/MealBuilder/MealBuilder';
 import { Modules } from 'src/shared/Consts';
-import { ReduxStates } from 'src/shared/types/types';
 import { makeStyles } from 'tss-react/mui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
@@ -19,6 +18,7 @@ import { useMealBuilderSlicers } from 'src/shared/hooks/useMealBuilderSlicers';
 import { useMealListSlicers } from 'src/shared/hooks/useMealListSlicers';
 import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
 import ImportMealDialog from 'src/shared/components/ImportMealDialog/ImportMealDialog';
+import { useMealsStates } from 'src/shared/components/PlanDetailDialog/useMealsStates';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -42,14 +42,7 @@ const Item = styled(Paper)(({ theme }) => ({
 function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { meal: MealWithStatus }) {
   const { classes } = cardStyles();
   const currentModuleContext = useContext(CurrentModuleContext);
-  const mealBasicInfoState =
-    currentModuleContext.currentModule === Modules.PROGRAMS
-      ? useSelector((state: ReduxStates) => state.programs.mealBasicInfo)
-      : useSelector((state: ReduxStates) => state.patientPlans.mealBasicInfo);
-  const mealDetailsState =
-    currentModuleContext.currentModule === Modules.PROGRAMS
-      ? useSelector((state: ReduxStates) => state.programs.mealDetails)
-      : useSelector((state: ReduxStates) => state.patientPlans.mealDetails);
+  const { mealBasicInfoState, mealDetailsState } = useMealsStates(currentModuleContext.currentModule);
 
   const dispatch = useDispatch();
   const { acceptNewMealBasicInfo } = useMealDetailsSlicers(currentModuleContext.currentModule);
@@ -140,8 +133,8 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
 
         <CurrentModuleContext.Provider value={{ currentModule: Modules.PROGRAMS }}>
           <MealBuilder meal={meal()} />
+          <ImportMealDialog openImportMealDialog={openImportMealDialog} setOpenImportMealDialog={setOpenImportMealDialog} />
         </CurrentModuleContext.Provider>
-        <ImportMealDialog openImportMealDialog={openImportMealDialog} setOpenImportMealDialog={setOpenImportMealDialog} />
       </Card>
     </>
   );

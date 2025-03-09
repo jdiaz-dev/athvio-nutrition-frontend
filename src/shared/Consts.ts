@@ -120,8 +120,13 @@ export const themeConfig: DefaultConfigProps = {
   themeDirection: ThemeDirection.LTR,
 };
 
-export enum NutritionalMealDatabases {
+export enum NutritionalMealDatabasesEnum {
   ALL = 'ALL',
   SYSTEM = 'SYSTEM',
   CUSTOM_RECIPES = 'CUSTOM RECIPES',
+}
+
+export enum DatabasesEnum {
+  FOODS = 'FOODS',
+  NUTRITIONAL_MEALS = 'NUTRITIONAL_MEALS',
 }

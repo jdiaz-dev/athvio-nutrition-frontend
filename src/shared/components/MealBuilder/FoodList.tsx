@@ -20,8 +20,8 @@ import { useSearcher } from 'src/shared/hooks/useSearcher';
 import { usePaginator } from 'src/shared/hooks/usePaginator';
 import { GET_AUTOCOMPLETE_FOOD_NAMES, GET_FOODS } from 'src/shared/components/MealBuilder/FoodQueries';
 import FoodItem from 'src/shared/components/MealBuilder/FoodItem';
-import DatabaseSelector from 'src/shared/components/DatabaseSelector';
-import { FoodDatabases, SpecialPagination } from 'src/shared/Consts';
+import DatabaseSelector from 'src/shared/components/databaseSelector/DatabaseSelector';
+import { DatabasesEnum, FoodDatabases, SpecialPagination } from 'src/shared/Consts';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 function FoodList() {
@@ -180,7 +180,12 @@ function FoodList() {
               setRecentlyTypedWord={setRecentlyTypedWord}
               styles={{ width: '70%' }}
             />
-            <DatabaseSelector database={database} setDatabase={setDatabase} setDatabaseChanged={setDatabaseChanged} />
+            <DatabaseSelector
+              database={database}
+              setDatabase={setDatabase}
+              setDatabaseChanged={setDatabaseChanged}
+              databasesOrigin={DatabasesEnum.FOODS}
+            />
           </div>
           {foods.length > 0 && (
             <TableContainer component={Paper}>

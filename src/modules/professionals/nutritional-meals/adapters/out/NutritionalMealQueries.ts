@@ -230,6 +230,12 @@ export const GET_NUTRITIONAL_MEALS = gql`
   }
 `;
 
+export const GET_NUTRITIONAL_MEAL_DATABASES = gql`
+  query _getNutritionalMealDatabases {
+    getNutritionalMealDatabases
+  }
+`;
+
 export const UPDATE_NUTRITIONAL_MEAL = gql`
   mutation _updateNutritionalMeal($input: UpdateNutritionalMealDto!) {
     updateNutritionalMeal(input: $input) {

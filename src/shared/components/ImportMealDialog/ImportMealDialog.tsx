@@ -1,10 +1,26 @@
 import { Card, Dialog, DialogContent, DialogTitle } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useContext, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import CancelAndSaveButtons from 'src/shared/components/CancelAndSaveButtons';
 import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
-import DatabaseSelector from 'src/shared/components/DatabaseSelector';
+import DatabaseSelector from 'src/shared/components/databaseSelector/DatabaseSelector';
+import { useNutritionalMeal } from 'src/modules/professionals/nutritional-meals/adapters/out/NutritionalMealActions';
+import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { DatabasesEnum, Modules, NutritionalMealDatabasesEnum } from 'src/shared/Consts';
+import { ReduxStates } from 'src/shared/types/types';
+import MealSelector from 'src/shared/components/ImportMealDialog/MealSelector';
+import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
+import { useMealDetailsSlicers } from 'src/shared/hooks/useMealDetailSlicers';
+import { useMealBuilderSlicers } from 'src/shared/hooks/useMealBuilderSlicers';
+import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
+import { useMealsStates } from 'src/shared/components/PlanDetailDialog/useMealsStates';
 
+function useMealSelector() {
+  const { getNutritionalMeals } = useNutritionalMeal();
+  //get program (with meals) also
+  //get patient plan (with meals) also
+  return { getMeals: getNutritionalMeals };
+}
 function ImportMealDialog({
   openImportMealDialog,
   setOpenImportMealDialog,
@@ -12,15 +28,49 @@ function ImportMealDialog({
   openImportMealDialog: boolean;
   setOpenImportMealDialog: (param: boolean) => void;
 }) {
+  const currentModuleContext = useContext(CurrentModuleContext);
+  const authContext = useContext(AuthContext);
+  const { mealDetailsState } = useMealsStates(currentModuleContext.currentModule);
+  const mealsState = useSelector((state: ReduxStates) => state.nutritionalMeals.nutritionalMeals);
+
   const dispatch = useDispatch();
-  const [database, setDatabase] = useState('');
+  const [database, setDatabase] = useState(NutritionalMealDatabasesEnum.CUSTOM_RECIPES as string);
   const [closeIconDialog, setCloseIconDialog] = useState(true);
+  const [{ position, mealTag, name, ingredientDetails, cookingInstructions, macros }, setImportedMeal] = useState<Meal>({
+    _id: '',
+    position: -1,
+    mealTag: '',
+    name: '',
+    ingredientDetails: [],
+    cookingInstructions: '',
+    macros: { weightInGrams: -1, protein: -1, carbs: -1, fat: -1, calories: -1 },
+  });
+
+  const { acceptNewMealBasicInfo } = useMealDetailsSlicers(currentModuleContext.currentModule);
+  const { acceptNewMealDetail } = useMealBuilderSlicers(currentModuleContext.currentModule);
 
   const closeIconDialogHandler = () => {
     setOpenImportMealDialog(false);
   };
-  const importMealHandler = () => {};
-  useEffect(() => {}, [database]);
+  const importMealHandler = () => {
+    dispatch(acceptNewMealBasicInfo({ position, mealTag, name }));
+    dispatch(acceptNewMealDetail({ _id: mealDetailsState._id, ingredientDetails, cookingInstructions, macros }));
+    setOpenImportMealDialog(false);
+  };
+  const { getMeals } = useMealSelector();
+
+  useEffect(() => {
+    const fetchMeals = async () => {
+      await getMeals({
+        professional: authContext.professional,
+        database: database as NutritionalMealDatabasesEnum,
+        limit: 10,
+        offset: 0,
+      });
+    };
+    fetchMeals();
+  }, [database]);
+
   return (
     <Dialog
       open={openImportMealDialog}
@@ -37,9 +87,10 @@ function ImportMealDialog({
       </DialogTitle>
       <DialogContent dividers={true}>
         <Card style={{ padding: '20px', marginBottom: '15px' }} variant="outlined">
-          <DatabaseSelector database={database} setDatabase={setDatabase} />
+          <DatabaseSelector database={database} setDatabase={setDatabase} databasesOrigin={DatabasesEnum.NUTRITIONAL_MEALS} />
+          <MealSelector setImportedMeal={setImportedMeal} meals={mealsState?.data || []} />
         </Card>
-        <CancelAndSaveButtons cancelHandler={closeIconDialogHandler} saveHandler={importMealHandler} />
+        <CancelAndSaveButtons cancelHandler={closeIconDialogHandler} saveHandler={importMealHandler} customSaveNameButton="Import" />
       </DialogContent>
     </Dialog>
   );
