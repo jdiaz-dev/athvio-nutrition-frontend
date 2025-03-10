@@ -6,7 +6,7 @@ import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 import DatabaseSelector from 'src/shared/components/databaseSelector/DatabaseSelector';
 import { useNutritionalMeal } from 'src/modules/professionals/nutritional-meals/adapters/out/NutritionalMealActions';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
-import { DatabasesEnum, Modules, NutritionalMealDatabasesEnum } from 'src/shared/Consts';
+import { DatabasesEnum, NutritionalMealDatabasesEnum } from 'src/shared/Consts';
 import { ReduxStates } from 'src/shared/types/types';
 import MealSelector from 'src/shared/components/ImportMealDialog/MealSelector';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
@@ -45,7 +45,6 @@ function ImportMealDialog({
     cookingInstructions: '',
     macros: { weightInGrams: -1, protein: -1, carbs: -1, fat: -1, calories: -1 },
   });
-
   const { acceptNewMealBasicInfo } = useMealDetailsSlicers(currentModuleContext.currentModule);
   const { acceptNewMealDetail } = useMealBuilderSlicers(currentModuleContext.currentModule);
 

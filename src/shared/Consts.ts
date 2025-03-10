@@ -4,6 +4,7 @@ export const REST_COUNTRIES_URL = 'https://restcountries.com/v3.1/all?fields=nam
 export const baseHeight = 150;
 export const baseWeek = 1;
 export const temporalId = 'temporalId';
+export const defaultMealTag = 'Breakfast';
 
 export enum LocalStorageEnum {
   dataUser = 'dataUser',

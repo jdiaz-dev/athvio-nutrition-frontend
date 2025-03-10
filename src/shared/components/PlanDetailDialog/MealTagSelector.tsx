@@ -2,8 +2,9 @@ import React from 'react';
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { renameMealTag } from 'src/modules/professionals/programs/adapters/in/slicers/MealBasicInfoSlice';
+import { defaultMealTag } from 'src/shared/Consts';
 
-const mealTagList = ['Breakfast', 'Lunch', 'Dinner', 'First meal', 'Second meal', 'Third meal'];
+const mealTagList = [defaultMealTag, 'Lunch', 'Dinner', 'First meal', 'Second meal', 'Third meal'];
 function MealTagSelector({ mealTag }: { mealTag: string }) {
   const dispatch = useDispatch();
   const handleChange = (event: SelectChangeEvent) => {
