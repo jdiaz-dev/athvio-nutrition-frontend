@@ -33,8 +33,13 @@ function CalendarHeader({
           <ChevronLeft />
         </IconButton>
         <Box fontSize="1.5rem" fontWeight="bold" mx={1}>
-          {dateSet ? dayjs(dateSet.dateStart).format('MMMM YYYY') : 'Calendar'}
+          {dateSet
+            ? dayjs(dateSet.dateStart)
+                .add(dayjs(dateSet.dateEnd).diff(dateSet.dateStart, 'days') / 2, 'day')
+                .format('MMMM YYYY')
+            : 'Calendar'}
         </Box>
+
         <IconButton onClick={handleCalendarNext}>
           <ChevronRight />
         </IconButton>
