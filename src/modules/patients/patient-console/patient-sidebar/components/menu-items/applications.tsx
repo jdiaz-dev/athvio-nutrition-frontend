@@ -24,11 +24,11 @@ const widget: NavItemType = {
   children: [
     {
       id: 'Goals',
-      title: <FormattedMessage id="Goals" />,
+      title: <FormattedMessage id="calories???" />,
       type: 'item',
       url: '/widget/data',
       icon: icons.AdsClickIcon,
-      slide: AvailableSlides.GOALS,
+      slide: AvailableSlides.CALORIES,
     },
     {
       id: 'Analytics',

@@ -1,4 +1,5 @@
 export enum AvailableSlides {
-  GOALS = 'goals',
+  PLANS = 'plans',
+  CALORIES = 'calories',
   ANALITYCS = 'analitycs',
 }

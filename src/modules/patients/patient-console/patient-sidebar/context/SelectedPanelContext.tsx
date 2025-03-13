@@ -3,5 +3,5 @@ import { AvailableSlides } from 'src/modules/patients/patient-console/patient-si
 
 export const SelelectePanelContext = createContext<{
   selectedPanel: AvailableSlides | null;
-  setSelectedPanel: React.Dispatch<React.SetStateAction<AvailableSlides | null>>;
-}>({ selectedPanel: null, setSelectedPanel: useState });
+  setSelectedPanel: React.Dispatch<React.SetStateAction<AvailableSlides>>;
+}>({ selectedPanel: AvailableSlides.PLANS, setSelectedPanel: useState });

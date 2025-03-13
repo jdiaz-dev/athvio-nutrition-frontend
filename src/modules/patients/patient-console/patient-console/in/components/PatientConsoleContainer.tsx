@@ -2,6 +2,7 @@ import { Box } from '@mui/system';
 import React, { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import CaloriesContainer from 'src/modules/patients/patient-console/calories/adapters/in/CaloriesContainer';
 import ChatContainer from 'src/modules/patients/patient-console/chat/adapters/in/components/ChatContainer';
 import { usePatientConsole } from 'src/modules/patients/patient-console/patient-console/out/PatientConsoleActions';
 import PatientPlansContainer from 'src/modules/patients/patient-console/patient-plans/adapters/in/components/PatientPlansContainer/PatientPlansContainer';
@@ -18,7 +19,7 @@ function PatientConsoleContainer() {
 
   const [openSidebar, setOpenSidebar] = useState(false);
   const [openChat, setOpenChat] = useState(false);
-  const [selectedPanel, setSelectedPanel] = useState<AvailableSlides | null>(null);
+  const [selectedPanel, setSelectedPanel] = useState<AvailableSlides>(AvailableSlides.PLANS);
 
   if (patientId) {
     const professionalPatient = {
@@ -49,14 +50,12 @@ function PatientConsoleContainer() {
           <ChatContext.Provider value={{ openChat, setOpenChat }}>
             <SelelectePanelContext.Provider value={{ selectedPanel, setSelectedPanel }}>
               <PatientSidebarContainer />
-              <div style={{ width: '1px', color: 'white' }}>
-                {/* v: */} {selectedPanel}
-              </div>
             </SelelectePanelContext.Provider>
             {openChat && <ChatContainer />}
           </ChatContext.Provider>
 
-          <PatientPlansContainer />
+          {selectedPanel === AvailableSlides.PLANS && <PatientPlansContainer />}
+          {selectedPanel === AvailableSlides.CALORIES && <CaloriesContainer />}
         </SidebarContext.Provider>
       </Box>
     </>
