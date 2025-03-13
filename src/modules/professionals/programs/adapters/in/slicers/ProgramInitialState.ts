@@ -1,4 +1,5 @@
 import { ProgramInitialState } from 'src/modules/professionals/programs/adapters/out/program.types';
+import { defaultMealTag } from 'src/shared/Consts';
 
 export const programInitialState: ProgramInitialState = {
   programs: null,
@@ -18,7 +19,7 @@ export const programInitialState: ProgramInitialState = {
   mealList: [],
   mealBasicInfo: {
     position: 0,
-    mealTag: '',
+    mealTag: defaultMealTag,
     name: 'Meal name',
   },
   mealDetails: {

@@ -5,7 +5,6 @@ import { useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import MealBuilder from 'src/shared/components/MealBuilder/MealBuilder';
-import { Modules } from 'src/shared/Consts';
 import { makeStyles } from 'tss-react/mui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
@@ -13,7 +12,7 @@ import MealName from 'src/shared/components/PlanDetailDialog/MealName';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { MealWithStatus } from 'src/shared/components/PlanDetailDialog/MealList';
-import { useMealDetailsSlicers } from 'src/shared/hooks/useMealDetailSlicers';
+import { useMealBasicInfoSlicers } from 'src/shared/hooks/useMealBasicInfoSlicers';
 import { useMealBuilderSlicers } from 'src/shared/hooks/useMealBuilderSlicers';
 import { useMealListSlicers } from 'src/shared/hooks/useMealListSlicers';
 import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
@@ -46,7 +45,7 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
   const { mealBasicInfoState, mealDetailsState } = useMealsStates(currentModuleContext.currentModule);
 
   const dispatch = useDispatch();
-  const { acceptNewMealBasicInfo } = useMealDetailsSlicers(currentModuleContext.currentModule);
+  const { acceptNewMealBasicInfo } = useMealBasicInfoSlicers(currentModuleContext.currentModule);
   const { acceptNewMealDetail } = useMealBuilderSlicers(currentModuleContext.currentModule);
   const { updateMeal, deleteMeal } = useMealListSlicers(currentModuleContext.currentModule);
 
@@ -95,7 +94,6 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
     if (componentTouched) void updateMealHandler();
     setComponentTouched(false);
   };
-
   const _meal = () => (componentTouched ? mealDetailsState : mealDetails);
   const _mealTag = () => (componentTouched ? mealBasicInfoState.mealTag : mealTag);
   const _mealName = () => (componentTouched ? mealBasicInfoState.name : name);
@@ -133,10 +131,8 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
           </Grid>
         </Grid>
 
-        <CurrentModuleContext.Provider value={{ currentModule: Modules.PROGRAMS }}>
-          <MealBuilder meal={_meal()} />
-          <ImportMealDialog openImportMealDialog={openImportMealDialog} setOpenImportMealDialog={setOpenImportMealDialog} />
-        </CurrentModuleContext.Provider>
+        <MealBuilder meal={_meal()} />
+        <ImportMealDialog openImportMealDialog={openImportMealDialog} setOpenImportMealDialog={setOpenImportMealDialog} />
       </Card>
     </>
   );

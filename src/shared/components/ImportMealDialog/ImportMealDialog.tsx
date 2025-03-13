@@ -10,7 +10,7 @@ import { DatabasesEnum, NutritionalMealDatabasesEnum } from 'src/shared/Consts';
 import { ReduxStates } from 'src/shared/types/types';
 import MealSelector from 'src/shared/components/ImportMealDialog/MealSelector';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
-import { useMealDetailsSlicers } from 'src/shared/hooks/useMealDetailSlicers';
+import { useMealBasicInfoSlicers } from 'src/shared/hooks/useMealBasicInfoSlicers';
 import { useMealBuilderSlicers } from 'src/shared/hooks/useMealBuilderSlicers';
 import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 import { useMealsStates } from 'src/shared/components/PlanDetailDialog/useMealsStates';
@@ -45,7 +45,7 @@ function ImportMealDialog({
     cookingInstructions: '',
     macros: { weightInGrams: -1, protein: -1, carbs: -1, fat: -1, calories: -1 },
   });
-  const { acceptNewMealBasicInfo } = useMealDetailsSlicers(currentModuleContext.currentModule);
+  const { acceptNewMealBasicInfo } = useMealBasicInfoSlicers(currentModuleContext.currentModule);
   const { acceptNewMealDetail } = useMealBuilderSlicers(currentModuleContext.currentModule);
 
   const closeIconDialogHandler = () => {

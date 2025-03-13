@@ -3,12 +3,13 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import { programInitialState } from 'src/modules/professionals/programs/adapters/in/slicers/ProgramInitialState';
+import { patientPlanInitialState } from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/PatientPlanInitialState';
 import { useDispatch } from 'react-redux';
 import { DialogTitle } from '@mui/material';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import MealDetail from 'src/shared/components/PlanDetailDialog/MealDetail';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
-import { ReduxItemtatus } from 'src/shared/Consts';
+import { Modules, ReduxItemtatus } from 'src/shared/Consts';
 import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 import { Subject } from 'rxjs';
 import { generateTemporalId } from 'src/shared/helpers/functions';
@@ -43,11 +44,14 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
   }, [closedIconDialog]);
 
   const closeIconDialogHandler = () => {
-    // reloadRecordListContext.setReloadRecordList(true);
     setOpenPlanDetailDialog(false);
   };
   const addMealPlanHandler = () => {
-    dispatch(addMeal({ ...programInitialState.mealBasicInfo, ...programInitialState.mealDetails, _id: generateTemporalId() }));
+    if (currentModuleContext.currentModule === Modules.CLIENT_PLANS) {
+      dispatch(addMeal({ ...patientPlanInitialState.mealBasicInfo, ...patientPlanInitialState.mealDetails, _id: generateTemporalId() }));
+    } else if (currentModuleContext.currentModule === Modules.PROGRAMS) {
+      dispatch(addMeal({ ...programInitialState.mealBasicInfo, ...programInitialState.mealDetails, _id: generateTemporalId() }));
+    }
   };
 
   const savePlanHandler = async () => {

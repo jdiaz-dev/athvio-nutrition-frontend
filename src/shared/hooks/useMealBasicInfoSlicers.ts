@@ -7,9 +7,9 @@ const { patientPlanMealBasicInfoSlice: slicer1, ...patientPlanMealBasicInfoSlice
 const { programPlanMealBasicInfoSlice: slicer3, ...programMealBasicInfoSlicers } = programMealBasicInfoSlice;
 
 //only for patients and programs modules
-export const useMealDetailsSlicers = (currentModule: Modules) => {
+export const useMealBasicInfoSlicers = (currentModule: Modules) => {
   let slicer;
-  if (currentModule === Modules.CLIENTS) {
+  if (currentModule === Modules.CLIENT_PLANS) {
     slicer = { ...patientPlanMealBasicInfoSlicers };
   } else {
     slicer = { ...programMealBasicInfoSlicers };

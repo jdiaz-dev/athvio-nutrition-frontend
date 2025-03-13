@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { renameMealTag } from 'src/modules/professionals/programs/adapters/in/slicers/MealBasicInfoSlice';
 import { defaultMealTag } from 'src/shared/Consts';
+import { useMealBasicInfoSlicers } from 'src/shared/hooks/useMealBasicInfoSlicers';
+import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 
 const mealTagList = [defaultMealTag, 'Lunch', 'Dinner', 'First meal', 'Second meal', 'Third meal'];
 function MealTagSelector({ mealTag }: { mealTag: string }) {
+  const currentModuleContext = useContext(CurrentModuleContext);
+
   const dispatch = useDispatch();
+  const { renameMealTag } = useMealBasicInfoSlicers(currentModuleContext.currentModule);
   const handleChange = (event: SelectChangeEvent) => {
     dispatch(renameMealTag(event.target.value));
   };
