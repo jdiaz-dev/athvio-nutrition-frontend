@@ -2,72 +2,73 @@ import { MealBuilderBody } from 'src/shared/components/MealBuilder/MealBuilder.t
 import { NutritionalMealDatabasesEnum } from 'src/shared/Consts';
 import { GetRecordsBody } from 'src/shared/types/get-records.types';
 
-export interface NutritionalMealBasicInfo {
+export type NutritionalMealBasicInfo = {
   professional: string;
   name: string;
-}
-export interface NutritionalMealBody extends NutritionalMealBasicInfo, MealBuilderBody {}
+};
+export type NutritionalMealBody = NutritionalMealBasicInfo & MealBuilderBody;
 export type CreateNutritionalMealBody = Omit<NutritionalMealBody, '_id'>;
 
-export interface CreateNutritionalMealRequest {
+export type CreateNutritionalMealRequest = {
   input: CreateNutritionalMealBody;
-}
+};
 
-export interface CreateNutritionalMealResponse {
+export type CreateNutritionalMealResponse = {
   createNutritionalMeal: NutritionalMealBody;
-}
+};
 
-export interface UpdateNutritionalMealBody extends Omit<NutritionalMealBody, '_id'> {
+export type UpdateNutritionalMealBody = Omit<NutritionalMealBody, '_id'> & {
   nutritionalMeal: string;
-}
+};
 
-export interface UpdateNutritionalMealRequest {
+export type UpdateNutritionalMealRequest = {
   input: UpdateNutritionalMealBody;
-}
+};
 
-export interface UpdateNutritionalMealResponse {
+export type UpdateNutritionalMealResponse = {
   updateNutritionalMeal: NutritionalMealBody;
-}
+};
 
 export type GetNutritionalMealsBody = GetRecordsBody & { professional: string; database: NutritionalMealDatabasesEnum };
-export interface GettNutritionalMealRequest {
-  input: GetNutritionalMealsBody;
-}
 
-export interface NutritionalMeals {
+export type GettNutritionalMealRequest = {
+  input: GetNutritionalMealsBody;
+};
+
+export type NutritionalMeals = {
   data: NutritionalMealBody[];
   meta: {
     total: number;
     offset: number;
     limit: number;
   };
-}
-export interface GetNutritionalMealsResponse {
-  getNutritionalMeals: NutritionalMeals;
-}
+};
+export type GetNutritionalMealsResponse = {
+  getNutritionalMealsForProfessional: NutritionalMeals;
+};
 
-export interface GetNutritionalMealDatabasesResponse {
+export type GetNutritionalMealDatabasesResponse = {
   getNutritionalMealDatabases: string[];
-}
+};
 
-export interface DeleteNutritionalMealBody {
+export type DeleteNutritionalMealBody = {
   professional: string;
   nutritionalMeal: string;
-}
+};
 
-export interface DeleteNutritionalMealRequest {
+export type DeleteNutritionalMealRequest = {
   input: DeleteNutritionalMealBody;
-}
+};
 
-export interface DeleteNutritionalMealResponse {
+export type DeleteNutritionalMealResponse = {
   deleteNutritionalMeal: {
     _id: string;
     name: string;
   };
-}
+};
 
-export interface NutritionalMealInitialState {
+export type NutritionalMealInitialState = {
   nutritionalMeals: NutritionalMeals | null;
   nutritionalMealBasicInfo: NutritionalMealBasicInfo;
   nutritionalMealDetails: MealBuilderBody;
-}
+};

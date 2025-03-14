@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
-import { GetNutritionalMealDatabasesResponse } from 'src/modules/professionals/nutritional-meals/adapters/out/nutritionalMeal.types';
+import { GetNutritionalMealDatabasesResponse } from 'src/modules/professionals/nutritional-meals/adapters/out/nutritionalMeal';
 import { GET_NUTRITIONAL_MEAL_DATABASES } from 'src/modules/professionals/nutritional-meals/adapters/out/NutritionalMealQueries';
 import { GetFoodDatabasesResponse } from 'src/shared/components/MealBuilder/food.types';
 import { GET_FOOD_DATABASES } from 'src/shared/components/MealBuilder/FoodQueries';

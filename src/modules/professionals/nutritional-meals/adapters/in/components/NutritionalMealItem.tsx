@@ -6,7 +6,7 @@ import { Button, Grid, Menu, MenuItem } from '@mui/material';
 import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
 import { useNutritionalMeal } from 'src/modules/professionals/nutritional-meals/adapters/out/NutritionalMealActions';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
-import { NutritionalMealBody } from 'src/modules/professionals/nutritional-meals/adapters/out/nutritionalMeal.types';
+import { NutritionalMealBody } from 'src/modules/professionals/nutritional-meals/adapters/out/nutritionalMeal';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 function NutritionalMealItem(nutritionalMeal: NutritionalMealBody) {

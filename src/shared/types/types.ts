@@ -3,7 +3,7 @@ import { ChatInitialState } from 'src/modules/patients/patient-console/chat/adap
 import { PatientInitialState } from 'src/modules/patients/patient-console/patient/adapters/out/patient';
 import { PatientPlanInitialState } from 'src/modules/patients/patient-console/patient-plans/adapters/out/patientPlan.types';
 import { AssignProgramInitialState } from 'src/modules/professionals/assign-program/out/AssignProgram.types';
-import { NutritionalMealInitialState } from 'src/modules/professionals/nutritional-meals/adapters/out/nutritionalMeal.types';
+import { NutritionalMealInitialState } from 'src/modules/professionals/nutritional-meals/adapters/out/nutritionalMeal';
 import { ProfessionalInitialState } from 'src/modules/professionals/professional/adapters/out/professional';
 import { ProgramInitialState } from 'src/modules/professionals/programs/adapters/out/program.types';
 import { QuestionaryConfigInitialState } from 'src/modules/professionals/questionary-config/adapters/out/QuestionaryConfig';

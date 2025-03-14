@@ -17,7 +17,7 @@ import {
   DeleteNutritionalMealBody,
   CreateNutritionalMealBody,
   GetNutritionalMealsBody,
-} from 'src/modules/professionals/nutritional-meals/adapters/out/nutritionalMeal.types';
+} from 'src/modules/professionals/nutritional-meals/adapters/out/nutritionalMeal';
 import {
   CREATE_NUTRITIONAL_MEAL,
   DELETE_NUTRITIONAL_MEAL,
@@ -56,7 +56,7 @@ export function useNutritionalMeal() {
         fetchPolicy: 'network-only',
       });
 
-      if (response.data) dispatch(NutritionalMealSlicers.showNutritionalMeals(response.data.getNutritionalMeals));
+      if (response.data) dispatch(NutritionalMealSlicers.showNutritionalMeals(response.data.getNutritionalMealsForProfessional));
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
