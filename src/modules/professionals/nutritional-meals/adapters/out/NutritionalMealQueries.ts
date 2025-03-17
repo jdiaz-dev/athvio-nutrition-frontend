@@ -113,7 +113,7 @@ export const CREATE_NUTRITIONAL_MEAL = gql`
 `;
 
 export const GET_NUTRITIONAL_MEALS = gql`
-  query _getNutritionalMealsForProfessional($input: GetNutritionalMealsDto!) {
+  query _getNutritionalMealsForProfessional($input: GetNutritionalMealsForProfessionalDto!) {
     getNutritionalMealsForProfessional(input: $input) {
       data {
         _id
