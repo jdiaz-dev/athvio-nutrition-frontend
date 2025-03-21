@@ -84,7 +84,7 @@ function FoodItem({ food }: { food: Food }) {
         ingredient: {
           name: foodManager.name,
           label: foodManager.measure.label,
-          amount: foodManager.measure.amount,
+          amount: foodManager.measure.amount.toString(),
           ...foodManager.macros,
         },
         equivalents: [],

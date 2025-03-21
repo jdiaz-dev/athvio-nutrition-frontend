@@ -9,7 +9,7 @@ export interface Macros {
 }
 
 export interface Ingredient extends Macros {
-  amount: number;
+  amount: string;
   name: string;
   label: string;
 }
