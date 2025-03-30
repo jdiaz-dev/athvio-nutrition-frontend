@@ -24,7 +24,7 @@ function ProgramsContainer() {
     <>
       <ModulesWrapper>
         <ReloadRecordListContext.Provider value={{ reloadRecordList, setReloadRecordList }}>
-          <TitleAndButtonModule titleModule="Programs" buttonName="New program" buttonHandler={buttonOnclikHandler} />
+          <TitleAndButtonModule titleModule="Programs" buttonName="Create program" buttonHandler={buttonOnclikHandler} />
           <ProgramList />
           {openCreateUpdateProgramDialog && (
             <CreateUpdateProgramDialog

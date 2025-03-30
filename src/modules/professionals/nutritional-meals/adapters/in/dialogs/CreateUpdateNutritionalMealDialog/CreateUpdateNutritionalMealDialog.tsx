@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNutritionalMeal } from 'src/modules/professionals/nutritional-meals/adapters/out/NutritionalMealActions';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { ReduxStates } from 'src/shared/types/types';
-import { Modules } from 'src/shared/Consts';
+import { EnumMealOwner, Modules } from 'src/shared/Consts';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import MealBuilder from 'src/shared/components/MealBuilder/MealBuilder';
 import NutritionalMealNameInput from 'src/modules/professionals/nutritional-meals/adapters/in/dialogs/CreateUpdateNutritionalMealDialog/NutritionalMealNameInput';
@@ -17,6 +17,7 @@ import { AuthContext } from 'src/modules/authentication/authentication/adapters/
 import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 import { formStyles } from 'src/shared/styles/styles';
 import CancelAndSaveButtons from 'src/shared/components/CancelAndSaveButtons';
+import { EnableEditionContext } from 'src/shared/components/wrappers/EnablerEditionWrapper/EnableEditionContext';
 
 function CreateUpdateNutritionalMealDialog({
   openCreateUpdateNutritionalMealDialog,
@@ -33,7 +34,7 @@ function CreateUpdateNutritionalMealDialog({
   const dispatch = useDispatch();
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const nutritionalMealDetailsState = useSelector((state: ReduxStates) => state.nutritionalMeals.nutritionalMealDetails);
-  const mealNameBasicInfo = useSelector((state: ReduxStates) => state.nutritionalMeals.nutritionalMealBasicInfo);
+  const { owner, ...mealNameBasicInfo } = useSelector((state: ReduxStates) => state.nutritionalMeals.nutritionalMealBasicInfo);
 
   const { createNutritionalMeal, updateNutritionalMeal } = useNutritionalMeal();
 
@@ -68,7 +69,7 @@ function CreateUpdateNutritionalMealDialog({
   useEffect(() => {
     if (_nutritionalMeal !== undefined) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { name, ...rest } = _nutritionalMeal;
+      const { name, owner, ...rest } = _nutritionalMeal;
       dispatch(NutritionalMealBasicInfoSlice.renameNutritionalMeal(name));
       dispatch(NutritionalMealDetailsSlice.acceptNewMealDetail(rest));
     } else {
@@ -116,7 +117,11 @@ function CreateUpdateNutritionalMealDialog({
         >
           <NutritionalMealNameInput />
           <CurrentModuleContext.Provider value={{ currentModule: Modules.NUTRITIONAL_MEALS }}>
-            <MealBuilder meal={{ _id, ...restNutritionalMeal }} />
+            <EnableEditionContext.Provider
+              value={{ enableEdition: _nutritionalMeal !== undefined && _nutritionalMeal.owner !== EnumMealOwner.SYSTEM }}
+            >
+              <MealBuilder meal={{ _id, ...restNutritionalMeal }} />
+            </EnableEditionContext.Provider>
           </CurrentModuleContext.Provider>
         </Card>
         <CancelAndSaveButtons cancelHandler={closeIconDialogHandler} saveHandler={createUpdateNutritionalMealHandler} />

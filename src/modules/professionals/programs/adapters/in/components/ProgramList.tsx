@@ -8,7 +8,7 @@ import Paper from '@mui/material/Paper';
 import { StyledTableCell } from 'src/shared/components/CustomizedTable';
 import { useSelector } from 'react-redux';
 import { useSearcher } from 'src/shared/hooks/useSearcher';
-import SearcherBar from 'src/shared/components/SearcherBar';
+import SearcherBar from 'src/shared/components/SearcherAndSelector/SearcherBar';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { GraphQLInput, ReduxStates } from 'src/shared/types/types';
 import Program from 'src/modules/professionals/programs/adapters/in/components/Program';

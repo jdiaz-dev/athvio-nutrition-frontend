@@ -34,7 +34,7 @@ function ImportMealDialog({
   const mealsState = useSelector((state: ReduxStates) => state.nutritionalMeals.nutritionalMeals);
 
   const dispatch = useDispatch();
-  const [database, setDatabase] = useState(NutritionalMealDatabasesEnum.CUSTOM_RECIPES as string);
+  const [database, setDatabase] = useState(NutritionalMealDatabasesEnum.CUSTOM_MEALS as string);
   const [closeIconDialog, setCloseIconDialog] = useState(true);
   const [{ position, mealTag, name, ingredientDetails, cookingInstructions, macros }, setImportedMeal] = useState<Meal>({
     _id: '',

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
@@ -10,13 +10,15 @@ import { useNutritionalMeal } from 'src/modules/professionals/nutritional-meals/
 import { useSelector } from 'react-redux';
 import NutritionalMealItem from 'src/modules/professionals/nutritional-meals/adapters/in/components/NutritionalMealItem';
 import { useSearcher } from 'src/shared/hooks/useSearcher';
-import SearcherBar from 'src/shared/components/SearcherBar';
+import SearcherBar from 'src/shared/components/SearcherAndSelector/SearcherBar';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { GraphQLInput, ReduxStates } from 'src/shared/types/types';
 import { usePaginator } from 'src/shared/hooks/usePaginator';
 import Paginator from 'src/shared/components/Paginator';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
-import { NutritionalMealDatabasesEnum } from 'src/shared/Consts';
+import { DatabasesEnum, NutritionalMealDatabasesEnum } from 'src/shared/Consts';
+import DatabaseSelector from 'src/shared/components/databaseSelector/DatabaseSelector';
+import SearcherAndSelectorWrapper from 'src/shared/components/SearcherAndSelector/SearcherAndSelectorWrapper';
 
 function NutritionalMealList() {
   const nutritionalMealList = useSelector((state: ReduxStates) => state.nutritionalMeals.nutritionalMeals);
@@ -34,6 +36,7 @@ function NutritionalMealList() {
     setRecentlyTypedWord,
   } = useSearcher();
   const { length, setLength, offset, setOffset, rowsPerPage, currentPage, setCurrentPage } = usePaginator(5);
+  const [database, setDatabase] = useState(NutritionalMealDatabasesEnum.ALL as string);
 
   const { getNutritionalMeals } = useNutritionalMeal();
   const input: GraphQLInput = {
@@ -45,7 +48,7 @@ function NutritionalMealList() {
 
   useEffect(() => {
     const fetchNutritionalMeals = async () => {
-      await getNutritionalMeals({ ...input, database: NutritionalMealDatabasesEnum.ALL });
+      await getNutritionalMeals({ ...input, database: database as NutritionalMealDatabasesEnum });
     };
 
     const getNutritionalMealsFn = () => {
@@ -56,7 +59,7 @@ function NutritionalMealList() {
       }
     };
     getNutritionalMealsFn();
-  }, [authContext.professional, reloadRecordListContext.reloadRecordList, choosedWord, offset]);
+  }, [authContext.professional, reloadRecordListContext.reloadRecordList, choosedWord, offset, database]);
 
   useEffect(() => {
     const getPatientsForSearcher = async () => {
@@ -82,21 +85,26 @@ function NutritionalMealList() {
   }, [nutritionalMealList]);
   return (
     <>
-      <SearcherBar
-        setSearchWords={setSearchWords}
-        matchedRecords={matchedRecords}
-        setChoosedWord={setChoosedWord}
-        setRecentlyTypedWord={setRecentlyTypedWord}
-      />
+      <SearcherAndSelectorWrapper>
+        <SearcherBar
+          setSearchWords={setSearchWords}
+          matchedRecords={matchedRecords}
+          setChoosedWord={setChoosedWord}
+          setRecentlyTypedWord={setRecentlyTypedWord}
+          styles={{ width: '70%' }}
+        />
+        <DatabaseSelector database={database} setDatabase={setDatabase} databasesOrigin={DatabasesEnum.NUTRITIONAL_MEALS} />
+      </SearcherAndSelectorWrapper>
       <TableContainer component={Paper}>
         <Table aria-label="customized table">
           <TableHead>
             <TableRow>
               <StyledTableCell width={'15%'}>Meal name </StyledTableCell>
-              <StyledTableCell align="right">Total Protein&nbsp;(g)</StyledTableCell>
-              <StyledTableCell align="right">Total Carbs&nbsp;(g)</StyledTableCell>
-              <StyledTableCell align="right">Total Fat&nbsp;(g)</StyledTableCell>
-              <StyledTableCell align="right">Total Calories&nbsp;(kcal)</StyledTableCell>
+              <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
+              <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
+              <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
+              <StyledTableCell align="right">Calories&nbsp;(kcal)</StyledTableCell>
+              <StyledTableCell align="right">Database</StyledTableCell>
               <StyledTableCell align="right"></StyledTableCell>
             </TableRow>
           </TableHead>

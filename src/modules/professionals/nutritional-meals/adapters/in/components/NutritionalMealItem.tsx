@@ -8,10 +8,13 @@ import { useNutritionalMeal } from 'src/modules/professionals/nutritional-meals/
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { NutritionalMealBody } from 'src/modules/professionals/nutritional-meals/adapters/out/nutritionalMeal';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { EnumMealOwner, NutritionalMealDatabasesEnum } from 'src/shared/Consts';
+import EnablerEditionWrapper from 'src/shared/components/wrappers/EnablerEditionWrapper/EnablerEditionWrapper';
 
 function NutritionalMealItem(nutritionalMeal: NutritionalMealBody) {
   const authContext = useContext(AuthContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
+
   const [openCreateUpdateNutritionalMealDialog, setOpenCreateUpdateNutritionalMealDialog] = useState(false);
   const { deleteNutritionalMeal } = useNutritionalMeal();
 
@@ -29,7 +32,7 @@ function NutritionalMealItem(nutritionalMeal: NutritionalMealBody) {
 
   const nutritionalMealClickedHandler = () => {
     setOpenCreateUpdateNutritionalMealDialog(true);
-  }
+  };
   const deleteNutritionalMealHandler = () => {
     void deleteNutritionalMeal({
       professional: authContext.professional,
@@ -56,45 +59,50 @@ function NutritionalMealItem(nutritionalMeal: NutritionalMealBody) {
         <StyledTableCell onClick={nutritionalMealClickedHandler} align="right">
           {nutritionalMeal.macros.calories}
         </StyledTableCell>
+        <StyledTableCell onClick={nutritionalMealClickedHandler} align="right">
+          {nutritionalMeal.owner === EnumMealOwner.PROFESSIONAL ? NutritionalMealDatabasesEnum.CUSTOM_MEALS : nutritionalMeal.owner}
+        </StyledTableCell>
         <StyledTableCell align="right">
-          <Grid item xs={8}>
-            <DeleteSharpIcon onClick={handleAnchorOpen} style={{ cursor: 'pointer' }} />
-            <Menu
-              id="basic-menu"
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleAnchorClose}
-              MenuListProps={{
-                'aria-labelledby': 'basic-button',
-              }}
-            >
-              <MenuItem>
-                <div>
-                  <div>Delete this meal?</div>
+          <EnablerEditionWrapper enableEdition={nutritionalMeal.owner !== EnumMealOwner.SYSTEM}>
+            <Grid item xs={8}>
+              <DeleteSharpIcon onClick={handleAnchorOpen} style={{ cursor: 'pointer' }} />
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleAnchorClose}
+                MenuListProps={{
+                  'aria-labelledby': 'basic-button',
+                }}
+              >
+                <MenuItem>
                   <div>
-                    <Button
-                      id="basic-button"
-                      aria-controls={open ? 'basic-menu' : undefined}
-                      aria-haspopup="true"
-                      aria-expanded={open ? 'true' : undefined}
-                      onClick={handleAnchorClose}
-                    >
-                      Cancel
-                    </Button>
-                    <Button
-                      id="basic-button"
-                      aria-controls={open ? 'basic-menu' : undefined}
-                      aria-haspopup="true"
-                      aria-expanded={open ? 'true' : undefined}
-                      onClick={deleteNutritionalMealHandler}
-                    >
-                      Delete meal
-                    </Button>
+                    <div>Delete this meal?</div>
+                    <div>
+                      <Button
+                        id="basic-button"
+                        aria-controls={open ? 'basic-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={handleAnchorClose}
+                      >
+                        Cancel
+                      </Button>
+                      <Button
+                        id="basic-button"
+                        aria-controls={open ? 'basic-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={deleteNutritionalMealHandler}
+                      >
+                        Delete meal
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              </MenuItem>
-            </Menu>
-          </Grid>
+                </MenuItem>
+              </Menu>
+            </Grid>
+          </EnablerEditionWrapper>
         </StyledTableCell>
       </StyledTableRow>
 

@@ -1,13 +1,15 @@
 import { MealBuilderBody } from 'src/shared/components/MealBuilder/MealBuilder.types';
-import { NutritionalMealDatabasesEnum } from 'src/shared/Consts';
+import { EnumMealOwner, NutritionalMealDatabasesEnum } from 'src/shared/Consts';
 import { GetRecordsBody } from 'src/shared/types/get-records.types';
 
 export type NutritionalMealBasicInfo = {
   professional: string;
   name: string;
+  owner: EnumMealOwner;
 };
+
 export type NutritionalMealBody = NutritionalMealBasicInfo & MealBuilderBody;
-export type CreateNutritionalMealBody = Omit<NutritionalMealBody, '_id'>;
+export type CreateNutritionalMealBody = Omit<NutritionalMealBody, '_id' | 'owner'>;
 
 export type CreateNutritionalMealRequest = {
   input: CreateNutritionalMealBody;
@@ -17,7 +19,7 @@ export type CreateNutritionalMealResponse = {
   createNutritionalMeal: NutritionalMealBody;
 };
 
-export type UpdateNutritionalMealBody = Omit<NutritionalMealBody, '_id'> & {
+export type UpdateNutritionalMealBody = Omit<NutritionalMealBody, '_id' | 'owner'> & {
   nutritionalMeal: string;
 };
 

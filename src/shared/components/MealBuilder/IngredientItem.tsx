@@ -8,6 +8,9 @@ import { DisplayedIngredient } from 'src/shared/components/MealBuilder/MealBuild
 import { useMealBuilderSlicers } from 'src/shared/hooks/useMealBuilderSlicers';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import { useDispatch } from 'react-redux';
+import { EnableEditionContext } from 'src/shared/components/wrappers/EnablerEditionWrapper/EnableEditionContext';
+import EnablerEditionWrapper from 'src/shared/components/wrappers/EnablerEditionWrapper/EnablerEditionWrapper';
+import { Modules } from 'src/shared/Consts';
 
 const containerStyles = makeStyles()(() => {
   return {
@@ -37,6 +40,7 @@ function IngredientItem({ displayedIngredient: { name, amount, label, ...rest } 
   const dispatch = useDispatch();
   const [displayOverlay, setDisplayOverlay] = useState(false);
   const currentModuleContext = useContext(CurrentModuleContext);
+  const enableEditionContext = useContext(EnableEditionContext);
   const { removeIngredient } = useMealBuilderSlicers(currentModuleContext.currentModule);
 
   const deleteIngredientHandlder = () => {
@@ -65,24 +69,28 @@ function IngredientItem({ displayedIngredient: { name, amount, label, ...rest } 
         <StyledTableCell align="left">{rest.carbs}</StyledTableCell>
         <StyledTableCell align="left">{rest.fat}</StyledTableCell>
         <StyledTableCell align="left">{rest.calories}</StyledTableCell>
-        <td
-          style={{
-            zIndex: displayOverlay ? 1 : -1,
-            display: 'flex',
-            justifyContent: 'end',
-            paddingRight: '4px',
-          }}
-          className={classes.overlay}
+        <EnablerEditionWrapper
+          enableEdition={currentModuleContext.currentModule === Modules.NUTRITIONAL_MEALS && enableEditionContext.enableEdition}
         >
-          <DeleteIcon
+          <td
             style={{
-              marginTop: '0.6%',
-              display: 'block',
-              cursor: 'pointer',
+              zIndex: displayOverlay ? 1 : -1,
+              display: 'flex',
+              justifyContent: 'end',
+              paddingRight: '4px',
             }}
-            onClick={deleteIngredientHandlder}
-          />
-        </td>
+            className={classes.overlay}
+          >
+            <DeleteIcon
+              style={{
+                marginTop: '0.6%',
+                display: 'block',
+                cursor: 'pointer',
+              }}
+              onClick={deleteIngredientHandlder}
+            />
+          </td>
+        </EnablerEditionWrapper>
       </StyledTableRow>
     </>
   );

@@ -24,7 +24,7 @@ function NutritionalMealsContainer() {
     <>
       <ModulesWrapper>
         <ReloadRecordListContext.Provider value={{ reloadRecordList, setReloadRecordList }}>
-          <TitleAndButtonModule titleModule="Meals" buttonName="New meal" buttonHandler={buttonOnclikHandler} />
+          <TitleAndButtonModule titleModule="Meals" buttonName="Create custom meal" buttonHandler={buttonOnclikHandler} />
           <NutritionalMealList />
           {openCreateUpdateNutritionalMealDialog && (
             <CreateUpdateNutritionalMealDialog

@@ -124,10 +124,15 @@ export const themeConfig: DefaultConfigProps = {
 export enum NutritionalMealDatabasesEnum {
   ALL = 'ALL',
   SYSTEM = 'SYSTEM',
-  CUSTOM_RECIPES = 'CUSTOM RECIPES',
+  CUSTOM_MEALS = 'CUSTOM MEALS',
 }
 
 export enum DatabasesEnum {
   FOODS = 'FOODS',
   NUTRITIONAL_MEALS = 'NUTRITIONAL_MEALS',
+}
+
+export enum EnumMealOwner {
+  SYSTEM = 'SYSTEM',
+  PROFESSIONAL = 'PROFESSIONAL',
 }

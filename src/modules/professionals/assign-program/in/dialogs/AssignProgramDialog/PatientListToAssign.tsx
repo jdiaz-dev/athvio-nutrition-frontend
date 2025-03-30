@@ -6,7 +6,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-import SearcherBar from 'src/shared/components/SearcherBar';
+import SearcherBar from 'src/shared/components/SearcherAndSelector/SearcherBar';
 import { useSearcher } from 'src/shared/hooks/useSearcher';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { GET_CLIENTS } from 'src/modules/patients/patients/adapters/out/PatientQueries';

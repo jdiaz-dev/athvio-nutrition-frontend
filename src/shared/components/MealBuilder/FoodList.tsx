@@ -11,7 +11,7 @@ import {
   GetFoodsResponse,
   InputGetFoods,
 } from 'src/shared/components/MealBuilder/food.types';
-import SearcherBar from 'src/shared/components/SearcherBar';
+import SearcherBar from 'src/shared/components/SearcherAndSelector/SearcherBar';
 import Paginator from 'src/shared/components/Paginator';
 import { StyledTableCell } from 'src/shared/components/CustomizedTable';
 import { Accordion, AccordionDetails, AccordionSummary } from 'src/shared/components/Accordion';
@@ -23,6 +23,7 @@ import FoodItem from 'src/shared/components/MealBuilder/FoodItem';
 import DatabaseSelector from 'src/shared/components/databaseSelector/DatabaseSelector';
 import { DatabasesEnum, FoodDatabases, SpecialPagination } from 'src/shared/Consts';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import SearcherAndSelectorWrapper from 'src/shared/components/SearcherAndSelector/SearcherAndSelectorWrapper';
 
 function FoodList() {
   const authContext = useContext(AuthContext);
@@ -172,7 +173,7 @@ function FoodList() {
           <Typography>Add food</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
+          <SearcherAndSelectorWrapper>
             <SearcherBar
               setSearchWords={setSearchWords}
               matchedRecords={matchedRecords}
@@ -186,7 +187,7 @@ function FoodList() {
               setDatabaseChanged={setDatabaseChanged}
               databasesOrigin={DatabasesEnum.FOODS}
             />
-          </div>
+          </SearcherAndSelectorWrapper>
           {foods.length > 0 && (
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 350 }} size="small" aria-label="customized table">
