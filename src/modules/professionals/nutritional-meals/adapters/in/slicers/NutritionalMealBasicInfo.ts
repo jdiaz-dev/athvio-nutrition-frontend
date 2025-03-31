@@ -1,5 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { nutritionalMealInitialState } from 'src/modules/professionals/nutritional-meals/adapters/in/slicers/NutritionalMealInitialState';
+import {
+  defaultNutritionalMeal,
+  nutritionalMealInitialState,
+} from 'src/modules/professionals/nutritional-meals/adapters/in/slicers/NutritionalMealInitialState';
 
 export const nutritionalMealName = createSlice({
   name: 'nutritionalMealBasicInfo',
@@ -9,7 +12,11 @@ export const nutritionalMealName = createSlice({
       state.name = action.payload;
       return state;
     },
+    resetName: (state) => {
+      state.name = defaultNutritionalMeal;
+      return state;
+    },
   },
 });
 
-export const { renameNutritionalMeal } = nutritionalMealName.actions;
+export const { renameNutritionalMeal, resetName } = nutritionalMealName.actions;

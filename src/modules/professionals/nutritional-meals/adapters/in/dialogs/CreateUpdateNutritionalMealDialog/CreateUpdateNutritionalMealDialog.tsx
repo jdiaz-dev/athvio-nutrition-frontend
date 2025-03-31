@@ -34,7 +34,7 @@ function CreateUpdateNutritionalMealDialog({
   const dispatch = useDispatch();
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const nutritionalMealDetailsState = useSelector((state: ReduxStates) => state.nutritionalMeals.nutritionalMealDetails);
-  const { source, ...mealNameBasicInfo } = useSelector((state: ReduxStates) => state.nutritionalMeals.nutritionalMealBasicInfo);
+  const mealNameBasicInfo = useSelector((state: ReduxStates) => state.nutritionalMeals.nutritionalMealBasicInfo);
 
   const { createNutritionalMeal, updateNutritionalMeal } = useNutritionalMeal();
 
@@ -75,8 +75,10 @@ function CreateUpdateNutritionalMealDialog({
     } else {
       dispatch(NutritionalMealDetailsSlice.reinitializeMeal());
     }
+
     return () => {
       dispatch(NutritionalMealDetailsSlice.reinitializeMeal());
+      dispatch(NutritionalMealBasicInfoSlice.resetName());
     };
   }, [_nutritionalMeal]);
 

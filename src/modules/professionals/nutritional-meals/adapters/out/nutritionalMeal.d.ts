@@ -71,6 +71,6 @@ export type DeleteNutritionalMealResponse = {
 
 export type NutritionalMealInitialState = {
   nutritionalMeals: NutritionalMeals | null;
-  nutritionalMealBasicInfo: NutritionalMealBasicInfo;
+  nutritionalMealBasicInfo: Omit<NutritionalMealBasicInfo, 'source'>;
   nutritionalMealDetails: MealBuilderBody;
 };
