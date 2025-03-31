@@ -14,7 +14,7 @@ import { Modules } from 'src/shared/Consts';
 
 // VERY IMPORTANT: this component is used (shared) in nutritional-meals, program and patient-plan modules
 function MealBuilder({ meal }: { meal: MealDataForBuilder }) {
-  const [panelExpanded, setPanelExpanded] = useState<string | false>(false);
+  const [panelExpanded, setPanelExpanded] = useState<string | false>('panel1');
   const currentModuleContext = useContext(CurrentModuleContext);
   const enableEditionContext = useContext(EnableEditionContext);
 
