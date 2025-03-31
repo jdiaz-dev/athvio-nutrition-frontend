@@ -8,7 +8,7 @@ import { useNutritionalMeal } from 'src/modules/professionals/nutritional-meals/
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { NutritionalMealBody } from 'src/modules/professionals/nutritional-meals/adapters/out/nutritionalMeal';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
-import { EnumMealOwner, NutritionalMealDatabasesEnum } from 'src/shared/Consts';
+import { EnumMealSource, NutritionalMealDatabasesEnum } from 'src/shared/Consts';
 import EnablerEditionWrapper from 'src/shared/components/wrappers/EnablerEditionWrapper/EnablerEditionWrapper';
 
 function NutritionalMealItem(nutritionalMeal: NutritionalMealBody) {
@@ -60,10 +60,10 @@ function NutritionalMealItem(nutritionalMeal: NutritionalMealBody) {
           {nutritionalMeal.macros.calories}
         </StyledTableCell>
         <StyledTableCell onClick={nutritionalMealClickedHandler} align="right">
-          {nutritionalMeal.owner === EnumMealOwner.PROFESSIONAL ? NutritionalMealDatabasesEnum.CUSTOM_MEALS : nutritionalMeal.owner}
+          {nutritionalMeal.source === EnumMealSource.PROFESSIONAL ? NutritionalMealDatabasesEnum.CUSTOM_MEALS : nutritionalMeal.source}
         </StyledTableCell>
         <StyledTableCell align="right">
-          <EnablerEditionWrapper enableEdition={nutritionalMeal.owner !== EnumMealOwner.SYSTEM}>
+          <EnablerEditionWrapper enableEdition={nutritionalMeal.source !== EnumMealSource.SYSTEM}>
             <Grid item xs={8}>
               <DeleteSharpIcon onClick={handleAnchorOpen} style={{ cursor: 'pointer' }} />
               <Menu

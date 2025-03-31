@@ -8,11 +8,13 @@ function DatabaseSelector({
   setDatabase,
   setDatabaseChanged,
   databasesOrigin,
+  label,
 }: {
   database: string;
   setDatabase: (database: string) => void;
   setDatabaseChanged?: (databaseChanged: boolean) => void;
   databasesOrigin: DatabasesEnum;
+  label?: string;
 }) {
   const { databaseList } = useDatabaseSelector(databasesOrigin);
   const handleChange = (event: SelectChangeEvent) => {
@@ -24,7 +26,7 @@ function DatabaseSelector({
     <div style={{ width: '29%' }}>
       {databaseList && (
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Database</InputLabel>
+          <InputLabel id="demo-simple-select-label">{label ? label : 'Database'}</InputLabel>
           <Select labelId="demo-simple-select-label" id="demo-simple-select" value={database} label="Database" onChange={handleChange}>
             {databaseList.map((foodDatabase, index) => (
               <MenuItem key={index} value={foodDatabase}>

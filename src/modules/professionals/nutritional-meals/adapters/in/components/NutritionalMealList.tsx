@@ -93,7 +93,7 @@ function NutritionalMealList() {
           setRecentlyTypedWord={setRecentlyTypedWord}
           styles={{ width: '70%' }}
         />
-        <DatabaseSelector database={database} setDatabase={setDatabase} databasesOrigin={DatabasesEnum.NUTRITIONAL_MEALS} />
+        <DatabaseSelector database={database} setDatabase={setDatabase} databasesOrigin={DatabasesEnum.NUTRITIONAL_MEALS} label="Source" />
       </SearcherAndSelectorWrapper>
       <TableContainer component={Paper}>
         <Table aria-label="customized table">

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNutritionalMeal } from 'src/modules/professionals/nutritional-meals/adapters/out/NutritionalMealActions';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { ReduxStates } from 'src/shared/types/types';
-import { EnumMealOwner, Modules } from 'src/shared/Consts';
+import { EnumMealSource, Modules } from 'src/shared/Consts';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import MealBuilder from 'src/shared/components/MealBuilder/MealBuilder';
 import NutritionalMealNameInput from 'src/modules/professionals/nutritional-meals/adapters/in/dialogs/CreateUpdateNutritionalMealDialog/NutritionalMealNameInput';
@@ -34,7 +34,7 @@ function CreateUpdateNutritionalMealDialog({
   const dispatch = useDispatch();
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const nutritionalMealDetailsState = useSelector((state: ReduxStates) => state.nutritionalMeals.nutritionalMealDetails);
-  const { owner, ...mealNameBasicInfo } = useSelector((state: ReduxStates) => state.nutritionalMeals.nutritionalMealBasicInfo);
+  const { source, ...mealNameBasicInfo } = useSelector((state: ReduxStates) => state.nutritionalMeals.nutritionalMealBasicInfo);
 
   const { createNutritionalMeal, updateNutritionalMeal } = useNutritionalMeal();
 
@@ -69,7 +69,7 @@ function CreateUpdateNutritionalMealDialog({
   useEffect(() => {
     if (_nutritionalMeal !== undefined) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { name, owner, ...rest } = _nutritionalMeal;
+      const { name, source, ...rest } = _nutritionalMeal;
       dispatch(NutritionalMealBasicInfoSlice.renameNutritionalMeal(name));
       dispatch(NutritionalMealDetailsSlice.acceptNewMealDetail(rest));
     } else {
@@ -118,7 +118,7 @@ function CreateUpdateNutritionalMealDialog({
           <NutritionalMealNameInput />
           <CurrentModuleContext.Provider value={{ currentModule: Modules.NUTRITIONAL_MEALS }}>
             <EnableEditionContext.Provider
-              value={{ enableEdition: _nutritionalMeal !== undefined && _nutritionalMeal.owner !== EnumMealOwner.SYSTEM }}
+              value={{ enableEdition: _nutritionalMeal !== undefined ? _nutritionalMeal.source !== EnumMealSource.SYSTEM : true }}
             >
               <MealBuilder meal={{ _id, ...restNutritionalMeal }} />
             </EnableEditionContext.Provider>

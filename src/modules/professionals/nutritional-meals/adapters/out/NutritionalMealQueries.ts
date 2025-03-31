@@ -108,7 +108,7 @@ export const CREATE_NUTRITIONAL_MEAL = gql`
         fat
         calories
       }
-      owner
+      source
     }
   }
 `;
@@ -221,7 +221,7 @@ export const GET_NUTRITIONAL_MEALS = gql`
           fat
           calories
         }
-        owner
+        source
       }
       meta {
         total
@@ -346,7 +346,7 @@ export const UPDATE_NUTRITIONAL_MEAL = gql`
         fat
         calories
       }
-      owner
+      source
     }
   }
 `;
@@ -459,7 +459,7 @@ export const DELETE_NUTRITIONAL_MEAL = gql`
         fat
         calories
       }
-      owner
+      source
     }
   }
 `;

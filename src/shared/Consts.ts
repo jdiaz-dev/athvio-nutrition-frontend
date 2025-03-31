@@ -132,7 +132,7 @@ export enum DatabasesEnum {
   NUTRITIONAL_MEALS = 'NUTRITIONAL_MEALS',
 }
 
-export enum EnumMealOwner {
+export enum EnumMealSource {
   SYSTEM = 'SYSTEM',
   PROFESSIONAL = 'PROFESSIONAL',
 }
