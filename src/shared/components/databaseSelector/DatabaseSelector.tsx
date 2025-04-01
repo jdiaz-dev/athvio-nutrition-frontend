@@ -9,12 +9,14 @@ function DatabaseSelector({
   setDatabaseChanged,
   databasesOrigin,
   label,
+  style,
 }: {
   database: string;
   setDatabase: (database: string) => void;
   setDatabaseChanged?: (databaseChanged: boolean) => void;
   databasesOrigin: DatabasesEnum;
   label?: string;
+  style?: React.CSSProperties;
 }) {
   const { databaseList } = useDatabaseSelector(databasesOrigin);
   const handleChange = (event: SelectChangeEvent) => {
@@ -23,7 +25,7 @@ function DatabaseSelector({
   };
 
   return (
-    <div style={{ width: '29%' }}>
+    <div style={{ width: '29%', ...style }}>
       {databaseList && (
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">{label ? label : 'Database'}</InputLabel>

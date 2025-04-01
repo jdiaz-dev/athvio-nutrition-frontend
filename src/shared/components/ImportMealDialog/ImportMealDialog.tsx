@@ -37,7 +37,7 @@ function ImportMealDialog({
   const mealsState = useSelector((state: ReduxStates) => state.nutritionalMeals.nutritionalMeals);
 
   const dispatch = useDispatch();
-  const [database, setDatabase] = useState(NutritionalMealDatabasesEnum.CUSTOM_MEALS as string);
+  const [database, setDatabase] = useState(NutritionalMealDatabasesEnum.ALL as string);
   const [closeIconDialog, setCloseIconDialog] = useState(true);
   const [{ position, mealTag, name, ingredientDetails, cookingInstructions, macros }, setImportedMeal] = useState<Meal>({
     _id: '',
@@ -103,7 +103,13 @@ function ImportMealDialog({
       </DialogTitle>
       <DialogContent dividers={true}>
         <Card style={{ padding: '20px', marginBottom: '15px' }} variant="outlined">
-          <DatabaseSelector database={database} setDatabase={setDatabase} databasesOrigin={DatabasesEnum.NUTRITIONAL_MEALS} />
+          <DatabaseSelector
+            database={database}
+            setDatabase={setDatabase}
+            databasesOrigin={DatabasesEnum.NUTRITIONAL_MEALS}
+            label="Source"
+            style={{ width: '100%', marginBottom: '10px' }}
+          />
           <SearcherBar
             setSearchWords={setSearchWords}
             matchedRecords={matchedRecords}

@@ -7,6 +7,7 @@ import { useReloadRecords } from 'src/shared/hooks/useReloadRecords';
 import ModulesWrapper from 'src/shared/components/wrappers/ModulesWrapper';
 import TitleAndButtonModule from 'src/shared/components/TitleAndButtonModule';
 
+const title = 'Create custom meal';
 function NutritionalMealsContainer() {
   const [openCreateUpdateNutritionalMealDialog, setOpenCreateUpdateNutritionalMealDialog] = useState(false);
   const [reloadNutritionalMealList, setReloadNutritionalMealList] = useState(false);
@@ -24,12 +25,13 @@ function NutritionalMealsContainer() {
     <>
       <ModulesWrapper>
         <ReloadRecordListContext.Provider value={{ reloadRecordList, setReloadRecordList }}>
-          <TitleAndButtonModule titleModule="Meals" buttonName="Create custom meal" buttonHandler={buttonOnclikHandler} />
+          <TitleAndButtonModule titleModule="Meals" buttonName={title} buttonHandler={buttonOnclikHandler} />
           <NutritionalMealList />
           {openCreateUpdateNutritionalMealDialog && (
             <CreateUpdateNutritionalMealDialog
               openCreateUpdateNutritionalMealDialog={openCreateUpdateNutritionalMealDialog}
               setOpenCreateUpdateNutritionalMealDialog={setOpenCreateUpdateNutritionalMealDialog}
+              dialogTitle={title}
             />
           )}
         </ReloadRecordListContext.Provider>

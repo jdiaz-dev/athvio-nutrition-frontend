@@ -160,6 +160,7 @@ function NutritionalMealItem(nutritionalMeal: NutritionalMealBody) {
           openCreateUpdateNutritionalMealDialog={openCreateUpdateNutritionalMealDialog}
           setOpenCreateUpdateNutritionalMealDialog={setOpenCreateUpdateNutritionalMealDialog}
           _nutritionalMeal={nutritionalMeal}
+          dialogTitle={nutritionalMeal.source === EnumMealSource.SYSTEM ? 'System Meal' : 'Update custom meal'}
         />
       )}
     </>

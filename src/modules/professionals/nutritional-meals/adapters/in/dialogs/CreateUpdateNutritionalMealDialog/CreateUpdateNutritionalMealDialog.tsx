@@ -22,10 +22,12 @@ import { EnableEditionContext } from 'src/shared/components/wrappers/EnablerEdit
 function CreateUpdateNutritionalMealDialog({
   openCreateUpdateNutritionalMealDialog,
   setOpenCreateUpdateNutritionalMealDialog,
+  dialogTitle,
   _nutritionalMeal,
 }: {
   openCreateUpdateNutritionalMealDialog: boolean;
   setOpenCreateUpdateNutritionalMealDialog: (openDialog: boolean) => void;
+  dialogTitle: string;
   _nutritionalMeal?: NutritionalMealBody;
 }) {
   const authContext = useContext(AuthContext);
@@ -103,7 +105,7 @@ function CreateUpdateNutritionalMealDialog({
       aria-describedby="dialog-description"
     >
       <DialogTitle sx={{ m: 0, p: 2 }}>
-        Create your custom meal
+        {dialogTitle}
         <CloseDialogIcon closedIconDialog={closedIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
       </DialogTitle>
       <DialogContent dividers={true}>
