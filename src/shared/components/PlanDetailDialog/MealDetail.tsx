@@ -90,10 +90,15 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
       setComponentTouched(true);
     }
   };
+  const closeImportMealHandler = () => {
+    setComponentTouched(true);
+    setOpenImportMealDialog(false);
+  };
   const untouchedComponetHandler = () => {
     if (componentTouched) void updateMealHandler();
     setComponentTouched(false);
   };
+
   const _meal = () => (componentTouched ? mealDetailsState : mealDetails);
   const _mealTag = () => (componentTouched ? mealBasicInfoState.mealTag : mealTag);
   const _mealName = () => (componentTouched ? mealBasicInfoState.name : name);
@@ -110,7 +115,7 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
         <Grid container spacing={1}>
           <Grid item xs={11} style={{ display: 'flex' }}>
             <MealTagSelector mealTag={_mealTag()} />
-            <MealName mame={_mealName()} componentTouched={componentTouched} />
+            <MealName name={_mealName()} componentTouched={componentTouched} />
           </Grid>
           <Grid item xs={1} style={{ height: '45px' }}>
             <SystemUpdateAltIcon style={{ marginBottom: '10px', cursor: 'pointer' }} onClick={() => setOpenImportMealDialog(true)} />
@@ -132,7 +137,7 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
         </Grid>
 
         <MealBuilder meal={_meal()} />
-        <ImportMealDialog openImportMealDialog={openImportMealDialog} setOpenImportMealDialog={setOpenImportMealDialog} />
+        <ImportMealDialog openImportMealDialog={openImportMealDialog} closeImportMealHandler={closeImportMealHandler} />
       </Card>
     </>
   );

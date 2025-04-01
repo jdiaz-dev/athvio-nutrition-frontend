@@ -7,7 +7,9 @@ export const mealBasicInfoSlice = (sliceName: string, initialState: MealBasicInf
     initialState: initialState,
     reducers: {
       acceptNewMealBasicInfo: (state, action: PayloadAction<MealBasicInfo>) => {
-        state = action.payload;
+        state.mealTag = action.payload.mealTag;
+        state.name = action.payload.name;
+        state.position = action.payload.position;
         return state;
       },
       renameMealTag: (state, action: PayloadAction<string>) => {

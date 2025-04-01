@@ -6,14 +6,16 @@ import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 import DatabaseSelector from 'src/shared/components/databaseSelector/DatabaseSelector';
 import { useNutritionalMeal } from 'src/modules/professionals/nutritional-meals/adapters/out/NutritionalMealActions';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
-import { DatabasesEnum, NutritionalMealDatabasesEnum } from 'src/shared/Consts';
+import { DatabasesEnum, defaultMealTag, NutritionalMealDatabasesEnum } from 'src/shared/Consts';
 import { ReduxStates } from 'src/shared/types/types';
-import MealSelector from 'src/shared/components/ImportMealDialog/MealSelector';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import { useMealBasicInfoSlicers } from 'src/shared/hooks/useMealBasicInfoSlicers';
 import { useMealBuilderSlicers } from 'src/shared/hooks/useMealBuilderSlicers';
 import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 import { useMealsStates } from 'src/shared/components/PlanDetailDialog/useMealsStates';
+import SearcherBar from 'src/shared/components/SearcherAndSelector/SearcherBar';
+import { useSearcher } from 'src/shared/hooks/useSearcher';
+import { NutritionalMealBody } from 'src/modules/professionals/nutritional-meals/adapters/out/nutritionalMeal';
 
 function useMealSelector() {
   const { getNutritionalMeals } = useNutritionalMeal();
@@ -21,12 +23,13 @@ function useMealSelector() {
   //get patient plan (with meals) also
   return { getMeals: getNutritionalMeals };
 }
+
 function ImportMealDialog({
   openImportMealDialog,
-  setOpenImportMealDialog,
+  closeImportMealHandler,
 }: {
   openImportMealDialog: boolean;
-  setOpenImportMealDialog: (param: boolean) => void;
+  closeImportMealHandler: () => void;
 }) {
   const currentModuleContext = useContext(CurrentModuleContext);
   const authContext = useContext(AuthContext);
@@ -45,16 +48,18 @@ function ImportMealDialog({
     cookingInstructions: '',
     macros: { weightInGrams: -1, protein: -1, carbs: -1, fat: -1, calories: -1 },
   });
+  const { searchWords, setSearchWords, matchedRecords, setMatchedRecords, choosedWord, setChoosedWord, setRecentlyTypedWord } =
+    useSearcher();
   const { acceptNewMealBasicInfo } = useMealBasicInfoSlicers(currentModuleContext.currentModule);
   const { acceptNewMealDetail } = useMealBuilderSlicers(currentModuleContext.currentModule);
 
   const closeIconDialogHandler = () => {
-    setOpenImportMealDialog(false);
+    closeImportMealHandler();
   };
   const importMealHandler = () => {
     dispatch(acceptNewMealBasicInfo({ position, mealTag, name }));
     dispatch(acceptNewMealDetail({ _id: mealDetailsState._id, ingredientDetails, cookingInstructions, macros }));
-    setOpenImportMealDialog(false);
+    closeImportMealHandler();
   };
   const { getMeals } = useMealSelector();
 
@@ -65,10 +70,22 @@ function ImportMealDialog({
         database: database as NutritionalMealDatabasesEnum,
         limit: 10,
         offset: 0,
+        ...(searchWords.length > 0 && { search: searchWords }),
       });
     };
     fetchMeals();
-  }, [database]);
+  }, [database, searchWords]);
+
+  useEffect(() => {
+    setMatchedRecords(mealsState?.data.map((item) => item.name) || []);
+  }, [mealsState]);
+
+  useEffect(() => {
+    if (choosedWord) {
+      const res = mealsState?.data.find((item) => item.name === searchWords[0]) as NutritionalMealBody;
+      setImportedMeal({ ...res, position: -1, mealTag: defaultMealTag });
+    }
+  }, [choosedWord]);
 
   return (
     <Dialog
@@ -81,13 +98,19 @@ function ImportMealDialog({
       aria-describedby="dialog-description"
     >
       <DialogTitle sx={{ m: 0, p: 2 }}>
-        Create your custom meal
+        Import meal
         <CloseDialogIcon closedIconDialog={closeIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
       </DialogTitle>
       <DialogContent dividers={true}>
         <Card style={{ padding: '20px', marginBottom: '15px' }} variant="outlined">
           <DatabaseSelector database={database} setDatabase={setDatabase} databasesOrigin={DatabasesEnum.NUTRITIONAL_MEALS} />
-          <MealSelector setImportedMeal={setImportedMeal} meals={mealsState?.data || []} />
+          <SearcherBar
+            setSearchWords={setSearchWords}
+            matchedRecords={matchedRecords}
+            setChoosedWord={setChoosedWord}
+            setRecentlyTypedWord={setRecentlyTypedWord}
+            withMultipleOption={false}
+          />
         </Card>
         <CancelAndSaveButtons cancelHandler={closeIconDialogHandler} saveHandler={importMealHandler} customSaveNameButton="Import" />
       </DialogContent>

@@ -9,12 +9,14 @@ function SearcherBar({
   setChoosedWord,
   setRecentlyTypedWord,
   styles,
+  withMultipleOption = true,
 }: {
   setSearchWords: React.Dispatch<React.SetStateAction<string[]>>;
   matchedRecords: string[];
   setChoosedWord: React.Dispatch<React.SetStateAction<boolean>>;
   setRecentlyTypedWord: React.Dispatch<React.SetStateAction<boolean>>;
   styles?: React.CSSProperties;
+  withMultipleOption?: boolean;
 }) {
   const inputChange = new Subject();
   const inputChange$ = inputChange.asObservable();
@@ -36,17 +38,21 @@ function SearcherBar({
   return (
     <Stack spacing={1} style={{ width: '100%', ...styles }}>
       <Autocomplete
-        multiple
+        multiple={withMultipleOption ? true : false}
         id="tags-outlined"
         options={matchedRecords}
         getOptionLabel={(option) => {
           return option;
         }}
         onChange={(e, values) => {
-          setSearchWords(values as string[]);
+          if (Array.isArray(values)) {
+            setSearchWords(values);
+          } else if (typeof values === 'string') {
+            setSearchWords([values]);
+          }
           setChoosedWord(true);
         }}
-        freeSolo
+        freeSolo={withMultipleOption ? true : false}
         onInputChange={inputChangeHandler}
         renderTags={(value: readonly string[], getTagProps) =>
           value.map((option: string, index: number) => (
