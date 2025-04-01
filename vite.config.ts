@@ -9,6 +9,9 @@ export default defineConfig(({ mode }) => {
     // base: '/',
 
     plugins: [react(), viteTsconfigPaths()],
+    optimizeDeps: {
+      include: ['@mui/material', '@mui/icons-material'],
+    },
     define: {
       'process.env.REACT_APP_GRAPHQL_HTTP_URI': JSON.stringify(env.REACT_APP_GRAPHQL_HTTP_URI),
       'process.env.REACT_APP_GRAPHQL_WS_URI': JSON.stringify(env.REACT_APP_GRAPHQL_WS_URI),

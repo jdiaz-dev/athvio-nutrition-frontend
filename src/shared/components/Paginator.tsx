@@ -35,6 +35,7 @@ function Paginator({
         rowsPerPageOptions={[rowsPerPage]}
         rowsPerPage={rowsPerPage}
         // onRowsPerPageChange={handleChangeRowsPerPage}
+        style={{ paddingBottom: '25px' }}
       />
     </>
   );

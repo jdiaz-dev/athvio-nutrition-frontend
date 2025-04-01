@@ -35,7 +35,7 @@ function NutritionalMealList() {
     recentlyTypedWord,
     setRecentlyTypedWord,
   } = useSearcher();
-  const { length, setLength, offset, setOffset, rowsPerPage, currentPage, setCurrentPage } = usePaginator(5);
+  const { length, setLength, offset, setOffset, rowsPerPage, currentPage, setCurrentPage } = usePaginator(6);
   const [database, setDatabase] = useState(NutritionalMealDatabasesEnum.ALL as string);
 
   const { getNutritionalMeals } = useNutritionalMeal();
@@ -95,29 +95,15 @@ function NutritionalMealList() {
         />
         <DatabaseSelector database={database} setDatabase={setDatabase} databasesOrigin={DatabasesEnum.NUTRITIONAL_MEALS} label="Source" />
       </SearcherAndSelectorWrapper>
-      <TableContainer component={Paper}>
-        <Table aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell width={'15%'}>Meal name </StyledTableCell>
-              <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
-              <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
-              <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
-              <StyledTableCell align="right">Calories&nbsp;(kcal)</StyledTableCell>
-              <StyledTableCell align="right">Database</StyledTableCell>
-              <StyledTableCell align="right"></StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {nutritionalMealList &&
-              nutritionalMealList?.data.map((meal, index) => (
-                <React.Fragment key={index}>
-                  <NutritionalMealItem {...meal} />
-                </React.Fragment>
-              ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+
+      <div style={{ display: 'flex', flexFlow: 'row wrap', justifyContent: 'space-between', marginTop: '10px' }}>
+        {nutritionalMealList &&
+          nutritionalMealList?.data.map((meal, index) => (
+            <React.Fragment key={index}>
+              <NutritionalMealItem {...meal} />
+            </React.Fragment>
+          ))}
+      </div>
       <Paginator
         length={length}
         offset={offset}
