@@ -6,6 +6,7 @@ export type NutritionalMealBasicInfo = {
   professional: string;
   name: string;
   source: EnumMealSource;
+  image: string | null;
 };
 
 export type NutritionalMealBody = NutritionalMealBasicInfo & MealBuilderBody;

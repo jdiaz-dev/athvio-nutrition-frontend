@@ -7,6 +7,7 @@ export const CREATE_NUTRITIONAL_MEAL = gql`
       name
       professional
       name
+      image
       ingredientDetails {
         ingredientType
         customIngredient {
@@ -120,6 +121,7 @@ export const GET_NUTRITIONAL_MEALS = gql`
         _id
         professional
         name
+        image
         ingredientDetails {
           ingredientType
           customIngredient {
@@ -245,6 +247,7 @@ export const UPDATE_NUTRITIONAL_MEAL = gql`
       name
       professional
       name
+      image
       ingredientDetails {
         ingredientType
         customIngredient {
@@ -358,6 +361,7 @@ export const DELETE_NUTRITIONAL_MEAL = gql`
       name
       professional
       name
+      image
       ingredientDetails {
         ingredientType
         customIngredient {

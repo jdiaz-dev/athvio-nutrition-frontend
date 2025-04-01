@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Card, Dialog, DialogContent, DialogTitle } from '@mui/material';
+import { Card, CardMedia, Dialog, DialogContent, DialogTitle } from '@mui/material';
 
 import * as NutritionalMealDetailsSlice from 'src/modules/professionals/nutritional-meals/adapters/in/slicers/NutritionalMealDetailsSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -98,7 +98,7 @@ function CreateUpdateNutritionalMealDialog({
       }}
       scroll="body"
       fullWidth={true}
-      maxWidth="md"
+      maxWidth="sm"
       aria-labelledby="dialog-title"
       aria-describedby="dialog-description"
     >
@@ -118,6 +118,7 @@ function CreateUpdateNutritionalMealDialog({
           }}
         >
           <NutritionalMealNameInput />
+          <CardMedia component="img" height="300" image={_nutritionalMeal?.image || ''} alt="Paella dish" />
           <CurrentModuleContext.Provider value={{ currentModule: Modules.NUTRITIONAL_MEALS }}>
             <EnableEditionContext.Provider
               value={{ enableEdition: _nutritionalMeal !== undefined ? _nutritionalMeal.source !== EnumMealSource.SYSTEM : true }}

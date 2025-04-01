@@ -30,16 +30,16 @@ function IngredientList({ meal }: { meal: MealDataForBuilder }) {
                   Food
                 </StyledTableCell>
                 <StyledTableCell style={styleTableCell} align="left">
-                  Protein&nbsp;(g)
+                  Protein
                 </StyledTableCell>
                 <StyledTableCell style={styleTableCell} align="left">
-                  Carbs&nbsp;(g)
+                  Carbs
                 </StyledTableCell>
                 <StyledTableCell style={styleTableCell} align="left">
-                  Fat&nbsp;(g)
+                  Fat
                 </StyledTableCell>
                 <StyledTableCell style={styleTableCell} align="left">
-                  Calories&nbsp;(kcal)
+                  kcal
                 </StyledTableCell>
               </TableRow>
             </TableHead>
