@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { Card, CardMedia, Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
-
+import React, { useContext, useEffect, useState } from 'react';
+import { Card, Dialog, DialogContent, DialogTitle } from '@mui/material';
 import * as NutritionalMealDetailsSlice from 'src/modules/professionals/nutritional-meals/adapters/in/slicers/NutritionalMealDetailsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNutritionalMeal } from 'src/modules/professionals/nutritional-meals/adapters/out/NutritionalMealActions';
@@ -18,31 +17,7 @@ import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 import { formStyles } from 'src/shared/styles/styles';
 import CancelAndSaveButtons from 'src/shared/components/CancelAndSaveButtons';
 import { EnableEditionContext } from 'src/shared/components/wrappers/EnablerEditionWrapper/EnableEditionContext';
-import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
-
-const ImageUploadButton = ({ onImageUpload }: { onImageUpload: (file: File) => void }) => {
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const handleClick = () => {
-    inputRef.current?.click();
-  };
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      onImageUpload(file);
-    }
-  };
-
-  return (
-    <>
-      <input type="file" accept="image/*" style={{ display: 'none' }} ref={inputRef} onChange={handleFileChange} />
-      <IconButton onClick={handleClick} sx={{ backgroundColor: 'white', borderRadius: '50%' }}>
-        <PhotoCameraIcon sx={{ color: '#00796b' }} />
-      </IconButton>
-    </>
-  );
-};
+import ImageContainer from 'src/modules/professionals/nutritional-meals/adapters/in/dialogs/CreateUpdateNutritionalMealDialog/ImageContainer';
 
 function CreateUpdateNutritionalMealDialog({
   openCreateUpdateNutritionalMealDialog,
@@ -153,31 +128,15 @@ function CreateUpdateNutritionalMealDialog({
             }
           }}
         >
-          <NutritionalMealNameInput />
-          {mealNameBasicInfo.image !== null ? (
-            <CardMedia component="img" height="300" image={mealNameBasicInfo.image} />
-          ) : (
-            <ImageUploadButton
-              onImageUpload={(file) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = (event: any) => {
-                  const image = event.target.result;
-                  dispatch(NutritionalMealBasicInfoSlice.setImage(image as string));
-                };
-                reader.onloadend = () => {
-                  setNewImage(file);
-                };
-              }}
-            />
-          )}
-          <CurrentModuleContext.Provider value={{ currentModule: Modules.NUTRITIONAL_MEALS }}>
-            <EnableEditionContext.Provider
-              value={{ enableEdition: _nutritionalMeal !== undefined ? _nutritionalMeal.source !== EnumMealSource.SYSTEM : true }}
-            >
+          <EnableEditionContext.Provider
+            value={{ enableEdition: _nutritionalMeal === undefined ? true : _nutritionalMeal.source !== EnumMealSource.SYSTEM }}
+          >
+            <NutritionalMealNameInput />
+            <ImageContainer image={mealNameBasicInfo.image} setNewImage={setNewImage} />
+            <CurrentModuleContext.Provider value={{ currentModule: Modules.NUTRITIONAL_MEALS }}>
               <MealBuilder meal={{ _id, ...restNutritionalMeal }} />
-            </EnableEditionContext.Provider>
-          </CurrentModuleContext.Provider>
+            </CurrentModuleContext.Provider>
+          </EnableEditionContext.Provider>
         </Card>
         <CancelAndSaveButtons cancelHandler={closeIconDialogHandler} saveHandler={createUpdateNutritionalMealHandler} />
 

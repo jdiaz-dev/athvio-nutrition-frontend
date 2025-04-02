@@ -1,5 +1,6 @@
 import { createContext } from 'react';
 
-export const EnableEditionContext = createContext<{
+export type EnableEditionData = {
   enableEdition: boolean;
-}>({ enableEdition: false });
+};
+export const EnableEditionContext = createContext<EnableEditionData>({ enableEdition: false });

@@ -61,9 +61,15 @@ function NutritionalMealItem(nutritionalMeal: NutritionalMealBody) {
   return (
     <>
       <Card sx={{ width: '49.5%', display: 'flex', marginBottom: '10px', cursor: 'pointer' }}>
-        <CardMedia onClick={nutritionalMealClickedHandler} component="img" height="200" image={nutritionalMeal.image || ''} />
+        <CardMedia
+          onClick={nutritionalMealClickedHandler}
+          component="img"
+          height="200"
+          style={{ maxWidth: '50%' }}
+          image={nutritionalMeal.image || ''}
+        />
 
-        <Box>
+        <Box sx={{ padding: 0, width: '50%' }}>
           <CardHeader
             action={
               <EnablerEditionWrapper enableEdition={nutritionalMeal.source !== EnumMealSource.SYSTEM}>
@@ -114,7 +120,13 @@ function NutritionalMealItem(nutritionalMeal: NutritionalMealBody) {
           <Typography>
             Source: {nutritionalMeal.source === EnumMealSource.PROFESSIONAL ? 'CUSTOM MEALS' : nutritionalMeal.source}
           </Typography>
-          <CardContent onClick={nutritionalMealClickedHandler}>
+          <CardContent
+            sx={{
+              padding: '5px',
+              paddingTop: '15px',
+            }}
+            onClick={nutritionalMealClickedHandler}
+          >
             <TableContainer component={Paper}>
               <Table size="small">
                 <TableHead>
