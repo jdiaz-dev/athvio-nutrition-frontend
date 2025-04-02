@@ -18,5 +18,6 @@ export const nutritionalMealInitialState: NutritionalMealInitialState = {
   nutritionalMealBasicInfo: {
     professional: '',
     name: defaultNutritionalMeal,
+    image: null,
   },
 };

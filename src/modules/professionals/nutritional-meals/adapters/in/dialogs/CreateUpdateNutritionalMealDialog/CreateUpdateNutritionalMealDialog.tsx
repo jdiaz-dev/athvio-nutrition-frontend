@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Card, CardMedia, Dialog, DialogContent, DialogTitle } from '@mui/material';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { Card, CardMedia, Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
 
 import * as NutritionalMealDetailsSlice from 'src/modules/professionals/nutritional-meals/adapters/in/slicers/NutritionalMealDetailsSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,6 +18,31 @@ import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 import { formStyles } from 'src/shared/styles/styles';
 import CancelAndSaveButtons from 'src/shared/components/CancelAndSaveButtons';
 import { EnableEditionContext } from 'src/shared/components/wrappers/EnablerEditionWrapper/EnableEditionContext';
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
+
+const ImageUploadButton = ({ onImageUpload }: { onImageUpload: (file: File) => void }) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleClick = () => {
+    inputRef.current?.click();
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      onImageUpload(file);
+    }
+  };
+
+  return (
+    <>
+      <input type="file" accept="image/*" style={{ display: 'none' }} ref={inputRef} onChange={handleFileChange} />
+      <IconButton onClick={handleClick} sx={{ backgroundColor: 'white', borderRadius: '50%' }}>
+        <PhotoCameraIcon sx={{ color: '#00796b' }} />
+      </IconButton>
+    </>
+  );
+};
 
 function CreateUpdateNutritionalMealDialog({
   openCreateUpdateNutritionalMealDialog,
@@ -42,6 +67,7 @@ function CreateUpdateNutritionalMealDialog({
 
   const [componentTouched, setComponentTouched] = useState(false);
   const [closedIconDialog, setClosedIconDialog] = useState(true);
+  const [newImage, setNewImage] = useState<File | null>(null);
 
   const { _id, ...restNutritionalMeal } = nutritionalMealDetailsState;
   const createUpdateNutritionalMealHandler = async () => {
@@ -51,11 +77,17 @@ function CreateUpdateNutritionalMealDialog({
         ...restNutritionalMeal,
         ...mealNameBasicInfo,
         professional: authContext.professional,
+        image: newImage !== null ? newImage : null,
       });
       dispatch(NutritionalMealBasicInfoSlice.renameNutritionalMeal(defaultNutritionalMeal));
       setOpenCreateUpdateNutritionalMealDialog(false);
     } else {
-      await createNutritionalMeal({ ...mealNameBasicInfo, ...restNutritionalMeal, professional: authContext.professional });
+      await createNutritionalMeal({
+        ...mealNameBasicInfo,
+        ...restNutritionalMeal,
+        professional: authContext.professional,
+        image: newImage !== null ? newImage : null,
+      });
       dispatch(NutritionalMealBasicInfoSlice.renameNutritionalMeal(defaultNutritionalMeal));
       setOpenCreateUpdateNutritionalMealDialog(false);
     }
@@ -71,9 +103,10 @@ function CreateUpdateNutritionalMealDialog({
   useEffect(() => {
     if (_nutritionalMeal !== undefined) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { name, source, ...rest } = _nutritionalMeal;
+      const { name, source, image, ...rest } = _nutritionalMeal;
       dispatch(NutritionalMealBasicInfoSlice.renameNutritionalMeal(name));
       dispatch(NutritionalMealDetailsSlice.acceptNewMealDetail(rest));
+      dispatch(NutritionalMealBasicInfoSlice.setImage(image !== null ? (image as string) : null));
     } else {
       dispatch(NutritionalMealDetailsSlice.reinitializeMeal());
     }
@@ -81,6 +114,7 @@ function CreateUpdateNutritionalMealDialog({
     return () => {
       dispatch(NutritionalMealDetailsSlice.reinitializeMeal());
       dispatch(NutritionalMealBasicInfoSlice.resetName());
+      dispatch(NutritionalMealBasicInfoSlice.setImage(null));
     };
   }, [_nutritionalMeal]);
 
@@ -120,7 +154,23 @@ function CreateUpdateNutritionalMealDialog({
           }}
         >
           <NutritionalMealNameInput />
-          <CardMedia component="img" height="300" image={_nutritionalMeal?.image || ''} alt="Paella dish" />
+          {mealNameBasicInfo.image !== null ? (
+            <CardMedia component="img" height="300" image={mealNameBasicInfo.image} />
+          ) : (
+            <ImageUploadButton
+              onImageUpload={(file) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = (event: any) => {
+                  const image = event.target.result;
+                  dispatch(NutritionalMealBasicInfoSlice.setImage(image as string));
+                };
+                reader.onloadend = () => {
+                  setNewImage(file);
+                };
+              }}
+            />
+          )}
           <CurrentModuleContext.Provider value={{ currentModule: Modules.NUTRITIONAL_MEALS }}>
             <EnableEditionContext.Provider
               value={{ enableEdition: _nutritionalMeal !== undefined ? _nutritionalMeal.source !== EnumMealSource.SYSTEM : true }}

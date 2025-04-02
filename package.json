@@ -37,6 +37,7 @@
     "@types/react-syntax-highlighter": "^15.5.11",
     "@vitejs/plugin-react": "^4.3.0",
     "apollo-boost": "^0.4.9",
+    "apollo-upload-client": "^18.0.1",
     "axios": "^1.6.7",
     "date-fns": "^2.30.0",
     "dayjs": "^1.11.7",
@@ -99,6 +100,7 @@
     ]
   },
   "devDependencies": {
+    "@types/apollo-upload-client": "^18.0.0",
     "@types/lodash": "^4.14.202",
     "@types/react-copy-to-clipboard": "^5.0.7",
     "@types/redux-immutable-state-invariant": "^2.1.2",

@@ -5,11 +5,12 @@ import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
 import { getToken } from 'src/modules/authentication/authentication/adapters/out/cookies';
 import { getMainDefinition } from '@apollo/client/utilities';
+import createUploadLink from 'apollo-upload-client/createUploadLink.mjs';
 
 const httpUrl = process.env.REACT_APP_GRAPHQL_HTTP_URI;
 const wsUrl = process.env.REACT_APP_GRAPHQL_WS_URI;
 
-const httpLink = new HttpLink({
+const httpLink = createUploadLink({
   uri: httpUrl,
 });
 
@@ -49,7 +50,6 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 });
 
 export const apolloClient = new ApolloClient({
-  // link: authLink.concat(httpLink),//.concat(errorLink),
   link: ApolloLink.from([errorLink, authLink, splitLink]),
   cache: new InMemoryCache({
     addTypename: false,
@@ -60,37 +60,3 @@ export const apolloClient = new ApolloClient({
     },
   }),
 });
-// apolloClient.setLink(from([errorLink]))
-/*
-export const apolloClient = new ApolloClient({
-  uri: 'http://localhost:57343/graphql',
-  // uri: 'http://ec2-18-212-53-234.compute-1.amazonaws.com/graphql',
-  // uri: 'https://nk-backend-production.up.railway.app/graphql',
-
-  onError: ({ graphQLErrors, networkError }) => {
-    console.log('-------graphQLErrors', graphQLErrors);
-    console.log('-------networkError', networkError);
-    if (graphQLErrors) {
-      graphQLErrors.map(({ message, locations, path }) =>
-        console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`),
-      );
-    }
-    if (networkError) {
-      console.log(`[Network error]: ${networkError}`);
-    }
-    return graphQLErrors[0];
-  },
-
-  fetchOptions: {
-    credentials: 'include',
-  },
-  request: (operation): void => {
-    const token = getUserFromLocalStorage().token;
-    operation.setContext({
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-  },
-});
- */

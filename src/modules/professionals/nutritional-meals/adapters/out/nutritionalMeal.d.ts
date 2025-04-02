@@ -10,7 +10,9 @@ export type NutritionalMealBasicInfo = {
 };
 
 export type NutritionalMealBody = NutritionalMealBasicInfo & MealBuilderBody;
-export type CreateNutritionalMealBody = Omit<NutritionalMealBody, '_id' | 'source'>;
+export type CreateNutritionalMealBody = Omit<NutritionalMealBody, '_id' | 'source' | 'image'> & {
+  image: File | null;
+};
 
 export type CreateNutritionalMealRequest = {
   input: CreateNutritionalMealBody;
@@ -20,7 +22,7 @@ export type CreateNutritionalMealResponse = {
   createNutritionalMeal: NutritionalMealBody;
 };
 
-export type UpdateNutritionalMealBody = Omit<NutritionalMealBody, '_id' | 'source'> & {
+export type UpdateNutritionalMealBody = CreateNutritionalMealBody & {
   nutritionalMeal: string;
 };
 

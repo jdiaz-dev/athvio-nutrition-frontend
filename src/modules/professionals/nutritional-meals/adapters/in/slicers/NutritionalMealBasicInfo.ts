@@ -16,7 +16,11 @@ export const nutritionalMealName = createSlice({
       state.name = defaultNutritionalMeal;
       return state;
     },
+    setImage: (state, action: PayloadAction<string | null>) => {
+      state.image = action.payload;
+      return state;
+    },
   },
 });
 
-export const { renameNutritionalMeal, resetName } = nutritionalMealName.actions;
+export const { renameNutritionalMeal, resetName, setImage } = nutritionalMealName.actions;
