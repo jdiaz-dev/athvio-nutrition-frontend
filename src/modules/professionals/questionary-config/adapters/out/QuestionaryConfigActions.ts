@@ -31,7 +31,6 @@ export function useQuestionaryConfig() {
           },
         },
       });
-      console.log(response);
       dispatch(QuestionaryConfigSlice.initializeQuestionaryConfig(response.data.getQuestionary));
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);

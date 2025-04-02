@@ -80,7 +80,6 @@ function ImportMealDialog({
   useEffect(() => {
     setMatchedRecords(mealsState?.data.map((item) => item.name) || []);
   }, [mealsState]);
-  console.log('-----------image', image);
 
   useEffect(() => {
     if (choosedWord) {

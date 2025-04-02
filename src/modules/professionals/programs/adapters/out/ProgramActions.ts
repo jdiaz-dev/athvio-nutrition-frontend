@@ -123,7 +123,6 @@ export function useProgram() {
         },
       });
       if (response) dispatch(ProgramSlice.resetProgramItem());
-      console.log(response);
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
