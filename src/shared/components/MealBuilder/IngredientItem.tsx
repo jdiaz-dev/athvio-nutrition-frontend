@@ -65,9 +65,9 @@ function IngredientItem({ displayedIngredient: { name, amount, label, ...rest } 
         <StyledTableCell align="left" component="th" scope="row">
           {name}
         </StyledTableCell>
-        <StyledTableCell align="left">{rest.protein}g</StyledTableCell>
-        <StyledTableCell align="left">{rest.carbs}g</StyledTableCell>
-        <StyledTableCell align="left">{rest.fat}g</StyledTableCell>
+        <StyledTableCell align="left">{rest.protein} g</StyledTableCell>
+        <StyledTableCell align="left">{rest.carbs} g</StyledTableCell>
+        <StyledTableCell align="left">{rest.fat} g</StyledTableCell>
         <StyledTableCell align="left">{rest.calories} cal</StyledTableCell>
         <EnablerEditionWrapper
           enableEdition={currentModuleContext.currentModule === Modules.NUTRITIONAL_MEALS && enableEditionContext.enableEdition}
