@@ -126,6 +126,7 @@ export const GET_PROGRAM = gql`
           position
           mealTag
           name
+          image
           ingredientDetails {
             ingredientType
             customIngredient {

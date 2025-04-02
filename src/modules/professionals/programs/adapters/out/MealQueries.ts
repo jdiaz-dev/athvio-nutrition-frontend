@@ -28,6 +28,7 @@ export const PROGRAM_PLAN_MEALS_CRUD = gql`
           position
           mealTag
           name
+          image
           ingredientDetails {
             ingredientType
             customIngredient {
@@ -128,6 +129,7 @@ export const PROGRAM_PLAN_MEALS_CRUD = gql`
           position
           mealTag
           name
+          image
           ingredientDetails {
             ingredientType
             customIngredient {
@@ -228,6 +230,7 @@ export const PROGRAM_PLAN_MEALS_CRUD = gql`
           position
           mealTag
           name
+          image
           ingredientDetails {
             ingredientType
             customIngredient {

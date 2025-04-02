@@ -6,7 +6,7 @@ function MealNamesList({ meals, handler }: { meals: Meal[]; handler: () => void 
   return (
     <List onClick={handler}>
       {meals?.map((meal, index1) => (
-        <>
+        <div style={{ marginBottom: '20px' }}>
           <ListItemText
             key={index1}
             style={{
@@ -17,6 +17,7 @@ function MealNamesList({ meals, handler }: { meals: Meal[]; handler: () => void 
             primary={`${meal.mealTag}  -  ${meal.name}`}
             primaryTypographyProps={{ fontWeight: 'bold' }}
           />
+
           <List style={{ padding: 0 }}>
             {meal.ingredientDetails.map((item, index2) => (
               <ListItemText
@@ -26,7 +27,8 @@ function MealNamesList({ meals, handler }: { meals: Meal[]; handler: () => void 
               />
             ))}
           </List>
-        </>
+          {meal.image && <img src={meal.image} width={'85%'} height={'110px'} />}
+        </div>
       ))}
     </List>
   );

@@ -10,6 +10,7 @@ export const mealBasicInfoSlice = (sliceName: string, initialState: MealBasicInf
         state.mealTag = action.payload.mealTag;
         state.name = action.payload.name;
         state.position = action.payload.position;
+        if (action.payload.image !== null) state.image = action.payload.image;
         return state;
       },
       renameMealTag: (state, action: PayloadAction<string>) => {

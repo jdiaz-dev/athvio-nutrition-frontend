@@ -39,11 +39,12 @@ function ImportMealDialog({
   const dispatch = useDispatch();
   const [database, setDatabase] = useState(NutritionalMealDatabasesEnum.ALL as string);
   const [closeIconDialog, setCloseIconDialog] = useState(true);
-  const [{ position, mealTag, name, ingredientDetails, cookingInstructions, macros }, setImportedMeal] = useState<Meal>({
+  const [{ position, mealTag, name, image, ingredientDetails, cookingInstructions, macros }, setImportedMeal] = useState<Meal>({
     _id: '',
     position: -1,
     mealTag: '',
     name: '',
+    image: null,
     ingredientDetails: [],
     cookingInstructions: '',
     macros: { weightInGrams: -1, protein: -1, carbs: -1, fat: -1, calories: -1 },
@@ -57,7 +58,7 @@ function ImportMealDialog({
     closeImportMealHandler();
   };
   const importMealHandler = () => {
-    dispatch(acceptNewMealBasicInfo({ position, mealTag, name }));
+    dispatch(acceptNewMealBasicInfo({ position, mealTag, name, image }));
     dispatch(acceptNewMealDetail({ _id: mealDetailsState._id, ingredientDetails, cookingInstructions, macros }));
     closeImportMealHandler();
   };
@@ -79,6 +80,7 @@ function ImportMealDialog({
   useEffect(() => {
     setMatchedRecords(mealsState?.data.map((item) => item.name) || []);
   }, [mealsState]);
+  console.log('-----------image', image);
 
   useEffect(() => {
     if (choosedWord) {

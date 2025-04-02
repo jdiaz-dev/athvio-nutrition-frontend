@@ -4,6 +4,7 @@ export type MealBasicInfo = {
   position: number;
   mealTag: string;
   name: string;
+  image?: string | null;
 };
 
 export type MealDetails = {

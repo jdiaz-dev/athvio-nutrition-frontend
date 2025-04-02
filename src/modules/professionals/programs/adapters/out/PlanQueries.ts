@@ -21,6 +21,7 @@ export const CREATE_PROGRAM_PLAN = gql`
           position
           mealTag
           name
+          image
           ingredientDetails {
             ingredientType
             customIngredient {
@@ -126,6 +127,7 @@ export const UPDATE_PLAN_ASSIGNED_WEKK_DAY = gql`
           position
           mealTag
           name
+          image
           ingredientDetails {
             ingredientType
             customIngredient {
@@ -231,6 +233,7 @@ export const DUPLICATE_PROGRAM_PLAN = gql`
           position
           mealTag
           name
+          image
           ingredientDetails {
             ingredientType
             customIngredient {
