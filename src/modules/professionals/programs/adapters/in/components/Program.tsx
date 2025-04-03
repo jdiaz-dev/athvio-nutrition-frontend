@@ -64,8 +64,8 @@ function Program(program: ProgramBody) {
 
   return (
     <>
-      <StyledTableRow key={program.name}>
-        <StyledTableCell width={'20%'} align="center" onClick={() => setGoToProgramPlans(true)} style={{ cursor: 'pointer' }}>
+      <StyledTableRow key={program.name} style={{ cursor: 'pointer' }}>
+        <StyledTableCell width={'20%'} align="center" onClick={() => setGoToProgramPlans(true)}>
           {program.name}
         </StyledTableCell>
         <StyledTableCell align="center" onClick={() => setGoToProgramPlans(true)}>
