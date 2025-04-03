@@ -4,10 +4,11 @@ import { ReactNode } from 'react';
 import { ChipProps } from '@mui/material';
 
 import { GenericCardProps } from './root';
+import { AvailableSlides } from 'src/modules/patients/patient-console/patient-sidebar/utils/sidebar.enum';
 
 export enum NavActionType {
   FUNCTION = 'function',
-  LINK = 'link'
+  LINK = 'link',
 }
 
 // ==============================|| MENU TYPES ||============================== //
@@ -32,6 +33,7 @@ export type NavItemType = {
   external?: boolean;
   isDropdown?: boolean;
   icon?: GenericCardProps['iconPrimary'] | string;
+  toolTipTitle?: string;
   id?: string;
   search?: string;
   target?: boolean;
@@ -39,6 +41,7 @@ export type NavItemType = {
   type?: string;
   url?: string | undefined;
   actions?: NavActionProps[];
+  slide?: AvailableSlides;
 };
 
 export type LinkTarget = '_blank' | '_self' | '_parent' | '_top';

@@ -7,8 +7,8 @@ import AdsClickIcon from '@mui/icons-material/AdsClick';
 import ChatIcon from '@mui/icons-material/Chat';
 
 // type
-import { NavItemType } from 'src/shared/types/menu';
 import { AvailableSlides } from 'src/modules/patients/patient-console/patient-sidebar/utils/sidebar.enum';
+import { NavItemType } from 'src/modules/patients/patient-console/patient-sidebar/types/menu';
 
 const icons = {
   ChatIcon,
@@ -28,6 +28,7 @@ const widget: NavItemType = {
       type: 'item',
       url: '/widget/data',
       icon: icons.AdsClickIcon,
+      toolTipTitle: '',
       slide: AvailableSlides.CALORIES,
     },
     {
@@ -36,6 +37,7 @@ const widget: NavItemType = {
       type: 'item',
       url: '/widget/data',
       icon: icons.AdsClickIcon,
+      toolTipTitle: '',
       slide: AvailableSlides.ANALITYCS,
     },
   ],

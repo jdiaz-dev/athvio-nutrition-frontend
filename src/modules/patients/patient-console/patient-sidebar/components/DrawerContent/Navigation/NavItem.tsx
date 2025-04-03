@@ -14,11 +14,11 @@ import { handlerHorizontalActiveItem, useGetMenuMaster } from '../../../api/menu
 
 // types
 import { MenuOrientation, ThemeMode } from 'src/shared/types/config';
-import { LinkTarget, NavActionType, NavItemType } from 'src/shared/types/menu';
 import { SidebarContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SidebarContext';
 import useConfig from 'src/shared/hooks/useConfig';
 import { NavItemProps } from 'src/modules/patients/patient-console/patient-sidebar/types/patient-sidebar';
-
+import Tooltip from '@mui/material/Tooltip';
+import { LinkTarget } from 'src/modules/patients/patient-console/patient-sidebar/types/menu';
 // ==============================|| NAVIGATION - LIST ITEM ||============================== //
 
 const NavItem = ({ item, level, isParents = false, isSelected, onClickHandler }: NavItemProps) => {
@@ -34,12 +34,16 @@ const NavItem = ({ item, level, isParents = false, isSelected, onClickHandler }:
   }
   const Icon = item.icon!;
   const itemIcon = item.icon ? (
-    <Icon
-      style={{
-        fontSize: openSidebar ? '1rem' : '1.25rem',
-        ...(menuOrientation === MenuOrientation.HORIZONTAL && isParents && { fontSize: 20, stroke: '1.5' }),
-      }}
-    />
+    <Tooltip title={item.toolTipTitle || ''} placement="right">
+      <IconButton>
+        <Icon
+          style={{
+            fontSize: openSidebar ? '1rem' : '1.25rem',
+            ...(menuOrientation === MenuOrientation.HORIZONTAL && isParents && { fontSize: 20, stroke: '1.5' }),
+          }}
+        />
+      </IconButton>
+    </Tooltip>
   ) : (
     false
   );

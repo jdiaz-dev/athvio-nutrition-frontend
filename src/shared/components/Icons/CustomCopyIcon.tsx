@@ -1,11 +1,13 @@
 import React from 'react';
 import { makeStyles } from 'tss-react/mui';
 import ContentCopyTwoToneIcon from '@mui/icons-material/ContentCopyTwoTone';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from 'src/shared/components/IconButton';
 
 const styles = makeStyles()(() => {
   return {
     icon: {
-      width: '45%',
+      width: '100%',
       marginRight: '3px',
     },
   };
@@ -14,7 +16,13 @@ const styles = makeStyles()(() => {
 function CustomCopyIcon({ handler }: { handler: () => void }) {
   const { classes } = styles();
 
-  return <ContentCopyTwoToneIcon className={classes.icon} onClick={handler} />;
+  return (
+    <Tooltip title="copy" placement="top">
+      <IconButton>
+        <ContentCopyTwoToneIcon className={classes.icon} onClick={handler} />
+      </IconButton>
+    </Tooltip>
+  );
 }
 
 export default CustomCopyIcon;

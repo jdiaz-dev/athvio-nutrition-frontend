@@ -11,6 +11,7 @@ export const CREATE_CLIENT_PLAN = gql`
         position
         mealTag
         name
+        image
         ingredientDetails {
           ingredientType
           customIngredient {
@@ -105,6 +106,7 @@ export const GET_CLIENT_PLANS = gql`
         position
         mealTag
         name
+        image
         ingredientDetails {
           ingredientType
           customIngredient {
@@ -199,6 +201,7 @@ export const UPDATE_CLIENT_PLAN = gql`
         position
         mealTag
         name
+        image
         ingredientDetails {
           ingredientType
           customIngredient {
@@ -293,6 +296,7 @@ export const DUPLICATE_CLIENT_PLAN = gql`
         position
         mealTag
         name
+        image
         ingredientDetails {
           ingredientType
           customIngredient {

@@ -19,7 +19,7 @@ function PatientDetail({ patient }: { patient: PatientBody }) {
         <StyledTableCell component="th" scope="row" onClick={() => setGoToPatientPlans(true)}>
           <PatientBasicInfo firstname={patient.user.firstname} lastname={patient.user.lastname} />
         </StyledTableCell>
-        <StyledTableCell component="th" scope="row">
+        <StyledTableCell component="th" scope="row" onClick={() => setGoToPatientPlans(true)} style={{ cursor: 'pointer' }}>
           {patient.state}
         </StyledTableCell>
         <StyledTableCell component="th" scope="row">

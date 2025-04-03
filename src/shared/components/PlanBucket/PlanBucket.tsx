@@ -18,7 +18,7 @@ function PlanBucket({ children, planDayInfo, handler }: { children: ReactNode; p
   return (
     <div style={{ width: '100%' }}>
       <div className={classes.numberMealsContainer}>
-        <div style={{ width: '70%' }} onClick={handler}></div>
+        <div style={{ width: '60%' }} onClick={handler}></div>
         <div style={{ width: '30%' }}>
           {children}
           <CustomDraggable />

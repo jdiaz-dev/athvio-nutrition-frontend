@@ -16,6 +16,7 @@ export const GET_PATIENT_FOR_CONSOLE = gql`
         position
         mealTag
         name
+        image
         ingredientDetails {
           ingredientType
           customIngredient {

@@ -8,8 +8,8 @@ import ChatIcon from '@mui/icons-material/Chat';
 import LocalDiningIcon from '@mui/icons-material/LocalDining';
 import CalculateIcon from '@mui/icons-material/Calculate';
 // type
-import { NavItemType } from 'src/shared/types/menu';
 import { AvailableSlides } from 'src/modules/patients/patient-console/patient-sidebar/utils/sidebar.enum';
+import { NavItemType } from 'src/modules/patients/patient-console/patient-sidebar/types/menu';
 
 const icons = {
   ChatIcon,
@@ -31,6 +31,7 @@ const widget: NavItemType = {
       type: 'item',
       url: '/widget/data',
       icon: icons.LocalDiningIcon,
+      toolTipTitle: 'plans',
       slide: AvailableSlides.PLANS,
     },
     {
@@ -39,6 +40,7 @@ const widget: NavItemType = {
       type: 'item',
       url: '/widget/data',
       icon: icons.CalculateIcon,
+      toolTipTitle: 'calories',
       slide: AvailableSlides.CALORIES,
     },
     /* {

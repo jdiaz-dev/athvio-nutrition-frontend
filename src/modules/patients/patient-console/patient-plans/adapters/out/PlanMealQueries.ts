@@ -18,6 +18,7 @@ export const PATIENT_PLAN_MEALS_CRUD = gql`
         position
         mealTag
         name
+        image
         ingredientDetails {
           ingredientType
           customIngredient {
@@ -107,6 +108,7 @@ export const PATIENT_PLAN_MEALS_CRUD = gql`
         position
         mealTag
         name
+        image
         ingredientDetails {
           ingredientType
           customIngredient {
