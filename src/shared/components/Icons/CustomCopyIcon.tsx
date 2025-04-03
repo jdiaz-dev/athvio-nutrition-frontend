@@ -17,9 +17,9 @@ function CustomCopyIcon({ handler }: { handler: () => void }) {
   const { classes } = styles();
 
   return (
-    <Tooltip title="copy" placement="top">
+    <Tooltip title="copy" placement="top" onClick={handler}>
       <IconButton>
-        <ContentCopyTwoToneIcon className={classes.icon} onClick={handler} />
+        <ContentCopyTwoToneIcon className={classes.icon} />
       </IconButton>
     </Tooltip>
   );

@@ -19,13 +19,11 @@ const styles = makeStyles()((theme) => {
 function CustomTrashIcon({ handler }: { handler: () => void }) {
   const { classes } = styles();
   return (
-    <div>
-      <Tooltip title="delete" placement="right">
-        <IconButton>
-          <DeleteIcon className={classes.trash} onClick={handler} />
-        </IconButton>
-      </Tooltip>
-    </div>
+    <Tooltip title="delete" placement="right" onClick={handler}>
+      <IconButton>
+        <DeleteIcon className={classes.trash} />
+      </IconButton>
+    </Tooltip>
   );
 }
 

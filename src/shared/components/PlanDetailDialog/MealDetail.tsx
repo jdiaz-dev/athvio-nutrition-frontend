@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import React, { useState } from 'react';
-import { Card, Grid, IconButton, Menu, MenuItem } from '@mui/material';
+import { Card, Grid, IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 import { useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
@@ -113,15 +113,22 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
         onMouseLeave={untouchedComponetHandler}
       >
         <Grid container spacing={1}>
-          <Grid item xs={11} style={{ display: 'flex' }}>
+          <Grid item xs={10} style={{ display: 'flex' }}>
             <MealTagSelector mealTag={_mealTag()} />
             <MealName name={_mealName()} componentTouched={componentTouched} />
           </Grid>
-          <Grid item xs={1} style={{ height: '45px' }}>
-            <SystemUpdateAltIcon style={{ marginBottom: '10px', cursor: 'pointer' }} onClick={() => setOpenImportMealDialog(true)} />
-            <IconButton style={{ marginLeft: '55%', marginTop: '-78px' }} aria-label="Example" onClick={handleAnchorOpen}>
-              <FontAwesomeIcon icon={faEllipsisV} size="xs" />
-            </IconButton>
+          <Grid item xs={2} style={{ height: '45px', paddingLeft: '8%' }}>
+            <Tooltip title="import meal" placement="top">
+              <IconButton>
+                <SystemUpdateAltIcon style={{ marginBottom: '10px', cursor: 'pointer' }} onClick={() => setOpenImportMealDialog(true)} />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="options" placement="top" style={{ marginTop: '-5px' }} onClick={handleAnchorOpen}>
+              <IconButton>
+                <FontAwesomeIcon icon={faEllipsisV} size="xs" />
+              </IconButton>
+            </Tooltip>
+
             <Menu
               id="basic-menu"
               anchorEl={anchorEl}

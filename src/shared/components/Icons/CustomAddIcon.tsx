@@ -9,9 +9,9 @@ function CustomAddIcon({ handler }: { handler: () => void }) {
   const { classes } = iconStyles();
 
   return (
-    <Tooltip title="add" placement="top">
+    <Tooltip title="add" placement="top" onClick={handler}>
       <IconButton>
-        <AddIcon className={classes.icon} onClick={handler} />
+        <AddIcon className={classes.icon} />
       </IconButton>
     </Tooltip>
   );

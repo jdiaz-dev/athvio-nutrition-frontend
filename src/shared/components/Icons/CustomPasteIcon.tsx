@@ -8,9 +8,9 @@ function CustomPasteIcon({ handler }: { handler: () => void }) {
   const { classes } = iconStyles();
 
   return (
-    <Tooltip title="paste" placement="top">
+    <Tooltip title="paste" placement="top" onClick={handler}>
       <IconButton>
-        <ContentPasteGoIcon className={classes.icon} onClick={handler} />
+        <ContentPasteGoIcon className={classes.icon} />
       </IconButton>
     </Tooltip>
   );
