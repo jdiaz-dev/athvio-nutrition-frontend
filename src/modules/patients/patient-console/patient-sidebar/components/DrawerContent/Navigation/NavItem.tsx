@@ -7,7 +7,6 @@ import { Avatar, Box, Chip, ListItemButton, ListItemIcon, ListItemText, Typograp
 
 // project import
 import Dot from '../../../../../../../shared/components/extended/Dot';
-import IconButton from 'src/shared/components/IconButton';
 
 //todo: delete it
 import { handlerHorizontalActiveItem, useGetMenuMaster } from '../../../api/menu';
@@ -18,6 +17,7 @@ import { SidebarContext } from 'src/modules/patients/patient-console/patient-sid
 import useConfig from 'src/shared/hooks/useConfig';
 import { NavItemProps } from 'src/modules/patients/patient-console/patient-sidebar/types/patient-sidebar';
 import Tooltip from '@mui/material/Tooltip';
+import IconButton from 'src/shared/components/IconButton';
 import { LinkTarget } from 'src/modules/patients/patient-console/patient-sidebar/types/menu';
 // ==============================|| NAVIGATION - LIST ITEM ||============================== //
 
