@@ -26,11 +26,14 @@ import AnimateButton from '../../shared/AnimateButton';
 import { AuthContext } from '../../context/AuthContext';
 
 import useScriptRef from '../../hooks/useScriptRef';
-import { strengthColor, strengthIndicator } from 'src/modules/authentication/authentication/adapters/in/shared/password-strength';
+import {
+  strengthColor,
+  strengthIndicator,
+  StringColorProps,
+} from 'src/modules/authentication/authentication/adapters/in/shared/password-strength';
 
 // types
 import { SnackbarProps } from 'src/shared/types/snackbar'; //TODO: remove it?
-import { StringColorProps } from '../../types/password';
 
 // assets
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
@@ -90,7 +93,7 @@ const SignUpProfessionalForm = () => {
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
             const { company, submit, ...rest } = values;
-            let _user: SignUpProfessionalModel = { ...rest };
+            let _user: SignUpProfessionalModel = { ...rest, date: new Date() };
             if (company) _user.professionalInfo = { company };
             if (countryName) _user.country = countryName;
             if (countryCode) _user.countryCode = countryCode;

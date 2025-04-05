@@ -32,6 +32,7 @@ export type SignUpProfessionalModel = {
   professionalInfo?: {
     company: string;
   };
+  date: Date;
 };
 
 export type SetUserInfo = {
