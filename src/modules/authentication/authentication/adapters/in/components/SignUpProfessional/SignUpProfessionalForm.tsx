@@ -93,7 +93,7 @@ const SignUpProfessionalForm = () => {
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
             const { company, submit, ...rest } = values;
-            let _user: SignUpProfessionalModel = { ...rest, date: new Date() };
+            let _user: SignUpProfessionalModel = { ...rest, clientOffsetMinutes: new Date().getTimezoneOffset() };
             if (company) _user.professionalInfo = { company };
             if (countryName) _user.country = countryName;
             if (countryCode) _user.countryCode = countryCode;

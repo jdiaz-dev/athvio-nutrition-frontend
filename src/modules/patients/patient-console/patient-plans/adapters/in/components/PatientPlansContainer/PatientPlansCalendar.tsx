@@ -11,7 +11,7 @@ import PatientPlansHelper from 'src/modules/patients/patient-console/patient-pla
 import { DateItem, ReduxStates } from 'src/shared/types/types';
 import { PatientPlanDateExtendedProps } from 'src/modules/patients/patients/adapters/out/patient.types';
 import { useReloadRecords } from 'src/shared/hooks/useReloadRecords';
-import dayjs from 'dayjs';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
@@ -24,6 +24,9 @@ import { SidebarContext } from 'src/modules/patients/patient-console/patient-sid
 import { DateSet } from 'src/modules/patients/patient-console/patient-plans/adapters/helpers/PatientPlans';
 import * as PatientPlanSlice from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/PatientPlanSlice';
 import CalendarHeader from 'src/modules/patients/patient-console/patient-plans/adapters/in/components/PatientPlansContainer/CalendarHeader';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(utc);
 
 function PatientPlansCalendar() {
   const dispatch = useDispatch();
@@ -76,8 +79,9 @@ function PatientPlansCalendar() {
       const dates: DateItem<PatientPlanDateExtendedProps>[] = [];
 
       while (dateStart < dayjs(dateSet ? dateSet.dateEnd : new Date())) {
-        const planIndex = patientPlansState.findIndex((plan) => dayjs(plan.assignedDate).toString() === dateStart.toString());
-
+        const planIndex = patientPlansState.findIndex(
+          (plan) => dayjs.utc(plan.assignedDate).set('hour', 0).toString() === dayjs.utc(dateStart.toString()).set('hour', 0).toString(),
+        );
         dates.push({
           title: '',
           date: dateStart.toDate(),
