@@ -34,7 +34,7 @@ const NavItem = ({ item, level, isParents = false, isSelected, onClickHandler }:
   }
   const Icon = item.icon!;
   const itemIcon = item.icon ? (
-    <Tooltip title={item.toolTipTitle || ''} placement="right">
+    <Tooltip title={openSidebar ? '' : item.toolTipTitle} placement="right">
       <IconButton>
         <Icon
           style={{
