@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import { useMealBuilderSlicers } from 'src/shared/hooks/useMealBuilderSlicers';
 import { EnableEditionContext } from 'src/shared/components/wrappers/EnablerEditionWrapper/EnableEditionContext';
+import { Modules } from 'src/shared/Consts';
 
 function CookingInstructions({ cookingInstructions }: { cookingInstructions: string }) {
   const currentModuleContext = useContext(CurrentModuleContext);
@@ -11,8 +12,12 @@ function CookingInstructions({ cookingInstructions }: { cookingInstructions: str
 
   const { renameCookingInstruction } = useMealBuilderSlicers(currentModuleContext.currentModule);
   const dispatch = useDispatch();
-  const isDisabled = !enableEditionContext.enableEdition;
-  return (
+  const isDisabled =
+    currentModuleContext.currentModule === Modules.PROGRAMS ||
+    currentModuleContext.currentModule === Modules.CLIENT_PLANS ||
+    (currentModuleContext.currentModule === Modules.NUTRITIONAL_MEALS && enableEditionContext.enableEdition);
+
+    return (
     <>
       <Box
         component="form"
@@ -32,7 +37,7 @@ function CookingInstructions({ cookingInstructions }: { cookingInstructions: str
             onChange={(e) => {
               dispatch(renameCookingInstruction(e.target.value));
             }}
-            disabled={isDisabled}
+            disabled={!isDisabled}
             sx={{
               '& .MuiOutlinedInput-input.Mui-disabled': {
                 WebkitTextFillColor: '#b7afaf !important',
