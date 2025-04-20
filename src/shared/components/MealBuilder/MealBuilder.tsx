@@ -26,7 +26,11 @@ function MealBuilder({ meal }: { meal: MealDataForBuilder }) {
     <>
       <IngredientList meal={meal} />
       <EnablerEditionWrapper
-        enableEdition={currentModuleContext.currentModule === Modules.NUTRITIONAL_MEALS && enableEditionContext.enableEdition}
+        enableEdition={
+          currentModuleContext.currentModule === Modules.PROGRAMS ||
+          currentModuleContext.currentModule === Modules.CLIENT_PLANS ||
+          (currentModuleContext.currentModule === Modules.NUTRITIONAL_MEALS && enableEditionContext.enableEdition)
+        }
       >
         <FoodList />
       </EnablerEditionWrapper>
