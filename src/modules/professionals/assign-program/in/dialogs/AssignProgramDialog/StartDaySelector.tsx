@@ -7,9 +7,11 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { ReduxStates } from 'src/shared/types/types';
 import { useDispatch, useSelector } from 'react-redux';
 import * as AssignProgramSlice from 'src/modules/professionals/assign-program/in/slicers/AssignProgramSlice';
+import { useTranslation } from 'react-i18next';
 
 function StartDaySelector() {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const plansState = useSelector((state: ReduxStates) => state.programs.program.data.plans);
   const assignProgramState = useSelector((state: ReduxStates) => state.assignProgram);
@@ -20,7 +22,7 @@ function StartDaySelector() {
 
   return (
     <>
-      <div style={{ fontWeight: 'bold', marginBottom: '5px' }}>Starting day</div>
+      <div style={{ fontWeight: 'bold', marginBottom: '5px' }}>{t('programsModule.titles.startingDay')}</div>
       <Box sx={{ minWidth: 120 }}>
         <FormControl fullWidth>
           <Select<number>

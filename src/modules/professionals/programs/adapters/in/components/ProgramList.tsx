@@ -16,9 +16,11 @@ import { useProgram } from 'src/modules/professionals/programs/adapters/out/Prog
 import Paginator from 'src/shared/components/Paginator';
 import { usePaginator } from 'src/shared/hooks/usePaginator';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 // eslint-disable-next-line prettier/prettier
 function ProgramList() {
+  const { t } = useTranslation();
   const programs = useSelector((state: ReduxStates) => state.programs.programs);
   const authContext = useContext(AuthContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
@@ -87,9 +89,11 @@ function ProgramList() {
           <TableHead>
             <TableRow>
               <StyledTableCell width={'20%'} align="center">
-                Name{' '}
+                {t('programsModule.table.name')}{' '}
               </StyledTableCell>
-              <StyledTableCell width={'55%'} align="center">Description</StyledTableCell>
+              <StyledTableCell width={'55%'} align="center">
+                {t('programsModule.table.description')}
+              </StyledTableCell>
               <StyledTableCell align="center"></StyledTableCell>
               <StyledTableCell width={'5%'} align="center"></StyledTableCell>
             </TableRow>

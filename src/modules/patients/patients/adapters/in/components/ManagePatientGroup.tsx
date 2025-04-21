@@ -8,8 +8,10 @@ import { PatientGroup } from 'src/shared/types/types';
 import { PatientGroupsContext } from 'src/modules/patients/patients/adapters/in/components/PatientsContainer';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 function ManagePatientGroup(props: { patient: string; assignedGroups: PatientGroup[] }) {
+  const { t } = useTranslation();
   const { patient, assignedGroups } = props;
   const authContext = useContext(AuthContext);
   const patientGroupContext = useContext(PatientGroupsContext);
@@ -84,7 +86,7 @@ function ManagePatientGroup(props: { patient: string; assignedGroups: PatientGro
 
   const listUnassignedGroups = (
     <div>
-      <Chip label="+ Add to group" variant="outlined" onClick={handleAnchorOpen} />
+      <Chip label={`+ ${t('patientModule.buttons.addToGroup')}`} variant="outlined" onClick={handleAnchorOpen} />
 
       <Menu
         id="basic-menu"

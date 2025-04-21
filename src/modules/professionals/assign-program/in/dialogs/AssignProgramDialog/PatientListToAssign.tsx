@@ -19,10 +19,12 @@ import { PatientStates } from 'src/shared/Consts';
 import PatientItem from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/PatientItem';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 import { PatientBody } from 'src/modules/patients/patient-console/patient/adapters/out/patient';
+import { useTranslation } from 'react-i18next';
 
 function PatientList() {
   const authContext = useContext(AuthContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
+  const { t } = useTranslation();
 
   const {
     searchWords,
@@ -93,7 +95,7 @@ function PatientList() {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>Name</StyledTableCell>
+              <StyledTableCell>{t('programsModule.table.name')}</StyledTableCell>
               <StyledTableCell></StyledTableCell>
             </TableRow>
           </TableHead>

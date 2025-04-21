@@ -18,6 +18,7 @@ import * as AssignProgramSlice from 'src/modules/professionals/assign-program/in
 import CancelAndSaveButtons from 'src/shared/components/CancelAndSaveButtons';
 import { Dayjs } from 'dayjs';
 import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
+import { useTranslation } from 'react-i18next';
 
 function AssignProgramDialog({
   openAssignPogramDialog,
@@ -28,6 +29,7 @@ function AssignProgramDialog({
   setOpenAssignPogramDialog: (openProgram: boolean) => void;
   _program?: ProgramBody;
 }) {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const programState = useSelector((state: ReduxStates) => state.programs.program.data);
@@ -97,7 +99,7 @@ function AssignProgramDialog({
         aria-describedby="dialog-description"
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
-          Assign program
+          {t('programsModule.buttons.assignProgram')}
           <CloseDialogIcon closedIconDialog={closeIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
         </DialogTitle>
         <DialogContent dividers={true} style={{ minHeight: '500px' }}>

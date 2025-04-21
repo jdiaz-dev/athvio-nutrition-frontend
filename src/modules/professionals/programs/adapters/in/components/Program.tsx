@@ -13,6 +13,7 @@ import MessageDialog from 'src/shared/dialogs/MessageDialog';
 import { Navigate } from 'react-router-dom';
 import AssignProgramDialog from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/AssignProgramDialog';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 const chipStyle = (totalPlans: number) => ({
   opacity: totalPlans > 0 ? 1 : 0.6,
@@ -23,6 +24,7 @@ function Program(program: ProgramBody) {
   const authContext = useContext(AuthContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk, alert, setAlert } = useMessageDialog();
+  const { t } = useTranslation();
 
   const [openCreateUpdateProgramDialog, setOpenCreateUpdateProgramDialog] = useState(false);
   const [openAssignPogramDialog, setOpenAssignPogramDialog] = useState(false);
@@ -74,7 +76,7 @@ function Program(program: ProgramBody) {
         <StyledTableCell align="center">
           <Chip
             style={chipStyle(program.plans.length)}
-            label="Assign program"
+            label={t('programsModule.buttons.assignProgram')}
             variant="outlined"
             onClick={() => {
               if (program.plans.length > 0) setOpenAssignPogramDialog(true);
@@ -95,8 +97,8 @@ function Program(program: ProgramBody) {
                 'aria-labelledby': 'basic-button',
               }}
             >
-              <MenuItem onClick={() => setOpenCreateUpdateProgramDialog(true)}>Edit program</MenuItem>
-              <MenuItem onClick={deleteProgramHandler}>Delete program</MenuItem>
+              <MenuItem onClick={() => setOpenCreateUpdateProgramDialog(true)}>{t('programsModule.buttons.editProgram')}</MenuItem>
+              <MenuItem onClick={deleteProgramHandler}>{t('programsModule.buttons.deleteProgram')}</MenuItem>
             </Menu>
           </Grid>
         </StyledTableCell>

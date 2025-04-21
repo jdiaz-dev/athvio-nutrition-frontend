@@ -5,8 +5,10 @@ import ProgramList from 'src/modules/professionals/programs/adapters/in/componen
 import CreateUpdateProgramDialog from 'src/modules/professionals/programs/adapters/in/dialogs/CreateUpdateProgramDialog';
 import ModulesWrapper from 'src/shared/components/wrappers/ModulesWrapper';
 import TitleAndButtonModule from 'src/shared/components/TitleAndButtonModule';
+import { useTranslation } from 'react-i18next';
 
 function ProgramsContainer() {
+  const { t } = useTranslation();
   const [openCreateUpdateProgramDialog, setOpenCreateUpdateProgramDialog] = useState(false);
   const [reloadProgramList, setReloadProgramList] = useState(false);
   const { reloadRecordList, setReloadRecordList } = useReloadRecords();
@@ -24,7 +26,11 @@ function ProgramsContainer() {
     <>
       <ModulesWrapper>
         <ReloadRecordListContext.Provider value={{ reloadRecordList, setReloadRecordList }}>
-          <TitleAndButtonModule titleModule="Programs" buttonName="Create program" buttonHandler={buttonOnclikHandler} />
+          <TitleAndButtonModule
+            titleModule={t('programsModule.table.name')}
+            buttonName={t('programsModule.buttons.createNewProgram')}
+            buttonHandler={buttonOnclikHandler}
+          />
           <ProgramList />
           {openCreateUpdateProgramDialog && (
             <CreateUpdateProgramDialog

@@ -11,6 +11,7 @@ import { ApolloProvider } from '@apollo/client';
 import AuthProvider from 'src/modules/authentication/authentication/adapters/in/providers/AuthProvider';
 import ThemeCustomization from './core/themes';
 import Locales from 'src/modules/patients/patient-console/patient-sidebar/components/Locales';
+import 'src/internationalization/i18n';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(

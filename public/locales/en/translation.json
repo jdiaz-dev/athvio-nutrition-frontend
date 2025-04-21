@@ -1,0 +1,10 @@
+{
+    "navbar": {
+      "patients": "Patients",
+      "meals": "Meals",
+      "programs": "Programs",
+      "preferences": "Configuration and Preferences",
+      "logout": "Logout"
+    }
+  }
+  

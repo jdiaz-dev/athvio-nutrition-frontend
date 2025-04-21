@@ -14,6 +14,7 @@ import { PatientStates, PatientStatesActions } from 'src/shared/Consts';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { PatientStateContext } from 'src/modules/patients/patients/adapters/in/components/PatientStateContext';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -53,6 +54,7 @@ const StyledMenu = styled((props: MenuProps) => (
 }));
 
 export default function PatientOptions({ patient }: { patient: string }) {
+  const { t } = useTranslation();
   const authContext = useContext(AuthContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const patientStateContext = useContext(PatientStateContext);
@@ -93,7 +95,7 @@ export default function PatientOptions({ patient }: { patient: string }) {
         onClick={handleClick}
         endIcon={<KeyboardArrowDownIcon />}
       >
-        Options
+        {t('patientModule.buttons.options')}
       </Button>
       <StyledMenu
         id="demo-customized-menu"
@@ -107,13 +109,13 @@ export default function PatientOptions({ patient }: { patient: string }) {
         {patientStateContext.indexState === 1 ? (
           <MenuItem onClick={optionSelectedHandler} disableRipple>
             <PowerSettingsNewIcon />
-            {PatientStatesActions.ACTIVATE}
+            {t('patientModule.state.activateAction')}
           </MenuItem>
         ) : (
           <>
             <MenuItem onClick={optionSelectedHandler} disableRipple>
               <ArchiveIcon />
-              {PatientStatesActions.ARCHIVE}
+              {t('patientModule.state.archiveAction')}
             </MenuItem>
 
             {/* todo: enable message (chat) with patient from this button */}

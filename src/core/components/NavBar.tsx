@@ -16,29 +16,29 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListItem from '@mui/material/ListItem';
 import Logo from 'src/core/components/logo/Logo';
+import { useTranslation } from 'react-i18next';
 
 type page = {
-  page: string;
+  pageKey: string | any; // for internationalization
   url: string;
 };
+
 const navBarPages: page[] = [
-  { page: 'Patients', url: '/professional/patients' },
-  { page: 'Meals', url: '/professional/meals' },
-  { page: 'Programs', url: '/professional/programs' },
+  { pageKey: 'navbar.patients', url: '/professional/patients' },
+  { pageKey: 'navbar.meals', url: '/professional/meals' },
+  { pageKey: 'navbar.programs', url: '/professional/programs' },
 ];
 
-const professionalPages: page[] = [
-  // { page: 'Profile', url: 'professional/Profile' },
-  { page: 'Configuration and preferences', url: '/professional/professional/preferences' },
-];
-
+const professionalPages: page[] = [{ pageKey: 'navbar.preferences', url: '/professional/professional/preferences' }];
 function ToolbarItems({ style }: { style?: React.CSSProperties }) {
+  const { t } = useTranslation();
+
   return (
     <>
       {navBarPages.map((page, index) => (
         <ListItem style={style} key={index} disablePadding disableGutters>
           <ListItemButton selected={false} component={Link} alignItems="center" to={page.url}>
-            <ListItemText style={{ textAlign: 'center' }} primary={page.page} />
+            <ListItemText style={{ textAlign: 'center' }} primary={t(page.pageKey)} />
           </ListItemButton>
         </ListItem>
       ))}
@@ -50,6 +50,7 @@ function NabBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const { signOut } = React.useContext(AuthContext);
+  const { t } = useTranslation();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -130,11 +131,11 @@ function NabBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {professionalPages.map((page) => (
-                <MenuItem disableGutters key={page.page} onClick={handleCloseUserMenu}>
+              {professionalPages.map((page, index) => (
+                <MenuItem disableGutters key={index} onClick={handleCloseUserMenu}>
                   <ListItem disablePadding disableGutters>
                     <ListItemButton selected={false} component={Link} alignItems="center" to={page.url}>
-                      <ListItemText primary={page.page} />
+                      <ListItemText primary={t(page.pageKey)} />
                     </ListItemButton>
                   </ListItem>
                 </MenuItem>

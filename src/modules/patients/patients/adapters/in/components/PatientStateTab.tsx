@@ -3,8 +3,10 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { PatientStateContext } from 'src/modules/patients/patients/adapters/in/components/PatientStateContext';
+import { useTranslation } from 'react-i18next';
 
 function PatientStateTab() {
+  const { t } = useTranslation();
   const patientStateContext = useContext(PatientStateContext);
 
   const handleChange = (event: React.SyntheticEvent, newState: number) => {
@@ -21,8 +23,8 @@ function PatientStateTab() {
           allowScrollButtonsMobile
           aria-label="scrollable force tabs example"
         >
-          <Tab label="Activated" />
-          <Tab label="Archived" />
+          <Tab label={t('patientModule.state.activatedState')} />
+          <Tab label={t('patientModule.state.archivedState')} />
         </Tabs>
       </Box>
     </div>

@@ -1,0 +1,75 @@
+{
+    "navbar": {
+      "patients": "Pacientes",
+      "meals": "Comidas",
+      "programs": "Programas",
+      "preferences": "Configuración y preferencias",
+      "logout": "Cerrar sesión"
+    },
+    "patientModule": {
+        "buttons":{
+            "newPatient": "Nuevo paciente",
+            "addToGroup":"Agregar a grupo",
+            "options":"Options"
+        },
+        "groups":{
+            "manageGroups":"Administrar grupos",
+            "createNewGroup":"Crear nuevo grupo",
+            "editExsistingGroup":"Editar grupo existente"
+        },
+        "state":{
+            "activatedState":"Activado",
+            "archivedState":"Archivado",
+            "activateAction": "Activar",
+            "archiveAction": "Archivar"
+        },
+        "table":{
+            "name":"Nombre",
+            "state":"Estado",
+            "group":"Grupo"
+        },
+        "titles":{
+            "patients":"Pacientes"
+        }
+    },
+    "mealsModule":{
+
+    },
+    "programsModule":{
+        "buttons":{
+            "createNewProgram":"Crear nuevo programa",
+            "assignProgram":"Asignar programa",
+            "editProgram":"Editar programa",
+            "deleteProgram":"Eliminar programa",
+            "addWeek":"Añadir semana"
+        },
+        "table":{
+            "name":"Nombre",
+            "description":"Descripcion"
+        },
+        "titles":{
+            "programs":"Programas",
+            "selectedPatients":"Pacientes seleccionados",
+            "assigmentStartDay":"Fecha de inicio asignada",
+            "startingDay":"Dia de inicio",
+            "day":"Dia"
+        }
+    },
+    "mealBuilder":{
+        "table":{
+            "name":"Nombre",
+            "food":"Alimento",
+            "proteins":"Proteinas",
+            "carbs":"Carbohidratos",
+            "fats":"Grasas",
+            "calories":"Calorias"
+        },
+        "titles":{
+            "programs":"Programas",
+            "tag":"Etiqueta",
+            "addFodd":"Agregar alimento",
+            "cookingInstructions":"Instrucciones",
+            "importMeal":"Importar comida"
+        }
+    }
+}

@@ -1,9 +1,11 @@
 import { Button, Menu, MenuItem } from '@mui/material';
 import React, { MouseEvent, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import CreatePatientGroupDialog from 'src/modules/professionals/patient-groups/adapters/in/dialogs/CreatePatientGroupDialog';
 import PatientGroupListDialog from 'src/modules/professionals/patient-groups/adapters/in/dialogs/PatientGroupListDialog/PatientGroupListDialog';
 
 function PatientGroupsContainer() {
+  const { t } = useTranslation();
   const [openCreatePatientGroupDialog, setOpenCreatePatientGroupDialog] = useState(false);
   const [openPatientGroupListDialog, setOpenPatientGroupListDialog] = useState(false);
   const [reloadPatientGroupList, setReloadPatientGroupList] = useState(false);
@@ -25,7 +27,7 @@ function PatientGroupsContainer() {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleManageGroup}
       >
-        Manage groups
+        {t('patientModule.groups.manageGroups')}
       </Button>
       <Menu
         id="basic-menu"
@@ -42,7 +44,7 @@ function PatientGroupsContainer() {
             handleAnchorClose();
           }}
         >
-          Create new group
+          {t('patientModule.groups.createNewGroup')}
         </MenuItem>
         <MenuItem
           onClick={() => {
@@ -50,7 +52,7 @@ function PatientGroupsContainer() {
             handleAnchorClose();
           }}
         >
-          Edit existing group
+          {t('patientModule.groups.editExsistingGroup')}
         </MenuItem>
       </Menu>
       <CreatePatientGroupDialog

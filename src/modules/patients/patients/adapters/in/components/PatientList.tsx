@@ -20,8 +20,10 @@ import { PatientStates } from 'src/shared/Consts';
 import { PatientStateContext } from 'src/modules/patients/patients/adapters/in/components/PatientStateContext';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 import { PatientBody } from 'src/modules/patients/patient-console/patient/adapters/out/patient';
+import { useTranslation } from 'react-i18next';
 
 function PatientList() {
+  const { t } = useTranslation();
   const authContext = useContext(AuthContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const patientStateContext = useContext(PatientStateContext);
@@ -104,9 +106,9 @@ function PatientList() {
         <Table sx={{ minWidth: 650 }}>
           <TableHead>
             <TableRow>
-              <StyledTableCell>Name</StyledTableCell>
-              <StyledTableCell>State</StyledTableCell>
-              <StyledTableCell>Group</StyledTableCell>
+              <StyledTableCell>{t('patientModule.table.name')}</StyledTableCell>
+              <StyledTableCell>{t('patientModule.table.state')}</StyledTableCell>
+              <StyledTableCell>{t('patientModule.table.group')}</StyledTableCell>
               <StyledTableCell></StyledTableCell>
             </TableRow>
           </TableHead>

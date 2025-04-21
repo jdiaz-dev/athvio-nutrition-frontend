@@ -10,6 +10,7 @@ import PatientStateTab from 'src/modules/patients/patients/adapters/in/component
 import { PatientStateContext } from 'src/modules/patients/patients/adapters/in/components/PatientStateContext';
 import ModulesWrapper from 'src/shared/components/wrappers/ModulesWrapper';
 import TitleAndButtonModule from 'src/shared/components/TitleAndButtonModule';
+import { useTranslation } from 'react-i18next';
 
 export const PatientGroupsContext = createContext<{
   patientGroupList: PatientGroup[];
@@ -17,6 +18,7 @@ export const PatientGroupsContext = createContext<{
 }>({ patientGroupList: [], setPatientGroupList: useState });
 
 function PatientsContainer() {
+  const { t } = useTranslation();
   const [openCreatePatientDialog, setOpenCreatePatientDialog] = useState(false);
   const [patientGroupList, setPatientGroupList] = useState<PatientGroup[]>([]);
   const [indexState, setPatientIndexState] = useState(0);
@@ -31,7 +33,11 @@ function PatientsContainer() {
       <ModulesWrapper>
         <ReloadRecordListContext.Provider value={{ reloadRecordList, setReloadRecordList }}>
           <PatientGroupsContext.Provider value={{ patientGroupList, setPatientGroupList }}>
-            <TitleAndButtonModule titleModule="Patients" buttonName="New patient" buttonHandler={buttonOnclikHandler} />
+            <TitleAndButtonModule
+              titleModule={t('patientModule.titles.patients')}
+              buttonName={t('patientModule.buttons.newPatient')}
+              buttonHandler={buttonOnclikHandler}
+            />
             <PatientStateContext.Provider value={{ indexState, setPatientIndexState }}>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <PatientStateTab />
