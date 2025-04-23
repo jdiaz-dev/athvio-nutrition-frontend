@@ -14,9 +14,11 @@ import { AuthContext } from 'src/modules/authentication/authentication/adapters/
 import * as MealsListSlice from 'src/modules/professionals/programs/adapters/in/slicers/MealsListSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { usePlanMeal } from 'src/modules/professionals/programs/adapters/out/MealActions';
+import { useTranslation } from 'react-i18next';
 
 //todo: check all the params
 function ProgramPlanItem({ program, planDay, planDayInfo }: { program: string; planDay: number; planDayInfo: PlanDayInfo }) {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const authContext = useContext(AuthContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
@@ -28,7 +30,7 @@ function ProgramPlanItem({ program, planDay, planDayInfo }: { program: string; p
   const [planSaved, setPlanSaved] = useState(false);
 
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk, alert, setAlert } = useMessageDialog();
-  const stringDay = `Day ${planDay.toString()}`;
+  const stringDay = `${t('programsModule.titles.day')} ${planDay.toString()}`;
 
   const { deletePlan } = usePlan();
   const { programPlanMealCRUD } = usePlanMeal();

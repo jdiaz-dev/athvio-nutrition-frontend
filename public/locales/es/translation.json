@@ -41,7 +41,8 @@
             "assignProgram":"Asignar programa",
             "editProgram":"Editar programa",
             "deleteProgram":"Eliminar programa",
-            "addWeek":"Añadir semana"
+            "addWeek":"Añadir semana",
+            "removeWeek":"Eliminar semana"
         },
         "table":{
             "name":"Nombre",
@@ -57,6 +58,7 @@
     },
     "mealBuilder":{
         "table":{
+            "amount":"Cantidad",
             "name":"Nombre",
             "food":"Alimento",
             "proteins":"Proteinas",
@@ -66,10 +68,35 @@
         },
         "titles":{
             "programs":"Programas",
-            "tag":"Etiqueta",
+            "mealTag":"Comida",
             "addFodd":"Agregar alimento",
             "cookingInstructions":"Instrucciones",
             "importMeal":"Importar comida"
+        },
+        "buttons":{
+            "addMeal":"Agregar comida",
+            "deleteMeal":"Eliminar comida"
+            
+        },
+        "mealTags":{
+            "breakfast":"Desayuno",
+            "lunch":"Almuerzo",
+            "dinner":"Cena",
+            "firstMeal":"Primera comida",
+            "secondMeal":"Segunda comida",
+            "thirdMeal":"Tercera comida"
         }
+    },
+    "toolTips":{
+        "chat":"chat",
+        "plans":"planes",
+        "calories":"calorias",
+        "add":"añadir",
+        "paste":"pegar",
+        "copy":"copiar",
+        "delete":"eliminar",
+        "drag":"arrastrar",
+        "importMeal":"importar comida",
+        "options":"opciones"
     }
 }

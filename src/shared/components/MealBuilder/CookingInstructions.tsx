@@ -5,10 +5,12 @@ import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import { useMealBuilderSlicers } from 'src/shared/hooks/useMealBuilderSlicers';
 import { EnableEditionContext } from 'src/shared/components/wrappers/EnablerEditionWrapper/EnableEditionContext';
 import { Modules } from 'src/shared/Consts';
+import { useTranslation } from 'react-i18next';
 
 function CookingInstructions({ cookingInstructions }: { cookingInstructions: string }) {
   const currentModuleContext = useContext(CurrentModuleContext);
   const enableEditionContext = useContext(EnableEditionContext);
+  const { t } = useTranslation();
 
   const { renameCookingInstruction } = useMealBuilderSlicers(currentModuleContext.currentModule);
   const dispatch = useDispatch();
@@ -17,7 +19,7 @@ function CookingInstructions({ cookingInstructions }: { cookingInstructions: str
     currentModuleContext.currentModule === Modules.CLIENT_PLANS ||
     (currentModuleContext.currentModule === Modules.NUTRITIONAL_MEALS && enableEditionContext.enableEdition);
 
-    return (
+  return (
     <>
       <Box
         component="form"
@@ -30,7 +32,7 @@ function CookingInstructions({ cookingInstructions }: { cookingInstructions: str
         <div>
           <TextField
             id="outlined-textarea"
-            label="Directions"
+            label={t('mealBuilder.titles.cookingInstructions')}
             multiline
             fullWidth
             defaultValue={cookingInstructions}

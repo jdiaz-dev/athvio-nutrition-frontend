@@ -6,6 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import AdsClickIcon from '@mui/icons-material/AdsClick';
 import ChatIcon from '@mui/icons-material/Chat';
 import { NavItemType } from 'src/modules/patients/patient-console/patient-sidebar/types/menu';
+import i18n from 'src/internationalization/i18n';
 
 // type
 
@@ -18,7 +19,7 @@ const chat: NavItemType = {
   id: 'chat',
   title: <FormattedMessage id="chat" />,
   icon: icons.ChatIcon,
-  toolTipTitle: 'chat',
+  toolTipTitle: i18n.t('toolTips.chat'),
   type: 'item',
 };
 

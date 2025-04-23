@@ -26,6 +26,7 @@ import CalendarStyled from 'src/shared/components/CalendarStyled/CalendarStyled'
 import { EventSourceInput } from '@fullcalendar/core';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
+import { useTranslation } from 'react-i18next';
 
 dayjs.extend(utc);
 
@@ -42,6 +43,8 @@ function ProgramPlansContainer() {
   const { programId } = useParams();
   const authContext = useContext(AuthContext);
   const { getProgram } = useProgram();
+  const { t } = useTranslation();
+
   const { data: programState } = useSelector((state: ReduxStates) => state.programs.program);
 
   const { reloadRecordList, setReloadRecordList } = useReloadRecords();
@@ -119,7 +122,11 @@ function ProgramPlansContainer() {
 
                 dayCellContent={() => {
                   counterDay++;
-                  return <div>Day {counterDay}</div>;
+                  return (
+                    <div>
+                      {t('programsModule.titles.day')} {counterDay}
+                    </div>
+                  );
                 }}
                 contentHeight={contentHeight}
                 height={'auto'} //allowed me to void have overflow: scroll
@@ -134,11 +141,11 @@ function ProgramPlansContainer() {
             </CalendarStyled>
           </Box>
           <Button className={classes.button} variant="contained" onClick={() => setWeekAction(WeekActions.ADD)}>
-            Add week
+            {t('programsModule.buttons.addWeek')}
           </Button>
           {maxWeekWithPlans < totalWeeks && (
             <Button className={classes.button} variant="contained" onClick={() => setWeekAction(WeekActions.REMOVE)}>
-              Remove week
+              {t('programsModule.buttons.removeWeek')}
             </Button>
           )}
         </ReloadRecordListContext.Provider>

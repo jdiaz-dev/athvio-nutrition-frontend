@@ -11,9 +11,11 @@ import EnablerEditionWrapper from 'src/shared/components/wrappers/EnablerEdition
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import { EnableEditionContext } from 'src/shared/components/wrappers/EnablerEditionWrapper/EnableEditionContext';
 import { Modules } from 'src/shared/Consts';
+import { useTranslation } from 'react-i18next';
 
 // VERY IMPORTANT: this component is used (shared) in nutritional-meals, program and patient-plan modules
 function MealBuilder({ meal }: { meal: MealDataForBuilder }) {
+  const { t } = useTranslation();
   const [panelExpanded, setPanelExpanded] = useState<string | false>('panel1');
   const currentModuleContext = useContext(CurrentModuleContext);
   const enableEditionContext = useContext(EnableEditionContext);
@@ -37,7 +39,7 @@ function MealBuilder({ meal }: { meal: MealDataForBuilder }) {
 
       <Accordion expanded={panelExpanded === 'panel1'} onChange={handleAccordion('panel1')}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} style={{ height: '38px' }} aria-controls="panel1d-content" id="panel1d-header">
-          <Typography variant="subtitle1">Cooking instructions</Typography>
+          <Typography variant="subtitle1">{t('mealBuilder.titles.cookingInstructions')}</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <CookingInstructions cookingInstructions={meal.cookingInstructions} />

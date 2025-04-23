@@ -4,12 +4,14 @@ import { makeStyles } from 'tss-react/mui';
 import { iconStyles } from 'src/shared/styles/styles';
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from 'src/shared/components/IconButton';
+import { useTranslation } from 'react-i18next';
 
 function CustomAddIcon({ handler }: { handler: () => void }) {
+  const { t } = useTranslation();
   const { classes } = iconStyles();
 
   return (
-    <Tooltip title="add" placement="top" onClick={handler}>
+    <Tooltip title={t('toolTips.add')} placement="top" onClick={handler}>
       <IconButton>
         <AddIcon className={classes.icon} />
       </IconButton>

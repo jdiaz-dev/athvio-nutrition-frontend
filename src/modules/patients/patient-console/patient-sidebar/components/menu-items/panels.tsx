@@ -1,5 +1,6 @@
 // third-party
 import { FormattedMessage } from 'react-intl';
+import i18n from 'src/internationalization/i18n';
 
 // assets
 // import { LineChartOutlined } from '@ant-design/icons';//todo: remove
@@ -19,7 +20,7 @@ const icons = {
 };
 
 //todo: rename it file accoding to client options
-const widget: NavItemType = {
+const widget = (): NavItemType => ({
   id: 'group-panels',
   title: <FormattedMessage id="Panels" />,
   icon: icons.ChatIcon,
@@ -31,7 +32,7 @@ const widget: NavItemType = {
       type: 'item',
       url: '/widget/data',
       icon: icons.LocalDiningIcon,
-      toolTipTitle: 'plans',
+      toolTipTitle: i18n.t('toolTips.plans'),
       slide: AvailableSlides.PLANS,
     },
     {
@@ -40,7 +41,7 @@ const widget: NavItemType = {
       type: 'item',
       url: '/widget/data',
       icon: icons.CalculateIcon,
-      toolTipTitle: 'calories',
+      toolTipTitle: i18n.t('toolTips.calories'),
       slide: AvailableSlides.CALORIES,
     },
     /* {
@@ -52,6 +53,6 @@ const widget: NavItemType = {
       slide: AvailableSlides.ANALITYCS,
     }, */
   ],
-};
+});
 
 export default widget;

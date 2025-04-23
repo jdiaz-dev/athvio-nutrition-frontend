@@ -6,7 +6,7 @@ import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 import DatabaseSelector from 'src/shared/components/databaseSelector/DatabaseSelector';
 import { useNutritionalMeal } from 'src/modules/professionals/nutritional-meals/adapters/out/NutritionalMealActions';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
-import { DatabasesEnum, defaultMealTag, NutritionalMealDatabasesEnum } from 'src/shared/Consts';
+import { DatabasesEnum, defaultMealTagKey, NutritionalMealDatabasesEnum } from 'src/shared/Consts';
 import { ReduxStates } from 'src/shared/types/types';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import { useMealBasicInfoSlicers } from 'src/shared/hooks/useMealBasicInfoSlicers';
@@ -16,6 +16,7 @@ import { useMealsStates } from 'src/shared/components/PlanDetailDialog/useMealsS
 import SearcherBar from 'src/shared/components/SearcherAndSelector/SearcherBar';
 import { useSearcher } from 'src/shared/hooks/useSearcher';
 import { NutritionalMealBody } from 'src/modules/professionals/nutritional-meals/adapters/out/nutritionalMeal';
+import { useTranslation } from 'react-i18next';
 
 function useMealSelector() {
   const { getNutritionalMeals } = useNutritionalMeal();
@@ -33,6 +34,7 @@ function ImportMealDialog({
 }) {
   const currentModuleContext = useContext(CurrentModuleContext);
   const authContext = useContext(AuthContext);
+  const { t } = useTranslation();
   const { mealDetailsState } = useMealsStates(currentModuleContext.currentModule);
   const mealsState = useSelector((state: ReduxStates) => state.nutritionalMeals.nutritionalMeals);
 
@@ -84,7 +86,7 @@ function ImportMealDialog({
   useEffect(() => {
     if (choosedWord) {
       const res = mealsState?.data.find((item) => item.name === searchWords[0]) as NutritionalMealBody;
-      setImportedMeal({ ...res, position: -1, mealTag: defaultMealTag });
+      setImportedMeal({ ...res, position: -1, mealTag: t(defaultMealTagKey as any) });
     }
   }, [choosedWord]);
 

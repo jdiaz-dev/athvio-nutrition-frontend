@@ -16,6 +16,7 @@ import { generateTemporalId } from 'src/shared/helpers/functions';
 import { useMealListSlicers } from 'src/shared/hooks/useMealListSlicers';
 import CancelAndSaveButtons from 'src/shared/components/CancelAndSaveButtons';
 import { useMealsStates } from 'src/shared/components/PlanDetailDialog/useMealsStates';
+import { useTranslation } from 'react-i18next';
 
 const savedPlanButton = new Subject<boolean>();
 export const savedPlanButton$ = savedPlanButton.asObservable();
@@ -32,6 +33,7 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const currentModuleContext = useContext(CurrentModuleContext);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const { addMeal } = useMealListSlicers(currentModuleContext.currentModule);
   const { mealListState } = useMealsStates(currentModuleContext.currentModule);
   const [closedIconDialog, setClosedIconDialog] = useState(true);
@@ -58,6 +60,7 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
     savedPlanButton.next(true);
     setOpenPlanDetailDialog(false);
   };
+
   return (
     <>
       <Dialog
@@ -83,7 +86,7 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
             ))}
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <Button variant="contained" onClick={() => addMealPlanHandler()} size="large" style={{ width: '90%', marginBottom: '20px' }}>
-              Add meal
+              {t('mealBuilder.buttons.addMeal')}
             </Button>
           </div>
 

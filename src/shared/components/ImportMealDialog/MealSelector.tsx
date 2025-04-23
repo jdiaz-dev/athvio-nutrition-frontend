@@ -3,7 +3,8 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { MealBuilderBody } from 'src/shared/components/MealBuilder/MealBuilder.types';
 import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
-import { defaultMealTag } from 'src/shared/Consts';
+import { defaultMealTagKey } from 'src/shared/Consts';
+import { useTranslation } from 'react-i18next';
 
 function MealSelector({
   meals,
@@ -12,6 +13,8 @@ function MealSelector({
   meals: (MealBuilderBody & { name?: string })[];
   setImportedMeal: (meal: Meal) => void;
 }) {
+  const { t } = useTranslation();
+
   return (
     <Autocomplete
       disablePortal
@@ -22,7 +25,7 @@ function MealSelector({
       onChange={(e, value) => {
         if (value) {
           const { label, name, ...rest } = value;
-          setImportedMeal({ ...rest, position: -1, mealTag: defaultMealTag, name: name as string });
+          setImportedMeal({ ...rest, position: -1, mealTag: t(defaultMealTagKey as any), name: name as string });
         }
       }}
       sx={{ width: 300 }}

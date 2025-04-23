@@ -8,7 +8,7 @@ import { NavItemType } from 'src/modules/patients/patient-console/patient-sideba
 // ==============================|| MENU ITEMS ||============================== //
 
 const menuItems: { items: NavItemType[] } = {
-  items: [chat, panels],
+  items: [chat, panels()],
 };
 
 export default menuItems;

@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import React, { useState } from 'react';
-import { Card, Grid, IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
+import { Card, Grid, Menu, MenuItem, Tooltip } from '@mui/material';
+import IconButton from 'src/shared/components/IconButton';
 import { useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
@@ -19,6 +20,7 @@ import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
 import ImportMealDialog from 'src/shared/components/ImportMealDialog/ImportMealDialog';
 import { useMealsStates } from 'src/shared/components/PlanDetailDialog/useMealsStates';
 import MealTagSelector from 'src/shared/components/PlanDetailDialog/MealTagSelector';
+import { useTranslation } from 'react-i18next';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -40,6 +42,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { meal: MealWithStatus }) {
+  const { t } = useTranslation();
   const { classes } = cardStyles();
   const currentModuleContext = useContext(CurrentModuleContext);
   const { mealBasicInfoState, mealDetailsState } = useMealsStates(currentModuleContext.currentModule);
@@ -118,12 +121,12 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
             <MealName name={_mealName()} componentTouched={componentTouched} />
           </Grid>
           <Grid item xs={2} style={{ height: '45px', paddingLeft: '8%' }}>
-            <Tooltip title="import meal" placement="top">
+            <Tooltip title={t('toolTips.importMeal')} placement="top">
               <IconButton>
                 <SystemUpdateAltIcon style={{ marginBottom: '10px', cursor: 'pointer' }} onClick={() => setOpenImportMealDialog(true)} />
               </IconButton>
             </Tooltip>
-            <Tooltip title="options" placement="top" style={{ marginTop: '-5px' }} onClick={handleAnchorOpen}>
+            <Tooltip title={t('toolTips.options')} placement="top" style={{ marginTop: '-5px' }} onClick={handleAnchorOpen}>
               <IconButton>
                 <FontAwesomeIcon icon={faEllipsisV} size="xs" />
               </IconButton>
@@ -138,7 +141,7 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
                 'aria-labelledby': 'basic-button',
               }}
             >
-              <MenuItem onClick={() => deleteMealHandler()}>Delete meal</MenuItem>
+              <MenuItem onClick={() => deleteMealHandler()}>{t('mealBuilder.buttons.deleteMeal')}</MenuItem>
             </Menu>
           </Grid>
         </Grid>

@@ -24,9 +24,11 @@ import DatabaseSelector from 'src/shared/components/databaseSelector/DatabaseSel
 import { DatabasesEnum, FoodDatabases, SpecialPagination } from 'src/shared/Consts';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 import SearcherAndSelectorWrapper from 'src/shared/components/SearcherAndSelector/SearcherAndSelectorWrapper';
+import { useTranslation } from 'react-i18next';
 
 function FoodList() {
   const authContext = useContext(AuthContext);
+  const { t } = useTranslation();
   const {
     searchWords,
     setSearchWords,
@@ -170,7 +172,7 @@ function FoodList() {
     <>
       <Accordion expanded={panelExpanded === 'panel1'} onChange={handleAddFoodAncle('panel1')}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1d-content" id="panel1d-header">
-          <Typography>Add food</Typography>
+          <Typography>{t('mealBuilder.titles.addFodd')}</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <SearcherAndSelectorWrapper>
@@ -193,12 +195,12 @@ function FoodList() {
               <Table sx={{ minWidth: 350 }} size="small" aria-label="customized table">
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell width={'25%'}>Amount</StyledTableCell>
-                    <StyledTableCell width={'45%'}>Food</StyledTableCell>
-                    <StyledTableCell width={'5%'}>Protein</StyledTableCell>
-                    <StyledTableCell width={'5%'}>Carbs</StyledTableCell>
-                    <StyledTableCell width={'5%'}>Fat</StyledTableCell>
-                    <StyledTableCell width={'5%'}>Calories</StyledTableCell>
+                    <StyledTableCell width={'25%'}>{t('mealBuilder.table.amount')}</StyledTableCell>
+                    <StyledTableCell width={'45%'}>{t('mealBuilder.table.food')}</StyledTableCell>
+                    <StyledTableCell width={'5%'}>{t('mealBuilder.table.proteins')}</StyledTableCell>
+                    <StyledTableCell width={'5%'}>{t('mealBuilder.table.carbs')}</StyledTableCell>
+                    <StyledTableCell width={'5%'}>{t('mealBuilder.table.fats')}</StyledTableCell>
+                    <StyledTableCell width={'5%'}>{t('mealBuilder.table.calories')}</StyledTableCell>
                     <StyledTableCell width={'5%'}></StyledTableCell>
                   </TableRow>
                 </TableHead>

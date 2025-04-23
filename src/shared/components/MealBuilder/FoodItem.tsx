@@ -16,11 +16,16 @@ import { FoodDatabases, IngredientType, MeasureSizes } from 'src/shared/Consts';
 import { BootstrapInput } from 'src/shared/components/CustomizedInput';
 import { calculateMacrosFixingDecimals, multiplicateFixingDecimals } from 'src/shared/components/MealBuilder/MacrosCalculator';
 import { Ingredient, IngredientDetail } from 'src/shared/components/MealBuilder/MealBuilder.types';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from 'src/shared/components/IconButton';
+import { useTranslation } from 'react-i18next';
 
 function FoodItem({ food }: { food: Food }) {
   const foddAddedContext = useContext(FoddAddedContext);
-  const dispatch = useDispatch();
   const currentModuleContext = useContext(CurrentModuleContext);
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
+
   const { addIngredient } = useMealBuilderSlicers(currentModuleContext.currentModule);
   const [foodManager, setFoodManager] = useState<FoodManager | null>(null);
   const [measure, setMeasure] = useState<string | null>(null);
@@ -157,7 +162,11 @@ function FoodItem({ food }: { food: Food }) {
             {foodManager.macros.calories}
           </StyledTableCell>
           <StyledTableCell align="right" width={'5%'} style={{ padding: '0px', paddingRight: '7px' }}>
-            <AddIcon style={{ cursor: 'pointer' }} onClick={chooseIngredient} />
+            <Tooltip title={t('toolTips.add')} placement="right">
+              <IconButton>
+                <AddIcon style={{ cursor: 'pointer' }} onClick={chooseIngredient} />
+              </IconButton>
+            </Tooltip>
           </StyledTableCell>
         </StyledTableRow>
       )}

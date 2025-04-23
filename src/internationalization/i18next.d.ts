@@ -42,6 +42,7 @@ declare module 'i18next' {
             editProgram: string;
             deleteProgram: string;
             addWeek: string;
+            removeWeek: string;
           };
           table: {
             name: string;
@@ -57,6 +58,7 @@ declare module 'i18next' {
         };
         mealBuilder: {
           table: {
+            amount: string;
             name: string;
             food: string;
             proteins: string;
@@ -65,11 +67,35 @@ declare module 'i18next' {
             calories: string;
           };
           titles: {
-            tag: string;
+            mealTag: string;
             addFodd: string;
             cookingInstructions: string;
             importMeal: string;
           };
+          buttons: {
+            addMeal: string;
+            deleteMeal: string;
+          };
+          mealTags: {
+            breakfast: string;
+            lunch: string;
+            dinner: string;
+            firstMeal: string;
+            secondMeal: string;
+            thirdMeal: string;
+          };
+        };
+        toolTips: {
+          chat: string;
+          plans: string;
+          calories: string;
+          add: string;
+          paste: string;
+          copy: string;
+          delete: string;
+          drag: string;
+          importMeal: string;
+          options: string;
         };
       };
     };

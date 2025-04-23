@@ -1,5 +1,5 @@
 import { PatientPlanInitialState } from 'src/modules/patients/patient-console/patient-plans/adapters/out/patientPlan.types';
-import { defaultMealTag } from 'src/shared/Consts';
+import { defaultMealTagKey } from 'src/shared/Consts';
 
 export const patientPlanInitialState: PatientPlanInitialState = {
   patientPlans: [],
@@ -12,7 +12,7 @@ export const patientPlanInitialState: PatientPlanInitialState = {
   },
   mealBasicInfo: {
     position: 0,
-    mealTag: defaultMealTag,
+    mealTag: defaultMealTagKey,
     name: 'Meal name',
   },
   mealList: [],

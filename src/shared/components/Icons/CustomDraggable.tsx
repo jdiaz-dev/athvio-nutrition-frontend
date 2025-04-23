@@ -3,6 +3,7 @@ import { makeStyles } from 'tss-react/mui';
 import ZoomOutMapTwoToneIcon from '@mui/icons-material/ZoomOutMapTwoTone';
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from 'src/shared/components/IconButton';
+import { useTranslation } from 'react-i18next';
 
 const styles = makeStyles()(() => {
   return {
@@ -16,10 +17,11 @@ const styles = makeStyles()(() => {
 });
 
 function CustomDraggable() {
+  const { t } = useTranslation();
   const { classes } = styles();
 
   return (
-    <Tooltip title="drag" placement="top">
+    <Tooltip title={t('toolTips.drag')} placement="top">
       <IconButton>
         <ZoomOutMapTwoToneIcon className={classes.icon} />
       </IconButton>

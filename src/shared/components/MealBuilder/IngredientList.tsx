@@ -8,6 +8,7 @@ import { FoddAddedContext } from 'src/shared/components/MealBuilder/FoddAddedCon
 import IngredientItem from 'src/shared/components/MealBuilder/IngredientItem';
 import { DisplayedIngredient, MealDataForBuilder } from 'src/shared/components/MealBuilder/MealBuilder.types';
 import { IngredientType } from 'src/shared/Consts';
+import { useTranslation } from 'react-i18next';
 
 const styleTableCell = {
   fontSize: 14,
@@ -15,6 +16,7 @@ const styleTableCell = {
 };
 
 function IngredientList({ meal }: { meal: MealDataForBuilder }) {
+  const { t } = useTranslation();
   const [foodAdded, setFoodAdded] = useState(false);
   return (
     <>
@@ -24,22 +26,22 @@ function IngredientList({ meal }: { meal: MealDataForBuilder }) {
             <TableHead>
               <TableRow>
                 <StyledTableCell style={styleTableCell} align="left" width={'16%'}>
-                  Amount
+                  {t('mealBuilder.table.name')}
                 </StyledTableCell>
                 <StyledTableCell style={styleTableCell} align="left">
-                  Food
+                  {t('mealBuilder.table.food')}
                 </StyledTableCell>
                 <StyledTableCell style={styleTableCell} align="left">
-                  Protein
+                  {t('mealBuilder.table.proteins')}
                 </StyledTableCell>
                 <StyledTableCell style={styleTableCell} align="left">
-                  Carbs
+                  {t('mealBuilder.table.carbs')}
                 </StyledTableCell>
                 <StyledTableCell style={styleTableCell} align="left">
-                  Fat
+                  {t('mealBuilder.table.fats')}
                 </StyledTableCell>
                 <StyledTableCell style={styleTableCell} align="left">
-                  kcal
+                  {t('mealBuilder.table.calories')}
                 </StyledTableCell>
               </TableRow>
             </TableHead>

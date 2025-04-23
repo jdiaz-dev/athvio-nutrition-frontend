@@ -1,10 +1,20 @@
+import i18n from 'src/internationalization/i18n';
 import { DefaultConfigProps, MenuOrientation, ThemeDirection, ThemeMode } from 'src/shared/types/config';
 
 export const REST_COUNTRIES_URL = 'https://restcountries.com/v3.1/all?fields=name,idd,flags';
 export const baseHeight = 150;
 export const baseWeek = 1;
 export const temporalId = 'temporalId';
-export const defaultMealTag = 'Breakfast';
+
+export const defaultMealTagKey = i18n.t('mealBuilder.mealTags.breakfast');
+export const mealTagKeyList = [
+  'mealBuilder.mealTags.breakfast',
+  'mealBuilder.mealTags.lunch',
+  'mealBuilder.mealTags.dinner',
+  'mealBuilder.mealTags.firstMeal',
+  'mealBuilder.mealTags.secondMeal',
+  'mealBuilder.mealTags.thirdMeal',
+];
 
 export enum LocalStorageEnum {
   dataUser = 'dataUser',
