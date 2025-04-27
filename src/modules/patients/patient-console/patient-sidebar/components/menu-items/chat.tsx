@@ -9,7 +9,6 @@ import { NavItemType } from 'src/modules/patients/patient-console/patient-sideba
 import i18n from 'src/internationalization/i18n';
 
 // type
-
 const icons = {
   ChatIcon,
   AdsClickIcon,

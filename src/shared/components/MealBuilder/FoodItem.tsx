@@ -163,8 +163,8 @@ function FoodItem({ food }: { food: Food }) {
           </StyledTableCell>
           <StyledTableCell align="right" width={'5%'} style={{ padding: '0px', paddingRight: '7px' }}>
             <Tooltip title={t('toolTips.add')} placement="right">
-              <IconButton>
-                <AddIcon style={{ cursor: 'pointer' }} onClick={chooseIngredient} />
+              <IconButton onClick={chooseIngredient}>
+                <AddIcon style={{ cursor: 'pointer' }} />
               </IconButton>
             </Tooltip>
           </StyledTableCell>
