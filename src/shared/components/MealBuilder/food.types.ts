@@ -10,6 +10,7 @@ export type GetAutocompleteFoodNamesRequest = {
     professional: string;
     search: string;
     foodDatabase: string;
+    targetLanguage: string;
   };
 };
 
@@ -24,6 +25,7 @@ export interface InputGetFoods {
   offset: number;
   limit: number;
   foodDatabase: string;
+  targetLanguage: string;
   search?: string[];
   session?: number;
 }

@@ -28,7 +28,7 @@ import { useTranslation } from 'react-i18next';
 
 function FoodList() {
   const authContext = useContext(AuthContext);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const {
     searchWords,
     setSearchWords,
@@ -75,6 +75,7 @@ function FoodList() {
     offset: offset,
     limit: rowsPerPage,
     foodDatabase: database,
+    targetLanguage: i18n.language,
   };
 
   useEffect(() => {
@@ -120,6 +121,7 @@ function FoodList() {
         professional: authContext.professional,
         search: searchWords[0],
         foodDatabase: database,
+        targetLanguage: i18n.language,
       };
       const foodNames = await refetchAutocomplete({ input: autocompleteInput });
       setMatchedRecords(foodNames.data.getAutoCompleteFoodNames.foodNames);
