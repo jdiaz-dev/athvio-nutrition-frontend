@@ -8,8 +8,8 @@ await i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    fallbackLng: 'es',
-    lng: 'es', //default language
+    fallbackLng: 'en',
+    lng: 'en', //default language
     load: 'languageOnly',
     debug: true,
     interpolation: {

@@ -51,7 +51,7 @@ declare module 'i18next' {
           titles: {
             programs: string;
             selectedPatients: string;
-            assigmentStartDay: string;
+            assigmentStartDate: string;
             startingDay: string;
             day: string;
           };

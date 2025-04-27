@@ -11,7 +11,7 @@ function AssigmentStartDate({ datePickedHandler }: { datePickedHandler: (newDate
 
   return (
     <div style={{ marginBottom: '15px' }}>
-      <text style={{ fontWeight: 'bold' }}>{t('programsModule.titles.assigmentStartDay')}</text>
+      <text style={{ fontWeight: 'bold' }}>{t('programsModule.titles.assigmentStartDate')}</text>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DemoContainer components={['DatePicker']}>
           <DatePicker onChange={datePickedHandler} />

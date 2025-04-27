@@ -10,7 +10,7 @@
         "buttons":{
             "newPatient": "Nuevo paciente",
             "addToGroup":"Agregar a grupo",
-            "options":"Options"
+            "options":"Opciones"
         },
         "groups":{
             "manageGroups":"Administrar grupos",
@@ -51,7 +51,7 @@
         "titles":{
             "programs":"Programas",
             "selectedPatients":"Pacientes seleccionados",
-            "assigmentStartDay":"Fecha de inicio asignada",
+            "assigmentStartDate":"Fecha de inicio asignada",
             "startingDay":"Dia de inicio",
             "day":"Dia"
         }

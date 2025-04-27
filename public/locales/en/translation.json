@@ -1,10 +1,101 @@
 {
-    "navbar": {
-      "patients": "Patients",
-      "meals": "Meals",
-      "programs": "Programs",
-      "preferences": "Configuration and Preferences",
-      "logout": "Logout"
+  "navbar": {
+    "patients": "Patients",
+    "meals": "Meals",
+    "programs": "Programs",
+    "preferences": "Configuration and Preferences",
+    "logout": "Logout"
+  },
+  "patientModule": {
+    "buttons":{
+      "newPatient": "New patient",
+      "addToGroup":"Add to group",
+      "options":"Options"
+    },
+    "groups":{
+      "manageGroups":"Manage groups",
+      "createNewGroup":"Create new group",
+      "editExsistingGroup":"Edit existing group"
+    },
+    "state":{
+      "activatedState":"Active",
+      "archivedState":"Archived",
+      "activateAction": "Activate",
+      "archiveAction": "Archive"
+    },
+    "table":{
+      "name":"Name",
+      "state":"State",
+      "group":"Group"
+    },
+    "titles":{
+      "patients":"Patients"
     }
+  },
+  "mealsModule":{
+  },
+  "programsModule":{
+    "buttons":{
+      "createNewProgram":"Create new program",
+      "assignProgram":"Assign program",
+      "editProgram":"Edit program",
+      "deleteProgram":"Delete program",
+      "addWeek":"Add week",
+      "removeWeek":"Delete week"
+    },
+    "table":{
+      "name":"Name",
+      "description":"Description"
+    },
+    "titles":{
+      "programs":"Programs",
+      "selectedPatients":"Selected patients",
+      "assigmentStartDate":"Assigned start date",
+      "startingDay":"Starting day ",
+      "day":"Dia"
+    }
+  },
+  "mealBuilder":{
+    "table":{
+      "amount":"Amount",
+      "name":"Name",
+      "food":"Food",
+      "proteins":"Proteins",
+      "carbs":"Carbs",
+      "fats":"Fats",
+      "calories":"Calories"
+    },
+    "titles":{
+      "programs":"Programs",
+      "mealTag":"Meal",
+      "addFodd":"All food",
+      "cookingInstructions":"Instrucctions",
+      "importMeal":"Import meal"
+    },
+    "buttons":{
+      "addMeal":"Add meal",
+      "deleteMeal":"Delete meal"
+    },
+    "mealTags":{
+      "breakfast":"Breakfast",
+      "lunch":"Lunch",
+      "dinner":"Dinner",
+      "firstMeal":"First meal",
+      "secondMeal":"Second meal",
+      "thirdMeal":"Third meal"
+    }
+  },
+  "toolTips":{
+    "chat":"chat",
+    "plans":"plans",
+    "calories":"calories",
+    "add":"add",
+    "paste":"paste",
+    "copy":"copy",
+    "delete":"delete",
+    "drag":"drag",
+    "importMeal":"import meal",
+    "options":"options"
   }
+}
   
