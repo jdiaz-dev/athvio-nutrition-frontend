@@ -122,8 +122,8 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
           </Grid>
           <Grid item xs={2} style={{ height: '45px', paddingLeft: '8%' }}>
             <Tooltip title={t('toolTips.importMeal')} placement="top">
-              <IconButton>
-                <SystemUpdateAltIcon style={{ marginBottom: '10px', cursor: 'pointer' }} onClick={() => setOpenImportMealDialog(true)} />
+              <IconButton onClick={() => setOpenImportMealDialog(true)}>
+                <SystemUpdateAltIcon style={{ marginBottom: '10px', cursor: 'pointer' }} />
               </IconButton>
             </Tooltip>
             <Tooltip title={t('toolTips.options')} placement="top" style={{ marginTop: '-5px' }} onClick={handleAnchorOpen}>

@@ -71,8 +71,8 @@ function SignUpPatientDialog({
     let input: BodyPatient = {
       professional: authContext.professional,
       userInfo: {
-        firstname,
-        lastname,
+        firstname: firstname.trim(),
+        lastname: lastname.trim(),
         email,
       },
       additionalInfo: {
