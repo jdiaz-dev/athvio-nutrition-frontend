@@ -8,6 +8,10 @@ declare module 'i18next' {
           patients: string;
           meals: string;
           programs: string;
+          preferences: string;
+          logout: string;
+          spanishLanguage: string;
+          englishLanguage: string;
         };
         patientModule: {
           buttons: {

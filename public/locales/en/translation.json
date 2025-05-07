@@ -4,7 +4,9 @@
     "meals": "Meals",
     "programs": "Programs",
     "preferences": "Configuration and Preferences",
-    "logout": "Logout"
+    "logout": "Logout",
+    "spanishLanguage":"spanish",
+    "englishLanguage":"english"
   },
   "patientModule": {
     "buttons":{
