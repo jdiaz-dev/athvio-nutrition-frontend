@@ -41,7 +41,33 @@ import CountryCodeSelect from 'src/shared/components/CountryCodeSelect';
 import { SignUpProfessionalModel } from '../../../out/authentication.types';
 import { ApolloError } from 'apollo-boost';
 
-// ============================|| JWT - REGISTER ||============================ //
+const SPANISH_SPEAKING_COUNTRIES = [
+  'AR',
+  'BO',
+  'CL',
+  'CO',
+  'CR',
+  'CU',
+  'DO',
+  'EC',
+  'SV',
+  'GQ',
+  'GT',
+  'HN',
+  'MX',
+  'NI',
+  'PA',
+  'PY',
+  'PE',
+  'PR',
+  'ES',
+  'UY',
+  'VE',
+];
+
+function isSpanishSpeakingCountry(code: string): boolean {
+  return SPANISH_SPEAKING_COUNTRIES.includes(code.toUpperCase());
+}
 
 const SignUpProfessionalForm = () => {
   const { isAuthenticated, signUpProfessionalHandler } = useContext(AuthContext);
@@ -51,7 +77,7 @@ const SignUpProfessionalForm = () => {
   const [countryName, setCountryName] = useState<string | undefined>('');
   const [level, setLevel] = useState<StringColorProps>();
   const [showPassword, setShowPassword] = useState(false);
-
+  const [detectedLanguage, setDetectedLanguage] = useState<'en' | 'es'>('es');
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -67,6 +93,20 @@ const SignUpProfessionalForm = () => {
 
   useEffect(() => {
     changePassword('');
+  }, []);
+
+  useEffect(() => {
+    fetch('https://ipapi.co/json/')
+      .then((res) => res.json())
+      .then((data) => {
+        const countryCode = data.country_code;
+        if (isSpanishSpeakingCountry(countryCode)) {
+          setDetectedLanguage('es');
+        } else {
+          setDetectedLanguage('en');
+        }
+      })
+      .catch((err) => console.error('GeoIP error:', err));
   }, []);
 
   if (isAuthenticated) {
@@ -93,7 +133,7 @@ const SignUpProfessionalForm = () => {
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
             const { company, submit, ...rest } = values;
-            let _user: SignUpProfessionalModel = { ...rest, clientOffsetMinutes: new Date().getTimezoneOffset() };
+            let _user: SignUpProfessionalModel = { ...rest, clientOffsetMinutes: new Date().getTimezoneOffset(), detectedLanguage };
             if (company) _user.professionalInfo = { company };
             if (countryName) _user.country = countryName;
             if (countryCode) _user.countryCode = countryCode;

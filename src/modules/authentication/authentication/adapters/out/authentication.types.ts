@@ -33,6 +33,7 @@ export type SignUpProfessionalModel = {
     company: string;
   };
   clientOffsetMinutes: number;
+  detectedLanguage: 'es' | 'en';
 };
 
 export type SetUserInfo = {
