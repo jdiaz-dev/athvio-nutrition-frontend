@@ -1,11 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { StyledTableCell } from 'src/shared/components/CustomizedTable';
 import { useNutritionalMeal } from 'src/modules/professionals/nutritional-meals/adapters/out/NutritionalMealActions';
 import { useSelector } from 'react-redux';
 import NutritionalMealItem from 'src/modules/professionals/nutritional-meals/adapters/in/components/NutritionalMealItem';
@@ -19,12 +12,15 @@ import { AuthContext } from 'src/modules/authentication/authentication/adapters/
 import { DatabasesEnum, NutritionalMealDatabasesEnum } from 'src/shared/Consts';
 import DatabaseSelector from 'src/shared/components/databaseSelector/DatabaseSelector';
 import SearcherAndSelectorWrapper from 'src/shared/components/SearcherAndSelector/SearcherAndSelectorWrapper';
+import { useTranslation } from 'react-i18next';
 
 function NutritionalMealList() {
   const nutritionalMealList = useSelector((state: ReduxStates) => state.nutritionalMeals.nutritionalMeals);
 
   const authContext = useContext(AuthContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
+  const { i18n } = useTranslation();
+  const currentLang = i18n.language;
   const {
     searchWords,
     setSearchWords,
@@ -48,7 +44,7 @@ function NutritionalMealList() {
 
   useEffect(() => {
     const fetchNutritionalMeals = async () => {
-      await getNutritionalMeals({ ...input, database: database as NutritionalMealDatabasesEnum });
+      await getNutritionalMeals({ ...input, database: database as NutritionalMealDatabasesEnum, language: currentLang });
     };
 
     const getNutritionalMealsFn = () => {
@@ -63,7 +59,7 @@ function NutritionalMealList() {
 
   useEffect(() => {
     const getPatientsForSearcher = async () => {
-      await getNutritionalMeals({ ...input, database: NutritionalMealDatabasesEnum.ALL });
+      await getNutritionalMeals({ ...input, database: NutritionalMealDatabasesEnum.ALL, language: currentLang });
       if (nutritionalMealList) setMatchedRecords(nutritionalMealList.data.map((meal) => meal.name));
       setRecentlyTypedWord(false);
     };

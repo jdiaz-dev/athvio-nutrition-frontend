@@ -34,7 +34,11 @@ export type UpdateNutritionalMealResponse = {
   updateNutritionalMeal: NutritionalMealBody;
 };
 
-export type GetNutritionalMealsBody = GetRecordsBody & { professional: string; database: NutritionalMealDatabasesEnum };
+export type GetNutritionalMealsBody = GetRecordsBody & {
+  professional: string;
+  database: NutritionalMealDatabasesEnum;
+  language: string;
+};
 
 export type GettNutritionalMealRequest = {
   input: GetNutritionalMealsBody;
