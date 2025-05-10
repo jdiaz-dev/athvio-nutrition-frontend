@@ -34,7 +34,7 @@ function ImportMealDialog({
 }) {
   const currentModuleContext = useContext(CurrentModuleContext);
   const authContext = useContext(AuthContext);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { mealDetailsState } = useMealsStates(currentModuleContext.currentModule);
   const mealsState = useSelector((state: ReduxStates) => state.nutritionalMeals.nutritionalMeals);
 
@@ -71,6 +71,7 @@ function ImportMealDialog({
       await getMeals({
         professional: authContext.professional,
         database: database as NutritionalMealDatabasesEnum,
+        language: i18n.language,
         limit: 10,
         offset: 0,
         ...(searchWords.length > 0 && { search: searchWords }),

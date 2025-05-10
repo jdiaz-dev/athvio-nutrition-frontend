@@ -17,6 +17,7 @@ import { useMealListSlicers } from 'src/shared/hooks/useMealListSlicers';
 import CancelAndSaveButtons from 'src/shared/components/CancelAndSaveButtons';
 import { useMealsStates } from 'src/shared/components/PlanDetailDialog/useMealsStates';
 import { useTranslation } from 'react-i18next';
+import { EnableEditionContext } from 'src/shared/components/wrappers/EnablerEditionWrapper/EnableEditionContext';
 
 const savedPlanButton = new Subject<boolean>();
 export const savedPlanButton$ = savedPlanButton.asObservable();
@@ -79,11 +80,14 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
           <CloseDialogIcon closedIconDialog={closedIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
         </DialogTitle>
         <DialogContent>
-          {mealListState
-            .filter((meal) => meal.status != ReduxItemtatus.DELETED)
-            .map((meal, index) => (
-              <MealDetail key={index} meal={meal} />
-            ))}
+          <EnableEditionContext.Provider value={{ enableEdition: true }}>
+            {mealListState
+              .filter((meal) => meal.status != ReduxItemtatus.DELETED)
+              .map((meal, index) => (
+                <MealDetail key={index} meal={meal} />
+              ))}
+          </EnableEditionContext.Provider>
+
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <Button variant="contained" onClick={() => addMealPlanHandler()} size="large" style={{ width: '90%', marginBottom: '20px' }}>
               {t('mealBuilder.buttons.addMeal')}

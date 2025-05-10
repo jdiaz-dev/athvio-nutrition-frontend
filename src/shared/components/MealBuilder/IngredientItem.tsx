@@ -69,9 +69,7 @@ function IngredientItem({ displayedIngredient: { name, amount, label, ...rest } 
         <StyledTableCell align="left">{rest.carbs} g</StyledTableCell>
         <StyledTableCell align="left">{rest.fat} g</StyledTableCell>
         <StyledTableCell align="left">{rest.calories} cal</StyledTableCell>
-        <EnablerEditionWrapper
-          enableEdition={currentModuleContext.currentModule === Modules.NUTRITIONAL_MEALS && enableEditionContext.enableEdition}
-        >
+        <EnablerEditionWrapper enableEdition={enableEditionContext.enableEdition}>
           <td
             style={{
               zIndex: displayOverlay ? 1 : -1,
