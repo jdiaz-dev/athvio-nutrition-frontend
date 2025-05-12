@@ -6,9 +6,11 @@ import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext
 import { useReloadRecords } from 'src/shared/hooks/useReloadRecords';
 import ModulesWrapper from 'src/shared/components/wrappers/ModulesWrapper';
 import TitleAndButtonModule from 'src/shared/components/TitleAndButtonModule';
+import { useTranslation } from 'react-i18next';
 
-const title = 'Create custom meal';
 function NutritionalMealsContainer() {
+  const { t } = useTranslation();
+
   const [openCreateUpdateNutritionalMealDialog, setOpenCreateUpdateNutritionalMealDialog] = useState(false);
   const [reloadNutritionalMealList, setReloadNutritionalMealList] = useState(false);
   const { reloadRecordList, setReloadRecordList } = useReloadRecords();
@@ -25,13 +27,17 @@ function NutritionalMealsContainer() {
     <>
       <ModulesWrapper>
         <ReloadRecordListContext.Provider value={{ reloadRecordList, setReloadRecordList }}>
-          <TitleAndButtonModule titleModule="Meals" buttonName={title} buttonHandler={buttonOnclikHandler} />
+          <TitleAndButtonModule
+            titleModule={t('mealsModule.titles.meals')}
+            buttonName={t('mealsModule.buttons.createCustomMeal')}
+            buttonHandler={buttonOnclikHandler}
+          />
           <NutritionalMealList />
           {openCreateUpdateNutritionalMealDialog && (
             <CreateUpdateNutritionalMealDialog
               openCreateUpdateNutritionalMealDialog={openCreateUpdateNutritionalMealDialog}
               setOpenCreateUpdateNutritionalMealDialog={setOpenCreateUpdateNutritionalMealDialog}
-              dialogTitle={title}
+              dialogTitle={t('mealsModule.buttons.createCustomMeal')}
             />
           )}
         </ReloadRecordListContext.Provider>

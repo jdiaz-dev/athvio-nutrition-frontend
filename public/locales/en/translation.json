@@ -35,6 +35,12 @@
     }
   },
   "mealsModule":{
+    "buttons":{
+      "createCustomMeal":"Create custom meal"
+    },
+    "titles":{
+      "meals":"Meals"
+    }
   },
   "programsModule":{
     "buttons":{

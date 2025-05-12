@@ -35,6 +35,12 @@
     }
   },
   "mealsModule":{
+    "buttons":{
+      "createCustomMeal":"Crear comida personalizada"
+    },
+    "titles":{
+      "meals":"Comidas"
+    }
   },
   "programsModule":{
     "buttons":{

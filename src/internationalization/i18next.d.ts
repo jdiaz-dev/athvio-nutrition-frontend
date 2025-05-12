@@ -39,6 +39,14 @@ declare module 'i18next' {
             patients: string;
           };
         };
+        mealsModule: {
+          buttons: {
+            createCustomMeal: string;
+          };
+          titles: {
+            meals: string;
+          };
+        };
         programsModule: {
           buttons: {
             createNewProgram: string;
