@@ -1,12 +1,19 @@
 {
-  "navbar": {
-    "patients": "Pacientes",
-    "meals": "Comidas",
-    "programs": "Programas",
-    "preferences": "Configuración y preferencias",
-    "logout": "Cerrar sesión",
-    "spanishLanguage":"español",
-    "englishLanguage":"ingles"
+  
+  "global":{
+    "navbar": {
+      "patients": "Pacientes",
+      "meals": "Comidas",
+      "programs": "Programas",
+      "preferences": "Configuración y preferencias",
+      "logout": "Cerrar sesión",
+      "spanishLanguage":"español",
+      "englishLanguage":"ingles"
+    },
+    "buttons":{
+      "save":"Guardar",
+      "cancel":"Cancelar"
+    }
   },
   "patientModule": {
     "buttons":{
@@ -16,7 +23,7 @@
     },
     "groups":{
       "manageGroups":"Administrar grupos",
-      "createNewGroup":"Crear nuevo grupo",
+      "createNewGroup":"Crear nuevo grupo", 
       "editExsistingGroup":"Editar grupo existente"
     },
     "state":{

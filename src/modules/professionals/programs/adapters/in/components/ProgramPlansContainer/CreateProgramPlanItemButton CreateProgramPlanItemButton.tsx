@@ -11,9 +11,11 @@ import { AuthContext } from 'src/modules/authentication/authentication/adapters/
 import { CreateProgramPlanBody } from 'src/modules/professionals/programs/adapters/out/Plan.types';
 import * as MealsListSlice from 'src/modules/professionals/programs/adapters/in/slicers/MealsListSlice';
 import { ReduxItemtatus, temporalId } from 'src/shared/Consts';
+import { useTranslation } from 'react-i18next';
 
 function CreateProgramPlanItemButton({ planDay, planWeek, program }: { planDay: number; planWeek: number; program: string }) {
   const authContext = useContext(AuthContext);
+  const { t } = useTranslation();
 
   const planState = useSelector((state: ReduxStates) => state.programs.plan);
   const mealListState = useSelector((state: ReduxStates) => state.programs.mealList);
@@ -22,7 +24,7 @@ function CreateProgramPlanItemButton({ planDay, planWeek, program }: { planDay: 
   const { createProgramPlan } = usePlan();
   const [openPlanDetailDialog, setOpenPlanDetailDialog] = useState(false);
   const [planSaved, setPlanSaved] = useState(false);
-  const stringDay = `Day ${planDay.toString()}`;
+  const stringDay = `${t('programsModule.titles.day')} ${planDay.toString()}`;
 
   const createProgramPlanHandler = async () => {
     const meals = mealListState

@@ -4,14 +4,20 @@ declare module 'i18next' {
   interface CustomTypeOptions {
     resources: {
       translation: {
-        navbar: {
-          patients: string;
-          meals: string;
-          programs: string;
-          preferences: string;
-          logout: string;
-          spanishLanguage: string;
-          englishLanguage: string;
+        global: {
+          navbar: {
+            patients: string;
+            meals: string;
+            programs: string;
+            preferences: string;
+            logout: string;
+            spanishLanguage: string;
+            englishLanguage: string;
+          };
+          buttons: {
+            save: string;
+            cancel: string;
+          };
         };
         patientModule: {
           buttons: {

@@ -1,12 +1,18 @@
 {
-  "navbar": {
-    "patients": "Patients",
-    "meals": "Meals",
-    "programs": "Programs",
-    "preferences": "Configuration and Preferences",
-    "logout": "Logout",
-    "spanishLanguage":"spanish",
-    "englishLanguage":"english"
+  "global":{
+    "navbar": {
+      "patients": "Patients",
+      "meals": "Meals",
+      "programs": "Programs",
+      "preferences": "Configuration and Preferences",
+      "logout": "Logout",
+      "spanishLanguage":"spanish",
+      "englishLanguage":"english"
+    },
+    "buttons":{
+      "save":"Save",
+      "cancel":"Cancel"
+    }
   },
   "patientModule": {
     "buttons":{

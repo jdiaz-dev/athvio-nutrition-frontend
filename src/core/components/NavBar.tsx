@@ -26,12 +26,12 @@ type page = {
 };
 
 const navBarPages: page[] = [
-  { pageKey: 'navbar.patients', url: '/professional/patients' },
-  { pageKey: 'navbar.meals', url: '/professional/meals' },
-  { pageKey: 'navbar.programs', url: '/professional/programs' },
+  { pageKey: 'global.navbar.patients', url: '/professional/patients' },
+  { pageKey: 'global.navbar.meals', url: '/professional/meals' },
+  { pageKey: 'global.navbar.programs', url: '/professional/programs' },
 ];
 
-const professionalPages: page[] = [{ pageKey: 'navbar.preferences', url: '/professional/professional/preferences' }];
+const professionalPages: page[] = [{ pageKey: 'global.navbar.preferences', url: '/professional/professional/preferences' }];
 function ToolbarItems({ style }: { style?: React.CSSProperties }) {
   const { t } = useTranslation();
 
@@ -141,14 +141,14 @@ function NabBar() {
               <MenuItem disableGutters onClick={handleCloseSettingsIconMenu}>
                 <ListItem disablePadding disableGutters>
                   <ListItemButton selected={false} alignItems="center">
-                    <ListItemText primary={t('navbar.spanishLanguage')} onClick={() => changeLanguage('es')} />
+                    <ListItemText primary={t('global.navbar.spanishLanguage')} onClick={() => changeLanguage('es')} />
                   </ListItemButton>
                 </ListItem>
               </MenuItem>
               <MenuItem disableGutters onClick={handleCloseSettingsIconMenu}>
                 <ListItem disablePadding disableGutters>
                   <ListItemButton selected={false} alignItems="center">
-                    <ListItemText primary={t('navbar.englishLanguage')} onClick={() => changeLanguage('en')} />
+                    <ListItemText primary={t('global.navbar.englishLanguage')} onClick={() => changeLanguage('en')} />
                   </ListItemButton>
                 </ListItem>
               </MenuItem>
