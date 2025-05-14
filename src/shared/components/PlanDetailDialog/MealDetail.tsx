@@ -21,6 +21,7 @@ import ImportMealDialog from 'src/shared/components/ImportMealDialog/ImportMealD
 import { useMealsStates } from 'src/shared/components/PlanDetailDialog/useMealsStates';
 import MealTagSelector from 'src/shared/components/PlanDetailDialog/MealTagSelector';
 import { useTranslation } from 'react-i18next';
+import { generateTemporalId } from 'src/shared/helpers/functions';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -50,7 +51,7 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
   const dispatch = useDispatch();
   const { acceptNewMealBasicInfo } = useMealBasicInfoSlicers(currentModuleContext.currentModule);
   const { acceptNewMealDetail } = useMealBuilderSlicers(currentModuleContext.currentModule);
-  const { updateMeal, deleteMeal } = useMealListSlicers(currentModuleContext.currentModule);
+  const { updateMeal, deleteMeal, addMeal } = useMealListSlicers(currentModuleContext.currentModule);
 
   const [componentTouched, setComponentTouched] = useState(false);
   const [openImportMealDialog, setOpenImportMealDialog] = useState(false);
@@ -86,6 +87,11 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
     setAnchorEl(null);
     setComponentTouched(false);
     dispatch(deleteMeal(mealDetailsState._id));
+  };
+  const duplicateMealHandler = async () => {
+    setAnchorEl(null);
+    setComponentTouched(false);
+    dispatch(addMeal({ ...mealBasicInfoState, ...mealDetailsState, _id: generateTemporalId() }));
   };
   const componentTouchedHandler = () => {
     if (!componentTouched) {
@@ -142,6 +148,7 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
               }}
             >
               <MenuItem onClick={() => deleteMealHandler()}>{t('mealBuilder.buttons.deleteMeal')}</MenuItem>
+              <MenuItem onClick={() => duplicateMealHandler()}>{t('mealBuilder.buttons.duplicateMeal')}</MenuItem>
             </Menu>
           </Grid>
         </Grid>

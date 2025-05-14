@@ -89,7 +89,8 @@
     },
     "buttons":{
       "addMeal":"Agregar comida",
-      "deleteMeal":"Eliminar comida"
+      "deleteMeal":"Eliminar comida",
+      "duplicateMeal":"Duplicar comida"
     },
     "mealTags":{
       "breakfast":"Desayuno",

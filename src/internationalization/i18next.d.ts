@@ -93,6 +93,7 @@ declare module 'i18next' {
           buttons: {
             addMeal: string;
             deleteMeal: string;
+            duplicateMeal: string;
           };
           mealTags: {
             breakfast: string;
