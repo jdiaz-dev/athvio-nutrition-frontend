@@ -20,13 +20,7 @@ function MealTagSelector({ mealTag }: { mealTag: string }) {
       {
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">{t('mealBuilder.titles.mealTag')}</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={mealTag.length > 0 ? mealTag : t(defaultMealTagKey as any)}
-            label="Database"
-            onChange={handleChange}
-          >
+          <Select labelId="demo-simple-select-label" id="demo-simple-select" value={mealTag} label="Database" onChange={handleChange}>
             {mealTagKeyList.map((mealTagKey, index) => (
               <MenuItem key={index} value={t(mealTagKey as any)}>
                 {t(mealTagKey as any)}

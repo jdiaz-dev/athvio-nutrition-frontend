@@ -97,7 +97,9 @@
       "dinner":"Cena",
       "firstMeal":"Primera comida",
       "secondMeal":"Segunda comida",
-      "thirdMeal":"Tercera comida"
+      "thirdMeal":"Tercera comida",
+      "fourthMeal":"Cuarta comida",
+      "fifthMeal":"Quinta comida"
     }
   },
   "toolTips":{

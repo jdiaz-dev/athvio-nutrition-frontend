@@ -96,7 +96,9 @@
       "dinner":"Dinner",
       "firstMeal":"First meal",
       "secondMeal":"Second meal",
-      "thirdMeal":"Third meal"
+      "thirdMeal":"Third meal",
+      "fourthMeal":"Fourth meal",
+      "fifthMeal":"Fifth meal"
     }
   },
   "toolTips":{

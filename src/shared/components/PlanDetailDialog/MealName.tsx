@@ -23,6 +23,7 @@ function MealName({ name, componentTouched }: { name: string; componentTouched: 
   useEffect(() => {
     _setName(name);
   }, [name]);
+
   return (
     <>
       {editMealTag ? (

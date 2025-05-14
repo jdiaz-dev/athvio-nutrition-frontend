@@ -112,7 +112,7 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
         sx={{ minWidth: 275 }}
         className={classes.card}
         variant="outlined"
-        onClick={componentTouchedHandler}
+        onMouseEnter={componentTouchedHandler}
         onMouseLeave={untouchedComponetHandler}
       >
         <Grid container spacing={1}>
