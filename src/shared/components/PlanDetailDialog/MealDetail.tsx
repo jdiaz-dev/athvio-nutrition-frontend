@@ -118,12 +118,12 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
         sx={{ minWidth: 275 }}
         className={classes.card}
         variant="outlined"
-        onMouseEnter={componentTouchedHandler}
+        onClick={componentTouchedHandler}
         onMouseLeave={untouchedComponetHandler}
       >
         <Grid container spacing={1}>
           <Grid item xs={10} style={{ display: 'flex' }}>
-            <MealTagSelector mealTag={_mealTag()} />
+            <MealTagSelector mealTag={_mealTag()} setComponentTouched={setComponentTouched} />
             <MealName name={_mealName()} componentTouched={componentTouched} />
           </Grid>
           <Grid item xs={2} style={{ height: '45px', paddingLeft: '8%' }}>

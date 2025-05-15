@@ -6,9 +6,8 @@ function MealNamesList({ meals, handler }: { meals: Meal[]; handler: () => void 
   return (
     <List onClick={handler}>
       {meals?.map((meal, index1) => (
-        <div style={{ marginBottom: '20px' }}>
+        <div key={index1} style={{ marginBottom: '20px' }}>
           <ListItemText
-            key={index1}
             style={{
               padding: 0,
               overflowWrap: 'break-word',
