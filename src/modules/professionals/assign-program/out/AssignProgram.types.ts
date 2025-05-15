@@ -11,7 +11,7 @@ export interface AssignProgramBody {
   professional: string;
   program: string;
   patients: string[];
-  assignmentStartDate: Dayjs;
+  assignmentStartDate: string;
   startingDay: number;
 }
 

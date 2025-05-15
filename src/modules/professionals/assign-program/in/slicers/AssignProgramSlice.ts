@@ -17,7 +17,7 @@ export const assignProgramSlice = createSlice({
       state.patients = filteredPatients;
       return state;
     },
-    assignStartDate: (state, action: PayloadAction<Dayjs>) => {
+    assignStartDate: (state, action: PayloadAction<string>) => {
       state.assignmentStartDate = action.payload;
       return state;
     },

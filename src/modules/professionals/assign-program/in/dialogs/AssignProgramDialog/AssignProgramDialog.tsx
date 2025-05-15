@@ -66,7 +66,7 @@ function AssignProgramDialog({
     dispatch(AssignProgramSlice.resetAssignmets());
   };
   const datePickedHandler = (newDate: Dayjs | null) => {
-    dispatch(AssignProgramSlice.assignStartDate(newDate as Dayjs));
+    dispatch(AssignProgramSlice.assignStartDate(newDate?.toString() as string));
   };
   const closeIconDialogHandler = () => {
     setCloseIconDialog(false);

@@ -5,6 +5,6 @@ export const assignProgramInitialState: AssignProgramInitialState = {
   professional: '',
   program: '',
   patients: [],
-  assignmentStartDate: dayjs(),
+  assignmentStartDate: dayjs().toString(),
   startingDay: 1,
 };
