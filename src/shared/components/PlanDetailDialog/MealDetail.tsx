@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Grid, Menu, MenuItem, Tooltip } from '@mui/material';
 import IconButton from 'src/shared/components/IconButton';
 import { useContext } from 'react';
@@ -57,6 +57,7 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
   const [openImportMealDialog, setOpenImportMealDialog] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+
   const handleAnchorOpen = (event: React.MouseEvent<HTMLButtonElement | HTMLOrSVGElement>) => {
     setAnchorEl(event.currentTarget as HTMLElement);
   };
@@ -94,10 +95,7 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
     dispatch(addMeal({ ...mealBasicInfoState, ...mealDetailsState, _id: generateTemporalId() }));
   };
   const componentTouchedHandler = () => {
-    if (!componentTouched) {
-      componentClickedHandler();
-      setComponentTouched(true);
-    }
+    setComponentTouched(true);
   };
   const closeImportMealHandler = () => {
     setComponentTouched(true);
@@ -107,7 +105,12 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
     if (componentTouched) void updateMealHandler();
     setComponentTouched(false);
   };
-
+  useEffect(() => {
+    if (componentTouched) {
+      componentClickedHandler();
+    }
+  }, [componentTouched]);
+  
   const _meal = () => (componentTouched ? mealDetailsState : mealDetails);
   const _mealTag = () => (componentTouched ? mealBasicInfoState.mealTag : mealTag);
   const _mealName = () => (componentTouched ? mealBasicInfoState.name : name);
