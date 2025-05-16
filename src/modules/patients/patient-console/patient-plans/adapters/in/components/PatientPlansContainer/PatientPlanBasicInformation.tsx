@@ -93,6 +93,7 @@ function PatientPlanBasicInformation({ patient, plan, assignedDate }: { patient:
 
     if (messageOk) void deletePlanHelper();
   }, [messageOk]);
+  
   useEffect(() => {
     if (openPlanDetailDialog) {
       const subscription = savedPlanButton$.subscribe((saved: boolean) => {
@@ -104,6 +105,7 @@ function PatientPlanBasicInformation({ patient, plan, assignedDate }: { patient:
       };
     }
   }, [openPlanDetailDialog]);
+
   useEffect(() => {
     if (planSaved) {
       void patientPlanMealsHandler();

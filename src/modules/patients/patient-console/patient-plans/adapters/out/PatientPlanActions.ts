@@ -96,7 +96,7 @@ export function usePatientPlan() {
           },
         },
       });
-      if (response.data) dispatch(PatientPlanSlice.acceptNewPatientPlan(response.data.duplicatePatientPlan));
+      if (response.data) dispatch(PatientPlanSlice.addNewPatientPlan(response.data.duplicatePatientPlan));
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
@@ -113,8 +113,7 @@ export function usePatientPlan() {
           },
         },
       });
-      response;
-      // dispatch(PatientPlanSlice.acceptNewPlans(response.data?.deleteMeal.plans as unknown as Plan[]));
+      if (response.data) dispatch(PatientPlanSlice.removePatientPlan(response.data.deletePatientPlan));
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
