@@ -8,6 +8,7 @@ import * as PatientPlanSlice from 'src/modules/patients/patient-console/patient-
 import { ReduxStates } from 'src/shared/types/types';
 import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import dayjs from 'dayjs';
 
 export const assignmentDateHook = (patientId: string) => {
   const authContext = useContext(AuthContext);
@@ -38,7 +39,7 @@ export const assignmentDateHook = (patientId: string) => {
       professional: authContext.professional,
       patient: patientId,
       patientPlan: patientPlanState._id,
-      assignedDate: newMonthDay,
+      assignedDate: dayjs(newMonthDay).toString(),
     });
   };
   const manageDragEffect = (e: EventInput) => {

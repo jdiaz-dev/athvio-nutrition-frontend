@@ -14,7 +14,7 @@ import { AuthContext } from 'src/modules/authentication/authentication/adapters/
 import { usePatientPlanMeal } from 'src/modules/patients/patient-console/patient-plans/adapters/out/PlanMealActions';
 import * as MealsListSlice from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/MealsListSlice';
 
-function PatientPlanBasicInformation({ patient, plan, assignedDate }: { patient: string; plan: PlanDayInfo; assignedDate: Date }) {
+function PatientPlanBasicInformation({ patient, plan, assignedDate }: { patient: string; plan: PlanDayInfo; assignedDate: string }) {
   const authContext = useContext(AuthContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
 
@@ -117,7 +117,7 @@ function PatientPlanBasicInformation({ patient, plan, assignedDate }: { patient:
       </PlanBucket>
       {openPlanDetailDialog && (
         <PlanDetailDialog
-          planDay={assignedDate.toDateString()}
+          planDay={assignedDate}
           openPlanDetailDialog={openPlanDetailDialog}
           setOpenPlanDetailDialog={setOpenPlanDetailDialog}
         />

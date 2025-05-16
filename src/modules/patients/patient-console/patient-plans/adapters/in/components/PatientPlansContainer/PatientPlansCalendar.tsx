@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { Dispatch, SetStateAction, useContext, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { DatesSetArg } from '@fullcalendar/core';
 import { Theme } from '@mui/material/styles';
@@ -26,9 +26,10 @@ import * as PatientPlanSlice from 'src/modules/patients/patient-console/patient-
 import CalendarHeader from 'src/modules/patients/patient-console/patient-plans/adapters/in/components/PatientPlansContainer/CalendarHeader';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
+import { Box } from '@mui/system';
 dayjs.extend(utc);
 
-function PatientPlansCalendar() {
+function PatientPlansCalendar({ dateSet, setDateSet }: { dateSet: DateSet | null; setDateSet: Dispatch<SetStateAction<DateSet | null>> }) {
   const dispatch = useDispatch();
   const matchDownSM = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
   const calendarRef = useRef<FullCalendar>(null);
@@ -37,13 +38,7 @@ function PatientPlansCalendar() {
   const { patientId } = useParams();
   const { getPatientPlans } = usePatientPlan();
   const { reloadRecordList, setReloadRecordList } = useReloadRecords();
-  const [dateSet, setDateSet] = useState<DateSet | null>(null);
   const [datesToShow, setDatesToShow] = useState<DateItem<PatientPlanDateExtendedProps>[]>([]);
-  const input = {
-    patient: patientId as string,
-    offset: 0,
-    limit: 30,
-  };
 
   const { handleOnStart, handleOnDrop, manageDragEffect } = assignmentDateHook(patientId as string);
 
@@ -56,12 +51,21 @@ function PatientPlansCalendar() {
 
   useEffect(() => {
     const fetchPlans = async () => {
-      await getPatientPlans(input);
-      setReloadRecordList(false);
+      if (dateSet !== null) {
+        const input = {
+          patient: patientId as string,
+          offset: 0,
+          limit: 30,
+          startDate: dateSet.dateStart.toISOString(),
+          endDate: dateSet.dateEnd.toISOString(),
+        };
+        await getPatientPlans(input);
+        setReloadRecordList(false);
+      }
     };
 
-    if (reloadRecordList) fetchPlans();
-  }, [reloadRecordList]);
+    fetchPlans();
+  }, [dateSet]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -91,7 +95,7 @@ function PatientPlansCalendar() {
               _id: patientPlansState.length > 0 && planIndex >= 0 ? patientPlansState[planIndex]._id : null,
               meals: patientPlansState.length > 0 && planIndex >= 0 ? patientPlansState[planIndex].meals : null,
             },
-            assignedDate: new Date(dateStart.toString()),
+            assignedDate: dateStart.toString(),
           },
         });
 
@@ -118,27 +122,36 @@ function PatientPlansCalendar() {
   const handleNext = () => calendarRef.current?.getApi().next();
 
   return (
-    <CurrentModuleContext.Provider value={{ currentModule: Modules.CLIENT_PLANS }}>
-      <ReloadRecordListContext.Provider value={{ reloadRecordList, setReloadRecordList }}>
-        <CalendarStyled withStylesForCustomScroller={true}>
-          <CalendarHeader dateSet={dateSet} handleCalendarNext={handleNext} handleCalendarPrev={handlePrev} />
+    <Box
+      sx={{
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        flexGrow: 1,
+      }}
+    >
+      <CurrentModuleContext.Provider value={{ currentModule: Modules.CLIENT_PLANS }}>
+        <ReloadRecordListContext.Provider value={{ reloadRecordList, setReloadRecordList }}>
+          <CalendarStyled withStylesForCustomScroller={true}>
+            <CalendarHeader dateSet={dateSet} handleCalendarNext={handleNext} handleCalendarPrev={handlePrev} />
 
-          <FullCalendar
-            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
-            headerToolbar={false}
-            events={datesToShow}
-            ref={calendarRef}
-            editable={true}
-            datesSet={handleDateSet}
-            eventContent={PatientPlansHelper}
-            titleFormat={{ year: 'numeric', month: 'long' }}
-            eventDragStart={handleOnStart}
-            eventDrop={handleOnDrop}
-            eventDataTransform={manageDragEffect}
-          />
-        </CalendarStyled>
-      </ReloadRecordListContext.Provider>
-    </CurrentModuleContext.Provider>
+            <FullCalendar
+              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
+              headerToolbar={false}
+              events={datesToShow}
+              ref={calendarRef}
+              editable={true}
+              datesSet={handleDateSet}
+              eventContent={PatientPlansHelper}
+              titleFormat={{ year: 'numeric', month: 'long' }}
+              eventDragStart={handleOnStart}
+              eventDrop={handleOnDrop}
+              eventDataTransform={manageDragEffect}
+            />
+          </CalendarStyled>
+        </ReloadRecordListContext.Provider>
+      </CurrentModuleContext.Provider>
+    </Box>
   );
 }
 

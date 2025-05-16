@@ -10,7 +10,13 @@ import { AuthContext } from 'src/modules/authentication/authentication/adapters/
 import * as MealsListSlice from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/MealsListSlice';
 import { ReduxItemtatus, temporalId } from 'src/shared/Consts';
 
-const CreatePatientPlanButton = memo(function CreatePatientPlanButton({ patient, assignedDate }: { patient: string; assignedDate: Date }) {
+const CreatePatientPlanButton = memo(function CreatePatientPlanButton({
+  patient,
+  assignedDate,
+}: {
+  patient: string;
+  assignedDate: string;
+}) {
   const dispatch = useDispatch();
   const authContext = useContext(AuthContext);
   const patientPlanState = useSelector((state: ReduxStates) => state.patientPlans.patientPlan);
@@ -70,14 +76,14 @@ const CreatePatientPlanButton = memo(function CreatePatientPlanButton({ patient,
       {/* todo: enhance logic to open dialog that it is being created, test use useMemo */}
       {openPlanDetailDialogMemoized && patientPlanState?._id.length > 0 ? (
         <PlanDetailDialog
-          planDay={assignedDate.toDateString()}
+          planDay={assignedDate}
           openPlanDetailDialog={openPlanDetailDialogMemoized}
           setOpenPlanDetailDialog={setOpenPlanDetailDialog}
         />
       ) : (
         openPlanDetailDialogMemoized && (
           <PlanDetailDialog
-            planDay={assignedDate.toDateString()}
+            planDay={assignedDate}
             openPlanDetailDialog={openPlanDetailDialogMemoized}
             setOpenPlanDetailDialog={setOpenPlanDetailDialog}
           />

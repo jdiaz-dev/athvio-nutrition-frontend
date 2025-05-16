@@ -12,7 +12,7 @@ export interface Plan {
 
 export interface PatientPlanBody extends Omit<Plan, 'week' | 'day'> {
   patient: string;
-  assignedDate: Date;
+  assignedDate: string;
   // comments
   // commentResult
 }
@@ -32,6 +32,8 @@ export interface CreatePatientPlanResponse {
 
 export interface GetRecordsPatientPlansBody extends GetRecordsBody {
   patient: string;
+  startDate: string;
+  endDate: string;
 }
 
 export interface GetPatientPlansRequest {
@@ -48,9 +50,9 @@ export interface GetPatientPlansResponse {
   getPatientPlansForWeb: PatientPlanBody[];
 }
 
-export interface UpdatePatientPlanInput extends CreatePatientPlanInput {
+export type UpdatePatientPlanInput = Omit<CreatePatientPlanInput, 'meals'> & {
   patientPlan: string;
-}
+};
 
 export type DuplicatePatientPlanInput = UpdatePatientPlanInput;
 

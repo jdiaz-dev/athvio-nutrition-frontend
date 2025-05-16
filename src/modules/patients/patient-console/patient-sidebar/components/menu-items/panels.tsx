@@ -27,7 +27,7 @@ const widget = (): NavItemType => ({
   type: 'group',
   children: [
     {
-      id: 'Goals',
+      id: 'Plans',
       title: <FormattedMessage id="Plans" />,
       type: 'item',
       url: '/widget/data',
@@ -36,7 +36,7 @@ const widget = (): NavItemType => ({
       slide: AvailableSlides.PLANS,
     },
     {
-      id: 'Goals',
+      id: 'Calories',
       title: <FormattedMessage id="Calories" />,
       type: 'item',
       url: '/widget/data',

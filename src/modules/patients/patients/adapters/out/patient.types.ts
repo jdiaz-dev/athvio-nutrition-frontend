@@ -2,7 +2,7 @@ import { Dayjs } from 'dayjs';
 import { PatientBody } from 'src/modules/patients/patient-console/patient/adapters/out/patient';
 import { PatientStates, ManagePatientGroupEnum } from 'src/shared/Consts';
 import { MetadataRecords } from 'src/shared/types/get-records.types';
-import { PatientGroup, GraphQLInput, PlanDayInfo } from 'src/shared/types/types';
+import { GraphQLInput, PlanDayInfo } from 'src/shared/types/types';
 
 export interface GraphQLPatientInput extends GraphQLInput {
   state: PatientStates;
@@ -55,7 +55,6 @@ export type GetPatientsRequest = {
   };
 };
 
-
 export type GetPatientResponse = {
   getPatients: {
     data: PatientBody[];
@@ -100,5 +99,5 @@ export type ManagePatientStateResponse = {
 export type PatientPlanDateExtendedProps = {
   patientPlanDayInfo: PlanDayInfo;
   patient: string;
-  assignedDate: Date;
+  assignedDate: string;
 };

@@ -1,5 +1,6 @@
 import { PatientPlanInitialState } from 'src/modules/patients/patient-console/patient-plans/adapters/out/patientPlan.types';
 import { defaultMealTagKey } from 'src/shared/Consts';
+import dayjs from 'dayjs';
 
 export const patientPlanInitialState: PatientPlanInitialState = {
   patientPlans: [],
@@ -7,7 +8,7 @@ export const patientPlanInitialState: PatientPlanInitialState = {
     _id: '',
     patient: '',
     title: '',
-    assignedDate: new Date(),
+    assignedDate: dayjs().toString(),
     meals: [],
   },
   mealBasicInfo: {

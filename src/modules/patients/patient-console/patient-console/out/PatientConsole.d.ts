@@ -6,6 +6,8 @@ import { ProfessionalBody } from 'src/modules/professionals/professional/adapter
 export type GetPatientForConsoleRequest = {
   patientPlans: {
     patient: string;
+    startDate: string;
+    endDate: string;
   };
   chat: {
     professional: string;

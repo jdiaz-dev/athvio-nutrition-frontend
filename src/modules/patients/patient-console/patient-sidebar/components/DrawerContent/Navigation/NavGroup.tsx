@@ -161,7 +161,7 @@ const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, sele
       case 'collapse':
         return (
           <NavCollapse
-            key={menuItem.id}
+            key={index}
             menu={menuItem}
             setSelectedItems={setSelectedItems}
             setSelectedLevel={setSelectedLevel}
@@ -195,12 +195,12 @@ const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, sele
         )
       )}
 
-      {itemRem?.elements?.map((menu) => {
+      {itemRem?.elements?.map((menu, index) => {
         switch (menu.type) {
           case 'collapse':
             return (
               <NavCollapse
-                key={menu.id}
+                key={index}
                 menu={menu}
                 level={1}
                 parentId={currentItem.id!}
@@ -224,12 +224,12 @@ const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, sele
   ));
 
   // menu list collapse & items
-  const items = currentItem.children?.map((menu) => {
+  const items = currentItem.children?.map((menu, index) => {
     switch (menu?.type) {
       case 'collapse':
         return (
           <NavCollapse
-            key={menu.id}
+            key={index}
             menu={menu}
             level={1}
             parentId={currentItem.id!}

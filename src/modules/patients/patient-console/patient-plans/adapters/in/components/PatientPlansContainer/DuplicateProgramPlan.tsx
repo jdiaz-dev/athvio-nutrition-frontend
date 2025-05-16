@@ -6,7 +6,7 @@ import { usePatientPlan } from 'src/modules/patients/patient-console/patient-pla
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
-function DuplicatePatientPlan({ patient, assignedDate }: { patient: string; assignedDate: Date }) {
+function DuplicatePatientPlan({ patient, assignedDate }: { patient: string; assignedDate: string }) {
   const authContext = useContext(AuthContext);
   const patientPlanState = useSelector((state: ReduxStates) => state.patientPlans.patientPlan);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
