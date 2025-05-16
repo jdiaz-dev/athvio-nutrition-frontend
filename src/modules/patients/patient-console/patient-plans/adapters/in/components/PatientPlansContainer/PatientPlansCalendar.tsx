@@ -56,8 +56,8 @@ function PatientPlansCalendar({ dateSet, setDateSet }: { dateSet: DateSet | null
           patient: patientId as string,
           offset: 0,
           limit: 30,
-          startDate: dateSet.dateStart.toISOString(),
-          endDate: dateSet.dateEnd.toISOString(),
+          startDate: dayjs.utc(dateSet.dateStart).set('hour', 0).toISOString(),
+          endDate: dayjs.utc(dateSet.dateEnd).set('hour', 0).toISOString(),
         };
         await getPatientPlans(input);
         setReloadRecordList(false);
