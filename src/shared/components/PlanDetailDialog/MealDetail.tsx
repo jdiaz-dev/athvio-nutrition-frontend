@@ -53,7 +53,8 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
   const { acceptNewMealDetail } = useMealBuilderSlicers(currentModuleContext.currentModule);
   const { updateMeal, deleteMeal, addMeal } = useMealListSlicers(currentModuleContext.currentModule);
 
-  const [componentTouched, setComponentTouched] = useState(false);
+  const [mealContainerTouched, setMealContainerTouched] = useState(false);
+  const [mealDeteted, setMealDeleted] = useState(false);
   const [openImportMealDialog, setOpenImportMealDialog] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -86,34 +87,35 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
   };
   const deleteMealHandler = async () => {
     setAnchorEl(null);
-    setComponentTouched(false);
     dispatch(deleteMeal(mealDetailsState._id));
+    setMealDeleted(true);
+    setMealContainerTouched(false);
   };
   const duplicateMealHandler = async () => {
     setAnchorEl(null);
-    setComponentTouched(false);
+    setMealContainerTouched(false);
     dispatch(addMeal({ ...mealBasicInfoState, ...mealDetailsState, _id: generateTemporalId() }));
   };
   const componentTouchedHandler = () => {
-    setComponentTouched(true);
+    if (!mealContainerTouched) setMealContainerTouched(true);
   };
   const closeImportMealHandler = () => {
-    setComponentTouched(true);
+    setMealContainerTouched(true);
     setOpenImportMealDialog(false);
   };
   const untouchedComponetHandler = () => {
-    if (componentTouched) void updateMealHandler();
-    setComponentTouched(false);
+    if (mealContainerTouched && !mealDeteted) void updateMealHandler();
+    setMealContainerTouched(false);
   };
   useEffect(() => {
-    if (componentTouched) {
+    if (mealContainerTouched) {
       componentClickedHandler();
     }
-  }, [componentTouched]);
-  
-  const _meal = () => (componentTouched ? mealDetailsState : mealDetails);
-  const _mealTag = () => (componentTouched ? mealBasicInfoState.mealTag : mealTag);
-  const _mealName = () => (componentTouched ? mealBasicInfoState.name : name);
+  }, [mealContainerTouched]);
+
+  const _meal = () => (mealContainerTouched ? mealDetailsState : mealDetails);
+  const _mealTag = () => (mealContainerTouched ? mealBasicInfoState.mealTag : mealTag);
+  const _mealName = () => (mealContainerTouched ? mealBasicInfoState.name : name);
   return (
     <>
       <Card
@@ -126,8 +128,8 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
       >
         <Grid container spacing={1}>
           <Grid item xs={10} style={{ display: 'flex' }}>
-            <MealTagSelector mealTag={_mealTag()} setComponentTouched={setComponentTouched} />
-            <MealName name={_mealName()} componentTouched={componentTouched} />
+            <MealTagSelector mealTag={_mealTag()} setMealContainerTouched={setMealContainerTouched} />
+            <MealName name={_mealName()} mealContainerTouched={mealContainerTouched} />
           </Grid>
           <Grid item xs={2} style={{ height: '45px', paddingLeft: '8%' }}>
             <Tooltip title={t('toolTips.importMeal')} placement="top">
@@ -164,3 +166,4 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
 }
 
 export default MealDetail;
+//check why zanahoria was touched

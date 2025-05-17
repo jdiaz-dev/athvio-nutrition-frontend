@@ -24,7 +24,7 @@ export const mealListSlicer = (sliceName: string, initialState: MealWithStatus[]
       deleteMeal: (state, action: PayloadAction<string>) => {
         const itemFoundIndex = state.findIndex((item) => item._id === action.payload);
         if (itemFoundIndex != -1) {
-          state[itemFoundIndex].status = ReduxItemtatus.DELETED;
+          state[itemFoundIndex] = { ...state[itemFoundIndex], status: ReduxItemtatus.DELETED };
         }
         return state;
       },

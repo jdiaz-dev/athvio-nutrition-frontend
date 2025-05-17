@@ -105,7 +105,7 @@ export enum MessagesForOkDialog {
 }
 
 export enum ReduxItemtatus {
-  INITIALIZED = '',
+  INITIALIZED = 'initialized',
   CREATED = 'created',
   UPDATED = 'updated',
   DELETED = 'deleted',

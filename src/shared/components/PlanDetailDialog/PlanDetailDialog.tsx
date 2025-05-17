@@ -38,7 +38,6 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
   const { addMeal } = useMealListSlicers(currentModuleContext.currentModule);
   const { mealListState } = useMealsStates(currentModuleContext.currentModule);
   const [closedIconDialog, setClosedIconDialog] = useState(true);
-
   useEffect(() => {
     if (!closedIconDialog) {
       reloadRecordListContext.setReloadRecordList(true);

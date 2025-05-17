@@ -4,7 +4,7 @@ import { changeName } from 'src/modules/professionals/programs/adapters/in/slice
 import { Box, TextField } from '@mui/material';
 
 const defaultName = 'Meal name';
-function MealName({ name, componentTouched }: { name: string; componentTouched: boolean }) {
+function MealName({ name, mealContainerTouched }: { name: string; mealContainerTouched: boolean }) {
   const dispatch = useDispatch();
   const [_name, _setName] = useState(name);
   const [editMealTag, setEditMealTag] = useState(false);
@@ -17,8 +17,8 @@ function MealName({ name, componentTouched }: { name: string; componentTouched: 
         dispatch(changeName(_name));
       }
     };
-    if (!editMealTag || !componentTouched) renameMealTagHelper();
-  }, [editMealTag, componentTouched]);
+    if (!editMealTag || !mealContainerTouched) renameMealTagHelper();
+  }, [editMealTag, mealContainerTouched]);
 
   useEffect(() => {
     _setName(name);

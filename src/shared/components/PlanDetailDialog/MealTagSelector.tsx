@@ -6,7 +6,7 @@ import { useMealBasicInfoSlicers } from 'src/shared/hooks/useMealBasicInfoSlicer
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import { useTranslation } from 'react-i18next';
 
-function MealTagSelector({ mealTag, setComponentTouched }: { mealTag: string; setComponentTouched: Dispatch<SetStateAction<boolean>> }) {
+function MealTagSelector({ mealTag, setMealContainerTouched }: { mealTag: string; setMealContainerTouched: Dispatch<SetStateAction<boolean>> }) {
   const currentModuleContext = useContext(CurrentModuleContext);
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ function MealTagSelector({ mealTag, setComponentTouched }: { mealTag: string; se
             value={mealTag}
             label="Database"
             onChange={handleChange}
-            onOpen={() => setComponentTouched(true)}
+            onOpen={() => setMealContainerTouched(true)}
           >
             {mealTagKeyList.map((mealTagKey, index) => (
               <MenuItem key={index} value={t(mealTagKey as any)}>
