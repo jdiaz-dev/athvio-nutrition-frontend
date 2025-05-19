@@ -1,2 +1,2 @@
 # todo
-- rename notes to clinical notes module
+- add pagination to clinical notes 
