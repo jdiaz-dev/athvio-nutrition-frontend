@@ -4,7 +4,7 @@ import NutritionalMealList from 'src/modules/professionals/nutritional-meals/ada
 import CreateUpdateNutritionalMealDialog from 'src/modules/professionals/nutritional-meals/adapters/in/dialogs/CreateUpdateNutritionalMealDialog/CreateUpdateNutritionalMealDialog';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { useReloadRecords } from 'src/shared/hooks/useReloadRecords';
-import ModulesWrapper from 'src/shared/components/wrappers/ModulesWrapper';
+import GenericContainerWrapper from 'src/shared/components/wrappers/GenericContainerWrapper';
 import TitleAndButtonModule from 'src/shared/components/TitleAndButtonModule';
 import { useTranslation } from 'react-i18next';
 
@@ -25,7 +25,7 @@ function NutritionalMealsContainer() {
   };
   return (
     <>
-      <ModulesWrapper>
+      <GenericContainerWrapper>
         <ReloadRecordListContext.Provider value={{ reloadRecordList, setReloadRecordList }}>
           <TitleAndButtonModule
             titleModule={t('mealsModule.titles.meals')}
@@ -41,7 +41,7 @@ function NutritionalMealsContainer() {
             />
           )}
         </ReloadRecordListContext.Provider>
-      </ModulesWrapper>
+      </GenericContainerWrapper>
     </>
   );
 }

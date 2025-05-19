@@ -5,7 +5,7 @@ export const CREATE_NOTE = gql`
     createNote(input: $input) {
       _id
       content
-      createdAt
+      date
     }
   }
 `;
@@ -13,9 +13,14 @@ export const CREATE_NOTE = gql`
 export const GET_NOTES = gql`
   query _getNotes($input: GetNotesDto!) {
     getNotes(input: $input) {
-      _id
-      content
-      createdAt
+      data {
+        _id
+        content
+        date
+      }
+      meta {
+        total
+      }
     }
   }
 `;
@@ -25,7 +30,7 @@ export const UPDATE_NOTE = gql`
     updateNote(input: $input) {
       _id
       content
-      createdAt
+      date
     }
   }
 `;
@@ -35,7 +40,7 @@ export const DELETE_NOTE = gql`
     deleteNote(input: $input) {
       _id
       content
-      createdAt
+      date
     }
   }
 `;

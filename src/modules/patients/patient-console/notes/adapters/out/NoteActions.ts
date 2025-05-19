@@ -1,7 +1,6 @@
 import { ApolloError } from '@apollo/client';
 import { useDispatch } from 'react-redux';
 import { apolloClient } from 'src/graphql/ApolloClient';
-import * as PatientPlanSlice from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/PatientPlanSlice';
 
 import {
   CreateNoteInput,
@@ -18,6 +17,7 @@ import {
   UpdateNoteResponse,
 } from 'src/modules/patients/patient-console/notes/helpers/notes';
 import { CREATE_NOTE, DELETE_NOTE, GET_NOTES, UPDATE_NOTE } from 'src/modules/patients/patient-console/notes/adapters/out/NotesQueries';
+import * as NotesSlice from 'src/modules/patients/patient-console/notes/adapters/in/slicers/NotesSlice';
 
 export function useNotes() {
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ export function useNotes() {
           },
         },
       });
-      if (response.data) dispatch(PatientPlanSlice.addNewPatientPlan(response.data.createNote));
+      if (response.data) dispatch(NotesSlice.addNewNoteItem(response.data.createNote));
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
@@ -44,7 +44,7 @@ export function useNotes() {
       const response = await apolloClient.query<GetNotesResponse, GetNotesRequest>({
         query: GET_NOTES,
         variables: {
-          patientPlans: {
+          input: {
             ...body,
           },
         },
@@ -52,7 +52,7 @@ export function useNotes() {
       });
 
       if (response.data) {
-        dispatch(PatientPlanSlice.acceptNewPatientPlans(response.data.getPatientPlansForWeb));
+        dispatch(NotesSlice.initializeNotes(response.data.getNotes.data));
       }
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
@@ -71,7 +71,7 @@ export function useNotes() {
         },
       });
       if (response.data) {
-        dispatch(PatientPlanSlice.modififyingSpecificPatientPlan(response.data?.updateNote));
+        dispatch(NotesSlice.updateNoteItem(response.data.updateNote));
       }
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
@@ -89,8 +89,7 @@ export function useNotes() {
           },
         },
       });
-      response;
-      // dispatch(PatientPlanSlice.acceptNewPlans(response.data?.deleteMeal.plans as unknown as Plan[]));
+      if (response.data) dispatch(NotesSlice.removeNoteItem(response.data.deleteNote._id));
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;

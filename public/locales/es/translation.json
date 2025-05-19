@@ -12,14 +12,17 @@
     },
     "buttons":{
       "save":"Guardar",
-      "cancel":"Cancelar"
+      "cancel":"Cancelar",
+      "edit":"Editar",
+      "remove":"Eliminar"
     }
   },
   "patientModule": {
     "buttons":{
       "newPatient": "Nuevo paciente",
       "addToGroup":"Agregar a grupo",
-      "options":"Opciones"
+      "options":"Opciones",
+      "newNote": "Nueva nota"
     },
     "groups":{
       "manageGroups":"Administrar grupos",
@@ -38,7 +41,11 @@
       "group":"Grupo"
     },
     "titles":{
-      "patients":"Pacientes"
+      "patients":"Pacientes",
+      "clinicalNotes":"Notas clínicas"
+    },
+    "messages":{
+      "deleteNoteMessage":"¿Estás seguro de eliminar esta nota?"
     }
   },
   "mealsModule":{

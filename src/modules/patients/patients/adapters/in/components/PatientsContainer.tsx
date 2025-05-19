@@ -8,7 +8,7 @@ import { useReloadRecords } from 'src/shared/hooks/useReloadRecords';
 import PatientList from 'src/modules/patients/patients/adapters/in/components/PatientList';
 import PatientStateTab from 'src/modules/patients/patients/adapters/in/components/PatientStateTab';
 import { PatientStateContext } from 'src/modules/patients/patients/adapters/in/components/PatientStateContext';
-import ModulesWrapper from 'src/shared/components/wrappers/ModulesWrapper';
+import GenericContainerWrapper from 'src/shared/components/wrappers/GenericContainerWrapper';
 import TitleAndButtonModule from 'src/shared/components/TitleAndButtonModule';
 import { useTranslation } from 'react-i18next';
 
@@ -30,7 +30,7 @@ function PatientsContainer() {
   };
   return (
     <>
-      <ModulesWrapper>
+      <GenericContainerWrapper>
         <ReloadRecordListContext.Provider value={{ reloadRecordList, setReloadRecordList }}>
           <PatientGroupsContext.Provider value={{ patientGroupList, setPatientGroupList }}>
             <TitleAndButtonModule
@@ -54,7 +54,7 @@ function PatientsContainer() {
             />
           )}
         </ReloadRecordListContext.Provider>
-      </ModulesWrapper>
+      </GenericContainerWrapper>
     </>
   );
 }

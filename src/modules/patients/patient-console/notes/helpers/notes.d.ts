@@ -3,10 +3,10 @@ export type NoteBody = {
   professional: string;
   patient: string;
   content: string;
-  createdAt: string;
+  date: string;
 };
 
-export type CreateNoteInput = Omit<NoteBody, '_id' | 'createdAt'> & {};
+export type CreateNoteInput = Omit<NoteBody, '_id'> & {};
 
 export type CreateNoteRequest = {
   input: CreateNoteInput;
@@ -16,7 +16,7 @@ export type CreateNoteResponse = {
   createNote: NoteBody;
 };
 
-export type GetNotesInput = Omit<NoteBody, 'professional' | 'patient'> & {};
+export type GetNotesInput = Pick<NoteBody, 'professional' | 'patient'> & {};
 export type GetNotesRequest = {
   input: GetNotesInput;
 };
@@ -29,11 +29,12 @@ export type Notes = {
     limit: number;
   };
 };
+
 export type GetNotesResponse = {
   getNotes: Notes;
 };
 
-export type UpdateNoteInput = CreateNoteInput & {
+export type UpdateNoteInput = Omit<CreateNoteInput, 'date'> & {
   note: string;
 };
 
@@ -45,7 +46,7 @@ export type UpdateNoteResponse = {
   updateNote: NoteBody;
 };
 
-export type DeleteNoteInput = UpdateNoteInput;
+export type DeleteNoteInput = Omit<UpdateNoteInput, 'content'>;
 
 export type DeleteNoteRequest = {
   input: DeleteNoteInput;
@@ -57,4 +58,5 @@ export type DeleteNoteResponse = {
 
 export type NotesInitialState = {
   notes: { data: NoteBody[] };
+  note: { data: Omit<NoteBody, 'professional'>; error: string | null; loading: boolean };
 };

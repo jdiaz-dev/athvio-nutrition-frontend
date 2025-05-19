@@ -22,7 +22,7 @@ const icons = {
 //todo: rename it file accoding to client options
 const widget = (): NavItemType => ({
   id: 'group-panels',
-  title: <FormattedMessage id="Panels" />,
+  title: <FormattedMessage id="Nutrition" />,
   icon: icons.ChatIcon,
   type: 'group',
   children: [

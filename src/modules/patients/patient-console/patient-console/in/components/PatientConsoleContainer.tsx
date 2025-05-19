@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 import CaloriesContainer from 'src/modules/patients/patient-console/calories/adapters/in/CaloriesContainer';
 import ChatContainer from 'src/modules/patients/patient-console/chat/adapters/in/components/ChatContainer';
+import NotesContainer from 'src/modules/patients/patient-console/notes/adapters/in/components/NotesContainer';
 import { usePatientConsole } from 'src/modules/patients/patient-console/patient-console/out/PatientConsoleActions';
 import { DateSet } from 'src/modules/patients/patient-console/patient-plans/adapters/helpers/PatientPlans';
 import PatientPlansCalendar from 'src/modules/patients/patient-console/patient-plans/adapters/in/components/PatientPlansContainer/PatientPlansCalendar';
@@ -62,6 +63,7 @@ function PatientConsoleContainer() {
 
           {selectedPanel === AvailableSlides.PLANS && <PatientPlansCalendar dateSet={dateSet} setDateSet={setDateSet} />}
           {selectedPanel === AvailableSlides.CALORIES && <CaloriesContainer />}
+          {selectedPanel === AvailableSlides.CLINICAL_NOTES && <NotesContainer />}
         </SidebarContext.Provider>
       </Box>
     </>

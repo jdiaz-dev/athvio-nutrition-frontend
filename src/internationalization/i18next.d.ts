@@ -17,6 +17,8 @@ declare module 'i18next' {
           buttons: {
             save: string;
             cancel: string;
+            edit: string;
+            remove: string;
           };
         };
         patientModule: {
@@ -24,6 +26,7 @@ declare module 'i18next' {
             newPatient: string;
             addToGroup: string;
             options: string;
+            newNote: string;
           };
           groups: {
             manageGroups: string;
@@ -43,6 +46,10 @@ declare module 'i18next' {
           };
           titles: {
             patients: string;
+            clinicalNotes: string;
+          };
+          messages: {
+            deleteNoteMessage: string;
           };
         };
         mealsModule: {
