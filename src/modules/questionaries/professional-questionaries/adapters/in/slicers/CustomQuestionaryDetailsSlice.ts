@@ -1,6 +1,6 @@
 import { createEntityAdapter, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
-import { QuestionaryDetail, QuestionaryDetailState } from 'src/modules/professionals/questionary-config/adapters/out/QuestionaryConfig';
+import { QuestionaryDetail, QuestionaryDetailState } from 'src/modules/questionaries/professional-questionaries/adapters/out/ProfessionalQuestionary';
 import { ReduxItemtatus } from 'src/shared/Consts';
 import { ReduxStates } from 'src/shared/types/types';
 
@@ -35,7 +35,7 @@ const { selectAll } = questionaryDetailsAdapter.getSelectors<any>((state) => sta
 
 export const useSelectAllEntities = () => {
   return useSelector((state: ReduxStates) => {
-    const res = selectAll(state.questionaryConfig.customQuestionaryDetails);
+    const res = selectAll(state.professionalQuestionary.customQuestionaryDetails);
     return res;
   });
 };

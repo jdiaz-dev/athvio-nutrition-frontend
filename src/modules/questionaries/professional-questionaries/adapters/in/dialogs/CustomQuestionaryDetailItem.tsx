@@ -7,8 +7,8 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import { makeStyles } from 'tss-react/mui';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { QuestionaryDetail } from 'src/modules/professionals/questionary-config/adapters/out/QuestionaryConfig';
-import * as CustomQuestionaryConfigDetailsSlice from 'src/modules/professionals/questionary-config/adapters/in/slicers/CustomQuestionaryConfigDetailsSlice';
+import { QuestionaryDetail } from 'src/modules/questionaries/professional-questionaries/adapters/out/ProfessionalQuestionary';
+import * as CustomProfessionalQuestionaryDetailsSlice from 'src/modules/questionaries/professional-questionaries/adapters/in/slicers/CustomQuestionaryDetailsSlice';
 import { useDispatch } from 'react-redux';
 
 const cardStyles = makeStyles()(() => {
@@ -26,17 +26,17 @@ function CustomQuestionaryDetailItem({ questionaryDetail: questionaryDetailData 
   const { _id, ...rest } = questionaryDetailData;
 
   const fieldNameHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    dispatch(CustomQuestionaryConfigDetailsSlice.updateCustom({ ...rest, _id: _id as string, fieldName: e.target.value }));
+    dispatch(CustomProfessionalQuestionaryDetailsSlice.updateCustom({ ...rest, _id: _id as string, fieldName: e.target.value }));
   };
   const associatedQuestionHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    dispatch(CustomQuestionaryConfigDetailsSlice.updateCustom({ ...rest, _id: _id as string, associatedQuestion: e.target.value }));
+    dispatch(CustomProfessionalQuestionaryDetailsSlice.updateCustom({ ...rest, _id: _id as string, associatedQuestion: e.target.value }));
   };
 
   const enableQuestionaryDetailHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    dispatch(CustomQuestionaryConfigDetailsSlice.updateCustom({ ...rest, _id: _id as string, isEnabled: !questionaryDetailData.isEnabled }));
+    dispatch(CustomProfessionalQuestionaryDetailsSlice.updateCustom({ ...rest, _id: _id as string, isEnabled: !questionaryDetailData.isEnabled }));
   };
   const deleteCustomQuestionaryDetailHandler = () => {
-    dispatch(CustomQuestionaryConfigDetailsSlice.deleteCustom(_id as string));
+    dispatch(CustomProfessionalQuestionaryDetailsSlice.deleteCustom(_id as string));
   };
   return (
     <Accordion>

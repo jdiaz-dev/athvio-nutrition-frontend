@@ -1,7 +1,7 @@
 import { Box } from '@mui/system';
 import React, { useState } from 'react';
-import QuestionaryDetailsDialog from 'src/modules/professionals/questionary-config/adapters/in/dialogs/QuestionaryDetailsDialog';
-import { QuestionaryGroup } from 'src/modules/professionals/questionary-config/adapters/out/QuestionaryConfig';
+import QuestionaryDetailsDialog from 'src/modules/questionaries/professional-questionaries/adapters/in/dialogs/QuestionaryDetailsDialog';
+import { QuestionaryGroup } from 'src/modules/questionaries/professional-questionaries/adapters/out/ProfessionalQuestionary';
 
 function QuestionaryGroupItem({ questionary, questionaryGroup }: { questionary: string; questionaryGroup: QuestionaryGroup }) {
   const [openQuestionaryGroupDialog, setOpenQuestionaryGroupDialog] = useState(false);

@@ -23,21 +23,21 @@ export type Questionary = {
   questionaryGroups: QuestionaryGroup[];
 };
 
-export type QuestionaryConfigBody = Questionary & {
+export type ProfessionalQuestionaryBody = Questionary & {
   _id: string;
   professional: string;
 };
 
-export type GetQuestionaryConfigBody = {
+export type GetProfessionalQuestionaryBody = {
   professional: string;
 };
 
-export type GetQuestionaryConfigRequest = {
-  input: GetQuestionaryConfigBody;
+export type GetProfessionalQuestionaryRequest = {
+  input: GetProfessionalQuestionaryBody;
 };
 
-export type GetQuestionaryConfigResponse = {
-  getQuestionary: QuestionaryConfigBody;
+export type GetProfessionalQuestionaryResponse = {
+  getQuestionary: ProfessionalQuestionaryBody;
 };
 
 export type IsEnabledQuestionaryDetails = Pick<QuestionaryDetail, 'isEnabled'> & { questionaryDetail: string };
@@ -54,7 +54,7 @@ export type EnableQuestionaryDetailRequest = {
 };
 
 export type EnableQuestionaryDetailResponse = {
-  enableQuestionaryDetails: QuestionaryConfigBody;
+  enableQuestionaryDetails: ProfessionalQuestionaryBody;
 };
 
 export type AddCustomQuestionaryDetailInput = Pick<QuestionaryDetail, 'fieldName' | 'associatedQuestion' | 'isEnabled'>;
@@ -63,7 +63,7 @@ export type AddCustomQuestionaryDetail = AddCustomQuestionaryDetailInput & {
   questionaryDetail: string;
 };
 
-export type AddCustomQuestionaryDetailBody = GetQuestionaryConfigBody & {
+export type AddCustomQuestionaryDetailBody = GetProfessionalQuestionaryBody & {
   questionary: string;
   questionaryGroup: string;
   questionaryDetailsInput: AddCustomQuestionaryDetailInput[];
@@ -88,13 +88,13 @@ export type CustomQuestionaryDetailsCrudRequest = {
   shouldToDelete: boolean;
 };
 export type CustomQuestionaryDetailsCrudResponse = {
-  addCustomQuestionaryDetails?: QuestionaryConfigBody;
-  updateCustomQuestionaryDetails?: QuestionaryConfigBody;
-  deleteCustomQuestionaryDetails?: QuestionaryConfigBody;
+  addCustomQuestionaryDetails?: ProfessionalQuestionaryBody;
+  updateCustomQuestionaryDetails?: ProfessionalQuestionaryBody;
+  deleteCustomQuestionaryDetails?: ProfessionalQuestionaryBody;
 };
 
-export type QuestionaryConfigInitialState = {
-  questionaryConfig: QuestionaryConfigBody;
+export type ProfessionalQuestionaryInitialState = {
+  professionalQuestionary: ProfessionalQuestionaryBody;
   questionaryDetails: QuestionaryDetail[];
   isEnabledQuestionaryDetails: IsEnabledQuestionaryDetails[];
   customQuestionaryDetails: QuestionaryDetailState[];

@@ -11,7 +11,7 @@ export type AddCustomQuestionaryDetail = AddCustomQuestionaryDetailInput & {
   questionaryDetail: string;
 };
 
-export type AddCustomQuestionaryDetailBody = GetQuestionaryConfigBody & {
+export type AddCustomQuestionaryDetailBody = GetProfessionalQuestionaryBody & {
   questionary: string;
   questionaryGroup: string;
   questionaryDetailsInput: AddCustomQuestionaryDetailInput[];
@@ -37,13 +37,13 @@ export type CustomQuestionaryDetailsCrudRequest = {
   shouldToDelete: boolean;
 };
 export type CustomQuestionaryDetailsCrudResponse = {
-  addCustomQuestionaryDetails?: QuestionaryConfigBody;
-  updateCustomQuestionaryDetails?: QuestionaryConfigBody;
-  deleteCustomQuestionaryDetails?: QuestionaryConfigBody;
+  addCustomQuestionaryDetails?: ProfessionalQuestionaryBody;
+  updateCustomQuestionaryDetails?: ProfessionalQuestionaryBody;
+  deleteCustomQuestionaryDetails?: ProfessionalQuestionaryBody;
 };
 
-export type QuestionaryConfigInitialState = {
-  questionaryConfig: QuestionaryConfigBody;
+export type ProfessionalQuestionaryInitialState = {
+  professionalQuestionary: ProfessionalQuestionaryBody;
   questionaryDetails: QuestionaryDetail[];
   isEnabledQuestionaryDetails: IsEnabledQuestionaryDetails[];
   customQuestionaryDetails: QuestionaryDetailState[];

@@ -1,8 +1,8 @@
 import React from 'react';
 import { IconButton, ListItem, ListItemText } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
-import { QuestionaryDetail } from 'src/modules/professionals/questionary-config/adapters/out/QuestionaryConfig';
-import * as QuestionaryConfigSlice from 'src/modules/professionals/questionary-config/adapters/in/slicers/QuestionaryConfigSlice';
+import { QuestionaryDetail } from 'src/modules/questionaries/professional-questionaries/adapters/out/ProfessionalQuestionary';
+import * as ProfessionalQuestionarySlice from 'src/modules/questionaries/professional-questionaries/adapters/in/slicers/ProfessionalQuestionarySlice';
 import { useDispatch } from 'react-redux';
 
 function EnableQuestionaryDetailItem({
@@ -14,13 +14,13 @@ function EnableQuestionaryDetailItem({
 
   const manageEnabledHandler = () => {
     dispatch(
-      QuestionaryConfigSlice.updateIsEnabledQuestionaryDetail({
+      ProfessionalQuestionarySlice.updateIsEnabledQuestionaryDetail({
         questionaryDetail: questionaryDetail._id as string,
         isEnabled: !questionaryDetail.isEnabled,
       }),
     );
     dispatch(
-      QuestionaryConfigSlice.manageIsEnabledQuestionaryDetails({
+      ProfessionalQuestionarySlice.manageIsEnabledQuestionaryDetails({
         questionaryDetail: questionaryDetail._id as string,
         isEnabled: !questionaryDetail.isEnabled,
       }),

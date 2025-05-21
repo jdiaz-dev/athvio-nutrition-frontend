@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { Button, Card, List } from '@mui/material';
 
-import { QuestionaryDetail, QuestionaryGroup } from 'src/modules/professionals/questionary-config/adapters/out/QuestionaryConfig';
-import EnableQuestionaryDetailItem from 'src/modules/professionals/questionary-config/adapters/in/dialogs/EnableQuestionaryDetailItem';
+import { QuestionaryDetail, QuestionaryGroup } from 'src/modules/questionaries/professional-questionaries/adapters/out/ProfessionalQuestionary';
+import EnableQuestionaryDetailItem from 'src/modules/questionaries/professional-questionaries/adapters/in/dialogs/EnableQuestionaryDetailItem';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
-import { useQuestionaryConfig } from 'src/modules/professionals/questionary-config/adapters/out/QuestionaryConfigActions';
+import { useProfessionalQuestionary } from 'src/modules/questionaries/professional-questionaries/adapters/out/ProfessionalQuestionaryActions';
 import { ReduxStates } from 'src/shared/types/types';
 import { useSelector } from 'react-redux';
 
@@ -20,8 +20,8 @@ function DefaultQuestionaryDetailsManager({
   setOpenQuestionaryGroupDialog: (openProgram: boolean) => void;
 }) {
   const authContext = useContext(AuthContext);
-  const isEnabledQuestionaryDetails = useSelector((state: ReduxStates) => state.questionaryConfig.isEnabledQuestionaryDetails);
-  const { enableQuestionaryDetails } = useQuestionaryConfig();
+  const isEnabledQuestionaryDetails = useSelector((state: ReduxStates) => state.professionalQuestionary.isEnabledQuestionaryDetails);
+  const { enableQuestionaryDetails } = useProfessionalQuestionary();
 
   const enabledQuestionaryDetailsHandler = async () => {
     await enableQuestionaryDetails({

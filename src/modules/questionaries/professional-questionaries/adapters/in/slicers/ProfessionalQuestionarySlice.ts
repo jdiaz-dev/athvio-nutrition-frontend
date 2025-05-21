@@ -1,28 +1,28 @@
 import { combineReducers, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { customQuestionaryDetailSlice } from 'src/modules/professionals/questionary-config/adapters/in/slicers/CustomQuestionaryConfigDetailsSlice';
-import { questionaryConfigInitialState } from 'src/modules/professionals/questionary-config/adapters/in/slicers/QuestionaryConfigInitialState';
+import { customQuestionaryDetailSlice } from 'src/modules/questionaries/professional-questionaries/adapters/in/slicers/CustomQuestionaryDetailsSlice';
+import { professionalQuestionaryInitialState } from 'src/modules/questionaries/professional-questionaries/adapters/in/slicers/ProfessionalQuestionaryInitialState';
 import {
   IsEnabledQuestionaryDetails,
-  QuestionaryConfigBody,
+  ProfessionalQuestionaryBody,
   QuestionaryDetail,
-} from 'src/modules/professionals/questionary-config/adapters/out/QuestionaryConfig';
+} from 'src/modules/questionaries/professional-questionaries/adapters/out/ProfessionalQuestionary';
 import { ReduxStates } from 'src/shared/types/types';
 
-const questionaryConfigSlice = createSlice({
-  name: 'questionaryConfig',
-  initialState: questionaryConfigInitialState.questionaryConfig,
+const professionalQuestionarySlice = createSlice({
+  name: 'professionalQuestionary',
+  initialState: professionalQuestionaryInitialState.professionalQuestionary,
   reducers: {
-    initializeQuestionaryConfig: (state, action: PayloadAction<QuestionaryConfigBody>) => {
+    initializeProfessionalQuestionary: (state, action: PayloadAction<ProfessionalQuestionaryBody>) => {
       state = action.payload;
       return state;
     },
   },
 });
-export const { initializeQuestionaryConfig } = questionaryConfigSlice.actions;
+export const { initializeProfessionalQuestionary } = professionalQuestionarySlice.actions;
 
 const questionaryDetailsSlice = createSlice({
   name: 'questionaryDetails',
-  initialState: questionaryConfigInitialState.questionaryDetails,
+  initialState: professionalQuestionaryInitialState.questionaryDetails,
   reducers: {
     initializeQuestionaryDetails: (state, action: PayloadAction<QuestionaryDetail[]>) => {
       state = action.payload;
@@ -44,7 +44,7 @@ export const { initializeQuestionaryDetails, updateIsEnabledQuestionaryDetail } 
 
 const isEnabledQuestionaryDetailsSlice = createSlice({
   name: 'enableQuestionaryDetail',
-  initialState: questionaryConfigInitialState.isEnabledQuestionaryDetails,
+  initialState: professionalQuestionaryInitialState.isEnabledQuestionaryDetails,
   reducers: {
     initializeNewEnabledQuestionaryDetail: (state, action: PayloadAction<IsEnabledQuestionaryDetails[]>) => {
       state = action.payload;
@@ -61,7 +61,7 @@ const isEnabledQuestionaryDetailsSlice = createSlice({
       return state;
     },
     resetIsEnabledQuestionaryDetails: (state) => {
-      state = questionaryConfigInitialState.isEnabledQuestionaryDetails;
+      state = professionalQuestionaryInitialState.isEnabledQuestionaryDetails;
       return state;
     },
   },
@@ -71,7 +71,7 @@ export const { initializeNewEnabledQuestionaryDetail, manageIsEnabledQuestionary
   isEnabledQuestionaryDetailsSlice.actions;
 
 export default combineReducers({
-  questionaryConfig: questionaryConfigSlice.reducer,
+  professionalQuestionary: professionalQuestionarySlice.reducer,
   questionaryDetails: questionaryDetailsSlice.reducer,
   isEnabledQuestionaryDetails: isEnabledQuestionaryDetailsSlice.reducer,
   customQuestionaryDetails: customQuestionaryDetailSlice.reducer,

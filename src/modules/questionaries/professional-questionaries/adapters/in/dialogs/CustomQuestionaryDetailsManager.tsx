@@ -1,12 +1,12 @@
 import React, { useContext, useEffect } from 'react';
 import { Button, Card } from '@mui/material';
 
-import CustomQuestionaryDetailItem from 'src/modules/professionals/questionary-config/adapters/in/dialogs/CustomQuestionaryDetailItem';
-import { QuestionaryDetail, QuestionaryGroup } from 'src/modules/professionals/questionary-config/adapters/out/QuestionaryConfig';
+import CustomQuestionaryDetailItem from 'src/modules/questionaries/professional-questionaries/adapters/in/dialogs/CustomQuestionaryDetailItem';
+import { QuestionaryDetail, QuestionaryGroup } from 'src/modules/questionaries/professional-questionaries/adapters/out/ProfessionalQuestionary';
 import MainCard from 'src/shared/components/MainCard/MainCard';
 import { useDispatch } from 'react-redux';
-import * as CustomQuestionaryConfigDetailsSlice from 'src/modules/professionals/questionary-config/adapters/in/slicers/CustomQuestionaryConfigDetailsSlice';
-import { useQuestionaryConfig } from 'src/modules/professionals/questionary-config/adapters/out/QuestionaryConfigActions';
+import * as CustomProfessionalQuestionaryDetailsSlice from 'src/modules/questionaries/professional-questionaries/adapters/in/slicers/CustomQuestionaryDetailsSlice';
+import { useProfessionalQuestionary } from 'src/modules/questionaries/professional-questionaries/adapters/out/ProfessionalQuestionaryActions';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 import { generateTemporalId } from 'src/shared/helpers/functions';
 import { ReduxItemtatus, temporalId } from 'src/shared/Consts';
@@ -21,14 +21,14 @@ function CustomQuestionaryDetailsManager({
   questionaryDetails: QuestionaryDetail[];
 }) {
   const dispatch = useDispatch();
-  const { customQuestionaryDetailsCRUD } = useQuestionaryConfig();
+  const { customQuestionaryDetailsCRUD } = useProfessionalQuestionary();
   const authContext = useContext(AuthContext);
 
-  const customQuestionaryDetailsState = CustomQuestionaryConfigDetailsSlice.useSelectAllEntities();
+  const customQuestionaryDetailsState = CustomProfessionalQuestionaryDetailsSlice.useSelectAllEntities();
 
   useEffect(() => {
     dispatch(
-      CustomQuestionaryConfigDetailsSlice.initializeCustomQuestionaryDetails([
+      CustomProfessionalQuestionaryDetailsSlice.initializeCustomQuestionaryDetails([
         ...questionaryDetails.map((item) => ({ ...item, status: ReduxItemtatus.INITIALIZED })),
       ]),
     );
@@ -42,7 +42,7 @@ function CustomQuestionaryDetailsManager({
       isEnabled: true,
       status: ReduxItemtatus.INITIALIZED,
     };
-    dispatch(CustomQuestionaryConfigDetailsSlice.addCustom(newQuestionaryDetail));
+    dispatch(CustomProfessionalQuestionaryDetailsSlice.addCustom(newQuestionaryDetail));
   };
 
   const customQuestionaryDetailsHandler = async () => {

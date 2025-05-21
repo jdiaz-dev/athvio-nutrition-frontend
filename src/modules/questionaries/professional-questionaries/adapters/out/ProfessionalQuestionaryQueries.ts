@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const GET_QUESTIONARY = gql`
-  query _getQuestionary($input: GetQuestionaryConfigDto!) {
+  query _getQuestionary($input: GetProfessionalQuestionaryDto!) {
     getQuestionary(input: $input) {
       _id
       professional

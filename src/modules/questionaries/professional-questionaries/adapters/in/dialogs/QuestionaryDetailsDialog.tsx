@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Dialog, DialogContent, DialogTitle } from '@mui/material';
-import { QuestionaryGroup } from 'src/modules/professionals/questionary-config/adapters/out/QuestionaryConfig';
+import { QuestionaryGroup } from 'src/modules/questionaries/professional-questionaries/adapters/out/ProfessionalQuestionary';
 import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
-import * as QuestionaryConfigSlice from 'src/modules/professionals/questionary-config/adapters/in/slicers/QuestionaryConfigSlice';
+import * as ProfessionalQuestionarySlice from 'src/modules/questionaries/professional-questionaries/adapters/in/slicers/ProfessionalQuestionarySlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
-import CustomQuestionaryDetailsManager from 'src/modules/professionals/questionary-config/adapters/in/dialogs/CustomQuestionaryDetailsManager';
-import DefaultQuestionaryDetailsManager from 'src/modules/professionals/questionary-config/adapters/in/dialogs/DefaultQuestionaryDetailsManager';
+import CustomQuestionaryDetailsManager from 'src/modules/questionaries/professional-questionaries/adapters/in/dialogs/CustomQuestionaryDetailsManager';
+import DefaultQuestionaryDetailsManager from 'src/modules/questionaries/professional-questionaries/adapters/in/dialogs/DefaultQuestionaryDetailsManager';
 
 function QuestionaryDetailsDialog({
   openQuestionaryGroupDialog,
@@ -20,7 +20,7 @@ function QuestionaryDetailsDialog({
   questionaryGroup: QuestionaryGroup;
 }) {
   const dispatch = useDispatch();
-  const questionaryDetails = useSelector((state: ReduxStates) => state.questionaryConfig.questionaryDetails);
+  const questionaryDetails = useSelector((state: ReduxStates) => state.professionalQuestionary.questionaryDetails);
   const closeIconDialogHandler = () => {
     setOpenQuestionaryGroupDialog(false);
     setClosedIconDialog(false);
@@ -28,7 +28,7 @@ function QuestionaryDetailsDialog({
   const [closedIconDialog, setClosedIconDialog] = useState(true);
 
   useEffect(() => {
-    dispatch(QuestionaryConfigSlice.initializeQuestionaryDetails(questionaryGroup.questionaryDetails));
+    dispatch(ProfessionalQuestionarySlice.initializeQuestionaryDetails(questionaryGroup.questionaryDetails));
   }, [questionaryGroup]);
 
   return (

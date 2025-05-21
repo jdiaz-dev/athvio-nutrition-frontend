@@ -1,29 +1,29 @@
 import { ApolloError } from '@apollo/client';
 import { useDispatch } from 'react-redux';
 import { apolloClient } from 'src/graphql/ApolloClient';
-import * as QuestionaryConfigSlice from 'src/modules/professionals/questionary-config/adapters/in/slicers/QuestionaryConfigSlice';
+import * as ProfessionalQuestionarySlice from 'src/modules/questionaries/professional-questionaries/adapters/in/slicers/ProfessionalQuestionarySlice';
 import {
   EnableQuestionaryDetailsBody,
   EnableQuestionaryDetailRequest,
   EnableQuestionaryDetailResponse,
-  GetQuestionaryConfigBody,
-  GetQuestionaryConfigRequest,
-  GetQuestionaryConfigResponse,
+  GetProfessionalQuestionaryBody,
+  GetProfessionalQuestionaryRequest,
+  GetProfessionalQuestionaryResponse,
   CustomQuestionaryDetailsCrudRequest,
   CustomQuestionaryDetailsCrudResponse,
-} from 'src/modules/professionals/questionary-config/adapters/out/QuestionaryConfig';
+} from 'src/modules/questionaries/professional-questionaries/adapters/out/ProfessionalQuestionary';
 import {
   ENABLE_QUESTIONARY_DETAILS,
   GET_QUESTIONARY,
   CUSTOM_QUESTIONARY_DETAILS_CRUD,
-} from 'src/modules/professionals/questionary-config/adapters/out/QuestionaryConfigQueries';
+} from 'src/modules/questionaries/professional-questionaries/adapters/out/ProfessionalQuestionaryQueries';
 
-export function useQuestionaryConfig() {
+export function useProfessionalQuestionary() {
   const dispatch = useDispatch();
 
-  const getQuestionary = async (body: GetQuestionaryConfigBody): Promise<void> => {
+  const getQuestionary = async (body: GetProfessionalQuestionaryBody): Promise<void> => {
     try {
-      const response = await apolloClient.query<GetQuestionaryConfigResponse, GetQuestionaryConfigRequest>({
+      const response = await apolloClient.query<GetProfessionalQuestionaryResponse, GetProfessionalQuestionaryRequest>({
         query: GET_QUESTIONARY,
         variables: {
           input: {
@@ -31,7 +31,7 @@ export function useQuestionaryConfig() {
           },
         },
       });
-      dispatch(QuestionaryConfigSlice.initializeQuestionaryConfig(response.data.getQuestionary));
+      dispatch(ProfessionalQuestionarySlice.initializeProfessionalQuestionary(response.data.getQuestionary));
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
@@ -49,10 +49,10 @@ export function useQuestionaryConfig() {
         },
       });
       if (response.data) {
-        dispatch(QuestionaryConfigSlice.initializeQuestionaryConfig(response.data.enableQuestionaryDetails));
+        dispatch(ProfessionalQuestionarySlice.initializeProfessionalQuestionary(response.data.enableQuestionaryDetails));
 
         //toodo: remove this comment
-        dispatch(QuestionaryConfigSlice.resetIsEnabledQuestionaryDetails());
+        dispatch(ProfessionalQuestionarySlice.resetIsEnabledQuestionaryDetails());
       }
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
@@ -68,11 +68,11 @@ export function useQuestionaryConfig() {
         },
       });
       if (response.data?.deleteCustomQuestionaryDetails) {
-        dispatch(QuestionaryConfigSlice.initializeQuestionaryConfig(response.data.deleteCustomQuestionaryDetails));
+        dispatch(ProfessionalQuestionarySlice.initializeProfessionalQuestionary(response.data.deleteCustomQuestionaryDetails));
       } else if (response.data?.updateCustomQuestionaryDetails) {
-        dispatch(QuestionaryConfigSlice.initializeQuestionaryConfig(response.data.updateCustomQuestionaryDetails));
+        dispatch(ProfessionalQuestionarySlice.initializeProfessionalQuestionary(response.data.updateCustomQuestionaryDetails));
       } else if (response.data?.addCustomQuestionaryDetails) {
-        dispatch(QuestionaryConfigSlice.initializeQuestionaryConfig(response.data.addCustomQuestionaryDetails));
+        dispatch(ProfessionalQuestionarySlice.initializeProfessionalQuestionary(response.data.addCustomQuestionaryDetails));
       }
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
