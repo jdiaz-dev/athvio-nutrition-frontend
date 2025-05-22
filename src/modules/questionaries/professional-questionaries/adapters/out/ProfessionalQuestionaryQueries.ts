@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const GET_QUESTIONARY = gql`
-  query _getQuestionary($input: GetProfessionalQuestionaryDto!) {
-    getQuestionary(input: $input) {
+  query _getProfessionalQuestionary($input: GetProfessionalQuestionaryDto!) {
+    getProfessionalQuestionary(input: $input) {
       _id
       professional
       questionaryGroups {
