@@ -37,7 +37,7 @@ export type GetProfessionalQuestionaryRequest = {
 };
 
 export type GetProfessionalQuestionaryResponse = {
-  getQuestionary: ProfessionalQuestionaryBody;
+  getProfessionalQuestionary: ProfessionalQuestionaryBody;
 };
 
 export type IsEnabledQuestionaryDetails = Pick<QuestionaryDetail, 'isEnabled'> & { questionaryDetail: string };

@@ -13,6 +13,7 @@ import { ChatContext } from 'src/modules/patients/patient-console/patient-sideba
 import { SelelectePanelContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SelectedPanelContext';
 import { SidebarContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SidebarContext';
 import { AvailableSlides } from 'src/modules/patients/patient-console/patient-sidebar/utils/sidebar.enum';
+import PatientQuestionaryContainer from 'src/modules/questionaries/patient-questionaries/adapters/in/components/PatientQuestionaryContainer';
 
 function PatientConsoleContainer() {
   const authContext = useContext(AuthContext);
@@ -64,6 +65,7 @@ function PatientConsoleContainer() {
           {selectedPanel === AvailableSlides.PLANS && <PatientPlansCalendar dateSet={dateSet} setDateSet={setDateSet} />}
           {selectedPanel === AvailableSlides.CALORIES && <CaloriesContainer />}
           {selectedPanel === AvailableSlides.CLINICAL_NOTES && <NotesContainer />}
+          {selectedPanel === AvailableSlides.PATIENT_QUESTIONARY && <PatientQuestionaryContainer />}
         </SidebarContext.Provider>
       </Box>
     </>

@@ -31,7 +31,7 @@ export function useProfessionalQuestionary() {
           },
         },
       });
-      dispatch(ProfessionalQuestionarySlice.initializeProfessionalQuestionary(response.data.getQuestionary));
+      dispatch(ProfessionalQuestionarySlice.initializeProfessionalQuestionary(response.data.getProfessionalQuestionary));
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;

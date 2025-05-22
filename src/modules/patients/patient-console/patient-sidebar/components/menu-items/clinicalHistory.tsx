@@ -8,8 +8,10 @@ import ChatIcon from '@mui/icons-material/Chat';
 import { AvailableSlides } from 'src/modules/patients/patient-console/patient-sidebar/utils/sidebar.enum';
 import { NavItemType } from 'src/modules/patients/patient-console/patient-sidebar/types/menu';
 import EditNoteIcon from '@mui/icons-material/EditNote';
+import QuizIcon from '@mui/icons-material/Quiz';
+
 const icons = {
-  ChatIcon,
+  QuizIcon,
   EditNoteIcon,
 };
 
@@ -17,27 +19,27 @@ const icons = {
 const clinicalHistory: NavItemType = {
   id: 'group-applications',
   title: <FormattedMessage id="Clinical History" />,
-  icon: icons.ChatIcon,
+  icon: icons.QuizIcon,
   type: 'group',
   children: [
     {
       id: 'Goals',
-      title: <FormattedMessage id="Clinical notes" />,
+      title: <FormattedMessage id="Notas clínicas" />,
       type: 'item',
       url: '/widget/data',
       icon: icons.EditNoteIcon,
-      toolTipTitle: 'Clinical notes',
+      toolTipTitle: 'Notas clínicas',
       slide: AvailableSlides.CLINICAL_NOTES,
     },
-    /* {
+    {
       id: 'Analytics',
-      title: <FormattedMessage id="Analytics" />,
+      title: <FormattedMessage id="Questionario" />,
       type: 'item',
       url: '/widget/data',
-      icon: icons.EditNoteIcon,
-      toolTipTitle: '',
-      slide: AvailableSlides.ANALITYCS,
-    }, */
+      icon: icons.QuizIcon,
+      toolTipTitle: 'Questionario',
+      slide: AvailableSlides.PATIENT_QUESTIONARY,
+    },
   ],
 };
 
