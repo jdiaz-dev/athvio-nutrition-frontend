@@ -10,6 +10,7 @@ import { ProfessionalQuestionaryInitialState } from 'src/modules/questionaries/p
 import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 import { NutritionBuilderInitialState } from 'src/modules/nutrition-builder/adapters/out/nutritionBuilder';
 import { NotesInitialState } from 'src/modules/patients/patient-console/notes/helpers/notes';
+import { PatientQuestionaryInitialState } from 'src/modules/questionaries/patient-questionaries/adapters/out/PatientQuestionary';
 
 export type DateItem<T> = {
   title: string;
@@ -50,6 +51,7 @@ export type ReduxStates = {
   patient: PatientInitialState;
   professional: ProfessionalInitialState;
   professionalQuestionary: ProfessionalQuestionaryInitialState;
+  patientQuestionary: PatientQuestionaryInitialState;
   nutritionBuilder: NutritionBuilderInitialState;
   notes: NotesInitialState;
 };

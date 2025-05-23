@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const GET_QUESTIONARY = gql`
+export const GET_PATIENT_QUESTIONARY = gql`
   query _getPatientQuestionary($input: GetPatientQuestionaryDto!) {
     getPatientQuestionary(input: $input) {
       _id

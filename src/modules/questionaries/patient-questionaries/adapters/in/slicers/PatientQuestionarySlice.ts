@@ -1,84 +1,57 @@
 import { combineReducers, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { patientQuestionaryInitialState } from 'src/modules/questionaries/patient-questionaries/adapters/in/slicers/PatientQuestionaryInitialState';
 import {
-  PatientQuestionaryBody,
-  QuestionaryDetailAdditionalNote,
+  PatientQuestionaryDetail,
+  PatientQuestionaryGroup,
 } from 'src/modules/questionaries/patient-questionaries/adapters/out/PatientQuestionary';
-import { customQuestionaryDetailSlice } from 'src/modules/questionaries/professional-questionaries/adapters/in/slicers/CustomQuestionaryDetailsSlice';
-import { professionalQuestionaryInitialState } from 'src/modules/questionaries/professional-questionaries/adapters/in/slicers/ProfessionalQuestionaryInitialState';
-import {
-  IsEnabledQuestionaryDetails,
-  ProfessionalQuestionaryBody,
-  QuestionaryDetail,
-} from 'src/modules/questionaries/professional-questionaries/adapters/out/ProfessionalQuestionary';
-import { ReduxStates } from 'src/shared/types/types';
 
-const professionalQuestionarySlice = createSlice({
-  name: 'professionalQuestionary',
-  initialState: professionalQuestionaryInitialState.professionalQuestionary,
+const patientQuestionaryGroupsSlice = createSlice({
+  name: 'patientQuestionaryGroups',
+  initialState: patientQuestionaryInitialState.patientQuestionaryGroups,
   reducers: {
-    initializeProfessionalQuestionary: (state, action: PayloadAction<ProfessionalQuestionaryBody>) => {
+    initializePatientQuestionaryGroups: (state, action: PayloadAction<PatientQuestionaryGroup[]>) => {
       state = action.payload;
       return state;
     },
-  },
-});
-export const { initializeProfessionalQuestionary } = professionalQuestionarySlice.actions;
-
-const questionaryDetailsSlice = createSlice({
-  name: 'questionaryDetails',
-  initialState: professionalQuestionaryInitialState.questionaryDetails,
-  reducers: {
-    initializeQuestionaryDetails: (state, action: PayloadAction<QuestionaryDetail[]>) => {
-      state = action.payload;
-      return state;
-    },
-    updateIsEnabledQuestionaryDetail: (state, action: PayloadAction<IsEnabledQuestionaryDetails>) => {
-      const { questionaryDetail, isEnabled } = action.payload;
-      state = state.map((item) => (item._id === questionaryDetail ? { ...item, isEnabled } : item));
-      return state;
-    },
-
-    /* addCustomQuestionaryDetail(state, action: PayloadAction<AddCustomQuestionaryDetailInput>) {
-      state.push({ ...action.payload, isEnabled: true });
-      return state;
-    }, */
-  },
-});
-export const { initializeQuestionaryDetails, updateIsEnabledQuestionaryDetail } = questionaryDetailsSlice.actions;
-
-const patientQuestionarySlice = createSlice({
-  name: 'patientQuestionary',
-  initialState: patientQuestionaryInitialState.patientQuestionary,
-  reducers: {
-    initializePatientQuestionary: (state, action: PayloadAction<PatientQuestionaryBody>) => {
-      state = action.payload;
-      return state;
-    },
-    updatePatientQuestionaryDetail: (state, action: PayloadAction<QuestionaryDetailAdditionalNote>) => {
-      const { patientQuestionaryGroup, patientQuestionaryDetail, additionalNotes } = action.payload;
-      const itemFound = state.questionaryGroups.find((group) => group._id === patientQuestionaryGroup);
-
-      if (itemFound) {
-        state = state.filter((item) => item.questionaryDetail !== itemFound.questionaryDetail);
-      } else {
-        state.push(action.payload);
+    updateQuestionaryGroupItem: (state, action: PayloadAction<PatientQuestionaryGroup>) => {
+      const { _id, ...rest } = action.payload;
+      const indexFound = state.findIndex((item) => item._id === _id);
+      if (indexFound !== -1) {
+        state[indexFound] = { _id, ...rest };
       }
       return state;
     },
-    resetIsEnabledQuestionaryDetails: (state) => {
-      state = professionalQuestionaryInitialState.isEnabledQuestionaryDetails;
+  },
+});
+export const { initializePatientQuestionaryGroups, updateQuestionaryGroupItem } = patientQuestionaryGroupsSlice.actions;
+
+const patientQuestionaryDetailsSlice = createSlice({
+  name: 'patientQuestionaryDetails',
+  initialState: patientQuestionaryInitialState.patientQuestionaryDetails,
+  reducers: {
+    initializePatientQuestionaryDetails: (state, action: PayloadAction<PatientQuestionaryDetail[]>) => {
+      state = action.payload;
+      return state;
+    },
+    updateAnswerAndAdditionalNotes: (
+      state,
+      action: PayloadAction<Pick<PatientQuestionaryDetail, '_id' | 'answer' | 'additionalNotes'>>,
+    ) => {
+      const { _id, answer, additionalNotes } = action.payload;
+      const indexFound = state.findIndex((group) => group._id === _id);
+
+      if (indexFound !== -1) {
+        state[indexFound].answer = answer;
+        state[indexFound].additionalNotes = additionalNotes;
+      }
       return state;
     },
   },
 });
 
-export const { initializePatientQuestionary, updatePatientQuestionaryDetail, resetIsEnabledQuestionaryDetails } =
-  patientQuestionarySlice.actions;
+export const { initializePatientQuestionaryDetails, updateAnswerAndAdditionalNotes } = patientQuestionaryDetailsSlice.actions;
 
 export default combineReducers({
-  professionalQuestionary: professionalQuestionarySlice.reducer,
-  questionaryDetails: questionaryDetailsSlice.reducer,
-  isEnabledQuestionaryDetails: patientQuestionarySlice.reducer,
-  customQuestionaryDetails: customQuestionaryDetailSlice.reducer,
+  patientQuestionaryGroups: patientQuestionaryGroupsSlice.reducer,
+  patientQuestionaryDetails: patientQuestionaryDetailsSlice.reducer,
 });

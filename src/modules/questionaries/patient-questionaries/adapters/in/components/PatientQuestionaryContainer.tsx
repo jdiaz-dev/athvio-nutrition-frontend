@@ -1,7 +1,8 @@
 import React from 'react';
+import PatientQuestionaryGroupList from 'src/modules/questionaries/patient-questionaries/adapters/in/components/PatientQuestionaryGroupList';
 
 function PatientQuestionaryContainer() {
-  return <div style={{ width: '100%', height: '100%', paddingTop: '20%', fontSize: 40, color: 'yellow' }}>En desarrollo...</div>;
+  return <PatientQuestionaryGroupList />;
 }
 
 export default PatientQuestionaryContainer;

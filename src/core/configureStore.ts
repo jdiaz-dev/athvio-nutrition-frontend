@@ -9,6 +9,7 @@ import ChatReducer from 'src/modules/patients/patient-console/chat/adapters/in/s
 import PatientReducer from 'src/modules/patients/patient-console/patient/adapters/in/slicers/PatientSlice';
 import ProfessionalReducer from 'src/modules/professionals/professional/adapters/in/slicers/ProfessionalSlice';
 import ProfessionalQuestionaryReducer from 'src/modules/questionaries/professional-questionaries/adapters/in/slicers/ProfessionalQuestionarySlice';
+import PatientQuestionaryReducer from 'src/modules/questionaries/patient-questionaries/adapters/in/slicers/PatientQuestionarySlice';
 import NutritionBuilderReducer from 'src/modules/nutrition-builder/adapters/in/slicers/NutritionBuilderSlice';
 
 import thunk from 'redux-thunk';
@@ -28,6 +29,7 @@ export default configureStore({
     notes: notesSlice,
     professional: ProfessionalReducer,
     professionalQuestionary: ProfessionalQuestionaryReducer,
+    patientQuestionary: PatientQuestionaryReducer,
     nutritionBuilder: NutritionBuilderReducer,
   },
   devTools: true,

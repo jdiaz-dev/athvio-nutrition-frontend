@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import NoteList from 'src/modules/patients/patient-console/notes/adapters/in/components/NoteList';
@@ -13,8 +14,13 @@ function NotesContainer() {
     setOpenCreateUpdateNoteDialog(true);
   };
   return (
-    <>
-      <GenericContainerWrapper>
+    <GenericContainerWrapper>
+      <Box
+        sx={{
+          width: '95%',
+          margin: 'auto',
+        }}
+      >
         <TitleAndButtonModule
           titleModule={t('patientModule.titles.clinicalNotes')}
           buttonName={t('patientModule.buttons.newNote')}
@@ -27,8 +33,8 @@ function NotesContainer() {
             setOpenCreateUpdateNoteDialog={setOpenCreateUpdateNoteDialog}
           />
         )}
-      </GenericContainerWrapper>
-    </>
+      </Box>
+    </GenericContainerWrapper>
   );
 }
 

@@ -1,35 +1,28 @@
 import { ReduxItemtatus } from 'src/shared/Consts';
 
-export type QuestionaryDetail = {
+export type PatientQuestionaryDetail = {
   _id: string;
   fieldName: string;
   associatedQuestion: string;
+  answer: string;
+  additionalNotes: string;
   // fieldOptions?: string | string[];
-  isEnabled: boolean;
 };
 
-export type QuestionaryDetailState = QuestionaryDetail & {
+export type QuestionaryDetailState = PatientQuestionaryDetail & {
   status: ReduxItemtatus;
 };
 
-export type QuestionaryGroup = {
+export type PatientQuestionaryGroup = {
   _id: string;
   title: string;
   description?: string;
-  questionaryDetails: QuestionaryDetail[];
+  questionaryDetails: PatientQuestionaryDetail[];
 };
 
-export type Questionary = {
-  questionaryGroups: QuestionaryGroup[];
-};
-
-export type QuestionaryDetailAdditionalNote = {
-  patientQuestionaryGroup: string;
-  patientQuestionaryDetail: string;
-  additionalNotes: string;
-};
-export type PatientQuestionaryBody = Questionary & {
+export type PatientQuestionaryBody = {
   _id: string;
+  questionaryGroups: PatientQuestionaryGroup[];
 };
 
 export type GetPatientQuestionaryBody = {
@@ -46,5 +39,6 @@ export type GetPatientQuestionaryResponse = {
 };
 
 export type PatientQuestionaryInitialState = {
-  patientQuestionary: PatientQuestionaryBody;
+  patientQuestionaryGroups: PatientQuestionaryGroup[];
+  patientQuestionaryDetails: PatientQuestionaryDetail[];
 };

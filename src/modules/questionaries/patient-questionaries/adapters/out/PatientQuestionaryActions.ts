@@ -1,37 +1,31 @@
 import { ApolloError } from '@apollo/client';
 import { useDispatch } from 'react-redux';
 import { apolloClient } from 'src/graphql/ApolloClient';
-import * as ProfessionalQuestionarySlice from 'src/modules/questionaries/professional-questionaries/adapters/in/slicers/ProfessionalQuestionarySlice';
+import { GET_PATIENT_QUESTIONARY } from 'src/modules/questionaries/patient-questionaries/adapters/out/PatientQuestionaryQueries';
+import * as PatientQuestionarySlice from 'src/modules/questionaries/patient-questionaries/adapters/in/slicers/PatientQuestionarySlice';
+
 import {
-  EnableQuestionaryDetailsBody,
-  EnableQuestionaryDetailRequest,
-  EnableQuestionaryDetailResponse,
-  GetProfessionalQuestionaryBody,
-  GetProfessionalQuestionaryRequest,
-  GetProfessionalQuestionaryResponse,
-  CustomQuestionaryDetailsCrudRequest,
-  CustomQuestionaryDetailsCrudResponse,
-} from 'src/modules/questionaries/professional-questionaries/adapters/out/ProfessionalQuestionary';
-import {
-  ENABLE_QUESTIONARY_DETAILS,
-  GET_QUESTIONARY,
-  CUSTOM_QUESTIONARY_DETAILS_CRUD,
-} from 'src/modules/questionaries/professional-questionaries/adapters/out/ProfessionalQuestionaryQueries';
+  GetPatientQuestionaryBody,
+  GetPatientQuestionaryRequest,
+  GetPatientQuestionaryResponse,
+} from 'src/modules/questionaries/patient-questionaries/adapters/out/PatientQuestionary';
 
 export function usePatientQuestionary() {
   const dispatch = useDispatch();
 
-  const getPatientQuestionary = async (body: GetProfessionalQuestionaryBody): Promise<void> => {
+  const getPatientQuestionary = async (body: GetPatientQuestionaryBody): Promise<void> => {
     try {
-      const response = await apolloClient.query<GetProfessionalQuestionaryResponse, GetProfessionalQuestionaryRequest>({
-        query: GET_QUESTIONARY,
+      const response = await apolloClient.query<GetPatientQuestionaryResponse, GetPatientQuestionaryRequest>({
+        query: GET_PATIENT_QUESTIONARY,
         variables: {
           input: {
             ...body,
           },
         },
       });
-      dispatch(ProfessionalQuestionarySlice.initializeProfessionalQuestionary(response.data.getPatientQuestionary));
+      console.log('----------response.data', response.data)
+      if (response.data)
+        dispatch(PatientQuestionarySlice.initializePatientQuestionaryGroups(response.data.getPatientQuestionary.questionaryGroups));
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;
