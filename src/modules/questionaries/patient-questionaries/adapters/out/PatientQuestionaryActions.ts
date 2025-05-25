@@ -23,9 +23,9 @@ export function usePatientQuestionary() {
           },
         },
       });
-      console.log('----------response.data', response.data)
-      if (response.data)
+      if (response.data) {
         dispatch(PatientQuestionarySlice.initializePatientQuestionaryGroups(response.data.getPatientQuestionary.questionaryGroups));
+      }
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;

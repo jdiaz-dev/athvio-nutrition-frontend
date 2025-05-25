@@ -1,11 +1,8 @@
 import React, { useContext, useEffect } from 'react';
-import List from '@mui/material/List';
-import { useProfessionalQuestionary } from 'src/modules/questionaries/professional-questionaries/adapters/out/ProfessionalQuestionaryActions';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 
-import QuestionaryGroupItem from 'src/modules/questionaries/professional-questionaries/adapters/in/components/QuestionaryGroupItem';
 import { usePatientQuestionary } from 'src/modules/questionaries/patient-questionaries/adapters/out/PatientQuestionaryActions';
 import { useParams } from 'react-router-dom';
 import PatientQuestionaryGroupItem from 'src/modules/questionaries/patient-questionaries/adapters/in/components/PatientQuestionaryGroupItem';

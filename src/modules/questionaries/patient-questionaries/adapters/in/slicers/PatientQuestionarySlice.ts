@@ -13,11 +13,11 @@ const patientQuestionaryGroupsSlice = createSlice({
       state = action.payload;
       return state;
     },
-    updateQuestionaryGroupItem: (state, action: PayloadAction<PatientQuestionaryGroup>) => {
-      const { _id, ...rest } = action.payload;
+    updateQuestionaryGroupItem: (state, action: PayloadAction<Pick<PatientQuestionaryGroup, '_id' | 'questionaryDetails'>>) => {
+      const { _id, questionaryDetails } = action.payload;
       const indexFound = state.findIndex((item) => item._id === _id);
       if (indexFound !== -1) {
-        state[indexFound] = { _id, ...rest };
+        state[indexFound].questionaryDetails = questionaryDetails;
       }
       return state;
     },
@@ -33,15 +33,20 @@ const patientQuestionaryDetailsSlice = createSlice({
       state = action.payload;
       return state;
     },
-    updateAnswerAndAdditionalNotes: (
-      state,
-      action: PayloadAction<Pick<PatientQuestionaryDetail, '_id' | 'answer' | 'additionalNotes'>>,
-    ) => {
-      const { _id, answer, additionalNotes } = action.payload;
+    updateAnswer: (state, action: PayloadAction<Pick<PatientQuestionaryDetail, '_id' | 'answer'>>) => {
+      const { _id, answer } = action.payload;
       const indexFound = state.findIndex((group) => group._id === _id);
 
       if (indexFound !== -1) {
         state[indexFound].answer = answer;
+      }
+      return state;
+    },
+    updateAdditionalNotes: (state, action: PayloadAction<Pick<PatientQuestionaryDetail, '_id' | 'additionalNotes'>>) => {
+      const { _id, additionalNotes } = action.payload;
+      const indexFound = state.findIndex((group) => group._id === _id);
+
+      if (indexFound !== -1) {
         state[indexFound].additionalNotes = additionalNotes;
       }
       return state;
@@ -49,7 +54,7 @@ const patientQuestionaryDetailsSlice = createSlice({
   },
 });
 
-export const { initializePatientQuestionaryDetails, updateAnswerAndAdditionalNotes } = patientQuestionaryDetailsSlice.actions;
+export const { initializePatientQuestionaryDetails, updateAnswer, updateAdditionalNotes } = patientQuestionaryDetailsSlice.actions;
 
 export default combineReducers({
   patientQuestionaryGroups: patientQuestionaryGroupsSlice.reducer,
