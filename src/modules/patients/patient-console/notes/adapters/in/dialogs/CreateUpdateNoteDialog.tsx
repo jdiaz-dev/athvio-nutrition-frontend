@@ -34,6 +34,7 @@ function CreateUpdateNoteDialog({
 
   const { data: noteState, error } = useSelector((state: ReduxStates) => state.notes.note);
   const [closedIconDialog, setClosedIconDialog] = useState(true);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk } = useMessageDialog();
   const [createUpdateNoteStateUpdate, setCreateUpdateNoteStateUpdated] = useState(false);
@@ -154,7 +155,14 @@ function CreateUpdateNoteDialog({
           <MessageDialog openDialog={openDialog} setOpenDialog={setOpenDialog} message={message} setMessageOk={setMessageOk} />
         )} */}
       </Dialog>
-      {error && <SnackbarMesssage message={error} messageCleaner={NotesSlice.noteErrorCleaner} />}
+      {error && (
+        <SnackbarMesssage
+          openSnackbar={openSnackbar}
+          setOpenSnackbar={setOpenSnackbar}
+          message={error}
+          messageCleaner={NotesSlice.noteErrorCleaner}
+        />
+      )}
     </>
   );
 }

@@ -31,6 +31,7 @@ function CreateUpdateProgramDialog({
 
   const { data: programState, error } = useSelector((state: ReduxStates) => state.programs.program);
   const [closedIconDialog, setClosedIconDialog] = useState(true);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk } = useMessageDialog();
   const [createUpdateProgramStateUpdate, setCreateUpdateProgramStateUpdated] = useState(false);
@@ -149,7 +150,14 @@ function CreateUpdateProgramDialog({
           <MessageDialog openDialog={openDialog} setOpenDialog={setOpenDialog} message={message} setMessageOk={setMessageOk} />
         )} */}
       </Dialog>
-      {error && <SnackbarMesssage message={error} messageCleaner={ProgramSlice.programErrorCleaner} />}
+      {error && (
+        <SnackbarMesssage
+          openSnackbar={openSnackbar}
+          setOpenSnackbar={setOpenSnackbar}
+          message={error}
+          messageCleaner={ProgramSlice.programErrorCleaner}
+        />
+      )}
     </>
   );
 }

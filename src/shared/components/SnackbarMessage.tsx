@@ -1,27 +1,31 @@
-import * as React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch } from 'react-redux';
-import { AnyAction, Dispatch } from 'redux';
 import Slide, { SlideProps } from '@mui/material/Slide';
 
 function SlideTransition(props: SlideProps) {
   return <Slide {...props} direction="up" />;
 }
 
-export default function SnackbarMesssage({ message, messageCleaner }: { message: string; messageCleaner: Function }) {
+export default function SnackbarMesssage({
+  openSnackbar,
+  setOpenSnackbar,
+  message,
+  messageCleaner,
+}: {
+  openSnackbar: boolean;
+  setOpenSnackbar: Dispatch<SetStateAction<boolean>>;
+  message: string;
+  messageCleaner?: Function;
+}) {
   const dispatch = useDispatch();
-  const [open, setOpen] = React.useState(true);
 
   const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    dispatch(messageCleaner());
-    // setOpen(false);
+    setOpenSnackbar(false);
+    if (messageCleaner) dispatch(messageCleaner());
   };
 
   const action = (
@@ -38,7 +42,7 @@ export default function SnackbarMesssage({ message, messageCleaner }: { message:
   return (
     <div>
       <Snackbar
-        open={open}
+        open={openSnackbar}
         autoHideDuration={4000}
         onClose={handleClose}
         TransitionComponent={SlideTransition}

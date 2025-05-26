@@ -1,13 +1,19 @@
 import { ApolloError } from '@apollo/client';
 import { useDispatch } from 'react-redux';
 import { apolloClient } from 'src/graphql/ApolloClient';
-import { GET_PATIENT_QUESTIONARY } from 'src/modules/questionaries/patient-questionaries/adapters/out/PatientQuestionaryQueries';
+import {
+  GET_PATIENT_QUESTIONARY,
+  UPDATE_ANSWER_AND_ADDITIONAL_NOTES,
+} from 'src/modules/questionaries/patient-questionaries/adapters/out/PatientQuestionaryQueries';
 import * as PatientQuestionarySlice from 'src/modules/questionaries/patient-questionaries/adapters/in/slicers/PatientQuestionarySlice';
 
 import {
   GetPatientQuestionaryBody,
   GetPatientQuestionaryRequest,
   GetPatientQuestionaryResponse,
+  UpdateAnswerAndAdditionalNotesInput,
+  UpdateAnswerAndAdditionalNotesRequest,
+  UpdateAnswerAndAdditionalNotesResponse,
 } from 'src/modules/questionaries/patient-questionaries/adapters/out/PatientQuestionary';
 
 export function usePatientQuestionary() {
@@ -24,7 +30,7 @@ export function usePatientQuestionary() {
         },
       });
       if (response.data) {
-        dispatch(PatientQuestionarySlice.initializePatientQuestionaryGroups(response.data.getPatientQuestionary.questionaryGroups));
+        dispatch(PatientQuestionarySlice.initializePatientQuestionaryGroups(response.data.getPatientQuestionary));
       }
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
@@ -32,5 +38,24 @@ export function usePatientQuestionary() {
     }
   };
 
-  return { getPatientQuestionary };
+  const updateAnswerAndAdditionalNotes = async (body: UpdateAnswerAndAdditionalNotesInput): Promise<void> => {
+    try {
+      const response = await apolloClient.mutate<UpdateAnswerAndAdditionalNotesResponse, UpdateAnswerAndAdditionalNotesRequest>({
+        mutation: UPDATE_ANSWER_AND_ADDITIONAL_NOTES,
+        variables: {
+          input: {
+            ...body,
+          },
+        },
+      });
+      if (response.data) {
+        dispatch(PatientQuestionarySlice.initializePatientQuestionaryGroups(response.data.updateAnswerAndAdditionalNotes));
+      }
+    } catch (error) {
+      console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
+      throw error;
+    }
+  };
+
+  return { getPatientQuestionary, updateAnswerAndAdditionalNotes };
 }

@@ -13,7 +13,7 @@ function PatientQuestionaryGroupList() {
   const authContext = useContext(AuthContext);
   const { patientId } = useParams();
 
-  const questionaryGroupsState = useSelector((state: ReduxStates) => state.patientQuestionary.patientQuestionaryGroups);
+  const questionaryGroupsState = useSelector((state: ReduxStates) => state.patientQuestionary.patientQuestionary.questionaryGroups);
   const { getPatientQuestionary } = usePatientQuestionary();
 
   useEffect(() => {
@@ -24,7 +24,7 @@ function PatientQuestionaryGroupList() {
   }, [authContext.professional, patientId]);
 
   return (
-    <div style={{ width: '100%', overflowY: 'auto' }}>
+    <div>
       <GenericContainerWrapper>
         <Box
           sx={{

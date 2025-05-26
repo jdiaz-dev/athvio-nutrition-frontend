@@ -22,6 +22,8 @@ export type PatientQuestionaryGroup = {
 
 export type PatientQuestionaryBody = {
   _id: string;
+  professional: string;
+  patient: string;
   questionaryGroups: PatientQuestionaryGroup[];
 };
 
@@ -38,7 +40,33 @@ export type GetPatientQuestionaryResponse = {
   getPatientQuestionary: PatientQuestionaryBody;
 };
 
+export type PatientQuestionaryDetailInput = {
+  questionaryDetail: string;
+  answer: string;
+  additionalNotes: string;
+};
+
+export type PatientQuestionaryGroupInput = {
+  questionaryGroup: string;
+  questionaryDetails: PatientQuestionaryDetailInput[];
+};
+
+export type UpdateAnswerAndAdditionalNotesInput = {
+  patient: string;
+  professional: string;
+  questionary: string;
+  questionaryGroups: PatientQuestionaryGroupInput[];
+};
+
+export type UpdateAnswerAndAdditionalNotesRequest = {
+  input: UpdateAnswerAndAdditionalNotesInput;
+};
+
+export type UpdateAnswerAndAdditionalNotesResponse = {
+  updateAnswerAndAdditionalNotes: PatientQuestionaryBody;
+};
+
 export type PatientQuestionaryInitialState = {
-  patientQuestionaryGroups: PatientQuestionaryGroup[];
+  patientQuestionary: PatientQuestionaryBody;
   patientQuestionaryDetails: PatientQuestionaryDetail[];
 };

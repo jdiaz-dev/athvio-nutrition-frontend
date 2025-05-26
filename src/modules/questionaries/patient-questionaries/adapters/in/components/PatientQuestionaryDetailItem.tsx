@@ -6,19 +6,21 @@ import * as PatientQuestionarySlice from 'src/modules/questionaries/patient-ques
 
 function PatientQuestionaryDetailItem({ questionaryDetail }: { questionaryDetail: PatientQuestionaryDetail }) {
   return (
-    <div style={{ display: 'flex', border: '1px solid green', width: '100%', marginBottom: '10px' }}>
-      <div style={{ width: '20%' }}>{questionaryDetail.fieldName}</div>
+    <div style={{ display: 'flex', width: '100%', marginBottom: '10px' }}>
+      <div style={{ width: '20%', border: '1px solid green' }}>{questionaryDetail.fieldName}</div>
       <Divider orientation="vertical" flexItem />
       <QuestionaryDetailFieldEditor
         questionaryDetail={questionaryDetail._id}
         sliceUpdater={PatientQuestionarySlice.updateAnswer}
         fieldKey="answer"
+        placeHolder="Respuesta del paciente..."
         fieldValue={questionaryDetail.answer}
       />
       <Divider orientation="vertical" flexItem />
       <QuestionaryDetailFieldEditor
         questionaryDetail={questionaryDetail._id}
         fieldKey="additionalNotes"
+        placeHolder="Nota adicional..."
         sliceUpdater={PatientQuestionarySlice.updateAdditionalNotes}
         fieldValue={questionaryDetail.additionalNotes}
       />

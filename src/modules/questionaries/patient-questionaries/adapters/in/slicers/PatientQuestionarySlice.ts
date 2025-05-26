@@ -1,23 +1,24 @@
 import { combineReducers, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { patientQuestionaryInitialState } from 'src/modules/questionaries/patient-questionaries/adapters/in/slicers/PatientQuestionaryInitialState';
 import {
+  PatientQuestionaryBody,
   PatientQuestionaryDetail,
   PatientQuestionaryGroup,
 } from 'src/modules/questionaries/patient-questionaries/adapters/out/PatientQuestionary';
 
 const patientQuestionaryGroupsSlice = createSlice({
   name: 'patientQuestionaryGroups',
-  initialState: patientQuestionaryInitialState.patientQuestionaryGroups,
+  initialState: patientQuestionaryInitialState.patientQuestionary,
   reducers: {
-    initializePatientQuestionaryGroups: (state, action: PayloadAction<PatientQuestionaryGroup[]>) => {
+    initializePatientQuestionaryGroups: (state, action: PayloadAction<PatientQuestionaryBody>) => {
       state = action.payload;
       return state;
     },
     updateQuestionaryGroupItem: (state, action: PayloadAction<Pick<PatientQuestionaryGroup, '_id' | 'questionaryDetails'>>) => {
       const { _id, questionaryDetails } = action.payload;
-      const indexFound = state.findIndex((item) => item._id === _id);
+      const indexFound = state.questionaryGroups.findIndex((item) => item._id === _id);
       if (indexFound !== -1) {
-        state[indexFound].questionaryDetails = questionaryDetails;
+        state.questionaryGroups[indexFound].questionaryDetails = questionaryDetails;
       }
       return state;
     },
@@ -57,6 +58,6 @@ const patientQuestionaryDetailsSlice = createSlice({
 export const { initializePatientQuestionaryDetails, updateAnswer, updateAdditionalNotes } = patientQuestionaryDetailsSlice.actions;
 
 export default combineReducers({
-  patientQuestionaryGroups: patientQuestionaryGroupsSlice.reducer,
+  patientQuestionary: patientQuestionaryGroupsSlice.reducer,
   patientQuestionaryDetails: patientQuestionaryDetailsSlice.reducer,
 });
