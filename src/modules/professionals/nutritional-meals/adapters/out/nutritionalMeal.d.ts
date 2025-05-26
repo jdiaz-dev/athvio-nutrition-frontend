@@ -1,11 +1,11 @@
 import { MealBuilderBody } from 'src/shared/components/MealBuilder/MealBuilder.types';
-import { EnumMealSource, NutritionalMealDatabasesEnum } from 'src/shared/Consts';
+import { MealSourceEnum, NutritionalMealDatabasesEnum } from 'src/shared/Consts';
 import { GetRecordsBody } from 'src/shared/types/get-records.types';
 
 export type NutritionalMealBasicInfo = {
   professional: string;
   name: string;
-  source: EnumMealSource;
+  source: MealSourceEnum;
   image: string | null;
 };
 

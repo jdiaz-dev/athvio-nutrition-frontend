@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNutritionalMeal } from 'src/modules/professionals/nutritional-meals/adapters/out/NutritionalMealActions';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { ReduxStates } from 'src/shared/types/types';
-import { EnumMealSource, Modules } from 'src/shared/Consts';
+import { MealSourceEnum, Modules } from 'src/shared/Consts';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import MealBuilder from 'src/shared/components/MealBuilder/MealBuilder';
 import NutritionalMealNameInput from 'src/modules/professionals/nutritional-meals/adapters/in/dialogs/CreateUpdateNutritionalMealDialog/NutritionalMealNameInput';
@@ -129,7 +129,7 @@ function CreateUpdateNutritionalMealDialog({
           }}
         >
           <EnableEditionContext.Provider
-            value={{ enableEdition: _nutritionalMeal === undefined ? true : _nutritionalMeal.source !== EnumMealSource.SYSTEM }}
+            value={{ enableEdition: _nutritionalMeal === undefined ? true : _nutritionalMeal.source !== MealSourceEnum.SYSTEM }}
           >
             <NutritionalMealNameInput />
             <ImageContainer image={mealNameBasicInfo.image} setNewImage={setNewImage} />

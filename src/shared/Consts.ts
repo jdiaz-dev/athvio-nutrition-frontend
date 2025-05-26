@@ -144,7 +144,12 @@ export enum DatabasesEnum {
   NUTRITIONAL_MEALS = 'NUTRITIONAL_MEALS',
 }
 
-export enum EnumMealSource {
+export enum MealSourceEnum {
   SYSTEM = 'SYSTEM',
   PROFESSIONAL = 'PROFESSIONAL',
+}
+
+export enum CustomFieldsGroupNamesEnum {
+  CUSTOMIZED = 'Customized',
+  PERSONALIZADO = 'Personalizado',
 }

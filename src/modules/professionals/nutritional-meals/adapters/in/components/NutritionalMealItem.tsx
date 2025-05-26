@@ -26,7 +26,7 @@ import { useNutritionalMeal } from 'src/modules/professionals/nutritional-meals/
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { NutritionalMealBody } from 'src/modules/professionals/nutritional-meals/adapters/out/nutritionalMeal';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
-import { EnumMealSource } from 'src/shared/Consts';
+import { MealSourceEnum } from 'src/shared/Consts';
 import EnablerEditionWrapper from 'src/shared/components/wrappers/EnablerEditionWrapper/EnablerEditionWrapper';
 
 function NutritionalMealItem(nutritionalMeal: NutritionalMealBody) {
@@ -72,7 +72,7 @@ function NutritionalMealItem(nutritionalMeal: NutritionalMealBody) {
         <Box sx={{ padding: 0, width: '50%' }}>
           <CardHeader
             action={
-              <EnablerEditionWrapper enableEdition={nutritionalMeal.source !== EnumMealSource.SYSTEM}>
+              <EnablerEditionWrapper enableEdition={nutritionalMeal.source !== MealSourceEnum.SYSTEM}>
                 <IconButton aria-label="settings">
                   <Grid item xs={8}>
                     <DeleteSharpIcon onClick={handleAnchorOpen} style={{ cursor: 'pointer' }} />
@@ -118,7 +118,7 @@ function NutritionalMealItem(nutritionalMeal: NutritionalMealBody) {
             title={nutritionalMeal.name}
           />
           <Typography>
-            Source: {nutritionalMeal.source === EnumMealSource.PROFESSIONAL ? 'CUSTOM MEALS' : nutritionalMeal.source}
+            Source: {nutritionalMeal.source === MealSourceEnum.PROFESSIONAL ? 'CUSTOM MEALS' : nutritionalMeal.source}
           </Typography>
           <CardContent
             sx={{
@@ -172,7 +172,7 @@ function NutritionalMealItem(nutritionalMeal: NutritionalMealBody) {
           openCreateUpdateNutritionalMealDialog={openCreateUpdateNutritionalMealDialog}
           setOpenCreateUpdateNutritionalMealDialog={setOpenCreateUpdateNutritionalMealDialog}
           _nutritionalMeal={nutritionalMeal}
-          dialogTitle={nutritionalMeal.source === EnumMealSource.SYSTEM ? 'System Meal' : 'Update custom meal'}
+          dialogTitle={nutritionalMeal.source === MealSourceEnum.SYSTEM ? 'System Meal' : 'Update custom meal'}
         />
       )}
     </>

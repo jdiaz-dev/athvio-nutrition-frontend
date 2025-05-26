@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 import CustomQuestionaryDetailsManager from 'src/modules/questionaries/professional-questionaries/adapters/in/dialogs/CustomQuestionaryDetailsManager';
 import DefaultQuestionaryDetailsManager from 'src/modules/questionaries/professional-questionaries/adapters/in/dialogs/DefaultQuestionaryDetailsManager';
+import { CustomFieldsGroupNamesEnum } from 'src/shared/Consts';
 
 function QuestionaryDetailsDialog({
   openQuestionaryGroupDialog,
@@ -49,7 +50,8 @@ function QuestionaryDetailsDialog({
           <CloseDialogIcon closedIconDialog={closedIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
         </DialogTitle>
         <DialogContent dividers={true} style={{ minHeight: '900px' }}>
-          {questionaryGroup.title === 'Customized' ? (
+          {questionaryGroup.title === CustomFieldsGroupNamesEnum.PERSONALIZADO ||
+          questionaryGroup.title === CustomFieldsGroupNamesEnum.CUSTOMIZED ? (
             <CustomQuestionaryDetailsManager
               questionary={questionary}
               questionaryGroup={questionaryGroup}
