@@ -28,6 +28,7 @@ export function usePatientQuestionary() {
             ...body,
           },
         },
+        fetchPolicy: 'network-only',
       });
       if (response.data) {
         dispatch(PatientQuestionarySlice.initializePatientQuestionaryGroups(response.data.getPatientQuestionary));

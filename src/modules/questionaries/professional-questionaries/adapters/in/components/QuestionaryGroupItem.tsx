@@ -12,7 +12,7 @@ function QuestionaryGroupItem({ questionary, questionaryGroup }: { questionary: 
 
   return (
     <>
-      <Box onClick={openDialogManager} style={{ width: '100%', display: 'flex', margin: '2px' }}>
+      <Box onClick={openDialogManager} style={{ width: '100%', display: 'flex', cursor: 'pointer', margin: '2px' }}>
         <div style={{ width: '23%', border: '1px solid green' }}>{questionaryGroup.title} </div>
         <div style={{ width: '77%', display: 'flex', justifyContent: 'flex-start', flexWrap: 'wrap' }}>
           {questionaryGroup.questionaryDetails.map(

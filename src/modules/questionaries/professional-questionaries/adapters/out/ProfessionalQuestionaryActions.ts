@@ -30,6 +30,7 @@ export function useProfessionalQuestionary() {
             ...body,
           },
         },
+        fetchPolicy: 'network-only',
       });
       dispatch(ProfessionalQuestionarySlice.initializeProfessionalQuestionary(response.data.getProfessionalQuestionary));
     } catch (error) {

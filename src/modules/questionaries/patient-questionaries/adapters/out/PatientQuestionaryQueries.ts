@@ -4,6 +4,8 @@ export const GET_PATIENT_QUESTIONARY = gql`
   query _getPatientQuestionary($input: GetPatientQuestionaryDto!) {
     getPatientQuestionary(input: $input) {
       _id
+      patient
+      professional
       questionaryGroups {
         _id
         title
@@ -29,9 +31,12 @@ export const UPDATE_ANSWER_AND_ADDITIONAL_NOTES = gql`
       professional
       questionaryGroups {
         _id
+        title
+        description
         questionaryDetails {
           _id
           fieldName
+          isEnabled
           associatedQuestion
           answer
           additionalNotes

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Box, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import CheckIcon from '@mui/icons-material/Check';
@@ -22,6 +22,7 @@ function QuestionaryDetailFieldEditor({
   const dispatch = useDispatch();
   const [editField, setEdtiField] = useState(false);
   const [newValue, setNewValue] = useState('');
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const editFieldHandler = () => {
     setEdtiField(true);
@@ -33,6 +34,10 @@ function QuestionaryDetailFieldEditor({
     setEdtiField(false);
     dispatch(sliceUpdater({ _id: questionaryDetail, [fieldKey]: newValue }));
   };
+  useEffect(() => {
+    if (editField) inputRef.current?.focus();
+  }, [editField]);
+
   return (
     <Box width={'40%'}>
       {editField ? (
@@ -43,6 +48,7 @@ function QuestionaryDetailFieldEditor({
             placeholder={placeHolder}
             defaultValue={fieldValue}
             variant="standard"
+            inputRef={inputRef}
             onChange={(e) => setNewValue(e.target.value)}
           />
           <Box width={'12%'} style={{ display: 'flex' }}>
