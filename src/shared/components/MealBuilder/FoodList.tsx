@@ -197,8 +197,8 @@ function FoodList() {
               <Table sx={{ minWidth: 350 }} size="small" aria-label="customized table">
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell width={'25%'}>{t('mealBuilder.table.amount')}</StyledTableCell>
-                    <StyledTableCell width={'45%'}>{t('mealBuilder.table.food')}</StyledTableCell>
+                    <StyledTableCell width={'35%'}>{t('mealBuilder.table.amount')}</StyledTableCell>
+                    <StyledTableCell width={'40%'}>{t('mealBuilder.table.food')}</StyledTableCell>
                     <StyledTableCell width={'5%'}>{t('mealBuilder.table.proteins')}</StyledTableCell>
                     <StyledTableCell width={'5%'}>{t('mealBuilder.table.carbs')}</StyledTableCell>
                     <StyledTableCell width={'5%'}>{t('mealBuilder.table.fats')}</StyledTableCell>

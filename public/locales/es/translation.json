@@ -82,10 +82,10 @@
       "amount":"Cantidad",
       "name":"Nombre",
       "food":"Alimento",
-      "proteins":"Proteinas",
-      "carbs":"Carbohidratos",
+      "proteins":"Prot.",
+      "carbs":"Carbs.",
       "fats":"Grasas",
-      "calories":"Calorias"
+      "calories":"Cal."
     },
     "titles":{
       "programs":"Programas",

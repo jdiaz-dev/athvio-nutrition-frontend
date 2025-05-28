@@ -15,7 +15,7 @@ import { useMealBuilderSlicers } from 'src/shared/hooks/useMealBuilderSlicers';
 import { FoodDatabases, IngredientType, MeasureSizes } from 'src/shared/Consts';
 import { BootstrapInput } from 'src/shared/components/CustomizedInput';
 import { calculateMacrosFixingDecimals, multiplicateFixingDecimals } from 'src/shared/components/MealBuilder/MacrosCalculator';
-import { Ingredient, IngredientDetail } from 'src/shared/components/MealBuilder/MealBuilder.types';
+import { IngredientDetail } from 'src/shared/components/MealBuilder/MealBuilder.types';
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from 'src/shared/components/IconButton';
 import { useTranslation } from 'react-i18next';
@@ -103,12 +103,12 @@ function FoodItem({ food }: { food: Food }) {
     <>
       {foodManager !== null && (
         <StyledTableRow key={foodManager.name}>
-          <StyledTableCell style={{ padding: '3px', paddingLeft: '7px' }} align="right">
+          <StyledTableCell width={'40%'} style={{ padding: '3px', paddingLeft: '7px' }} align="right">
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <TextField
                 inputProps={{ style: { fontSize: 'revert', height: '25px' } }}
                 InputLabelProps={{ style: { fontSize: 'revert' } }}
-                style={{ width: '25%', marginTop: '8%' }}
+                style={{ width: '35%', marginTop: '8%' }}
                 id="standard-number"
                 size="small"
                 variant="standard"
@@ -121,14 +121,14 @@ function FoodItem({ food }: { food: Food }) {
                   });
                 }}
               />
-              <FormControl sx={{ m: 1, maxWidth: 85 }} size="small" style={{ margin: 0 }} variant="standard">
+              <FormControl size="small" style={{ margin: 0, width: '60%' }} variant="standard">
                 <InputLabel id="demo-customized-select-label">Measure</InputLabel>
                 <Select
                   labelId="demo-select-small-label"
                   id="demo-select-small"
                   value={measure !== null ? measure : ''}
                   label="measure"
-                  style={{ width: '85px' }}
+                  style={{ width: '75px', marginTop: '17%' }}
                   input={<BootstrapInput componentsProps={{ input: { style: { padding: '50px' } } }} />}
                   onChange={handleMeasureChange}
                 >
@@ -143,23 +143,23 @@ function FoodItem({ food }: { food: Food }) {
                     })}
                 </Select>
               </FormControl>
-              <div style={{ width: '20%' }}>{foodManager.measure.weightInGrams}g</div>
+              <div style={{ display: 'flex', alignItems: 'center', width: '20%' }}>{foodManager.measure.weightInGrams}g</div>
             </div>
           </StyledTableCell>
-          <StyledTableCell style={{ padding: '4px' }} component="th" scope="row">
+          <StyledTableCell width={'40%'} style={{ padding: '4px' }} component="th" scope="row">
             {foodManager.name}
           </StyledTableCell>
           <StyledTableCell width={'5%'} style={{ padding: '4px' }} component="th" scope="row">
-            {foodManager.macros.protein}
+            {parseFloat(foodManager.macros.protein.toString()).toFixed(2)}
           </StyledTableCell>
           <StyledTableCell width={'5%'} style={{ padding: '4px' }} component="th" scope="row">
-            {foodManager.macros.carbs}
+            {parseFloat(foodManager.macros.carbs.toString()).toFixed(2)}
           </StyledTableCell>
           <StyledTableCell width={'5%'} style={{ padding: '4px' }} component="th" scope="row">
-            {foodManager.macros.fat}
+            {parseFloat(foodManager.macros.fat.toString()).toFixed(2)}
           </StyledTableCell>
           <StyledTableCell width={'5%'} style={{ padding: '4px' }} component="th" scope="row">
-            {foodManager.macros.calories}
+            {foodManager.macros.calories} cal
           </StyledTableCell>
           <StyledTableCell align="right" width={'5%'} style={{ padding: '0px', paddingRight: '7px' }}>
             <Tooltip title={t('toolTips.add')} placement="right">
