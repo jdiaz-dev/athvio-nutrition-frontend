@@ -77,7 +77,8 @@ export enum SpecialPagination {
 }
 
 export enum MeasureSizes {
-  GRAM_LABEL = 'Gram',
+  GRAM_LABEL_ENGLISH = 'Gram',
+  GRAM_LABEL_SPANISH = 'Gramos',
   GRAM_AMOUNT = 100,
   NORMAL_AMOUNT = 1,
 }
@@ -152,4 +153,9 @@ export enum MealSourceEnum {
 export enum CustomFieldsGroupNamesEnum {
   CUSTOMIZED = 'Customized',
   PERSONALIZADO = 'Personalizado',
+}
+
+export enum SupportedLanguages {
+  ENGLISH = 'en',
+  SPANISH = 'es',
 }

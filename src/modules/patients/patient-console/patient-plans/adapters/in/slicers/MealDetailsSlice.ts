@@ -3,5 +3,5 @@ import { mealBuilderSlice } from 'src/shared/components/MealBuilder/MealBuilderS
 
 export const patientPlanMealDetailsSlice = mealBuilderSlice('mealDetails', patientPlanInitialState.mealDetails);
 
-export const { acceptNewMealDetail, addIngredient, removeIngredient, renameCookingInstruction, reinitializeMeal } =
+export const { acceptNewMealDetail, addIngredient, updateAmountIngredient, removeIngredient, renameCookingInstruction, reinitializeMeal } =
   patientPlanMealDetailsSlice.actions;

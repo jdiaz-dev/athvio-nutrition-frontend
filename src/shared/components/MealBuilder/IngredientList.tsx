@@ -25,7 +25,7 @@ function IngredientList({ meal }: { meal: MealDataForBuilder }) {
           <Table sx={{ minWidth: 350 }} size="small" aria-label="customized table">
             <TableHead>
               <TableRow>
-                <StyledTableCell style={styleTableCell} align="left" width={'16%'}>
+                <StyledTableCell style={styleTableCell} align="left" width={'15%'}>
                   {t('mealBuilder.table.name')}
                 </StyledTableCell>
                 <StyledTableCell style={styleTableCell} align="left">
@@ -43,6 +43,7 @@ function IngredientList({ meal }: { meal: MealDataForBuilder }) {
                 <StyledTableCell style={styleTableCell} align="left">
                   {t('mealBuilder.table.calories')}
                 </StyledTableCell>
+                <StyledTableCell style={styleTableCell} align="left" width={'10%'}></StyledTableCell>
               </TableRow>
             </TableHead>
             {

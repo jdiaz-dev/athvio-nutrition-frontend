@@ -197,13 +197,13 @@ function FoodList() {
               <Table sx={{ minWidth: 350 }} size="small" aria-label="customized table">
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell width={'35%'}>{t('mealBuilder.table.amount')}</StyledTableCell>
-                    <StyledTableCell width={'40%'}>{t('mealBuilder.table.food')}</StyledTableCell>
-                    <StyledTableCell width={'5%'}>{t('mealBuilder.table.proteins')}</StyledTableCell>
-                    <StyledTableCell width={'5%'}>{t('mealBuilder.table.carbs')}</StyledTableCell>
-                    <StyledTableCell width={'5%'}>{t('mealBuilder.table.fats')}</StyledTableCell>
-                    <StyledTableCell width={'5%'}>{t('mealBuilder.table.calories')}</StyledTableCell>
-                    <StyledTableCell width={'5%'}></StyledTableCell>
+                    <StyledTableCell width={'22%'}>{t('mealBuilder.table.amount')}</StyledTableCell>
+                    <StyledTableCell width={'38%'}>{t('mealBuilder.table.food')}</StyledTableCell>
+                    <StyledTableCell width={'7%'}>{t('mealBuilder.table.proteins')}</StyledTableCell>
+                    <StyledTableCell width={'7%'}>{t('mealBuilder.table.carbs')}</StyledTableCell>
+                    <StyledTableCell width={'7%'}>{t('mealBuilder.table.fats')}</StyledTableCell>
+                    <StyledTableCell width={'7%'}>{t('mealBuilder.table.calories')}</StyledTableCell>
+                    <StyledTableCell width={'7%'}></StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody style={{ maxHeight: '10px' }}>

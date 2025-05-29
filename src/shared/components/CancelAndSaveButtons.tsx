@@ -10,7 +10,7 @@ function CancelAndSaveButtons({
 }: {
   cancelHandler: () => void;
   saveHandler: () => void;
-  styles?: Record<string, string>;
+  styles?: React.CSSProperties;
   customSaveNameButton?: string;
 }) {
   const { t } = useTranslation();

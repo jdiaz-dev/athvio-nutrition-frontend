@@ -7,7 +7,7 @@ import {
   Macros,
   MealBuilderBody,
 } from 'src/shared/components/MealBuilder/MealBuilder.types';
-import { IngredientType } from 'src/shared/Consts';
+import { IngredientType, MeasureSizes } from 'src/shared/Consts';
 
 const fixProblemWithDecimals = (num1: number, num2: number) => {
   return parseFloat((num1 + num2).toFixed(2));
@@ -47,6 +47,36 @@ export const mealBuilderSlice = (sliceName: string, initState: MealBuilderBody) 
         state.ingredientDetails.push(action.payload);
 
         return state;
+      },
+      updateAmountIngredient: (state, action: PayloadAction<{ name: string; newAmount: number }>) => {
+        const { name, newAmount } = action.payload;
+        const indexIngredient = state.ingredientDetails.findIndex(
+          (ingredientDetail) =>
+            (ingredientDetail.ingredientType === IngredientType.UNIQUE_INGREDIENT && ingredientDetail.ingredient?.name === name) ||
+            (ingredientDetail.ingredientType === IngredientType.CUSTOM_INGREDIENT && ingredientDetail.customIngredient?.name === name),
+        );
+
+        if (indexIngredient !== -1) {
+          const ingredient = state.ingredientDetails[indexIngredient].ingredient as Ingredient;
+          const amountInNumber = parseInt(ingredient.amount);
+          const newMacros: Macros = {
+            weightInGrams:
+              ingredient.label === MeasureSizes.GRAM_LABEL_ENGLISH || ingredient.label === MeasureSizes.GRAM_LABEL_SPANISH
+                ? newAmount
+                : newAmount * ingredient.weightInGrams,
+            protein: Number(((ingredient.protein * newAmount) / amountInNumber).toFixed(2)),
+            carbs: Number(((ingredient.carbs * newAmount) / amountInNumber).toFixed(2)),
+            fat: Number(((ingredient.fat * newAmount) / amountInNumber).toFixed(2)),
+            calories: Number(((ingredient.calories * newAmount) / amountInNumber).toFixed(2)),
+          };
+
+          (state.ingredientDetails[indexIngredient].ingredient as Ingredient) = {
+            amount: newAmount.toString(),
+            name: ingredient.name,
+            label: ingredient.label,
+            ...newMacros,
+          };
+        }
       },
       removeIngredient: (state, action: PayloadAction<Pick<DisplayedIngredient, 'ingredientType' | 'name'>>) => {
         let indexIngredient;

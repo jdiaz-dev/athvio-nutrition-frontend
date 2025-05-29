@@ -12,7 +12,7 @@ import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import { FoddAddedContext } from 'src/shared/components/MealBuilder/FoddAddedContext';
 import { Food, FoodManager } from 'src/shared/components/MealBuilder/food.types';
 import { useMealBuilderSlicers } from 'src/shared/hooks/useMealBuilderSlicers';
-import { FoodDatabases, IngredientType, MeasureSizes } from 'src/shared/Consts';
+import { FoodDatabases, IngredientType, MeasureSizes, SupportedLanguages } from 'src/shared/Consts';
 import { BootstrapInput } from 'src/shared/components/CustomizedInput';
 import { calculateMacrosFixingDecimals, multiplicateFixingDecimals } from 'src/shared/components/MealBuilder/MacrosCalculator';
 import { IngredientDetail } from 'src/shared/components/MealBuilder/MealBuilder.types';
@@ -24,19 +24,27 @@ function FoodItem({ food }: { food: Food }) {
   const foddAddedContext = useContext(FoddAddedContext);
   const currentModuleContext = useContext(CurrentModuleContext);
   const dispatch = useDispatch();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const { addIngredient } = useMealBuilderSlicers(currentModuleContext.currentModule);
   const [foodManager, setFoodManager] = useState<FoodManager | null>(null);
   const [measure, setMeasure] = useState<string | null>(null);
 
   useEffect(() => {
-    const defaultMeasure = food.availableMeasures?.find((measure) => measure.label === MeasureSizes.GRAM_LABEL);
+    const defaultMeasure = food.availableMeasures?.find((measure) =>
+      i18n.language === SupportedLanguages.ENGLISH
+        ? measure.label === MeasureSizes.GRAM_LABEL_ENGLISH
+        : measure.label === MeasureSizes.GRAM_LABEL_SPANISH,
+    );
     const defaultMeasureValue = `${defaultMeasure?.label || ''} ${defaultMeasure?.weightInGrams || ''}`;
     setMeasure(defaultMeasureValue);
     setFoodManager({
       ...food,
-      measure: { amount: food.macros.weightInGrams, label: MeasureSizes.GRAM_LABEL as string, weightInGrams: food.macros.weightInGrams },
+      measure: {
+        amount: food.macros.weightInGrams,
+        label: (i18n.language === SupportedLanguages.ENGLISH ? MeasureSizes.GRAM_LABEL_ENGLISH : MeasureSizes.GRAM_LABEL_SPANISH) as string,
+        weightInGrams: food.macros.weightInGrams,
+      },
     });
   }, [food]);
 
@@ -59,7 +67,7 @@ function FoodItem({ food }: { food: Food }) {
         measure: {
           amount: foodManager.measure.amount,
           label: measureLabel,
-          weightInGrams: measureLabel === MeasureSizes.GRAM_LABEL ? foodManager.measure.amount : foodTotalAmount,
+          weightInGrams: measureLabel === MeasureSizes.GRAM_LABEL_ENGLISH ? foodManager.measure.amount : foodTotalAmount,
         },
       });
     }
@@ -75,7 +83,10 @@ function FoodItem({ food }: { food: Food }) {
         ...foodManager,
         measure: {
           ...foodManager.measure,
-          amount: measureLabel === MeasureSizes.GRAM_LABEL ? (MeasureSizes.GRAM_AMOUNT as number) : (MeasureSizes.NORMAL_AMOUNT as number),
+          amount:
+            measureLabel === MeasureSizes.GRAM_LABEL_ENGLISH
+              ? (MeasureSizes.GRAM_AMOUNT as number)
+              : (MeasureSizes.NORMAL_AMOUNT as number),
         },
       });
     }
@@ -103,7 +114,7 @@ function FoodItem({ food }: { food: Food }) {
     <>
       {foodManager !== null && (
         <StyledTableRow key={foodManager.name}>
-          <StyledTableCell width={'40%'} style={{ padding: '3px', paddingLeft: '7px' }} align="right">
+          <StyledTableCell width={'22%'} style={{ padding: '3px', paddingLeft: '7px' }} align="right">
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <TextField
                 inputProps={{ style: { fontSize: 'revert', height: '25px' } }}
@@ -112,7 +123,7 @@ function FoodItem({ food }: { food: Food }) {
                 id="standard-number"
                 size="small"
                 variant="standard"
-                type={'number'}
+                type="number"
                 value={foodManager.measure.amount}
                 onChange={(e) => {
                   setFoodManager({
@@ -121,7 +132,7 @@ function FoodItem({ food }: { food: Food }) {
                   });
                 }}
               />
-              <FormControl size="small" style={{ margin: 0, width: '60%' }} variant="standard">
+              <FormControl size="small" style={{ margin: 0, marginLeft: '5%', width: '60%' }} variant="standard">
                 <InputLabel id="demo-customized-select-label">Measure</InputLabel>
                 <Select
                   labelId="demo-select-small-label"
@@ -137,7 +148,9 @@ function FoodItem({ food }: { food: Food }) {
                       const value = `${measure.label} ${measure.weightInGrams}`;
                       return (
                         <MenuItem key={index} value={value}>
-                          {measure.label === MeasureSizes.GRAM_LABEL ? measure.label : `${measure.label} (${measure.weightInGrams}g)`}
+                          {measure.label === MeasureSizes.GRAM_LABEL_ENGLISH
+                            ? measure.label
+                            : `${measure.label} (${measure.weightInGrams}g)`}
                         </MenuItem>
                       );
                     })}
@@ -146,19 +159,19 @@ function FoodItem({ food }: { food: Food }) {
               <div style={{ display: 'flex', alignItems: 'center', width: '20%' }}>{foodManager.measure.weightInGrams}g</div>
             </div>
           </StyledTableCell>
-          <StyledTableCell width={'40%'} style={{ padding: '4px' }} component="th" scope="row">
+          <StyledTableCell width={'38%'} style={{ padding: '4px' }} component="th" scope="row">
             {foodManager.name}
           </StyledTableCell>
-          <StyledTableCell width={'5%'} style={{ padding: '4px' }} component="th" scope="row">
+          <StyledTableCell width={'7%'} style={{ padding: '4px' }} component="th" scope="row">
             {parseFloat(foodManager.macros.protein.toString()).toFixed(2)}
           </StyledTableCell>
-          <StyledTableCell width={'5%'} style={{ padding: '4px' }} component="th" scope="row">
+          <StyledTableCell width={'7%'} style={{ padding: '4px' }} component="th" scope="row">
             {parseFloat(foodManager.macros.carbs.toString()).toFixed(2)}
           </StyledTableCell>
-          <StyledTableCell width={'5%'} style={{ padding: '4px' }} component="th" scope="row">
+          <StyledTableCell width={'7%'} style={{ padding: '4px' }} component="th" scope="row">
             {parseFloat(foodManager.macros.fat.toString()).toFixed(2)}
           </StyledTableCell>
-          <StyledTableCell width={'5%'} style={{ padding: '4px' }} component="th" scope="row">
+          <StyledTableCell width={'7%'} style={{ padding: '4px' }} component="th" scope="row">
             {foodManager.macros.calories} cal
           </StyledTableCell>
           <StyledTableCell align="right" width={'5%'} style={{ padding: '0px', paddingRight: '7px' }}>

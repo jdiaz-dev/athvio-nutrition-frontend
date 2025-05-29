@@ -109,7 +109,7 @@ function CreateUpdateNutritionalMealDialog({
       }}
       scroll="body"
       fullWidth={true}
-      maxWidth="sm"
+      maxWidth="md"
       aria-labelledby="dialog-title"
       aria-describedby="dialog-description"
     >

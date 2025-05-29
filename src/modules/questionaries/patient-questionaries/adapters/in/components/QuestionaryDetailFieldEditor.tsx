@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import CheckIcon from '@mui/icons-material/Check';
-import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch } from 'react-redux';
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
+import CheckAndCloseIcons from 'src/shared/components/Icons/CheckAndCloseIcons';
 
 function QuestionaryDetailFieldEditor({
   questionaryDetail,
@@ -51,10 +50,7 @@ function QuestionaryDetailFieldEditor({
             inputRef={inputRef}
             onChange={(e) => setNewValue(e.target.value)}
           />
-          <Box width={'12%'} style={{ display: 'flex' }}>
-            <CheckIcon style={{ cursor: 'pointer' }} onClick={saveFieldHandler} />
-            <CloseIcon style={{ cursor: 'pointer' }} onClick={cancerlEditFieldHandler} />
-          </Box>
+          <CheckAndCloseIcons checkHandler={saveFieldHandler} closeHandler={cancerlEditFieldHandler} styles={{ marginLeft: '8%' }} />
         </Box>
       ) : (
         <Box style={{ display: 'flex' }}>
