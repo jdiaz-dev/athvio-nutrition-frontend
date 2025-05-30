@@ -9,16 +9,20 @@ import {
 } from 'src/shared/components/MealBuilder/MealBuilder.types';
 import { IngredientType, MeasureSizes } from 'src/shared/Consts';
 
-const fixProblemWithDecimals = (num1: number, num2: number) => {
-  return parseFloat((num1 + num2).toFixed(2));
+enum Operation {
+  ADDITION = 'addition',
+  SUBTRACTION = 'subtraction',
+}
+const fixProblemWithDecimals = (num1: number, num2: number, operation: Operation) => {
+  return operation === Operation.ADDITION ? parseFloat((num1 + num2).toFixed(2)) : parseFloat((num1 - num2).toFixed(2));
 };
 
-const recalculateGeneralMacros = (foodMacros: Macros, macrosToAdd: Macros): Macros => ({
-  protein: fixProblemWithDecimals(foodMacros.protein, macrosToAdd.protein),
-  carbs: fixProblemWithDecimals(foodMacros.carbs, macrosToAdd.carbs),
-  fat: fixProblemWithDecimals(foodMacros.fat, macrosToAdd.fat),
-  calories: fixProblemWithDecimals(foodMacros.calories, macrosToAdd.calories),
-  weightInGrams: fixProblemWithDecimals(foodMacros.weightInGrams, macrosToAdd.weightInGrams),
+const recalculateGeneralMacros = (foodMacros: Macros, macrosToAdd: Macros, operation: Operation): Macros => ({
+  protein: fixProblemWithDecimals(foodMacros.protein, macrosToAdd.protein, operation),
+  carbs: fixProblemWithDecimals(foodMacros.carbs, macrosToAdd.carbs, operation),
+  fat: fixProblemWithDecimals(foodMacros.fat, macrosToAdd.fat, operation),
+  calories: fixProblemWithDecimals(foodMacros.calories, macrosToAdd.calories, operation),
+  weightInGrams: fixProblemWithDecimals(foodMacros.weightInGrams, macrosToAdd.weightInGrams, operation),
 });
 
 export const mealBuilderSlice = (sliceName: string, initState: MealBuilderBody) => {
@@ -40,9 +44,13 @@ export const mealBuilderSlice = (sliceName: string, initState: MealBuilderBody) 
         if (action.payload.ingredientType === IngredientType.UNIQUE_INGREDIENT) {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { label, name, amount, ...macros } = action.payload.ingredient as Ingredient;
-          state.macros = recalculateGeneralMacros(state.macros, macros);
+          state.macros = recalculateGeneralMacros(state.macros, macros, Operation.ADDITION);
         } else if (action.payload.ingredientType === IngredientType.CUSTOM_INGREDIENT) {
-          state.macros = recalculateGeneralMacros(state.macros, (action.payload.customIngredient as CustomIngredient).macros);
+          state.macros = recalculateGeneralMacros(
+            state.macros,
+            (action.payload.customIngredient as CustomIngredient).macros,
+            Operation.ADDITION,
+          );
         }
         state.ingredientDetails.push(action.payload);
 
@@ -76,7 +84,10 @@ export const mealBuilderSlice = (sliceName: string, initState: MealBuilderBody) 
             label: ingredient.label,
             ...newMacros,
           };
+          state.macros = recalculateGeneralMacros(state.macros, ingredient, Operation.SUBTRACTION);
+          state.macros = recalculateGeneralMacros(state.macros, newMacros, Operation.ADDITION);
         }
+        return state;
       },
       removeIngredient: (state, action: PayloadAction<Pick<DisplayedIngredient, 'ingredientType' | 'name'>>) => {
         let indexIngredient;
@@ -95,7 +106,9 @@ export const mealBuilderSlice = (sliceName: string, initState: MealBuilderBody) 
           );
         }
 
+        const deletedIngredient = state.ingredientDetails[indexIngredient as number].ingredient as Ingredient;
         state.ingredientDetails.splice(indexIngredient as number, 1);
+        state.macros = recalculateGeneralMacros(state.macros, deletedIngredient, Operation.SUBTRACTION);
         return state;
       },
       renameCookingInstruction: (state, action: PayloadAction<string>) => {
