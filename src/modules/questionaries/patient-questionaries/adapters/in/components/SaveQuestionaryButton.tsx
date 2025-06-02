@@ -36,20 +36,9 @@ function SaveQuestionaryButton() {
   };
   return (
     <>
-      <div
-        style={{
-          width: '85%',
-          //   padding: '10px',
-          margin: 'auto',
-          display: 'flex',
-          justifyContent: 'right',
-          alignItems: 'left',
-        }}
-      >
-        <Button style={{ marginTop: '1.1%', width: '200px' }} variant="contained" onClick={onClickHandler}>
-          Save
-        </Button>
-      </div>
+      <Button style={{ width: '200px' }} variant="contained" onClick={onClickHandler}>
+        Save
+      </Button>
       {openSnackbar && (
         <SnackbarMesssage openSnackbar={openSnackbar} setOpenSnackbar={setOpenSnackbar} message={'El questionario fue actualizado'} />
       )}

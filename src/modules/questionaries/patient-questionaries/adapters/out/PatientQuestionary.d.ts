@@ -66,6 +66,20 @@ export type UpdateAnswerAndAdditionalNotesResponse = {
   updateAnswerAndAdditionalNotes: PatientQuestionaryBody;
 };
 
+export type SendPatientQuestionaryBody = {
+  patient: string;
+  professional: string;
+  questionary: string;
+};
+
+export type SendPatientQuestionaryRequest = {
+  input: SendPatientQuestionaryBody;
+};
+
+export type SendPatientQuestionaryResponse = {
+  sendPatientQuestionary: boolean;
+};
+
 export type PatientQuestionaryInitialState = {
   patientQuestionary: PatientQuestionaryBody;
   patientQuestionaryDetails: PatientQuestionaryDetail[];

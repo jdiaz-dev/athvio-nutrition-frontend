@@ -45,3 +45,9 @@ export const UPDATE_ANSWER_AND_ADDITIONAL_NOTES = gql`
     }
   }
 `;
+
+export const SEND_PATIENT_QUESTIONARY = gql`
+  mutation _sendPatientQuestionary($input: SendPatientQuestionaryDto!) {
+    sendPatientQuestionary(input: $input)
+  }
+`;

@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { apolloClient } from 'src/graphql/ApolloClient';
 import {
   GET_PATIENT_QUESTIONARY,
+  SEND_PATIENT_QUESTIONARY,
   UPDATE_ANSWER_AND_ADDITIONAL_NOTES,
 } from 'src/modules/questionaries/patient-questionaries/adapters/out/PatientQuestionaryQueries';
 import * as PatientQuestionarySlice from 'src/modules/questionaries/patient-questionaries/adapters/in/slicers/PatientQuestionarySlice';
@@ -11,6 +12,9 @@ import {
   GetPatientQuestionaryBody,
   GetPatientQuestionaryRequest,
   GetPatientQuestionaryResponse,
+  SendPatientQuestionaryBody,
+  SendPatientQuestionaryRequest,
+  SendPatientQuestionaryResponse,
   UpdateAnswerAndAdditionalNotesInput,
   UpdateAnswerAndAdditionalNotesRequest,
   UpdateAnswerAndAdditionalNotesResponse,
@@ -58,5 +62,21 @@ export function usePatientQuestionary() {
     }
   };
 
-  return { getPatientQuestionary, updateAnswerAndAdditionalNotes };
+  const sendPatientQuestionary = async (body: SendPatientQuestionaryBody) => {
+    try {
+      const response = await apolloClient.mutate<SendPatientQuestionaryResponse, SendPatientQuestionaryRequest>({
+        mutation: SEND_PATIENT_QUESTIONARY,
+        variables: {
+          input: {
+            ...body,
+          },
+        },
+      });
+    } catch (error) {
+      console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
+      throw error;
+    }
+  };
+
+  return { getPatientQuestionary, updateAnswerAndAdditionalNotes, sendPatientQuestionary };
 }

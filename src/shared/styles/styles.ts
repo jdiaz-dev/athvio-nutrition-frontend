@@ -40,3 +40,12 @@ export const iconStyles = makeStyles()(() => {
     },
   };
 });
+
+export const buttonStytes = makeStyles()(() => {
+  return {
+    yellowButton: {
+      background: 'yellow',
+      color: 'black',
+    },
+  };
+});
