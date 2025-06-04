@@ -13,12 +13,12 @@ function SaveQuestionaryButton() {
   const questionaryGroupsState = useSelector((state: ReduxStates) => state.patientQuestionary.patientQuestionary);
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
-  const { updateAnswerAndAdditionalNotes } = usePatientQuestionary();
+  const { updateAnswersAndAdditionalNotes } = usePatientQuestionary();
 
   const onClickHandler = async () => {
     setOpenSnackbar(true);
 
-    await updateAnswerAndAdditionalNotes({
+    await updateAnswersAndAdditionalNotes({
       professional: authContext.professional,
       patient: patientId as string,
       questionary: questionaryGroupsState._id,

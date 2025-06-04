@@ -40,30 +40,44 @@ export type GetPatientQuestionaryResponse = {
   getPatientQuestionary: PatientQuestionaryBody;
 };
 
-export type PatientQuestionaryDetailInput = {
+export type PatientQuestionaryAnswersInput = {
   questionaryDetail: string;
   answer: string;
+};
+
+export type AnswersAndAdditionalNotesInput = PatientQuestionaryAnswersInput & {
   additionalNotes: string;
 };
 
-export type PatientQuestionaryGroupInput = {
+export type PatientQuestionaryGroupInput<T> = {
   questionaryGroup: string;
-  questionaryDetails: PatientQuestionaryDetailInput[];
+  questionaryDetails: T[];
 };
 
-export type UpdateAnswerAndAdditionalNotesInput = {
+export type UpdateAnswersInput = {
   patient: string;
   professional: string;
   questionary: string;
-  questionaryGroups: PatientQuestionaryGroupInput[];
+  questionaryGroups: PatientQuestionaryGroupInput<PatientQuestionaryAnswersInput>[];
+};
+export type UpdateAnswersAndAdditionalNotesInput = UpdateAnswersInput & {
+  questionaryGroups: PatientQuestionaryGroupInput<AnswersAndAdditionalNotesInput>[];
 };
 
-export type UpdateAnswerAndAdditionalNotesRequest = {
-  input: UpdateAnswerAndAdditionalNotesInput;
+export type UpdatePatientQuestionaryAnswersRequest = {
+  input: UpdateAnswersInput;
 };
 
-export type UpdateAnswerAndAdditionalNotesResponse = {
-  updateAnswerAndAdditionalNotes: PatientQuestionaryBody;
+export type UpdatePatientQuestionaryAnswersResponse = {
+  updatePatientQuestionaryAnswers: PatientQuestionaryBody;
+};
+
+export type UpdateAnswersAndAdditionalNotesRequest = {
+  input: UpdateAnswersAndAdditionalNotesInput;
+};
+
+export type UpdateAnswersAndAdditionalNotesResponse = {
+  updateAnswersAndAdditionalNotes: PatientQuestionaryBody;
 };
 
 export type SendPatientQuestionaryBody = {

@@ -4,7 +4,8 @@ import { apolloClient } from 'src/graphql/ApolloClient';
 import {
   GET_PATIENT_QUESTIONARY,
   SEND_PATIENT_QUESTIONARY,
-  UPDATE_ANSWER_AND_ADDITIONAL_NOTES,
+  UPDATE_ANSWERS,
+  UPDATE_ANSWERS_AND_ADDITIONAL_NOTES,
 } from 'src/modules/questionaries/patient-questionaries/adapters/out/PatientQuestionaryQueries';
 import * as PatientQuestionarySlice from 'src/modules/questionaries/patient-questionaries/adapters/in/slicers/PatientQuestionarySlice';
 
@@ -15,9 +16,12 @@ import {
   SendPatientQuestionaryBody,
   SendPatientQuestionaryRequest,
   SendPatientQuestionaryResponse,
-  UpdateAnswerAndAdditionalNotesInput,
-  UpdateAnswerAndAdditionalNotesRequest,
-  UpdateAnswerAndAdditionalNotesResponse,
+  UpdateAnswersAndAdditionalNotesInput,
+  UpdateAnswersAndAdditionalNotesRequest,
+  UpdateAnswersAndAdditionalNotesResponse,
+  UpdateAnswersInput,
+  UpdatePatientQuestionaryAnswersRequest,
+  UpdatePatientQuestionaryAnswersResponse,
 } from 'src/modules/questionaries/patient-questionaries/adapters/out/PatientQuestionary';
 
 export function usePatientQuestionary() {
@@ -43,10 +47,26 @@ export function usePatientQuestionary() {
     }
   };
 
-  const updateAnswerAndAdditionalNotes = async (body: UpdateAnswerAndAdditionalNotesInput): Promise<void> => {
+  const updatePatientQuestionaryAnswers = async (body: UpdateAnswersInput): Promise<void> => {
     try {
-      const response = await apolloClient.mutate<UpdateAnswerAndAdditionalNotesResponse, UpdateAnswerAndAdditionalNotesRequest>({
-        mutation: UPDATE_ANSWER_AND_ADDITIONAL_NOTES,
+      const response = await apolloClient.mutate<UpdatePatientQuestionaryAnswersResponse, UpdatePatientQuestionaryAnswersRequest>({
+        mutation: UPDATE_ANSWERS,
+        variables: {
+          input: {
+            ...body,
+          },
+        },
+      });
+    } catch (error) {
+      console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
+      throw error;
+    }
+  };
+
+  const updateAnswersAndAdditionalNotes = async (body: UpdateAnswersAndAdditionalNotesInput): Promise<void> => {
+    try {
+      const response = await apolloClient.mutate<UpdateAnswersAndAdditionalNotesResponse, UpdateAnswersAndAdditionalNotesRequest>({
+        mutation: UPDATE_ANSWERS_AND_ADDITIONAL_NOTES,
         variables: {
           input: {
             ...body,
@@ -54,7 +74,7 @@ export function usePatientQuestionary() {
         },
       });
       if (response.data) {
-        dispatch(PatientQuestionarySlice.initializePatientQuestionaryGroups(response.data.updateAnswerAndAdditionalNotes));
+        dispatch(PatientQuestionarySlice.initializePatientQuestionaryGroups(response.data.updateAnswersAndAdditionalNotes));
       }
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
@@ -78,5 +98,5 @@ export function usePatientQuestionary() {
     }
   };
 
-  return { getPatientQuestionary, updateAnswerAndAdditionalNotes, sendPatientQuestionary };
+  return { getPatientQuestionary, updatePatientQuestionaryAnswers, updateAnswersAndAdditionalNotes, sendPatientQuestionary };
 }
