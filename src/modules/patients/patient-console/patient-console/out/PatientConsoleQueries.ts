@@ -117,6 +117,10 @@ export const GET_PATIENT_FOR_CONSOLE = gql`
         email
         photo
       }
+      height
+      weight
+      gender
+      birthday
     }
     getProfessional(professional: $professional) {
       _id

@@ -12,7 +12,7 @@ export const SIGN_UP_PATIENT = gql`
   }
 `;
 
-export const GET_CLIENTS = gql`
+export const GET_PATIENTS = gql`
   query _getPatients($input: GetPatientsDto!) {
     getPatients(input: $input) {
       data {

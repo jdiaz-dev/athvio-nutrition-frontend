@@ -10,7 +10,7 @@ import SearcherBar from 'src/shared/components/SearcherAndSelector/SearcherBar';
 import { useSearcher } from 'src/shared/hooks/useSearcher';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import PatientDetail from 'src/modules/patients/patients/adapters/in/components/PatientDetail';
-import { GET_CLIENTS } from 'src/modules/patients/patients/adapters/out/PatientQueries';
+import { GET_PATIENTS } from 'src/modules/patients/patients/adapters/out/PatientQueries';
 import { GetPatientResponse, GetPatientsRequest, GraphQLPatientInput } from 'src/modules/patients/patients/adapters/out/patient.types';
 import { useQuery } from '@apollo/client';
 import { StyledTableCell } from 'src/shared/components/CustomizedTable';
@@ -40,7 +40,7 @@ function PatientList() {
   } = useSearcher();
   const { length, setLength, offset, setOffset, rowsPerPage, currentPage, setCurrentPage } = usePaginator(5);
 
-  const { loading: loadingPatients, refetch: refetchPatients } = useQuery<GetPatientResponse, GetPatientsRequest>(GET_CLIENTS, {
+  const { loading: loadingPatients, refetch: refetchPatients } = useQuery<GetPatientResponse, GetPatientsRequest>(GET_PATIENTS, {
     skip: true,
   });
   const [patients, setPatients] = useState<PatientBody[]>([]);
