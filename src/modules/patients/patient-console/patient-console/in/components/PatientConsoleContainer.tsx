@@ -1,19 +1,16 @@
 import { Box } from '@mui/system';
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
-import CaloriesContainer from 'src/modules/patients/patient-console/calories/adapters/in/CaloriesContainer';
 import ChatContainer from 'src/modules/patients/patient-console/chat/adapters/in/components/ChatContainer';
-import NotesContainer from 'src/modules/patients/patient-console/notes/adapters/in/components/NotesContainer';
 import { usePatientConsole } from 'src/modules/patients/patient-console/patient-console/out/PatientConsoleActions';
 import { DateSet } from 'src/modules/patients/patient-console/patient-plans/adapters/helpers/PatientPlans';
-import PatientPlansCalendar from 'src/modules/patients/patient-console/patient-plans/adapters/in/components/PatientPlansContainer/PatientPlansCalendar';
+
 import PatientSidebarContainer from 'src/modules/patients/patient-console/patient-sidebar/components/PatientSidebarContainer';
 import { ChatContext } from 'src/modules/patients/patient-console/patient-sidebar/context/ChatContext';
 import { SelelectePanelContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SelectedPanelContext';
 import { SidebarContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SidebarContext';
 import { AvailableSlides } from 'src/modules/patients/patient-console/patient-sidebar/utils/sidebar.enum';
-import PatientQuestionaryContainer from 'src/modules/questionaries/patient-questionaries/adapters/in/components/PatientQuestionaryContainer';
 
 function PatientConsoleContainer() {
   const authContext = useContext(AuthContext);
@@ -61,11 +58,7 @@ function PatientConsoleContainer() {
             </SelelectePanelContext.Provider>
             {openChat && <ChatContainer />}
           </ChatContext.Provider>
-
-          {selectedPanel === AvailableSlides.PLANS && <PatientPlansCalendar dateSet={dateSet} setDateSet={setDateSet} />}
-          {selectedPanel === AvailableSlides.CALORIES && <CaloriesContainer />}
-          {selectedPanel === AvailableSlides.CLINICAL_NOTES && <NotesContainer />}
-          {selectedPanel === AvailableSlides.PATIENT_QUESTIONARY && <PatientQuestionaryContainer />}
+          <Outlet />
         </SidebarContext.Provider>
       </Box>
     </>

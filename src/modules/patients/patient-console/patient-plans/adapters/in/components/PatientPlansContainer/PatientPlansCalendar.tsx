@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { DatesSetArg } from '@fullcalendar/core';
 import { Theme } from '@mui/material/styles';
@@ -29,7 +29,7 @@ import utc from 'dayjs/plugin/utc';
 import { Box } from '@mui/system';
 dayjs.extend(utc);
 
-function PatientPlansCalendar({ dateSet, setDateSet }: { dateSet: DateSet | null; setDateSet: Dispatch<SetStateAction<DateSet | null>> }) {
+function PatientPlansCalendar() {
   const dispatch = useDispatch();
   const matchDownSM = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
   const calendarRef = useRef<FullCalendar>(null);
@@ -41,7 +41,7 @@ function PatientPlansCalendar({ dateSet, setDateSet }: { dateSet: DateSet | null
   const [datesToShow, setDatesToShow] = useState<DateItem<PatientPlanDateExtendedProps>[]>([]);
 
   const { handleOnStart, handleOnDrop, manageDragEffect } = assignmentDateHook(patientId as string);
-
+  const [dateSet, setDateSet] = useState<DateSet | null>(null);
   useEffect(() => {
     if (calendarRef.current) {
       const calendarApi = calendarRef.current.getApi();
