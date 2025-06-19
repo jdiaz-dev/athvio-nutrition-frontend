@@ -20,6 +20,7 @@ import PatientPlansCalendar from 'src/modules/patients/patient-console/patient-p
 import CaloriesContainer from 'src/modules/patients/patient-console/calories/adapters/in/CaloriesContainer';
 import NotesContainer from 'src/modules/patients/patient-console/notes/adapters/in/components/NotesContainer';
 import PatientQuestionaryContainer from 'src/modules/questionaries/patient-questionaries/adapters/in/components/PatientQuestionaryContainer';
+import PatientProfileContainer from 'src/modules/patients/patient-console/profile/PatientProfileContainer';
 
 function App() {
   return (
@@ -73,6 +74,7 @@ function App() {
               <Route path="calories" element={<CaloriesContainer />} />
               <Route path="notes" element={<NotesContainer />} />
               <Route path="questionary" element={<PatientQuestionaryContainer />} />
+              <Route path="profile" element={<PatientProfileContainer />} />
             </Route>
             <Route path="professional" element={<PatientConsoleContainer />} />
             <Route path="professional/preferences" element={<QuestionaryDetailContainer />} />

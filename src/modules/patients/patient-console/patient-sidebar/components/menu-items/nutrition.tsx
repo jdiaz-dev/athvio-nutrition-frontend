@@ -20,7 +20,7 @@ const icons = {
 };
 
 //todo: rename it file accoding to client options
-const widget = (): NavItemType => ({
+const nutrition = (): NavItemType => ({
   id: 'group-panels',
   title: <FormattedMessage id="Nutrition" />,
   icon: icons.ChatIcon,
@@ -44,15 +44,7 @@ const widget = (): NavItemType => ({
       toolTipTitle: i18n.t('toolTips.calories'),
       slide: AvailableSlides.CALORIES,
     },
-    /* {
-      id: 'Analytics',
-      title: <FormattedMessage id="Analytics" />,
-      type: 'item',
-      url: '/widget/data',
-      icon: icons.AdsClickIcon,
-      slide: AvailableSlides.ANALITYCS,
-    }, */
   ],
 });
 
-export default widget;
+export default nutrition;

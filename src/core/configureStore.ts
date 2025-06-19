@@ -6,7 +6,7 @@ import assignProgramReducer from 'src/modules/professionals/assign-program/in/sl
 import patientPlansReducer from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/PatientPlanSlice';
 import notesSlice from 'src/modules/patients/patient-console/notes/adapters/in/slicers/NotesSlice';
 import ChatReducer from 'src/modules/patients/patient-console/chat/adapters/in/slicers/ChatSlice';
-import PatientReducer from 'src/modules/patients/patient-console/patient/adapters/in/slicers/PatientSlice';
+import PatientReducer from 'src/modules/patients/patient-console/profile/in/slicers/PatientSlice';
 import ProfessionalReducer from 'src/modules/professionals/professional/adapters/in/slicers/ProfessionalSlice';
 import ProfessionalQuestionaryReducer from 'src/modules/questionaries/professional-questionaries/adapters/in/slicers/ProfessionalQuestionarySlice';
 import PatientQuestionaryReducer from 'src/modules/questionaries/patient-questionaries/adapters/in/slicers/PatientQuestionarySlice';

@@ -1,6 +1,5 @@
 import { SignUpProfessionalModel } from 'src/modules/authentication/authentication/adapters/out/authentication.types';
 import { ChatInitialState } from 'src/modules/patients/patient-console/chat/adapters/out/chat';
-import { PatientInitialState } from 'src/modules/patients/patient-console/patient/adapters/out/patient';
 import { PatientPlanInitialState } from 'src/modules/patients/patient-console/patient-plans/adapters/out/patientPlan.types';
 import { AssignProgramInitialState } from 'src/modules/professionals/assign-program/out/AssignProgram.types';
 import { NutritionalMealInitialState } from 'src/modules/professionals/nutritional-meals/adapters/out/nutritionalMeal';
@@ -11,6 +10,7 @@ import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 import { NutritionBuilderInitialState } from 'src/modules/nutrition-builder/adapters/out/nutritionBuilder';
 import { NotesInitialState } from 'src/modules/patients/patient-console/notes/helpers/notes';
 import { PatientQuestionaryInitialState } from 'src/modules/questionaries/patient-questionaries/adapters/out/PatientQuestionary';
+import { PatientInitialState } from 'src/modules/patients/patient-console/profile/out/PatientProfile';
 
 export type DateItem<T> = {
   title: string;

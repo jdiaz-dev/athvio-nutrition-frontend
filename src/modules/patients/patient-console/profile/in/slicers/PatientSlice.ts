@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { patientIntialState } from 'src/modules/patients/patient-console/patient/adapters/in/slicers/PatientInitialState';
-import { AcceptNewPatient } from 'src/modules/patients/patient-console/patient/adapters/out/patient';
+import { patientIntialState } from 'src/modules/patients/patient-console/profile/in/slicers/PatientInitialState';
+import { AcceptNewPatient } from 'src/modules/patients/patient-console/profile/out/PatientProfile';
 
 const patientSlice = createSlice({
   name: 'patient',
