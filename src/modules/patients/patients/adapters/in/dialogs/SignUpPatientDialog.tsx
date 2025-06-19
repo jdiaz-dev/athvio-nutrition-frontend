@@ -207,7 +207,7 @@ function SignUpPatientDialog({
                       className={classes.textField}
                       id="outlined-basic"
                       variant="outlined"
-                      label="Height"
+                      label="Height (cm)"
                       type="number"
                       {...register('height', {
                         required: false,
@@ -220,7 +220,7 @@ function SignUpPatientDialog({
                       className={classes.textField}
                       id="outlined-basic"
                       variant="outlined"
-                      label="Weight"
+                      label="Weight (kg)"
                       type="number"
                       {...register('weight', {
                         required: false,

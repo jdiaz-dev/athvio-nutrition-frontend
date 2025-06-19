@@ -7,10 +7,6 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
-// assets
-import CreditCardOutlined from '@ant-design/icons/CreditCardOutlined';
-import LockOutlined from '@ant-design/icons/LockOutlined';
-import SettingOutlined from '@ant-design/icons/SettingOutlined';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 
 function getPathIndex(pathname: string) {
@@ -31,8 +27,6 @@ function getPathIndex(pathname: string) {
   }
   return selectedTab;
 }
-
-// ==============================|| USER PROFILE - TAB ||============================== //
 
 export default function ProfileTab() {
   const navigate = useNavigate();
@@ -56,24 +50,6 @@ export default function ProfileTab() {
         </ListItemIcon>
         <ListItemText primary="Personal Information" />
       </ListItemButton>
-      {/* <ListItemButton selected={selectedIndex === 1} onClick={() => handleListItemClick(1, '/apps/profiles/user/payment')}>
-        <ListItemIcon>
-          <CreditCardOutlined />
-        </ListItemIcon>
-        <ListItemText primary="Payment" />
-      </ListItemButton> */}
-      {/* <ListItemButton selected={selectedIndex === 2} onClick={() => handleListItemClick(2, '/apps/profiles/user/password')}>
-        <ListItemIcon>
-          <LockOutlined />
-        </ListItemIcon>
-        <ListItemText primary="Change Password" />
-      </ListItemButton> */}
-      {/* <ListItemButton selected={selectedIndex === 3} onClick={() => handleListItemClick(3, '/apps/profiles/user/settings')}>
-        <ListItemIcon>
-          <SettingOutlined />
-        </ListItemIcon>
-        <ListItemText primary="Settings" />
-      </ListItemButton> */}
     </List>
   );
 }
