@@ -39,5 +39,8 @@ export default defineConfig(({ mode }) => {
       // this sets a default port to 3000
       port: 4200,
     },
+    build: {
+      target: 'esnext', // ✅ This enables top-level await
+    },
   };
 });
