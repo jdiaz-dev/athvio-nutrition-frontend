@@ -16,16 +16,16 @@ export const assignmentWeekDayHook = (programId: string) => {
 
     const daysMoved = info.delta.days;
     const dayExtendedProps = info.oldEvent.extendedProps as ProgramPlanDateExtendedProps;
-    const indexPlan = programState.plans.findIndex((plan) => plan._id === dayExtendedProps.planDayInfo._id);
+    const indexPlan = programState.plans.findIndex((plan) => plan.uuid === dayExtendedProps.planDayInfo.uuid);
 
     const dayToDrop = programState.plans[indexPlan].day + daysMoved;
     const programDay = programDays.filter((item) => item.extendedProps.planDay === dayToDrop);
-    const { _id } = programState.plans[indexPlan];
+    const { uuid } = programState.plans[indexPlan];
 
     return {
       dayToDrop,
-      isProgramDayAssigned: programDay[0].extendedProps.planDayInfo._id ? true : false,
-      planId: _id,
+      isProgramDayAssigned: programDay[0].extendedProps.planDayInfo.uuid ? true : false,
+      planId: uuid,
     };
   };
   const handleOnDrop = async (info: EventDropArg) => {
@@ -44,7 +44,7 @@ export const assignmentWeekDayHook = (programId: string) => {
     }
   };
   const manageDragEffect = (e: EventInput) => {
-    if ((e.extendedProps as ProgramPlanDateExtendedProps).planDayInfo._id) {
+    if ((e.extendedProps as ProgramPlanDateExtendedProps).planDayInfo.uuid) {
       e.editable = true;
     } else {
       e.editable = false;

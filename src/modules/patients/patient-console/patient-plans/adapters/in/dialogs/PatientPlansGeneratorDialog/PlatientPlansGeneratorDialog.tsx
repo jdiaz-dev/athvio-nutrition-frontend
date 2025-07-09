@@ -41,7 +41,7 @@ function PlatientPlansGeneratorDialog({
       nutritionalPreferences: nutritionBuilderState.nutritionalPreferences
         .filter((item) => item.status === NutriBuilderParamStatus.SELECTED)
         .map((item) => item.id),
-      patient: patientState._id,
+      patient: patientState.uuid,
       startDate: startDate as Dayjs,
       totalDays: nutritionBuilderState.totalDays,
       mealsByDay: nutritionBuilderState.mealsByDay,

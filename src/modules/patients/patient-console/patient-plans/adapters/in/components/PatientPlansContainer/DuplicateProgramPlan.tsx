@@ -16,7 +16,7 @@ function DuplicatePatientPlan({ patient, assignedDate }: { patient: string; assi
     await duplicatePatientPlan({
       professional: authContext.professional,
       patient: patient,
-      patientPlan: patientPlanState._id,
+      patientPlan: patientPlanState.uuid,
       assignedDate: assignedDate,
     });
     reloadRecordListContext.setReloadRecordList(true);

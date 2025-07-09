@@ -22,7 +22,7 @@ function SendPatienQuestionaryButton() {
       await sendPatientQuestionary({
         professional: authContext.professional,
         patient: patientId as string,
-        questionary: questionaryGroupsState._id,
+        questionary: questionaryGroupsState.uuid,
       });
     };
     if (messageOk) handleMessageOk();

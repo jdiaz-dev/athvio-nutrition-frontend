@@ -10,11 +10,11 @@ export const PATIENT_PLAN_MEALS_CRUD = gql`
     $shouldToDelete: Boolean!
   ) {
     addPlanMeal(toAddInput: $toAddInput) @include(if: $shouldToAdd) {
-      _id
+      uuid
       assignedDate
       title
       meals {
-        _id
+        uuid
         position
         mealTag
         name
@@ -100,11 +100,11 @@ export const PATIENT_PLAN_MEALS_CRUD = gql`
       }
     }
     updatePlanMeal(toUpdateInput: $toUpdateInput) @include(if: $shouldToUpdate) {
-      _id
+      uuid
       assignedDate
       title
       meals {
-        _id
+        uuid
         position
         mealTag
         name
@@ -190,11 +190,11 @@ export const PATIENT_PLAN_MEALS_CRUD = gql`
       }
     }
     deletePlanMeal(toDeleteInput: $toDeleteInput) @include(if: $shouldToDelete) {
-      _id
+      uuid
       assignedDate
       title
       meals {
-        _id
+        uuid
         position
         mealTag
         name

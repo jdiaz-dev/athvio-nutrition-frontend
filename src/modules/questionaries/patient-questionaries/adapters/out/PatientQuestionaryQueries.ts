@@ -3,15 +3,15 @@ import { gql } from '@apollo/client';
 export const GET_PATIENT_QUESTIONARY = gql`
   query _getPatientQuestionary($input: GetPatientQuestionaryDto!) {
     getPatientQuestionary(input: $input) {
-      _id
+      uuid
       patient
       professional
       questionaryGroups {
-        _id
+        uuid
         title
         description
         questionaryDetails {
-          _id
+          uuid
           fieldName
           isEnabled
           associatedQuestion
@@ -23,18 +23,18 @@ export const GET_PATIENT_QUESTIONARY = gql`
   }
 `;
 
-export const GET_PATIENT_QUESTIONARY_BY_ID = gql`
+export const GET_PATIENT_QUESTIONARY_BYuuid = gql`
   query _getPatientQuestionaryById($input: GetPatientQuestionaryByIdDto!) {
     getPatientQuestionaryById(input: $input) {
-      _id
+      uuid
       patient
       professional
       questionaryGroups {
-        _id
+        uuid
         title
         description
         questionaryDetails {
-          _id
+          uuid
           fieldName
           isEnabled
           associatedQuestion
@@ -49,13 +49,13 @@ export const GET_PATIENT_QUESTIONARY_BY_ID = gql`
 export const UPDATE_ANSWERS = gql`
   mutation _updatePatientQuestionaryAnswers($input: UpdateAnswersDto!) {
     updatePatientQuestionaryAnswers(input: $input) {
-      _id
+      uuid
       patient
       professional
       questionaryGroups {
-        _id
+        uuid
         questionaryDetails {
-          _id
+          uuid
           fieldName
           associatedQuestion
           answer
@@ -69,15 +69,15 @@ export const UPDATE_ANSWERS = gql`
 export const UPDATE_ANSWERS_AND_ADDITIONAL_NOTES = gql`
   mutation _updateAnswersAndAdditionalNotes($input: UpdateAnswersAndAdditionalNotesDto!) {
     updateAnswersAndAdditionalNotes(input: $input) {
-      _id
+      uuid
       patient
       professional
       questionaryGroups {
-        _id
+        uuid
         title
         description
         questionaryDetails {
-          _id
+          uuid
           fieldName
           isEnabled
           associatedQuestion

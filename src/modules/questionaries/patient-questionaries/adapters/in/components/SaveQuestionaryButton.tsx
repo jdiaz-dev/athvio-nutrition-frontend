@@ -21,13 +21,13 @@ function SaveQuestionaryButton() {
     await updateAnswersAndAdditionalNotes({
       professional: authContext.professional,
       patient: patientId as string,
-      questionary: questionaryGroupsState._id,
+      questionary: questionaryGroupsState.uuid,
       questionaryGroups: questionaryGroupsState.questionaryGroups
         .filter((group) => group.questionaryDetails.length > 0)
-        .map(({ _id, questionaryDetails }) => ({
-          questionaryGroup: _id,
-          questionaryDetails: questionaryDetails.map(({ _id, answer, additionalNotes }) => ({
-            questionaryDetail: _id,
+        .map(({ uuid, questionaryDetails }) => ({
+          questionaryGroup: uuid,
+          questionaryDetails: questionaryDetails.map(({ uuid, answer, additionalNotes }) => ({
+            questionaryDetail: uuid,
             answer,
             additionalNotes,
           })),

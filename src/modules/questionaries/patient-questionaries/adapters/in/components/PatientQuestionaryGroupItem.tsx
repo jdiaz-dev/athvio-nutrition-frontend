@@ -22,7 +22,7 @@ function PatientQuestionaryGroupItem({ questionaryGroup }: { questionaryGroup: P
   const mouseLeaveHandler = () => {
     if (questionaryGroupTouched) {
       dispatch(
-        PatientQuestionarySlice.updateQuestionaryGroupItem({ _id: questionaryGroup._id, questionaryDetails: questionaryDetailsState }),
+        PatientQuestionarySlice.updateQuestionaryGroupItem({ uuid: questionaryGroup.uuid, questionaryDetails: questionaryDetailsState }),
       );
       setQuestionaryGroupTouched(false);
     }

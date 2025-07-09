@@ -56,8 +56,8 @@ function AssignProgramDialog({
   const assignProgramHandler = async () => {
     await assignProgram({
       professional: programState.professional,
-      program: programState._id,
-      patients: assignProgramState.patients.map((patient) => patient._id),
+      program: programState.uuid,
+      patients: assignProgramState.patients.map((patient) => patient.uuid),
       assignmentStartDate: assignProgramState.assignmentStartDate,
       startingDay: assignProgramState.startingDay,
     });

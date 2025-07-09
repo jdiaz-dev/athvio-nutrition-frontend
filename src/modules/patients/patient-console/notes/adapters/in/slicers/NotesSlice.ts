@@ -15,12 +15,12 @@ const notesSlice = createSlice({
       return state;
     },
     updateNoteItem: (state, action: PayloadAction<NoteBody>) => {
-      const noteIndex = state.data.findIndex((item) => item._id === action.payload._id);
+      const noteIndex = state.data.findIndex((item) => item.uuid === action.payload.uuid);
       if (noteIndex !== -1) state.data[noteIndex] = action.payload;
       return state;
     },
     removeNoteItem: (state, action: PayloadAction<string>) => {
-      state.data = state.data.filter((item) => item._id !== action.payload);
+      state.data = state.data.filter((item) => item.uuid !== action.payload);
       return state;
     },
   },

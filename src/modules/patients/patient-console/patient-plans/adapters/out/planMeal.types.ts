@@ -10,7 +10,7 @@ export type PlanMealBody = {
 };
 
 type CreatePatientPlanMealInput = Omit<PlanMealBody, 'meals'> & {
-  meals: Omit<Meal, '_id'>[];
+  meals: Omit<Meal, 'uuid'>[];
 };
 
 export interface GetPatientPlansRequest {

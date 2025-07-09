@@ -16,7 +16,7 @@ export type AddCustomQuestionaryDetailBody = GetProfessionalQuestionaryBody & {
   questionaryGroup: string;
   questionaryDetailsInput: AddCustomQuestionaryDetailInput[];
 };
-export type UpdateCustomQuestionaryDetailInput = Omit<QuestionaryDetail, '_id'> & {
+export type UpdateCustomQuestionaryDetailInput = Omit<QuestionaryDetail, 'uuid'> & {
   questionaryDetail: string;
 };
 

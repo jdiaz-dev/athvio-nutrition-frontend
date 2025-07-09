@@ -42,7 +42,7 @@ function ImportMealDialog({
   const [database, setDatabase] = useState(NutritionalMealDatabasesEnum.ALL as string);
   const [closeIconDialog, setCloseIconDialog] = useState(true);
   const [{ position, mealTag, name, image, ingredientDetails, cookingInstructions, macros }, setImportedMeal] = useState<Meal>({
-    _id: '',
+    uuid: '',
     position: -1,
     mealTag: '',
     name: '',
@@ -61,7 +61,7 @@ function ImportMealDialog({
   };
   const importMealHandler = () => {
     dispatch(acceptNewMealBasicInfo({ position, mealTag, name, image }));
-    dispatch(acceptNewMealDetail({ _id: mealDetailsState._id, ingredientDetails, cookingInstructions, macros }));
+    dispatch(acceptNewMealDetail({ uuid: mealDetailsState.uuid, ingredientDetails, cookingInstructions, macros }));
     closeImportMealHandler();
   };
   const { getMeals } = useMealSelector();

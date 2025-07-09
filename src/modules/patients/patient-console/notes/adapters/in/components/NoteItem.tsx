@@ -26,7 +26,7 @@ function NoteItem({ note }: { note: NoteBody }) {
 
   useEffect(() => {
     const deleteNoteHelper = async () => {
-      await deleteNote({ note: note._id, patient: patientId as string, professional: authContext.professional });
+      await deleteNote({ note: note.uuid, patient: patientId as string, professional: authContext.professional });
       setAlert(false);
     };
     if (alert && messageOk) {

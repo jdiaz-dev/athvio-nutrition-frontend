@@ -14,9 +14,9 @@ const patientQuestionaryGroupsSlice = createSlice({
       state = action.payload;
       return state;
     },
-    updateQuestionaryGroupItem: (state, action: PayloadAction<Pick<PatientQuestionaryGroup, '_id' | 'questionaryDetails'>>) => {
-      const { _id, questionaryDetails } = action.payload;
-      const indexFound = state.questionaryGroups.findIndex((item) => item._id === _id);
+    updateQuestionaryGroupItem: (state, action: PayloadAction<Pick<PatientQuestionaryGroup, 'uuid' | 'questionaryDetails'>>) => {
+      const { uuid, questionaryDetails } = action.payload;
+      const indexFound = state.questionaryGroups.findIndex((item) => item.uuid === uuid);
       if (indexFound !== -1) {
         state.questionaryGroups[indexFound].questionaryDetails = questionaryDetails;
       }
@@ -34,18 +34,18 @@ const patientQuestionaryDetailsSlice = createSlice({
       state = action.payload;
       return state;
     },
-    updateAnswer: (state, action: PayloadAction<Pick<PatientQuestionaryDetail, '_id' | 'answer'>>) => {
-      const { _id, answer } = action.payload;
-      const indexFound = state.findIndex((group) => group._id === _id);
+    updateAnswer: (state, action: PayloadAction<Pick<PatientQuestionaryDetail, 'uuid' | 'answer'>>) => {
+      const { uuid, answer } = action.payload;
+      const indexFound = state.findIndex((group) => group.uuid === uuid);
 
       if (indexFound !== -1) {
         state[indexFound].answer = answer;
       }
       return state;
     },
-    updateAdditionalNotes: (state, action: PayloadAction<Pick<PatientQuestionaryDetail, '_id' | 'additionalNotes'>>) => {
-      const { _id, additionalNotes } = action.payload;
-      const indexFound = state.findIndex((group) => group._id === _id);
+    updateAdditionalNotes: (state, action: PayloadAction<Pick<PatientQuestionaryDetail, 'uuid' | 'additionalNotes'>>) => {
+      const { uuid, additionalNotes } = action.payload;
+      const indexFound = state.findIndex((group) => group.uuid === uuid);
 
       if (indexFound !== -1) {
         state[indexFound].additionalNotes = additionalNotes;

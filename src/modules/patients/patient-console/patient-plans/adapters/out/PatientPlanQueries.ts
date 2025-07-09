@@ -3,11 +3,11 @@ import { gql } from '@apollo/client';
 export const CREATE_CLIENT_PLAN = gql`
   mutation _createPatientPlan($input: CreatePatientPlanDto!) {
     createPatientPlan(input: $input) {
-      _id
+      uuid
       assignedDate
       title
       meals {
-        _id
+        uuid
         position
         mealTag
         name
@@ -98,11 +98,11 @@ export const CREATE_CLIENT_PLAN = gql`
 export const GET_CLIENT_PLANS = gql`
   query _getPatientPlansForWeb($patientPlans: GetPatientPlansForWebDto!) {
     getPatientPlansForWeb(patientPlans: $patientPlans) {
-      _id
+      uuid
       title
       assignedDate
       meals {
-        _id
+        uuid
         position
         mealTag
         name
@@ -193,11 +193,11 @@ export const GET_CLIENT_PLANS = gql`
 export const UPDATE_CLIENT_PLAN = gql`
   mutation _updatePatientPlan($input: UpdatePatientPlanDto!) {
     updatePatientPlan(input: $input) {
-      _id
+      uuid
       title
       assignedDate
       meals {
-        _id
+        uuid
         position
         mealTag
         name
@@ -288,11 +288,11 @@ export const UPDATE_CLIENT_PLAN = gql`
 export const DUPLICATE_CLIENT_PLAN = gql`
   mutation _duplicatePatientPlan($input: DuplicatePatientPlanDto!) {
     duplicatePatientPlan(input: $input) {
-      _id
+      uuid
       title
       assignedDate
       meals {
-        _id
+        uuid
         position
         mealTag
         name
@@ -383,11 +383,11 @@ export const DUPLICATE_CLIENT_PLAN = gql`
 export const DELETE_CLIENT_PLAN = gql`
   mutation _deletePatientPlan($input: DeletePatientPlanDto!) {
     deletePatientPlan(input: $input) {
-      _id
+      uuid
       title
       assignedDate
       meals {
-        _id
+        uuid
         position
         mealTag
         name

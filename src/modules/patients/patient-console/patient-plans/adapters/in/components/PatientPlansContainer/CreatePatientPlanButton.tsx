@@ -28,9 +28,9 @@ const CreatePatientPlanButton = memo(function CreatePatientPlanButton({
   const createPatientPlanHandler = async () => {
     const meals = mealListState
       .filter(
-        (item) => item._id.includes(temporalId) && item.status !== ReduxItemtatus.DELETED && item.status !== ReduxItemtatus.INITIALIZED,
+        (item) => item.uuid.includes(temporalId) && item.status !== ReduxItemtatus.DELETED && item.status !== ReduxItemtatus.INITIALIZED,
       )
-      .map(({ _id, status, ...rest }) => ({ ...rest }));
+      .map(({ uuid, status, ...rest }) => ({ ...rest }));
 
     const input = {
       professional: authContext.professional,
@@ -74,7 +74,7 @@ const CreatePatientPlanButton = memo(function CreatePatientPlanButton({
         <DuplicatePatientPlan patient={patient} assignedDate={assignedDate} />
       </CustomIconWrapper>
       {/* todo: enhance logic to open dialog that it is being created, test use useMemo */}
-      {openPlanDetailDialogMemoized && patientPlanState?._id.length > 0 ? (
+      {openPlanDetailDialogMemoized && patientPlanState?.uuid.length > 0 ? (
         <PlanDetailDialog
           planDay={assignedDate}
           openPlanDetailDialog={openPlanDetailDialogMemoized}

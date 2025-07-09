@@ -3,21 +3,21 @@ import { gql } from '@apollo/client';
 export const CREATE_PROGRAM_PLAN = gql`
   mutation _addProgramPlan($input: AddProgramPlanDto!) {
     addProgramPlan(input: $input) {
-      _id
+      uuid
       professional
       name
       description
       programTags {
-        _id
+        uuid
         title
       }
       plans {
-        _id
+        uuid
         title
         week
         day
         meals {
-          _id
+          uuid
           position
           mealTag
           name
@@ -109,21 +109,21 @@ export const CREATE_PROGRAM_PLAN = gql`
 export const UPDATE_PLAN_ASSIGNED_WEKK_DAY = gql`
   mutation _updatePlanAssignedWeekDay($input: UpdatePlanAssignedWeekDayDto!) {
     updatePlanAssignedWeekDay(input: $input) {
-      _id
+      uuid
       professional
       name
       description
       programTags {
-        _id
+        uuid
         title
       }
       plans {
-        _id
+        uuid
         title
         week
         day
         meals {
-          _id
+          uuid
           position
           mealTag
           name
@@ -215,21 +215,21 @@ export const UPDATE_PLAN_ASSIGNED_WEKK_DAY = gql`
 export const DUPLICATE_PROGRAM_PLAN = gql`
   mutation _duplicateProgramPlan($input: DuplicateProgramPlanDto!) {
     duplicateProgramPlan(input: $input) {
-      _id
+      uuid
       professional
       name
       description
       programTags {
-        _id
+        uuid
         title
       }
       plans {
-        _id
+        uuid
         title
         week
         day
         meals {
-          _id
+          uuid
           position
           mealTag
           name
@@ -321,21 +321,21 @@ export const DUPLICATE_PROGRAM_PLAN = gql`
 export const DELETE_PROGRAM_PLAN = gql`
   mutation _deleteProgramPlan($input: DeleteProgramPlanDto!) {
     deleteProgramPlan(input: $input) {
-      _id
+      uuid
       professional
       name
       description
       programTags {
-        _id
+        uuid
         title
       }
       plans {
-        _id
+        uuid
         title
         week
         day
         meals {
-          _id
+          uuid
           position
           mealTag
           name

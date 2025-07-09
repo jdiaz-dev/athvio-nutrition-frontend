@@ -23,20 +23,20 @@ const cardStyles = makeStyles()(() => {
 function CustomQuestionaryDetailItem({ questionaryDetail: questionaryDetailData }: { questionaryDetail: QuestionaryDetail }) {
   const dispatch = useDispatch();
   const { classes } = cardStyles();
-  const { _id, ...rest } = questionaryDetailData;
+  const { uuid, ...rest } = questionaryDetailData;
 
   const fieldNameHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    dispatch(CustomProfessionalQuestionaryDetailsSlice.updateCustom({ ...rest, _id: _id as string, fieldName: e.target.value }));
+    dispatch(CustomProfessionalQuestionaryDetailsSlice.updateCustom({ ...rest, uuid: uuid as string, fieldName: e.target.value }));
   };
   const associatedQuestionHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    dispatch(CustomProfessionalQuestionaryDetailsSlice.updateCustom({ ...rest, _id: _id as string, associatedQuestion: e.target.value }));
+    dispatch(CustomProfessionalQuestionaryDetailsSlice.updateCustom({ ...rest, uuid: uuid as string, associatedQuestion: e.target.value }));
   };
 
   const enableQuestionaryDetailHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    dispatch(CustomProfessionalQuestionaryDetailsSlice.updateCustom({ ...rest, _id: _id as string, isEnabled: !questionaryDetailData.isEnabled }));
+    dispatch(CustomProfessionalQuestionaryDetailsSlice.updateCustom({ ...rest, uuid: uuid as string, isEnabled: !questionaryDetailData.isEnabled }));
   };
   const deleteCustomQuestionaryDetailHandler = () => {
-    dispatch(CustomProfessionalQuestionaryDetailsSlice.deleteCustom(_id as string));
+    dispatch(CustomProfessionalQuestionaryDetailsSlice.deleteCustom(uuid as string));
   };
   return (
     <Accordion>

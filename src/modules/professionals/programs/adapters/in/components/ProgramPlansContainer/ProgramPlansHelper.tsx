@@ -10,7 +10,7 @@ import WrapperItemButtons from 'src/shared/components/wrappers/WrapperItemButton
 const ProgramPlansHelper = (arg: EventContentArg) => {
   const { program, planDayInfo, planDay, planWeek } = arg.event.extendedProps as ProgramPlanDateExtendedProps;
 
-  if (planDayInfo._id === null) {
+  if (planDayInfo.uuid === null) {
     // arg.event.startEditable = false;
     return (
       <PlanWrapper>

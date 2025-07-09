@@ -4,7 +4,7 @@ export const notesInitialState: NotesInitialState = {
   notes: { data: [] },
   note: {
     data: {
-      _id: '',
+      uuid: '',
       patient: '',
       content: '',
       date: '',

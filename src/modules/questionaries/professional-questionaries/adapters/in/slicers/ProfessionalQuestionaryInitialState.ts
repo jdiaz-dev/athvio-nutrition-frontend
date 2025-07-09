@@ -2,7 +2,7 @@ import { ProfessionalQuestionaryInitialState } from 'src/modules/questionaries/p
 
 export const professionalQuestionaryInitialState: ProfessionalQuestionaryInitialState = {
   professionalQuestionary: {
-    _id: '',
+    uuid: '',
     professional: '',
     questionaryGroups: [],
   },

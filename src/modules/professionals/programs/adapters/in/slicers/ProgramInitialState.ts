@@ -4,13 +4,13 @@ import { ProgramInitialState } from 'src/modules/professionals/programs/adapters
 export const programInitialState: ProgramInitialState = {
   programs: null,
   program: {
-    data: { professional: '', _id: '', name: '', description: '', programTags: [], plans: [] },
+    data: { professional: '', uuid: '', name: '', description: '', programTags: [], plans: [] },
     loading: false,
     error: null,
   },
   plans: [],
   plan: {
-    _id: '',
+    uuid: '',
     title: '',
     week: 0,
     day: 0,
@@ -23,7 +23,7 @@ export const programInitialState: ProgramInitialState = {
     name: 'Meal name',
   },
   mealDetails: {
-    _id: '',
+    uuid: '',
     ingredientDetails: [],
     cookingInstructions: '',
     macros: {

@@ -63,8 +63,8 @@ export default function ChatMessageSend() {
       } as SnackbarProps);
     } else {
       saveChatComment({
-        professional: professionalState._id,
-        patient: patientState._id,
+        professional: professionalState.uuid,
+        patient: patientState.uuid,
         comment: { content: message, commenter: Commenter.PROFESSIONAL },
       });
     }

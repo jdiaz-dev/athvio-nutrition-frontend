@@ -59,11 +59,11 @@ function CreateUpdateNoteDialog({
 
   useEffect(() => {
     const createUpdateNoteHelper = async () => {
-      if (_note && _note._id) {
+      if (_note && _note.uuid) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { _id, content } = noteState;
+        const { uuid, content } = noteState;
         await updateNote({
-          note: _id,
+          note: uuid,
           professional: authContext.professional,
           patient: patientId as string,
           content,

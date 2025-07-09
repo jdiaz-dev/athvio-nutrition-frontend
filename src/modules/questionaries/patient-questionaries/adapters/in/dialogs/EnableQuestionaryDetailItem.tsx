@@ -15,13 +15,13 @@ function EnableQuestionaryDetailItem({
   const manageEnabledHandler = () => {
     dispatch(
       ProfessionalQuestionarySlice.updateIsEnabledQuestionaryDetail({
-        questionaryDetail: questionaryDetail._id as string,
+        questionaryDetail: questionaryDetail.uuid as string,
         isEnabled: !questionaryDetail.isEnabled,
       }),
     );
     dispatch(
       ProfessionalQuestionarySlice.manageIsEnabledQuestionaryDetails({
-        questionaryDetail: questionaryDetail._id as string,
+        questionaryDetail: questionaryDetail.uuid as string,
         isEnabled: !questionaryDetail.isEnabled,
       }),
     );

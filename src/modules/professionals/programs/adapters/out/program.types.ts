@@ -4,7 +4,7 @@ import { GetRecordsBody, MetadataRecords } from 'src/shared/types/get-records.ty
 import { PlanDayInfo } from 'src/shared/types/types';
 
 export interface Plan {
-  _id: string;
+  uuid: string;
   title: string;
   week: number;
   day: number;
@@ -12,12 +12,12 @@ export interface Plan {
 }
 
 export interface ProgramTag {
-  _id: string;
+  uuid: string;
   title: string;
 }
 
 export interface ProgramBody {
-  _id: string;
+  uuid: string;
   professional: string;
   name: string;
   description: string;
@@ -78,7 +78,7 @@ export interface DeleteProgramRequest {
 
 export interface DeleteProgamResponse {
   deleteProgram: {
-    _id: string;
+    uuid: string;
     name: string;
   };
 }

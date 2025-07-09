@@ -36,7 +36,7 @@ function CustomQuestionaryDetailsManager({
 
   const addCustomQuestionaryDetailHandler = () => {
     const newQuestionaryDetail = {
-      _id: generateTemporalId(),
+      uuid: generateTemporalId(),
       associatedQuestion: '¿Cuál es la pregunta?',
       fieldName: 'Nombre de para este campo',
       isEnabled: true,
@@ -49,22 +49,22 @@ function CustomQuestionaryDetailsManager({
     const baseData = {
       professional: authContext.professional,
       questionary,
-      questionaryGroup: questionaryGroup._id,
+      questionaryGroup: questionaryGroup.uuid,
     };
 
     const toAddInput = customQuestionaryDetailsState
       .filter(
-        (item) => item._id.includes(temporalId) && item.status !== ReduxItemtatus.DELETED && item.status !== ReduxItemtatus.INITIALIZED,
+        (item) => item.uuid.includes(temporalId) && item.status !== ReduxItemtatus.DELETED && item.status !== ReduxItemtatus.INITIALIZED,
       )
-      .map(({ _id, status, ...rest }) => ({ ...rest }));
+      .map(({ uuid, status, ...rest }) => ({ ...rest }));
 
     const toUpdateInput = customQuestionaryDetailsState
-      .filter((item) => !item._id.includes(temporalId) && item.status === ReduxItemtatus.UPDATED)
-      .map(({ _id, status, ...rest }) => ({ ...rest, questionaryDetail: _id }));
+      .filter((item) => !item.uuid.includes(temporalId) && item.status === ReduxItemtatus.UPDATED)
+      .map(({ uuid, status, ...rest }) => ({ ...rest, questionaryDetail: uuid }));
 
     const toDeleteInput = customQuestionaryDetailsState
-      .filter((item) => !item._id.includes(temporalId) && item.status === ReduxItemtatus.DELETED)
-      .map(({ _id }) => _id);
+      .filter((item) => !item.uuid.includes(temporalId) && item.status === ReduxItemtatus.DELETED)
+      .map(({ uuid }) => uuid);
 
     await customQuestionaryDetailsCRUD({
       toAddInput: {

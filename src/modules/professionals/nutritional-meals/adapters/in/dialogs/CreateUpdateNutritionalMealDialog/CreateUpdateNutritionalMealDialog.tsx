@@ -44,11 +44,11 @@ function CreateUpdateNutritionalMealDialog({
   const [closedIconDialog, setClosedIconDialog] = useState(true);
   const [newImage, setNewImage] = useState<File | null>(null);
 
-  const { _id, ...restNutritionalMeal } = nutritionalMealDetailsState;
+  const { uuid, ...restNutritionalMeal } = nutritionalMealDetailsState;
   const createUpdateNutritionalMealHandler = async () => {
-    if (_nutritionalMeal && _nutritionalMeal._id) {
+    if (_nutritionalMeal && _nutritionalMeal.uuid) {
       await updateNutritionalMeal({
-        nutritionalMeal: _id,
+        nutritionalMeal: uuid,
         ...restNutritionalMeal,
         ...mealNameBasicInfo,
         professional: authContext.professional,
@@ -134,7 +134,7 @@ function CreateUpdateNutritionalMealDialog({
             <NutritionalMealNameInput />
             <ImageContainer image={mealNameBasicInfo.image} setNewImage={setNewImage} />
             <CurrentModuleContext.Provider value={{ currentModule: Modules.NUTRITIONAL_MEALS }}>
-              <MealBuilder meal={{ _id, ...restNutritionalMeal }} />
+              <MealBuilder meal={{ uuid, ...restNutritionalMeal }} />
             </CurrentModuleContext.Provider>
           </EnableEditionContext.Provider>
         </Card>

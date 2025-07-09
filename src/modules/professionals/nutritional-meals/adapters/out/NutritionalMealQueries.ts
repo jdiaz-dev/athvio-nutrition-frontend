@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 export const CREATE_NUTRITIONAL_MEAL = gql`
   mutation _createNutritionalMeal($input: CreateNutritionalMealDto!) {
     createNutritionalMeal(input: $input) {
-      _id
+      uuid
       name
       professional
       name
@@ -118,7 +118,7 @@ export const GET_NUTRITIONAL_MEALS = gql`
   query _getNutritionalMealsForProfessional($input: GetNutritionalMealsForProfessionalDto!) {
     getNutritionalMealsForProfessional(input: $input) {
       data {
-        _id
+        uuid
         professional
         name
         image
@@ -243,7 +243,7 @@ export const GET_NUTRITIONAL_MEAL_DATABASES = gql`
 export const UPDATE_NUTRITIONAL_MEAL = gql`
   mutation _updateNutritionalMeal($input: UpdateNutritionalMealDto!) {
     updateNutritionalMeal(input: $input) {
-      _id
+      uuid
       name
       professional
       name
@@ -357,7 +357,7 @@ export const UPDATE_NUTRITIONAL_MEAL = gql`
 export const DELETE_NUTRITIONAL_MEAL = gql`
   mutation _deleteNutritionalMeal($input: DeleteNutritionalMealDto!) {
     deleteNutritionalMeal(input: $input) {
-      _id
+      uuid
       name
       professional
       name

@@ -4,7 +4,7 @@ export const GET_FOODS = gql`
   query _getFoods($input: GetFoodsDto!) {
     getFoods(input: $input) {
       data {
-        _id
+        uuid
         name
       }
       meta {

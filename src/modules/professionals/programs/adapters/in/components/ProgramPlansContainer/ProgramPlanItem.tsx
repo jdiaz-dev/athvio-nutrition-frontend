@@ -23,7 +23,7 @@ function ProgramPlanItem({ program, planDay, planDayInfo }: { program: string; p
   const authContext = useContext(AuthContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
 
-  const programPlanState = useSelector((state: ReduxStates) => state.programs.plans).find((_plan) => _plan._id === planDayInfo._id);
+  const programPlanState = useSelector((state: ReduxStates) => state.programs.plans).find((_plan) => _plan.uuid === planDayInfo.uuid);
   const mealListState = useSelector((state: ReduxStates) => state.programs.mealList);
 
   const [openPlanDetailDialog, setOpenPlanDetailDialog] = useState(false);
@@ -38,22 +38,22 @@ function ProgramPlanItem({ program, planDay, planDayInfo }: { program: string; p
     const baseData = {
       professional: authContext.professional,
       program,
-      plan: planDayInfo._id as string,
+      plan: planDayInfo.uuid as string,
     };
 
     const toAddInput = mealListState
       .filter(
-        (item) => item._id.includes(temporalId) && item.status !== ReduxItemtatus.DELETED && item.status !== ReduxItemtatus.INITIALIZED,
+        (item) => item.uuid.includes(temporalId) && item.status !== ReduxItemtatus.DELETED && item.status !== ReduxItemtatus.INITIALIZED,
       )
-      .map(({ _id, status, ...rest }) => ({ ...rest }));
+      .map(({ uuid, status, ...rest }) => ({ ...rest }));
 
     const toUpdateInput = mealListState
-      .filter((item) => !item._id.includes(temporalId) && item.status === ReduxItemtatus.UPDATED)
-      .map(({ _id, status, ...rest }) => ({ ...rest, meal: _id }));
+      .filter((item) => !item.uuid.includes(temporalId) && item.status === ReduxItemtatus.UPDATED)
+      .map(({ uuid, status, ...rest }) => ({ ...rest, meal: uuid }));
 
     const toDeleteInput = mealListState
-      .filter((item) => !item._id.includes(temporalId) && item.status === ReduxItemtatus.DELETED)
-      .map(({ _id }) => _id);
+      .filter((item) => !item.uuid.includes(temporalId) && item.status === ReduxItemtatus.DELETED)
+      .map(({ uuid }) => uuid);
     await programPlanMealCRUD({
       toAddInput: {
         ...baseData,
@@ -104,7 +104,7 @@ function ProgramPlanItem({ program, planDay, planDayInfo }: { program: string; p
       await deletePlan({
         professional: authContext.professional,
         program,
-        plan: planDayInfo._id as string,
+        plan: planDayInfo.uuid as string,
       });
       reloadRecordListContext.setReloadRecordList(true);
       setAlert(false);
@@ -123,7 +123,7 @@ function ProgramPlanItem({ program, planDay, planDayInfo }: { program: string; p
     <>
       <PlanBucket planDayInfo={planDayInfo} handler={programPlanClickedHandler}>
         {/* TODO: urgent - after to copy plan to another day, it doesn't show meals in dialog */}
-        <CopyProgramPlan plan={planDayInfo._id as unknown as string} />
+        <CopyProgramPlan plan={planDayInfo.uuid as unknown as string} />
       </PlanBucket>
       <CustomTrashIcon handler={deletePlanHandler} />
       {openPlanDetailDialog && (

@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 export const patientPlanInitialState: PatientPlanInitialState = {
   patientPlans: [],
   patientPlan: {
-    _id: '',
+    uuid: '',
     patient: '',
     title: '',
     assignedDate: dayjs().toString(),
@@ -18,7 +18,7 @@ export const patientPlanInitialState: PatientPlanInitialState = {
   },
   mealList: [],
   mealDetails: {
-    _id: '',
+    uuid: '',
     ingredientDetails: [],
     cookingInstructions: '',
     macros: {

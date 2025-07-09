@@ -89,7 +89,7 @@ export function useNotes() {
           },
         },
       });
-      if (response.data) dispatch(NotesSlice.removeNoteItem(response.data.deleteNote._id));
+      if (response.data) dispatch(NotesSlice.removeNoteItem(response.data.deleteNote.uuid));
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;

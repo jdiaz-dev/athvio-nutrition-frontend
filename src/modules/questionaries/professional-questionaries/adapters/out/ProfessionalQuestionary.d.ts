@@ -1,7 +1,7 @@
 import { ReduxItemtatus } from 'src/shared/Consts';
 
 export type QuestionaryDetail = {
-  _id: string;
+  uuid: string;
   fieldName: string;
   associatedQuestion: string;
   // fieldOptions?: string | string[];
@@ -13,7 +13,7 @@ export type QuestionaryDetailState = QuestionaryDetail & {
 };
 
 export type QuestionaryGroup = {
-  _id: string;
+  uuid: string;
   title: string;
   description?: string;
   questionaryDetails: QuestionaryDetail[];
@@ -24,7 +24,7 @@ export type Questionary = {
 };
 
 export type ProfessionalQuestionaryBody = Questionary & {
-  _id: string;
+  uuid: string;
   professional: string;
 };
 
@@ -68,7 +68,7 @@ export type AddCustomQuestionaryDetailBody = GetProfessionalQuestionaryBody & {
   questionaryGroup: string;
   questionaryDetailsInput: AddCustomQuestionaryDetailInput[];
 };
-export type UpdateCustomQuestionaryDetailInput = Omit<QuestionaryDetail, '_id'> & {
+export type UpdateCustomQuestionaryDetailInput = Omit<QuestionaryDetail, 'uuid'> & {
   questionaryDetail: string;
 };
 

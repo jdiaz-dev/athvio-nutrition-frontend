@@ -18,7 +18,7 @@ function PatientPlanBasicInformation({ patient, plan, assignedDate }: { patient:
   const authContext = useContext(AuthContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
 
-  const patientPlansState = useSelector((state: ReduxStates) => state.patientPlans.patientPlans).find((_plan) => _plan._id === plan._id);
+  const patientPlansState = useSelector((state: ReduxStates) => state.patientPlans.patientPlans).find((_plan) => _plan.uuid === plan.uuid);
   const mealListState = useSelector((state: ReduxStates) => state.patientPlans.mealList);
 
   const [openPlanDetailDialog, setOpenPlanDetailDialog] = useState(false);
@@ -39,22 +39,22 @@ function PatientPlanBasicInformation({ patient, plan, assignedDate }: { patient:
     const baseData = {
       professional: authContext.professional,
       patient,
-      patientPlan: plan._id as string,
+      patientPlan: plan.uuid as string,
     };
 
     const toAddInput = mealListState
       .filter(
-        (item) => item._id.includes(temporalId) && item.status !== ReduxItemtatus.DELETED && item.status !== ReduxItemtatus.INITIALIZED,
+        (item) => item.uuid.includes(temporalId) && item.status !== ReduxItemtatus.DELETED && item.status !== ReduxItemtatus.INITIALIZED,
       )
-      .map(({ _id, status, ...rest }) => ({ ...rest }));
+      .map(({ uuid, status, ...rest }) => ({ ...rest }));
 
     const toUpdateInput = mealListState
-      .filter((item) => !item._id.includes(temporalId) && item.status === ReduxItemtatus.UPDATED)
-      .map(({ _id, status, ...rest }) => ({ ...rest, meal: _id }));
+      .filter((item) => !item.uuid.includes(temporalId) && item.status === ReduxItemtatus.UPDATED)
+      .map(({ uuid, status, ...rest }) => ({ ...rest, meal: uuid }));
 
     const toDeleteInput = mealListState
-      .filter((item) => !item._id.includes(temporalId) && item.status === ReduxItemtatus.DELETED)
-      .map(({ _id }) => _id);
+      .filter((item) => !item.uuid.includes(temporalId) && item.status === ReduxItemtatus.DELETED)
+      .map(({ uuid }) => uuid);
     await patientPlanMealCrud({
       toAddInput: {
         ...baseData,
@@ -85,7 +85,7 @@ function PatientPlanBasicInformation({ patient, plan, assignedDate }: { patient:
       await deletePatientPlan({
         professional: authContext.professional,
         patient,
-        patientPlan: plan._id as string,
+        patientPlan: plan.uuid as string,
       });
       reloadRecordListContext.setReloadRecordList(true);
       setAlert(false);
@@ -115,7 +115,7 @@ function PatientPlanBasicInformation({ patient, plan, assignedDate }: { patient:
   return (
     <>
       <PlanBucket planDayInfo={plan} handler={programPlanClickedHandler}>
-        <CopyPatientPlan plan={plan._id as unknown as string} />
+        <CopyPatientPlan plan={plan.uuid as unknown as string} />
       </PlanBucket>
       {openPlanDetailDialog && (
         <PlanDetailDialog

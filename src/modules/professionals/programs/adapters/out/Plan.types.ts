@@ -1,7 +1,7 @@
 import { Plan, ProgramBody } from 'src/modules/professionals/programs/adapters/out/program.types';
 import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 
-type MealBody = Omit<Meal, '_id'>;
+type MealBody = Omit<Meal, 'uuid'>;
 type PlanBody = Pick<Plan, 'title' | 'week' | 'day'> & {
   meals: MealBody[];
 };

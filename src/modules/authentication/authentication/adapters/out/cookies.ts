@@ -3,11 +3,11 @@ import { JwtDto } from './authentication.types';
 
 const TOKEN_COOKIE = 'auth.token';
 const USER_TPE = 'auth.role';
-const ID = 'auth._id';
+const ID = 'auth.uuid';
 
 const time = 86400;
-export function createSessionCookies({ _id, role, token }: JwtDto) {
-  setCookie(null, ID, _id, {
+export function createSessionCookies({ uuid, role, token }: JwtDto) {
+  setCookie(null, ID, uuid, {
     maxAge: time,
     path: '/',
   });

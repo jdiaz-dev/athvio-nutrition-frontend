@@ -14,8 +14,8 @@ function DuplicateProgramPlan({ newWeek, newDay }: { newWeek: number; newDay: nu
   const duplicateProgramPlanHandler = async () => {
     await duplicateProgramPlan({
       professional: authContext.professional,
-      program: programState._id,
-      plan: planState._id,
+      program: programState.uuid,
+      plan: planState.uuid,
       week: newWeek, // t0do: fix it
       day: newDay,
     });

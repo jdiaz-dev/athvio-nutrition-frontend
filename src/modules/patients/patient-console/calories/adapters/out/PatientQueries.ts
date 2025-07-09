@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 export const CREATE_CALORY = gql`
   mutation _createCalory($input: CreateCaloryDto!) {
     createCalory(input: $input) {
-      _id
+      uuid
       protein
       carbs
       fat
@@ -15,7 +15,7 @@ export const CREATE_CALORY = gql`
 export const GET_CALORY = gql`
   query _getCalory($input: GetCaloryDto!) {
     getCalory(input: $input) {
-      _id
+      uuid
       protein
       carbs
       fat
@@ -27,7 +27,7 @@ export const GET_CALORY = gql`
 export const UPDATE_CALORY = gql`
   mutation _updateCalory($input: UpdateCaloryDto!) {
     updateCalory(input: $input) {
-      _id
+      uuid
       protein
       carbs
       fat

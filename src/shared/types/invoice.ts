@@ -34,7 +34,7 @@ export interface InvoiceProps {
 
 export interface InvoiceList {
   id: number;
-  invoice_id: number;
+  invoiceuuid: number;
   customer_name: string;
   email: string;
   avatar: number;

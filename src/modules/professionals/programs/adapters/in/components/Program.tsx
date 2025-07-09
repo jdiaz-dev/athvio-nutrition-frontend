@@ -37,7 +37,7 @@ function Program(program: ProgramBody) {
     if (alert && messageOk) {
       void deleteProgram({
         professional: authContext.professional,
-        program: program._id || '',
+        program: program.uuid || '',
       });
       reloadRecordListContext.setReloadRecordList(true);
       setAlert(false);
@@ -60,7 +60,7 @@ function Program(program: ProgramBody) {
   };
 
   if (goToProgramPlans) {
-    const path = `/professional/programs/${program._id}/plans`;
+    const path = `/professional/programs/${program.uuid}/plans`;
     return <Navigate replace to={path} />;
   }
 

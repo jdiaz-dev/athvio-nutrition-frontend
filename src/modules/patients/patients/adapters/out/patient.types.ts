@@ -37,7 +37,7 @@ export interface SignUpPatientRequest {
 }
 
 export type PatientBodyResponse = {
-  _id: string;
+  uuid: string;
   userInfo: UserInfoForPatient;
 };
 
@@ -73,9 +73,9 @@ export type ManagePatientGroupRequest = {
 
 export type ManagePatientGroupResponse = {
   input: {
-    _id: string;
+    uuid: string;
     groups: {
-      _id: string;
+      uuid: string;
       groupName: string;
     }[];
   };
@@ -91,7 +91,7 @@ export type ManagePatientStateRequest = {
 
 export type ManagePatientStateResponse = {
   managePatientState: {
-    _id: string;
+    uuid: string;
     groups: string[];
   };
 };

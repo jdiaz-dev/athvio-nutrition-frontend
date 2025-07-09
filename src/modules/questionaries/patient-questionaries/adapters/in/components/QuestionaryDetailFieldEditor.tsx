@@ -31,7 +31,7 @@ function QuestionaryDetailFieldEditor({
   };
   const saveFieldHandler = () => {
     setEdtiField(false);
-    dispatch(sliceUpdater({ _id: questionaryDetail, [fieldKey]: newValue }));
+    dispatch(sliceUpdater({ uuid: questionaryDetail, [fieldKey]: newValue }));
   };
   useEffect(() => {
     if (editField) inputRef.current?.focus();

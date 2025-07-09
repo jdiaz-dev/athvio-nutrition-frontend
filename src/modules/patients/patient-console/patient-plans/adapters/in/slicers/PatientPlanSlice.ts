@@ -18,7 +18,7 @@ const patientPlansSlice = createSlice({
       return state;
     },
     modififyingSpecificPatientPlan: (state, action: PayloadAction<PatientPlanBody>) => {
-      const patientPlanIndex = state.findIndex((item) => item._id === action.payload._id);
+      const patientPlanIndex = state.findIndex((item) => item.uuid === action.payload.uuid);
       if (patientPlanIndex !== -1) state[patientPlanIndex] = action.payload;
       return state;
     },
@@ -31,7 +31,7 @@ const patientPlansSlice = createSlice({
       return state;
     },
     removePatientPlan: (state, action: PayloadAction<PatientPlanBody>) => {
-      state = state.filter((item) => item._id !== action.payload._id);
+      state = state.filter((item) => item.uuid !== action.payload.uuid);
       return state;
     },
   },
@@ -49,10 +49,10 @@ const patientPlanSlice = createSlice({
       state.title = action.payload.title;
       return state;
     },
-    duplicatingPatientPlan: (state, action: PayloadAction<Pick<PatientPlanBody, '_id'>>) => {
+    duplicatingPatientPlan: (state, action: PayloadAction<Pick<PatientPlanBody, 'uuid'>>) => {
       const planUsinghOnlyId = {
         ...patientPlanInitialState.patientPlan, // to reset remaining values
-        _id: action.payload._id,
+        uuid: action.payload.uuid,
       };
 
       state = planUsinghOnlyId;

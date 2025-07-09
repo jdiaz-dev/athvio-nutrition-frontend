@@ -4,7 +4,7 @@ export const defaultNutritionalMeal = 'Meal 1';
 export const nutritionalMealInitialState: NutritionalMealInitialState = {
   nutritionalMeals: null,
   nutritionalMealDetails: {
-    _id: '',
+    uuid: '',
     ingredientDetails: [],
     cookingInstructions: '',
     macros: {

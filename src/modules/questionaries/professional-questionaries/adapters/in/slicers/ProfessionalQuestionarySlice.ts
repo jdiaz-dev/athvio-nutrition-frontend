@@ -30,7 +30,7 @@ const questionaryDetailsSlice = createSlice({
     },
     updateIsEnabledQuestionaryDetail: (state, action: PayloadAction<IsEnabledQuestionaryDetails>) => {
       const { questionaryDetail, isEnabled } = action.payload;
-      state = state.map((item) => (item._id === questionaryDetail ? { ...item, isEnabled } : item));
+      state = state.map((item) => (item.uuid === questionaryDetail ? { ...item, isEnabled } : item));
       return state;
     },
 

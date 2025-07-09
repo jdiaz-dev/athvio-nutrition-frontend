@@ -10,7 +10,7 @@ import CreatePatientPlanButton from 'src/modules/patients/patient-console/patien
 function PatientPlansHelper(arg: EventContentArg) {
   const { patient, patientPlanDayInfo, assignedDate } = arg.event.extendedProps as PatientPlanDateExtendedProps;
 
-  if (patientPlanDayInfo._id === null) {
+  if (patientPlanDayInfo.uuid === null) {
     return (
       <PlanWrapper>
         <WrapperItemButtons>

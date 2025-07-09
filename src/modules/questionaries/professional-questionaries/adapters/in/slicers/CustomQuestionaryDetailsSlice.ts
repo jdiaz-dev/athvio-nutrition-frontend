@@ -5,8 +5,8 @@ import { ReduxItemtatus } from 'src/shared/Consts';
 import { ReduxStates } from 'src/shared/types/types';
 
 export const questionaryDetailsAdapter = createEntityAdapter({
-  selectId: (questionaryDetail: QuestionaryDetailState) => questionaryDetail._id,
-  sortComparer: (a, b) => a._id.localeCompare(b._id),
+  selectId: (questionaryDetail: QuestionaryDetailState) => questionaryDetail.uuid,
+  sortComparer: (a, b) => a.uuid.localeCompare(b.uuid),
 });
 
 export const customQuestionaryDetailSlice = createSlice({
@@ -20,8 +20,8 @@ export const customQuestionaryDetailSlice = createSlice({
       questionaryDetailsAdapter.addOne(state, { ...action.payload, status: ReduxItemtatus.CREATED });
     },
     updateCustom: (state, action: PayloadAction<QuestionaryDetail>) => {
-      const { _id, ...rest } = action.payload;
-      questionaryDetailsAdapter.updateOne(state, { id: _id, changes: { ...rest, status: ReduxItemtatus.UPDATED } });
+      const { uuid, ...rest } = action.payload;
+      questionaryDetailsAdapter.updateOne(state, { id: uuid, changes: { ...rest, status: ReduxItemtatus.UPDATED } });
     },
     deleteCustom: (state, action: PayloadAction<string>) => {
       questionaryDetailsAdapter.updateOne(state, { id: action.payload, changes: { status: ReduxItemtatus.DELETED } });

@@ -21,7 +21,7 @@ const nutritionalMealSlices = createSlice({
       return state;
     },
     updateNutritionalMeal: (state, action: PayloadAction<NutritionalMealBody>) => {
-      const indexFound = state?.data.findIndex((item) => item._id === action.payload._id);
+      const indexFound = state?.data.findIndex((item) => item.uuid === action.payload.uuid);
       if (indexFound !== undefined && indexFound !== -1 && state?.data) {
         state.data[indexFound] = action.payload;
       }

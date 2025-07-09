@@ -9,13 +9,13 @@ import { PatientBody } from 'src/modules/patients/patient-console/patient/adapte
 function PatientDetail({ patient }: { patient: PatientBody }) {
   const [goToPatientPlans, setGoToPatientPlans] = useState(false);
   if (goToPatientPlans) {
-    const path = `/professional/patients/${patient._id}/plans`;
+    const path = `/professional/patients/${patient.uuid}/plans`;
     return <Navigate replace to={path} />;
   }
 
   return (
     <>
-      <StyledTableRow key={patient._id}>
+      <StyledTableRow key={patient.uuid}>
         <StyledTableCell component="th" scope="row" onClick={() => setGoToPatientPlans(true)}>
           <PatientBasicInfo firstname={patient.user.firstname} lastname={patient.user.lastname} />
         </StyledTableCell>
@@ -23,10 +23,10 @@ function PatientDetail({ patient }: { patient: PatientBody }) {
           {patient.state}
         </StyledTableCell>
         <StyledTableCell component="th" scope="row">
-          <ManagePatientGroup patient={patient._id} assignedGroups={patient.groups} />
+          <ManagePatientGroup patient={patient.uuid} assignedGroups={patient.groups} />
         </StyledTableCell>
         <StyledTableCell component="th" scope="row">
-          <PatientOptions patient={patient._id} />
+          <PatientOptions patient={patient.uuid} />
         </StyledTableCell>
       </StyledTableRow>
     </>

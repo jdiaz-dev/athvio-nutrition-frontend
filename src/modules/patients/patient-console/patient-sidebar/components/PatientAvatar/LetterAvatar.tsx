@@ -21,7 +21,7 @@ export default function LetterAvatar({ open }: { open: boolean }) {
 
   return (
     <>
-      {patientState._id.length > 0 && (
+      {patientState.uuid.length > 0 && (
         <Avatar {...stringAvatar(fullname, theme.palette.primary.main)} sx={{ width: 32, height: 32, backgroundColor: '#1E8E98' }} />
       )}
       {open && (

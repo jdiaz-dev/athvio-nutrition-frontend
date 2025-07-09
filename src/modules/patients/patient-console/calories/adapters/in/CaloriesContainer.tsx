@@ -45,7 +45,7 @@ function CaloriesContainer() {
         variables: {
           input: {
             patient: patientId as string,
-            calory: data.getCalory._id,
+            calory: data.getCalory.uuid,
             protein,
             carbs,
             fat,

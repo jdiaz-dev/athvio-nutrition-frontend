@@ -6,7 +6,7 @@ export const ASSIGN_PROGRAM = gql`
       patient
       assignedDate
       meals {
-        _id
+        uuid
         position
         mealTag
         name

@@ -10,7 +10,7 @@ function PatientQuestionaryDetailItem({ questionaryDetail }: { questionaryDetail
       <div style={{ width: '20%', border: '1px solid green' }}>{questionaryDetail.fieldName}</div>
       <Divider orientation="vertical" flexItem />
       <QuestionaryDetailFieldEditor
-        questionaryDetail={questionaryDetail._id}
+        questionaryDetail={questionaryDetail.uuid}
         sliceUpdater={PatientQuestionarySlice.updateAnswer}
         fieldKey="answer"
         placeHolder="Respuesta del paciente..."
@@ -18,7 +18,7 @@ function PatientQuestionaryDetailItem({ questionaryDetail }: { questionaryDetail
       />
       <Divider orientation="vertical" flexItem />
       <QuestionaryDetailFieldEditor
-        questionaryDetail={questionaryDetail._id}
+        questionaryDetail={questionaryDetail.uuid}
         fieldKey="additionalNotes"
         placeHolder="Nota adicional..."
         sliceUpdater={PatientQuestionarySlice.updateAdditionalNotes}

@@ -1,7 +1,7 @@
 import { ReduxItemtatus } from 'src/shared/Consts';
 
 export type PatientQuestionaryDetail = {
-  _id: string;
+  uuid: string;
   fieldName: string;
   associatedQuestion: string;
   answer: string;
@@ -14,14 +14,14 @@ export type QuestionaryDetailState = PatientQuestionaryDetail & {
 };
 
 export type PatientQuestionaryGroup = {
-  _id: string;
+  uuid: string;
   title: string;
   description?: string;
   questionaryDetails: PatientQuestionaryDetail[];
 };
 
 export type PatientQuestionaryBody = {
-  _id: string;
+  uuid: string;
   professional: string;
   patient: string;
   questionaryGroups: PatientQuestionaryGroup[];

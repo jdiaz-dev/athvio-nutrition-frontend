@@ -10,7 +10,7 @@ export type NutritionalMealBasicInfo = {
 };
 
 export type NutritionalMealBody = NutritionalMealBasicInfo & MealBuilderBody;
-export type CreateNutritionalMealBody = Omit<NutritionalMealBody, '_id' | 'source' | 'image'> & {
+export type CreateNutritionalMealBody = Omit<NutritionalMealBody, 'uuid' | 'source' | 'image'> & {
   image: File | null;
 };
 
@@ -71,7 +71,7 @@ export type DeleteNutritionalMealRequest = {
 
 export type DeleteNutritionalMealResponse = {
   deleteNutritionalMeal: {
-    _id: string;
+    uuid: string;
     name: string;
   };
 };

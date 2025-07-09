@@ -29,9 +29,9 @@ function CreateProgramPlanItemButton({ planDay, planWeek, program }: { planDay: 
   const createProgramPlanHandler = async () => {
     const meals = mealListState
       .filter(
-        (item) => item._id.includes(temporalId) && item.status !== ReduxItemtatus.DELETED && item.status !== ReduxItemtatus.INITIALIZED,
+        (item) => item.uuid.includes(temporalId) && item.status !== ReduxItemtatus.DELETED && item.status !== ReduxItemtatus.INITIALIZED,
       )
-      .map(({ _id, status, ...rest }) => ({ ...rest }));
+      .map(({ uuid, status, ...rest }) => ({ ...rest }));
 
     const input: CreateProgramPlanBody = {
       professional: authContext.professional,
@@ -77,7 +77,7 @@ function CreateProgramPlanItemButton({ planDay, planWeek, program }: { planDay: 
       <CustomIconWrapper>
         <DuplicateProgramPlan newWeek={planWeek} newDay={planDay} />
       </CustomIconWrapper>
-      {openPlanDetailDialog && planState._id.length > 0 ? (
+      {openPlanDetailDialog && planState.uuid.length > 0 ? (
         <PlanDetailDialog
           planDay={stringDay}
           openPlanDetailDialog={openPlanDetailDialog}

@@ -56,11 +56,11 @@ function CreateUpdateProgramDialog({
 
   useEffect(() => {
     const createUpdateProgramHelper = async () => {
-      if (_program && _program._id) {
+      if (_program && _program.uuid) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { _id, professional, name, description, ..._restProgram } = programState;
+        const { uuid, professional, name, description, ..._restProgram } = programState;
         await updateProgram({
-          program: _id,
+          program: uuid,
           professional: authContext.professional,
           name,
           description,

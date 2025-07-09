@@ -17,12 +17,12 @@ export const mealListSlicer = (sliceName: string, initialState: MealWithStatus[]
         return state;
       },
       updateMeal: (state, action: PayloadAction<Meal>) => {
-        const itemFoundIndex = state.findIndex((item) => item._id === action.payload._id);
+        const itemFoundIndex = state.findIndex((item) => item.uuid === action.payload.uuid);
         if (itemFoundIndex != -1) state[itemFoundIndex] = { ...action.payload, status: ReduxItemtatus.UPDATED };
         return state;
       },
       deleteMeal: (state, action: PayloadAction<string>) => {
-        const itemFoundIndex = state.findIndex((item) => item._id === action.payload);
+        const itemFoundIndex = state.findIndex((item) => item.uuid === action.payload);
         if (itemFoundIndex != -1) {
           state[itemFoundIndex] = { ...state[itemFoundIndex], status: ReduxItemtatus.DELETED };
         }

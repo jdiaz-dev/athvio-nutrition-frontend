@@ -73,7 +73,7 @@ function PatientGroupListDialog({
                 </TableHead>
                 <TableBody>
                   {data?.getPatientGroups.map((group) => (
-                    <StyledTableRow key={group._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                    <StyledTableRow key={group.uuid} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                       <StyledTableCell component="th" scope="row">
                         {!editGroup ? (
                           <div
@@ -86,7 +86,7 @@ function PatientGroupListDialog({
                           </div>
                         ) : (
                           <EditPatientGroup
-                            _id={group._id}
+                            uuid={group.uuid}
                             groupName={group.groupName}
                             setEditGroup={setEditGroup}
                             setReloadPatientGroupList={setReloadPatientGroupList}
@@ -94,7 +94,7 @@ function PatientGroupListDialog({
                         )}
                       </StyledTableCell>
                       <StyledTableCell component="th" scope="row" align="right">
-                        <DeletePatientGroup patientGroup={group._id} setReloadPatientGroupList={setReloadPatientGroupList} />
+                        <DeletePatientGroup patientGroup={group.uuid} setReloadPatientGroupList={setReloadPatientGroupList} />
                       </StyledTableCell>
                     </StyledTableRow>
                   ))}

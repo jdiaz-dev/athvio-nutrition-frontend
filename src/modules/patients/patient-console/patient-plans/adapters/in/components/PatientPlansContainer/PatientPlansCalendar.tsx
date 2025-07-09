@@ -92,7 +92,7 @@ function PatientPlansCalendar() {
           extendedProps: {
             patient: patientId as string,
             patientPlanDayInfo: {
-              _id: patientPlansState.length > 0 && planIndex >= 0 ? patientPlansState[planIndex]._id : null,
+              uuid: patientPlansState.length > 0 && planIndex >= 0 ? patientPlansState[planIndex].uuid : null,
               meals: patientPlansState.length > 0 && planIndex >= 0 ? patientPlansState[planIndex].meals : null,
             },
             assignedDate: dateStart.toString(),

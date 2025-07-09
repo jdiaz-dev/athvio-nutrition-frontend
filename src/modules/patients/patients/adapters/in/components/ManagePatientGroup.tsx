@@ -33,7 +33,7 @@ function ManagePatientGroup(props: { patient: string; assignedGroups: PatientGro
       variables: {
         input: {
           professional: authContext.professional,
-          patientGroup: data._id,
+          patientGroup: data.uuid,
           patient,
           action,
         },
@@ -52,7 +52,7 @@ function ManagePatientGroup(props: { patient: string; assignedGroups: PatientGro
     <Stack direction="row" spacing={1}>
       {assignedGroups.map((group) => (
         <Chip
-          key={group._id}
+          key={group.uuid}
           label={group.groupName}
           variant="filled"
           onDelete={() => {
@@ -76,7 +76,7 @@ function ManagePatientGroup(props: { patient: string; assignedGroups: PatientGro
         <MenuItem disableRipple>
           <div>
             {patientGroupContext.patientGroupList.map((group) => (
-              <div key={group._id}>{assignedGroups.find((g) => g._id === group._id) ? assignedGroup(group) : unassignedGroup(group)}</div>
+              <div key={group.uuid}>{assignedGroups.find((g) => g.uuid === group.uuid) ? assignedGroup(group) : unassignedGroup(group)}</div>
             ))}
           </div>
         </MenuItem>
@@ -100,7 +100,7 @@ function ManagePatientGroup(props: { patient: string; assignedGroups: PatientGro
         <MenuItem disableRipple>
           <div>
             {patientGroupContext.patientGroupList.map((group) => (
-              <div key={group._id}>
+              <div key={group.uuid}>
                 <Chip
                   label={group.groupName}
                   variant="outlined"

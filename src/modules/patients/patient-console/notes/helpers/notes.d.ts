@@ -1,12 +1,12 @@
 export type NoteBody = {
-  _id: string;
+  uuid: string;
   professional: string;
   patient: string;
   content: string;
   date: string;
 };
 
-export type CreateNoteInput = Omit<NoteBody, '_id'> & {};
+export type CreateNoteInput = Omit<NoteBody, 'uuid'> & {};
 
 export type CreateNoteRequest = {
   input: CreateNoteInput;

@@ -8,12 +8,12 @@ export const assignProgramSlice = createSlice({
   initialState: assignProgramInitialState,
   reducers: {
     assignNewPatient: (state, action: PayloadAction<PatientToAssign>) => {
-      const patientFound = state.patients.find((patient) => patient._id === action.payload._id);
+      const patientFound = state.patients.find((patient) => patient.uuid === action.payload.uuid);
       if (!patientFound) state.patients.push(action.payload);
       return state;
     },
     unassignPatient: (state, action: PayloadAction<PatientToAssign>) => {
-      const filteredPatients = state.patients.filter((patient) => patient._id !== action.payload._id);
+      const filteredPatients = state.patients.filter((patient) => patient.uuid !== action.payload.uuid);
       state.patients = filteredPatients;
       return state;
     },

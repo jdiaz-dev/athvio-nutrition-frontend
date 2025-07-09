@@ -10,21 +10,21 @@ export const PROGRAM_PLAN_MEALS_CRUD = gql`
     $shouldToDelete: Boolean!
   ) {
     createMeal(toAddInput: $toAddInput) @include(if: $shouldToAdd) {
-      _id
+      uuid
       professional
       name
       description
       programTags {
-        _id
+        uuid
         title
       }
       plans {
-        _id
+        uuid
         title
         week
         day
         meals {
-          _id
+          uuid
           position
           mealTag
           name
@@ -111,21 +111,21 @@ export const PROGRAM_PLAN_MEALS_CRUD = gql`
       }
     }
     updateMeal(toUpdateInput: $toUpdateInput) @include(if: $shouldToUpdate) {
-      _id
+      uuid
       professional
       name
       description
       programTags {
-        _id
+        uuid
         title
       }
       plans {
-        _id
+        uuid
         title
         week
         day
         meals {
-          _id
+          uuid
           position
           mealTag
           name
@@ -212,21 +212,21 @@ export const PROGRAM_PLAN_MEALS_CRUD = gql`
       }
     }
     deleteMeal(toDeleteInput: $toDeleteInput) @include(if: $shouldToDelete) {
-      _id
+      uuid
       professional
       name
       description
       programTags {
-        _id
+        uuid
         title
       }
       plans {
-        _id
+        uuid
         title
         week
         day
         meals {
-          _id
+          uuid
           position
           mealTag
           name

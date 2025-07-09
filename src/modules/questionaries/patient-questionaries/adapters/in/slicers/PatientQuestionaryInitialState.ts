@@ -2,7 +2,7 @@ import { PatientQuestionaryInitialState } from 'src/modules/questionaries/patien
 
 export const patientQuestionaryInitialState: PatientQuestionaryInitialState = {
   patientQuestionary: {
-    _id: '',
+    uuid: '',
     professional: '',
     patient: '',
     questionaryGroups: [],

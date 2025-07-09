@@ -22,10 +22,10 @@ export const planSlice = createSlice({
       state = action.payload;
       return state;
     },
-    duplicatingProgramPlan: (state, action: PayloadAction<Pick<Plan, '_id'>>) => {
+    duplicatingProgramPlan: (state, action: PayloadAction<Pick<Plan, 'uuid'>>) => {
       const planUsinghOnlyId = {
         ...programInitialState.plan, // to reset remaining values
-        _id: action.payload._id,
+        uuid: action.payload.uuid,
       };
 
       state = planUsinghOnlyId;

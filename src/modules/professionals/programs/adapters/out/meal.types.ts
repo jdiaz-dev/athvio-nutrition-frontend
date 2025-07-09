@@ -2,21 +2,21 @@ import { ProgramBody } from 'src/modules/professionals/programs/adapters/out/pro
 import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 
 interface MealBody {
-  _id: string;
+  uuid: string;
   professional: string;
   program: string;
   plan: string;
   mealBody: Meal;
 }
-export interface CreateMealBody extends Omit<MealBody, '_id' | 'mealBody'> {
-  meals: Omit<Meal, '_id'>[];
+export interface CreateMealBody extends Omit<MealBody, 'uuid' | 'mealBody'> {
+  meals: Omit<Meal, 'uuid'>[];
 }
 
-export interface UpdateMealBody extends Omit<MealBody, '_id' | 'mealBody'> {
-  meals: (Omit<Meal, '_id'> & { meal: string })[];
+export interface UpdateMealBody extends Omit<MealBody, 'uuid' | 'mealBody'> {
+  meals: (Omit<Meal, 'uuid'> & { meal: string })[];
 }
 
-export interface DeleteMealBody extends Omit<MealBody, '_id' | 'mealBody'> {
+export interface DeleteMealBody extends Omit<MealBody, 'uuid' | 'mealBody'> {
   meals: string[];
 }
 

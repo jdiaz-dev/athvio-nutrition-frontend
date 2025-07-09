@@ -1,12 +1,12 @@
 export type CaloriesBody = {
-  _id: string;
+  uuid: string;
   protein: number;
   carbs: number;
   fat: number;
   calories: number;
 };
 
-export type CreateCaloriesInput = Omit<CaloriesBody, '_id'> & {
+export type CreateCaloriesInput = Omit<CaloriesBody, 'uuid'> & {
   patient: string;
 };
 

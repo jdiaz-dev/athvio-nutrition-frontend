@@ -35,7 +35,7 @@ export interface IngredientDetail extends Equivalent {
 }
 
 export interface MealBuilderBody {
-  _id: string; // in front we manage _id, to send to back we add domain more Id, for example nutritionalMealId
+  uuid: string; // in front we manage uuid, to send to back we add domain more Id, for example nutritionalMealId
   ingredientDetails: IngredientDetail[];
   cookingInstructions: string;
   macros: Macros;

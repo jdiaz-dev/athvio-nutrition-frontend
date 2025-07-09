@@ -19,10 +19,10 @@ export const assignmentDateHook = (patientId: string) => {
 
   const handleOnStart = (info: EventDragStartArg) => {
     const { patientPlanDayInfo, assignedDate } = info.event.extendedProps as PatientPlanDateExtendedProps;
-    const { _id, meals } = patientPlanDayInfo;
+    const { uuid, meals } = patientPlanDayInfo;
     dispatch(
       PatientPlanSlice.acceptNewPatientPlan({
-        _id: _id as string,
+        uuid: uuid as string,
         patient: patientId,
         meals: meals as Meal[],
         assignedDate,
@@ -38,12 +38,12 @@ export const assignmentDateHook = (patientId: string) => {
     await updatePatientPlan({
       professional: authContext.professional,
       patient: patientId,
-      patientPlan: patientPlanState._id,
+      patientPlan: patientPlanState.uuid,
       assignedDate: dayjs(newMonthDay).toString(),
     });
   };
   const manageDragEffect = (e: EventInput) => {
-    if ((e.extendedProps as PatientPlanDateExtendedProps).patientPlanDayInfo._id) {
+    if ((e.extendedProps as PatientPlanDateExtendedProps).patientPlanDayInfo.uuid) {
       e.editable = true;
     } else {
       e.editable = false;

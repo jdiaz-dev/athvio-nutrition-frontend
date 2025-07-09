@@ -1,14 +1,14 @@
 import { Commenter } from './chat.enum';
 
 export type CommentBody = {
-  _id: string;
+  uuid: string;
   commenter: Commenter;
   content: string;
   createdAt: string;
 };
 
 export type ChatBody = {
-  _id: string;
+  uuid: string;
   professional: string;
   patient: string;
   comments: CommentBody[];

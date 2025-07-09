@@ -3,7 +3,7 @@ import { MealWithStatus } from 'src/shared/components/PlanDetailDialog/MealList'
 import { GetRecordsBody, MetadataRecords } from 'src/shared/types/get-records.types';
 
 export interface Plan {
-  _id: string;
+  uuid: string;
   title?: string;
   week: number;
   day: number;
@@ -19,7 +19,7 @@ export interface PatientPlanBody extends Omit<Plan, 'week' | 'day'> {
 
 export interface CreatePatientPlanInput extends Pick<PatientPlanBody, 'patient' | 'assignedDate' | 'title'> {
   professional: string;
-  meals: Omit<Meal, '_id'>[];
+  meals: Omit<Meal, 'uuid'>[];
 }
 
 export interface CreatePatientPlanRequest {

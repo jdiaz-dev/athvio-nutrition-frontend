@@ -11,12 +11,12 @@ import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 function EditPatientGroup({
-  _id,
+  uuid,
   groupName,
   setEditGroup,
   setReloadPatientGroupList,
 }: {
-  _id: string;
+  uuid: string;
   groupName: string;
   setEditGroup: (edit: boolean) => void;
   setReloadPatientGroupList: (reload: boolean) => void;
@@ -31,7 +31,7 @@ function EditPatientGroup({
       variables: {
         input: {
           professional: authContext.professional,
-          patientGroup: _id,
+          patientGroup: uuid,
           groupName: e.target.value,
         },
       },

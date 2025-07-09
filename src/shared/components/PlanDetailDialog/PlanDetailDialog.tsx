@@ -50,9 +50,9 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
   };
   const addMealPlanHandler = () => {
     if (currentModuleContext.currentModule === Modules.CLIENT_PLANS) {
-      dispatch(addMeal({ ...patientPlanInitialState.mealBasicInfo, ...patientPlanInitialState.mealDetails, _id: generateTemporalId() }));
+      dispatch(addMeal({ ...patientPlanInitialState.mealBasicInfo, ...patientPlanInitialState.mealDetails, uuid: generateTemporalId() }));
     } else if (currentModuleContext.currentModule === Modules.PROGRAMS) {
-      dispatch(addMeal({ ...programInitialState.mealBasicInfo, ...programInitialState.mealDetails, _id: generateTemporalId() }));
+      dispatch(addMeal({ ...programInitialState.mealBasicInfo, ...programInitialState.mealDetails, uuid: generateTemporalId() }));
     }
   };
 

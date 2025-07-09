@@ -3,17 +3,17 @@ import { gql } from '@apollo/client';
 export const GET_QUESTIONARY = gql`
   query _getProfessionalQuestionary($input: GetProfessionalQuestionaryDto!) {
     getProfessionalQuestionary(input: $input) {
-      _id
+      uuid
       professional
       questionaryGroups {
-        _id
+        uuid
         title
         description
         questionaryDetails {
           fieldName
           isEnabled
           associatedQuestion
-          _id
+          uuid
         }
       }
     }
@@ -23,18 +23,18 @@ export const GET_QUESTIONARY = gql`
 export const ENABLE_QUESTIONARY_DETAILS = gql`
   mutation _enableQuestionaryDetails($input: EnableQuestionaryDetailsDto!) {
     enableQuestionaryDetails(input: $input) {
-      _id
+      uuid
       createdAt
       professional
       questionaryGroups {
-        _id
+        uuid
         title
         description
         questionaryDetails {
           fieldName
           isEnabled
           associatedQuestion
-          _id
+          uuid
         }
       }
     }
@@ -51,50 +51,50 @@ export const CUSTOM_QUESTIONARY_DETAILS_CRUD = gql`
     $shouldToDelete: Boolean!
   ) {
     addCustomQuestionaryDetails(toAddInput: $toAddInput) @include(if: $shouldToAdd) {
-      _id
+      uuid
       createdAt
       professional
       questionaryGroups {
-        _id
+        uuid
         title
         description
         questionaryDetails {
           fieldName
           isEnabled
           associatedQuestion
-          _id
+          uuid
         }
       }
     }
     updateCustomQuestionaryDetails(toUpdateInput: $toUpdateInput) @include(if: $shouldToUpdate) {
-      _id
+      uuid
       createdAt
       professional
       questionaryGroups {
-        _id
+        uuid
         title
         description
         questionaryDetails {
           fieldName
           isEnabled
           associatedQuestion
-          _id
+          uuid
         }
       }
     }
     deleteCustomQuestionaryDetails(toDeleteInput: $toDeleteInput) @include(if: $shouldToDelete) {
-      _id
+      uuid
       createdAt
       professional
       questionaryGroups {
-        _id
+        uuid
         title
         description
         questionaryDetails {
           fieldName
           isEnabled
           associatedQuestion
-          _id
+          uuid
         }
       }
     }

@@ -19,7 +19,7 @@ export type DateItem<T> = {
 };
 
 export type DataUser = {
-  _id: string;
+  uuid: string;
   userType: string;
   token: string;
 };
@@ -31,7 +31,7 @@ export interface CountryList {
 }
 
 export type PatientGroup = {
-  _id: string;
+  uuid: string;
   groupName: string;
 };
 export type GraphQLInput = {
@@ -57,6 +57,6 @@ export type ReduxStates = {
 };
 
 export interface PlanDayInfo {
-  _id: string | null;
+  uuid: string | null;
   meals: Meal[] | null;
 }

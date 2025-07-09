@@ -27,7 +27,7 @@ function DefaultQuestionaryDetailsManager({
     await enableQuestionaryDetails({
       professional: authContext.professional,
       questionary,
-      questionaryGroup: questionaryGroup._id,
+      questionaryGroup: questionaryGroup.uuid,
       questionaryDetails: isEnabledQuestionaryDetails,
     });
     setOpenQuestionaryGroupDialog(false);

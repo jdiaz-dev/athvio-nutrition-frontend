@@ -53,7 +53,7 @@ function NutritionalMealItem(nutritionalMeal: NutritionalMealBody) {
   const deleteNutritionalMealHandler = () => {
     void deleteNutritionalMeal({
       professional: authContext.professional,
-      nutritionalMeal: nutritionalMeal._id || '',
+      nutritionalMeal: nutritionalMeal.uuid || '',
     });
     reloadRecordListContext.setReloadRecordList(true);
   };

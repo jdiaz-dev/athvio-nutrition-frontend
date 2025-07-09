@@ -16,7 +16,7 @@ export interface AssignProgramBody {
 }
 
 export interface PatientToAssign {
-  _id: string;
+  uuid: string;
   firstname: string;
   lastname: string;
 }

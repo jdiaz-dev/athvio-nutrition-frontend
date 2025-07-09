@@ -20,7 +20,7 @@ const programsSlice = createSlice({
     },
     acceptUpdatedProgram: (state, action: PayloadAction<ProgramBody>) => {
       if (state) {
-        const indexFound = state.data.findIndex((item) => item._id === action.payload._id);
+        const indexFound = state.data.findIndex((item) => item.uuid === action.payload.uuid);
         state.data[indexFound] = action.payload;
       }
       return state;

@@ -37,9 +37,9 @@ export const calendarConfigurationHook = (reloadRecordList: boolean) => {
           title: '',
           date: dateStart.toDate(),
           extendedProps: {
-            program: programState !== undefined ? programState._id : '',
+            program: programState !== undefined ? programState.uuid : '',
             planDayInfo: {
-              _id: programState.plans.length > 0 && planIndex >= 0 ? programState.plans[planIndex]._id : null,
+              uuid: programState.plans.length > 0 && planIndex >= 0 ? programState.plans[planIndex].uuid : null,
               meals: programState.plans.length > 0 && planIndex >= 0 ? programState.plans[planIndex].meals : null,
             },
             planDay,

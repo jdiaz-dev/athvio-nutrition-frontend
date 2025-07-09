@@ -70,7 +70,7 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
     dispatch(acceptNewMealDetail(mealDetails));
   };
   const updateMealHandler = async () => {
-    const { _id, ...restMealDetail } = mealDetailsState;
+    const { uuid, ...restMealDetail } = mealDetailsState;
     if (
       mealDetailsState.ingredientDetails.length > 0 ||
       mealBasicInfoState.mealTag.length > 0 ||
@@ -80,21 +80,21 @@ function MealDetail({ meal: { position, mealTag, name, ...mealDetails } }: { mea
         updateMeal({
           ...mealBasicInfoState,
           ...restMealDetail,
-          _id,
+          uuid,
         }),
       );
     }
   };
   const deleteMealHandler = async () => {
     setAnchorEl(null);
-    dispatch(deleteMeal(mealDetailsState._id));
+    dispatch(deleteMeal(mealDetailsState.uuid));
     setMealDeleted(true);
     setMealContainerTouched(false);
   };
   const duplicateMealHandler = async () => {
     setAnchorEl(null);
     setMealContainerTouched(false);
-    dispatch(addMeal({ ...mealBasicInfoState, ...mealDetailsState, _id: generateTemporalId() }));
+    dispatch(addMeal({ ...mealBasicInfoState, ...mealDetailsState, uuid: generateTemporalId() }));
   };
   const componentTouchedHandler = () => {
     if (!mealContainerTouched) setMealContainerTouched(true);

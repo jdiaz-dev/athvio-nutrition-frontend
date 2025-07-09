@@ -7,7 +7,7 @@ function CopyProgramPlan({ plan }: { plan: string }) {
   const dispatch = useDispatch();
 
   const copyPlanHandler = () => {
-    dispatch(PlanSlice.duplicatingProgramPlan({ _id: plan }));
+    dispatch(PlanSlice.duplicatingProgramPlan({ uuid: plan }));
   };
 
   return <CustomCopyIcon handler={copyPlanHandler} />;

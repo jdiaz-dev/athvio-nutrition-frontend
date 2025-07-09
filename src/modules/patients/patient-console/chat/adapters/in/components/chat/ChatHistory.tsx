@@ -45,8 +45,8 @@ export default function ChatHistory({ theme }: ChatHistoryProps) {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }, [chatState]);
   useEffect(() => {
-    if (professionalState._id && patientState._id) {
-      commentAddedSubscription({ professional: professionalState._id, patient: patientState._id });
+    if (professionalState.uuid && patientState.uuid) {
+      commentAddedSubscription({ professional: professionalState.uuid, patient: patientState.uuid });
     }
   }, [professionalState, patientState]);
 

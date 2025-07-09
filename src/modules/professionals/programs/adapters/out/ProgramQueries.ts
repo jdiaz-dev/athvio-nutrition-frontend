@@ -3,21 +3,21 @@ import { gql } from '@apollo/client';
 export const CREATE_PROGRAM = gql`
   mutation _createProgram($input: CreateProgramDto!) {
     createProgram(input: $input) {
-      _id
+      uuid
       professional
       name
       description
       programTags {
-        _id
+        uuid
         title
       }
       plans {
-        _id
+        uuid
         title
         week
         day
         meals {
-          _id
+          uuid
           position
           mealTag
           name
@@ -108,21 +108,21 @@ export const CREATE_PROGRAM = gql`
 export const GET_PROGRAM = gql`
   query _getProgram($input: GetProgramDto!) {
     getProgram(input: $input) {
-      _id
+      uuid
       professional
       name
       description
       programTags {
-        _id
+        uuid
         title
       }
       plans {
-        _id
+        uuid
         title
         week
         day
         meals {
-          _id
+          uuid
           position
           mealTag
           name
@@ -215,21 +215,21 @@ export const GET_PROGRAMS = gql`
   query _getPrograms($input: GetProgramsDto!) {
     getPrograms(input: $input) {
       data {
-        _id
+        uuid
         professional
         name
         description
         programTags {
-          _id
+          uuid
           title
         }
         plans {
-          _id
+          uuid
           title
           week
           day
           meals {
-            _id
+            uuid
             position
             mealTag
             name
@@ -326,21 +326,21 @@ export const GET_PROGRAMS = gql`
 export const UPDATE_PROGRAM = gql`
   mutation _updateProgram($input: UpdateProgramDto!) {
     updateProgram(input: $input) {
-      _id
+      uuid
       professional
       name
       description
       programTags {
-        _id
+        uuid
         title
       }
       plans {
-        _id
+        uuid
         title
         week
         day
         meals {
-          _id
+          uuid
           position
           mealTag
           name
@@ -431,21 +431,21 @@ export const UPDATE_PROGRAM = gql`
 export const DELETE_PROGRAM = gql`
   mutation _deleteProgram($input: DeleteProgramDto!) {
     deleteProgram(input: $input) {
-      _id
+      uuid
       professional
       name
       description
       programTags {
-        _id
+        uuid
         title
       }
       plans {
-        _id
+        uuid
         title
         week
         day
         meals {
-          _id
+          uuid
           position
           mealTag
           name
