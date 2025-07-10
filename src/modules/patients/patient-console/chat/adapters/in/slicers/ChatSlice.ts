@@ -9,7 +9,7 @@ const chatSlice = createSlice({
   name: 'chat',
   initialState: chatIntialState,
   reducers: {
-    acceptNewPatientChat: (state, action: PayloadAction<ChatBody>) => {
+    initializeNewPatientChat: (state, action: PayloadAction<ChatBody>) => {
       state.chat.data = action.payload;
       return state;
     },
@@ -26,6 +26,6 @@ const chatSlice = createSlice({
   },
 });
 
-export const { acceptNewPatientChat, newCommentReceived } = chatSlice.actions;
+export const { initializeNewPatientChat, newCommentReceived } = chatSlice.actions;
 
 export default chatSlice.reducer;

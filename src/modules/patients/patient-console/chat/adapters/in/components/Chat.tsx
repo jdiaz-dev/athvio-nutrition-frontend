@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 // material-ui
 import { useTheme, styled, Theme } from '@mui/material/styles';
@@ -21,6 +21,9 @@ import ChatMessageSend from 'src/modules/patients/patient-console/chat/adapters/
 
 //todo: remove it
 import { ThemeMode } from 'src/shared/types/config';
+import { useChat } from 'src/modules/patients/patient-console/chat/adapters/out/ChatActions';
+import { useParams } from 'react-router-dom';
+import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 const drawerWidth = 320;
 
@@ -48,11 +51,13 @@ const Main = styled('main', { shouldForwardProp: (prop: string) => prop !== 'ope
 );
 
 export default function Chat() {
+  const authContext = useContext(AuthContext);
   const theme = useTheme();
   const downLG = useMediaQuery(theme.breakpoints.down('lg'));
   const downMD = useMediaQuery(theme.breakpoints.down('md'));
   const [emailDetails, setEmailDetails] = useState(false);
-
+  const { patientId } = useParams();
+  const { getChat } = useChat();
   const handleUserChange = () => {
     setEmailDetails((prev) => !prev);
   };
@@ -66,6 +71,10 @@ export default function Chat() {
   useEffect(() => {
     setOpenChatDrawer(!downLG);
   }, [downLG]);
+
+  useEffect(() => {
+    if (patientId && authContext.professional) getChat({ patient: patientId, professional: authContext.professional });
+  }, [patientId, authContext.professional]);
 
   return (
     <Box

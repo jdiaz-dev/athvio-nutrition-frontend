@@ -5,20 +5,45 @@ import {
   CommendAddedSubscriptionInput,
   CommendAddedSubscriptionRequest,
   CommentAddedResponse,
+  GetChatInput,
+  GetChatRequest,
+  GetChatResponse,
   SaveChatInput,
   SaveChatRequest,
   SaveChatResponse,
 } from 'src/modules/patients/patient-console/chat/adapters/out/chat.d';
-import { PATIENT_MESSAGED_SUBSCRIPTION, SAVE_CHAT_COMMENT } from 'src/modules/patients/patient-console/chat/adapters/out/ChatQueries';
+import {
+  GET_CHAT_QUERY,
+  PATIENT_MESSAGED_SUBSCRIPTION,
+  SAVE_CHAT_COMMENT,
+} from 'src/modules/patients/patient-console/chat/adapters/out/ChatQueries';
 import * as ChatSlice from 'src/modules/patients/patient-console/chat/adapters/in/slicers/ChatSlice';
 
 export function useChat() {
   const dispatch = useDispatch();
 
+  const getChat = async (body: GetChatInput): Promise<void> => {
+    try {
+      const response = await apolloClient.mutate<GetChatResponse, GetChatRequest>({
+        mutation: GET_CHAT_QUERY,
+        fetchPolicy: 'network-only',
+        variables: {
+          chat: {
+            ...body,
+          },
+        },
+      });
+      if (response.data) dispatch(ChatSlice.initializeNewPatientChat(response.data.getChat));
+    } catch (error) {
+      dispatch(ChatSlice.addChatCommentFailure((error as ApolloError).graphQLErrors[0].message));
+    }
+  };
+
   const saveChatComment = async (body: SaveChatInput): Promise<void> => {
     try {
       const response = await apolloClient.mutate<SaveChatResponse, SaveChatRequest>({
         mutation: SAVE_CHAT_COMMENT,
+        fetchPolicy: 'network-only',
         variables: {
           input: {
             ...body,
@@ -52,5 +77,5 @@ export function useChat() {
     }
   };
 
-  return { saveChatComment, commentAddedSubscription };
+  return { getChat, saveChatComment, commentAddedSubscription };
 }

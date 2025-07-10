@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 
 // material-ui
 import ClickAwayListener from '@mui/material/ClickAwayListener';
@@ -30,6 +30,8 @@ import { ReduxStates } from 'src/shared/types/types';
 import { openSnackbar } from 'src/shared/components/snackbar';
 import { useChat } from 'src/modules/patients/patient-console/chat/adapters/out/ChatActions';
 import { Commenter } from 'src/modules/patients/patient-console/chat/adapters/out/chat.enum';
+import { useParams } from 'react-router-dom';
+import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 interface Props {
   user: UserProfile;
@@ -38,8 +40,8 @@ interface Props {
 // ==============================|| CHAT - MESSAGE SEND ||============================== //
 
 export default function ChatMessageSend() {
-  const professionalState = useSelector((state: ReduxStates) => state.professional);
-  const patientState = useSelector((state: ReduxStates) => state.patient);
+  const authContext = useContext(AuthContext);
+  const { patientId } = useParams();
   const { saveChatComment } = useChat();
   const [anchorElEmoji, setAnchorElEmoji] = useState<any>(); /** No single type can cater for all elements */
 
@@ -63,8 +65,8 @@ export default function ChatMessageSend() {
       } as SnackbarProps);
     } else {
       saveChatComment({
-        professional: professionalState.uuid,
-        patient: patientState.uuid,
+        professional: authContext.professional,
+        patient: patientId as string,
         comment: { content: message, commenter: Commenter.PROFESSIONAL },
       });
     }

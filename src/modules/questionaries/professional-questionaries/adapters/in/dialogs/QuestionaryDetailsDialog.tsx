@@ -50,7 +50,8 @@ function QuestionaryDetailsDialog({
           <CloseDialogIcon closedIconDialog={closedIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
         </DialogTitle>
         <DialogContent dividers={true} style={{ minHeight: '900px' }}>
-          {questionaryGroup.title === CustomFieldsGroupNamesEnum.PERSONALIZADO || CustomFieldsGroupNamesEnum.CUSTOMIZED ? (
+          {questionaryGroup.title === CustomFieldsGroupNamesEnum.PERSONALIZADO ||
+          questionaryGroup.title === CustomFieldsGroupNamesEnum.CUSTOMIZED ? (
             <CustomQuestionaryDetailsManager
               questionary={questionary}
               questionaryGroup={questionaryGroup}

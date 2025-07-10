@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const GET_CHAT_QUERY = gql`
-  query _getChat($input: GetChatDto!) {
-    getChat(input: $input) {
+  query _getChat($chat: GetChatDto!) {
+    getChat(chat: $chat) {
       uuid
       patient
       comments {
@@ -23,7 +23,6 @@ export const SAVE_CHAT_COMMENT = gql`
         uuid
         commenter
         content
-        createdAt
       }
     }
   }
