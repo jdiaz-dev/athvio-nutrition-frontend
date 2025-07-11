@@ -11,9 +11,10 @@ import { useProgram } from 'src/modules/professionals/programs/adapters/out/Prog
 import * as ProgramSlice from 'src/modules/professionals/programs/adapters/in/slicers/ProgramSlice';
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
-import SnackbarMesssage from 'src/shared/components/SnackbarMessage';
 import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 import { formStyles } from 'src/shared/styles/styles';
+import { openSnackbar } from 'src/shared/components/Snackbar/snackbar';
+import { SnackbarProps } from 'src/shared/types/snackbar';
 
 function CreateUpdateProgramDialog({
   openCreateUpdateProgramDialog,
@@ -31,7 +32,6 @@ function CreateUpdateProgramDialog({
 
   const { data: programState, error } = useSelector((state: ReduxStates) => state.programs.program);
   const [closedIconDialog, setClosedIconDialog] = useState(true);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk } = useMessageDialog();
   const [createUpdateProgramStateUpdate, setCreateUpdateProgramStateUpdated] = useState(false);
@@ -88,6 +88,19 @@ function CreateUpdateProgramDialog({
       setMessageOk(false);
     }
   }, [createUpdateProgramStateUpdate, openDialog, _program, messageOk]);
+
+  useEffect(() => {
+    if (error) {
+      openSnackbar({
+        open: true,
+        message: error,
+        variant: 'alert',
+        alert: {
+          color: 'error',
+        },
+      } as SnackbarProps);
+    }
+  }, [error]);
 
   const onSubmitProgram = (data: { name: string; description: string }) => {
     dispatch(ProgramSlice.setNameAndDescription(data));
@@ -150,14 +163,6 @@ function CreateUpdateProgramDialog({
           <MessageDialog openDialog={openDialog} setOpenDialog={setOpenDialog} message={message} setMessageOk={setMessageOk} />
         )} */}
       </Dialog>
-      {error && (
-        <SnackbarMesssage
-          openSnackbar={openSnackbar}
-          setOpenSnackbar={setOpenSnackbar}
-          message={error}
-          messageCleaner={ProgramSlice.programErrorCleaner}
-        />
-      )}
     </>
   );
 }

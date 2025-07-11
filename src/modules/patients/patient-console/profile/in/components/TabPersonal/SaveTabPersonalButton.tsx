@@ -1,6 +1,10 @@
 import { Box, Button, Stack } from '@mui/material';
-import { RefObject } from 'react';
+import { RefObject, useEffect } from 'react';
 import { FormikProps } from 'formik';
+import { openSnackbar } from 'src/shared/components/Snackbar/snackbar';
+import { SnackbarProps } from 'src/shared/types/snackbar';
+import * as PatientSlice from 'src/modules/patients/patients/adapters/in/slicers/PatientSlice';
+import { useDispatch } from 'react-redux';
 
 type SaveButtonProps = {
   form1Ref: RefObject<FormikProps<any>>;
@@ -8,6 +12,7 @@ type SaveButtonProps = {
 };
 
 function SaveTabPersonalButton({ form1Ref, form2Ref }: SaveButtonProps) {
+  const dispatch = useDispatch();
   const handleSave = async () => {
     if (!form1Ref.current || !form2Ref.current) {
       return;
@@ -31,11 +36,26 @@ function SaveTabPersonalButton({ form1Ref, form2Ref }: SaveButtonProps) {
     if (isForm1Valid && isForm2Valid) {
       await form1Ref.current.submitForm();
       await form2Ref.current.submitForm();
-      console.log('✅ Both forms submitted');
+      openSnackbar({
+        open: true,
+        message: 'Personal profile updated successfully.',
+        variant: 'alert',
+        alert: {
+          color: 'success',
+        },
+      } as SnackbarProps);
     } else {
       console.warn('❌ Validation failed');
     }
   };
+  useEffect(() => {
+    return () => {
+      form1Ref?.current?.resetForm();
+      form2Ref?.current?.resetForm();
+      dispatch(PatientSlice.resetPatient());
+    };
+  }, []);
+
   return (
     <>
       <Box sx={{ p: 2.5 }}>

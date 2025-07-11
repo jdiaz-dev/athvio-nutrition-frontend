@@ -14,8 +14,6 @@ import TextField from '@mui/material/TextField';
 // third party
 import * as Yup from 'yup';
 import { Formik, FormikProps } from 'formik';
-import { openSnackbar } from 'src/shared/components/snackbar';
-import { SnackbarProps } from 'src/shared/types/snackbar';
 import { ReduxStates } from 'src/shared/types/types';
 import { useSelector } from 'react-redux';
 import { CardHeader } from '@mui/material';
@@ -62,6 +60,7 @@ export default function PersonalInformation({ formRef }: { formRef: RefObject<Fo
         }}
       />
       <Formik
+        enableReinitialize
         innerRef={formRef}
         initialValues={{
           firstname: patientState.user.firstname,
@@ -75,25 +74,17 @@ export default function PersonalInformation({ formRef }: { formRef: RefObject<Fo
           firstname: Yup.string().max(255).required('First Name is required.'),
           lastname: Yup.string().max(255).required('Last Name is required.'),
           email: Yup.string().email('Invalid email address.').max(255).required('Email is required.'),
-          phone: Yup.number().required('Phone number is required'),
+          phone: Yup.number().optional(),
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-          await updateUser({
-            user: patientState.user.uuid,
-            email: values.email,
-            firstname: values.firstname,
-            lastname: values.lastname,
-            phone: values.phone,
-          });
           try {
-            openSnackbar({
-              open: true,
-              message: 'Personal profile updated successfully.',
-              variant: 'alert',
-              alert: {
-                color: 'success',
-              },
-            } as SnackbarProps);
+            await updateUser({
+              user: patientState.user.uuid,
+              email: values.email,
+              firstname: values.firstname,
+              lastname: values.lastname,
+              phone: values.phone,
+            });
             setStatus({ success: false });
             setSubmitting(false);
           } catch (err: any) {

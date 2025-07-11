@@ -1,4 +1,4 @@
-import { RefObject, useContext, useEffect } from 'react';
+import { RefObject, useContext } from 'react';
 import { useOutletContext } from 'react-router';
 
 // material-ui
@@ -13,15 +13,11 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 // third party
 import * as Yup from 'yup';
 import { Formik, FormikProps } from 'formik';
-import { openSnackbar } from 'src/shared/components/snackbar';
-import { SnackbarProps } from 'src/shared/types/snackbar';
-import countries from 'src/modules/patients/patient-console/profile/in/components/PatientProfileTabs/countries';
 import { ReduxStates } from 'src/shared/types/types';
 import { useSelector } from 'react-redux';
 import { ToggleButton, ToggleButtonGroup } from '@mui/material';
@@ -59,16 +55,15 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
   const patientState = useSelector((state: ReduxStates) => state.patient);
   const { updatePatientForWeb } = usePatient();
   const handleChangeDay = (event: SelectChangeEvent<string>, date: Date, setFieldValue: (field: string, value: any) => void) => {
-    setFieldValue('dob', new Date(date.setDate(parseInt(event.target.value, 10))));
+    setFieldValue('birthday', new Date(date.setDate(parseInt(event.target.value, 10))));
   };
 
   const handleChangeMonth = (event: SelectChangeEvent<string>, date: Date, setFieldValue: (field: string, value: any) => void) => {
-    setFieldValue('dob', new Date(date.setMonth(parseInt(event.target.value, 10))));
+    setFieldValue('birthday', new Date(date.setMonth(parseInt(event.target.value, 10))));
   };
 
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() - 18);
-  const inputRef = useInputRef();
 
   return (
     <>
@@ -79,38 +74,31 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
         }}
       />
       <Formik
+        enableReinitialize
         innerRef={formRef}
         initialValues={{
-          dob: new Date(getFomattedDate(patientState.birthday)),
+          birthday: new Date(getFomattedDate(patientState.birthday || '')),
           weight: patientState.weight,
           height: patientState.height,
           gender: patientState.gender,
           submit: null,
         }}
         validationSchema={Yup.object().shape({
-          dob: Yup.date().required('Date of birth is required.'),
-          weight: Yup.number().required('Weight is required'),
-          height: Yup.number().required('Height is required'),
-          gender: Yup.string().required('Gender is required'),
+          birthday: Yup.date().optional(),
+          weight: Yup.number().optional(),
+          height: Yup.number().optional(),
+          gender: Yup.string().optional(),
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-          await updatePatientForWeb({
-            professional: authContext.professional,
-            patient: patientState.uuid,
-            birthday: values.dob.toISOString(),
-            height: values.height,
-            weight: values.weight,
-            gender: values.gender,
-          });
           try {
-            openSnackbar({
-              open: true,
-              message: 'Personal profile updated successfully.',
-              variant: 'alert',
-              alert: {
-                color: 'success',
-              },
-            } as SnackbarProps);
+            await updatePatientForWeb({
+              professional: authContext.professional,
+              patient: patientState.uuid,
+              birthday: values.birthday.toISOString(),
+              height: values.height,
+              weight: values.weight,
+              gender: values.gender,
+            });
             setStatus({ success: false });
             setSubmitting(false);
           } catch (err: any) {
@@ -131,9 +119,9 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
                     <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
                       <Select
                         fullWidth
-                        value={values.dob.getMonth().toString()}
-                        name="dob-month"
-                        onChange={(e: SelectChangeEvent<string>) => handleChangeMonth(e, values.dob, setFieldValue)}
+                        value={values.birthday.getMonth().toString()}
+                        name="birthday-month"
+                        onChange={(e: SelectChangeEvent<string>) => handleChangeMonth(e, values.birthday, setFieldValue)}
                       >
                         <MenuItem value="0">January</MenuItem>
                         <MenuItem value="1">February</MenuItem>
@@ -150,10 +138,10 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
                       </Select>
                       <Select
                         fullWidth
-                        value={values.dob.getDate().toString()}
-                        name="dob-date"
+                        value={values.birthday.getDate().toString()}
+                        name="birthday-date"
                         onBlur={handleBlur}
-                        onChange={(e: SelectChangeEvent<string>) => handleChangeDay(e, values.dob, setFieldValue)}
+                        onChange={(e: SelectChangeEvent<string>) => handleChangeDay(e, values.birthday, setFieldValue)}
                         MenuProps={MenuProps}
                       >
                         {[
@@ -163,9 +151,9 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
                             key={i}
                             value={i}
                             disabled={
-                              (values.dob.getMonth() === 1 && i > (values.dob.getFullYear() % 4 === 0 ? 29 : 28)) ||
-                              (values.dob.getMonth() % 2 !== 0 && values.dob.getMonth() < 7 && i > 30) ||
-                              (values.dob.getMonth() % 2 === 0 && values.dob.getMonth() > 7 && i > 30)
+                              (values.birthday.getMonth() === 1 && i > (values.birthday.getFullYear() % 4 === 0 ? 29 : 28)) ||
+                              (values.birthday.getMonth() % 2 !== 0 && values.birthday.getMonth() < 7 && i > 30) ||
+                              (values.birthday.getMonth() % 2 === 0 && values.birthday.getMonth() > 7 && i > 30)
                             }
                           >
                             {i}
@@ -176,18 +164,18 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
                         <DatePicker
                           sx={{ width: 1 }}
                           views={['year']}
-                          value={values.dob}
+                          value={values.birthday}
                           maxDate={maxDate}
                           onChange={(newValue) => {
-                            setFieldValue('dob', newValue);
+                            setFieldValue('birthday', newValue);
                           }}
                         />
                       </LocalizationProvider>
                     </Stack>
                   </Stack>
-                  {touched.dob && errors.dob && (
-                    <FormHelperText error id="personal-dob-helper">
-                      {errors.dob as String}
+                  {touched.birthday && errors.birthday && (
+                    <FormHelperText error id="personal-birthday-helper">
+                      {errors.birthday as String}
                     </FormHelperText>
                   )}
                 </Grid>

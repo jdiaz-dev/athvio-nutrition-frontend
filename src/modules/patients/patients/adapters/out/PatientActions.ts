@@ -1,7 +1,7 @@
 import { ApolloError } from '@apollo/client';
 import { useDispatch } from 'react-redux';
 import { apolloClient } from 'src/graphql/ApolloClient';
-import * as PatientSlice from 'src/modules/patients/patient-console/profile/in/slicers/PatientSlice';
+import * as PatientSlice from 'src/modules/patients/patients/adapters/in/slicers/PatientSlice';
 import {
   GetPatientForConsoleRequest,
   GetPatientForConsoleResponse,

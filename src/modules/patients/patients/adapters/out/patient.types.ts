@@ -14,13 +14,14 @@ export type PatientBody = {
     countryCode?: string;
     phone?: string;
   };
-  height: number;
-  weight: number;
-  birthday: string;
-  gender: string;
-  groups: PatientGroup[];
-  state: string;
+  height?: number;
+  weight?: number;
+  birthday?: string;
+  gender?: string;
+  groups?: PatientGroup[];
+  state?: string;
 };
+
 export type AcceptNewPatient = PatientBody;
 export type PatientInitialState = AcceptNewPatient;
 

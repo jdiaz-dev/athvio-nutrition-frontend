@@ -1,23 +1,21 @@
 import { Button } from '@mui/material';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 import { usePatientQuestionary } from 'src/modules/questionaries/patient-questionaries/adapters/out/PatientQuestionaryActions';
-import SnackbarMesssage from 'src/shared/components/SnackbarMessage';
+import { openSnackbar } from 'src/shared/components/Snackbar/snackbar';
+import { SnackbarProps } from 'src/shared/types/snackbar';
 import { ReduxStates } from 'src/shared/types/types';
 
 function SaveQuestionaryButton() {
   const authContext = useContext(AuthContext);
   const { patientId } = useParams();
   const questionaryGroupsState = useSelector((state: ReduxStates) => state.patientQuestionary.patientQuestionary);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const { updateAnswersAndAdditionalNotes } = usePatientQuestionary();
 
   const onClickHandler = async () => {
-    setOpenSnackbar(true);
-
     await updateAnswersAndAdditionalNotes({
       professional: authContext.professional,
       patient: patientId as string,
@@ -33,15 +31,20 @@ function SaveQuestionaryButton() {
           })),
         })),
     });
+    openSnackbar({
+      open: true,
+      message: 'El questionario fue actualizado exitosamente.',
+      variant: 'alert',
+      alert: {
+        color: 'success',
+      },
+    } as SnackbarProps);
   };
   return (
     <>
       <Button style={{ width: '200px' }} variant="contained" onClick={onClickHandler}>
         Save
       </Button>
-      {openSnackbar && (
-        <SnackbarMesssage openSnackbar={openSnackbar} setOpenSnackbar={setOpenSnackbar} message={'El questionario fue actualizado'} />
-      )}
     </>
   );
 }

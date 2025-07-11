@@ -27,7 +27,7 @@ import MainCard from 'src/shared/components/MainCard/MainCard';
 import IconButton from 'src/shared/components/IconButton';
 import { UserProfile } from 'src/shared/types/auth';
 import { ReduxStates } from 'src/shared/types/types';
-import { openSnackbar } from 'src/shared/components/snackbar';
+import { openSnackbar } from 'src/shared/components/Snackbar/snackbar';
 import { useChat } from 'src/modules/patients/patient-console/chat/adapters/out/ChatActions';
 import { Commenter } from 'src/modules/patients/patient-console/chat/adapters/out/chat.enum';
 import { useParams } from 'react-router-dom';

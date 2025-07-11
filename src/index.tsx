@@ -12,6 +12,7 @@ import AuthProvider from 'src/modules/authentication/authentication/adapters/in/
 import ThemeCustomization from './core/themes';
 import Locales from 'src/modules/patients/patient-console/patient-sidebar/components/Locales';
 import 'src/internationalization/i18n';
+import Snackbar from 'src/shared/components/Snackbar/Snackbar';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
@@ -23,6 +24,7 @@ root.render(
           <BrowserRouter>
             <Locales>
               <App />
+              <Snackbar />
             </Locales>
           </BrowserRouter>
         </Provider>

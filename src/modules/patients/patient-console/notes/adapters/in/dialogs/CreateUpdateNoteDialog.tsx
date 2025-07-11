@@ -8,13 +8,14 @@ import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext
 import { ReduxStates } from 'src/shared/types/types';
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
-import SnackbarMesssage from 'src/shared/components/SnackbarMessage';
 import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 import { formStyles } from 'src/shared/styles/styles';
 import { useNotes } from 'src/modules/patients/patient-console/notes/adapters/out/NoteActions';
 import { useParams } from 'react-router-dom';
 import * as NotesSlice from 'src/modules/patients/patient-console/notes/adapters/in/slicers/NotesSlice';
 import { NoteBody } from 'src/modules/patients/patient-console/notes/helpers/notes';
+import { SnackbarProps } from 'src/shared/types/snackbar';
+import { openSnackbar } from 'src/shared/components/Snackbar/snackbar';
 
 function CreateUpdateNoteDialog({
   openCreateUpdateNoteDialog,
@@ -34,7 +35,6 @@ function CreateUpdateNoteDialog({
 
   const { data: noteState, error } = useSelector((state: ReduxStates) => state.notes.note);
   const [closedIconDialog, setClosedIconDialog] = useState(true);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk } = useMessageDialog();
   const [createUpdateNoteStateUpdate, setCreateUpdateNoteStateUpdated] = useState(false);
@@ -91,6 +91,19 @@ function CreateUpdateNoteDialog({
       setMessageOk(false);
     }
   }, [createUpdateNoteStateUpdate, openDialog, _note, messageOk]);
+
+  useEffect(() => {
+    if (error) {
+      openSnackbar({
+        open: true,
+        message: error,
+        variant: 'alert',
+        alert: {
+          color: 'error',
+        },
+      } as SnackbarProps);
+    }
+  }, [error]);
 
   const onSubmitNote = (data: { content: string; date: string }) => {
     dispatch(NotesSlice.modifyNote(data));
@@ -155,14 +168,6 @@ function CreateUpdateNoteDialog({
           <MessageDialog openDialog={openDialog} setOpenDialog={setOpenDialog} message={message} setMessageOk={setMessageOk} />
         )} */}
       </Dialog>
-      {error && (
-        <SnackbarMesssage
-          openSnackbar={openSnackbar}
-          setOpenSnackbar={setOpenSnackbar}
-          message={error}
-          messageCleaner={NotesSlice.noteErrorCleaner}
-        />
-      )}
     </>
   );
 }

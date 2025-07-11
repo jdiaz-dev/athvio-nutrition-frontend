@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { patientIntialState } from 'src/modules/patients/patient-console/profile/in/slicers/PatientInitialState';
+import { patientIntialState } from 'src/modules/patients/patients/adapters/in/slicers/PatientInitialState';
 import { AcceptNewPatient } from 'src/modules/patients/patients/adapters/out/patient.types';
 
 const patientSlice = createSlice({
@@ -11,9 +11,13 @@ const patientSlice = createSlice({
       state = action.payload;
       return state;
     },
+    resetPatient: (state) => {
+      state = patientIntialState;
+      return state;
+    },
   },
 });
 
-export const { acceptNewPatient } = patientSlice.actions;
+export const { acceptNewPatient, resetPatient } = patientSlice.actions;
 
 export default patientSlice.reducer;
