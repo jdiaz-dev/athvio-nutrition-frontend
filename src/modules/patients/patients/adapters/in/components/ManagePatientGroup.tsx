@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { Chip, Menu, MenuItem, Stack } from '@mui/material';
 import { ManagePatientGroupRequest, ManagePatientGroupResponse } from 'src/modules/patients/patients/adapters/out/patient.types';
-import { MANAGE_CLIENT_GROUP } from 'src/modules/patients/patients/adapters/out/PatientQueries';
+import { MANAGE_PATIENT_GROUP } from 'src/modules/patients/patients/adapters/out/PatientQueries';
 import { ManagePatientGroupEnum } from 'src/shared/Consts';
 import { PatientGroup } from 'src/shared/types/types';
 import { PatientGroupsContext } from 'src/modules/patients/patients/adapters/in/components/PatientsContainer';
@@ -18,7 +18,7 @@ function ManagePatientGroup(props: { patient: string; assignedGroups: PatientGro
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const [createPatientHandler] = useMutation<ManagePatientGroupResponse, ManagePatientGroupRequest>(MANAGE_CLIENT_GROUP);
+  const [createPatientHandler] = useMutation<ManagePatientGroupResponse, ManagePatientGroupRequest>(MANAGE_PATIENT_GROUP);
 
   const handleAnchorOpen = (event: React.MouseEvent<HTMLDivElement>) => {
     setAnchorEl(event.currentTarget);

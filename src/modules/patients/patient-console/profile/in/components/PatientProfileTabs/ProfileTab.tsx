@@ -48,7 +48,7 @@ export default function ProfileTab() {
         <ListItemIcon>
           <UserOutlined />
         </ListItemIcon>
-        <ListItemText primary="Personal Information" />
+        <ListItemText primary="Patient Information" />
       </ListItemButton>
     </List>
   );

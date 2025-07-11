@@ -37,7 +37,7 @@ import { SnackbarProps } from 'src/shared/types/snackbar'; //TODO: remove it?
 
 // assets
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
-import CountryCodeSelect from 'src/shared/components/CountryCodeSelect';
+import CountryCodeSelect from 'src/shared/components/Country/CountryCodeSelect';
 import { SignUpProfessionalModel } from '../../../out/authentication.types';
 import { ApolloError } from 'apollo-boost';
 

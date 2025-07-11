@@ -19,7 +19,7 @@ import {
   SignUpPatientResponse,
   UserInfoForPatient,
 } from 'src/modules/patients/patients/adapters/out/patient.types';
-import CountryCodeSelect from 'src/shared/components/CountryCodeSelect';
+import CountryCodeSelect from 'src/shared/components/Country/CountryCodeSelect';
 import { Dayjs } from 'dayjs';
 import { ApolloError, useMutation } from '@apollo/client';
 import MessageDialog from 'src/shared/dialogs/MessageDialog';

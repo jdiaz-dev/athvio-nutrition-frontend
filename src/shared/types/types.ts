@@ -10,7 +10,7 @@ import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 import { NutritionBuilderInitialState } from 'src/modules/nutrition-builder/adapters/out/nutritionBuilder';
 import { NotesInitialState } from 'src/modules/patients/patient-console/notes/helpers/notes';
 import { PatientQuestionaryInitialState } from 'src/modules/questionaries/patient-questionaries/adapters/out/PatientQuestionary';
-import { PatientInitialState } from 'src/modules/patients/patient-console/profile/out/PatientProfile';
+import { PatientInitialState } from 'src/modules/patients/patients/adapters/out/patient.types';
 
 export type DateItem<T> = {
   title: string;

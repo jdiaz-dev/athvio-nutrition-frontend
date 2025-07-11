@@ -2,12 +2,8 @@ import { RefObject, useContext, useEffect } from 'react';
 import { useOutletContext } from 'react-router';
 
 // material-ui
-import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import CardHeader from '@mui/material/CardHeader';
-import Chip from '@mui/material/Chip';
-import Divider from '@mui/material/Divider';
 import FormHelperText from '@mui/material/FormHelperText';
 import Grid from '@mui/material/Grid';
 import InputLabel from '@mui/material/InputLabel';
@@ -22,14 +18,15 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 // third party
 import * as Yup from 'yup';
-import { Formik } from 'formik';
+import { Formik, FormikProps } from 'formik';
 import { openSnackbar } from 'src/shared/components/snackbar';
 import { SnackbarProps } from 'src/shared/types/snackbar';
-import MainCard from 'src/shared/components/MainCard/MainCard';
-import countries from 'src/modules/patients/patient-console/profile/in/PatientProfileTabs/countries';
+import countries from 'src/modules/patients/patient-console/profile/in/components/PatientProfileTabs/countries';
 import { ReduxStates } from 'src/shared/types/types';
 import { useSelector } from 'react-redux';
 import { ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { usePatient } from 'src/modules/patients/patients/adapters/out/PatientActions';
+import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 
 // styles & constant
 const ITEM_HEIGHT = 48;
@@ -56,9 +53,11 @@ function useInputRef() {
 
 // ==============================|| TAB - PERSONAL ||============================== //
 
-export default function TabPersonal() {
-  const patientState = useSelector((state: ReduxStates) => state.patient);
+export default function BasicInformation({ formRef }: { formRef: RefObject<FormikProps<any>> }) {
+  const authContext = useContext(AuthContext);
 
+  const patientState = useSelector((state: ReduxStates) => state.patient);
+  const { updatePatientForWeb } = usePatient();
   const handleChangeDay = (event: SelectChangeEvent<string>, date: Date, setFieldValue: (field: string, value: any) => void) => {
     setFieldValue('dob', new Date(date.setDate(parseInt(event.target.value, 10))));
   };
@@ -69,41 +68,40 @@ export default function TabPersonal() {
 
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() - 18);
-
   const inputRef = useInputRef();
 
   return (
-    <MainCard content={false} title="Personal Information" sx={{ '& .MuiInputLabel-root': { fontSize: '0.875rem' } }}>
+    <>
+      <CardHeader
+        title="Basic information"
+        sx={{
+          textAlign: 'left',
+        }}
+      />
       <Formik
+        innerRef={formRef}
         initialValues={{
-          firstname: patientState.user.firstname,
-          lastname: patientState.user.lastname,
-          email: patientState.user.email,
-          dob: new Date(getFomattedDate(patientState.birthday)), //
-          countryCode: '+91',
-          contact: 9652364852,
+          dob: new Date(getFomattedDate(patientState.birthday)),
           weight: patientState.weight,
           height: patientState.height,
           gender: patientState.gender,
-          country: 'US',
-          state: 'California',
           submit: null,
         }}
         validationSchema={Yup.object().shape({
-          firstname: Yup.string().max(255).required('First Name is required.'),
-          lastname: Yup.string().max(255).required('Last Name is required.'),
-          email: Yup.string().email('Invalid email address.').max(255).required('Email is required.'),
-          dob: Yup.date().max(maxDate, 'Age should be 18+ years.').required('Date of birth is requird.'),
-          contact: Yup.number()
-            .test('len', 'Contact should be exactly 10 digit', (val) => val?.toString().length === 10)
-            .required('Phone number is required'),
-          weight: Yup.string().required('Weight is required'),
-          height: Yup.string().required('Height is required'),
+          dob: Yup.date().required('Date of birth is required.'),
+          weight: Yup.number().required('Weight is required'),
+          height: Yup.number().required('Height is required'),
           gender: Yup.string().required('Gender is required'),
-          country: Yup.string().required('Country is required'),
-          state: Yup.string().required('State is required'),
         })}
-        onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
+        onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
+          await updatePatientForWeb({
+            professional: authContext.professional,
+            patient: patientState.uuid,
+            birthday: values.dob.toISOString(),
+            height: values.height,
+            weight: values.weight,
+            gender: values.gender,
+          });
           try {
             openSnackbar({
               open: true,
@@ -126,66 +124,6 @@ export default function TabPersonal() {
           <form noValidate onSubmit={handleSubmit}>
             <Box sx={{ p: 2.5 }}>
               <Grid container spacing={3}>
-                <Grid item xs={12} sm={6}>
-                  <Stack spacing={1}>
-                    <InputLabel htmlFor="personal-first-name">First Name</InputLabel>
-                    <TextField
-                      fullWidth
-                      id="personal-first-name"
-                      value={values.firstname}
-                      name="firstname"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      placeholder="First Name"
-                      autoFocus
-                      inputRef={inputRef}
-                    />
-                  </Stack>
-                  {touched.firstname && errors.firstname && (
-                    <FormHelperText error id="personal-first-name-helper">
-                      {errors.firstname}
-                    </FormHelperText>
-                  )}
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Stack spacing={1}>
-                    <InputLabel htmlFor="personal-last-name">Last Name</InputLabel>
-                    <TextField
-                      fullWidth
-                      id="personal-last-name"
-                      value={values.lastname}
-                      name="lastname"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      placeholder="Last Name"
-                    />
-                  </Stack>
-                  {touched.lastname && errors.lastname && (
-                    <FormHelperText error id="personal-last-name-helper">
-                      {errors.lastname}
-                    </FormHelperText>
-                  )}
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Stack spacing={1}>
-                    <InputLabel htmlFor="personal-email">Email Address</InputLabel>
-                    <TextField
-                      type="email"
-                      fullWidth
-                      value={values.email}
-                      name="email"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      id="personal-email"
-                      placeholder="Email Address"
-                    />
-                  </Stack>
-                  {touched.email && errors.email && (
-                    <FormHelperText error id="personal-email-helper">
-                      {errors.email}
-                    </FormHelperText>
-                  )}
-                </Grid>
                 <Grid item xs={12} sm={6}>
                   <Stack spacing={1}>
                     {/* todo: fix to allow any age and not only +18  */}
@@ -253,58 +191,24 @@ export default function TabPersonal() {
                     </FormHelperText>
                   )}
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Stack spacing={1}>
-                    <InputLabel htmlFor="personal-phone">Phone Number</InputLabel>
-                    <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
-                      <Select value={values.countryCode} name="countryCode" onBlur={handleBlur} onChange={handleChange}>
-                        <MenuItem value="+91">+91</MenuItem>
-                        <MenuItem value="1-671">1-671</MenuItem>
-                        <MenuItem value="+36">+36</MenuItem>
-                        <MenuItem value="(225)">(255)</MenuItem>
-                        <MenuItem value="+39">+39</MenuItem>
-                        <MenuItem value="1-876">1-876</MenuItem>
-                        <MenuItem value="+7">+7</MenuItem>
-                        <MenuItem value="(254)">(254)</MenuItem>
-                        <MenuItem value="(373)">(373)</MenuItem>
-                        <MenuItem value="1-664">1-664</MenuItem>
-                        <MenuItem value="+95">+95</MenuItem>
-                        <MenuItem value="(264)">(264)</MenuItem>
-                      </Select>
-                      <TextField
-                        fullWidth
-                        id="personal-contact"
-                        value={values.contact}
-                        name="contact"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        placeholder="Contact Number"
-                      />
-                    </Stack>
-                  </Stack>
-                  {touched.contact && errors.contact && (
-                    <FormHelperText error id="personal-contact-helper">
-                      {errors.contact}
-                    </FormHelperText>
-                  )}
-                </Grid>
+
                 <Grid item xs={12} sm={6}>
                   <Stack spacing={1}>
                     <InputLabel htmlFor="weight">Height</InputLabel>
                     <TextField
                       fullWidth
                       type="number"
-                      id="weight"
+                      id="height"
                       value={values.height}
-                      name="weight"
+                      name="height"
                       onBlur={handleBlur}
                       onChange={handleChange}
-                      placeholder="Weight"
+                      placeholder="Height"
                     />
                   </Stack>
                   {touched.height && errors.height && (
                     <FormHelperText error id="weight-helper">
-                      {errors.height}
+                      {errors.height as string}
                     </FormHelperText>
                   )}
                 </Grid>
@@ -324,22 +228,31 @@ export default function TabPersonal() {
                   </Stack>
                   {touched.weight && errors.weight && (
                     <FormHelperText error id="weight-helper">
-                      {errors.weight}
+                      {errors.weight as string}
                     </FormHelperText>
                   )}
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Stack spacing={1}>
                     <InputLabel htmlFor="weight">Gender</InputLabel>
-                    <ToggleButtonGroup color="primary" value={values.gender} exclusive onChange={handleChange}>
+                    <ToggleButtonGroup
+                      color="primary"
+                      value={values.gender}
+                      exclusive
+                      onChange={(_event, newValue) => {
+                        if (newValue !== null) {
+                          setFieldValue('gender', newValue);
+                        }
+                      }}
+                    >
                       <ToggleButton value="male">Male</ToggleButton>
                       <ToggleButton value="female">Female</ToggleButton>
                       <ToggleButton value="prefer not to say">Prefer not to say</ToggleButton>
                     </ToggleButtonGroup>
                   </Stack>
-                  {touched.weight && errors.weight && (
-                    <FormHelperText error id="weight-helper">
-                      {errors.weight}
+                  {touched.gender && errors.gender && (
+                    <FormHelperText error id="gender-helper">
+                      {errors.gender as string}
                     </FormHelperText>
                   )}
                 </Grid>
@@ -348,6 +261,6 @@ export default function TabPersonal() {
           </form>
         )}
       </Formik>
-    </MainCard>
+    </>
   );
 }

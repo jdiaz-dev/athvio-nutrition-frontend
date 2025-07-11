@@ -20,7 +20,7 @@ import PatientPlansCalendar from 'src/modules/patients/patient-console/patient-p
 import CaloriesContainer from 'src/modules/patients/patient-console/calories/adapters/in/CaloriesContainer';
 import NotesContainer from 'src/modules/patients/patient-console/notes/adapters/in/components/NotesContainer';
 import PatientQuestionaryContainer from 'src/modules/questionaries/patient-questionaries/adapters/in/components/PatientQuestionaryContainer';
-import PatientProfileContainer from 'src/modules/patients/patient-console/profile/PatientProfileContainer';
+import PatientProfileContainer from 'src/modules/patients/patient-console/profile/in/components/PatientProfileContainer';
 
 function App() {
   return (

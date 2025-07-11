@@ -7,7 +7,7 @@ import ArchiveIcon from '@mui/icons-material/Archive';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
-import { ARCHIVE_CLIENT } from 'src/modules/patients/patients/adapters/out/PatientQueries';
+import { ARCHIVE_PATIENT } from 'src/modules/patients/patients/adapters/out/PatientQueries';
 import { useMutation } from '@apollo/client';
 import { ManagePatientStateRequest, ManagePatientStateResponse } from 'src/modules/patients/patients/adapters/out/patient.types';
 import { PatientStates, PatientStatesActions } from 'src/shared/Consts';
@@ -61,7 +61,7 @@ export default function PatientOptions({ patient }: { patient: string }) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  const [manageStateMutation] = useMutation<ManagePatientStateResponse, ManagePatientStateRequest>(ARCHIVE_CLIENT);
+  const [manageStateMutation] = useMutation<ManagePatientStateResponse, ManagePatientStateRequest>(ARCHIVE_PATIENT);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);

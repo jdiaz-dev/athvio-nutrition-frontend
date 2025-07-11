@@ -1,8 +1,9 @@
-import { PatientInitialState } from 'src/modules/patients/patient-console/profile/out/PatientProfile';
+import { PatientInitialState } from 'src/modules/patients/patients/adapters/out/patient.types';
 
 export const patientIntialState: PatientInitialState = {
   uuid: '',
   user: {
+    uuid: '',
     firstname: '',
     lastname: '',
     email: '',

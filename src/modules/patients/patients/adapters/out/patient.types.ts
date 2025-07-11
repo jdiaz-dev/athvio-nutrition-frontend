@@ -1,8 +1,28 @@
 import { Dayjs } from 'dayjs';
-import { PatientBody } from 'src/modules/patients/patient-console/patient/adapters/out/patient';
 import { PatientStates, ManagePatientGroupEnum } from 'src/shared/Consts';
 import { MetadataRecords } from 'src/shared/types/get-records.types';
-import { GraphQLInput, PlanDayInfo } from 'src/shared/types/types';
+import { GraphQLInput, PatientGroup, PlanDayInfo } from 'src/shared/types/types';
+
+export type PatientBody = {
+  uuid: string;
+  user: {
+    uuid: string;
+    firstname: string;
+    lastname: string;
+    email?: string;
+    photo?: string;
+    countryCode?: string;
+    phone?: string;
+  };
+  height: number;
+  weight: number;
+  birthday: string;
+  gender: string;
+  groups: PatientGroup[];
+  state: string;
+};
+export type AcceptNewPatient = PatientBody;
+export type PatientInitialState = AcceptNewPatient;
 
 export interface GraphQLPatientInput extends GraphQLInput {
   state: PatientStates;
@@ -60,6 +80,38 @@ export type GetPatientResponse = {
     data: PatientBody[];
     meta: MetadataRecords;
   };
+};
+
+export type UpdatePatientForWebInput = {
+  professional: string;
+  patient: string;
+  height: number;
+  weight: number;
+  birthday: string;
+  gender: string;
+};
+export type UpdatePatientForWebRequest = {
+  patient: UpdatePatientForWebInput;
+};
+export type UpdatePatientForWebResponse = {
+  updatePatientForWeb: {
+    uuid: string;
+    height: number;
+    weight: number;
+    birthday: string;
+    gender: string;
+  };
+};
+
+export type GetPatientForConsoleRequest = {
+  patient: {
+    professional: string;
+    patient: string;
+  };
+};
+
+export type GetPatientForConsoleResponse = {
+  getPatientForWeb: PatientBody;
 };
 
 export type ManagePatientGroupRequest = {
