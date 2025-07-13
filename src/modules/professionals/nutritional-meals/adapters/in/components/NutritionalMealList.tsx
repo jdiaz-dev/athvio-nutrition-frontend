@@ -12,15 +12,15 @@ import { AuthContext } from 'src/modules/authentication/authentication/adapters/
 import { DatabasesEnum, NutritionalMealDatabasesEnum } from 'src/shared/Consts';
 import DatabaseSelector from 'src/shared/components/databaseSelector/DatabaseSelector';
 import SearcherAndSelectorWrapper from 'src/shared/components/SearcherAndSelector/SearcherAndSelectorWrapper';
-import { useTranslation } from 'react-i18next';
+import { getShortLang } from 'src/shared/internationalization/getShortLang';
 
 function NutritionalMealList() {
   const nutritionalMealList = useSelector((state: ReduxStates) => state.nutritionalMeals.nutritionalMeals);
 
   const authContext = useContext(AuthContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
-  const { i18n } = useTranslation();
-  const currentLang = i18n.language;
+  const currentLang = getShortLang();
+
   const {
     searchWords,
     setSearchWords,

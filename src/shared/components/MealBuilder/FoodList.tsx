@@ -25,10 +25,11 @@ import { DatabasesEnum, FoodDatabases, SpecialPagination } from 'src/shared/Cons
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 import SearcherAndSelectorWrapper from 'src/shared/components/SearcherAndSelector/SearcherAndSelectorWrapper';
 import { useTranslation } from 'react-i18next';
+import { getShortLang } from 'src/shared/internationalization/getShortLang';
 
 function FoodList() {
   const authContext = useContext(AuthContext);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const {
     searchWords,
     setSearchWords,
@@ -52,6 +53,8 @@ function FoodList() {
   const [databaseChanged, setDatabaseChanged] = useState<boolean>(false);
 
   const [panelExpanded, setPanelExpanded] = useState<string | false>(false);
+  const language = getShortLang();
+
   const { loading, refetch } = useQuery<GetFoodsResponse, GetFoodRequest>(GET_FOODS, {
     skip: true,
     fetchPolicy: 'network-only',
@@ -75,7 +78,7 @@ function FoodList() {
     offset: offset,
     limit: rowsPerPage,
     foodDatabase: database,
-    targetLanguage: i18n.language,
+    targetLanguage: language,
   };
 
   useEffect(() => {
@@ -121,7 +124,7 @@ function FoodList() {
         professional: authContext.professional,
         search: searchWords[0],
         foodDatabase: database,
-        targetLanguage: i18n.language,
+        targetLanguage: language,
       };
       const foodNames = await refetchAutocomplete({ input: autocompleteInput });
       setMatchedRecords(foodNames.data.getAutoCompleteFoodNames.foodNames);

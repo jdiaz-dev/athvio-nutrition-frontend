@@ -50,7 +50,7 @@
   },
   "mealsModule":{
     "buttons":{
-      "createCustomMeal":"Crear comida personalizada"
+      "createCustomMeal":"Nueva comida"
     },
     "titles":{
       "meals":"Comidas"
@@ -58,7 +58,7 @@
   },
   "programsModule":{
     "buttons":{
-      "createNewProgram":"Crear nuevo programa",
+      "createNewProgram":"Nuevo programa",
       "assignProgram":"Asignar programa",
       "editProgram":"Editar programa",
       "deleteProgram":"Eliminar programa",

@@ -17,6 +17,7 @@ import SearcherBar from 'src/shared/components/SearcherAndSelector/SearcherBar';
 import { useSearcher } from 'src/shared/hooks/useSearcher';
 import { NutritionalMealBody } from 'src/modules/professionals/nutritional-meals/adapters/out/nutritionalMeal';
 import { useTranslation } from 'react-i18next';
+import { getShortLang } from 'src/shared/internationalization/getShortLang';
 
 function useMealSelector() {
   const { getNutritionalMeals } = useNutritionalMeal();
@@ -34,7 +35,7 @@ function ImportMealDialog({
 }) {
   const currentModuleContext = useContext(CurrentModuleContext);
   const authContext = useContext(AuthContext);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { mealDetailsState } = useMealsStates(currentModuleContext.currentModule);
   const mealsState = useSelector((state: ReduxStates) => state.nutritionalMeals.nutritionalMeals);
 
@@ -65,13 +66,13 @@ function ImportMealDialog({
     closeImportMealHandler();
   };
   const { getMeals } = useMealSelector();
-
+  const language = getShortLang();
   useEffect(() => {
     const fetchMeals = async () => {
       await getMeals({
         professional: authContext.professional,
         database: database as NutritionalMealDatabasesEnum,
-        language: i18n.language,
+        language: language,
         limit: 10,
         offset: 0,
         ...(searchWords.length > 0 && { search: searchWords }),

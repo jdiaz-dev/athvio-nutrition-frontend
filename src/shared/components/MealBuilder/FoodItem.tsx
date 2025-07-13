@@ -19,20 +19,22 @@ import { IngredientDetail } from 'src/shared/components/MealBuilder/MealBuilder.
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from 'src/shared/components/IconButton';
 import { useTranslation } from 'react-i18next';
+import { getShortLang } from 'src/shared/internationalization/getShortLang';
 
 function FoodItem({ food }: { food: Food }) {
   const foddAddedContext = useContext(FoddAddedContext);
   const currentModuleContext = useContext(CurrentModuleContext);
   const dispatch = useDispatch();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const { addIngredient } = useMealBuilderSlicers(currentModuleContext.currentModule);
   const [foodManager, setFoodManager] = useState<FoodManager | null>(null);
   const [measure, setMeasure] = useState<string | null>(null);
+  const language = getShortLang();
 
   useEffect(() => {
     const defaultMeasure = food.availableMeasures?.find((measure) =>
-      i18n.language === SupportedLanguages.ENGLISH
+      language === SupportedLanguages.ENGLISH
         ? measure.label === MeasureSizes.GRAM_LABEL_ENGLISH
         : measure.label === MeasureSizes.GRAM_LABEL_SPANISH,
     );
@@ -42,7 +44,7 @@ function FoodItem({ food }: { food: Food }) {
       ...food,
       measure: {
         amount: food.macros.weightInGrams,
-        label: (i18n.language === SupportedLanguages.ENGLISH ? MeasureSizes.GRAM_LABEL_ENGLISH : MeasureSizes.GRAM_LABEL_SPANISH) as string,
+        label: (language === SupportedLanguages.ENGLISH ? MeasureSizes.GRAM_LABEL_ENGLISH : MeasureSizes.GRAM_LABEL_SPANISH) as string,
         weightInGrams: food.macros.weightInGrams,
       },
     });
