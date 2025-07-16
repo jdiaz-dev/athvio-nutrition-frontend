@@ -31,7 +31,7 @@ function NutritionalMealList() {
     recentlyTypedWord,
     setRecentlyTypedWord,
   } = useSearcher();
-  const { length, setLength, offset, setOffset, rowsPerPage, currentPage, setCurrentPage } = usePaginator(6);
+  const { length, setLength, offset, setOffset, rowsPerPage, currentPage, setCurrentPage } = usePaginator(10);
   const [database, setDatabase] = useState(NutritionalMealDatabasesEnum.ALL as string);
 
   const { getNutritionalMeals } = useNutritionalMeal();
