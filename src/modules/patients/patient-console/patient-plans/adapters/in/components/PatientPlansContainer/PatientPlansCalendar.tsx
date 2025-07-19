@@ -84,7 +84,9 @@ function PatientPlansCalendar() {
 
       while (dateStart < dayjs(dateSet ? dateSet.dateEnd : new Date())) {
         const planIndex = patientPlansState.findIndex(
-          (plan) => dayjs.utc(plan.assignedDate).set('hour', 0).toString() === dayjs.utc(dateStart.toString()).set('hour', 0).toString(),
+          (plan) =>
+            dayjs.utc(plan.assignedDate).set('hour', 0).set('minute', 0).toString() ===
+            dayjs.utc(dateStart.toString()).set('hour', 0).set('minute', 0).toString(),
         );
         dates.push({
           title: '',
