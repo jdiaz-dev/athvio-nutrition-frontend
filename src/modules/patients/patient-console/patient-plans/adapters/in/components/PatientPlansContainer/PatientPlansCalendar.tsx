@@ -83,11 +83,23 @@ function PatientPlansCalendar() {
       const dates: DateItem<PatientPlanDateExtendedProps>[] = [];
 
       while (dateStart < dayjs(dateSet ? dateSet.dateEnd : new Date())) {
-        const planIndex = patientPlansState.findIndex(
-          (plan) =>
-            dayjs.utc(plan.assignedDate).set('hour', 0).set('minute', 0).toString() ===
-            dayjs.utc(dateStart.toString()).set('hour', 0).set('minute', 0).toString(),
-        );
+        const planIndex = patientPlansState.findIndex((plan) => {
+          const assignedDateOnlyDate = dayjs
+            .utc(plan.assignedDate)
+            .set('hour', 0)
+            .set('minute', 0)
+            .set('second', 0)
+            .set('millisecond', 0)
+            .toString();
+          const dateStartOnlyDate = dayjs
+            .utc(dateStart.toString())
+            .set('hour', 0)
+            .set('minute', 0)
+            .set('second', 0)
+            .set('millisecond', 0)
+            .toString();
+          return assignedDateOnlyDate === dateStartOnlyDate;
+        });
         dates.push({
           title: '',
           date: dateStart.toDate(),
