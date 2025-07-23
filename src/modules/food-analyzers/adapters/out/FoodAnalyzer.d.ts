@@ -2,6 +2,8 @@ type Mechanism = {
   uuid: string;
   englishName: string;
   spanishName: string;
+  englishCategory: string;
+  spanishCategory: string;
   englishDescription: string;
   spanishDescription: string;
   spanishRelatedDisease: string;

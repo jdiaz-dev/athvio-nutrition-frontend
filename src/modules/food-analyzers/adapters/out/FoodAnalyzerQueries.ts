@@ -14,6 +14,8 @@ export const GET_ANALIZED_FOODS = gql`
           uuid
           englishName
           spanishName
+          englishCategory
+          spanishCategory
           englishDescription
           spanishDescription
           englishRelatedDisease

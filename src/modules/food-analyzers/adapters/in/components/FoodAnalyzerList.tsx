@@ -33,7 +33,7 @@ function flattenAnalyzedFoods(foods: FoodAnalyzer[]): FoodCompoundMechanism[] {
           result.push({
             food: foodName,
             compound: compoundName,
-            mechanism: mechanism?.spanishName,
+            mechanism: mechanism?.spanishCategory,
           });
         }
       } else {
