@@ -10,6 +10,7 @@ import PatientReducer from 'src/modules/patients/patients/adapters/in/slicers/Pa
 import ProfessionalReducer from 'src/modules/professionals/professional/adapters/in/slicers/ProfessionalSlice';
 import ProfessionalQuestionaryReducer from 'src/modules/questionaries/professional-questionaries/adapters/in/slicers/ProfessionalQuestionarySlice';
 import PatientQuestionaryReducer from 'src/modules/questionaries/patient-questionaries/adapters/in/slicers/PatientQuestionarySlice';
+import FoodAnalyzerReducer from 'src/modules/food-analyzers/adapters/in/slicers/FoodAnalyzerSlice';
 import NutritionBuilderReducer from 'src/modules/nutrition-builder/adapters/in/slicers/NutritionBuilderSlice';
 
 import thunk from 'redux-thunk';
@@ -30,6 +31,7 @@ export default configureStore({
     professional: ProfessionalReducer,
     professionalQuestionary: ProfessionalQuestionaryReducer,
     patientQuestionary: PatientQuestionaryReducer,
+    foodAnalyzers: FoodAnalyzerReducer,
     nutritionBuilder: NutritionBuilderReducer,
   },
   devTools: true,

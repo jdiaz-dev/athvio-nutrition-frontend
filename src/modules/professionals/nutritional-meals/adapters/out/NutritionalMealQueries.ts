@@ -187,6 +187,7 @@ export const GET_NUTRITIONAL_MEALS = gql`
             carbs
             fat
             calories
+            internalFood
           }
           equivalents {
             ingredientType

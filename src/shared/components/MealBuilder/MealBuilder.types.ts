@@ -12,6 +12,7 @@ export interface Ingredient extends Macros {
   amount: string;
   name: string;
   label: string;
+  internalFood?: string;
 }
 export interface DisplayedIngredient extends Ingredient {
   ingredientType: IngredientType;

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as NutritionalMealBasicInfoSlice from 'src/modules/professionals/nutritional-meals/adapters/in/slicers/NutritionalMealBasicInfo';
 import { ReduxStates } from 'src/shared/types/types';
 import { EnableEditionContext } from 'src/shared/components/wrappers/EnablerEditionWrapper/EnableEditionContext';
+import { width } from '@mui/system';
 
 function NutritionalMealNameInput() {
   const enableEditionContext = useContext(EnableEditionContext);
@@ -15,9 +16,10 @@ function NutritionalMealNameInput() {
     <>
       <Box
         sx={{
-          maxWidth: '100%',
+          maxWidth: '90%',
           marginBottom: '10px',
         }}
+        style={{ width: '90%' }}
       >
         <TextField
           fullWidth

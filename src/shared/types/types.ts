@@ -11,6 +11,7 @@ import { NutritionBuilderInitialState } from 'src/modules/nutrition-builder/adap
 import { NotesInitialState } from 'src/modules/patients/patient-console/notes/helpers/notes';
 import { PatientQuestionaryInitialState } from 'src/modules/questionaries/patient-questionaries/adapters/out/PatientQuestionary';
 import { PatientInitialState } from 'src/modules/patients/patients/adapters/out/patient.types';
+import { FoodAnalyzerInitialState } from 'src/modules/food-analyzers/adapters/out/FoodAnalyzer';
 
 export type DateItem<T> = {
   title: string;
@@ -54,6 +55,7 @@ export type ReduxStates = {
   patientQuestionary: PatientQuestionaryInitialState;
   nutritionBuilder: NutritionBuilderInitialState;
   notes: NotesInitialState;
+  foodAnalyzers: FoodAnalyzerInitialState;
 };
 
 export interface PlanDayInfo {

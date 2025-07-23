@@ -18,6 +18,8 @@ import { formStyles } from 'src/shared/styles/styles';
 import CancelAndSaveButtons from 'src/shared/components/CancelAndSaveButtons';
 import { EnableEditionContext } from 'src/shared/components/wrappers/EnablerEditionWrapper/EnableEditionContext';
 import ImageContainer from 'src/modules/professionals/nutritional-meals/adapters/in/dialogs/CreateUpdateNutritionalMealDialog/ImageContainer';
+import NutritionalMealOptions from 'src/modules/professionals/nutritional-meals/adapters/in/dialogs/CreateUpdateNutritionalMealDialog/NutritionalMealOptions';
+import FoodAnalyzerList from 'src/modules/food-analyzers/adapters/in/components/FoodAnalyzerList';
 
 function CreateUpdateNutritionalMealDialog({
   openCreateUpdateNutritionalMealDialog,
@@ -42,6 +44,7 @@ function CreateUpdateNutritionalMealDialog({
 
   const [componentTouched, setComponentTouched] = useState(false);
   const [closedIconDialog, setClosedIconDialog] = useState(true);
+  const [showAnticancerProperties, setShowAnticancerProperties] = useState(false);
   const [newImage, setNewImage] = useState<File | null>(null);
 
   const { uuid, ...restNutritionalMeal } = nutritionalMealDetailsState;
@@ -100,6 +103,11 @@ function CreateUpdateNutritionalMealDialog({
     }
   }, [closedIconDialog]);
 
+  const internalFoods = restNutritionalMeal.ingredientDetails.reduce((accum, item) => {
+    if (item.ingredient?.internalFood) accum.push(item.ingredient.internalFood as string);
+    return accum;
+  }, [] as string[]);
+
   return (
     <Dialog
       open={openCreateUpdateNutritionalMealDialog}
@@ -131,10 +139,14 @@ function CreateUpdateNutritionalMealDialog({
           <EnableEditionContext.Provider
             value={{ enableEdition: _nutritionalMeal === undefined ? true : _nutritionalMeal.source !== MealSourceEnum.SYSTEM }}
           >
-            <NutritionalMealNameInput />
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <NutritionalMealNameInput />
+              <NutritionalMealOptions setShowAnticancerProperties={setShowAnticancerProperties} />
+            </div>
             <ImageContainer image={mealNameBasicInfo.image} setNewImage={setNewImage} />
             <CurrentModuleContext.Provider value={{ currentModule: Modules.NUTRITIONAL_MEALS }}>
-              <MealBuilder meal={{ uuid, ...restNutritionalMeal }} />
+              {!showAnticancerProperties && <MealBuilder meal={{ uuid, ...restNutritionalMeal }} />}
+              {showAnticancerProperties && <FoodAnalyzerList internalFoods={internalFoods} />}
             </CurrentModuleContext.Provider>
           </EnableEditionContext.Provider>
         </Card>
