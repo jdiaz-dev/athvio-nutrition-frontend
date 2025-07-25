@@ -18,8 +18,6 @@ export const GET_ANALIZED_FOODS = gql`
           spanishCategory
           englishDescription
           spanishDescription
-          englishRelatedDisease
-          spanishRelatedDisease
         }
       }
     }

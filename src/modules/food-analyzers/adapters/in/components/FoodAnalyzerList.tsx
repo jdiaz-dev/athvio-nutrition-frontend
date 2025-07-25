@@ -15,6 +15,7 @@ type FoodCompoundMechanism = {
   food: string;
   compound: string;
   mechanism?: string;
+  description?: string;
 };
 
 function flattenAnalyzedFoods(foods: FoodAnalyzer[]): FoodCompoundMechanism[] {
@@ -34,6 +35,7 @@ function flattenAnalyzedFoods(foods: FoodAnalyzer[]): FoodCompoundMechanism[] {
             food: foodName,
             compound: compoundName,
             mechanism: mechanism?.spanishCategory,
+            description: mechanism?.spanishDescription,
           });
         }
       } else {
@@ -74,7 +76,10 @@ function FoodAnalyzerList({ internalFoods }: { internalFoods: string[] }) {
               <strong>Componente</strong>
             </StyledTableCell>
             <StyledTableCell>
-              <strong>Mecanismo</strong>
+              <strong>Mecanismo (categoria)</strong>
+            </StyledTableCell>
+            <StyledTableCell>
+              <strong>Mecanismo (descripcion)</strong>
             </StyledTableCell>
           </TableRow>
         </TableHead>
@@ -85,6 +90,7 @@ function FoodAnalyzerList({ internalFoods }: { internalFoods: string[] }) {
                 <StyledTableCell>{food.food}</StyledTableCell>
                 <StyledTableCell>{food.compound}</StyledTableCell>
                 <StyledTableCell>{food.mechanism}</StyledTableCell>
+                <StyledTableCell>{food.description}</StyledTableCell>
               </StyledTableRow>
             ))}
         </TableBody>
