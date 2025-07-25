@@ -18,7 +18,7 @@ const icons = {
 //todo: rename it file accoding to client options
 const clinicalHistory: NavItemType = {
   id: 'group-applications',
-  title: <FormattedMessage id="Clinical History" />,
+  title: <FormattedMessage id="Historia clínica" />,
   icon: icons.QuizIcon,
   type: 'group',
   children: [

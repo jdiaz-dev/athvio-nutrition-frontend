@@ -22,13 +22,13 @@ const icons = {
 //todo: rename it file accoding to client options
 const nutrition = (): NavItemType => ({
   id: 'group-panels',
-  title: <FormattedMessage id="Nutrition" />,
+  title: <FormattedMessage id="Nutricion" />,
   icon: icons.ChatIcon,
   type: 'group',
   children: [
     {
       id: 'Plans',
-      title: <FormattedMessage id="Plans" />,
+      title: <FormattedMessage id="Planes nutricionales" />,
       type: 'item',
       url: 'plans',
       icon: icons.LocalDiningIcon,
@@ -37,7 +37,7 @@ const nutrition = (): NavItemType => ({
     },
     {
       id: 'Calories',
-      title: <FormattedMessage id="Calories" />,
+      title: <FormattedMessage id="Calorias" />,
       type: 'item',
       url: 'calories',
       icon: icons.CalculateIcon,

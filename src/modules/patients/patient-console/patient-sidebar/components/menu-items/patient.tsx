@@ -9,13 +9,13 @@ const icons = {
 
 const patient: NavItemType = {
   id: 'group-applications',
-  title: <FormattedMessage id="Patient" />,
+  title: <FormattedMessage id="Paciente" />,
   icon: icons.AccountCircleIcon,
   type: 'group',
   children: [
     {
       id: 'Goals',
-      title: <FormattedMessage id="Profile" />,
+      title: <FormattedMessage id="Perfil" />,
       type: 'item',
       url: 'profile',
       icon: icons.AccountCircleIcon,
