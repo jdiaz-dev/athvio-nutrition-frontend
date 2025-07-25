@@ -11,6 +11,7 @@ import CancelAndSaveButtons from 'src/shared/components/CancelAndSaveButtons';
 import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 import PatientMacros from 'src/modules/patients/patient-console/patient-plans/adapters/in/dialogs/PatientPlansGeneratorDialog/PatientMacros';
 import * as nutritionBuilderSlice from 'src/modules/nutrition-builder/adapters/in/slicers/NutritionBuilderSlice';
+import { useParams } from 'react-router-dom';
 
 function PlatientPlansGeneratorDialog({
   openPlatientPlansGeneratorDialog,
@@ -20,10 +21,10 @@ function PlatientPlansGeneratorDialog({
   setOpenPlatientPlansGeneratorDialog: (openDialog: boolean) => void;
 }) {
   const nutritionBuilderState = useSelector((state: ReduxStates) => state.nutritionBuilder);
-  const patientState = useSelector((state: ReduxStates) => state.patient);
   const { generateNutritionalPlanForPatient } = useNutritionBuilder();
   const [closedIconDialog, setClosedIconDialog] = useState(true);
   const [startDate, setStartDate] = useState<Dayjs>();
+  const { patientId } = useParams();
 
   const datePickedHandler = (newDate: Dayjs | null) => {
     setStartDate(newDate as Dayjs);
@@ -41,7 +42,7 @@ function PlatientPlansGeneratorDialog({
       nutritionalPreferences: nutritionBuilderState.nutritionalPreferences
         .filter((item) => item.status === NutriBuilderParamStatus.SELECTED)
         .map((item) => item.id),
-      patient: patientState.uuid,
+      patient: patientId as string,
       startDate: startDate as Dayjs,
       totalDays: nutritionBuilderState.totalDays,
       mealsByDay: nutritionBuilderState.mealsByDay,
