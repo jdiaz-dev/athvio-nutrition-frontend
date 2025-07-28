@@ -37,11 +37,11 @@ function PlatientPlansGeneratorDialog({
     generateNutritionalPlanForPatient({
       diseaseCauses: nutritionBuilderState.diseaseCauses
         .filter((item) => item.status === NutriBuilderParamStatus.SELECTED)
-        .map((item) => item.id),
-      diseases: nutritionBuilderState.diseases.filter((item) => item.status === NutriBuilderParamStatus.SELECTED).map((item) => item.id),
+        .map((item) => item.uuid),
+      diseases: nutritionBuilderState.diseases.filter((item) => item.status === NutriBuilderParamStatus.SELECTED).map((item) => item.uuid),
       nutritionalPreferences: nutritionBuilderState.nutritionalPreferences
         .filter((item) => item.status === NutriBuilderParamStatus.SELECTED)
-        .map((item) => item.id),
+        .map((item) => item.uuid),
       patient: patientId as string,
       startDate: startDate as Dayjs,
       totalDays: nutritionBuilderState.totalDays,

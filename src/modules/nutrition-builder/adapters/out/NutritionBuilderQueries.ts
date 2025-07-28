@@ -3,15 +3,15 @@ import { gql } from '@apollo/client';
 export const GET_PROGRAM_BUILDER = gql`
   query _getProgramBuilderParameters {
     getAllDiseases {
-      id
+      uuid
       name
     }
     getAllDiseaseCauses {
-      id
+      uuid
       name
     }
     getAllNutritionalPreferences {
-      id
+      uuid
       name
     }
   }
