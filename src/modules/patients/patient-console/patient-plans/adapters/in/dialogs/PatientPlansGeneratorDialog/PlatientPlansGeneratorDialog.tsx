@@ -62,7 +62,7 @@ function PlatientPlansGeneratorDialog({
         aria-describedby="dialog-description"
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
-          Nutritional plan generator
+          Generator del plan nutritional
           <CloseDialogIcon closedIconDialog={closedIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
         </DialogTitle>
         <DialogContent dividers={true}>

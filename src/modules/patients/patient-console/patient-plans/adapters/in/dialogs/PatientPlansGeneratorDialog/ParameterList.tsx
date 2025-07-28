@@ -26,7 +26,7 @@ function ParameterList() {
     <>
       <Card>
         <FormGroup>
-          <FormLabel color="primary">Root causes disease</FormLabel>
+          <FormLabel color="primary">Causa raiz de la enfermedad</FormLabel>
           <FormControlContainer>
             {nutritionBuilderState.diseaseCauses.map((item) => (
               <CheckboxController item={item} reducer={nutritionBuilderSlice.updateDiseaseCause} />
@@ -37,7 +37,7 @@ function ParameterList() {
 
       <Card>
         <FormGroup>
-          <FormLabel color="primary">Nutritional preferences</FormLabel>
+          <FormLabel color="primary">Preferencias nutritionales</FormLabel>
           <FormControlContainer>
             {nutritionBuilderState.nutritionalPreferences.map((item) => (
               <CheckboxController item={item} reducer={nutritionBuilderSlice.updateNutritionalPreference} />
@@ -48,7 +48,7 @@ function ParameterList() {
 
       <Card>
         <FormGroup>
-          <FormLabel color="primary">Diseases</FormLabel>
+          <FormLabel color="primary">Enfermedades</FormLabel>
           <FormControlContainer>
             {nutritionBuilderState.diseases.map((item) => (
               <CheckboxController item={item} reducer={nutritionBuilderSlice.updateDisease} />

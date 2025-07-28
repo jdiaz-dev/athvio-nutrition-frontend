@@ -11,7 +11,7 @@ function PatientMacros() {
     <div>
       <TextField
         id="outlined-number"
-        label="Calories"
+        label="Calorias"
         type="number"
         value={nutritionBuilderState.macros.calories}
         onChange={(event) => nutritionBuilderSlice.updateCalories(parseInt(event.target.value))}
