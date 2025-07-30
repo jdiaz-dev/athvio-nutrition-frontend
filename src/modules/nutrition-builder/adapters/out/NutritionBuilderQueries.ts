@@ -20,6 +20,8 @@ export const GET_PROGRAM_BUILDER = gql`
 export const GENERATE_NUTRITIONAL_PLAN_FOR_PATIENT = gql`
   mutation _generateNutritionalPlanForPatient($input: GenerateNutritionalPlanDto!) {
     generateNutritionalPlanForPatient(input: $input) {
+      uuid
+      assignedDate
       meals {
         mealTag
         name
