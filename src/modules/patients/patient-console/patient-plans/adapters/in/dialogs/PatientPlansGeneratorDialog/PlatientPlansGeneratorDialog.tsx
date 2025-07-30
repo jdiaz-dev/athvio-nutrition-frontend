@@ -71,14 +71,14 @@ function PlatientPlansGeneratorDialog({
             <div style={{ width: '55%', display: 'flex', paddingTop: '2.5%', justifyContent: 'space-around' }}>
               <TextField
                 id="outlined-number"
-                label="Total days"
+                label="Dias totales"
                 type="number"
                 value={nutritionBuilderState.totalDays}
                 onChange={(event) => nutritionBuilderSlice.updateTotalDays(parseInt(event.target.value))}
               />
               <TextField
                 id="outlined-number"
-                label="Meals by day"
+                label="Comidas por dia"
                 type="number"
                 value={nutritionBuilderState.mealsByDay}
                 onChange={(event) => nutritionBuilderSlice.updateMealsByDay(parseInt(event.target.value))}
