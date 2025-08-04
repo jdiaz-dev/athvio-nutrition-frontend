@@ -43,7 +43,7 @@ export function useNutritionBuilder() {
         },
       });
       if (response.data) {
-        dispatch(PatientPlanSlice.acceptNewPatientPlans(response.data.generateNutritionalPlanForPatient));
+        dispatch(PatientPlanSlice.addManyNewPatientPlans(response.data.generateNutritionalPlanForPatient));
       }
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);

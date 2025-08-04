@@ -60,7 +60,7 @@ export function usePatientPlan() {
       });
 
       if (response.data) {
-        dispatch(PatientPlanSlice.acceptNewPatientPlans(response.data.getPatientPlansForWeb));
+        dispatch(PatientPlanSlice.initializeNewPatientPlans(response.data.getPatientPlansForWeb));
       }
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
