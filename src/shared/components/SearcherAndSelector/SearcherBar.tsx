@@ -61,7 +61,7 @@ function SearcherBar({
           ))
         }
         renderInput={(params) => {
-          return <TextField {...params} label="search" />;
+          return <TextField {...params} label="buscar" />;
         }}
       />
     </Stack>

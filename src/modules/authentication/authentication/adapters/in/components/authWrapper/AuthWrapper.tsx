@@ -41,7 +41,7 @@ const AuthWrapper = ({ children }: Props) => (
           sx={{ minHeight: { xs: 'calc(100vh - 210px)', sm: 'calc(100vh - 134px)', md: 'calc(100vh - 112px)' } }}
         >
           <Grid item>
-            <Typography variant="h3">Nutrition software</Typography>
+            <Typography variant="h3">Software de nutrición</Typography>
             <AuthCard>{children}</AuthCard>
           </Grid>
         </Grid>

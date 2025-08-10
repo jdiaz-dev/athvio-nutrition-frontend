@@ -75,7 +75,7 @@ const SignInForm = (/* { isDemo = false }: { isDemo?: boolean } */) => {
             <Grid container spacing={3}>
               <Grid item xs={12}>
                 <Stack spacing={1}>
-                  <InputLabel htmlFor="email-login">Email Address</InputLabel>
+                  <InputLabel htmlFor="email-login">Correo electrónico</InputLabel>
                   <OutlinedInput
                     id="email-login"
                     type="email"
@@ -83,7 +83,7 @@ const SignInForm = (/* { isDemo = false }: { isDemo?: boolean } */) => {
                     name="email"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    placeholder="Enter email address"
+                    placeholder="Ingresa correo electrónico"
                     fullWidth
                     error={Boolean(touched.email && errors.email)}
                   />
@@ -96,7 +96,7 @@ const SignInForm = (/* { isDemo = false }: { isDemo?: boolean } */) => {
               </Grid>
               <Grid item xs={12}>
                 <Stack spacing={1}>
-                  <InputLabel htmlFor="password-login">Password</InputLabel>
+                  <InputLabel htmlFor="password-login">Contraseña</InputLabel>
                   <OutlinedInput
                     fullWidth
                     error={Boolean(touched.password && errors.password)}
@@ -119,7 +119,7 @@ const SignInForm = (/* { isDemo = false }: { isDemo?: boolean } */) => {
                         </IconButton>
                       </InputAdornment>
                     }
-                    placeholder="Enter password"
+                    placeholder="Ingresa contraseña"
                   />
                 </Stack>
                 {touched.password && errors.password && (
@@ -131,7 +131,7 @@ const SignInForm = (/* { isDemo = false }: { isDemo?: boolean } */) => {
 
               <Grid item xs={12} sx={{ mt: -1 }}>
                 <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
-                  <FormControlLabel
+                  {/* <FormControlLabel
                     control={
                       <Checkbox
                         checked={checked}
@@ -142,7 +142,7 @@ const SignInForm = (/* { isDemo = false }: { isDemo?: boolean } */) => {
                       />
                     }
                     label={<Typography variant="h6">Keep me sign in</Typography>}
-                  />
+                  /> */}
                   {/* <Link variant="h6" component={RouterLink} to={isDemo ? '/auth/forgot-password' : '/forgot-password'} color="text.primary">
                     Forgot Password?
                   </Link> */}
@@ -156,7 +156,7 @@ const SignInForm = (/* { isDemo = false }: { isDemo?: boolean } */) => {
               <Grid item xs={12}>
                 <AnimateButton>
                   <Button disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained" color="primary">
-                    Login
+                    Entrar
                   </Button>
                 </AnimateButton>
               </Grid>

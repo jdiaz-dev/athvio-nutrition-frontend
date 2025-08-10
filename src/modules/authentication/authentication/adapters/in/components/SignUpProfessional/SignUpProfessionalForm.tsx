@@ -173,7 +173,7 @@ const SignUpProfessionalForm = () => {
             <Grid container spacing={3}>
               <Grid item xs={12}>
                 <Stack spacing={1}>
-                  <InputLabel htmlFor="email-signup">Email Address*</InputLabel>
+                  <InputLabel htmlFor="email-signup">Correo electronico</InputLabel>
                   <OutlinedInput
                     fullWidth
                     error={Boolean(touched.email && errors.email)}
@@ -195,7 +195,7 @@ const SignUpProfessionalForm = () => {
               </Grid>
               <Grid item xs={12} md={6}>
                 <Stack spacing={1}>
-                  <InputLabel htmlFor="firstname-signup">First Name*</InputLabel>
+                  <InputLabel htmlFor="firstname-signup">Primer nombre*</InputLabel>
                   <OutlinedInput
                     id="firstname-login"
                     type="firstname"
@@ -216,7 +216,7 @@ const SignUpProfessionalForm = () => {
               </Grid>
               <Grid item xs={12} md={6}>
                 <Stack spacing={1}>
-                  <InputLabel htmlFor="lastname-signup">Last Name*</InputLabel>
+                  <InputLabel htmlFor="lastname-signup">Segundo nombre*</InputLabel>
                   <OutlinedInput
                     fullWidth
                     error={Boolean(touched.lastname && errors.lastname)}
@@ -238,7 +238,7 @@ const SignUpProfessionalForm = () => {
               </Grid>
               <Grid item xs={12} md={6}>
                 <Stack spacing={1}>
-                  <InputLabel htmlFor="company-signup">Phone</InputLabel>
+                  <InputLabel htmlFor="company-signup">Ceular</InputLabel>
                   <OutlinedInput
                     fullWidth
                     error={Boolean(touched.phone && errors.phone)}
@@ -259,7 +259,7 @@ const SignUpProfessionalForm = () => {
               </Grid>
               <Grid item xs={12} md={6}>
                 <Stack spacing={1}>
-                  <InputLabel htmlFor="company-signup">Company</InputLabel>
+                  <InputLabel htmlFor="company-signup">Compañia</InputLabel>
                   <OutlinedInput
                     fullWidth
                     error={Boolean(touched.company && errors.company)}
@@ -281,7 +281,7 @@ const SignUpProfessionalForm = () => {
 
               <Grid item xs={12}>
                 <Stack spacing={1}>
-                  <InputLabel htmlFor="company-signup">Country</InputLabel>
+                  <InputLabel htmlFor="company-signup">Pais</InputLabel>
                   <CountryCodeSelect countryCode={countryCode} setCountryCode={setCountryCode} setCountryName={setCountryName} />
                 </Stack>
                 {/* {touched.company && errors.company && (
@@ -292,7 +292,7 @@ const SignUpProfessionalForm = () => {
               </Grid>
               <Grid item xs={12}>
                 <Stack spacing={1}>
-                  <InputLabel htmlFor="password-signup">Password</InputLabel>
+                  <InputLabel htmlFor="password-signup">Contraseña</InputLabel>
                   <OutlinedInput
                     fullWidth
                     error={Boolean(touched.password && errors.password)}
@@ -362,7 +362,7 @@ const SignUpProfessionalForm = () => {
               <Grid item xs={12}>
                 <AnimateButton>
                   <Button disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained" color="primary">
-                    Create Account
+                    Crear cuenta
                   </Button>
                 </AnimateButton>
               </Grid>
