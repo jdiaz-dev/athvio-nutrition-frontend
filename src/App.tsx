@@ -21,12 +21,14 @@ import CaloriesContainer from 'src/modules/patients/patient-console/calories/ada
 import NotesContainer from 'src/modules/patients/patient-console/notes/adapters/in/components/NotesContainer';
 import PatientQuestionaryContainer from 'src/modules/questionaries/patient-questionaries/adapters/in/components/PatientQuestionaryContainer';
 import PatientProfileContainer from 'src/modules/patients/patient-console/profile/in/components/PatientProfileContainer';
+import LandingPage from 'src/core/components/LandingPage';
 
 function App() {
   return (
     <div className="App">
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Routes>
+          <Route path="landing" element={<LandingPage />} />
           <Route path="/" element={<Navigate to="/signin" replace />} />
           <Route
             path="signin"

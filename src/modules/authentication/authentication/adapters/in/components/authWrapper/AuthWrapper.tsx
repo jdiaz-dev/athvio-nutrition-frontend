@@ -26,16 +26,12 @@ const AuthWrapper = ({ children }: Props) => (
       {/* Fila principal: funcionalidades (izquierda) + login (derecha) */}
       <Grid
         container
-        sx={{ px: { xs: 0, md: 2 }, pt: { xs: 1, md: 2 } }}
-        spacing={0}
-        // alignItems="flex-start"
-        justifyContent="space-between"
+        direction="column"
+        justifyContent="flex-end"
+        sx={{
+          minHeight: '100vh',
+        }}
       >
-        {/* Izquierda: Funcionalidades */}
-        <Grid item xs={12} md={5} lg={4}>
-          <SoftwareFeatures />
-        </Grid>
-
         {/* Derecha: Logo + tarjeta de login/registro */}
         <Grid item xs={12} md={7} lg={7.5}>
           <Grid item xs={12} sx={{ ml: { xs: 2, md: 3 }, mt: { xs: 2, md: 3 } }}>
