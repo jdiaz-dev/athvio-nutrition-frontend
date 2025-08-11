@@ -187,7 +187,7 @@ function NabBar() {
               ))}
 
               <MenuItem onClick={signOut}>
-                <Typography textAlign="center">Logout</Typography>
+                <Typography textAlign="center">{t('global.navbar.logout')}</Typography>
               </MenuItem>
             </Menu>
           </Box>
