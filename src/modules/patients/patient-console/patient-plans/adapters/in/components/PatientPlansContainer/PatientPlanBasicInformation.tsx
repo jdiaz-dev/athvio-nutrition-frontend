@@ -93,7 +93,7 @@ function PatientPlanBasicInformation({ patient, plan, assignedDate }: { patient:
 
     if (messageOk) void deletePlanHelper();
   }, [messageOk]);
-  
+
   useEffect(() => {
     if (openPlanDetailDialog) {
       const subscription = savedPlanButton$.subscribe((saved: boolean) => {
@@ -112,6 +112,12 @@ function PatientPlanBasicInformation({ patient, plan, assignedDate }: { patient:
     }
   }, [planSaved]);
 
+  const formattedDate = new Date(assignedDate).toLocaleDateString('es-ES', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
   return (
     <>
       <PlanBucket planDayInfo={plan} handler={programPlanClickedHandler}>
@@ -119,7 +125,7 @@ function PatientPlanBasicInformation({ patient, plan, assignedDate }: { patient:
       </PlanBucket>
       {openPlanDetailDialog && (
         <PlanDetailDialog
-          planDay={assignedDate}
+          planDay={formattedDate}
           openPlanDetailDialog={openPlanDetailDialog}
           setOpenPlanDetailDialog={setOpenPlanDetailDialog}
         />

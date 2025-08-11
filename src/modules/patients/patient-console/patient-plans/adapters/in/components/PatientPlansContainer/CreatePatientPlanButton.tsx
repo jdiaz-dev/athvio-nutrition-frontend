@@ -65,6 +65,11 @@ const CreatePatientPlanButton = memo(function CreatePatientPlanButton({
     setOpenPlanDetailDialog(true);
     dispatch(MealsListSlice.initializeMeals([]));
   };
+  const formattedDate = new Date(assignedDate).toLocaleDateString('es-ES', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
   return (
     <>
       <CustomIconWrapper>
@@ -76,14 +81,14 @@ const CreatePatientPlanButton = memo(function CreatePatientPlanButton({
       {/* todo: enhance logic to open dialog that it is being created, test use useMemo */}
       {openPlanDetailDialogMemoized && patientPlanState?.uuid.length > 0 ? (
         <PlanDetailDialog
-          planDay={assignedDate}
+          planDay={formattedDate}
           openPlanDetailDialog={openPlanDetailDialogMemoized}
           setOpenPlanDetailDialog={setOpenPlanDetailDialog}
         />
       ) : (
         openPlanDetailDialogMemoized && (
           <PlanDetailDialog
-            planDay={assignedDate}
+            planDay={formattedDate}
             openPlanDetailDialog={openPlanDetailDialogMemoized}
             setOpenPlanDetailDialog={setOpenPlanDetailDialog}
           />

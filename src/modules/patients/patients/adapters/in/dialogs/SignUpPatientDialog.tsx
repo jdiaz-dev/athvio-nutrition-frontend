@@ -135,7 +135,7 @@ function SignUpPatientDialog({
         aria-describedby="dialog-description"
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
-          Add patient
+          Añadir paciente
           <CloseDialogIcon closedIconDialog={closedIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
         </DialogTitle>
         <DialogContent dividers={true}>

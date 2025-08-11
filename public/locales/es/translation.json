@@ -4,7 +4,7 @@
     "navbar": {
       "patients": "Pacientes",
       "meals": "Comidas",
-      "programs": "Programas",
+      "programs": "Plantillas",
       "preferences": "Configuración y preferencias",
       "logout": "Cerrar sesión",
       "spanishLanguage":"español",
@@ -58,10 +58,10 @@
   },
   "programsModule":{
     "buttons":{
-      "createNewProgram":"Nuevo programa",
-      "assignProgram":"Asignar programa",
-      "editProgram":"Editar programa",
-      "deleteProgram":"Eliminar programa",
+      "createNewProgram":"Nueva plantilla",
+      "assignProgram":"Asignar plantilla",
+      "editProgram":"Editar plantilla",
+      "deleteProgram":"Eliminar plantilla",
       "addWeek":"Añadir semana",
       "removeWeek":"Eliminar semana"
     },
@@ -70,7 +70,7 @@
       "description":"Descripcion"
     },
     "titles":{
-      "programs":"Programas",
+      "programs":"Plantillas",
       "selectedPatients":"Pacientes seleccionados",
       "assigmentStartDate":"Fecha de inicio asignada",
       "startingDay":"Dia de inicio",
@@ -88,7 +88,7 @@
       "calories":"Cal."
     },
     "titles":{
-      "programs":"Programas",
+      "programs":"Plantillas",
       "mealTag":"Comida",
       "addFodd":"Agregar alimento",
       "cookingInstructions":"Instrucciones",
