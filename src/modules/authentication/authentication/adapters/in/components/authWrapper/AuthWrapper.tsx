@@ -10,7 +10,6 @@ import AuthCard from './AuthCard';
 
 // assets
 import AuthBackground from './AuthBackground';
-import SoftwareFeatures from 'src/modules/authentication/authentication/adapters/in/components/authWrapper/SoftwareFeatures';
 
 interface Props {
   children: ReactNode;
