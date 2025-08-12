@@ -1,5 +1,6 @@
 // src/core/components/LandingPage.tsx
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useMutation } from '@apollo/client';
 import { alpha } from '@mui/material/styles';
 import { Box, Button, Card, CardContent, Chip, Container, Grid, Stack, Typography } from '@mui/material';
 import GroupsOutlined from '@mui/icons-material/GroupsOutlined';
@@ -12,6 +13,7 @@ import ChatOutlined from '@mui/icons-material/ChatOutlined';
 import ShieldOutlined from '@mui/icons-material/ShieldOutlined';
 
 import Logo from 'src/shared/components/logo';
+import { SIGN_UP_PROFESSIONAL_SCREEN } from 'src/core/components/LandingPage/LandingQueries';
 
 const features = [
   {
@@ -76,6 +78,15 @@ function FeatureCard({ icon, title, desc, badge }: { icon: React.ReactNode; titl
 }
 
 export default function LandingPage() {
+  const [fire] = useMutation(SIGN_UP_PROFESSIONAL_SCREEN);
+  const calledRef = useRef(false);
+
+  useEffect(() => {
+    if (calledRef.current) return; // avoid double execution in StrictMode
+    calledRef.current = true;
+    fire();
+  }, [fire]);
+
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: (t) => (t.palette.mode === 'dark' ? '#131516' : '#f7f7f7'), position: 'relative' }}>
       {/* === SECTION 1: HERO (fills more space, keeps effects) === */}
