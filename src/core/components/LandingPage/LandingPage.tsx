@@ -13,7 +13,7 @@ import ChatOutlined from '@mui/icons-material/ChatOutlined';
 import ShieldOutlined from '@mui/icons-material/ShieldOutlined';
 
 import Logo from 'src/shared/components/logo';
-import { SIGN_UP_PROFESSIONAL_SCREEN } from 'src/core/components/LandingPage/LandingQueries';
+import { LANDING_SCREEN } from 'src/shared/graphql-queries/WorkflowStreamAuditQueries';
 
 const features = [
   {
@@ -78,7 +78,7 @@ function FeatureCard({ icon, title, desc, badge }: { icon: React.ReactNode; titl
 }
 
 export default function LandingPage() {
-  const [fire] = useMutation(SIGN_UP_PROFESSIONAL_SCREEN);
+  const [fire] = useMutation(LANDING_SCREEN);
   const calledRef = useRef(false);
 
   useEffect(() => {

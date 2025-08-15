@@ -4,7 +4,7 @@ export const nutritionBuilderInitialState: NutritionBuilderInitialState = {
   diseaseCauses: [],
   diseases: [],
   nutritionalPreferences: [],
-  totalDays: 7,
+  totalDays: 3,
   mealsByDay: 3,
   macros: {
     carbs: 30,

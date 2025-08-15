@@ -5,8 +5,20 @@ import Typography from '@mui/material/Typography';
 
 import AuthWrapper from '../authWrapper/AuthWrapper';
 import SignUpProfessionalForm from './SignUpProfessionalForm';
+import { useEffect, useRef } from 'react';
+import { useMutation } from '@apollo/client';
+import { SIGN_UP_PROFESSIONAL_SCREEN } from 'src/shared/graphql-queries/WorkflowStreamAuditQueries';
 
 const SingUpProfessional = () => {
+  const [fire] = useMutation(SIGN_UP_PROFESSIONAL_SCREEN);
+  const calledRef = useRef(false);
+
+  useEffect(() => {
+    if (calledRef.current) return; // avoid double execution in StrictMode
+    calledRef.current = true;
+    fire();
+  }, [fire]);
+
   return (
     <AuthWrapper>
       <Grid container spacing={3}>
