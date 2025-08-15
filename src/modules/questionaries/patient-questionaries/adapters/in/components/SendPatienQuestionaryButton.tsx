@@ -36,7 +36,7 @@ function SendPatienQuestionaryButton() {
   return (
     <>
       <Button style={{ width: '200px' }} className={classes.yellowButton} variant="contained" color="secondary" onClick={onClickHandler}>
-        Send questionary
+        Enviar questionario
       </Button>
       {openDialog && (
         <MessageDialog openDialog={openDialog} setOpenDialog={setOpenDialog} message={message} setMessageOk={setMessageOk} alert={alert} />

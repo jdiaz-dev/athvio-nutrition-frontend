@@ -54,7 +54,7 @@ function QuestionaryDetailFieldEditor({
         </Box>
       ) : (
         <Box style={{ display: 'flex' }}>
-          <Box style={{ width: '94%', border: '1px solid blue' }} onClick={editFieldHandler}>
+          <Box style={{ width: '94%', border: '1px solid blue', borderRadius: '4px' }} onClick={editFieldHandler}>
             {fieldValue}
           </Box>
           <EditIcon width={'6%'} style={{ cursor: 'pointer' }} onClick={editFieldHandler} />

@@ -77,7 +77,7 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
         enableReinitialize
         innerRef={formRef}
         initialValues={{
-          birthday: new Date(getFomattedDate(patientState.birthday || '')),
+          birthday: patientState.birthday ? new Date(getFomattedDate(patientState.birthday)) : new Date('2000-01-01'),
           weight: patientState.weight,
           height: patientState.height,
           gender: patientState.gender,

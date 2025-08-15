@@ -7,7 +7,7 @@ import * as PatientQuestionarySlice from 'src/modules/questionaries/patient-ques
 function PatientQuestionaryDetailItem({ questionaryDetail }: { questionaryDetail: PatientQuestionaryDetail }) {
   return (
     <div style={{ display: 'flex', width: '100%', marginBottom: '10px' }}>
-      <div style={{ width: '20%', border: '1px solid green' }}>{questionaryDetail.fieldName}</div>
+      <div style={{ width: '20%', border: '1px solid green', borderRadius: '4px' }}>{questionaryDetail.fieldName}</div>
       <Divider orientation="vertical" flexItem />
       <QuestionaryDetailFieldEditor
         questionaryDetail={questionaryDetail.uuid}

@@ -43,7 +43,7 @@ function SaveQuestionaryButton() {
   return (
     <>
       <Button style={{ width: '200px' }} variant="contained" onClick={onClickHandler}>
-        Save
+        Guardar
       </Button>
     </>
   );
