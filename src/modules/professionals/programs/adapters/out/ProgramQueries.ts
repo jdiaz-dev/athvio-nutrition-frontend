@@ -428,6 +428,111 @@ export const UPDATE_PROGRAM = gql`
   }
 `;
 
+export const DUPLICATE_PROGRAM = gql`
+  mutation _duplicateProgram($input: DuplicateProgramDto!) {
+    duplicateProgram(input: $input) {
+      uuid
+      professional
+      name
+      description
+      programTags {
+        uuid
+        title
+      }
+      plans {
+        uuid
+        title
+        week
+        day
+        meals {
+          uuid
+          position
+          mealTag
+          name
+          ingredientDetails {
+            ingredientType
+            customIngredient {
+              amount
+              label
+              name
+              ingredients {
+                name
+                amount
+                label
+                weightInGrams
+                protein
+                carbs
+                fat
+                calories
+              }
+              macros {
+                weightInGrams
+                protein
+                carbs
+                fat
+                calories
+              }
+            }
+            ingredient {
+              name
+              amount
+              label
+              weightInGrams
+              protein
+              carbs
+              fat
+              calories
+            }
+            equivalents {
+              ingredientType
+              customIngredient {
+                amount
+                label
+                name
+                ingredients {
+                  name
+                  amount
+                  label
+                  weightInGrams
+                  protein
+                  carbs
+                  fat
+                  calories
+                }
+                macros {
+                  weightInGrams
+                  protein
+                  carbs
+                  fat
+                  calories
+                }
+              }
+              ingredient {
+                name
+                amount
+                label
+                weightInGrams
+                protein
+                carbs
+                fat
+                calories
+              }
+            }
+          }
+          cookingInstructions
+          macros {
+            weightInGrams
+            protein
+            carbs
+            fat
+            calories
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const DELETE_PROGRAM = gql`
   mutation _deleteProgram($input: DeleteProgramDto!) {
     deleteProgram(input: $input) {

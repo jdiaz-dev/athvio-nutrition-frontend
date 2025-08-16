@@ -19,11 +19,15 @@ import {
   GetProgramResponse,
   GetProgramRequest,
   GetProgramsBody,
+  DuplicateProgramRequest,
+  DuplicateProgramResponse,
+  DuplicateProgramBody,
 } from 'src/modules/professionals/programs/adapters/out/program.types';
 
 import {
   CREATE_PROGRAM,
   DELETE_PROGRAM,
+  DUPLICATE_PROGRAM,
   GET_PROGRAM,
   GET_PROGRAMS,
   UPDATE_PROGRAM,
@@ -112,6 +116,24 @@ export function useProgram() {
     }
   };
 
+  const duplicateProgram = async (body: DuplicateProgramBody): Promise<void> => {
+    try {
+      const response = await apolloClient.mutate<DuplicateProgramResponse, DuplicateProgramRequest>({
+        mutation: DUPLICATE_PROGRAM,
+        variables: {
+          input: {
+            ...body,
+          },
+        },
+      });
+      if (response.data) {
+        dispatch(ProgramSlice.acceptCreatedProgram(response.data.duplicateProgram));
+      }
+    } catch (error) {
+      console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
+      throw error;
+    }
+  };
   const deleteProgram = async (body: ProgramInput): Promise<void> => {
     try {
       const response = await apolloClient.mutate<DeleteProgamResponse, DeleteProgramRequest>({
@@ -128,5 +150,5 @@ export function useProgram() {
       throw error;
     }
   };
-  return { createProgram, getProgram, getPrograms, updateProgram, deleteProgram };
+  return { createProgram, getProgram, getPrograms, updateProgram, duplicateProgram, deleteProgram };
 }

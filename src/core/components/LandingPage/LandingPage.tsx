@@ -21,7 +21,7 @@ const features = [
     title: 'Gestión de pacientes',
     desc: 'Historial clínico, alimenticio, notas y adjuntos centralizados.',
   },
-  { icon: <RestaurantMenuOutlined />, title: 'Plantillas nutricionales', desc: 'Crea, duplica y personaliza la plantilla por objetivo.' },
+  { icon: <RestaurantMenuOutlined />, title: 'Programas nutricionales', desc: 'Crea, duplica y personaliza tu programa por objetivo.' },
   { icon: <CalendarMonthOutlined />, title: 'Calendario de seguimiento', desc: 'Asigna planes y realiza seguimiento visual.' },
   { icon: <MenuBookOutlined />, title: 'Recetas', desc: 'Crea, duplica y personaliza tus propias recetas.' },
   { icon: <InsightsOutlined />, title: 'Recomendaciones inteligentes', desc: 'Sugerencias según la enfermedad del paciente.' },

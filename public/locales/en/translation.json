@@ -61,6 +61,7 @@
       "assignProgram":"Assign program",
       "editProgram":"Edit program",
       "deleteProgram":"Delete program",
+      "duplicateProgram":"Duplicate program",
       "addWeek":"Add week",
       "removeWeek":"Delete week"
     },

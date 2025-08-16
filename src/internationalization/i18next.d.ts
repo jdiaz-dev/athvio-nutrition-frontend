@@ -66,6 +66,7 @@ declare module 'i18next' {
             assignProgram: string;
             editProgram: string;
             deleteProgram: string;
+            duplicateProgram: string;
             addWeek: string;
             removeWeek: string;
           };

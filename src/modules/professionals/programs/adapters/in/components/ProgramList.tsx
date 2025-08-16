@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
@@ -11,7 +11,7 @@ import { useSearcher } from 'src/shared/hooks/useSearcher';
 import SearcherBar from 'src/shared/components/SearcherAndSelector/SearcherBar';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { GraphQLInput, ReduxStates } from 'src/shared/types/types';
-import Program from 'src/modules/professionals/programs/adapters/in/components/Program';
+import ProgramItem from 'src/modules/professionals/programs/adapters/in/components/ProgramItem';
 import { useProgram } from 'src/modules/professionals/programs/adapters/out/ProgramActions';
 import Paginator from 'src/shared/components/Paginator';
 import { usePaginator } from 'src/shared/hooks/usePaginator';
@@ -102,7 +102,7 @@ function ProgramList() {
             {programs !== null &&
               programs.data.map((program, index) => (
                 <React.Fragment key={index}>
-                  <Program {...program} />
+                  <ProgramItem {...program} />
                 </React.Fragment>
               ))}
           </TableBody>

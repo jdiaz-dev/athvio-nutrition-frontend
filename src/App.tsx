@@ -22,6 +22,7 @@ import NotesContainer from 'src/modules/patients/patient-console/notes/adapters/
 import PatientQuestionaryContainer from 'src/modules/questionaries/patient-questionaries/adapters/in/components/PatientQuestionaryContainer';
 import PatientProfileContainer from 'src/modules/patients/patient-console/profile/in/components/PatientProfileContainer';
 import LandingPage from 'src/core/components/LandingPage/LandingPage';
+import Lab from 'src/modules/Lab';
 
 function App() {
   return (
@@ -83,6 +84,7 @@ function App() {
             <Route path="meals" element={<NutritionalMealsContainer />} />
             <Route path="programs" element={<ProgramsContainer />} />
             <Route path="programs/:programId/plans" element={<ProgramPlansContainer />} />
+            <Route path="lab" element={<Lab />} />
           </Route>
           {<Route path="*" element={<div>404</div>} />}
         </Routes>

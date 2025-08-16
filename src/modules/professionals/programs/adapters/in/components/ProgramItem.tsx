@@ -20,7 +20,7 @@ const chipStyle = (totalPlans: number) => ({
   cursor: totalPlans > 0 ? 'pointer' : 'not-allowed',
 });
 
-function Program(program: ProgramBody) {
+function ProgramItem(program: ProgramBody) {
   const authContext = useContext(AuthContext);
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk, alert, setAlert } = useMessageDialog();
@@ -29,7 +29,7 @@ function Program(program: ProgramBody) {
   const [openCreateUpdateProgramDialog, setOpenCreateUpdateProgramDialog] = useState(false);
   const [openAssignPogramDialog, setOpenAssignPogramDialog] = useState(false);
   const [goToProgramPlans, setGoToProgramPlans] = useState(false);
-  const { deleteProgram } = useProgram();
+  const { duplicateProgram, deleteProgram } = useProgram();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -37,7 +37,7 @@ function Program(program: ProgramBody) {
     if (alert && messageOk) {
       void deleteProgram({
         professional: authContext.professional,
-        program: program.uuid || '',
+        program: program.uuid,
       });
       reloadRecordListContext.setReloadRecordList(true);
       setAlert(false);
@@ -55,8 +55,14 @@ function Program(program: ProgramBody) {
   const deleteProgramHandler = () => {
     setAnchorEl(null);
     setAlert(true);
-    setMessage('Are you sure you want to delete this program?');
+    setMessage('Estas seguro de eliminar este programa?');
     setOpenDialog(true);
+  };
+  const duplicateProgramHandler = async () => {
+    await duplicateProgram({
+      professional: authContext.professional,
+      program: program.uuid,
+    });
   };
 
   if (goToProgramPlans) {
@@ -98,7 +104,8 @@ function Program(program: ProgramBody) {
               }}
             >
               <MenuItem onClick={() => setOpenCreateUpdateProgramDialog(true)}>{t('programsModule.buttons.editProgram')}</MenuItem>
-              <MenuItem onClick={deleteProgramHandler}>{t('programsModule.buttons.deleteProgram')}</MenuItem>
+              <MenuItem onClick={(event) => deleteProgramHandler(event)}>{t('programsModule.buttons.deleteProgram')}</MenuItem>
+              <MenuItem onClick={duplicateProgramHandler}>{t('programsModule.buttons.duplicateProgram')}</MenuItem>
             </Menu>
           </Grid>
         </StyledTableCell>
@@ -125,4 +132,4 @@ function Program(program: ProgramBody) {
   );
 }
 
-export default Program;
+export default ProgramItem;

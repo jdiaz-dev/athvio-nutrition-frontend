@@ -72,6 +72,17 @@ export interface UpdateProgramResponse {
   updateProgram: ProgramBody;
 }
 
+export interface DuplicateProgramBody extends Pick<ProgramBody, 'professional'> {
+  program: string;
+}
+
+export interface DuplicateProgramRequest {
+  input: DuplicateProgramBody;
+}
+export interface DuplicateProgramResponse {
+  duplicateProgram: ProgramBody;
+}
+
 export interface DeleteProgramRequest {
   input: ProgramInput;
 }
