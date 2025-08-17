@@ -100,6 +100,7 @@
       "duplicateMeal":"Duplicate meal"
     },
     "mealTags":{
+      "drink":"Drink",
       "breakfast":"Breakfast",
       "lunch":"Lunch",
       "dinner":"Dinner",

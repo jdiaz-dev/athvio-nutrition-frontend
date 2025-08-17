@@ -104,6 +104,7 @@ declare module 'i18next' {
             duplicateMeal: string;
           };
           mealTags: {
+            drink: string;
             breakfast: string;
             lunch: string;
             dinner: string;

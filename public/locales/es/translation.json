@@ -101,6 +101,7 @@
       "duplicateMeal":"Duplicar comida"
     },
     "mealTags":{
+      "drink":"Bebida",
       "breakfast":"Desayuno",
       "lunch":"Almuerzo",
       "dinner":"Cena",
