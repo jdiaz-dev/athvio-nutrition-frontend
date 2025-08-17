@@ -127,7 +127,7 @@ export function useProgram() {
         },
       });
       if (response.data) {
-        dispatch(ProgramSlice.acceptCreatedProgram(response.data.duplicateProgram));
+        dispatch(ProgramSlice.acceptSavedDuplicatedProgram(response.data.duplicateProgram));
       }
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);

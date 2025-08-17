@@ -4,7 +4,6 @@ import IconButton from '@mui/material/IconButton';
 import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
 import { Chip, Grid, Menu, MenuItem } from '@mui/material';
-import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { ProgramBody } from 'src/modules/professionals/programs/adapters/out/program.types';
 import { useProgram } from 'src/modules/professionals/programs/adapters/out/ProgramActions';
 import CreateUpdateProgramDialog from 'src/modules/professionals/programs/adapters/in/dialogs/CreateUpdateProgramDialog';
@@ -13,7 +12,9 @@ import MessageDialog from 'src/shared/dialogs/MessageDialog';
 import { Navigate } from 'react-router-dom';
 import AssignProgramDialog from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/AssignProgramDialog';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import * as ProgramSlice from 'src/modules/professionals/programs/adapters/in/slicers/ProgramSlice';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 
 const chipStyle = (totalPlans: number) => ({
   opacity: totalPlans > 0 ? 1 : 0.6,
@@ -22,7 +23,7 @@ const chipStyle = (totalPlans: number) => ({
 
 function ProgramItem(program: ProgramBody) {
   const authContext = useContext(AuthContext);
-  const reloadRecordListContext = useContext(ReloadRecordListContext);
+  const dispatch = useDispatch();
   const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk, alert, setAlert } = useMessageDialog();
   const { t } = useTranslation();
 
@@ -35,11 +36,11 @@ function ProgramItem(program: ProgramBody) {
 
   useEffect(() => {
     if (alert && messageOk) {
+      dispatch(ProgramSlice.deleteProgram(program.uuid));
       void deleteProgram({
         professional: authContext.professional,
         program: program.uuid,
       });
-      reloadRecordListContext.setReloadRecordList(true);
       setAlert(false);
     }
   }, [alert, messageOk]);
@@ -59,6 +60,7 @@ function ProgramItem(program: ProgramBody) {
     setOpenDialog(true);
   };
   const duplicateProgramHandler = async () => {
+    dispatch(ProgramSlice.duplicateProgramTemporaly(program.uuid));
     await duplicateProgram({
       professional: authContext.professional,
       program: program.uuid,
@@ -104,7 +106,7 @@ function ProgramItem(program: ProgramBody) {
               }}
             >
               <MenuItem onClick={() => setOpenCreateUpdateProgramDialog(true)}>{t('programsModule.buttons.editProgram')}</MenuItem>
-              <MenuItem onClick={(event) => deleteProgramHandler(event)}>{t('programsModule.buttons.deleteProgram')}</MenuItem>
+              <MenuItem onClick={deleteProgramHandler}>{t('programsModule.buttons.deleteProgram')}</MenuItem>
               <MenuItem onClick={duplicateProgramHandler}>{t('programsModule.buttons.duplicateProgram')}</MenuItem>
             </Menu>
           </Grid>

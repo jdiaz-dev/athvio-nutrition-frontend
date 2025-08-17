@@ -25,9 +25,37 @@ const programsSlice = createSlice({
       }
       return state;
     },
+    duplicateProgramTemporaly: (state, action: PayloadAction<string>) => {
+      if (state) {
+        const indexFound = state.data.findIndex((item) => item.uuid === action.payload);
+        const { uuid, name, ...rest } = state.data[indexFound];
+        state.data.push({ uuid: '', name: `${name} (duplicado)`, ...rest });
+      }
+      return state;
+    },
+    acceptSavedDuplicatedProgram: (state, action: PayloadAction<ProgramBody>) => {
+      if (state) {
+        state.data.pop();
+        state.data.push(action.payload);
+      }
+      return state;
+    },
+    deleteProgram: (state, action: PayloadAction<string>) => {
+      if (state) {
+        state.data = state.data.filter((item) => item.uuid !== action.payload);
+      }
+      return state;
+    },
   },
 });
-export const { acceptNewPrograms, acceptCreatedProgram, acceptUpdatedProgram } = programsSlice.actions;
+export const {
+  acceptNewPrograms,
+  acceptCreatedProgram,
+  acceptUpdatedProgram,
+  duplicateProgramTemporaly,
+  acceptSavedDuplicatedProgram,
+  deleteProgram,
+} = programsSlice.actions;
 
 export const programError = createAction<string>('programError');
 export const programErrorCleaner = createAction('programErrorCleaner');
