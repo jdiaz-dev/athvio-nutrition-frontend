@@ -41,7 +41,6 @@ const SingUpProfessional = () => {
             </Typography>
           </Divider>
         </Grid>
-        {/* necesito la linea aqui */}
         <Grid item xs={12}>
           <SignUpProfessionalForm />
         </Grid>
