@@ -8,7 +8,6 @@ import {
   FormControl,
   FormHelperText,
   Grid,
-  Link,
   InputAdornment,
   InputLabel,
   OutlinedInput,
@@ -40,34 +39,7 @@ import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 import CountryCodeSelect from 'src/shared/components/Country/CountryCodeSelect';
 import { SignUpProfessionalModel } from '../../../out/authentication.types';
 import { ApolloError } from 'apollo-boost';
-
-const SPANISH_SPEAKING_COUNTRIES = [
-  'AR',
-  'BO',
-  'CL',
-  'CO',
-  'CR',
-  'CU',
-  'DO',
-  'EC',
-  'SV',
-  'GQ',
-  'GT',
-  'HN',
-  'MX',
-  'NI',
-  'PA',
-  'PY',
-  'PE',
-  'PR',
-  'ES',
-  'UY',
-  'VE',
-];
-
-function isSpanishSpeakingCountry(code: string): boolean {
-  return SPANISH_SPEAKING_COUNTRIES.includes(code.toUpperCase());
-}
+import { useDetectedLanguage } from 'src/modules/authentication/authentication/adapters/in/hooks/useDetectedLanguage';
 
 const SignUpProfessionalForm = () => {
   const { isAuthenticated, signUpProfessionalHandler } = useContext(AuthContext);
@@ -77,7 +49,7 @@ const SignUpProfessionalForm = () => {
   const [countryName, setCountryName] = useState<string | undefined>('');
   const [level, setLevel] = useState<StringColorProps>();
   const [showPassword, setShowPassword] = useState(false);
-  const [detectedLanguage, setDetectedLanguage] = useState<'en' | 'es'>('es');
+  const { detectedLanguage } = useDetectedLanguage();
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -93,20 +65,6 @@ const SignUpProfessionalForm = () => {
 
   useEffect(() => {
     changePassword('');
-  }, []);
-
-  useEffect(() => {
-    fetch('https://ipapi.co/json/')
-      .then((res) => res.json())
-      .then((data) => {
-        const countryCode = data.country_code;
-        if (isSpanishSpeakingCountry(countryCode)) {
-          setDetectedLanguage('es');
-        } else {
-          setDetectedLanguage('en');
-        }
-      })
-      .catch((err) => console.error('GeoIP error:', err));
   }, []);
 
   if (isAuthenticated) {
@@ -125,15 +83,18 @@ const SignUpProfessionalForm = () => {
           submit: null,
         }}
         validationSchema={Yup.object().shape({
-          firstname: Yup.string().max(255).required('First Name is required'),
-          lastname: Yup.string().max(255).required('Last Name is required'),
+          firstname: Yup.string().max(255).optional(),
+          lastname: Yup.string().max(255).optional(),
           email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
           password: Yup.string().max(255).required('Password is required'),
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
-            const { company, submit, ...rest } = values;
+            const { firstname, lastname, phone, company, submit, ...rest } = values;
             let _user: SignUpProfessionalModel = { ...rest, clientOffsetMinutes: new Date().getTimezoneOffset(), detectedLanguage };
+            if (firstname) _user.firstname = firstname;
+            if (lastname) _user.lastname = lastname;
+            if (phone) _user.phone = phone;
             if (company) _user.professionalInfo = { company };
             if (countryName) _user.country = countryName;
             if (countryCode) _user.countryCode = countryCode;
@@ -193,7 +154,7 @@ const SignUpProfessionalForm = () => {
                   </FormHelperText>
                 )}
               </Grid>
-              <Grid item xs={12} md={6}>
+              {/* <Grid item xs={12} md={6}>
                 <Stack spacing={1}>
                   <InputLabel htmlFor="firstname-signup">Primer nombre*</InputLabel>
                   <OutlinedInput
@@ -213,8 +174,8 @@ const SignUpProfessionalForm = () => {
                     {errors.firstname}
                   </FormHelperText>
                 )}
-              </Grid>
-              <Grid item xs={12} md={6}>
+              </Grid> */}
+              {/* <Grid item xs={12} md={6}>
                 <Stack spacing={1}>
                   <InputLabel htmlFor="lastname-signup">Segundo nombre*</InputLabel>
                   <OutlinedInput
@@ -235,8 +196,8 @@ const SignUpProfessionalForm = () => {
                     {errors.lastname}
                   </FormHelperText>
                 )}
-              </Grid>
-              <Grid item xs={12} md={6}>
+              </Grid> */}
+              {/* <Grid item xs={12} md={6}>
                 <Stack spacing={1}>
                   <InputLabel htmlFor="company-signup">Ceular</InputLabel>
                   <OutlinedInput
@@ -256,8 +217,8 @@ const SignUpProfessionalForm = () => {
                     {errors.phone}
                   </FormHelperText>
                 )}
-              </Grid>
-              <Grid item xs={12} md={6}>
+              </Grid> */}
+              {/* <Grid item xs={12} md={6}>
                 <Stack spacing={1}>
                   <InputLabel htmlFor="company-signup">Compañia</InputLabel>
                   <OutlinedInput
@@ -277,19 +238,15 @@ const SignUpProfessionalForm = () => {
                     {errors.company}
                   </FormHelperText>
                 )}
-              </Grid>
+              </Grid> */}
 
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <Stack spacing={1}>
                   <InputLabel htmlFor="company-signup">Pais</InputLabel>
                   <CountryCodeSelect countryCode={countryCode} setCountryCode={setCountryCode} setCountryName={setCountryName} />
                 </Stack>
-                {/* {touched.company && errors.company && (
-                  <FormHelperText error id="helper-text-company-signup">
-                    {errors.company}
-                  </FormHelperText>
-                )} */}
-              </Grid>
+                
+              </Grid> */}
               <Grid item xs={12}>
                 <Stack spacing={1}>
                   <InputLabel htmlFor="password-signup">Contraseña</InputLabel>

@@ -15,6 +15,7 @@ export default defineConfig(({ mode }) => {
     define: {
       'process.env.REACT_APP_GRAPHQL_HTTP_URI': JSON.stringify(env.REACT_APP_GRAPHQL_HTTP_URI),
       'process.env.REACT_APP_GRAPHQL_WS_URI': JSON.stringify(env.REACT_APP_GRAPHQL_WS_URI),
+      'process.env.OAUTH_GOOGLE_CLIENT_ID': JSON.stringify(env.OAUTH_GOOGLE_CLIENT_ID),
     },
     resolve: {
       alias: [

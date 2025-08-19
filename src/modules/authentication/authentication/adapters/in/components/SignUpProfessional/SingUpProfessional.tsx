@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Grid } from '@mui/material';
+import { Divider, Grid } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
@@ -8,6 +8,7 @@ import SignUpProfessionalForm from './SignUpProfessionalForm';
 import { useEffect, useRef } from 'react';
 import { useMutation } from '@apollo/client';
 import { SIGN_UP_PROFESSIONAL_SCREEN } from 'src/shared/graphql-queries/WorkflowStreamAuditQueries';
+import SignUpWithGoogle from 'src/modules/authentication/authentication/adapters/in/components/SignUpProfessional/SignUpWithGoogle';
 
 const SingUpProfessional = () => {
   const [fire] = useMutation(SIGN_UP_PROFESSIONAL_SCREEN);
@@ -30,6 +31,17 @@ const SingUpProfessional = () => {
             </Typography>
           </Stack>
         </Grid>
+        <Grid item xs={12}>
+          <SignUpWithGoogle />
+        </Grid>
+        <Grid item xs={12}>
+          <Divider textAlign="center" sx={{ my: 1 }}>
+            <Typography variant="body2" color="text.secondary" sx={{ px: 1 }}>
+              o
+            </Typography>
+          </Divider>
+        </Grid>
+        {/* necesito la linea aqui */}
         <Grid item xs={12}>
           <SignUpProfessionalForm />
         </Grid>

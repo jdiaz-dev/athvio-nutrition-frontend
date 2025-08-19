@@ -20,11 +20,11 @@ export type SignInRequest = {
 };
 
 export type SignUpProfessionalModel = {
-  firstname: string;
-  lastname: string;
+  firstname?: string;
+  lastname?: string;
   email: string;
   password: string;
-  phone: string;
+  phone?: string;
   photo?: string;
   acceptedTerms?: boolean;
   countryCode?: string;
@@ -46,6 +46,18 @@ export type SignUpProfessionalRequest = {
 
 export type SignUpProfessionalResponse = {
   signUpProfessional: JwtDto;
+};
+
+export type SignUpProfessionalWithGoogleInput = Pick<SignUpProfessionalModel, 'clientOffsetMinutes' | 'detectedLanguage'> & {
+  idToken: string;
+};
+
+export type SignUpProfessionalWithGoogleRequest = {
+  input: SignUpProfessionalWithGoogleInput;
+};
+
+export type SignUpProfessionalWithGoogleResponse = {
+  signUpProfessionalWithGoogle: JwtDto;
 };
 
 export type ActivatePatientBody = {

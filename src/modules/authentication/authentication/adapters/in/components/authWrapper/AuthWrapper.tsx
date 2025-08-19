@@ -47,9 +47,6 @@ const AuthWrapper = ({ children }: Props) => (
               sx={{ minHeight: { xs: 'calc(100vh - 210px)', sm: 'calc(100vh - 134px)', md: 'calc(100vh - 112px)' } }}
             >
               <Grid item sx={{ px: { xs: 2, md: 0 } }}>
-                <Typography variant="h3" sx={{ textAlign: { xs: 'left', md: 'center' }, mb: 1 }}>
-                  Software de nutrición
-                </Typography>
                 <AuthCard>{children}</AuthCard>
               </Grid>
             </Grid>
