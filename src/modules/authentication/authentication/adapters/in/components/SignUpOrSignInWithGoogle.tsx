@@ -2,9 +2,10 @@
 import { useContext, useEffect, useRef } from 'react';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 import { useDetectedLanguage } from 'src/modules/authentication/authentication/adapters/in/hooks/useDetectedLanguage';
+import { AuthFormMode } from 'src/modules/authentication/authentication/adapters/in/shared/enum';
 
-export default function SignUpWithGoogle() {
-  const { signUpWithGoogleHandler } = useContext(AuthContext);
+export default function SignUpOrSignInWithGoogle({ authFormMode }: { authFormMode: AuthFormMode }) {
+  const { signUpWithGoogleHandler, signInWithGoogleHandler } = useContext(AuthContext);
   const { detectedLanguage } = useDetectedLanguage();
 
   const divRef = useRef<HTMLDivElement>(null);
@@ -14,11 +15,19 @@ export default function SignUpWithGoogle() {
     window.google?.accounts.id.initialize({
       client_id: process.env.OAUTH_GOOGLE_CLIENT_ID,
       callback: async (resp: any) => {
-        await signUpWithGoogleHandler({
-          idToken: resp.credential,
-          clientOffsetMinutes: new Date().getTimezoneOffset(),
-          detectedLanguage,
-        });
+        if (authFormMode === AuthFormMode.SIGN_IN) {
+          await signInWithGoogleHandler({
+            idToken: resp.credential,
+            clientOffsetMinutes: new Date().getTimezoneOffset(),
+            detectedLanguage,
+          });
+        } else {
+          await signUpWithGoogleHandler({
+            idToken: resp.credential,
+            clientOffsetMinutes: new Date().getTimezoneOffset(),
+            detectedLanguage,
+          });
+        }
       },
     });
     // @ts-ignore
@@ -26,7 +35,7 @@ export default function SignUpWithGoogle() {
       theme: 'outline',
       size: 'large',
       type: 'standard',
-      text: 'signup_with',
+      text: authFormMode === AuthFormMode.SIGN_IN ? 'signin_with' : 'signup_with',
       shape: 'pill',
     });
   }, [signUpWithGoogleHandler]);

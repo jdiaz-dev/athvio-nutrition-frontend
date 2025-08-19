@@ -13,8 +13,11 @@ import {
   SignUpProfessionalWithGoogleResponse,
   SignUpProfessionalWithGoogleRequest,
   SignUpProfessionalWithGoogleInput,
+  SignInProfessionalWithGoogleInput,
+  SignInProfessionalWithGoogleResponse,
+  SignInProfessionalWithGoogleRequest,
 } from './authentication.types';
-import { ACTIVATE_PATIENT, SIGN_IN, SIGN_UP_PROFESSIONAL, SIGN_UP_PROFESSIONAL_WITH_GOOGLE } from './authenticationQueries';
+import { ACTIVATE_PATIENT, SIGN_IN, SIGN_IN_PROFESSIONAL_WITH_GOOGLE, SIGN_UP_PROFESSIONAL, SIGN_UP_PROFESSIONAL_WITH_GOOGLE } from './authenticationQueries';
 
 export function useAuthentication() {
   const signIn = async (credentials: CredentialsSignIn): Promise<FetchResult<SignInResponse>> => {
@@ -38,6 +41,17 @@ export function useAuthentication() {
     });
     return res;
   };
+  const signInProfessionalWithGoogle = async (
+    body: SignInProfessionalWithGoogleInput,
+  ): Promise<FetchResult<SignInProfessionalWithGoogleResponse>> => {
+    const res = await apolloClient.mutate<SignInProfessionalWithGoogleResponse, SignInProfessionalWithGoogleRequest>({
+      mutation: SIGN_IN_PROFESSIONAL_WITH_GOOGLE,
+      variables: {
+        input: body,
+      },
+    });
+    return res;
+  };
   const signUpProfessionalWithGoogle = async (
     body: SignUpProfessionalWithGoogleInput,
   ): Promise<FetchResult<SignUpProfessionalWithGoogleResponse>> => {
@@ -49,6 +63,7 @@ export function useAuthentication() {
     });
     return res;
   };
+
   const activatePatient = async (body: ActivatePatientBody): Promise<FetchResult<ActivatePatientResponse>> => {
     const res = await apolloClient.mutate<ActivatePatientResponse, ActivatePatientRequest>({
       mutation: ACTIVATE_PATIENT,
@@ -58,5 +73,5 @@ export function useAuthentication() {
     });
     return res;
   };
-  return { signIn, signUpProfessional, signUpProfessionalWithGoogle, activatePatient };
+  return { signIn, signUpProfessional, signInProfessionalWithGoogle, signUpProfessionalWithGoogle, activatePatient };
 }

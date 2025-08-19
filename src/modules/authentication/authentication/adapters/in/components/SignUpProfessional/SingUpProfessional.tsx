@@ -8,7 +8,8 @@ import SignUpProfessionalForm from './SignUpProfessionalForm';
 import { useEffect, useRef } from 'react';
 import { useMutation } from '@apollo/client';
 import { SIGN_UP_PROFESSIONAL_SCREEN } from 'src/shared/graphql-queries/WorkflowStreamAuditQueries';
-import SignUpWithGoogle from 'src/modules/authentication/authentication/adapters/in/components/SignUpProfessional/SignUpWithGoogle';
+import SignUpOrSignInWithGoogle from 'src/modules/authentication/authentication/adapters/in/components/SignUpOrSignInWithGoogle';
+import { AuthFormMode } from 'src/modules/authentication/authentication/adapters/in/shared/enum';
 
 const SingUpProfessional = () => {
   const [fire] = useMutation(SIGN_UP_PROFESSIONAL_SCREEN);
@@ -32,7 +33,7 @@ const SingUpProfessional = () => {
           </Stack>
         </Grid>
         <Grid item xs={12}>
-          <SignUpWithGoogle />
+          <SignUpOrSignInWithGoogle authFormMode={AuthFormMode.SIGN_UP} />
         </Grid>
         <Grid item xs={12}>
           <Divider textAlign="center" sx={{ my: 1 }}>

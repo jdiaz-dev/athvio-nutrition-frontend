@@ -1,8 +1,10 @@
-import { Grid, Stack, Typography } from '@mui/material';
+import { Divider, Grid, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 import AuthWrapper from '../authWrapper/AuthWrapper';
 import SignInForm from './SignInForm';
+import SignUpOrSignInWithGoogle from 'src/modules/authentication/authentication/adapters/in/components/SignUpOrSignInWithGoogle';
+import { AuthFormMode } from 'src/modules/authentication/authentication/adapters/in/shared/enum';
 
 const SignIn = () => {
   return (
@@ -15,6 +17,16 @@ const SignIn = () => {
               ¿No tienes una cuenta?
             </Typography>
           </Stack>
+        </Grid>
+        <Grid item xs={12}>
+          <SignUpOrSignInWithGoogle authFormMode={AuthFormMode.SIGN_IN} />
+        </Grid>
+        <Grid item xs={12}>
+          <Divider textAlign="center" sx={{ my: 1 }}>
+            <Typography variant="body2" color="text.secondary" sx={{ px: 1 }}>
+              o
+            </Typography>
+          </Divider>
         </Grid>
         <Grid item xs={12}>
           <SignInForm />

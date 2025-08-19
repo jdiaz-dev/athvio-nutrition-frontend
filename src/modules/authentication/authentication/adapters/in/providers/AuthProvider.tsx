@@ -7,10 +7,16 @@ import {
 } from 'src/modules/authentication/authentication/adapters/out/cookies';
 import { AuthContext } from '../context/AuthContext';
 import { useAuthentication } from '../../out/authenticationActions';
-import { CredentialsSignIn, JwtDto, SignUpProfessionalModel, SignUpProfessionalWithGoogleInput } from '../../out/authentication.types';
+import {
+  CredentialsSignIn,
+  JwtDto,
+  SignInProfessionalWithGoogleInput,
+  SignUpProfessionalModel,
+  SignUpProfessionalWithGoogleInput,
+} from '../../out/authentication.types';
 
 function AuthProvider({ children }: { children: ReactNode }) {
-  const { signIn, signUpProfessional, signUpProfessionalWithGoogle } = useAuthentication();
+  const { signIn, signUpProfessional, signUpProfessionalWithGoogle, signInProfessionalWithGoogle } = useAuthentication();
 
   const [isAuthenticated, setIsAuthenticated] = useState(Boolean(getToken()));
   const professional = getProfessionalId();
@@ -26,6 +32,10 @@ function AuthProvider({ children }: { children: ReactNode }) {
   const signUpProfessionalHandler = async (body: SignUpProfessionalModel) => {
     const { data } = await signUpProfessional(body);
     if (data) saveJwt(data.signUpProfessional);
+  };
+  const signInWithGoogleHandler = async (body: SignInProfessionalWithGoogleInput) => {
+    const { data } = await signInProfessionalWithGoogle(body);
+    if (data) saveJwt(data.signInWithGoogle);
   };
   const signUpWithGoogleHandler = async (body: SignUpProfessionalWithGoogleInput) => {
     const { data } = await signUpProfessionalWithGoogle(body);
@@ -43,6 +53,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
         professional,
         signInHandler,
         signUpProfessionalHandler,
+        signInWithGoogleHandler,
         signUpWithGoogleHandler,
         signOut,
       }}
