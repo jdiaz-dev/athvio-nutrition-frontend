@@ -284,7 +284,7 @@ const SignUpProfessionalForm = () => {
                     {errors.password}
                   </FormHelperText>
                 )}
-                <FormControl fullWidth sx={{ mt: 2 }}>
+                {/* <FormControl fullWidth sx={{ mt: 2 }}>
                   <Grid container spacing={2} alignItems="center">
                     <Grid item>
                       <Box sx={{ bgcolor: level?.color, width: 85, height: 8, borderRadius: '7px' }} />
@@ -295,7 +295,7 @@ const SignUpProfessionalForm = () => {
                       </Typography>
                     </Grid>
                   </Grid>
-                </FormControl>
+                </FormControl> */}
               </Grid>
 
               {/* TODO: add terms and policy */}
@@ -311,11 +311,11 @@ const SignUpProfessionalForm = () => {
                   </Link>
                 </Typography>
               </Grid> */}
-              {errors.submit && (
+              {/* {errors.submit && (
                 <Grid item xs={12}>
                   <FormHelperText error>{errors.submit}</FormHelperText>
                 </Grid>
-              )}
+              )} */}
               <Grid item xs={12}>
                 <AnimateButton>
                   <Button disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained" color="primary">
