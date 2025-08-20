@@ -30,15 +30,20 @@ export default function SignUpOrSignInWithGoogle({ authFormMode }: { authFormMod
         }
       },
     });
+
     // @ts-ignore
-    window.google?.accounts.id.renderButton(divRef.current, {
+    window.google.accounts.id.renderButton(divRef.current, {
       theme: 'outline',
-      size: 'large',
       type: 'standard',
       text: authFormMode === AuthFormMode.SIGN_IN ? 'signin_with' : 'signup_with',
       shape: 'pill',
+      size: 'large',
+      width: 199, // critical: prevents personalization
     });
+
+    // @ts-ignore
+    window.google.accounts.id.disableAutoSelect();
   }, [signUpWithGoogleHandler]);
 
-  return <div ref={divRef} />;
+  return <div style={{ display: 'flex', justifyContent: 'center' }} ref={divRef} />;
 }
