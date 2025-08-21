@@ -101,6 +101,8 @@
     },
     "mealTags":{
       "drink":"Drink",
+      "infusion":"Infusion",
+      "extract":"Extract",
       "breakfast":"Breakfast",
       "lunch":"Lunch",
       "dinner":"Dinner",

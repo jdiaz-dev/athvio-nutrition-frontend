@@ -105,6 +105,8 @@ declare module 'i18next' {
           };
           mealTags: {
             drink: string;
+            infusion: string;
+            extract: string;
             breakfast: string;
             lunch: string;
             dinner: string;

@@ -9,6 +9,8 @@ export const temporalId = 'temporalId';
 export const defaultMealTagKey = i18n.t('mealBuilder.mealTags.breakfast');
 export const mealTagKeyList = [
   'mealBuilder.mealTags.drink',
+  'mealBuilder.mealTags.infusion',
+  'mealBuilder.mealTags.extract',
   'mealBuilder.mealTags.breakfast',
   'mealBuilder.mealTags.lunch',
   'mealBuilder.mealTags.dinner',
