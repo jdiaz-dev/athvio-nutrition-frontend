@@ -63,6 +63,7 @@ export function useNutritionalMeal() {
     }
   };
   const updateNutritionalMeal = async (body: UpdateNutritionalMealBody): Promise<void> => {
+    console.log('------body', body)
     try {
       const response = await apolloClient.mutate<UpdateNutritionalMealResponse, UpdateNutritionalMealRequest>({
         mutation: UPDATE_NUTRITIONAL_MEAL,

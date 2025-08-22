@@ -20,6 +20,7 @@ import { EnableEditionContext } from 'src/shared/components/wrappers/EnablerEdit
 import ImageContainer from 'src/modules/professionals/nutritional-meals/adapters/in/dialogs/CreateUpdateNutritionalMealDialog/ImageContainer';
 import NutritionalMealOptions from 'src/modules/professionals/nutritional-meals/adapters/in/dialogs/CreateUpdateNutritionalMealDialog/NutritionalMealOptions';
 import FoodAnalyzerList from 'src/modules/food-analyzers/adapters/in/components/FoodAnalyzerList';
+import { Ingredient } from 'src/shared/components/MealBuilder/MealBuilder.types';
 
 function CreateUpdateNutritionalMealDialog({
   openCreateUpdateNutritionalMealDialog,
@@ -49,11 +50,19 @@ function CreateUpdateNutritionalMealDialog({
 
   const { uuid, ...restNutritionalMeal } = nutritionalMealDetailsState;
   const createUpdateNutritionalMealHandler = async () => {
+    const ingredientDetails = restNutritionalMeal.ingredientDetails.map(({ ingredient: ingredientData, ...rest }) => {
+      if (ingredientData) {
+        const { internalFood, ...restIngredientData } = ingredientData;
+        return { ingredient: restIngredientData, ...rest };
+      }
+      return { ingredient: ingredientData, ...rest };
+    });
     if (_nutritionalMeal && _nutritionalMeal.uuid) {
       await updateNutritionalMeal({
         nutritionalMeal: uuid,
         ...restNutritionalMeal,
         ...mealNameBasicInfo,
+        ingredientDetails,
         professional: authContext.professional,
         image: newImage !== null ? newImage : null,
       });
@@ -63,6 +72,7 @@ function CreateUpdateNutritionalMealDialog({
       await createNutritionalMeal({
         ...mealNameBasicInfo,
         ...restNutritionalMeal,
+        ingredientDetails,
         professional: authContext.professional,
         image: newImage !== null ? newImage : null,
       });

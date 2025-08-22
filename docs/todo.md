@@ -8,4 +8,3 @@
 - fix: fix the bug at moment to add the food to the list
 
 - fix: it cannot save nutritional plan after to import meal
-- fix: it cannot upload image in foods 
