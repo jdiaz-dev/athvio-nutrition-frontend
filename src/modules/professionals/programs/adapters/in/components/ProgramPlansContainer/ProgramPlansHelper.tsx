@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import { EventContentArg } from '@fullcalendar/core';
 import ProgramPlan from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/ProgramPlanItem';
-import CreateProgramPlanItemButton from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/CreateProgramPlanItemButton CreateProgramPlanItemButton';
+import CreateProgramPlanItemButton from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/CreateProgramPlanItemButton';
 import { ProgramPlanDateExtendedProps } from 'src/modules/professionals/programs/adapters/out/program.types';
 import PlanWrapper from 'src/shared/components/wrappers/PlanWrapper';
 import WrapperItemButtons from 'src/shared/components/wrappers/WrapperItemButtons';

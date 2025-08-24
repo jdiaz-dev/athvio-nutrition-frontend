@@ -9,6 +9,7 @@ import { makeStyles } from 'tss-react/mui';
 
 import { useParams } from 'react-router-dom';
 import ProgramPlansHelper from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/ProgramPlansHelper';
+import * as ProgramSlice from 'src/modules/professionals/programs/adapters/in/slicers/ProgramSlice';
 
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
@@ -24,7 +25,7 @@ import { AuthContext } from 'src/modules/authentication/authentication/adapters/
 import { Box } from '@mui/system';
 import CalendarStyled from 'src/shared/components/CalendarStyled/CalendarStyled';
 import { EventSourceInput } from '@fullcalendar/core';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 import { useTranslation } from 'react-i18next';
 
@@ -43,6 +44,7 @@ function ProgramPlansContainer() {
   const { programId } = useParams();
   const authContext = useContext(AuthContext);
   const { getProgram } = useProgram();
+  const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const { data: programState } = useSelector((state: ReduxStates) => state.programs.program);
@@ -67,6 +69,10 @@ function ProgramPlansContainer() {
       void getProgramHelper();
       setReloadRecordList(false);
     }
+
+    return () => {
+      dispatch(ProgramSlice.resetProgramItem());
+    };
   }, [authContext.professional, reloadRecordList]);
 
   let counterDay = 0;
