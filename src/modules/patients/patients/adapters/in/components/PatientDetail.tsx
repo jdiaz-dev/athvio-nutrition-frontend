@@ -4,7 +4,7 @@ import PatientBasicInfo from 'src/shared/components/PatientList/PatientBasicInfo
 import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
 import ManagePatientGroup from 'src/modules/patients/patients/adapters/in/components/ManagePatientGroup';
 import PatientOptions from 'src/modules/patients/patients/adapters/in/components/PatientOptions';
-import { PatientBody } from 'src/modules/patients/patient-console/patient/adapters/out/patient';
+import { PatientBody } from 'src/modules/patients/patients/adapters/out/patient.types';
 
 function PatientDetail({ patient }: { patient: PatientBody }) {
   const [goToPatientPlans, setGoToPatientPlans] = useState(false);
@@ -23,7 +23,7 @@ function PatientDetail({ patient }: { patient: PatientBody }) {
           {patient.state}
         </StyledTableCell>
         <StyledTableCell component="th" scope="row">
-          <ManagePatientGroup patient={patient.uuid} assignedGroups={patient.groups} />
+          <ManagePatientGroup patient={patient.uuid} assignedGroups={patient.groups || []} />
         </StyledTableCell>
         <StyledTableCell component="th" scope="row">
           <PatientOptions patient={patient.uuid} />

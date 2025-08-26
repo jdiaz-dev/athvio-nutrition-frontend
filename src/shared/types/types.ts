@@ -12,6 +12,7 @@ import { NotesInitialState } from 'src/modules/patients/patient-console/notes/he
 import { PatientQuestionaryInitialState } from 'src/modules/questionaries/patient-questionaries/adapters/out/PatientQuestionary';
 import { PatientInitialState } from 'src/modules/patients/patients/adapters/out/patient.types';
 import { FoodAnalyzerInitialState } from 'src/modules/food-analyzers/adapters/out/FoodAnalyzer';
+import { PlanificationInitialState } from 'src/modules/patients/patient-console/planifications/helpers/planifications';
 
 export type DateItem<T> = {
   title: string;
@@ -46,6 +47,7 @@ export type ReduxStates = {
   users: SignUpProfessionalModel;
   nutritionalMeals: NutritionalMealInitialState;
   programs: ProgramInitialState;
+  planifications: PlanificationInitialState;
   patientPlans: PatientPlanInitialState;
   assignProgram: AssignProgramInitialState;
   chat: ChatInitialState;

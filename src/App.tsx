@@ -17,7 +17,7 @@ import QuestionaryDetailContainer from 'src/modules/questionaries/professional-q
 import ActivatePatient from 'src/modules/authentication/authentication/adapters/in/components/ActivatePatient/ActivatePatient';
 import Congratulations from 'src/modules/authentication/authentication/adapters/in/components/Congratulations';
 import PatientPlansCalendar from 'src/modules/patients/patient-console/patient-plans/adapters/in/components/PatientPlansContainer/PatientPlansCalendar';
-import CaloriesContainer from 'src/modules/patients/patient-console/calories/adapters/in/CaloriesContainer';
+import PlanificationContainer from 'src/modules/patients/patient-console/planifications/adapters/in/components/PlanificationContainer';
 import NotesContainer from 'src/modules/patients/patient-console/notes/adapters/in/components/NotesContainer';
 import PatientQuestionaryContainer from 'src/modules/questionaries/patient-questionaries/adapters/in/components/PatientQuestionaryContainer';
 import PatientProfileContainer from 'src/modules/patients/patient-console/profile/in/components/PatientProfileContainer';
@@ -74,7 +74,7 @@ function App() {
             <Route path="patients" element={<PatientsContainer />}></Route>
             <Route path="patients/:patientId" element={<PatientConsoleContainer />}>
               <Route path="plans" element={<PatientPlansCalendar />} />
-              <Route path="calories" element={<CaloriesContainer />} />
+              <Route path="calories" element={<PlanificationContainer />} />
               <Route path="notes" element={<NotesContainer />} />
               <Route path="questionary" element={<PatientQuestionaryContainer />} />
               <Route path="profile" element={<PatientProfileContainer />} />

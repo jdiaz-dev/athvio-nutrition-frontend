@@ -3,6 +3,7 @@ import usersReducer from 'src/modules/authentication/authentication/adapters/in/
 import nutritionalMealReducers from 'src/modules/professionals/nutritional-meals/adapters/in/slicers/NutritionalMealSlice';
 import programsReducer from 'src/modules/professionals/programs/adapters/in/slicers/ProgramSlice';
 import assignProgramReducer from 'src/modules/professionals/assign-program/in/slicers/AssignProgramSlice';
+import planificationsReducer from 'src/modules/patients/patient-console/planifications/adapters/in/slicers/PlanificationSlice';
 import patientPlansReducer from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/PatientPlanSlice';
 import notesSlice from 'src/modules/patients/patient-console/notes/adapters/in/slicers/NotesSlice';
 import ChatReducer from 'src/modules/patients/patient-console/chat/adapters/in/slicers/ChatSlice';
@@ -25,6 +26,7 @@ export default configureStore({
     programs: programsReducer,
     assignProgram: assignProgramReducer,
     patient: PatientReducer,
+    planifications: planificationsReducer,
     patientPlans: patientPlansReducer,
     chat: ChatReducer,
     notes: notesSlice,
