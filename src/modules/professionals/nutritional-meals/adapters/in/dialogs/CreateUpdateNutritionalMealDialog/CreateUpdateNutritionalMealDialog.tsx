@@ -20,7 +20,6 @@ import { EnableEditionContext } from 'src/shared/components/wrappers/EnablerEdit
 import ImageContainer from 'src/modules/professionals/nutritional-meals/adapters/in/dialogs/CreateUpdateNutritionalMealDialog/ImageContainer';
 import NutritionalMealOptions from 'src/modules/professionals/nutritional-meals/adapters/in/dialogs/CreateUpdateNutritionalMealDialog/NutritionalMealOptions';
 import FoodAnalyzerList from 'src/modules/food-analyzers/adapters/in/components/FoodAnalyzerList';
-import { Ingredient } from 'src/shared/components/MealBuilder/MealBuilder.types';
 
 function CreateUpdateNutritionalMealDialog({
   openCreateUpdateNutritionalMealDialog,
