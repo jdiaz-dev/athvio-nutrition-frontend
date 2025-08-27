@@ -21,6 +21,7 @@ import {
   Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { PatientInformation } from 'src/modules/patients/patient-console/planifications/helpers/planifications';
 
 export type PatientPlanData = {
   weightKg?: number;
@@ -32,28 +33,13 @@ export type PatientPlanData = {
 };
 
 type Props = {
-  initial?: PatientPlanData;
-  onChange?: (v: PatientPlanData) => void;
+  patientInformation: PatientInformation & { calories: number };
 };
 
 const safeNum = (v: string) => (Number.isFinite(+v) ? +v : undefined);
 
-export default function PlanCaloriesForm({ initial, onChange }: Props) {
+export default function PlanCaloriesForm({ patientInformation }: Props) {
   const [openPatient, setOpenPatient] = React.useState(true);
-  const [data, setData] = React.useState<PatientPlanData>({
-    weightKg: initial?.weightKg,
-    heightM: initial?.heightM,
-    age: initial?.age,
-    sex: initial?.sex ?? 'unspecified',
-    activityFactor: initial?.activityFactor ?? 1.55,
-    planCalories: initial?.planCalories ?? 2000,
-  });
-
-  const update = (patch: Partial<PatientPlanData>) => {
-    const next = { ...data, ...patch };
-    setData(next);
-    onChange?.(next);
-  };
 
   return (
     <Card variant="outlined">
@@ -83,8 +69,7 @@ export default function PlanCaloriesForm({ initial, onChange }: Props) {
                 <Grid item xs={12} sm={6}>
                   <TextField
                     label="Peso"
-                    value={data.weightKg ?? ''}
-                    onChange={(e) => update({ weightKg: safeNum(e.target.value) })}
+                    value={patientInformation.weight}
                     type="number"
                     fullWidth
                     inputProps={{ min: 0, step: 0.1 }}
@@ -94,8 +79,7 @@ export default function PlanCaloriesForm({ initial, onChange }: Props) {
                 <Grid item xs={12} sm={6}>
                   <TextField
                     label="Estatura"
-                    value={data.heightM ?? ''}
-                    onChange={(e) => update({ heightM: safeNum(e.target.value) })}
+                    value={patientInformation.height}
                     type="number"
                     fullWidth
                     inputProps={{ min: 0, step: 0.01 }}
@@ -105,8 +89,7 @@ export default function PlanCaloriesForm({ initial, onChange }: Props) {
                 <Grid item xs={12} sm={6}>
                   <TextField
                     label="Edad"
-                    value={data.age ?? ''}
-                    onChange={(e) => update({ age: safeNum(e.target.value) })}
+                    value={patientInformation.age}
                     type="number"
                     fullWidth
                     inputProps={{ min: 0, step: 1 }}
@@ -116,13 +99,7 @@ export default function PlanCaloriesForm({ initial, onChange }: Props) {
                 <Grid item xs={12} sm={6}>
                   <FormControl fullWidth>
                     <InputLabel id="sexo-lbl">Género</InputLabel>
-                    <Select
-                      labelId="sexo-lbl"
-                      label="Género"
-                      value={data.sex}
-                      onChange={(e) => update({ sex: e.target.value as PatientPlanData['sex'] })}
-                    >
-                      <MenuItem value="unspecified">unspecified</MenuItem>
+                    <Select labelId="sexo-lbl" label="Género" value={patientInformation.gender}>
                       <MenuItem value="male">Masculino</MenuItem>
                       <MenuItem value="female">Femenino</MenuItem>
                     </Select>
@@ -149,8 +126,7 @@ export default function PlanCaloriesForm({ initial, onChange }: Props) {
               <Tooltip title="Atajo: marca 'Intensa' = 1.78">
                 <Stack direction="row" alignItems="center" spacing={1}>
                   <Switch
-                    checked={data.activityFactor === 1.78}
-                    onChange={(e) => update({ activityFactor: e.target.checked ? 1.78 : 1.55 })}
+                    checked={patientInformation.physicActivityFactor === 1.78}
                     color="primary"
                     inputProps={{ 'aria-label': 'Intensa' }}
                   />
@@ -159,8 +135,7 @@ export default function PlanCaloriesForm({ initial, onChange }: Props) {
               </Tooltip>
 
               <TextField
-                value={data.activityFactor}
-                onChange={(e) => update({ activityFactor: Number(e.target.value) || 1.55 })}
+                value={patientInformation.physicActivityFactor}
                 type="number"
                 size="small"
                 inputProps={{ step: 0.01, min: 1 }}
@@ -175,8 +150,7 @@ export default function PlanCaloriesForm({ initial, onChange }: Props) {
 
           <TextField
             label="Calorías para tu plan"
-            value={data.planCalories}
-            onChange={(e) => update({ planCalories: Number(e.target.value) || 0 })}
+            value={patientInformation.calories}
             type="number"
             inputProps={{ min: 0, step: 10 }}
             fullWidth

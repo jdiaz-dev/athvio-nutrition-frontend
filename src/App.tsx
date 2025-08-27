@@ -74,7 +74,7 @@ function App() {
             <Route path="patients" element={<PatientsContainer />}></Route>
             <Route path="patients/:patientId" element={<PatientConsoleContainer />}>
               <Route path="plans" element={<PatientPlansCalendar />} />
-              <Route path="calories" element={<PlanificationContainer />} />
+              <Route path="planification" element={<PlanificationContainer />} />
               <Route path="notes" element={<NotesContainer />} />
               <Route path="questionary" element={<PatientQuestionaryContainer />} />
               <Route path="profile" element={<PatientProfileContainer />} />

@@ -53,7 +53,7 @@ export function usePlanification() {
         },
       });
       if (response.data) {
-        dispatch(PlanificationSlice.acceptNewPlanification(response.data.getPlanifications));
+        dispatch(PlanificationSlice.initializePlanifications(response.data.getPlanifications));
       }
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);

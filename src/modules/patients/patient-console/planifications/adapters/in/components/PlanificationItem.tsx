@@ -3,6 +3,7 @@ import { AuthContext } from 'src/modules/authentication/authentication/adapters/
 import { PlanificationBody } from 'src/modules/patients/patient-console/planifications/helpers/planifications';
 import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
 import CreateUpdatePlanificationDialog from 'src/modules/patients/patient-console/planifications/adapters/in/dialogs/CreateUpdatePlanificationDialog';
+import { Button } from '@mui/material';
 
 function PlanificationItem({ planification }: { planification: PlanificationBody }) {
   const authContext = useContext(AuthContext);
@@ -19,6 +20,17 @@ function PlanificationItem({ planification }: { planification: PlanificationBody
         </StyledTableCell>
         <StyledTableCell component="th" scope="row" style={{ cursor: 'pointer' }}>
           {planification.configuredMacros.calories}
+        </StyledTableCell>
+        <StyledTableCell component="th" scope="row" style={{ cursor: 'pointer' }}>
+          <Button
+            variant="contained"
+            style={{ marginRight: '20px' }}
+            onClick={() => {
+              setOpenCreateUpdatePlanificationDialog(true);
+            }}
+          >
+            Editar
+          </Button>
         </StyledTableCell>
       </StyledTableRow>
 

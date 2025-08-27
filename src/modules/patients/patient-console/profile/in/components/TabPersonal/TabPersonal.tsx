@@ -3,7 +3,7 @@ import BasicInformation from 'src/modules/patients/patient-console/profile/in/co
 import MainCard from 'src/shared/components/MainCard/MainCard';
 import { Typography } from '@mui/material';
 import { useRef } from 'react';
-import SavePersonalTabButton from 'src/modules/patients/patient-console/profile/in/components/TabPersonal/SaveTabPersonalButton';
+import SaveTabPersonalButton from 'src/modules/patients/patient-console/profile/in/components/TabPersonal/SaveTabPersonalButton';
 
 export default function TabPersonal() {
   const form1Ref = useRef<any>();
@@ -17,7 +17,7 @@ export default function TabPersonal() {
       >
         <PersonalInformation formRef={form1Ref} />
         <BasicInformation formRef={form2Ref} />
-        <SavePersonalTabButton form1Ref={form1Ref} form2Ref={form2Ref} />
+        <SaveTabPersonalButton form1Ref={form1Ref} form2Ref={form2Ref} />
       </MainCard>
     </>
   );

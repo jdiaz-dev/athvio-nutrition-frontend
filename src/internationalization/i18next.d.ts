@@ -118,7 +118,7 @@ declare module 'i18next' {
         toolTips: {
           chat: string;
           plans: string;
-          calories: string;
+          planification: string;
           add: string;
           paste: string;
           copy: string;

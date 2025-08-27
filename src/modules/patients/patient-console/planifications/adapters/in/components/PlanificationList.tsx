@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
@@ -12,10 +12,23 @@ import { usePaginator } from 'src/shared/hooks/usePaginator';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 import PlanificationItem from 'src/modules/patients/patient-console/planifications/adapters/in/components/PlanificationItem';
+import { usePlanification } from 'src/modules/patients/patient-console/planifications/adapters/out/PlanificationActions';
+import { useParams } from 'react-router-dom';
 
 function PlanificationList() {
   const planificationsState = useSelector((state: ReduxStates) => state.planifications.planifications);
   const { length, setLength, offset, setOffset, rowsPerPage, currentPage, setCurrentPage } = usePaginator(5);
+  const { getPlanifications } = usePlanification();
+  const { patientId } = useParams();
+
+  useEffect(() => {
+    const fetchPlanifications = async () => {
+      await getPlanifications({
+        patient: patientId as string,
+      });
+    };
+    if (patientId) fetchPlanifications();
+  }, [patientId]);
 
   return (
     <>

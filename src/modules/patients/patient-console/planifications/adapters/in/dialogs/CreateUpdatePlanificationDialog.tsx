@@ -49,6 +49,7 @@ function CreateUpdatePlanificationDialog({
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const nutritionalMealDetailsState = useSelector((state: ReduxStates) => state.nutritionalMeals.nutritionalMealDetails);
   const mealNameBasicInfo = useSelector((state: ReduxStates) => state.nutritionalMeals.nutritionalMealBasicInfo);
+  const planificationsState = useSelector((state: ReduxStates) => state.planifications.planification);
 
   const { createNutritionalMeal, updateNutritionalMeal } = useNutritionalMeal();
 
@@ -57,32 +58,6 @@ function CreateUpdatePlanificationDialog({
   const [showAnticancerProperties, setShowAnticancerProperties] = useState(false);
   const [newImage, setNewImage] = useState<File | null>(null);
 
-  /*  const { uuid, ...restNutritionalMeal } = nutritionalMealDetailsState;
-
-  useEffect(() => {
-    if (_nutritionalMeal !== undefined) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { name, source, image, ...rest } = _nutritionalMeal;
-      dispatch(NutritionalMealBasicInfoSlice.renameNutritionalMeal(name));
-      dispatch(NutritionalMealDetailsSlice.acceptNewMealDetail(rest));
-      dispatch(NutritionalMealBasicInfoSlice.setImage(image !== null ? (image as string) : null));
-    } else {
-      dispatch(NutritionalMealDetailsSlice.reinitializeMeal());
-    }
-
-    return () => {
-      dispatch(NutritionalMealDetailsSlice.reinitializeMeal());
-      dispatch(NutritionalMealBasicInfoSlice.resetName());
-      dispatch(NutritionalMealBasicInfoSlice.setImage(null));
-    };
-  }, [_nutritionalMeal]);
-
-  useEffect(() => {
-    if (!closedIconDialog) {
-      reloadRecordListContext.setReloadRecordList(true);
-      setOpenCreateUpdatePlanificationDialog(false);
-    }
-  }, [closedIconDialog]); */
   const createUpdatePlanificationHandler = async () => {};
   const closeIconDialogHandler = () => {
     if (componentTouched) {
@@ -122,7 +97,12 @@ function CreateUpdatePlanificationDialog({
           <Container maxWidth="lg" sx={{ py: 2 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} md={6}>
-                <PlanCaloriesForm initial={plan} onChange={(v) => setPlan(v)} />
+                <PlanCaloriesForm
+                  patientInformation={{
+                    ...planificationsState.patientInformation,
+                    calories: planificationsState.configuredMacros.calories,
+                  }}
+                />
               </Grid>
               <Grid item xs={12} md={6}>
                 <MacroForm

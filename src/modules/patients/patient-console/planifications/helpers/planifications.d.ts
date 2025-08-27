@@ -41,7 +41,7 @@ export type GetPlanificationsRequest = {
 };
 
 export type GetPlanificationsResponse = {
-  getPlanifications: PlanificationBody;
+  getPlanifications: PlanificationBody[];
 };
 
 export type UpdatePlanificationInput = CreatePlanificationInput & {
@@ -58,5 +58,5 @@ export type UpdatePlanificationResponse = {
 
 export type PlanificationInitialState = {
   planifications: PlanificationBody[];
-  planification: PlanificationBody | null;
+  planification: PlanificationBody;
 };

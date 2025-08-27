@@ -36,13 +36,13 @@ const nutrition = (): NavItemType => ({
       slide: AvailableSlides.PLANS,
     },
     {
-      id: 'Calories',
-      title: <FormattedMessage id="Calorias" />,
+      id: 'Planification',
+      title: <FormattedMessage id="Planificación" />,
       type: 'item',
-      url: 'calories',
+      url: 'planification',
       icon: icons.CalculateIcon,
-      toolTipTitle: i18n.t('toolTips.calories'),
-      slide: AvailableSlides.CALORIES,
+      toolTipTitle: i18n.t('toolTips.planification'),
+      slide: AvailableSlides.PLANIFICATION,
     },
   ],
 });

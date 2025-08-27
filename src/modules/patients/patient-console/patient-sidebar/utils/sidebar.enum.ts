@@ -1,6 +1,6 @@
 export enum AvailableSlides {
   PLANS = 'plans',
-  CALORIES = 'calories',
+  PLANIFICATION = 'planification',
   ANALITYCS = 'analitycs',
   CLINICAL_NOTES = 'clinical notes',
   PATIENT_QUESTIONARY = 'patient questionary',
