@@ -225,9 +225,6 @@ export const GET_PROGRAMS = gql`
         }
         plans {
           uuid
-          title
-          week
-          day
         }
       }
       meta {
