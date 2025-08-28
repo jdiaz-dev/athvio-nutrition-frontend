@@ -37,7 +37,7 @@ function PlanificationList() {
           <TableHead>
             <TableRow>
               <StyledTableCell># de plan</StyledTableCell>
-              <StyledTableCell>Fecha de creacion</StyledTableCell>
+              <StyledTableCell>Fecha de creación</StyledTableCell>
               <StyledTableCell>Calorias</StyledTableCell>
               <StyledTableCell>Acciones</StyledTableCell>
             </TableRow>

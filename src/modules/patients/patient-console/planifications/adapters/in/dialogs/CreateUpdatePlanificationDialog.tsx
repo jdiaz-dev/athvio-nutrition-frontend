@@ -15,6 +15,7 @@ import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 import { formStyles } from 'src/shared/styles/styles';
 import CancelAndSaveButtons from 'src/shared/components/CancelAndSaveButtons';
 import { PlanificationBody } from 'src/modules/patients/patient-console/planifications/helpers/planifications';
+import * as PlanificationSlice from 'src/modules/patients/patient-console/planifications/adapters/in/slicers/PlanificationSlice';
 
 function CreateUpdatePlanificationDialog({
   openCreateUpdatePlanificationDialog,
@@ -49,7 +50,7 @@ function CreateUpdatePlanificationDialog({
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const nutritionalMealDetailsState = useSelector((state: ReduxStates) => state.nutritionalMeals.nutritionalMealDetails);
   const mealNameBasicInfo = useSelector((state: ReduxStates) => state.nutritionalMeals.nutritionalMealBasicInfo);
-  const planificationsState = useSelector((state: ReduxStates) => state.planifications.planification);
+  const planificationState = useSelector((state: ReduxStates) => state.planifications.planification);
 
   const { createNutritionalMeal, updateNutritionalMeal } = useNutritionalMeal();
 
@@ -57,6 +58,17 @@ function CreateUpdatePlanificationDialog({
   const [closedIconDialog, setClosedIconDialog] = useState(true);
   const [showAnticancerProperties, setShowAnticancerProperties] = useState(false);
   const [newImage, setNewImage] = useState<File | null>(null);
+
+  useEffect(() => {
+    if (planification) {
+      dispatch(PlanificationSlice.initializePlanification(planification));
+    } else {
+      dispatch(PlanificationSlice.resetPlanification());
+    }
+    return () => {
+      dispatch(PlanificationSlice.resetPlanification());
+    };
+  }, [planification]);
 
   const createUpdatePlanificationHandler = async () => {};
   const closeIconDialogHandler = () => {
@@ -99,8 +111,8 @@ function CreateUpdatePlanificationDialog({
               <Grid item xs={12} md={6}>
                 <PlanCaloriesForm
                   patientInformation={{
-                    ...planificationsState.patientInformation,
-                    calories: planificationsState.configuredMacros.calories,
+                    ...planificationState.patientInformation,
+                    calories: planificationState.configuredMacros.calories,
                   }}
                 />
               </Grid>

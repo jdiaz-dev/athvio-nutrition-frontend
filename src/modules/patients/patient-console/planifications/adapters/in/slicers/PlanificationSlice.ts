@@ -47,9 +47,14 @@ const planificationSlice = createSlice({
       state.configuredMacros = { ...state.configuredMacros, ...action.payload };
       return state;
     },
+    resetPlanification: (state) => {
+      state = planificationInitialState.planification;
+      return state;
+    },
   },
 });
-export const { initializePlanification, modifyPatientInformationAndCalories, modifyCalculatedMacros } = planificationSlice.actions;
+export const { initializePlanification, modifyPatientInformationAndCalories, modifyCalculatedMacros, resetPlanification } =
+  planificationSlice.actions;
 
 export default combineReducers({
   planifications: planificationsSlice.reducer,
