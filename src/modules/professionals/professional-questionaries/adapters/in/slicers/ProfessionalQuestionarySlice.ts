@@ -6,7 +6,6 @@ import {
   ProfessionalQuestionaryBody,
   QuestionaryDetail,
 } from 'src/modules/professionals/professional-questionaries/adapters/out/ProfessionalQuestionary';
-import { ReduxStates } from 'src/shared/types/types';
 
 const professionalQuestionarySlice = createSlice({
   name: 'professionalQuestionary',

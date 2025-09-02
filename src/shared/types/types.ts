@@ -5,7 +5,7 @@ import { AssignProgramInitialState } from 'src/modules/professionals/assign-prog
 import { NutritionalMealInitialState } from 'src/modules/professionals/nutritional-meals/adapters/out/nutritionalMeal';
 import { ProfessionalInitialState } from 'src/modules/professionals/professional/adapters/out/professional';
 import { ProgramInitialState } from 'src/modules/professionals/programs/adapters/out/program.types';
-import { ProfessionalQuestionaryInitialState } from 'src/modules/questionaries/professional-questionaries/adapters/out/ProfessionalQuestionary';
+import { ProfessionalQuestionaryInitialState } from 'src/modules/professionals/professional-questionaries/adapters/out/ProfessionalQuestionary';
 import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 import { NutritionBuilderInitialState } from 'src/modules/nutrition-builder/adapters/out/nutritionBuilder';
 import { NotesInitialState } from 'src/modules/patients/patient-console/notes/helpers/notes';
