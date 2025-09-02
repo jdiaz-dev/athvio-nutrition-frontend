@@ -1,6 +1,6 @@
 import { createEntityAdapter, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
-import { QuestionaryDetail, QuestionaryDetailState } from 'src/modules/questionaries/professional-questionaries/adapters/out/ProfessionalQuestionary';
+import { QuestionaryDetail, QuestionaryDetailState } from 'src/modules/professionals/professional-questionaries/adapters/out/ProfessionalQuestionary';
 import { ReduxItemtatus } from 'src/shared/Consts';
 import { ReduxStates } from 'src/shared/types/types';
 

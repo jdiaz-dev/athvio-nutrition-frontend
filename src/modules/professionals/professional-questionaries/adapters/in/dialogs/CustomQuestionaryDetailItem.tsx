@@ -7,8 +7,8 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import { makeStyles } from 'tss-react/mui';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { QuestionaryDetail } from 'src/modules/questionaries/professional-questionaries/adapters/out/ProfessionalQuestionary';
-import * as CustomProfessionalQuestionaryDetailsSlice from 'src/modules/questionaries/professional-questionaries/adapters/in/slicers/CustomQuestionaryDetailsSlice';
+import { QuestionaryDetail } from 'src/modules/professionals/professional-questionaries/adapters/out/ProfessionalQuestionary';
+import * as CustomProfessionalQuestionaryDetailsSlice from 'src/modules/professionals/professional-questionaries/adapters/in/slicers/CustomQuestionaryDetailsSlice';
 import { useDispatch } from 'react-redux';
 
 const cardStyles = makeStyles()(() => {

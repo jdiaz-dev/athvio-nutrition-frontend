@@ -1,8 +1,8 @@
 import React from 'react';
 import { IconButton, ListItem, ListItemText } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
-import { QuestionaryDetail } from 'src/modules/questionaries/professional-questionaries/adapters/out/ProfessionalQuestionary';
-import * as ProfessionalQuestionarySlice from 'src/modules/questionaries/professional-questionaries/adapters/in/slicers/ProfessionalQuestionarySlice';
+import { QuestionaryDetail } from 'src/modules/professionals/professional-questionaries/adapters/out/ProfessionalQuestionary';
+import * as ProfessionalQuestionarySlice from 'src/modules/professionals/professional-questionaries/adapters/in/slicers/ProfessionalQuestionarySlice';
 import { useDispatch } from 'react-redux';
 
 function EnableQuestionaryDetailItem({

@@ -1,11 +1,11 @@
 import { combineReducers, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { customQuestionaryDetailSlice } from 'src/modules/questionaries/professional-questionaries/adapters/in/slicers/CustomQuestionaryDetailsSlice';
-import { professionalQuestionaryInitialState } from 'src/modules/questionaries/professional-questionaries/adapters/in/slicers/ProfessionalQuestionaryInitialState';
+import { customQuestionaryDetailSlice } from 'src/modules/professionals/professional-questionaries/adapters/in/slicers/CustomQuestionaryDetailsSlice';
+import { professionalQuestionaryInitialState } from 'src/modules/professionals/professional-questionaries/adapters/in/slicers/ProfessionalQuestionaryInitialState';
 import {
   IsEnabledQuestionaryDetails,
   ProfessionalQuestionaryBody,
   QuestionaryDetail,
-} from 'src/modules/questionaries/professional-questionaries/adapters/out/ProfessionalQuestionary';
+} from 'src/modules/professionals/professional-questionaries/adapters/out/ProfessionalQuestionary';
 import { ReduxStates } from 'src/shared/types/types';
 
 const professionalQuestionarySlice = createSlice({

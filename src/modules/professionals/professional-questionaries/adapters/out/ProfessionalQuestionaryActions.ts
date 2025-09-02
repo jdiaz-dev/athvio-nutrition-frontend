@@ -1,7 +1,7 @@
 import { ApolloError } from '@apollo/client';
 import { useDispatch } from 'react-redux';
 import { apolloClient } from 'src/graphql/ApolloClient';
-import * as ProfessionalQuestionarySlice from 'src/modules/questionaries/professional-questionaries/adapters/in/slicers/ProfessionalQuestionarySlice';
+import * as ProfessionalQuestionarySlice from 'src/modules/professionals/professional-questionaries/adapters/in/slicers/ProfessionalQuestionarySlice';
 import {
   EnableQuestionaryDetailsBody,
   EnableQuestionaryDetailRequest,
@@ -11,12 +11,12 @@ import {
   GetProfessionalQuestionaryResponse,
   CustomQuestionaryDetailsCrudRequest,
   CustomQuestionaryDetailsCrudResponse,
-} from 'src/modules/questionaries/professional-questionaries/adapters/out/ProfessionalQuestionary';
+} from 'src/modules/professionals/professional-questionaries/adapters/out/ProfessionalQuestionary';
 import {
   ENABLE_QUESTIONARY_DETAILS,
   GET_QUESTIONARY,
   CUSTOM_QUESTIONARY_DETAILS_CRUD,
-} from 'src/modules/questionaries/professional-questionaries/adapters/out/ProfessionalQuestionaryQueries';
+} from 'src/modules/professionals/professional-questionaries/adapters/out/ProfessionalQuestionaryQueries';
 
 export function useProfessionalQuestionary() {
   const dispatch = useDispatch();

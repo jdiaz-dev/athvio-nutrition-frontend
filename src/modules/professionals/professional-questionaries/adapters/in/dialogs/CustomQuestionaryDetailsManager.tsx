@@ -1,12 +1,12 @@
 import React, { useContext, useEffect } from 'react';
 import { Button, Card } from '@mui/material';
 
-import CustomQuestionaryDetailItem from 'src/modules/questionaries/professional-questionaries/adapters/in/dialogs/CustomQuestionaryDetailItem';
-import { QuestionaryDetail, QuestionaryGroup } from 'src/modules/questionaries/professional-questionaries/adapters/out/ProfessionalQuestionary';
+import CustomQuestionaryDetailItem from 'src/modules/professionals/professional-questionaries/adapters/in/dialogs/CustomQuestionaryDetailItem';
+import { QuestionaryDetail, QuestionaryGroup } from 'src/modules/professionals/professional-questionaries/adapters/out/ProfessionalQuestionary';
 import MainCard from 'src/shared/components/MainCard/MainCard';
 import { useDispatch } from 'react-redux';
-import * as CustomProfessionalQuestionaryDetailsSlice from 'src/modules/questionaries/professional-questionaries/adapters/in/slicers/CustomQuestionaryDetailsSlice';
-import { useProfessionalQuestionary } from 'src/modules/questionaries/professional-questionaries/adapters/out/ProfessionalQuestionaryActions';
+import * as CustomProfessionalQuestionaryDetailsSlice from 'src/modules/professionals/professional-questionaries/adapters/in/slicers/CustomQuestionaryDetailsSlice';
+import { useProfessionalQuestionary } from 'src/modules/professionals/professional-questionaries/adapters/out/ProfessionalQuestionaryActions';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
 import { generateTemporalId } from 'src/shared/helpers/functions';
 import { ReduxItemtatus, temporalId } from 'src/shared/Consts';

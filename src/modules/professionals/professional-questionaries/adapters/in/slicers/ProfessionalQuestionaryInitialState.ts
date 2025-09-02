@@ -1,4 +1,4 @@
-import { ProfessionalQuestionaryInitialState } from 'src/modules/questionaries/professional-questionaries/adapters/out/ProfessionalQuestionary';
+import { ProfessionalQuestionaryInitialState } from 'src/modules/professionals/professional-questionaries/adapters/out/ProfessionalQuestionary';
 
 export const professionalQuestionaryInitialState: ProfessionalQuestionaryInitialState = {
   professionalQuestionary: {

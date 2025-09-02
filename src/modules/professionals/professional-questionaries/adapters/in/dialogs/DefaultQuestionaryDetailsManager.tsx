@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { Button, Card, List } from '@mui/material';
 
-import { QuestionaryDetail, QuestionaryGroup } from 'src/modules/questionaries/professional-questionaries/adapters/out/ProfessionalQuestionary';
-import EnableQuestionaryDetailItem from 'src/modules/questionaries/professional-questionaries/adapters/in/dialogs/EnableQuestionaryDetailItem';
+import { QuestionaryDetail, QuestionaryGroup } from 'src/modules/professionals/professional-questionaries/adapters/out/ProfessionalQuestionary';
+import EnableQuestionaryDetailItem from 'src/modules/professionals/professional-questionaries/adapters/in/dialogs/EnableQuestionaryDetailItem';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
-import { useProfessionalQuestionary } from 'src/modules/questionaries/professional-questionaries/adapters/out/ProfessionalQuestionaryActions';
+import { useProfessionalQuestionary } from 'src/modules/professionals/professional-questionaries/adapters/out/ProfessionalQuestionaryActions';
 import { ReduxStates } from 'src/shared/types/types';
 import { useSelector } from 'react-redux';
 

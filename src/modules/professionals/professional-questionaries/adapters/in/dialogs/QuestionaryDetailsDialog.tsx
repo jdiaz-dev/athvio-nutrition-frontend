@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Dialog, DialogContent, DialogTitle } from '@mui/material';
-import { QuestionaryGroup } from 'src/modules/questionaries/professional-questionaries/adapters/out/ProfessionalQuestionary';
+import { QuestionaryGroup } from 'src/modules/professionals/professional-questionaries/adapters/out/ProfessionalQuestionary';
 import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
-import * as ProfessionalQuestionarySlice from 'src/modules/questionaries/professional-questionaries/adapters/in/slicers/ProfessionalQuestionarySlice';
+import * as ProfessionalQuestionarySlice from 'src/modules/professionals/professional-questionaries/adapters/in/slicers/ProfessionalQuestionarySlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
-import CustomQuestionaryDetailsManager from 'src/modules/questionaries/professional-questionaries/adapters/in/dialogs/CustomQuestionaryDetailsManager';
-import DefaultQuestionaryDetailsManager from 'src/modules/questionaries/professional-questionaries/adapters/in/dialogs/DefaultQuestionaryDetailsManager';
+import CustomQuestionaryDetailsManager from 'src/modules/professionals/professional-questionaries/adapters/in/dialogs/CustomQuestionaryDetailsManager';
+import DefaultQuestionaryDetailsManager from 'src/modules/professionals/professional-questionaries/adapters/in/dialogs/DefaultQuestionaryDetailsManager';
 import { CustomFieldsGroupNamesEnum } from 'src/shared/Consts';
 
 function QuestionaryDetailsDialog({
