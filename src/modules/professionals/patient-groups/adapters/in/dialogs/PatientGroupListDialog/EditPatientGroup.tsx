@@ -8,7 +8,7 @@ import {
 import { useMutation } from '@apollo/client';
 import { UPDATE_CLIENT_GROUP } from 'src/modules/professionals/patient-groups/adapters/out/PatientGroupQueries';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 
 function EditPatientGroup({
   uuid,

@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid';
 import ProfileTabs from 'src/modules/patients/patient-console/profile/in/components/PatientProfileTabs/ProfileTabs';
 import TabPersonal from 'src/modules/patients/patient-console/profile/in/components/TabPersonal/TabPersonal';
 import { useParams } from 'react-router-dom';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 import { usePatient } from 'src/modules/patients/patients/adapters/out/PatientActions';

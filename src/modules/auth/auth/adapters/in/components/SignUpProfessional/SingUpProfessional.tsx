@@ -8,8 +8,8 @@ import SignUpProfessionalForm from './SignUpProfessionalForm';
 import { useEffect, useRef } from 'react';
 import { useMutation } from '@apollo/client';
 import { SIGN_UP_PROFESSIONAL_SCREEN } from 'src/shared/graphql-queries/WorkflowStreamAuditQueries';
-import SignUpOrSignInWithGoogle from 'src/modules/authentication/authentication/adapters/in/components/SignUpOrSignInWithGoogle';
-import { AuthFormMode } from 'src/modules/authentication/authentication/adapters/in/shared/enum';
+import SignUpOrSignInWithGoogle from 'src/modules/auth/auth/adapters/in/components/SignUpOrSignInWithGoogle';
+import { AuthFormMode } from 'src/modules/auth/auth/adapters/in/shared/enum';
 
 const SingUpProfessional = () => {
   const [fire] = useMutation(SIGN_UP_PROFESSIONAL_SCREEN);

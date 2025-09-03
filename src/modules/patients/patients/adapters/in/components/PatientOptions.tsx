@@ -13,7 +13,7 @@ import { ManagePatientStateRequest, ManagePatientStateResponse } from 'src/modul
 import { PatientStates, PatientStatesActions } from 'src/shared/Consts';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { PatientStateContext } from 'src/modules/patients/patients/adapters/in/components/PatientStateContext';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import { useTranslation } from 'react-i18next';
 
 const StyledMenu = styled((props: MenuProps) => (

@@ -17,7 +17,7 @@ import { usePaginator } from 'src/shared/hooks/usePaginator';
 import Paginator from 'src/shared/components/Paginator';
 import { PatientStates } from 'src/shared/Consts';
 import PatientItem from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/PatientItem';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import { PatientBody } from 'src/modules/patients/patient-console/patient/adapters/out/patient';
 import { useTranslation } from 'react-i18next';
 

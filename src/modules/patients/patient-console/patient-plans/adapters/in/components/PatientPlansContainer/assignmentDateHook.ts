@@ -7,7 +7,7 @@ import { PatientPlanDateExtendedProps } from 'src/modules/patients/patients/adap
 import * as PatientPlanSlice from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/PatientPlanSlice';
 import { ReduxStates } from 'src/shared/types/types';
 import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import dayjs from 'dayjs';
 
 export const assignmentDateHook = (patientId: string) => {

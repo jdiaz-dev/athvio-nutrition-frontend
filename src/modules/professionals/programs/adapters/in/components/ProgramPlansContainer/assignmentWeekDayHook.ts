@@ -1,7 +1,7 @@
 import { EventDropArg, EventInput } from '@fullcalendar/core';
 import { useContext } from 'react';
 import { useSelector } from 'react-redux';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import { usePlan } from 'src/modules/professionals/programs/adapters/out/PlanActions';
 import { ProgramPlanDateExtendedProps } from 'src/modules/professionals/programs/adapters/out/program.types';
 import { ReduxStates } from 'src/shared/types/types';

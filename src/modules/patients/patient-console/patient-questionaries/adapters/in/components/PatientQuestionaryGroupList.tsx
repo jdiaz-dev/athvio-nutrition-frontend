@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 

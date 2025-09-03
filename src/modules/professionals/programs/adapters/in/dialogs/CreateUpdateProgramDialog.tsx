@@ -10,7 +10,7 @@ import { ProgramBody } from 'src/modules/professionals/programs/adapters/out/pro
 import { useProgram } from 'src/modules/professionals/programs/adapters/out/ProgramActions';
 import * as ProgramSlice from 'src/modules/professionals/programs/adapters/in/slicers/ProgramSlice';
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 import { formStyles } from 'src/shared/styles/styles';
 import { openSnackbar } from 'src/shared/components/Snackbar/snackbar';

@@ -31,7 +31,7 @@ import { openSnackbar } from 'src/shared/components/Snackbar/snackbar';
 import { useChat } from 'src/modules/patients/patient-console/chat/adapters/out/ChatActions';
 import { Commenter } from 'src/modules/patients/patient-console/chat/adapters/out/chat.enum';
 import { useParams } from 'react-router-dom';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 
 interface Props {
   user: UserProfile;

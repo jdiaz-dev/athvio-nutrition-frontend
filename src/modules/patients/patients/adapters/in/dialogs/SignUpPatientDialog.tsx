@@ -26,7 +26,7 @@ import MessageDialog from 'src/shared/dialogs/MessageDialog';
 import { Accordion, AccordionDetails, AccordionSummary } from 'src/shared/components/Accordion';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 import { formStyles } from 'src/shared/styles/styles';
 

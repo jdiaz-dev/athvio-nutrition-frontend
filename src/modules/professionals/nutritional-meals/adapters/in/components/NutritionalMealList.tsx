@@ -8,7 +8,7 @@ import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext
 import { GraphQLInput, ReduxStates } from 'src/shared/types/types';
 import { usePaginator } from 'src/shared/hooks/usePaginator';
 import Paginator from 'src/shared/components/Paginator';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import { DatabasesEnum, NutritionalMealDatabasesEnum } from 'src/shared/Consts';
 import DatabaseSelector from 'src/shared/components/databaseSelector/DatabaseSelector';
 import SearcherAndSelectorWrapper from 'src/shared/components/SearcherAndSelector/SearcherAndSelectorWrapper';

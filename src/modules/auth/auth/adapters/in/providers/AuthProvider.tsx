@@ -4,7 +4,7 @@ import {
   getToken,
   getProfessionalId,
   cleanSessionCookies,
-} from 'src/modules/authentication/authentication/adapters/out/cookies';
+} from 'src/modules/auth/auth/adapters/out/cookies';
 import { AuthContext } from '../context/AuthContext';
 import { useAuthentication } from '../../out/authenticationActions';
 import {

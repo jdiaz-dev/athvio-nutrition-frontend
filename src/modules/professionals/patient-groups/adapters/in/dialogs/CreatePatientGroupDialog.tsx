@@ -8,7 +8,7 @@ import {
 import { CREATE_CLIENT_GROUP } from 'src/modules/professionals/patient-groups/adapters/out/PatientGroupQueries';
 import { makeStyles } from 'tss-react/mui';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 
 function CreatePatientGroupDialog({
   openCreatePatientGroupDialog,

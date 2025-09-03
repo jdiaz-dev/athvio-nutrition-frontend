@@ -8,7 +8,7 @@ import {
   UpdateUserInput,
   UpdateUserRequest,
   UpdateUserResponse,
-} from 'src/modules/authentication/users/adapters/out/user';
+} from 'src/modules/auth/users/adapters/out/user';
 
 export function userActions() {
   const getUser = async (input: GetUserInput): Promise<FetchResult<GetUserResponse>> => {

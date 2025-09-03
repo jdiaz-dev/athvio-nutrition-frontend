@@ -6,7 +6,7 @@ import { usePatientPlan } from 'src/modules/patients/patient-console/patient-pla
 import CustomIconWrapper from 'src/shared/components/Icons/CustomIconWrapper';
 import CustomAddIcon from 'src/shared/components/Icons/CustomAddIcon';
 import DuplicatePatientPlan from 'src/modules/patients/patient-console/patient-plans/adapters/in/components/PatientPlansContainer/DuplicateProgramPlan';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import * as MealsListSlice from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/MealsListSlice';
 import { ReduxItemtatus, temporalId } from 'src/shared/Consts';
 

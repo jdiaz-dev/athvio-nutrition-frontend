@@ -3,7 +3,7 @@ import { ReduxStates } from 'src/shared/types/types';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useNotes } from 'src/modules/patients/patient-console/notes/adapters/out/NoteActions';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import NoteItem from 'src/modules/patients/patient-console/notes/adapters/in/components/NoteItem';
 
 function NoteList() {

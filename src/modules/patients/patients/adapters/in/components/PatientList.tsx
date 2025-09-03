@@ -23,7 +23,7 @@ import { usePaginator } from 'src/shared/hooks/usePaginator';
 import Paginator from 'src/shared/components/Paginator';
 import { PatientStates } from 'src/shared/Consts';
 import { PatientStateContext } from 'src/modules/patients/patients/adapters/in/components/PatientStateContext';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import { useTranslation } from 'react-i18next';
 
 function PatientList() {

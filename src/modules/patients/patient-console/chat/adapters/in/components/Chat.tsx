@@ -23,7 +23,7 @@ import ChatMessageSend from 'src/modules/patients/patient-console/chat/adapters/
 import { ThemeMode } from 'src/shared/types/config';
 import { useChat } from 'src/modules/patients/patient-console/chat/adapters/out/ChatActions';
 import { useParams } from 'react-router-dom';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 
 const drawerWidth = 320;
 

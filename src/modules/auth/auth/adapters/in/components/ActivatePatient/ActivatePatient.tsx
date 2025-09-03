@@ -2,9 +2,9 @@ import { Grid, Stack, Typography } from '@mui/material';
 import { Navigate } from 'react-router-dom';
 import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import ActivatePatientForm from 'src/modules/authentication/authentication/adapters/in/components/ActivatePatient/ActivatePatientForm';
-import AuthWrapper from 'src/modules/authentication/authentication/adapters/in/components/authWrapper/AuthWrapper';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import ActivatePatientForm from 'src/modules/auth/auth/adapters/in/components/ActivatePatient/ActivatePatientForm';
+import AuthWrapper from 'src/modules/auth/auth/adapters/in/components/authWrapper/AuthWrapper';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 
 function ActivatePatient() {
   const { user } = useParams();

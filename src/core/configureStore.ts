@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import usersReducer from 'src/modules/authentication/authentication/adapters/in/UserSlice';
+import usersReducer from 'src/modules/auth/auth/adapters/in/UserSlice';
 import nutritionalMealReducers from 'src/modules/professionals/nutritional-meals/adapters/in/slicers/NutritionalMealSlice';
 import programsReducer from 'src/modules/professionals/programs/adapters/in/slicers/ProgramSlice';
 import assignProgramReducer from 'src/modules/professionals/assign-program/in/slicers/AssignProgramSlice';

@@ -7,7 +7,7 @@ import MainCard from 'src/shared/components/MainCard/MainCard';
 import { useDispatch } from 'react-redux';
 import * as CustomProfessionalQuestionaryDetailsSlice from 'src/modules/professionals/professional-questionaries/adapters/in/slicers/CustomQuestionaryDetailsSlice';
 import { useProfessionalQuestionary } from 'src/modules/professionals/professional-questionaries/adapters/out/ProfessionalQuestionaryActions';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import { generateTemporalId } from 'src/shared/helpers/functions';
 import { ReduxItemtatus, temporalId } from 'src/shared/Consts';
 

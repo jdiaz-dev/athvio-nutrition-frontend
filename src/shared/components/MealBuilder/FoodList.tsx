@@ -22,7 +22,7 @@ import { GET_AUTOCOMPLETE_FOOD_NAMES, GET_FOODS } from 'src/shared/components/Me
 import FoodItem from 'src/shared/components/MealBuilder/FoodItem';
 import DatabaseSelector from 'src/shared/components/databaseSelector/DatabaseSelector';
 import { DatabasesEnum, FoodDatabases, SpecialPagination } from 'src/shared/Consts';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import SearcherAndSelectorWrapper from 'src/shared/components/SearcherAndSelector/SearcherAndSelectorWrapper';
 import { useTranslation } from 'react-i18next';
 import { getShortLang } from 'src/shared/internationalization/getShortLang';

@@ -20,7 +20,7 @@ import { Formik } from 'formik';
 import IconButton from 'src/shared/components/IconButton';
 import AnimateButton from '../../shared/AnimateButton';
 import useScriptRef from '../../hooks/useScriptRef';
-import { strengthColor, strengthIndicator } from 'src/modules/authentication/authentication/adapters/in/shared/password-strength';
+import { strengthColor, strengthIndicator } from 'src/modules/auth/auth/adapters/in/shared/password-strength';
 
 // types
 import { StringColorProps } from '../../types/password';
@@ -28,9 +28,9 @@ import { StringColorProps } from '../../types/password';
 // assets
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 import { ApolloError } from 'apollo-boost';
-import { userActions } from 'src/modules/authentication/users/adapters/out/usersActions';
-import { User } from 'src/modules/authentication/users/adapters/out/user';
-import { useAuthentication } from 'src/modules/authentication/authentication/adapters/out/authenticationActions';
+import { userActions } from 'src/modules/auth/users/adapters/out/usersActions';
+import { User } from 'src/modules/auth/users/adapters/out/user';
+import { useAuthentication } from 'src/modules/auth/auth/adapters/out/authenticationActions';
 
 // ============================|| JWT - REGISTER ||============================ //
 

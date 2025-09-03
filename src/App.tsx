@@ -10,12 +10,12 @@ import NutritionalMealsContainer from 'src/modules/professionals/nutritional-mea
 import ProgramPlansContainer from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/ProgramPlansContainer';
 import PrivateRoute from './core/router/PrivateRoute';
 import PublicRoute from './core/router/PublicRoute';
-import SignIn from './modules/authentication/authentication/adapters/in/components/singIn/SignIn';
-import SignUpProfessional from './modules/authentication/authentication/adapters/in/components/SignUpProfessional/SingUpProfessional';
+import SignIn from './modules/auth/auth/adapters/in/components/singIn/SignIn';
+import SignUpProfessional from './modules/auth/auth/adapters/in/components/SignUpProfessional/SingUpProfessional';
 import PatientConsoleContainer from 'src/modules/patients/patient-console/patient-console/in/components/PatientConsoleContainer';
 import QuestionaryDetailContainer from 'src/modules/professionals/professional-questionaries/adapters/in/components/QuestionaryDetailContainer';
-import ActivatePatient from 'src/modules/authentication/authentication/adapters/in/components/ActivatePatient/ActivatePatient';
-import Congratulations from 'src/modules/authentication/authentication/adapters/in/components/Congratulations';
+import ActivatePatient from 'src/modules/auth/auth/adapters/in/components/ActivatePatient/ActivatePatient';
+import Congratulations from 'src/modules/auth/auth/adapters/in/components/Congratulations';
 import PatientPlansCalendar from 'src/modules/patients/patient-console/patient-plans/adapters/in/components/PatientPlansContainer/PatientPlansCalendar';
 import PlanificationContainer from 'src/modules/patients/patient-console/planifications/adapters/in/components/PlanificationContainer';
 import NotesContainer from 'src/modules/patients/patient-console/notes/adapters/in/components/NotesContainer';

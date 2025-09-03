@@ -3,7 +3,7 @@ import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { createClient } from 'graphql-ws';
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
-import { getToken } from 'src/modules/authentication/authentication/adapters/out/cookies';
+import { getToken } from 'src/modules/auth/auth/adapters/out/cookies';
 import { getMainDefinition } from '@apollo/client/utilities';
 import createUploadLink from 'apollo-upload-client/createUploadLink.mjs';
 

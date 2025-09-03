@@ -7,7 +7,7 @@ import { ManagePatientGroupEnum } from 'src/shared/Consts';
 import { PatientGroup } from 'src/shared/types/types';
 import { PatientGroupsContext } from 'src/modules/patients/patients/adapters/in/components/PatientsContainer';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import { useTranslation } from 'react-i18next';
 
 function ManagePatientGroup(props: { patient: string; assignedGroups: PatientGroup[] }) {

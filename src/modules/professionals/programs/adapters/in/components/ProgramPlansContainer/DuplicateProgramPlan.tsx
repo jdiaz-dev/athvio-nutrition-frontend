@@ -3,7 +3,7 @@ import { usePlan } from 'src/modules/professionals/programs/adapters/out/PlanAct
 import { ReduxStates } from 'src/shared/types/types';
 import { useSelector } from 'react-redux';
 import CustomPasteIcon from 'src/shared/components/Icons/CustomPasteIcon';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 
 function DuplicateProgramPlan({ newWeek, newDay }: { newWeek: number; newDay: number }) {
   const authContext = useContext(AuthContext);

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { ReduxStates } from 'src/shared/types/types';
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 import { formStyles } from 'src/shared/styles/styles';
 import { useNotes } from 'src/modules/patients/patient-console/notes/adapters/out/NoteActions';

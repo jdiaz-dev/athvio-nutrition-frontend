@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import CustomPasteIcon from 'src/shared/components/Icons/CustomPasteIcon';
 import { usePatientPlan } from 'src/modules/patients/patient-console/patient-plans/adapters/out/PatientPlanActions';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 
 function DuplicatePatientPlan({ patient, assignedDate }: { patient: string; assignedDate: string }) {
   const authContext = useContext(AuthContext);

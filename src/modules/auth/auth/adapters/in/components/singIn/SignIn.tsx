@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 import AuthWrapper from '../authWrapper/AuthWrapper';
 import SignInForm from './SignInForm';
-import SignUpOrSignInWithGoogle from 'src/modules/authentication/authentication/adapters/in/components/SignUpOrSignInWithGoogle';
-import { AuthFormMode } from 'src/modules/authentication/authentication/adapters/in/shared/enum';
+import SignUpOrSignInWithGoogle from 'src/modules/auth/auth/adapters/in/components/SignUpOrSignInWithGoogle';
+import { AuthFormMode } from 'src/modules/auth/auth/adapters/in/shared/enum';
 
 const SignIn = () => {
   return (

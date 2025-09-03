@@ -1,4 +1,4 @@
-import { User } from 'src/modules/authentication/users/adapters/out/user';
+import { User } from 'src/modules/auth/users/adapters/out/user';
 
 export type CredentialsSignIn = {
   email: string;

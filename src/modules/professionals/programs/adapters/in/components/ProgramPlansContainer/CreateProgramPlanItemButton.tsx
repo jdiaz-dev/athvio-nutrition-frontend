@@ -7,7 +7,7 @@ import { usePlan } from 'src/modules/professionals/programs/adapters/out/PlanAct
 import DuplicateProgramPlan from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/DuplicateProgramPlan';
 import CustomAddIcon from 'src/shared/components/Icons/CustomAddIcon';
 import CustomIconWrapper from 'src/shared/components/Icons/CustomIconWrapper';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import { CreateProgramPlanBody } from 'src/modules/professionals/programs/adapters/out/Plan.types';
 import * as MealsListSlice from 'src/modules/professionals/programs/adapters/in/slicers/MealsListSlice';
 import { ReduxItemtatus, temporalId } from 'src/shared/Consts';

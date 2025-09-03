@@ -22,7 +22,7 @@ import { ReduxStates } from 'src/shared/types/types';
 import { useSelector } from 'react-redux';
 import { ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { usePatient } from 'src/modules/patients/patients/adapters/out/PatientActions';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 
 // styles & constant
 const ITEM_HEIGHT = 48;

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import { PlanificationBody } from 'src/modules/patients/patient-console/planifications/helpers/planifications';
 import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
 import CreateUpdatePlanificationDialog from 'src/modules/patients/patient-console/planifications/adapters/in/dialogs/CreateUpdatePlanificationDialog';

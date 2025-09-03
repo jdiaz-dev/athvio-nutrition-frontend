@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PlanBucket from 'src/shared/components/PlanBucket/PlanBucket';
 import CopyPatientPlan from 'src/modules/patients/patient-console/patient-plans/adapters/in/components/PatientPlansContainer/CopyPatientPlan';
 import CustomTrashIcon from 'src/shared/components/Icons/CustomTrashIcon';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import { usePatientPlanMeal } from 'src/modules/patients/patient-console/patient-plans/adapters/out/PlanMealActions';
 import * as MealsListSlice from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/MealsListSlice';
 

@@ -9,7 +9,7 @@ import {
 } from 'src/modules/professionals/patient-groups/adapters/out/PatientGroup.types';
 import { DELETE_CLIENT_GROUP } from 'src/modules/professionals/patient-groups/adapters/out/PatientGroupQueries';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 
 function DeletePatientGroup({
   patientGroup,

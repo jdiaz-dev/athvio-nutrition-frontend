@@ -9,7 +9,7 @@ import { GET_CLIENT_GROUPS } from 'src/modules/professionals/patient-groups/adap
 import DeletePatientGroup from 'src/modules/professionals/patient-groups/adapters/in/dialogs/PatientGroupListDialog/DeletePatientGroup';
 import EditPatientGroup from 'src/modules/professionals/patient-groups/adapters/in/dialogs/PatientGroupListDialog/EditPatientGroup';
 import { PatientGroupsContext } from 'src/modules/patients/patients/adapters/in/components/PatientsContainer';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
 
 function PatientGroupListDialog({

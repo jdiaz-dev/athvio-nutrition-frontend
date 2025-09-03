@@ -21,7 +21,7 @@ import { useProgram } from 'src/modules/professionals/programs/adapters/out/Prog
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import { assignmentWeekDayHook } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/assignmentWeekDayHook';
 import { calendarConfigurationHook } from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/calendarConfigurationHook';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import { Box } from '@mui/system';
 import CalendarStyled from 'src/shared/components/CalendarStyled/CalendarStyled';
 import { EventSourceInput } from '@fullcalendar/core';

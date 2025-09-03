@@ -1,8 +1,8 @@
 // GoogleButton.tsx
 import { useContext, useEffect, useRef } from 'react';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
-import { useDetectedLanguage } from 'src/modules/authentication/authentication/adapters/in/hooks/useDetectedLanguage';
-import { AuthFormMode } from 'src/modules/authentication/authentication/adapters/in/shared/enum';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
+import { useDetectedLanguage } from 'src/modules/auth/auth/adapters/in/hooks/useDetectedLanguage';
+import { AuthFormMode } from 'src/modules/auth/auth/adapters/in/shared/enum';
 
 export default function SignUpOrSignInWithGoogle({ authFormMode }: { authFormMode: AuthFormMode }) {
   const { signUpWithGoogleHandler, signInWithGoogleHandler } = useContext(AuthContext);

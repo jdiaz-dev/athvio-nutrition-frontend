@@ -10,7 +10,7 @@ import PlanCaloriesForm, {
   PatientPlanData,
 } from 'src/modules/patients/patient-console/planifications/adapters/in/dialogs/PlanCaloriesForm';
 import MacroForm, { MacroPercents } from 'src/modules/patients/patient-console/planifications/adapters/in/dialogs/MacroForm';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 import { formStyles } from 'src/shared/styles/styles';
 import CancelAndSaveButtons from 'src/shared/components/CancelAndSaveButtons';

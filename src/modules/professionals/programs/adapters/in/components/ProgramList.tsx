@@ -15,7 +15,7 @@ import ProgramItem from 'src/modules/professionals/programs/adapters/in/componen
 import { useProgram } from 'src/modules/professionals/programs/adapters/out/ProgramActions';
 import Paginator from 'src/shared/components/Paginator';
 import { usePaginator } from 'src/shared/hooks/usePaginator';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import { useTranslation } from 'react-i18next';
 
 // eslint-disable-next-line prettier/prettier

@@ -5,7 +5,7 @@ import CancelAndSaveButtons from 'src/shared/components/CancelAndSaveButtons';
 import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 import DatabaseSelector from 'src/shared/components/databaseSelector/DatabaseSelector';
 import { useNutritionalMeal } from 'src/modules/professionals/nutritional-meals/adapters/out/NutritionalMealActions';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import { DatabasesEnum, defaultMealTagKey, NutritionalMealDatabasesEnum } from 'src/shared/Consts';
 import { ReduxStates } from 'src/shared/types/types';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';

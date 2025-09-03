@@ -8,7 +8,7 @@ import { SxProps } from '@mui/system';
 import Logo from './LogoMain';
 import LogoIcon from './LogoIcon';
 // import { APP_DEFAULT_PATH } from 'config';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import { useContext } from 'react';
 
 // ==============================|| MAIN LOGO ||============================== //

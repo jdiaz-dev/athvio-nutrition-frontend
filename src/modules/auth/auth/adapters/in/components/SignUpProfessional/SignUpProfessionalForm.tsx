@@ -29,7 +29,7 @@ import {
   strengthColor,
   strengthIndicator,
   StringColorProps,
-} from 'src/modules/authentication/authentication/adapters/in/shared/password-strength';
+} from 'src/modules/auth/auth/adapters/in/shared/password-strength';
 
 // types
 import { SnackbarProps } from 'src/shared/types/snackbar'; //TODO: remove it?
@@ -39,7 +39,7 @@ import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 import CountryCodeSelect from 'src/shared/components/Country/CountryCodeSelect';
 import { SignUpProfessionalModel } from '../../../out/authentication.types';
 import { ApolloError } from 'apollo-boost';
-import { useDetectedLanguage } from 'src/modules/authentication/authentication/adapters/in/hooks/useDetectedLanguage';
+import { useDetectedLanguage } from 'src/modules/auth/auth/adapters/in/hooks/useDetectedLanguage';
 
 const SignUpProfessionalForm = () => {
   const { isAuthenticated, signUpProfessionalHandler } = useContext(AuthContext);

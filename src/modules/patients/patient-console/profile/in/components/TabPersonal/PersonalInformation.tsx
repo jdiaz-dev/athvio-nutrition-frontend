@@ -18,7 +18,7 @@ import { ReduxStates } from 'src/shared/types/types';
 import { useSelector } from 'react-redux';
 import { CardHeader } from '@mui/material';
 import useCountries from 'src/shared/components/Country/useCountries';
-import { userActions } from 'src/modules/authentication/users/adapters/out/usersActions';
+import { userActions } from 'src/modules/auth/users/adapters/out/usersActions';
 
 // styles & constant
 const ITEM_HEIGHT = 48;

@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import CreateUpdateNoteDialog from 'src/modules/patients/patient-console/notes/adapters/in/dialogs/CreateUpdateNoteDialog';
 import { useNotes } from 'src/modules/patients/patient-console/notes/adapters/out/NoteActions';
 import { useParams } from 'react-router-dom';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
 import MessageDialog from 'src/shared/dialogs/MessageDialog';
 import dayjs from 'dayjs';

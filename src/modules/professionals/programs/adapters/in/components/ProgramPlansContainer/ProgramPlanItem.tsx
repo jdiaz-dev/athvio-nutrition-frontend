@@ -10,7 +10,7 @@ import { PlanDayInfo, ReduxStates } from 'src/shared/types/types';
 import CustomTrashIcon from 'src/shared/components/Icons/CustomTrashIcon';
 import PlanBucket from 'src/shared/components/PlanBucket/PlanBucket';
 import CopyProgramPlan from 'src/modules/professionals/programs/adapters/in/components/ProgramPlansContainer/CopyProgramPlan';
-import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
+import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import * as MealsListSlice from 'src/modules/professionals/programs/adapters/in/slicers/MealsListSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { usePlanMeal } from 'src/modules/professionals/programs/adapters/out/MealActions';
