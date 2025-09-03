@@ -19,7 +19,7 @@ import Congratulations from 'src/modules/authentication/authentication/adapters/
 import PatientPlansCalendar from 'src/modules/patients/patient-console/patient-plans/adapters/in/components/PatientPlansContainer/PatientPlansCalendar';
 import PlanificationContainer from 'src/modules/patients/patient-console/planifications/adapters/in/components/PlanificationContainer';
 import NotesContainer from 'src/modules/patients/patient-console/notes/adapters/in/components/NotesContainer';
-import PatientQuestionaryContainer from 'src/modules/questionaries/patient-questionaries/adapters/in/components/PatientQuestionaryContainer';
+import PatientQuestionaryContainer from 'src/modules/patients/patient-console/patient-questionaries/adapters/in/components/PatientQuestionaryContainer';
 import PatientProfileContainer from 'src/modules/patients/patient-console/profile/in/components/PatientProfileContainer';
 import LandingPage from 'src/core/components/LandingPage/LandingPage';
 import Lab from 'src/modules/Lab';

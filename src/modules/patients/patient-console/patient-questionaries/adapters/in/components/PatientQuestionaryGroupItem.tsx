@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Box } from '@mui/system';
 import Paper from '@mui/material/Paper';
-import { PatientQuestionaryGroup } from 'src/modules/questionaries/patient-questionaries/adapters/out/PatientQuestionary';
-import PatientQuestionaryDetailItem from 'src/modules/questionaries/patient-questionaries/adapters/in/components/PatientQuestionaryDetailItem';
+import { PatientQuestionaryGroup } from 'src/modules/patients/patient-console/patient-questionaries/adapters/out/PatientQuestionary';
+import PatientQuestionaryDetailItem from 'src/modules/patients/patient-console/patient-questionaries/adapters/in/components/PatientQuestionaryDetailItem';
 import { Typography } from '@mui/material';
-import * as PatientQuestionarySlice from 'src/modules/questionaries/patient-questionaries/adapters/in/slicers/PatientQuestionarySlice';
+import * as PatientQuestionarySlice from 'src/modules/patients/patient-console/patient-questionaries/adapters/in/slicers/PatientQuestionarySlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 

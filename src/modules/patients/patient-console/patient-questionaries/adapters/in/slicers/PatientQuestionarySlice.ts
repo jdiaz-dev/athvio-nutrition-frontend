@@ -1,10 +1,10 @@
 import { combineReducers, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { patientQuestionaryInitialState } from 'src/modules/questionaries/patient-questionaries/adapters/in/slicers/PatientQuestionaryInitialState';
+import { patientQuestionaryInitialState } from 'src/modules/patients/patient-console/patient-questionaries/adapters/in/slicers/PatientQuestionaryInitialState';
 import {
   PatientQuestionaryBody,
   PatientQuestionaryDetail,
   PatientQuestionaryGroup,
-} from 'src/modules/questionaries/patient-questionaries/adapters/out/PatientQuestionary';
+} from 'src/modules/patients/patient-console/patient-questionaries/adapters/out/PatientQuestionary';
 
 const patientQuestionaryGroupsSlice = createSlice({
   name: 'patientQuestionaryGroups',

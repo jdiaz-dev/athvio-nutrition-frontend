@@ -1,4 +1,4 @@
-import { PatientQuestionaryInitialState } from 'src/modules/questionaries/patient-questionaries/adapters/out/PatientQuestionary';
+import { PatientQuestionaryInitialState } from 'src/modules/patients/patient-console/patient-questionaries/adapters/out/PatientQuestionary';
 
 export const patientQuestionaryInitialState: PatientQuestionaryInitialState = {
   patientQuestionary: {

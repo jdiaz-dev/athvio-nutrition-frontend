@@ -6,8 +6,8 @@ import {
   SEND_PATIENT_QUESTIONARY,
   UPDATE_ANSWERS,
   UPDATE_ANSWERS_AND_ADDITIONAL_NOTES,
-} from 'src/modules/questionaries/patient-questionaries/adapters/out/PatientQuestionaryQueries';
-import * as PatientQuestionarySlice from 'src/modules/questionaries/patient-questionaries/adapters/in/slicers/PatientQuestionarySlice';
+} from 'src/modules/patients/patient-console/patient-questionaries/adapters/out/PatientQuestionaryQueries';
+import * as PatientQuestionarySlice from 'src/modules/patients/patient-console/patient-questionaries/adapters/in/slicers/PatientQuestionarySlice';
 
 import {
   GetPatientQuestionaryBody,
@@ -22,7 +22,7 @@ import {
   UpdateAnswersInput,
   UpdatePatientQuestionaryAnswersRequest,
   UpdatePatientQuestionaryAnswersResponse,
-} from 'src/modules/questionaries/patient-questionaries/adapters/out/PatientQuestionary';
+} from 'src/modules/patients/patient-console/patient-questionaries/adapters/out/PatientQuestionary';
 
 export function usePatientQuestionary() {
   const dispatch = useDispatch();

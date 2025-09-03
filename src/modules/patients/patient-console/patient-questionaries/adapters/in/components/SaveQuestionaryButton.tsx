@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { AuthContext } from 'src/modules/authentication/authentication/adapters/in/context/AuthContext';
-import { usePatientQuestionary } from 'src/modules/questionaries/patient-questionaries/adapters/out/PatientQuestionaryActions';
+import { usePatientQuestionary } from 'src/modules/patients/patient-console/patient-questionaries/adapters/out/PatientQuestionaryActions';
 import { openSnackbar } from 'src/shared/components/Snackbar/snackbar';
 import { SnackbarProps } from 'src/shared/types/snackbar';
 import { ReduxStates } from 'src/shared/types/types';

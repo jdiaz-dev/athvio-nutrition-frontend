@@ -9,7 +9,7 @@ import { ProfessionalQuestionaryInitialState } from 'src/modules/professionals/p
 import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 import { NutritionBuilderInitialState } from 'src/modules/nutrition-builder/adapters/out/nutritionBuilder';
 import { NotesInitialState } from 'src/modules/patients/patient-console/notes/helpers/notes';
-import { PatientQuestionaryInitialState } from 'src/modules/questionaries/patient-questionaries/adapters/out/PatientQuestionary';
+import { PatientQuestionaryInitialState } from 'src/modules/patients/patient-console/patient-questionaries/adapters/out/PatientQuestionary';
 import { PatientInitialState } from 'src/modules/patients/patients/adapters/out/patient.types';
 import { FoodAnalyzerInitialState } from 'src/modules/food-analyzers/adapters/out/FoodAnalyzer';
 import { PlanificationInitialState } from 'src/modules/patients/patient-console/planifications/helpers/planifications';

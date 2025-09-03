@@ -1,8 +1,8 @@
 import React from 'react';
 import { Divider } from '@mui/material';
-import { PatientQuestionaryDetail } from 'src/modules/questionaries/patient-questionaries/adapters/out/PatientQuestionary';
-import QuestionaryDetailFieldEditor from 'src/modules/questionaries/patient-questionaries/adapters/in/components/QuestionaryDetailFieldEditor';
-import * as PatientQuestionarySlice from 'src/modules/questionaries/patient-questionaries/adapters/in/slicers/PatientQuestionarySlice';
+import { PatientQuestionaryDetail } from 'src/modules/patients/patient-console/patient-questionaries/adapters/out/PatientQuestionary';
+import QuestionaryDetailFieldEditor from 'src/modules/patients/patient-console/patient-questionaries/adapters/in/components/QuestionaryDetailFieldEditor';
+import * as PatientQuestionarySlice from 'src/modules/patients/patient-console/patient-questionaries/adapters/in/slicers/PatientQuestionarySlice';
 
 function PatientQuestionaryDetailItem({ questionaryDetail }: { questionaryDetail: PatientQuestionaryDetail }) {
   return (

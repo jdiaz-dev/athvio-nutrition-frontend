@@ -3,9 +3,9 @@ import { AuthContext } from 'src/modules/authentication/authentication/adapters/
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 
-import { usePatientQuestionary } from 'src/modules/questionaries/patient-questionaries/adapters/out/PatientQuestionaryActions';
+import { usePatientQuestionary } from 'src/modules/patients/patient-console/patient-questionaries/adapters/out/PatientQuestionaryActions';
 import { useParams } from 'react-router-dom';
-import PatientQuestionaryGroupItem from 'src/modules/questionaries/patient-questionaries/adapters/in/components/PatientQuestionaryGroupItem';
+import PatientQuestionaryGroupItem from 'src/modules/patients/patient-console/patient-questionaries/adapters/in/components/PatientQuestionaryGroupItem';
 import { Box } from '@mui/system';
 import GenericContainerWrapper from 'src/shared/components/wrappers/GenericContainerWrapper';
 
