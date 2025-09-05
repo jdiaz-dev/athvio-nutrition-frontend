@@ -46,10 +46,6 @@ export default function PlanCaloriesForm({ patientInformation }: Props) {
       <CardHeader title="Calorías del plan" />
       <CardContent>
         <Stack spacing={2}>
-          <Alert severity="info" variant="outlined">
-            Modificaciones aquí sólo sirven como simulación, pero no se guardan en el expediente.
-          </Alert>
-
           {/* Ver datos del paciente */}
           <Stack direction="row" alignItems="center" justifyContent="space-between">
             <Typography variant="subtitle2">Ver datos del paciente</Typography>
@@ -114,7 +110,7 @@ export default function PlanCaloriesForm({ patientInformation }: Props) {
           {/* GEB / GET sólo UI (sin fórmula) */}
           <Stack spacing={1}>
             <Typography variant="body2">
-              GEB: <b>— kcal</b>
+              Gasto Energético Basal (GEB): <b>0 kcal</b>
             </Typography>
 
             <Stack direction="row" alignItems="center" spacing={1}>
@@ -125,37 +121,15 @@ export default function PlanCaloriesForm({ patientInformation }: Props) {
               {/* interruptor “Intensa” a modo de atajo */}
               <Tooltip title="Atajo: marca 'Intensa' = 1.78">
                 <Stack direction="row" alignItems="center" spacing={1}>
-                  <Switch
-                    checked={patientInformation.physicActivityFactor === 1.78}
-                    color="primary"
-                    inputProps={{ 'aria-label': 'Intensa' }}
-                  />
                   <Typography variant="body2">Intensa</Typography>
                 </Stack>
               </Tooltip>
-
-              <TextField
-                value={patientInformation.physicActivityFactor}
-                type="number"
-                size="small"
-                inputProps={{ step: 0.01, min: 1 }}
-                sx={{ width: 110, ml: 'auto' }}
-              />
             </Stack>
 
             <Typography variant="body2">
-              Calorías totales (GET): <b>— kcal</b>
+              Calorías totales (GET): <b>0 kcal</b>
             </Typography>
           </Stack>
-
-          <TextField
-            label="Calorías para tu plan"
-            value={patientInformation.calories}
-            type="number"
-            inputProps={{ min: 0, step: 10 }}
-            fullWidth
-            InputProps={{ endAdornment: <InputAdornment position="end">kcal</InputAdornment> }}
-          />
         </Stack>
       </CardContent>
     </Card>
