@@ -13,6 +13,7 @@ import ProfessionalQuestionaryReducer from 'src/modules/professionals/profession
 import PatientQuestionaryReducer from 'src/modules/patients/patient-console/patient-questionaries/adapters/in/slicers/PatientQuestionarySlice';
 import FoodAnalyzerReducer from 'src/modules/food-analyzers/adapters/in/slicers/FoodAnalyzerSlice';
 import NutritionBuilderReducer from 'src/modules/nutrition-builder/adapters/in/slicers/NutritionBuilderSlice';
+import FormulaReducer from 'src/modules/backoffice/formulas/adapters/in/slicers/FormulaSlice';
 
 import thunk from 'redux-thunk';
 
@@ -34,6 +35,7 @@ export default configureStore({
     professionalQuestionary: ProfessionalQuestionaryReducer,
     patientQuestionary: PatientQuestionaryReducer,
     foodAnalyzers: FoodAnalyzerReducer,
+    formula: FormulaReducer,
     nutritionBuilder: NutritionBuilderReducer,
   },
   devTools: true,
