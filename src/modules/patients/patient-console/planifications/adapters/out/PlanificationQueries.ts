@@ -13,10 +13,13 @@ export const CREATE_PLANIFICATION = gql`
         physicActivityFactor
       }
       configuredMacros {
-        protein
-        carbs
-        fat
-        calories
+        proteinInPercentage
+        carbsInPercentage
+        fatInPercentage
+        totalProtein
+        totalCarbs
+        totalFat
+        totalCalories
       }
     }
   }
@@ -35,10 +38,13 @@ export const GET_PLANIFICATIONS = gql`
         physicActivityFactor
       }
       configuredMacros {
-        protein
-        carbs
-        fat
-        calories
+        proteinInPercentage
+        carbsInPercentage
+        fatInPercentage
+        totalProtein
+        totalCarbs
+        totalFat
+        totalCalories
       }
       createdAt
     }
