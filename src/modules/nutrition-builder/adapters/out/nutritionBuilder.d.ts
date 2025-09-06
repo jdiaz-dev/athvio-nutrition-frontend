@@ -8,17 +8,17 @@ import { PatientPlanBody } from 'src/modules/patients/patient-console/patient-pl
 
 export type DiseaseCauseBody = {
   uuid: string;
-  name: string;
+  spanishName: string;
 };
 
 export type DiseaseBody = {
   uuid: string;
-  name: string;
+  spanishName: string;
 };
 
 export type NutritionalPreferenceBody = {
   uuid: string;
-  name: string;
+  spanishName: string;
 };
 
 export type GetProgramBuilderParametersResponse = {

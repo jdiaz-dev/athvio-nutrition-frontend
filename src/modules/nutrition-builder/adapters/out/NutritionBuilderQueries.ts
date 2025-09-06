@@ -4,15 +4,15 @@ export const GET_PROGRAM_BUILDER = gql`
   query _getProgramBuilderParameters {
     getAllDiseases {
       uuid
-      name
+      spanishName
     }
     getAllDiseaseCauses {
       uuid
-      name
+      spanishName
     }
     getAllNutritionalPreferences {
       uuid
-      name
+      spanishName
     }
   }
 `;

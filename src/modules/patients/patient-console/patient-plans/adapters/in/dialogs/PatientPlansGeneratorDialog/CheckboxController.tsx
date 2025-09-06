@@ -6,7 +6,7 @@ import { AnyAction } from 'redux';
 import { NutriBuilderParamStatus } from 'src/shared/Consts';
 
 type ParamStatus = { uuid: string; status: NutriBuilderParamStatus };
-function CheckboxController({ item, reducer }: { item: { uuid: string; name: string }; reducer: (param: ParamStatus) => AnyAction }) {
+function CheckboxController({ item, reducer }: { item: { uuid: string; spanishName: string }; reducer: (param: ParamStatus) => AnyAction }) {
   const dispatch = useDispatch();
   const [checked, setChecked] = useState(false);
 
@@ -23,7 +23,7 @@ function CheckboxController({ item, reducer }: { item: { uuid: string; name: str
     <FormControlLabel
       style={{ width: '13%' }}
       control={<Checkbox checked={checked} onChange={handleChange} />}
-      label={item.name}
+      label={item.spanishName}
       value={item.uuid}
     />
   );
