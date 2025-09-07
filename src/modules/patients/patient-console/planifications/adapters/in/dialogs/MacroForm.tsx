@@ -64,40 +64,58 @@ export default function MacroForm() {
       <CardContent>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={4}>
-            <TextField {...field('Carbohidratos', 'carbsInPercentage')} />
-          </Grid>
-          <Grid item xs={12} sm={4}>
             <TextField {...field('Proteína', 'proteinInPercentage')} />
           </Grid>
           <Grid item xs={12} sm={4}>
+            <TextField label="g / peso (kg)" value={0} />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <TextField label="total (g)" value={0} />
+          </Grid>
+
+          <Grid item xs={12}></Grid>
+        </Grid>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={4}>
+            <TextField {...field('Carbohidratos', 'carbsInPercentage')} />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <TextField />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <TextField />
+          </Grid>
+
+          <Grid item xs={12}></Grid>
+        </Grid>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={4}>
             <TextField {...field('Grasas', 'fatInPercentage')} />
           </Grid>
-
-          <Grid item xs={12}>
-            <Stack spacing={1}>
-              <Typography variant="body2" color={over ? 'error.main' : 'text.secondary'}>
-                {over ? `Te pasaste por ${Math.abs(remaining).toFixed(1)}%.` : `Restante: ${remaining.toFixed(1)}%.`}
-              </Typography>
-              <Box>
-                <LinearProgress variant="determinate" value={Math.min(100, total)} sx={{ height: 10, borderRadius: 5 }} />
-                <Stack direction="row" justifyContent="space-between" sx={{ mt: 0.5 }}>
-                  <Typography variant="caption">Carbs {planificationState.configuredMacros.carbsInPercentage}%</Typography>
-                  <Typography variant="caption">Prot {planificationState.configuredMacros.proteinInPercentage}%</Typography>
-                  <Typography variant="caption">Grasa {planificationState.configuredMacros.fatInPercentage}%</Typography>
-                  <Typography variant="caption">Total {total.toFixed(1)}%</Typography>
-                </Stack>
-              </Box>
-            </Stack>
+          <Grid item xs={12} sm={4}>
+            <TextField />
           </Grid>
+          <Grid item xs={12} sm={4}>
+            <TextField />
+          </Grid>
+          <Grid item xs={12}></Grid>
+        </Grid>
 
-          <Grid item xs={12}>
-            {/* <Button variant="contained" size="large" fullWidth disabled={over || total !== 100} onClick={() => onSubmit?.(values)}>
-                Siguiente paso
-              </Button> */}
-            <Typography variant="caption" color="text.secondary" display="block" sx={{ mt: 0.5 }}>
-              El botón se habilita cuando la suma es exactamente 100%.
+        <Grid item xs={12}>
+          <Stack spacing={1}>
+            <Typography variant="body2" color={over ? 'error.main' : 'text.secondary'}>
+              {over ? `Te pasaste por ${Math.abs(remaining).toFixed(1)}%.` : `Restante: ${remaining.toFixed(1)}%.`}
             </Typography>
-          </Grid>
+            <Box>
+              <LinearProgress variant="determinate" value={Math.min(100, total)} sx={{ height: 10, borderRadius: 5 }} />
+              <Stack direction="row" justifyContent="space-between" sx={{ mt: 0.5 }}>
+                <Typography variant="caption">Carbs {planificationState.configuredMacros.carbsInPercentage}%</Typography>
+                <Typography variant="caption">Prot {planificationState.configuredMacros.proteinInPercentage}%</Typography>
+                <Typography variant="caption">Grasa {planificationState.configuredMacros.fatInPercentage}%</Typography>
+                <Typography variant="caption">Total {total.toFixed(1)}%</Typography>
+              </Stack>
+            </Box>
+          </Stack>
         </Grid>
       </CardContent>
     </Card>
