@@ -37,12 +37,7 @@ const planificationSlice = createSlice({
       state = action.payload;
       return state;
     },
-    modifyPatientInformationAndCalories: (state, action: PayloadAction<PatientInformation & { calories: number }>) => {
-      const { calories, ...rest } = action.payload;
-      state.patientInformation = rest;
-      state.configuredMacros.calories = calories;
-      return state;
-    },
+
     modifyWeight: (state, action: PayloadAction<number>) => {
       state.patientInformation.weight = action.payload;
       return state;
@@ -64,6 +59,18 @@ const planificationSlice = createSlice({
       state.patientInformation.physicActivityName = action.payload.physicActivityName;
       return state;
     },
+    modifyBasalEnergyRate: (state, action: PayloadAction<number>) => {
+      state.configuredMacros.basalEnergyRate = action.payload;
+      return state;
+    },
+    modifyTotalCalories: (state, action: PayloadAction<number>) => {
+      state.configuredMacros.totalCalories = action.payload;
+      return state;
+    },
+    modifyPlanCalories: (state, action: PayloadAction<number>) => {
+      state.configuredMacros.planCalories = action.payload;
+      return state;
+    },
     modifyCalculatedMacros: (state, action: PayloadAction<Omit<CalculatedMacros, 'calories'>>) => {
       state.configuredMacros = { ...state.configuredMacros, ...action.payload };
       return state;
@@ -76,13 +83,15 @@ const planificationSlice = createSlice({
 });
 export const {
   initializePlanification,
-  modifyPatientInformationAndCalories,
   modifyCalculatedMacros,
   modifyWeight,
   modifyHeight,
   modifyAge,
   modifyGender,
   modifyActivityFactor,
+  modifyBasalEnergyRate,
+  modifyPlanCalories,
+  modifyTotalCalories,
   resetPlanification,
 } = planificationSlice.actions;
 

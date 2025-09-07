@@ -19,7 +19,9 @@ export const CREATE_PLANIFICATION = gql`
         totalProtein
         totalCarbs
         totalFat
+        basalEnergyRate
         totalCalories
+        planCalories
       }
     }
   }
@@ -44,7 +46,9 @@ export const GET_PLANIFICATIONS = gql`
         totalProtein
         totalCarbs
         totalFat
+        basalEnergyRate
         totalCalories
+        planCalories
       }
       createdAt
     }
@@ -64,10 +68,15 @@ export const UPDATE_PLANIFICATION = gql`
         physicActivityFactor
       }
       configuredMacros {
-        protein
-        carbs
-        fat
-        calories
+        proteinInPercentage
+        carbsInPercentage
+        fatInPercentage
+        totalProtein
+        totalCarbs
+        totalFat
+        basalEnergyRate
+        totalCalories
+        planCalories
       }
       createdAt
     }

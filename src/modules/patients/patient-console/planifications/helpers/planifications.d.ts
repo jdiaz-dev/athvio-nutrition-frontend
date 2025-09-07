@@ -8,10 +8,15 @@ export type PatientInformation = {
 };
 
 export type CalculatedMacros = {
-  protein: number;
-  carbs: number;
-  fat: number;
-  calories: number;
+  proteinInPercentage: number;
+  carbsInPercentage: number;
+  fatInPercentage: number;
+  totalProtein: number;
+  totalCarbs: number;
+  totalFat: number;
+  basalEnergyRate: number;
+  totalCalories: number;
+  planCalories: number;
 };
 
 export type PlanificationBody = {

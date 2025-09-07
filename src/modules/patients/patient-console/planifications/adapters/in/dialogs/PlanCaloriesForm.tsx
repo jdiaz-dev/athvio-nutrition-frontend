@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Card,
@@ -22,21 +22,17 @@ import {
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
-import { PatientInformation } from 'src/modules/patients/patient-console/planifications/helpers/planifications';
 import * as PlanificationSlice from 'src/modules/patients/patient-console/planifications/adapters/in/slicers/PlanificationSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { ReduxStates } from 'src/shared/types/types';
 
 export type PatientPlanData = {
   weightKg?: number;
   heightM?: number;
   age?: number;
-  sex: 'male' | 'female' | 'unspecified';
+  sex: 'male' | 'female';
   activityFactor: number;
   planCalories: number;
-};
-
-type Props = {
-  patientInformation: PatientInformation & { calories: number };
 };
 
 type ActivityKey = 'sedentary' | 'light' | 'moderate' | 'intense';
@@ -58,31 +54,36 @@ const AF_OPTIONS: ActivityOption[] = [
 const getFactorForGender = (gender: 'male' | 'female', opt: ActivityOption) =>
   gender === 'male' ? opt.factors.hombres : opt.factors.mujeres;
 
-export default function PlanCaloriesForm({ patientInformation }: Props) {
-  const [openPatient, setOpenPatient] = React.useState(true);
+export default function PlanCaloriesForm() {
   const dispatch = useDispatch();
-
-  // selected option + derived factor
+  const planificationState = useSelector((state: ReduxStates) => state.planifications.planification);
+  const [openPatient, setOpenPatient] = useState(true);
   const defaultOption = AF_OPTIONS.find((o) => o.key === 'intense')!;
-  const [selected, setSelected] = React.useState<ActivityOption>(defaultOption);
-  const [basalMetabolism, setBasalMetabolism] = React.useState<number>(0);
-  const [totalCalories, setTotalCalories] = React.useState<number>(0);
+  const [selected, setSelected] = useState<ActivityOption>(defaultOption);
 
   // popover anchor
-  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const popOpen = Boolean(anchorEl);
   const id = popOpen ? 'activity-popover' : undefined;
 
-  const factor = getFactorForGender((patientInformation.gender as 'male' | 'female') ?? 'female', selected);
+  const factor = getFactorForGender((planificationState.patientInformation.gender as 'male' | 'female') ?? 'female', selected);
 
-  React.useEffect(() => {
-    const withGender = patientInformation.gender === 'male' ? +5 : -161;
+  useEffect(() => {
+    const withGender = planificationState.patientInformation.gender === 'male' ? +5 : -161;
     const calculateBasalMetabolism =
-      10 * patientInformation.weight + 6.25 * patientInformation.height - 5 * patientInformation.age + withGender;
+      10 * planificationState.patientInformation.weight +
+      6.25 * planificationState.patientInformation.height -
+      5 * planificationState.patientInformation.age +
+      withGender;
 
-    setBasalMetabolism(parseInt(calculateBasalMetabolism.toFixed(0)));
-    setTotalCalories(parseInt((basalMetabolism * patientInformation.physicActivityFactor).toFixed(0)));
-  }, [patientInformation]);
+    dispatch(PlanificationSlice.modifyBasalEnergyRate(parseInt(calculateBasalMetabolism.toFixed(0))));
+    dispatch(
+      PlanificationSlice.modifyTotalCalories(
+        parseInt((calculateBasalMetabolism * planificationState.patientInformation.physicActivityFactor).toFixed(0)),
+      ),
+    );
+  }, [planificationState]);
+
   return (
     <Card variant="outlined">
       <CardHeader title="Calorías del plan" />
@@ -107,7 +108,7 @@ export default function PlanCaloriesForm({ patientInformation }: Props) {
                 <Grid item xs={12} sm={6}>
                   <TextField
                     label="Peso"
-                    value={patientInformation.weight}
+                    value={planificationState.patientInformation.weight}
                     type="number"
                     fullWidth
                     inputProps={{ min: 0, step: 0.1 }}
@@ -120,7 +121,7 @@ export default function PlanCaloriesForm({ patientInformation }: Props) {
                 <Grid item xs={12} sm={6}>
                   <TextField
                     label="Estatura"
-                    value={patientInformation.height}
+                    value={planificationState.patientInformation.height}
                     type="number"
                     fullWidth
                     inputProps={{ min: 0 }}
@@ -133,7 +134,7 @@ export default function PlanCaloriesForm({ patientInformation }: Props) {
                 <Grid item xs={12} sm={6}>
                   <TextField
                     label="Edad"
-                    value={patientInformation.age}
+                    value={planificationState.patientInformation.age}
                     type="number"
                     fullWidth
                     inputProps={{ min: 0, step: 1 }}
@@ -149,7 +150,7 @@ export default function PlanCaloriesForm({ patientInformation }: Props) {
                     <Select
                       labelId="sexo-lbl"
                       label="Género"
-                      value={patientInformation.gender}
+                      value={planificationState.patientInformation.gender}
                       onChange={(e) => {
                         dispatch(PlanificationSlice.modifyGender(e.target.value));
                       }}
@@ -168,7 +169,7 @@ export default function PlanCaloriesForm({ patientInformation }: Props) {
           {/* GEB / GET sólo UI (sin fórmula) */}
           <Stack spacing={1}>
             <Typography variant="body2">
-              Gasto Energético Basal (GEB): <b>{basalMetabolism} kcal</b>
+              Gasto Energético Basal (GEB): <b>{planificationState.configuredMacros.basalEnergyRate} kcal</b>
             </Typography>
 
             {/* --- Activity Factor row with popover trigger --- */}
@@ -200,7 +201,7 @@ export default function PlanCaloriesForm({ patientInformation }: Props) {
                     {selected.title}
                   </Typography>
                   <Typography variant="caption" sx={{ opacity: 0.7 }}>
-                    • {patientInformation.physicActivityFactor.toFixed(2)}
+                    • {planificationState.patientInformation.physicActivityFactor.toFixed(2)}
                   </Typography>
                 </Stack>
               </Tooltip>
@@ -221,7 +222,10 @@ export default function PlanCaloriesForm({ patientInformation }: Props) {
                 <Grid container spacing={1.5}>
                   {AF_OPTIONS.map((option) => {
                     const isSelected = option.key === selected.key;
-                    const factorValue = getFactorForGender((patientInformation.gender as 'male' | 'female') ?? 'female', option);
+                    const factorValue = getFactorForGender(
+                      (planificationState.patientInformation.gender as 'male' | 'female') ?? 'female',
+                      option,
+                    );
 
                     return (
                       <Grid key={option.key} item xs={12} sm={6}>
@@ -268,8 +272,20 @@ export default function PlanCaloriesForm({ patientInformation }: Props) {
             </Stack>
 
             <Typography variant="body2">
-              Calorías totales (GET): <b>{totalCalories} kcal</b>
+              Calorías totales (GET): <b>{planificationState.configuredMacros.totalCalories} kcal</b>
             </Typography>
+
+            <TextField
+              label="Calorias para tu plan"
+              value={planificationState.configuredMacros.planCalories}
+              type="number"
+              fullWidth
+              inputProps={{ min: 0, step: 0.1 }}
+              InputProps={{ endAdornment: <InputAdornment position="end">cal.</InputAdornment> }}
+              onChange={(e) => {
+                dispatch(PlanificationSlice.modifyPlanCalories(parseFloat(e.target.value)));
+              }}
+            />
           </Stack>
         </Stack>
       </CardContent>
