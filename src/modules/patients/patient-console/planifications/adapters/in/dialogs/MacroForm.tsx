@@ -1,17 +1,5 @@
-import * as React from 'react';
-import {
-  Box,
-  Card,
-  CardContent,
-  CardHeader,
-  Grid,
-  InputAdornment,
-  LinearProgress,
-  Stack,
-  TextField,
-  Typography,
-  Button,
-} from '@mui/material';
+import React, { useEffect } from 'react';
+import { Box, Card, CardContent, CardHeader, Grid, InputAdornment, LinearProgress, Stack, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 import * as PlanificationSlice from 'src/modules/patients/patient-console/planifications/adapters/in/slicers/PlanificationSlice';
@@ -19,16 +7,33 @@ import * as PlanificationSlice from 'src/modules/patients/patient-console/planif
 type MacroKey = 'carbsInPercentage' | 'proteinInPercentage' | 'fatInPercentage';
 export type MacroPercents = { carbs: number; protein: number; fat: number };
 
-type Props = {
-  initial?: Partial<MacroPercents>;
-  onChange?: (values: MacroPercents) => void;
-  showSubmitButton?: boolean;
-  onSubmit?: (values: MacroPercents) => void;
-};
-
 const clamp = (v: number, min = 0, max = 100) => Math.min(max, Math.max(min, v));
 const num = (s: string) => (Number.isFinite(+s) ? +s : 0);
+const caloriesToGrams = (totalCalories: number, percentage: number, calPerGram: number) => {
+  return parseFloat(((totalCalories * (percentage / 100)) / calPerGram).toFixed(1));
+};
 
+function DisabledTextField({ label, value }: { label: string; value: number }) {
+  return (
+    <TextField
+      disabled
+      sx={{
+        '& .MuiInputBase-input.Mui-disabled': {
+          WebkitTextFillColor: 'gray', // Safari/Chrome fill color
+        },
+        '& .MuiInputLabel-root.Mui-disabled': {
+          color: 'gray', // label color
+        },
+      }}
+      inputProps={{ style: { cursor: 'not-allowed' } }}
+      label={label}
+      value={value}
+    />
+  );
+}
+
+const densityLabel = 'g / peso (kg)';
+const totalMacroLabel = 'total (g)';
 export default function MacroForm() {
   const dispatch = useDispatch();
   const planificationState = useSelector((state: ReduxStates) => state.planifications.planification);
@@ -40,6 +45,41 @@ export default function MacroForm() {
 
   const remaining = 100 - total;
   const over = total > 100;
+
+  useEffect(() => {
+    const totalProtein = caloriesToGrams(
+      planificationState.configuredMacros.planCalories,
+      planificationState.configuredMacros.proteinInPercentage,
+      4,
+    );
+    const totalCarbs = caloriesToGrams(
+      planificationState.configuredMacros.planCalories,
+      planificationState.configuredMacros.carbsInPercentage,
+      4,
+    );
+    const totalFat = caloriesToGrams(
+      planificationState.configuredMacros.planCalories,
+      planificationState.configuredMacros.fatInPercentage,
+      9,
+    );
+
+    dispatch(
+      PlanificationSlice.modifyCalculatedMacros({
+        ...planificationState.configuredMacros,
+        proteinDensity: parseFloat((totalProtein / planificationState.patientInformation.weight).toFixed(1)),
+        carbsDensity: parseFloat((totalCarbs / planificationState.patientInformation.weight).toFixed(1)),
+        fatDensity: parseFloat((totalFat / planificationState.patientInformation.weight).toFixed(1)),
+        totalProtein: totalProtein,
+        totalCarbs: totalCarbs,
+        totalFat: totalFat,
+      }),
+    );
+  }, [
+    planificationState.configuredMacros.planCalories,
+    planificationState.configuredMacros.proteinInPercentage,
+    planificationState.configuredMacros.carbsInPercentage,
+    planificationState.configuredMacros.fatInPercentage,
+  ]);
 
   const handle = (k: MacroKey) => (e: React.ChangeEvent<HTMLInputElement>) => {
     const next = { ...planificationState.configuredMacros, [k]: clamp(num(e.target.value.replace(',', '.'))) };
@@ -60,17 +100,17 @@ export default function MacroForm() {
 
   return (
     <Card variant="outlined" sx={{ maxWidth: 720 }}>
-      <CardHeader title="Macronutrientes" subheader="Solo porcentajes. Debe sumar 100%." />
+      <CardHeader title="Macronutrientes" subheader="Los porcentajes deben sumar 100%." />
       <CardContent>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={4}>
             <TextField {...field('Proteína', 'proteinInPercentage')} />
           </Grid>
           <Grid item xs={12} sm={4}>
-            <TextField label="g / peso (kg)" value={0} />
+            <DisabledTextField label={densityLabel} value={planificationState.configuredMacros.proteinDensity} />
           </Grid>
           <Grid item xs={12} sm={4}>
-            <TextField label="total (g)" value={0} />
+            <DisabledTextField label={totalMacroLabel} value={planificationState.configuredMacros.totalProtein} />
           </Grid>
 
           <Grid item xs={12}></Grid>
@@ -80,10 +120,10 @@ export default function MacroForm() {
             <TextField {...field('Carbohidratos', 'carbsInPercentage')} />
           </Grid>
           <Grid item xs={12} sm={4}>
-            <TextField />
+            <DisabledTextField label={densityLabel} value={planificationState.configuredMacros.carbsDensity} />
           </Grid>
           <Grid item xs={12} sm={4}>
-            <TextField />
+            <DisabledTextField label={totalMacroLabel} value={planificationState.configuredMacros.totalCarbs} />
           </Grid>
 
           <Grid item xs={12}></Grid>
@@ -93,10 +133,10 @@ export default function MacroForm() {
             <TextField {...field('Grasas', 'fatInPercentage')} />
           </Grid>
           <Grid item xs={12} sm={4}>
-            <TextField />
+            <DisabledTextField label={densityLabel} value={planificationState.configuredMacros.fatDensity} />
           </Grid>
           <Grid item xs={12} sm={4}>
-            <TextField />
+            <DisabledTextField label={totalMacroLabel} value={planificationState.configuredMacros.totalFat} />
           </Grid>
           <Grid item xs={12}></Grid>
         </Grid>

@@ -71,7 +71,10 @@ const planificationSlice = createSlice({
       state.configuredMacros.planCalories = action.payload;
       return state;
     },
-    modifyCalculatedMacros: (state, action: PayloadAction<Omit<CalculatedMacros, 'calories'>>) => {
+    modifyCalculatedMacros: (
+      state,
+      action: PayloadAction<Omit<CalculatedMacros, 'basalEnergyRate' | 'totalCalories' | 'planCalories'>>,
+    ) => {
       state.configuredMacros = { ...state.configuredMacros, ...action.payload };
       return state;
     },

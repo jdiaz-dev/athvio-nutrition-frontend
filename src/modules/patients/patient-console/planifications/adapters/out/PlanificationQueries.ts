@@ -16,6 +16,9 @@ export const CREATE_PLANIFICATION = gql`
         proteinInPercentage
         carbsInPercentage
         fatInPercentage
+        proteinDensity
+        carbsDensity
+        fatDensity
         totalProtein
         totalCarbs
         totalFat
@@ -43,6 +46,9 @@ export const GET_PLANIFICATIONS = gql`
         proteinInPercentage
         carbsInPercentage
         fatInPercentage
+        proteinDensity
+        carbsDensity
+        fatDensity
         totalProtein
         totalCarbs
         totalFat
@@ -71,6 +77,9 @@ export const UPDATE_PLANIFICATION = gql`
         proteinInPercentage
         carbsInPercentage
         fatInPercentage
+        proteinDensity
+        carbsDensity
+        fatDensity
         totalProtein
         totalCarbs
         totalFat

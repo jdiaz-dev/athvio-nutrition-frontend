@@ -11,6 +11,9 @@ export type CalculatedMacros = {
   proteinInPercentage: number;
   carbsInPercentage: number;
   fatInPercentage: number;
+  proteinDensity: number;
+  carbsDensity: number;
+  fatDensity: number;
   totalProtein: number;
   totalCarbs: number;
   totalFat: number;
