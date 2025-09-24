@@ -26,6 +26,7 @@ export const CREATE_PLANIFICATION = gql`
         totalCalories
         planCalories
       }
+      createdAt
     }
   }
 `;

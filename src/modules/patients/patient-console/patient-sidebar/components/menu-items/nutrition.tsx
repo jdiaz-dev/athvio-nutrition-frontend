@@ -27,15 +27,6 @@ const nutrition = (): NavItemType => ({
   type: 'group',
   children: [
     {
-      id: 'Plans',
-      title: <FormattedMessage id="Planes nutricionales" />,
-      type: 'item',
-      url: 'plans',
-      icon: icons.LocalDiningIcon,
-      toolTipTitle: i18n.t('toolTips.plans'),
-      slide: AvailableSlides.PLANS,
-    },
-    {
       id: 'Planification',
       title: <FormattedMessage id="Planificación" />,
       type: 'item',
@@ -43,6 +34,15 @@ const nutrition = (): NavItemType => ({
       icon: icons.CalculateIcon,
       toolTipTitle: i18n.t('toolTips.planification'),
       slide: AvailableSlides.PLANIFICATION,
+    },
+    {
+      id: 'Plans',
+      title: <FormattedMessage id="Planes nutricionales" />,
+      type: 'item',
+      url: 'plans',
+      icon: icons.LocalDiningIcon,
+      toolTipTitle: i18n.t('toolTips.plans'),
+      slide: AvailableSlides.PLANS,
     },
   ],
 });

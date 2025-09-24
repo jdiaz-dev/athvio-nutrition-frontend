@@ -1,20 +1,26 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { Container } from '@mui/material';
 import PlanificationList from 'src/modules/patients/patient-console/planifications/adapters/in/components/PlanificationList';
+import TitleAndButtonModule from 'src/shared/components/TitleAndButtonModule';
+import CreateUpdatePlanificationDialog from 'src/modules/patients/patient-console/planifications/adapters/in/dialogs/CreateUpdatePlanificationDialog';
 
 export default function PlanSetupScreen() {
+  const [openCreateUpdatePlanificationDialog, setOpenCreateUpdatePlanificationDialog] = useState(false);
+
+  const buttonOnclikHandler = () => {
+    setOpenCreateUpdatePlanificationDialog(true);
+  };
   return (
     <Container maxWidth="lg" sx={{ py: 2 }}>
-      {/* <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
-          <PlanCaloriesForm initial={plan} onChange={(v) => setPlan(v)} />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <MacroForm initial={macros} onChange={(v) => setMacros(v)} showSubmitButton onSubmit={(v) => {}} />
-        </Grid>
-      </Grid>
-      <Box height={24} /> */}
+      <TitleAndButtonModule titleModule={'Planificaciones'} buttonName={'Nueva Planificación'} buttonHandler={buttonOnclikHandler} />
       <PlanificationList />
+      {openCreateUpdatePlanificationDialog && (
+        <CreateUpdatePlanificationDialog
+          openCreateUpdatePlanificationDialog={openCreateUpdatePlanificationDialog}
+          setOpenCreateUpdatePlanificationDialog={setOpenCreateUpdatePlanificationDialog}
+          dialogTitle={'Crear planificación'}
+        />
+      )}
     </Container>
   );
 }

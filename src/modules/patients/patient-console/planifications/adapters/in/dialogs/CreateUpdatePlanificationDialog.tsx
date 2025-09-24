@@ -1,16 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Dialog, DialogContent, DialogTitle } from '@mui/material';
 import * as NutritionalMealDetailsSlice from 'src/modules/professionals/nutritional-meals/adapters/in/slicers/NutritionalMealDetailsSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Box, Container, Grid } from '@mui/material';
 import PlanCaloriesForm from 'src/modules/patients/patient-console/planifications/adapters/in/dialogs/PlanCaloriesForm';
-import MacroForm, { MacroPercents } from 'src/modules/patients/patient-console/planifications/adapters/in/dialogs/MacroForm';
+import MacroForm from 'src/modules/patients/patient-console/planifications/adapters/in/dialogs/MacroForm';
 import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 import { formStyles } from 'src/shared/styles/styles';
 import CancelAndSaveButtons from 'src/shared/components/CancelAndSaveButtons';
 import { PlanificationBody } from 'src/modules/patients/patient-console/planifications/helpers/planifications';
 import * as PlanificationSlice from 'src/modules/patients/patient-console/planifications/adapters/in/slicers/PlanificationSlice';
+import { usePlanification } from 'src/modules/patients/patient-console/planifications/adapters/out/PlanificationActions';
+import { useParams } from 'react-router-dom';
+import { ReduxStates } from 'src/shared/types/types';
 
 function CreateUpdatePlanificationDialog({
   openCreateUpdatePlanificationDialog,
@@ -23,8 +26,10 @@ function CreateUpdatePlanificationDialog({
   dialogTitle: string;
   planification?: PlanificationBody;
 }) {
-  const authContext = useContext(AuthContext);
+  const { patientId } = useParams();
+  const planificationState = useSelector((state: ReduxStates) => state.planifications.planification);
 
+  const { createPlanification, updatePlanification } = usePlanification();
   const { classes } = formStyles();
   const dispatch = useDispatch();
 
@@ -42,7 +47,23 @@ function CreateUpdatePlanificationDialog({
     };
   }, [planification]);
 
-  const createUpdatePlanificationHandler = async () => {};
+  const createUpdatePlanificationHandler = async () => {
+    if (planificationState.uuid.length === 0) {
+      await createPlanification({
+        patient: patientId as string,
+        patientInformation: planificationState.patientInformation,
+        configuredMacros: planificationState.configuredMacros,
+      });
+    } else {
+      await updatePlanification({
+        planification: planificationState.uuid,
+        patient: patientId as string,
+        patientInformation: planificationState.patientInformation,
+        configuredMacros: planificationState.configuredMacros,
+      });
+    }
+    setOpenCreateUpdatePlanificationDialog(false);
+  };
   const closeIconDialogHandler = () => {
     if (componentTouched) {
       setComponentTouched(false);

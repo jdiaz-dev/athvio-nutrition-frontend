@@ -5,7 +5,6 @@ import { ReduxStates } from 'src/shared/types/types';
 import * as PlanificationSlice from 'src/modules/patients/patient-console/planifications/adapters/in/slicers/PlanificationSlice';
 
 type MacroKey = 'carbsInPercentage' | 'proteinInPercentage' | 'fatInPercentage';
-export type MacroPercents = { carbs: number; protein: number; fat: number };
 
 const clamp = (v: number, min = 0, max = 100) => Math.min(max, Math.max(min, v));
 const num = (s: string) => (Number.isFinite(+s) ? +s : 0);
@@ -66,9 +65,9 @@ export default function MacroForm() {
     dispatch(
       PlanificationSlice.modifyCalculatedMacros({
         ...planificationState.configuredMacros,
-        proteinDensity: parseFloat((totalProtein / planificationState.patientInformation.weight).toFixed(1)),
-        carbsDensity: parseFloat((totalCarbs / planificationState.patientInformation.weight).toFixed(1)),
-        fatDensity: parseFloat((totalFat / planificationState.patientInformation.weight).toFixed(1)),
+        proteinDensity: parseFloat((totalProtein / planificationState.patientInformation.weight).toFixed(1)) || 0,
+        carbsDensity: parseFloat((totalCarbs / planificationState.patientInformation.weight).toFixed(1)) || 0,
+        fatDensity: parseFloat((totalFat / planificationState.patientInformation.weight).toFixed(1)) || 0,
         totalProtein: totalProtein,
         totalCarbs: totalCarbs,
         totalFat: totalFat,

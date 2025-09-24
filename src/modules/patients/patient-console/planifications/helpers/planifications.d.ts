@@ -30,7 +30,7 @@ export type PlanificationBody = {
   createdAt: string;
 };
 
-export type CreatePlanificationInput = Omit<PlanificationBody, 'uuid'>;
+export type CreatePlanificationInput = Omit<PlanificationBody, 'uuid' | 'createdAt'>;
 
 export type CreatePlanificationRequest = {
   input: CreatePlanificationInput;
