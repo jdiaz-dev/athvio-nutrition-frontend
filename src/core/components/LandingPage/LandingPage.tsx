@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useMutation } from '@apollo/client';
 import { alpha } from '@mui/material/styles';
-import { Box, Button, Card, CardContent, Container, Stack, Typography } from '@mui/material';
+import { AppBar, Box, Button, Card, CardContent, Chip, Container, Divider, Link as MLink, Stack, Toolbar, Typography } from '@mui/material';
 
 import Logo from 'src/shared/components/logo';
 import { LANDING_SCREEN } from 'src/shared/graphql-queries/WorkflowStreamAuditQueries';
@@ -12,192 +12,217 @@ export default function LandingPage() {
   const calledRef = useRef(false);
 
   useEffect(() => {
-    if (calledRef.current) return; // avoid double execution in StrictMode
+    if (calledRef.current) return;
     calledRef.current = true;
     fire();
   }, [fire]);
 
+  const featuresRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollToFeatures = (e?: React.MouseEvent) => {
+    e?.preventDefault();
+    featuresRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: (t) => (t.palette.mode === 'dark' ? '#131516' : '#f7f7f7'), position: 'relative' }}>
-      {/* === SECTION 1: HERO (fills more space, keeps effects) === */}
+      {/* ===== Top Nav (like screenshot) ===== */}
+      <AppBar
+        elevation={0}
+        color="transparent"
+        position="sticky"
+        sx={{
+          backdropFilter: 'saturate(180%) blur(8px)',
+          borderBottom: (t) => `1px solid ${alpha(t.palette.divider, 0.4)}`,
+        }}
+      >
+        <Toolbar sx={{ minHeight: 72 }}>
+          <Container maxWidth="xl" sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
+              <Logo />
+            </Box>
+
+            <Box sx={{ flex: 1 }} />
+
+            <Stack direction="row" spacing={3} sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <MLink href="#caracteristicas" underline="none" color="text.primary" onClick={scrollToFeatures}>
+                Funcionalidades
+              </MLink>
+              <MLink href="#precios" underline="none" color="text.primary">
+                Precios
+              </MLink>
+              {/* <MLink href="#faq" underline="none" color="text.primary">
+                Preguntas frecuentes
+              </MLink> */}
+              <MLink href="/signin" underline="none" color="text.primary">
+                Iniciar sesión
+              </MLink>
+            </Stack>
+
+            <Button
+              href="/signup"
+              size="medium"
+              variant="contained"
+              sx={{
+                ml: { xs: 0, md: 2 },
+                borderRadius: 999,
+                px: 2.5,
+              }}
+            >
+              Comenzar gratis ahora
+            </Button>
+          </Container>
+        </Toolbar>
+      </AppBar>
+
+      {/* ===== Hero ===== */}
       <Box
         component="section"
         sx={{
           position: 'relative',
-          minHeight: { xs: '90vh', md: '100vh' }, // more presence
-          display: 'flex',
-          alignItems: 'center',
-          pt: 0,
+          overflow: 'hidden',
+          pt: { xs: 8, md: 12 },
+          pb: { xs: 8, md: 10 },
         }}
       >
-        {/* Glow blobs behind everything (unchanged effects) */}
-        <Box sx={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>
-          <Box
-            sx={{
-              position: 'absolute',
-              top: { xs: '10%', md: '15%' },
-              left: '6%',
-              width: 320,
-              height: 220,
-              borderRadius: '50%',
-              background: (t) => `radial-gradient(closest-side, ${t.palette.primary.main}33, transparent)`,
-              filter: 'blur(28px)',
-              animation: 'float1 10s ease-in-out infinite',
-            }}
-          />
-          <Box
-            sx={{
-              position: 'absolute',
-              bottom: { xs: '6%', md: '10%' },
-              right: '10%',
-              width: 360,
-              height: 260,
-              borderRadius: '50%',
-              background: (t) => `radial-gradient(closest-side, ${t.palette.primary.main}22, transparent)`,
-              filter: 'blur(32px)',
-              animation: 'float2 12s ease-in-out infinite',
-            }}
-          />
-          <style>
-            {`@keyframes float1 { 0%,100%{ transform: translateY(-6px)} 50%{ transform: translateY(6px)} }
-              @keyframes float2 { 0%,100%{ transform: translateY(5px)} 50%{ transform: translateY(-5px)} }`}
-          </style>
-        </Box>
+        {/* Top-right purple shape (decor) */}
+        <Box
+          aria-hidden
+          sx={{
+            position: 'absolute',
+            right: '-10%',
+            top: '-20%',
+            width: { xs: 420, md: 720 },
+            height: { xs: 420, md: 720 },
+            borderRadius: '50%',
+            background: (t) =>
+              `radial-gradient(closest-side, ${alpha(t.palette.primary.main, 0.9)}, ${alpha(
+                t.palette.primary.main,
+                0.35,
+              )} 60%, transparent)`,
+            filter: 'blur(24px)',
+            transform: 'rotate(-8deg)',
+          }}
+        />
 
-        {/* Foreground hero content */}
-        <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 1, px: { xs: 2, md: 4 } }}>
-          <Stack alignItems="center" spacing={1.25} sx={{ textAlign: 'center', mb: 2 }}>
-            {/* tiny glow behind logo */}
-            <Box sx={{ position: 'relative', display: 'inline-grid', placeItems: 'center', mb: 1.5 }}>
-              <Box
-                sx={{
-                  position: 'absolute',
-                  inset: -20,
-                  borderRadius: 6,
-                  filter: 'blur(22px)',
-                  background: (t) => `radial-gradient(120px 80px at 50% 40%, ${alpha(t.palette.primary.main, 0.25)}, transparent 70%)`,
-                }}
-              />
-              <Logo />
-            </Box>
+        {/* Subtle background blob left */}
+        <Box
+          aria-hidden
+          sx={{
+            position: 'absolute',
+            left: '-20%',
+            bottom: '-10%',
+            width: 480,
+            height: 480,
+            borderRadius: '50%',
+            background: (t) => `radial-gradient(closest-side, ${alpha(t.palette.primary.main, 0.25)}, transparent)`,
+            filter: 'blur(28px)',
+          }}
+        />
 
-            {/* Gradient title + animated underline (kept) */}
+        <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 1 }}>
+          {/* Headline */}
+          <Stack alignItems="center" spacing={3} sx={{ textAlign: 'center' }}>
             <Typography
-              variant="h3"
+              component="h1"
               sx={{
-                fontSize: { xs: 30, md: 40, lg: 44 },
-                background: (t) => `linear-gradient(90deg, ${t.palette.primary.main}, #8de3d6)`,
-                WebkitBackgroundClip: 'text',
-                color: 'transparent',
+                fontWeight: 700,
+                lineHeight: 1.2,
+                fontSize: { xs: 34, sm: 42, md: 54 },
+                color: 'text.primary',
               }}
             >
-              Software de nutrición
+              El software para{' '}
+              <Box
+                component="span"
+                sx={(t) => ({
+                  px: 1.25,
+                  py: 0.5,
+                  borderRadius: 1.5,
+                  color: t.palette.getContrastText(t.palette.primary.main),
+                  background: 'linear-gradient(135deg, #6a00ff 0%, #8a2be2 35%, #a855f7 70%, #c084fc 100%)',
+                  boxShadow: '0 6px 18px rgba(138,43,226,0.35)',
+                  display: 'inline-block',
+                })}
+              >
+                nutricionistas
+              </Box>{' '}
+              que te simplifica todo
             </Typography>
-            <Box
-              sx={{
-                width: 180,
-                height: 4,
-                borderRadius: 2,
-                mx: 'auto',
-                background: (t) => `linear-gradient(90deg, transparent, ${t.palette.primary.main}99, transparent)`,
-                animation: 'shine 2.6s ease-in-out infinite',
-              }}
-            />
-            <style>{`@keyframes shine { 0%,100%{opacity:.45} 50%{opacity:1} }`}</style>
-          </Stack>
 
-          {/* Wider, taller card to occupy more visual space */}
-          <Card
-            variant="outlined"
-            sx={(t) => ({
-              borderRadius: 2,
-              borderColor: alpha(t.palette.primary.main, 0.15),
-              bgcolor: alpha(t.palette.background.paper, 0.06),
-              backdropFilter: 'blur(8px)',
-              boxShadow: '0 8px 24px rgba(0,0,0,0.25)',
-              maxWidth: { md: 1140, lg: 1320 }, // wider
-              width: '100%',
-              mx: 'auto',
-            })}
-          >
-            <CardContent
+            <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 920, lineHeight: 1.7, px: { xs: 2, md: 0 } }}>
+              Elabora fácilmente planes alimenticios óptimos para cada paciente, mantén ordenados todos sus historiales y haz crecer
+              exponencialmente tu negocio.
+            </Typography>
+
+            {/* Primary CTA */}
+            <Button
+              href="/signup"
+              size="large"
+              variant="contained"
               sx={{
-                p: { xs: 3, md: 5, lg: 6 }, // more padding
-                textAlign: 'center',
-                minHeight: { md: 320, lg: 380 }, // taller
+                mt: 1,
+                borderRadius: 999,
+                px: 4,
+                py: 1.5,
+                fontSize: { xs: 16, md: 18 },
+                boxShadow: (t) => `0 12px 28px ${alpha(t.palette.primary.main, 0.35)}`,
               }}
             >
-              <Typography
-                color="text.secondary"
-                sx={{
-                  maxWidth: { xs: 760, md: 980, lg: 1100 }, // wider paragraph
-                  mx: 'auto',
-                  mb: 2.5,
-                  lineHeight: 1.8, // airy lines fill space nicely
-                  fontSize: { xs: 16, md: 18 },
-                }}
-              >
-                Crea planes en minutos, comunica a tus pacientes por chat y sigue su progreso con analíticas claras. Diseñado para dietistas
-                y nutricionistas que buscan eficiencia.
-              </Typography>
+              Comenzar gratis ahora
+            </Button>
 
-              <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5} justifyContent="center" sx={{ my: 1.5, mt: 4 }}>
-                <Button
-                  size="large"
-                  variant="contained"
-                  href="/signup"
+            {/* Product preview card at the bottom (placeholder area) */}
+            {/* <Card
+              elevation={0}
+              sx={(t) => ({
+                mt: { xs: 5, md: 7 },
+                borderRadius: 2,
+                border: `1px solid ${alpha(t.palette.divider, 0.6)}`,
+                bgcolor: alpha(t.palette.background.paper, 0.6),
+                backdropFilter: 'blur(8px)',
+                width: '100%',
+                maxWidth: 1040,
+                mx: 'auto',
+              })}
+            >
+              <CardContent sx={{ p: { xs: 1.5, md: 2 } }}>
+                <Box
                   sx={{
-                    'px': 4,
-                    'transition': 'transform .12s ease, box-shadow .12s ease',
-                    '&:hover': (t) => ({
-                      transform: 'translateY(-1px)',
-                      boxShadow: `0 10px 24px ${alpha(t.palette.primary.main, 0.35)}`,
-                    }),
+                    height: { xs: 180, sm: 260, md: 320 },
+                    borderRadius: 1.5,
+                    bgcolor: (t) => alpha(t.palette.primary.main, 0.08),
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundImage: 'url(/assets/landing/preview.png)', // <-- put your PNG here
                   }}
-                >
-                  Probar Gratis
-                </Button>
-                <Button
-                  size="large"
-                  variant="outlined"
-                  href="/signin"
-                  sx={{
-                    'px': 4,
-                    'borderColor': 'primary.main',
-                    '&:hover': { borderColor: 'primary.light', backgroundColor: 'action.hover' },
-                  }}
-                >
-                  Iniciar Sesión
-                </Button>
-              </Stack>
-
-              <Stack
-                direction={{ xs: 'column', sm: 'row' }}
-                spacing={3}
-                justifyContent="center"
-                alignItems="center"
-                sx={{ color: 'text.secondary', mt: 4 }}
-              >
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: 'primary.main' }} />
-                  <Typography variant="caption">Prueba gratis 7 días</Typography>
-                </Stack>
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: 'primary.main' }} />
-                  <Typography variant="caption">Sin tarjeta</Typography>
-                </Stack>
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: 'primary.main' }} />
-                  <Typography variant="caption">Seguridad y cifrado</Typography>
-                </Stack>
-              </Stack>
-            </CardContent>
-          </Card>
+                />
+              </CardContent>
+            </Card> */}
+          </Stack>
         </Container>
       </Box>
-      {/* === SECTION 2: FUNCIONALIDADES  === */}
-      {/* not touch */}
-      <Functionalities />
+
+      {/* ===== Section 2 (your existing component) ===== */}
+      <Box
+        id="caracteristicas"
+        ref={featuresRef}
+        sx={{
+          scrollMarginTop: { xs: 90, md: 100 }, // so the sticky AppBar doesn’t cover the heading
+        }}
+      >
+        <Functionalities />
+      </Box>
     </Box>
+  );
+}
+
+/** Small helper for the trust bullets */
+function Bullet({ text }: { text: string }) {
+  return (
+    <Stack direction="row" spacing={1} alignItems="center">
+      <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: 'primary.main' }} />
+      <Typography variant="caption">{text}</Typography>
+    </Stack>
   );
 }
