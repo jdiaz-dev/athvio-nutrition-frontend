@@ -24,6 +24,13 @@ export default function LandingPage() {
     featuresRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
+  const pricingRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollToPricing = (e?: React.MouseEvent) => {
+    e?.preventDefault();
+    pricingRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: (t) => (t.palette.mode === 'dark' ? '#131516' : '#f7f7f7'), position: 'relative' }}>
       {/* ===== Top Nav (like screenshot) ===== */}
@@ -48,7 +55,7 @@ export default function LandingPage() {
               <MLink href="#caracteristicas" underline="none" color="text.primary" onClick={scrollToFeatures}>
                 Funcionalidades
               </MLink>
-              <MLink href="#precios" underline="none" color="text.primary">
+              <MLink href="#precios" underline="none" color="text.primary" onClick={scrollToPricing}>
                 Precios
               </MLink>
               {/* <MLink href="#faq" underline="none" color="text.primary">
@@ -212,6 +219,100 @@ export default function LandingPage() {
         }}
       >
         <Functionalities />
+      </Box>
+      {/* ===== Section 3: Pricing ===== */}
+      <Box
+        id="precios"
+        ref={pricingRef}
+        sx={{
+          bgcolor: 'background.default',
+          py: { xs: 8, md: 12 },
+        }}
+      >
+        <Container maxWidth="lg">
+          <Typography component="h2" variant="h4" align="center" fontWeight={700} sx={{ mb: { xs: 6, md: 8 } }}>
+            Precios del software
+          </Typography>
+
+          <Stack direction={{ xs: 'column', md: 'row' }} spacing={4} justifyContent="center" alignItems="stretch">
+            {/* Annual plan */}
+            {/* Annual plan */}
+            <Card
+              sx={{
+                flex: 1,
+                border: (t) => `2px solid ${t.palette.primary.light}`,
+                borderRadius: 3,
+                boxShadow: (t) => `0 8px 24px ${alpha(t.palette.primary.main, 0.1)}`,
+              }}
+            >
+              <CardContent sx={{ textAlign: 'center', p: 4 }}>
+                <Chip label="Más popular" color="primary" sx={{ mb: 2, fontWeight: 600 }} />
+                <Typography variant="h6" gutterBottom>
+                  ANUAL
+                </Typography>
+
+                {/* Precio mensual */}
+                <Typography variant="h3" color="primary" fontWeight={700}>
+                  $25
+                  <Typography component="span" variant="subtitle1" color="text.secondary">
+                    /mes
+                  </Typography>
+                </Typography>
+
+                {/* Precio total actual + antes */}
+                <Stack direction="row" justifyContent="center" spacing={1} sx={{ mt: 1 }}>
+                  <Typography variant="body1" fontWeight={600}>
+                    Total 299$
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ textDecoration: 'line-through', alignSelf: 'flex-end' }}>
+                    599$
+                  </Typography>
+                </Stack>
+
+                {/* Beneficios */}
+                <Typography sx={{ mt: 2 }}>
+                  Acceso total al precio más bajo. <br />
+                  Incluye una prueba gratuita de 7 días.
+                </Typography>
+
+                <Button variant="contained" size="large" sx={{ mt: 3, borderRadius: 999, px: 4 }}>
+                  Iniciar una prueba gratuita
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Monthly plan */}
+            <Card
+              sx={{
+                flex: 1,
+                borderRadius: 3,
+                border: (t) => `1px solid ${t.palette.divider}`,
+              }}
+            >
+              <CardContent sx={{ textAlign: 'center', p: 4 }}>
+                <Typography variant="h6" gutterBottom>
+                  MENSUAL
+                </Typography>
+                <Typography variant="h3" color="text.primary" fontWeight={700}>
+                  $39
+                  <Typography component="span" variant="subtitle1" color="text.secondary">
+                    /mes
+                  </Typography>
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ textDecoration: 'line-through', mt: 0.5 }}>
+                  79$
+                </Typography>
+                <Typography sx={{ mt: 2 }}>
+                  Acceso total sin compromiso. Cancela en cualquier momento. <br />
+                  Incluye una prueba gratuita de 7 días.
+                </Typography>
+                <Button variant="outlined" size="large" sx={{ mt: 3, borderRadius: 999, px: 4 }}>
+                  Iniciar una prueba gratuita
+                </Button>
+              </CardContent>
+            </Card>
+          </Stack>
+        </Container>
       </Box>
     </Box>
   );
