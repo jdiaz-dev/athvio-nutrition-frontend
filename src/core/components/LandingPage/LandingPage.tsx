@@ -53,7 +53,7 @@ export default function LandingPage() {
 
             <Stack direction="row" spacing={3} sx={{ display: { xs: 'none', md: 'flex' } }}>
               <MLink href="#caracteristicas" underline="none" color="text.primary" onClick={scrollToFeatures}>
-                Funcionalidades
+                Características
               </MLink>
               <MLink href="#precios" underline="none" color="text.primary" onClick={scrollToPricing}>
                 Precios

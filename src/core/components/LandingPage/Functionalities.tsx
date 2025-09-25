@@ -82,7 +82,7 @@ function Functionalities() {
     <Box sx={{ pt: 4, pb: { xs: 6, md: 8 } }}>
       <Container maxWidth="lg">
         <Typography variant="h4" sx={{ mb: 3, textAlign: 'center' }}>
-          Funcionalidades
+          Características
         </Typography>
 
         <Grid container spacing={2.5}>
