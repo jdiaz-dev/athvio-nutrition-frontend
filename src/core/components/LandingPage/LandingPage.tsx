@@ -275,7 +275,7 @@ export default function LandingPage() {
                   Incluye una prueba gratuita de 7 días.
                 </Typography>
 
-                <Button href="/signin" variant="contained" size="large" sx={{ mt: 3, borderRadius: 999, px: 4 }}>
+                <Button href="/signup" variant="contained" size="large" sx={{ mt: 3, borderRadius: 999, px: 4 }}>
                   Iniciar una prueba gratuita
                 </Button>
               </CardContent>
@@ -306,7 +306,7 @@ export default function LandingPage() {
                   Acceso total sin compromiso. Cancela en cualquier momento. <br />
                   Incluye una prueba gratuita de 7 días.
                 </Typography>
-                <Button href="/signin" variant="outlined" size="large" sx={{ mt: 3, borderRadius: 999, px: 4 }}>
+                <Button href="/signup" variant="outlined" size="large" sx={{ mt: 3, borderRadius: 999, px: 4 }}>
                   Iniciar una prueba gratuita
                 </Button>
               </CardContent>
