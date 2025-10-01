@@ -15,7 +15,7 @@ const features = [
   {
     icon: <GroupsOutlined />,
     title: 'Gestión de pacientes',
-    desc: 'Historial clínico y alimenticio, notas y adjuntos centralizados.',
+    desc: 'Historial alimenticio, notas y adjuntos centralizados.',
   },
   {
     icon: <RestaurantMenuOutlined />,
@@ -24,7 +24,7 @@ const features = [
   },
   { icon: <CalendarMonthOutlined />, title: 'Seguimiento a el paciente', desc: 'Asigna tus planes y realiza seguimiento visual.' },
   { icon: <MenuBookOutlined />, title: 'Recetas', desc: 'Crea, duplica y personaliza tus propias recetas.' },
-  { icon: <InsightsOutlined />, title: 'Recomendaciones inteligentes', desc: 'Sugerencias según la enfermedad del paciente.' },
+  { icon: <InsightsOutlined />, title: 'Recomendaciones inteligentes', desc: 'Sugerencias según la enfermedad del paciente usando Inteligencia artificial.' },
   { icon: <PhoneIphoneOutlined />, title: 'App del paciente', desc: 'Recibe sus planes asignados por fecha.' },
   { icon: <ChatOutlined />, title: 'Chat en tiempo real', desc: 'Mensajería segura, notificaciones y adjuntos.' },
   { icon: <ShieldOutlined />, title: 'Seguridad & privacidad', desc: 'Cifrado de datos en tránsito.' },
