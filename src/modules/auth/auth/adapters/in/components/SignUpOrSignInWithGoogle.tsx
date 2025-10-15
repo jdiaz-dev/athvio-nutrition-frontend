@@ -19,8 +19,6 @@ export default function SignUpOrSignInWithGoogle({ authFormMode }: { authFormMod
         if (authFormMode === AuthFormMode.SIGN_IN) {
           await signInWithGoogleHandler({
             idToken: resp.credential,
-            clientOffsetMinutes: new Date().getTimezoneOffset(),
-            detectedLanguage,
           });
         } else {
           const { data } = await signUpWithGoogleHandler({

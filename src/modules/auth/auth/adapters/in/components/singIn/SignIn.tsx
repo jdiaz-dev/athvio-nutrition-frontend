@@ -1,12 +1,47 @@
 import { Divider, Grid, Stack, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 import AuthWrapper from '../authWrapper/AuthWrapper';
 import SignInForm from './SignInForm';
 import SignUpOrSignInWithGoogle from 'src/modules/auth/auth/adapters/in/components/SignUpOrSignInWithGoogle';
 import { AuthFormMode } from 'src/modules/auth/auth/adapters/in/shared/enum';
+import { useEffect } from 'react';
+import { usePayments } from 'src/modules/professionals/payments/out/AssignProgramActions';
+import { openSnackbar } from 'src/shared/components/Snackbar/snackbar';
+import { SnackbarProps } from 'src/shared/types/snackbar';
 
 const SignIn = () => {
+  const [searchParams] = useSearchParams();
+  const { verifyPayment } = usePayments();
+  useEffect(() => {
+    const verifyPaymentHelper = async () => {
+      const { data } = await verifyPayment({ externalId: searchParams.get('checkout_id')! });
+      if (data?.verifyPayment.isSucceded) {
+        openSnackbar({
+          open: true,
+          message: 'Gracias por tu compra, tu subscripción fue exitosa.',
+          variant: 'alert',
+          alert: {
+            color: 'success',
+          },
+        } as SnackbarProps);
+      } else {
+        openSnackbar({
+          open: true,
+          message: 'Hubo un error con tu subscripción.',
+          variant: 'alert',
+          alert: {
+            color: 'error',
+          },
+        } as SnackbarProps);
+      }
+    };
+
+    if (searchParams.get('checkout_id')) {
+      verifyPaymentHelper();
+    }
+  }, [searchParams]);
+
   return (
     <AuthWrapper>
       <Grid container spacing={3}>

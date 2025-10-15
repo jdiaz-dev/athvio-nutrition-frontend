@@ -52,7 +52,7 @@ export type SignUpProfessionalResponse = {
   signUpProfessional: PendingPayment;
 };
 
-export type SignInProfessionalWithGoogleInput = Pick<SignUpProfessionalModel, 'clientOffsetMinutes' | 'detectedLanguage'> & {
+export type SignInProfessionalWithGoogleInput = {
   idToken: string;
 };
 export type SignInProfessionalWithGoogleRequest = {
@@ -63,7 +63,8 @@ export type SignInProfessionalWithGoogleResponse = {
   signInWithGoogle: JwtDto;
 };
 
-export type SignUpProfessionalWithGoogleInput = SignInProfessionalWithGoogleInput;
+export type SignUpProfessionalWithGoogleInput = SignInProfessionalWithGoogleInput &
+  Pick<SignUpProfessionalModel, 'clientOffsetMinutes' | 'detectedLanguage'>;
 
 export type SignUpProfessionalWithGoogleRequest = {
   input: SignUpProfessionalWithGoogleInput;
