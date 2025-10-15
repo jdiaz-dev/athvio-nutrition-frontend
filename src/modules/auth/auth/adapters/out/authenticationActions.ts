@@ -17,7 +17,13 @@ import {
   SignInProfessionalWithGoogleResponse,
   SignInProfessionalWithGoogleRequest,
 } from './authentication.types';
-import { ACTIVATE_PATIENT, SIGN_IN, SIGN_IN_PROFESSIONAL_WITH_GOOGLE, SIGN_UP_PROFESSIONAL, SIGN_UP_PROFESSIONAL_WITH_GOOGLE } from './authenticationQueries';
+import {
+  ACTIVATE_PATIENT,
+  SIGN_IN,
+  SIGN_IN_PROFESSIONAL_WITH_GOOGLE,
+  SIGN_UP_PROFESSIONAL,
+  SIGN_UP_PROFESSIONAL_WITH_GOOGLE,
+} from './authenticationQueries';
 
 export function useAuthentication() {
   const signIn = async (credentials: CredentialsSignIn): Promise<FetchResult<SignInResponse>> => {

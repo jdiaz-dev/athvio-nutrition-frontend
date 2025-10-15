@@ -44,8 +44,12 @@ export type SignUpProfessionalRequest = {
   input: SignUpProfessionalModel;
 };
 
+export type PendingPayment = {
+  payment: string;
+};
+
 export type SignUpProfessionalResponse = {
-  signUpProfessional: JwtDto;
+  signUpProfessional: PendingPayment;
 };
 
 export type SignInProfessionalWithGoogleInput = Pick<SignUpProfessionalModel, 'clientOffsetMinutes' | 'detectedLanguage'> & {
@@ -66,7 +70,7 @@ export type SignUpProfessionalWithGoogleRequest = {
 };
 
 export type SignUpProfessionalWithGoogleResponse = {
-  signUpProfessionalWithGoogle: JwtDto;
+  signUpProfessionalWithGoogle: PendingPayment;
 };
 
 export type ActivatePatientBody = {

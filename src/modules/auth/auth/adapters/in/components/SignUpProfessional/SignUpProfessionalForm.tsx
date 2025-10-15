@@ -25,11 +25,7 @@ import AnimateButton from '../../shared/AnimateButton';
 import { AuthContext } from '../../context/AuthContext';
 
 import useScriptRef from '../../hooks/useScriptRef';
-import {
-  strengthColor,
-  strengthIndicator,
-  StringColorProps,
-} from 'src/modules/auth/auth/adapters/in/shared/password-strength';
+import { strengthColor, strengthIndicator, StringColorProps } from 'src/modules/auth/auth/adapters/in/shared/password-strength';
 
 // types
 import { SnackbarProps } from 'src/shared/types/snackbar'; //TODO: remove it?
@@ -40,6 +36,7 @@ import CountryCodeSelect from 'src/shared/components/Country/CountryCodeSelect';
 import { SignUpProfessionalModel } from '../../../out/authentication.types';
 import { ApolloError } from 'apollo-boost';
 import { useDetectedLanguage } from 'src/modules/auth/auth/adapters/in/hooks/useDetectedLanguage';
+import { goToPayment } from 'src/modules/auth/auth/adapters/in/shared/helpers';
 
 const SignUpProfessionalForm = () => {
   const { isAuthenticated, signUpProfessionalHandler } = useContext(AuthContext);
@@ -98,7 +95,9 @@ const SignUpProfessionalForm = () => {
             if (company) _user.professionalInfo = { company };
             if (countryName) _user.country = countryName;
             if (countryCode) _user.countryCode = countryCode;
-            await signUpProfessionalHandler(_user);
+            const { data } = await signUpProfessionalHandler(_user);
+
+            if (data) goToPayment(data.signUpProfessional.payment);
             /* 
 
             await register(values.email, values.password, values.firstname, values.lastname);

@@ -13,9 +13,7 @@ export const SIGN_IN = gql`
 export const SIGN_UP_PROFESSIONAL = gql`
   mutation _signUpProfessional($input: SignUpProfessionalDto!) {
     signUpProfessional(input: $input) {
-      uuid
-      role
-      token
+      payment
     }
   }
 `;
@@ -33,9 +31,7 @@ export const SIGN_IN_PROFESSIONAL_WITH_GOOGLE = gql`
 export const SIGN_UP_PROFESSIONAL_WITH_GOOGLE = gql`
   mutation _signUpProfessionalWithGoogle($input: SignUpProfessionalWithGoogleDto!) {
     signUpProfessionalWithGoogle(input: $input) {
-      uuid
-      role
-      token
+      payment
     }
   }
 `;

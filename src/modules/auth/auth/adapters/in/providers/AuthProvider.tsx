@@ -1,10 +1,5 @@
 import React, { ReactNode, useState } from 'react';
-import {
-  createSessionCookies,
-  getToken,
-  getProfessionalId,
-  cleanSessionCookies,
-} from 'src/modules/auth/auth/adapters/out/cookies';
+import { createSessionCookies, getToken, getProfessionalId, cleanSessionCookies } from 'src/modules/auth/auth/adapters/out/cookies';
 import { AuthContext } from '../context/AuthContext';
 import { useAuthentication } from '../../out/authenticationActions';
 import {
@@ -12,8 +7,11 @@ import {
   JwtDto,
   SignInProfessionalWithGoogleInput,
   SignUpProfessionalModel,
+  SignUpProfessionalResponse,
   SignUpProfessionalWithGoogleInput,
+  SignUpProfessionalWithGoogleResponse,
 } from '../../out/authentication.types';
+import { FetchResult } from 'apollo-boost';
 
 function AuthProvider({ children }: { children: ReactNode }) {
   const { signIn, signUpProfessional, signUpProfessionalWithGoogle, signInProfessionalWithGoogle } = useAuthentication();
@@ -29,17 +27,17 @@ function AuthProvider({ children }: { children: ReactNode }) {
     const { data } = await signIn(credentials);
     if (data) saveJwt(data.signIn);
   };
-  const signUpProfessionalHandler = async (body: SignUpProfessionalModel) => {
-    const { data } = await signUpProfessional(body);
-    if (data) saveJwt(data.signUpProfessional);
+  const signUpProfessionalHandler = async (body: SignUpProfessionalModel): Promise<FetchResult<SignUpProfessionalResponse>> => {
+    return await signUpProfessional(body);
   };
   const signInWithGoogleHandler = async (body: SignInProfessionalWithGoogleInput) => {
     const { data } = await signInProfessionalWithGoogle(body);
     if (data) saveJwt(data.signInWithGoogle);
   };
-  const signUpWithGoogleHandler = async (body: SignUpProfessionalWithGoogleInput) => {
-    const { data } = await signUpProfessionalWithGoogle(body);
-    if (data) saveJwt(data.signUpProfessionalWithGoogle);
+  const signUpWithGoogleHandler = async (
+    body: SignUpProfessionalWithGoogleInput,
+  ): Promise<FetchResult<SignUpProfessionalWithGoogleResponse>> => {
+    return await signUpProfessionalWithGoogle(body);
   };
 
   const signOut = () => {

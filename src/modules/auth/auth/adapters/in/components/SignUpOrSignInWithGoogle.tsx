@@ -3,6 +3,7 @@ import { useContext, useEffect, useRef } from 'react';
 import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import { useDetectedLanguage } from 'src/modules/auth/auth/adapters/in/hooks/useDetectedLanguage';
 import { AuthFormMode } from 'src/modules/auth/auth/adapters/in/shared/enum';
+import { goToPayment } from 'src/modules/auth/auth/adapters/in/shared/helpers';
 
 export default function SignUpOrSignInWithGoogle({ authFormMode }: { authFormMode: AuthFormMode }) {
   const { signUpWithGoogleHandler, signInWithGoogleHandler } = useContext(AuthContext);
@@ -22,11 +23,12 @@ export default function SignUpOrSignInWithGoogle({ authFormMode }: { authFormMod
             detectedLanguage,
           });
         } else {
-          await signUpWithGoogleHandler({
+          const { data } = await signUpWithGoogleHandler({
             idToken: resp.credential,
             clientOffsetMinutes: new Date().getTimezoneOffset(),
             detectedLanguage,
           });
+          if (data) goToPayment(data.signUpProfessionalWithGoogle.payment);
         }
       },
     });
