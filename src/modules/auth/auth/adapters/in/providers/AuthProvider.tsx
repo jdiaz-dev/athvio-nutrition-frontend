@@ -6,6 +6,7 @@ import {
   CredentialsSignIn,
   JwtDto,
   SignInProfessionalWithGoogleInput,
+  SignInProfessionalWithGoogleResponse,
   SignUpProfessionalModel,
   SignUpProfessionalResponse,
   SignUpProfessionalWithGoogleInput,
@@ -30,9 +31,12 @@ function AuthProvider({ children }: { children: ReactNode }) {
   const signUpProfessionalHandler = async (body: SignUpProfessionalModel): Promise<FetchResult<SignUpProfessionalResponse>> => {
     return await signUpProfessional(body);
   };
-  const signInWithGoogleHandler = async (body: SignInProfessionalWithGoogleInput) => {
-    const { data } = await signInProfessionalWithGoogle(body);
-    if (data) saveJwt(data.signInWithGoogle);
+  const signInWithGoogleHandler = async (
+    body: SignInProfessionalWithGoogleInput,
+  ): Promise<FetchResult<SignInProfessionalWithGoogleResponse>> => {
+    const res = await signInProfessionalWithGoogle(body);
+    if (res.data) saveJwt(res.data.signInWithGoogle);
+    return res;
   };
   const signUpWithGoogleHandler = async (
     body: SignUpProfessionalWithGoogleInput,

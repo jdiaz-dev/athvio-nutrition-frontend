@@ -4,6 +4,8 @@ import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthConte
 import { useDetectedLanguage } from 'src/modules/auth/auth/adapters/in/hooks/useDetectedLanguage';
 import { AuthFormMode } from 'src/modules/auth/auth/adapters/in/shared/enum';
 import { goToPayment } from 'src/modules/auth/auth/adapters/in/shared/helpers';
+import { openSnackbar } from 'src/shared/components/Snackbar/snackbar';
+import { SnackbarProps } from 'src/shared/types/snackbar';
 
 export default function SignUpOrSignInWithGoogle({ authFormMode }: { authFormMode: AuthFormMode }) {
   const { signUpWithGoogleHandler, signInWithGoogleHandler } = useContext(AuthContext);
@@ -17,9 +19,20 @@ export default function SignUpOrSignInWithGoogle({ authFormMode }: { authFormMod
       client_id: process.env.OAUTH_GOOGLE_CLIENT_ID,
       callback: async (resp: any) => {
         if (authFormMode === AuthFormMode.SIGN_IN) {
-          await signInWithGoogleHandler({
-            idToken: resp.credential,
-          });
+          try {
+            await signInWithGoogleHandler({
+              idToken: resp.credential,
+            });
+          } catch (error) {
+            openSnackbar({
+              open: true,
+              message: 'Ha habido un error al iniciar sesión con Google.',
+              variant: 'alert',
+              alert: {
+                color: 'error',
+              },
+            } as SnackbarProps);
+          }
         } else {
           const { data } = await signUpWithGoogleHandler({
             idToken: resp.credential,

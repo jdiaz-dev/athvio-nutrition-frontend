@@ -2,6 +2,7 @@ import { createContext } from 'react';
 import {
   CredentialsSignIn,
   SignInProfessionalWithGoogleInput,
+  SignInProfessionalWithGoogleResponse,
   SignUpProfessionalModel,
   SignUpProfessionalResponse,
   SignUpProfessionalWithGoogleInput,
@@ -14,7 +15,7 @@ export type AuthContextData = {
   professional: string; //TODO: change name
   signInHandler: (credentials: CredentialsSignIn) => Promise<any>;
   signUpProfessionalHandler: (credentials: SignUpProfessionalModel) => Promise<FetchResult<SignUpProfessionalResponse>>;
-  signInWithGoogleHandler: (credentials: SignInProfessionalWithGoogleInput) => Promise<any>;
+  signInWithGoogleHandler: (credentials: SignInProfessionalWithGoogleInput) => Promise<FetchResult<SignInProfessionalWithGoogleResponse>>;
   signUpWithGoogleHandler: (credentials: SignUpProfessionalWithGoogleInput) => Promise<FetchResult<SignUpProfessionalWithGoogleResponse>>;
   signOut: () => void;
 };
