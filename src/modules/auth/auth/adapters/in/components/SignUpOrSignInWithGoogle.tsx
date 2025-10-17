@@ -39,7 +39,7 @@ export default function SignUpOrSignInWithGoogle({ authFormMode }: { authFormMod
             clientOffsetMinutes: new Date().getTimezoneOffset(),
             detectedLanguage,
           });
-          if (data) goToPayment(data.signUpProfessionalWithGoogle.payment);
+          if (data) goToPayment(data.signUpProfessionalWithGoogle.paymentLink);
         }
       },
     });

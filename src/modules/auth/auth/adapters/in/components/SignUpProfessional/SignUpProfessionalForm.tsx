@@ -97,7 +97,7 @@ const SignUpProfessionalForm = () => {
             if (countryCode) _user.countryCode = countryCode;
             const { data } = await signUpProfessionalHandler(_user);
 
-            if (data) goToPayment(data.signUpProfessional.payment);
+            if (data) goToPayment(data.signUpProfessional.paymentLink);
             /* 
 
             await register(values.email, values.password, values.firstname, values.lastname);

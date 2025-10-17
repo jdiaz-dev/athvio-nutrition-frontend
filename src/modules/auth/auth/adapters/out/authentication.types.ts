@@ -45,7 +45,7 @@ export type SignUpProfessionalRequest = {
 };
 
 export type PendingPayment = {
-  payment: string;
+  paymentLink: string;
 };
 
 export type SignUpProfessionalResponse = {

@@ -1,3 +1,3 @@
-export const goToPayment = (payment: string) => {
-  window.location.href = `${process.env.PAYMENT_URL}?reference_id=${payment}`;
+export const goToPayment = (paymentLink: string) => {
+  window.location.href = paymentLink;
 };
