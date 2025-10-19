@@ -246,7 +246,7 @@ export default function LandingPage() {
               }}
             >
               <CardContent sx={{ textAlign: 'center', p: 4 }}>
-                <Chip label="Más popular" color="primary" sx={{ mb: 2, fontWeight: 600 }} />
+                {/* <Chip label="Más popular" color="primary" sx={{ mb: 2, fontWeight: 600 }} /> */}
                 <Typography variant="h6" gutterBottom>
                   ANUAL
                 </Typography>
@@ -282,7 +282,7 @@ export default function LandingPage() {
             </Card>
 
             {/* Monthly plan */}
-            <Card
+            {/* <Card
               sx={{
                 flex: 1,
                 borderRadius: 3,
@@ -310,7 +310,7 @@ export default function LandingPage() {
                   Iniciar una prueba gratuita
                 </Button>
               </CardContent>
-            </Card>
+            </Card> */}
           </Stack>
         </Container>
       </Box>
