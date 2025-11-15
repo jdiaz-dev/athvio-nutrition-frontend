@@ -115,9 +115,9 @@
     }
   },
   "toolTips":{
-    "chat":"chat",
-    "plans":"planes",
-    "planification":"planificación",
+    "chat":"Chat",
+    "plans":"Planes",
+    "planification":"Planificación",
     "add":"añadir",
     "paste":"pegar",
     "copy":"copiar",

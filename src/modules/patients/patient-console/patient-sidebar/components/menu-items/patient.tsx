@@ -19,7 +19,7 @@ const patient: NavItemType = {
       type: 'item',
       url: 'profile',
       icon: icons.AccountCircleIcon,
-      toolTipTitle: 'Profile',
+      toolTipTitle: 'Perfil',
       slide: AvailableSlides.PATIENT_PROFILE,
     },
   ],

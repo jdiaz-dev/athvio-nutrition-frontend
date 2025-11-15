@@ -36,7 +36,6 @@ function PlanificationList() {
         <Table sx={{ minWidth: 650 }}>
           <TableHead>
             <TableRow>
-              <StyledTableCell># de plan</StyledTableCell>
               <StyledTableCell>Fecha de creación</StyledTableCell>
               <StyledTableCell>Calorias</StyledTableCell>
               <StyledTableCell>Acciones</StyledTableCell>

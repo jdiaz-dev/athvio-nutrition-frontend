@@ -3,6 +3,7 @@ import { PlanificationBody } from 'src/modules/patients/patient-console/planific
 import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
 import CreateUpdatePlanificationDialog from 'src/modules/patients/patient-console/planifications/adapters/in/dialogs/CreateUpdatePlanificationDialog';
 import { Button } from '@mui/material';
+import dayjs from "dayjs";
 
 function PlanificationItem({ planification }: { planification: PlanificationBody }) {
   const [openCreateUpdatePlanificationDialog, setOpenCreateUpdatePlanificationDialog] = useState(false);
@@ -11,10 +12,7 @@ function PlanificationItem({ planification }: { planification: PlanificationBody
     <>
       <StyledTableRow key={planification.uuid}>
         <StyledTableCell component="th" scope="row">
-          {planification.uuid}
-        </StyledTableCell>
-        <StyledTableCell component="th" scope="row">
-          {planification.createdAt}
+          {dayjs(planification.createdAt).format("YYYY-MM-DD")}
         </StyledTableCell>
         <StyledTableCell component="th" scope="row" style={{ cursor: 'pointer' }}>
           {planification.configuredMacros.planCalories}
