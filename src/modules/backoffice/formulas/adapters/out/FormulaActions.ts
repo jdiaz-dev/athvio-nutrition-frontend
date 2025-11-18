@@ -9,7 +9,7 @@ import { GET_FORMULA } from 'src/modules/backoffice/formulas/adapters/out/Formul
 export function useFormula() {
   const dispatch = useDispatch();
 
-  const getFormula = async (): Promise<void> => {
+  const getFormulas = async (): Promise<void> => {
     try {
       const response = await apolloClient.query<GetFormulaResponse>({
         query: GET_FORMULA,
@@ -23,5 +23,5 @@ export function useFormula() {
     }
   };
 
-  return { getFormula };
+  return { getFormulas };
 }
