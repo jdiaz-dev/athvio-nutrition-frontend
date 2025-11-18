@@ -51,7 +51,7 @@ const AF_OPTIONS: ActivityOption[] = [
   { key: 'intense', title: 'Intensa', desc: '4 a 5 horas diarias de actividad física', factors: { mujeres: 1.82, hombres: 2.1 } },
 ];
 
-const getFactorForGender = (gender: 'male' | 'female', opt: ActivityOption) =>
+const getFactorForGender = (gender: 'male' | 'female', opt  : ActivityOption) =>
   gender === 'male' ? opt.factors.hombres : opt.factors.mujeres;
 
 export default function PlanCaloriesForm() {
@@ -89,7 +89,6 @@ export default function PlanCaloriesForm() {
       <CardHeader title="Calorías del plan" />
       <CardContent>
         <Stack spacing={2}>
-          {/* Ver datos del paciente */}
           <Stack direction="row" alignItems="center" justifyContent="space-between">
             <Typography variant="subtitle2">Ver datos del paciente</Typography>
             <IconButton size="small" onClick={() => setOpenPatient((o) => !o)}>
