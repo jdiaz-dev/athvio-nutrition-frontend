@@ -6,9 +6,9 @@ export const planificationInitialState: PlanificationInitialState = {
     uuid: '',
     patient: '',
     patientInformation: {
-      weight: 0,
-      height: 0,
-      age: 0,
+      weight: 11,
+      height: 111,
+      age: 11,
       gender: 'male',
       physicActivityName: '',
       physicActivityFactor: 0,
