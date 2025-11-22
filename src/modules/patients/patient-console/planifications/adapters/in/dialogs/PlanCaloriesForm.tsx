@@ -12,77 +12,58 @@ import {
   InputAdornment,
   InputLabel,
   MenuItem,
-  Popover,
   Select,
   Stack,
   TextField,
-  Tooltip,
   Typography,
-  CardActionArea,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import * as PlanificationSlice from 'src/modules/patients/patient-console/planifications/adapters/in/slicers/PlanificationSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
+import { Case, FormulaGroup } from 'src/modules/backoffice/formulas/types/formula';
+import PhysicActivityFactor from './PhysicActivityFactor';
 
-export type PatientPlanData = {
-  weightKg?: number;
-  heightM?: number;
-  age?: number;
-  sex: 'male' | 'female';
-  activityFactor: number;
-  planCalories: number;
-};
+enum FomulaAutors {
+  MIFFLIN = 'MIFFLIN',
+  HARRIS = 'HARRIS',
+  OWEN = 'OWEN',
+  TINSLEY = 'TINSLEY',
+}
 
-type ActivityKey = 'sedentary' | 'light' | 'moderate' | 'intense';
-
-type ActivityOption = {
-  key: ActivityKey;
-  title: string;
-  desc: string;
-  factors: { mujeres: number; hombres: number };
-};
-
-const AF_OPTIONS: ActivityOption[] = [
-  { key: 'sedentary', title: 'Sedentaria', desc: 'No realiza actividad física', factors: { mujeres: 1.2, hombres: 1.2 } },
-  { key: 'light', title: 'Ligera', desc: '3 horas semanales de actividad física', factors: { mujeres: 1.56, hombres: 1.65 } },
-  { key: 'moderate', title: 'Moderada', desc: '6 horas semanales de actividad física', factors: { mujeres: 1.64, hombres: 1.78 } },
-  { key: 'intense', title: 'Intensa', desc: '4 a 5 horas diarias de actividad física', factors: { mujeres: 1.82, hombres: 2.1 } },
-];
-
-const getFactorForGender = (gender: 'male' | 'female', opt  : ActivityOption) =>
-  gender === 'male' ? opt.factors.hombres : opt.factors.mujeres;
-
-export default function PlanCaloriesForm() {
+export default function PlanCaloriesForm({ selectedFormulaGroup }: { selectedFormulaGroup: FormulaGroup | null }) {
   const dispatch = useDispatch();
   const planificationState = useSelector((state: ReduxStates) => state.planifications.planification);
   const [openPatient, setOpenPatient] = useState(true);
-  const defaultOption = AF_OPTIONS.find((o) => o.key === 'intense')!;
-  const [selected, setSelected] = useState<ActivityOption>(defaultOption);
-
-  // popover anchor
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const popOpen = Boolean(anchorEl);
-  const id = popOpen ? 'activity-popover' : undefined;
-
-  const factor = getFactorForGender((planificationState.patientInformation.gender as 'male' | 'female') ?? 'female', selected);
 
   useEffect(() => {
-    const withGender = planificationState.patientInformation.gender === 'male' ? +5 : -161;
-    const calculateBasalMetabolism =
-      10 * planificationState.patientInformation.weight +
-      6.25 * planificationState.patientInformation.height -
-      5 * planificationState.patientInformation.age +
-      withGender;
+    const coefficentAndConstants = selectedFormulaGroup?.cases.find((c) => c.case === planificationState.patientInformation.gender) as Case;
+    const { coefficients, constants } = coefficentAndConstants;
+
+    let calculateBasalMetabolism: number;
+
+    if (
+      selectedFormulaGroup?.spanishFormulaName === FomulaAutors.MIFFLIN ||
+      selectedFormulaGroup?.spanishFormulaName === FomulaAutors.HARRIS
+    ) {
+      calculateBasalMetabolism =
+        coefficients[0].value * planificationState.patientInformation.weight +
+        coefficients[1].value * planificationState.patientInformation.height +
+        coefficients[2].value * planificationState.patientInformation.age +
+        constants[0].value;
+    } else {
+      // OWEN and TINSLEY
+      calculateBasalMetabolism = coefficients[0].value * planificationState.patientInformation.weight + constants[0].value;
+    }
 
     dispatch(PlanificationSlice.modifyBasalEnergyRate(parseInt(calculateBasalMetabolism.toFixed(0))));
+
     dispatch(
       PlanificationSlice.modifyTotalCalories(
         parseInt((calculateBasalMetabolism * planificationState.patientInformation.physicActivityFactor).toFixed(0)),
       ),
     );
-  }, [planificationState]);
+  }, [planificationState, selectedFormulaGroup]);
 
   return (
     <Card variant="outlined">
@@ -162,130 +143,13 @@ export default function PlanCaloriesForm() {
               </Grid>
             </Box>
           </Collapse>
-
           <Divider />
 
-          {/* GEB / GET sólo UI (sin fórmula) */}
-          <Stack spacing={1}>
-            <Typography variant="body2">
-              Gasto Energético Basal (GEB): <b>{planificationState.configuredMacros.basalEnergyRate} kcal</b>
-            </Typography>
+          <Typography variant="body2">
+            Gasto Energético Basal (GEB): <b>{planificationState.configuredMacros.basalEnergyRate} kcal</b>
+          </Typography>
 
-            {/* --- Activity Factor row with popover trigger --- */}
-            <Stack direction="row" alignItems="center" spacing={1}>
-              <Typography variant="body2" sx={{ minWidth: 190 }}>
-                Factor de actividad física:
-              </Typography>
-
-              <Tooltip title="Cambiar nivel de actividad">
-                <Stack
-                  role="button"
-                  tabIndex={0}
-                  onClick={(e) => setAnchorEl(e.currentTarget as HTMLElement)}
-                  onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setAnchorEl(e.currentTarget as HTMLElement)}
-                  sx={(theme) => ({
-                    'px': 1.25,
-                    'py': 0.5,
-                    'borderRadius': 2,
-                    'border': `1px solid ${theme.palette.divider}`,
-                    'cursor': 'pointer',
-                    'userSelect': 'none',
-                    '&:hover': { backgroundColor: theme.palette.action.hover },
-                  })}
-                  direction="row"
-                  alignItems="center"
-                  spacing={1}
-                >
-                  <Typography variant="body2" fontWeight={600}>
-                    {selected.title}
-                  </Typography>
-                  <Typography variant="caption" sx={{ opacity: 0.7 }}>
-                    • {planificationState.patientInformation.physicActivityFactor.toFixed(2)}
-                  </Typography>
-                </Stack>
-              </Tooltip>
-
-              <Popover
-                id={id}
-                open={popOpen}
-                anchorEl={anchorEl}
-                onClose={() => setAnchorEl(null)}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-                transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-                PaperProps={{ sx: { p: 2, width: 520, maxWidth: '90vw' } }}
-              >
-                <Typography variant="subtitle2" sx={{ mb: 1.5 }}>
-                  Selecciona tu nivel de factor de actividad física:
-                </Typography>
-
-                <Grid container spacing={1.5}>
-                  {AF_OPTIONS.map((option) => {
-                    const isSelected = option.key === selected.key;
-                    const factorValue = getFactorForGender(
-                      (planificationState.patientInformation.gender as 'male' | 'female') ?? 'female',
-                      option,
-                    );
-
-                    return (
-                      <Grid key={option.key} item xs={12} sm={6}>
-                        <Card
-                          variant="outlined"
-                          sx={{
-                            borderColor: isSelected ? 'primary.main' : 'divider',
-                            boxShadow: isSelected ? 3 : 0,
-                          }}
-                        >
-                          <CardActionArea
-                            onClick={() => {
-                              setSelected(option);
-                              dispatch(
-                                PlanificationSlice.modifyActivityFactor({
-                                  physicActivityFactor: factorValue,
-                                  physicActivityName: option.key,
-                                }),
-                              );
-                              setAnchorEl(null);
-                            }}
-                          >
-                            <CardContent>
-                              <Stack direction="row" alignItems="start" spacing={1}>
-                                <Box sx={{ flexGrow: 1 }}>
-                                  <Typography variant="subtitle1">{option.title}</Typography>
-                                  <Typography variant="caption" sx={{ display: 'block', mb: 1 }}>
-                                    {option.desc}
-                                  </Typography>
-                                  <Typography variant="caption" sx={{ display: 'block' }}>
-                                    Mujeres: <b>{option.factors.mujeres}</b> &nbsp;|&nbsp; Hombres: <b>{option.factors.hombres}</b>
-                                  </Typography>
-                                </Box>
-                                {isSelected && <CheckCircleRoundedIcon color="primary" fontSize="small" />}
-                              </Stack>
-                            </CardContent>
-                          </CardActionArea>
-                        </Card>
-                      </Grid>
-                    );
-                  })}
-                </Grid>
-              </Popover>
-            </Stack>
-
-            <Typography variant="body2">
-              Calorías totales (GET): <b>{planificationState.configuredMacros.totalCalories} kcal</b>
-            </Typography>
-
-            <TextField
-              label="Calorias para tu plan"
-              value={planificationState.configuredMacros.planCalories}
-              type="number"
-              fullWidth
-              inputProps={{ min: 0, step: 0.1 }}
-              InputProps={{ endAdornment: <InputAdornment position="end">cal.</InputAdornment> }}
-              onChange={(e) => {
-                dispatch(PlanificationSlice.modifyPlanCalories(parseFloat(e.target.value)));
-              }}
-            />
-          </Stack>
+          <PhysicActivityFactor selectedFormulaGroup={selectedFormulaGroup} />
         </Stack>
       </CardContent>
     </Card>

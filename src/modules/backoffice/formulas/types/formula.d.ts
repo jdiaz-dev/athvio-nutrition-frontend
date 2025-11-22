@@ -1,34 +1,38 @@
-type ValueCase = {
+export type ValueCase = {
   value: number;
   case?: string;
-}
+  spanishCase?: string;
+};
 
-type Parameter = {
+export type Parameter = {
   spanishParameterName: string;
+  description: string;
   valueCases: ValueCase[];
-}
+};
 
 type Constant = {
   name: string;
   value: number;
-}
+};
 
 type Coefficient = {
   variable: string;
   value: number;
-}
+};
 
 type Case = {
   spanishCaseLabel: string;
+  case: string;
   coefficients: Coefficient[];
   constants: Constant[];
-}
+};
 
-type FormulaGroup = {
+export type FormulaGroup = {
   spanishFormulaName: string;
   cases: Case[];
+  parameterDescription?: string;
   parameters: Parameter[];
-}
+};
 
 export type Formula = {
   spanishGroupName: string;
@@ -39,4 +43,6 @@ export type GetFormulaResponse = {
   getFormula: Formula;
 };
 
-export type FormulaInitialState = Formula;
+export type FormulaInitialState = {
+  formula: Formula;
+};

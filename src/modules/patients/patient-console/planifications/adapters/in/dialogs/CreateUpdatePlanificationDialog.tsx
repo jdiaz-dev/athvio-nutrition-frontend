@@ -14,6 +14,8 @@ import * as PlanificationSlice from 'src/modules/patients/patient-console/planif
 import { usePlanification } from 'src/modules/patients/patient-console/planifications/adapters/out/PlanificationActions';
 import { useParams } from 'react-router-dom';
 import { ReduxStates } from 'src/shared/types/types';
+import FormulaSelector from 'src/modules/backoffice/formulas/adapters/in/components/FormulaSelector';
+import { FormulaGroup } from 'src/modules/backoffice/formulas/types/formula';
 
 function CreateUpdatePlanificationDialog({
   openCreateUpdatePlanificationDialog,
@@ -30,6 +32,8 @@ function CreateUpdatePlanificationDialog({
   const planificationState = useSelector((state: ReduxStates) => state.planifications.planification);
 
   const { createPlanification, updatePlanification } = usePlanification();
+  const [selectedFormulaGroup, setSelectedFormulaGroup] = useState<FormulaGroup | null>(null);
+
   const { classes } = formStyles();
   const dispatch = useDispatch();
 
@@ -102,7 +106,8 @@ function CreateUpdatePlanificationDialog({
           <Container maxWidth="lg" sx={{ py: 2 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} md={6}>
-                <PlanCaloriesForm />
+                <FormulaSelector setSelectedFormulaGroup={setSelectedFormulaGroup} />
+                {selectedFormulaGroup !== null && <PlanCaloriesForm selectedFormulaGroup={selectedFormulaGroup} />}
               </Grid>
               <Grid item xs={12} md={6}>
                 <MacroForm />

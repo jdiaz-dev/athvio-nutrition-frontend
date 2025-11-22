@@ -7,7 +7,7 @@ const formulaSlice = createSlice({
   initialState: formulaInitialState,
   reducers: {
     initializeFormula: (state, action: PayloadAction<Formula>) => {
-      state = action.payload;
+      state.formula = action.payload;
       return state;
     },
   },

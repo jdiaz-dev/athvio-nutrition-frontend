@@ -9,7 +9,7 @@ export const planificationInitialState: PlanificationInitialState = {
       weight: 0,
       height: 0,
       age: 0,
-      gender: '',
+      gender: 'male',
       physicActivityName: '',
       physicActivityFactor: 0,
     },
