@@ -37,7 +37,10 @@ function PlanificationList() {
           <TableHead>
             <TableRow>
               <StyledTableCell>Fecha de creación</StyledTableCell>
-              <StyledTableCell>Calorias</StyledTableCell>
+              <StyledTableCell>Proteinas</StyledTableCell>
+              <StyledTableCell>Carbohidratos</StyledTableCell>
+              <StyledTableCell>Grasas</StyledTableCell>
+              <StyledTableCell>Calorias Totales</StyledTableCell>
               <StyledTableCell>Acciones</StyledTableCell>
             </TableRow>
           </TableHead>
