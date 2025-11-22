@@ -78,6 +78,7 @@ export default function MacroForm() {
     planificationState.configuredMacros.proteinInPercentage,
     planificationState.configuredMacros.carbsInPercentage,
     planificationState.configuredMacros.fatInPercentage,
+    planificationState.patientInformation.weight,
   ]);
 
   const handle = (k: MacroKey) => (e: React.ChangeEvent<HTMLInputElement>) => {
