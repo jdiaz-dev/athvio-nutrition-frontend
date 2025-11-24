@@ -5,7 +5,7 @@ import { Modules } from 'src/shared/Consts';
 import PatientBasicInfo from 'src/shared/components/PatientList/PatientBasicInfo';
 import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
 import SelectPatientButton from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/SelectPatientButton';
-import { PatientBody } from 'src/modules/patients/patient-console/patient/adapters/out/patient';
+import { PatientBody } from 'src/modules/patients/patients/adapters/out/patient.types';
 
 function PatientItem({ patient }: { patient: PatientBody }) {
   const currentModuleContext = useContext(CurrentModuleContext);

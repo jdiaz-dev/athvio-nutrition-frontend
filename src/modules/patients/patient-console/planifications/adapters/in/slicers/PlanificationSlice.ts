@@ -33,49 +33,51 @@ const planificationSlice = createSlice({
   name: 'planification',
   initialState: planificationInitialState.planification,
   reducers: {
-    initializePlanification: (state, action: PayloadAction<PlanificationBody>) => {
+    initializePlanification: (state, action: PayloadAction<PlanificationBody | null>) => {
       state = action.payload;
       return state;
     },
 
     modifyWeight: (state, action: PayloadAction<number>) => {
-      state.patientInformation.weight = action.payload;
+      if (state !== null) state.patientInformation.weight = action.payload;
       return state;
     },
     modifyHeight: (state, action: PayloadAction<number>) => {
-      state.patientInformation.height = action.payload;
+      if (state !== null) state.patientInformation.height = action.payload;
       return state;
     },
     modifyAge: (state, action: PayloadAction<number>) => {
-      state.patientInformation.age = action.payload;
+      if (state !== null) state.patientInformation.age = action.payload;
       return state;
     },
     modifyGender: (state, action: PayloadAction<string>) => {
-      state.patientInformation.gender = action.payload;
+      if (state !== null) state.patientInformation.gender = action.payload;
       return state;
     },
     modifyActivityFactor: (state, action: PayloadAction<Pick<PatientInformation, 'physicActivityFactor' | 'physicActivityName'>>) => {
-      state.patientInformation.physicActivityFactor = action.payload.physicActivityFactor;
-      state.patientInformation.physicActivityName = action.payload.physicActivityName;
+      if (state !== null) {
+        state.patientInformation.physicActivityFactor = action.payload.physicActivityFactor;
+        state.patientInformation.physicActivityName = action.payload.physicActivityName;
+      }
       return state;
     },
     modifyBasalEnergyRate: (state, action: PayloadAction<number>) => {
-      state.configuredMacros.basalEnergyRate = action.payload;
+      if (state !== null) state.configuredMacros.basalEnergyRate = action.payload;
       return state;
     },
     modifyTotalCalories: (state, action: PayloadAction<number>) => {
-      state.configuredMacros.totalCalories = action.payload;
+      if (state !== null) state.configuredMacros.totalCalories = action.payload;
       return state;
     },
     modifyPlanCalories: (state, action: PayloadAction<number>) => {
-      state.configuredMacros.planCalories = action.payload;
+      if (state !== null) state.configuredMacros.planCalories = action.payload;
       return state;
     },
     modifyCalculatedMacros: (
       state,
       action: PayloadAction<Omit<CalculatedMacros, 'basalEnergyRate' | 'totalCalories' | 'planCalories'>>,
     ) => {
-      state.configuredMacros = { ...state.configuredMacros, ...action.payload };
+      if (state !== null) state.configuredMacros = { ...state.configuredMacros, ...action.payload };
       return state;
     },
     resetPlanification: (state) => {

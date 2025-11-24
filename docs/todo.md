@@ -7,6 +7,7 @@
 - fix: clean program slice every time that remove component of program container
 - fix: fix the bug at moment to add the food to the list
 - fix: make responsive the program table, check how it is responsive patient calendar and apply to program 
+- fix: manage when there arent planification created
 
 # programs
 - working in program to treat fibromialgia

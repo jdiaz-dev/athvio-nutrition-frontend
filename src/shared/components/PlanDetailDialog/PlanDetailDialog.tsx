@@ -4,7 +4,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import { programInitialState } from 'src/modules/professionals/programs/adapters/in/slicers/ProgramInitialState';
 import { patientPlanInitialState } from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/PatientPlanInitialState';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { DialogTitle } from '@mui/material';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import MealDetail from 'src/shared/components/PlanDetailDialog/MealDetail';
@@ -18,6 +18,8 @@ import CancelAndSaveButtons from 'src/shared/components/CancelAndSaveButtons';
 import { useMealsStates } from 'src/shared/components/PlanDetailDialog/useMealsStates';
 import { useTranslation } from 'react-i18next';
 import { EnableEditionContext } from 'src/shared/components/wrappers/EnablerEditionWrapper/EnableEditionContext';
+import MacroMeasurement from 'src/shared/components/PlanDetailDialog/MacroMeasurement';
+import { ReduxStates } from 'src/shared/types/types';
 
 const savedPlanButton = new Subject<boolean>();
 export const savedPlanButton$ = savedPlanButton.asObservable();
@@ -33,6 +35,7 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
 }) {
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const currentModuleContext = useContext(CurrentModuleContext);
+  const planificationState = useSelector((state: ReduxStates) => state.planifications.planification);
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const { addMeal } = useMealListSlicers(currentModuleContext.currentModule);
@@ -76,6 +79,7 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
           {planDay}
+          {planificationState !== null && <MacroMeasurement />}
           <CloseDialogIcon closedIconDialog={closedIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
         </DialogTitle>
         <DialogContent>

@@ -52,14 +52,14 @@ function PatientPlansCalendar() {
   useEffect(() => {
     const fetchPlans = async () => {
       if (dateSet !== null) {
-        const input = {
+        const patientPlans = {
           patient: patientId as string,
           offset: 0,
           limit: 30,
           startDate: dayjs.utc(dateSet.dateStart).set('hour', 0).toISOString(),
           endDate: dayjs.utc(dateSet.dateEnd).set('hour', 0).toISOString(),
         };
-        await getPatientPlans(input);
+        await getPatientPlans({ patientPlans, lastPlanification: { patient: patientId as string } });
         setReloadRecordList(false);
       }
     };

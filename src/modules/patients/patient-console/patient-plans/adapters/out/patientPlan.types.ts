@@ -1,3 +1,4 @@
+import { GetPlanificationInput, PlanificationBody } from 'src/modules/patients/patient-console/planifications/helpers/planifications';
 import { Meal, MealBasicInfo, MealDetails } from 'src/shared/components/PlanDetailDialog/Meal.types';
 import { MealWithStatus } from 'src/shared/components/PlanDetailDialog/MealList';
 import { GetRecordsBody, MetadataRecords } from 'src/shared/types/get-records.types';
@@ -38,6 +39,7 @@ export interface GetRecordsPatientPlansBody extends GetRecordsBody {
 
 export interface GetPatientPlansRequest {
   patientPlans: GetRecordsPatientPlansBody;
+  lastPlanification: GetPlanificationInput;
 }
 
 export interface PatientPlans {
@@ -47,6 +49,7 @@ export interface PatientPlans {
 
 //todo: delete response
 export interface GetPatientPlansResponse {
+  getLastPlanification: PlanificationBody | null;
   getPatientPlansForWeb: PatientPlanBody[];
 }
 

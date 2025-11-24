@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { AutoFixHigh, ChevronLeft, ChevronRight } from '@mui/icons-material';
-import { Box, Button, IconButton } from '@mui/material';
+import { Box, Button, IconButton, Chip } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import dayjs from 'dayjs';
 import { DateSet } from 'src/modules/patients/patient-console/patient-plans/adapters/helpers/PatientPlans';
 import PlatientPlansGeneratorDialog from 'src/modules/patients/patient-console/patient-plans/adapters/in/dialogs/PatientPlansGeneratorDialog/PlatientPlansGeneratorDialog';
+import { useSelector } from 'react-redux';
+import { ReduxStates } from 'src/shared/types/types';
+import { Navigate, useParams } from 'react-router-dom';
 
 function CalendarHeader({
   dateSet,
@@ -15,8 +18,17 @@ function CalendarHeader({
   handleCalendarPrev: () => void;
   handleCalendarNext: () => void;
 }) {
+  const { patientId } = useParams();
+  const planificationState = useSelector((state: ReduxStates) => state.planifications.planification);
+  const [goToPlanificication, setGotoPlanificication] = useState(false);
+
   const theme = useTheme();
   const [openDialog, setOpenDialog] = useState(false);
+  if (goToPlanificication) {
+    const path = `/professional/patients/${patientId}/planification`;
+    return <Navigate replace to={path} />;
+  }
+
   return (
     <Box
       bgcolor={theme.palette.background.paper}
@@ -39,17 +51,36 @@ function CalendarHeader({
                 .format('MMMM YYYY')
             : 'Calendar'}
         </Box>
-
         <IconButton onClick={handleCalendarNext}>
           <ChevronRight />
         </IconButton>
       </Box>
-
-      <Box display="flex" gap={1}>
-        <Button variant="contained" startIcon={<AutoFixHigh />} onClick={() => setOpenDialog(true)}>
-          Auto-generar plan nutricional
-        </Button>
+      <Box display="flex" gap={1} width="40%" justifyContent="space-between">
+        {planificationState !== null ? (
+          <Box display="flex" gap={1} alignItems="center">
+            <Chip
+              label={`Última planificación: ${planificationState.configuredMacros?.planCalories} cal`}
+              color="warning"
+              variant="outlined"
+            />
+          </Box>
+        ) : (
+          <Box display="flex" gap={1} alignItems="center">
+            <Chip
+              onClick={() => setGotoPlanificication(true)}
+              label={`Crea una planificación antes de crear el plan`}
+              color="warning"
+              variant="outlined"
+            />
+          </Box>
+        )}
+        <Box display="flex" gap={1}>
+          <Button variant="contained" startIcon={<AutoFixHigh />} onClick={() => setOpenDialog(true)}>
+            Auto-generar plan nutricional
+          </Button>
+        </Box>
       </Box>
+
       {openDialog && (
         <PlatientPlansGeneratorDialog openPlatientPlansGeneratorDialog={openDialog} setOpenPlatientPlansGeneratorDialog={setOpenDialog} />
       )}

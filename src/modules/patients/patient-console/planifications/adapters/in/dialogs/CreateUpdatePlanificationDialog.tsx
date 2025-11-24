@@ -29,7 +29,7 @@ function CreateUpdatePlanificationDialog({
   planification?: PlanificationBody;
 }) {
   const { patientId } = useParams();
-  const planificationState = useSelector((state: ReduxStates) => state.planifications.planification);
+  const planificationState = useSelector((state: ReduxStates) => state.planifications.planification) as PlanificationBody;
 
   const { createPlanification, updatePlanification } = usePlanification();
   const [selectedFormulaGroup, setSelectedFormulaGroup] = useState<FormulaGroup | null>(null);

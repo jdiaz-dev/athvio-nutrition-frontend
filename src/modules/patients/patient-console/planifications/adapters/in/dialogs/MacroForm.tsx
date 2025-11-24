@@ -3,6 +3,7 @@ import { Box, Card, CardContent, CardHeader, Grid, InputAdornment, LinearProgres
 import { useDispatch, useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 import * as PlanificationSlice from 'src/modules/patients/patient-console/planifications/adapters/in/slicers/PlanificationSlice';
+import { PlanificationBody } from 'src/modules/patients/patient-console/planifications/helpers/planifications';
 
 type MacroKey = 'carbsInPercentage' | 'proteinInPercentage' | 'fatInPercentage';
 
@@ -35,7 +36,7 @@ const densityLabel = 'g / peso (kg)';
 const totalMacroLabel = 'total (g)';
 export default function MacroForm() {
   const dispatch = useDispatch();
-  const planificationState = useSelector((state: ReduxStates) => state.planifications.planification);
+  const planificationState = useSelector((state: ReduxStates) => state.planifications.planification) as PlanificationBody;
 
   const total =
     planificationState.configuredMacros.carbsInPercentage +

@@ -19,11 +19,12 @@ import {
   UpdatePatientPlanResponse,
 } from 'src/modules/patients/patient-console/patient-plans/adapters/out/patientPlan.types';
 import * as PatientPlanSlice from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/PatientPlanSlice';
+import * as PlanificationSlice from 'src/modules/patients/patient-console/planifications/adapters/in/slicers/PlanificationSlice';
 import {
   CREATE_CLIENT_PLAN,
   DELETE_CLIENT_PLAN,
   DUPLICATE_CLIENT_PLAN,
-  GET_CLIENT_PLANS,
+  GET_CLIENT_PLANS_SCREEN,
   UPDATE_CLIENT_PLAN,
 } from 'src/modules/patients/patient-console/patient-plans/adapters/out/PatientPlanQueries';
 
@@ -47,20 +48,20 @@ export function usePatientPlan() {
     }
   };
 
-  const getPatientPlans = async (body: GetRecordsPatientPlansBody) => {
+  const getPatientPlans = async ({ patientPlans, lastPlanification }: GetPatientPlansRequest) => {
     try {
       const response = await apolloClient.query<GetPatientPlansResponse, GetPatientPlansRequest>({
-        query: GET_CLIENT_PLANS,
+        query: GET_CLIENT_PLANS_SCREEN,
         variables: {
-          patientPlans: {
-            ...body,
-          },
+          patientPlans,
+          lastPlanification,
         },
         fetchPolicy: 'network-only',
       });
 
       if (response.data) {
         dispatch(PatientPlanSlice.initializeNewPatientPlans(response.data.getPatientPlansForWeb));
+        dispatch(PlanificationSlice.initializePlanification(response.data.getLastPlanification));
       }
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);

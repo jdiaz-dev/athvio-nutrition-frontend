@@ -95,8 +95,30 @@ export const CREATE_CLIENT_PLAN = gql`
   }
 `;
 
-export const GET_CLIENT_PLANS = gql`
-  query _getPatientPlansForWeb($patientPlans: GetPatientPlansForWebDto!) {
+export const GET_CLIENT_PLANS_SCREEN = gql`
+  query _getPatientPlansForWebsCreen($patientPlans: GetPatientPlansForWebDto!, $lastPlanification: GetLastPlanificationDto!) {
+    getLastPlanification(lastPlanification: $lastPlanification) {
+      uuid
+      patientInformation {
+        weight
+        height
+        age
+        gender
+        physicActivityName
+        physicActivityFactor
+      }
+      configuredMacros {
+        proteinInPercentage
+        carbsInPercentage
+        fatInPercentage
+        totalProtein
+        totalCarbs
+        totalFat
+        totalCalories
+        planCalories
+      }
+      createdAt
+    }
     getPatientPlansForWeb(patientPlans: $patientPlans) {
       uuid
       title

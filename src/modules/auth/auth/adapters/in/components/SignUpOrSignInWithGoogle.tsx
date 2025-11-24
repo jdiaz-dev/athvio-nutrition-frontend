@@ -45,7 +45,7 @@ export default function SignUpOrSignInWithGoogle({ authFormMode }: { authFormMod
     });
 
     // @ts-ignore
-    window.google.accounts.id.renderButton(divRef.current, {
+    window.google?.accounts.id.renderButton(divRef.current, {
       theme: 'outline',
       type: 'standard',
       text: authFormMode === AuthFormMode.SIGN_IN ? 'signin_with' : 'signup_with',
@@ -55,7 +55,7 @@ export default function SignUpOrSignInWithGoogle({ authFormMode }: { authFormMod
     });
 
     // @ts-ignore
-    window.google.accounts.id.disableAutoSelect();
+    window.google?.accounts.id.disableAutoSelect();
   }, [signUpWithGoogleHandler]);
 
   return <div style={{ display: 'flex', justifyContent: 'center' }} ref={divRef} />;

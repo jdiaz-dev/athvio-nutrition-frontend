@@ -40,9 +40,11 @@ export type CreatePlanificationResponse = {
   createPlanification: PlanificationBody;
 };
 
-export type GetPlanificationsInput = {
+export type GetPlanificationInput = {
   patient: string;
 };
+
+export type GetPlanificationsInput = GetPlanificationInput;
 
 export type GetPlanificationsRequest = {
   input: GetPlanificationsInput;
@@ -66,5 +68,5 @@ export type UpdatePlanificationResponse = {
 
 export type PlanificationInitialState = {
   planifications: PlanificationBody[];
-  planification: PlanificationBody;
+  planification: PlanificationBody | null;
 };
