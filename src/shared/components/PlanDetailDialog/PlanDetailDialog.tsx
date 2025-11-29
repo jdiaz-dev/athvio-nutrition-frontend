@@ -20,6 +20,7 @@ import { useTranslation } from 'react-i18next';
 import { EnableEditionContext } from 'src/shared/components/wrappers/EnablerEditionWrapper/EnableEditionContext';
 import MacroMeasurement from 'src/shared/components/PlanDetailDialog/MacroMeasurement';
 import { ReduxStates } from 'src/shared/types/types';
+import { useMealBasicInfoSlicers } from 'src/shared/hooks/useMealBasicInfoSlicers';
 
 const savedPlanButton = new Subject<boolean>();
 export const savedPlanButton$ = savedPlanButton.asObservable();
@@ -41,13 +42,17 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
   const { addMeal } = useMealListSlicers(currentModuleContext.currentModule);
   const { mealListState } = useMealsStates(currentModuleContext.currentModule);
   const [closedIconDialog, setClosedIconDialog] = useState(true);
+  const { resetMealBasicInfo } = useMealBasicInfoSlicers(currentModuleContext.currentModule);
+
   useEffect(() => {
     if (!closedIconDialog) {
       reloadRecordListContext.setReloadRecordList(true);
       setOpenPlanDetailDialog(false);
     }
+    return () => {
+      dispatch(resetMealBasicInfo());
+    };
   }, [closedIconDialog]);
-
   const closeIconDialogHandler = () => {
     setOpenPlanDetailDialog(false);
   };
@@ -57,6 +62,7 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
     } else if (currentModuleContext.currentModule === Modules.PROGRAMS) {
       dispatch(addMeal({ ...programInitialState.mealBasicInfo, ...programInitialState.mealDetails, uuid: generateTemporalId() }));
     }
+    dispatch(resetMealBasicInfo());
   };
 
   const savePlanHandler = async () => {

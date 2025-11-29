@@ -3,4 +3,4 @@ import { mealBasicInfoSlice as mealBasicInfoSlicer } from 'src/shared/components
 
 export const patientPlanMealBasicInfoSlice = mealBasicInfoSlicer('mealBasicInfo', patientPlanInitialState.mealBasicInfo);
 
-export const { acceptNewMealBasicInfo, renameMealTag, changeName, setImage } = patientPlanMealBasicInfoSlice.actions;
+export const { acceptNewMealBasicInfo, renameMealTag, changeName, setImage, resetMealBasicInfo } = patientPlanMealBasicInfoSlice.actions;

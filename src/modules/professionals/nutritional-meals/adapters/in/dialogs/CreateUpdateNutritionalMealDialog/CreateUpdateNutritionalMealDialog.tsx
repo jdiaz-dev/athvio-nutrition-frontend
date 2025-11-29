@@ -45,7 +45,6 @@ function CreateUpdateNutritionalMealDialog({
   const [componentTouched, setComponentTouched] = useState(false);
   const [closedIconDialog, setClosedIconDialog] = useState(true);
   const [showAnticancerProperties, setShowAnticancerProperties] = useState(false);
-  const [newImage, setNewImage] = useState<File | null>(null);
 
   const { uuid, ...restNutritionalMeal } = nutritionalMealDetailsState;
   const createUpdateNutritionalMealHandler = async () => {
@@ -153,7 +152,7 @@ function CreateUpdateNutritionalMealDialog({
               <NutritionalMealNameInput />
               <NutritionalMealOptions setShowAnticancerProperties={setShowAnticancerProperties} />
             </div>
-            <ImageContainer image={mealNameBasicInfo.image} setNewImage={setNewImage} />
+            <ImageContainer image={mealNameBasicInfo.image} />
             <CurrentModuleContext.Provider value={{ currentModule: Modules.NUTRITIONAL_MEALS }}>
               {!showAnticancerProperties && <MealBuilder meal={{ uuid, ...restNutritionalMeal }} />}
               {showAnticancerProperties && <FoodAnalyzerList internalFoods={internalFoods} />}

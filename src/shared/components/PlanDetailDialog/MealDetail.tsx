@@ -58,7 +58,6 @@ function MealDetail({ meal: { position, mealTag, name, image, ...mealDetails } }
   const { acceptNewMealDetail } = useMealBuilderSlicers(currentModuleContext.currentModule);
   const { updateMeal, deleteMeal, addMeal } = useMealListSlicers(currentModuleContext.currentModule);
 
-  const [newImage, setNewImage] = useState<File | null>(null);
   const [mealContainerTouched, setMealContainerTouched] = useState(false);
   const [mealDeteted, setMealDeleted] = useState(false);
   const [openImportMealDialog, setOpenImportMealDialog] = useState(false);
@@ -73,7 +72,7 @@ function MealDetail({ meal: { position, mealTag, name, image, ...mealDetails } }
     setAnchorEl(null);
   };
   const componentClickedHandler = () => {
-    dispatch(acceptNewMealBasicInfo({ position, mealTag, name }));
+    dispatch(acceptNewMealBasicInfo({ position, mealTag, name, image }));
     dispatch(acceptNewMealDetail(mealDetails));
   };
   const updateMealHandler = async () => {
@@ -103,6 +102,10 @@ function MealDetail({ meal: { position, mealTag, name, image, ...mealDetails } }
     setMealContainerTouched(false);
     dispatch(addMeal({ ...mealBasicInfoState, ...mealDetailsState, uuid: generateTemporalId() }));
   };
+  const insertImageHandler = () => {
+    setShowMealImage(!showMealImage);
+    setMealContainerTouched(true);
+  };
   const componentTouchedHandler = () => {
     if (!mealContainerTouched) setMealContainerTouched(true);
   };
@@ -116,8 +119,11 @@ function MealDetail({ meal: { position, mealTag, name, image, ...mealDetails } }
   };
   useEffect(() => {
     if (mealContainerTouched) {
+      console.log('----mealBasicInfoState', mealBasicInfoState);
+      console.log('----image', image);
       componentClickedHandler();
     }
+    return () => {};
   }, [mealContainerTouched]);
 
   const _meal = () => (mealContainerTouched ? mealDetailsState : mealDetails);
@@ -150,7 +156,7 @@ function MealDetail({ meal: { position, mealTag, name, image, ...mealDetails } }
           >
             <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
               <Tooltip title="imagen" placement="top">
-                <IconButton onClick={() => setShowMealImage(!showMealImage)}>
+                <IconButton onClick={insertImageHandler}>
                   <InsertPhotoIcon style={{ cursor: 'pointer' }} />
                 </IconButton>
               </Tooltip>
@@ -181,7 +187,7 @@ function MealDetail({ meal: { position, mealTag, name, image, ...mealDetails } }
           </Grid>
         </Grid>
 
-        {!showMealImage ? <MealBuilder meal={_meal()} /> : <ImageContainer image={_mealImage()} setNewImage={setNewImage} />}
+        {!showMealImage ? <MealBuilder meal={_meal()} /> : <ImageContainer image={_mealImage()} />}
         <ImportMealDialog openImportMealDialog={openImportMealDialog} closeImportMealHandler={closeImportMealHandler} />
       </Card>
     </>

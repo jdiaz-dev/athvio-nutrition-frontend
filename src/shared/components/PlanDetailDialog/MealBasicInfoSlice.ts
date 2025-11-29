@@ -11,7 +11,7 @@ export const mealBasicInfoSlice = (sliceName: string, initialState: MealBasicInf
         state.mealTag = action.payload.mealTag;
         state.name = action.payload.name;
         state.position = action.payload.position;
-        if (action.payload.image !== null) state.image = action.payload.image;
+        if (action.payload.image) state.image = action.payload.image;
         if (action.payload.imageSource) state.imageSource = action.payload.imageSource;
         return state;
       },
@@ -31,6 +31,10 @@ export const mealBasicInfoSlice = (sliceName: string, initialState: MealBasicInf
         if (imageSource) {
           state.imageSource = imageSource;
         }
+        return state;
+      },
+      resetMealBasicInfo: (state) => {
+        state = initialState;
         return state;
       },
     },

@@ -34,7 +34,7 @@ const ImageUploadButton = ({ onImageUpload }: { onImageUpload: (file: File) => v
   );
 };
 
-const ImageContainer = ({ image, setNewImage }: { image: string | File | null; setNewImage: (file: File) => void }) => {
+const ImageContainer = ({ image }: { image: string | File | null }) => {
   const dispatch = useDispatch();
   const currentModuleContext = useContext(CurrentModuleContext);
   const enableEditionContext = useContext(EnableEditionContext);
@@ -89,11 +89,6 @@ const ImageContainer = ({ image, setNewImage }: { image: string | File | null; s
             onImageUpload={(file) => {
               const reader = new FileReader();
               reader.readAsDataURL(file);
-              reader.onload = (event: any) => {
-                const image = event.target.result;
-                // dispatch(setImage(image as string));
-                setNewImage(image);
-              };
               reader.onloadend = () => {
                 dispatch(setImage({ image: file, imageSource: MealImageSources.UPLOADED }));
               };
