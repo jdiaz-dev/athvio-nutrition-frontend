@@ -17,7 +17,7 @@ import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 import { formStyles } from 'src/shared/styles/styles';
 import CancelAndSaveButtons from 'src/shared/components/CancelAndSaveButtons';
 import { EnableEditionContext } from 'src/shared/components/wrappers/EnablerEditionWrapper/EnableEditionContext';
-import ImageContainer from 'src/modules/professionals/nutritional-meals/adapters/in/dialogs/CreateUpdateNutritionalMealDialog/ImageContainer';
+import ImageContainer from 'src/shared/components/PlanDetailDialog/ImageContainer';
 import NutritionalMealOptions from 'src/modules/professionals/nutritional-meals/adapters/in/dialogs/CreateUpdateNutritionalMealDialog/NutritionalMealOptions';
 import FoodAnalyzerList from 'src/modules/food-analyzers/adapters/in/components/FoodAnalyzerList';
 
@@ -49,6 +49,7 @@ function CreateUpdateNutritionalMealDialog({
 
   const { uuid, ...restNutritionalMeal } = nutritionalMealDetailsState;
   const createUpdateNutritionalMealHandler = async () => {
+    const { image, imageSource, ...restBasicInfo } = mealNameBasicInfo;
     const ingredientDetails = restNutritionalMeal.ingredientDetails.map(({ ingredient: ingredientData, ...rest }) => {
       if (ingredientData) {
         const { internalFood, ...restIngredientData } = ingredientData;
@@ -59,21 +60,21 @@ function CreateUpdateNutritionalMealDialog({
     if (_nutritionalMeal && _nutritionalMeal.uuid) {
       await updateNutritionalMeal({
         nutritionalMeal: uuid,
+        ...restBasicInfo,
         ...restNutritionalMeal,
-        ...mealNameBasicInfo,
         ingredientDetails,
         professional: authContext.professional,
-        image: newImage !== null ? newImage : null,
+        ...(image && { image }),
       });
       dispatch(NutritionalMealBasicInfoSlice.renameNutritionalMeal(defaultNutritionalMeal));
       setOpenCreateUpdateNutritionalMealDialog(false);
     } else {
       await createNutritionalMeal({
-        ...mealNameBasicInfo,
+        ...restBasicInfo,
         ...restNutritionalMeal,
         ingredientDetails,
         professional: authContext.professional,
-        image: newImage !== null ? newImage : null,
+        ...(image && { image }),
       });
       dispatch(NutritionalMealBasicInfoSlice.renameNutritionalMeal(defaultNutritionalMeal));
       setOpenCreateUpdateNutritionalMealDialog(false);
@@ -93,7 +94,7 @@ function CreateUpdateNutritionalMealDialog({
       const { name, source, image, ...rest } = _nutritionalMeal;
       dispatch(NutritionalMealBasicInfoSlice.renameNutritionalMeal(name));
       dispatch(NutritionalMealDetailsSlice.acceptNewMealDetail(rest));
-      dispatch(NutritionalMealBasicInfoSlice.setImage(image !== null ? (image as string) : null));
+      dispatch(NutritionalMealBasicInfoSlice.setImage({ image: image !== null ? (image as string) : null }));
     } else {
       dispatch(NutritionalMealDetailsSlice.reinitializeMeal());
     }
@@ -101,7 +102,7 @@ function CreateUpdateNutritionalMealDialog({
     return () => {
       dispatch(NutritionalMealDetailsSlice.reinitializeMeal());
       dispatch(NutritionalMealBasicInfoSlice.resetName());
-      dispatch(NutritionalMealBasicInfoSlice.setImage(null));
+      dispatch(NutritionalMealBasicInfoSlice.setImage({ image: null }));
     };
   }, [_nutritionalMeal]);
 

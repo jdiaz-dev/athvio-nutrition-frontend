@@ -122,6 +122,7 @@ export const GET_NUTRITIONAL_MEALS = gql`
         professional
         name
         image
+        imageSource
         ingredientDetails {
           ingredientType
           customIngredient {

@@ -1,17 +1,18 @@
 import { MealBuilderBody } from 'src/shared/components/MealBuilder/MealBuilder.types';
-import { MealSourceEnum, NutritionalMealDatabasesEnum } from 'src/shared/Consts';
+import { MealImageSources, MealSourceEnum, NutritionalMealDatabasesEnum } from 'src/shared/Consts';
 import { GetRecordsBody } from 'src/shared/types/get-records.types';
 
 export type NutritionalMealBasicInfo = {
   professional: string;
   name: string;
   source: MealSourceEnum;
-  image: string | null;
+  image: File | string | null;
+  imageSource?: MealImageSources;
 };
 
 export type NutritionalMealBody = NutritionalMealBasicInfo & MealBuilderBody;
 export type CreateNutritionalMealBody = Omit<NutritionalMealBody, 'uuid' | 'source' | 'image'> & {
-  image: File | null;
+  image?: File | string | null;
 };
 
 export type CreateNutritionalMealRequest = {

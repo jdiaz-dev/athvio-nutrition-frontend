@@ -42,16 +42,18 @@ function ImportMealDialog({
   const dispatch = useDispatch();
   const [database, setDatabase] = useState(NutritionalMealDatabasesEnum.ALL as string);
   const [closeIconDialog, setCloseIconDialog] = useState(true);
-  const [{ position, mealTag, name, image, ingredientDetails, cookingInstructions, macros }, setImportedMeal] = useState<Meal>({
-    uuid: '',
-    position: -1,
-    mealTag: '',
-    name: '',
-    image: null,
-    ingredientDetails: [],
-    cookingInstructions: '',
-    macros: { weightInGrams: -1, protein: -1, carbs: -1, fat: -1, calories: -1 },
-  });
+  const [{ position, mealTag, name, image, imageSource, ingredientDetails, cookingInstructions, macros }, setImportedMeal] = useState<Meal>(
+    {
+      uuid: '',
+      position: -1,
+      mealTag: '',
+      name: '',
+      image: null,
+      ingredientDetails: [],
+      cookingInstructions: '',
+      macros: { weightInGrams: -1, protein: -1, carbs: -1, fat: -1, calories: -1 },
+    },
+  );
   const { searchWords, setSearchWords, matchedRecords, setMatchedRecords, choosedWord, setChoosedWord, setRecentlyTypedWord } =
     useSearcher();
   const { acceptNewMealBasicInfo } = useMealBasicInfoSlicers(currentModuleContext.currentModule);
@@ -61,7 +63,7 @@ function ImportMealDialog({
     closeImportMealHandler();
   };
   const importMealHandler = () => {
-    dispatch(acceptNewMealBasicInfo({ position, mealTag, name, image }));
+    dispatch(acceptNewMealBasicInfo({ position, mealTag, name, image, imageSource }));
     dispatch(acceptNewMealDetail({ uuid: mealDetailsState.uuid, ingredientDetails, cookingInstructions, macros }));
     closeImportMealHandler();
   };
@@ -103,7 +105,7 @@ function ImportMealDialog({
       aria-describedby="dialog-description"
     >
       <DialogTitle sx={{ m: 0, p: 2 }}>
-        Import meal
+        Importar comida
         <CloseDialogIcon closedIconDialog={closeIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
       </DialogTitle>
       <DialogContent dividers={true}>

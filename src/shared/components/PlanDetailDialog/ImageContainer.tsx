@@ -2,14 +2,13 @@ import React, { useContext, useRef } from 'react';
 import { CardMedia, IconButton } from '@mui/material';
 import { useDispatch } from 'react-redux';
 
-import * as NutritionalMealBasicInfoSlice from 'src/modules/professionals/nutritional-meals/adapters/in/slicers/NutritionalMealBasicInfo';
-
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import { Box } from '@mui/system';
 import EnablerEditionWrapper from 'src/shared/components/wrappers/EnablerEditionWrapper/EnablerEditionWrapper';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import { EnableEditionContext } from 'src/shared/components/wrappers/EnablerEditionWrapper/EnableEditionContext';
-import { Modules } from 'src/shared/Consts';
+import { MealImageSources, Modules } from 'src/shared/Consts';
+import { useMealImageSlicers } from 'src/shared/hooks/useMealBasicInfoSlicers';
 
 const ImageUploadButton = ({ onImageUpload }: { onImageUpload: (file: File) => void }) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -35,10 +34,11 @@ const ImageUploadButton = ({ onImageUpload }: { onImageUpload: (file: File) => v
   );
 };
 
-const ImageContainer = ({ image, setNewImage }: { image: string | null; setNewImage: (file: File) => void }) => {
+const ImageContainer = ({ image, setNewImage }: { image: string | File | null; setNewImage: (file: File) => void }) => {
   const dispatch = useDispatch();
   const currentModuleContext = useContext(CurrentModuleContext);
   const enableEditionContext = useContext(EnableEditionContext);
+  const { setImage } = useMealImageSlicers(currentModuleContext.currentModule);
 
   return (
     <Box
@@ -59,12 +59,16 @@ const ImageContainer = ({ image, setNewImage }: { image: string | null; setNewIm
       <CardMedia
         component="img"
         className="meal-image"
-        image={image ?? '/public/bowl.jpg'}
+        image={image instanceof File ? URL.createObjectURL(image) : image ?? '/public/bowl.jpg'}
         alt="Meal image"
         sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
       />
       <EnablerEditionWrapper
-        enableEdition={currentModuleContext.currentModule === Modules.NUTRITIONAL_MEALS && enableEditionContext.enableEdition}
+        enableEdition={
+          (currentModuleContext.currentModule === Modules.NUTRITIONAL_MEALS && enableEditionContext.enableEdition) ||
+          currentModuleContext.currentModule === Modules.CLIENT_PLANS ||
+          currentModuleContext.currentModule === Modules.PROGRAMS
+        }
       >
         {' '}
         <Box
@@ -87,10 +91,11 @@ const ImageContainer = ({ image, setNewImage }: { image: string | null; setNewIm
               reader.readAsDataURL(file);
               reader.onload = (event: any) => {
                 const image = event.target.result;
-                dispatch(NutritionalMealBasicInfoSlice.setImage(image as string));
+                // dispatch(setImage(image as string));
+                setNewImage(image);
               };
               reader.onloadend = () => {
-                setNewImage(file);
+                dispatch(setImage({ image: file, imageSource: MealImageSources.UPLOADED }));
               };
             }}
           />
