@@ -80,7 +80,12 @@ const planificationSlice = createSlice({
       if (state !== null) state.configuredMacros = { ...state.configuredMacros, ...action.payload };
       return state;
     },
-    resetPlanification: (state) => {
+    resetPlanificationTo3000cal: (state) => {
+      state = planificationInitialState.planification;
+      if (state) state = { ...state, configuredMacros: { ...state.configuredMacros, planCalories: 3000 } };
+      return state;
+    },
+    resetPlanificationTo0cal: (state) => {
       state = planificationInitialState.planification;
       return state;
     },
@@ -97,7 +102,8 @@ export const {
   modifyBasalEnergyRate,
   modifyPlanCalories,
   modifyTotalCalories,
-  resetPlanification,
+  resetPlanificationTo3000cal,
+  resetPlanificationTo0cal,
 } = planificationSlice.actions;
 
 export default combineReducers({

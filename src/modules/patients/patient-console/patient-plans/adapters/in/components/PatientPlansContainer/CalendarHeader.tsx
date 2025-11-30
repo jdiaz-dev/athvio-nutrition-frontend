@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AutoFixHigh, ChevronLeft, ChevronRight } from '@mui/icons-material';
 import { Box, Button, IconButton, Chip } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import dayjs from 'dayjs';
 import { DateSet } from 'src/modules/patients/patient-console/patient-plans/adapters/helpers/PatientPlans';
 import PlatientPlansGeneratorDialog from 'src/modules/patients/patient-console/patient-plans/adapters/in/dialogs/PatientPlansGeneratorDialog/PlatientPlansGeneratorDialog';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 import { Navigate, useParams } from 'react-router-dom';
+import * as PlanificationSlice from 'src/modules/patients/patient-console/planifications/adapters/in/slicers/PlanificationSlice';
 
 function CalendarHeader({
   dateSet,
@@ -18,6 +19,8 @@ function CalendarHeader({
   handleCalendarPrev: () => void;
   handleCalendarNext: () => void;
 }) {
+  const dispatch = useDispatch();
+
   const { patientId } = useParams();
   const planificationState = useSelector((state: ReduxStates) => state.planifications.planification);
   const [goToPlanificication, setGotoPlanificication] = useState(false);
@@ -28,6 +31,11 @@ function CalendarHeader({
     const path = `/professional/patients/${patientId}/planification`;
     return <Navigate replace to={path} />;
   }
+  useEffect(() => {
+    return () => {
+      dispatch(PlanificationSlice.resetPlanificationTo0cal());
+    };
+  }, []);
 
   return (
     <Box

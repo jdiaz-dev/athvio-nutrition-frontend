@@ -44,10 +44,10 @@ function CreateUpdatePlanificationDialog({
     if (planification) {
       dispatch(PlanificationSlice.initializePlanification(planification));
     } else {
-      dispatch(PlanificationSlice.resetPlanification());
+      dispatch(PlanificationSlice.resetPlanificationTo3000cal());
     }
     return () => {
-      dispatch(PlanificationSlice.resetPlanification());
+      dispatch(PlanificationSlice.resetPlanificationTo0cal());
     };
   }, [planification]);
 

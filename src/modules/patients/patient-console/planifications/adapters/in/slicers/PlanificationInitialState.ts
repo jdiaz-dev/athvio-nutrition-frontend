@@ -25,7 +25,7 @@ export const planificationInitialState: PlanificationInitialState = {
       totalFat: 0,
       basalEnergyRate: 0,
       totalCalories: 0,
-      planCalories: 3000,
+      planCalories: 0,
     },
     createdAt: '',
   },

@@ -9,5 +9,7 @@
 - fix: make responsive the program table, check how it is responsive patient calendar and apply to program 
 - fix: manage when there arent planification created
 
+- fix: after to upload first meal image y can't upload again (all meal modules)
+
 # programs
 - working in program to treat fibromialgia
