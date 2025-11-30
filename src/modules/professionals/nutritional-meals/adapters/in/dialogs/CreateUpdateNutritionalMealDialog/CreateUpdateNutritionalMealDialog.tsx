@@ -57,7 +57,7 @@ function CreateUpdateNutritionalMealDialog({
       return { ingredient: ingredientData, ...rest };
     });
     if (_nutritionalMeal && _nutritionalMeal.uuid) {
-      await updateNutritionalMeal({
+      void updateNutritionalMeal({
         nutritionalMeal: uuid,
         ...restBasicInfo,
         ...restNutritionalMeal,
@@ -66,9 +66,8 @@ function CreateUpdateNutritionalMealDialog({
         ...(image && { image }),
       });
       dispatch(NutritionalMealBasicInfoSlice.renameNutritionalMeal(defaultNutritionalMeal));
-      setOpenCreateUpdateNutritionalMealDialog(false);
     } else {
-      await createNutritionalMeal({
+      void createNutritionalMeal({
         ...restBasicInfo,
         ...restNutritionalMeal,
         ingredientDetails,
@@ -76,8 +75,8 @@ function CreateUpdateNutritionalMealDialog({
         ...(image && { image }),
       });
       dispatch(NutritionalMealBasicInfoSlice.renameNutritionalMeal(defaultNutritionalMeal));
-      setOpenCreateUpdateNutritionalMealDialog(false);
     }
+    setOpenCreateUpdateNutritionalMealDialog(false);
   };
   const closeIconDialogHandler = () => {
     if (componentTouched) {
