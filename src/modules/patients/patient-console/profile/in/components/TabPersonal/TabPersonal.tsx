@@ -12,7 +12,7 @@ export default function TabPersonal() {
     <>
       <MainCard
         content={false}
-        title={<Typography variant="h5">Patient Information</Typography>}
+        title={<Typography variant="h5">Información del paciente</Typography>}
         sx={{ '& .MuiInputLabel-root': { fontSize: '0.875rem', textAlign: 'left' } }}
       >
         <PersonalInformation formRef={form1Ref} />

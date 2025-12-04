@@ -68,7 +68,7 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
   return (
     <>
       <CardHeader
-        title="Basic information"
+        title="Información básica"
         sx={{
           textAlign: 'left',
         }}
@@ -115,7 +115,7 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
                 <Grid item xs={12} sm={6}>
                   <Stack spacing={1}>
                     {/* todo: fix to allow any age and not only +18  */}
-                    <InputLabel htmlFor="personal-date">Date of Birth</InputLabel>
+                    <InputLabel htmlFor="personal-date">Fecha de nacimiento</InputLabel>
                     <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
                       <Select
                         fullWidth
@@ -182,7 +182,7 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
 
                 <Grid item xs={12} sm={6}>
                   <Stack spacing={1}>
-                    <InputLabel htmlFor="weight">Height</InputLabel>
+                    <InputLabel htmlFor="weight">Altura</InputLabel>
                     <TextField
                       fullWidth
                       type="number"
@@ -202,7 +202,7 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Stack spacing={1}>
-                    <InputLabel htmlFor="weight">Weight</InputLabel>
+                    <InputLabel htmlFor="weight">Peso</InputLabel>
                     <TextField
                       fullWidth
                       type="number"
@@ -222,7 +222,7 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Stack spacing={1}>
-                    <InputLabel htmlFor="weight">Gender</InputLabel>
+                    <InputLabel htmlFor="weight">Género</InputLabel>
                     <ToggleButtonGroup
                       color="primary"
                       value={values.gender}

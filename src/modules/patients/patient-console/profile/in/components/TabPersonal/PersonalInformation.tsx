@@ -54,7 +54,7 @@ export default function PersonalInformation({ formRef }: { formRef: RefObject<Fo
   return (
     <>
       <CardHeader
-        title="Personal information"
+        title="Información personal"
         sx={{
           textAlign: 'left',
         }}
@@ -100,7 +100,7 @@ export default function PersonalInformation({ formRef }: { formRef: RefObject<Fo
               <Grid container spacing={3}>
                 <Grid item xs={12} sm={6}>
                   <Stack spacing={1}>
-                    <InputLabel htmlFor="personal-first-name">First Name</InputLabel>
+                    <InputLabel htmlFor="personal-first-name">Nombres</InputLabel>
                     <TextField
                       fullWidth
                       id="personal-first-name"
@@ -121,7 +121,7 @@ export default function PersonalInformation({ formRef }: { formRef: RefObject<Fo
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Stack spacing={1}>
-                    <InputLabel htmlFor="personal-last-name">Last Name</InputLabel>
+                    <InputLabel htmlFor="personal-last-name">Apellidos</InputLabel>
                     <TextField
                       fullWidth
                       id="personal-last-name"
@@ -140,7 +140,7 @@ export default function PersonalInformation({ formRef }: { formRef: RefObject<Fo
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Stack spacing={1}>
-                    <InputLabel htmlFor="personal-email">Email Address</InputLabel>
+                    <InputLabel htmlFor="personal-email">Correo Electrónico</InputLabel>
                     <TextField
                       type="email"
                       fullWidth
@@ -160,7 +160,7 @@ export default function PersonalInformation({ formRef }: { formRef: RefObject<Fo
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Stack spacing={1}>
-                    <InputLabel htmlFor="personal-phone">Phone Number</InputLabel>
+                    <InputLabel htmlFor="personal-phone">Número de Teléfono</InputLabel>
                     <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
                       <Select value={values.countryCode} name="countryCode" onBlur={handleBlur} onChange={handleChange}>
                         {/* <MenuItem value="+91">+91</MenuItem>
