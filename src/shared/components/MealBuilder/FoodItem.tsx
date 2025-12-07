@@ -100,6 +100,7 @@ function FoodItem({ food }: { food: Food }) {
       ingredientDetailCustomRecipe = {
         ingredientType: IngredientType.UNIQUE_INGREDIENT,
         ingredient: {
+          internalFood: foodManager.uuid,
           name: foodManager.name,
           label: foodManager.measure.label,
           amount: foodManager.measure.amount.toString(),

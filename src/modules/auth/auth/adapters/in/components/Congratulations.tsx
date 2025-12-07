@@ -4,6 +4,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useTheme } from '@mui/material/styles';
 
 const APP_DOWNLOAD_URL = process.env.REACT_APP_PATIENT_APP_DOWNLOAD_URL;
+// todo : remove it url
 // Ejemplo de valor: https://tu-bucket.s3.amazonaws.com/app/athvio-paciente.apk
 
 export default function Congratulations() {

@@ -40,10 +40,11 @@ export interface Measure {
 }
 
 export type Food = {
+  uuid?: string;
+  foodId?: string;
   foodDatabase: FoodDatabases;
   name: string;
   macros: Macros;
-  foodId?: string;
   ingredientDetails?: IngredientDetail[];
   availableMeasures?: Measure[];
 };

@@ -49,19 +49,12 @@ function CreateUpdateNutritionalMealDialog({
   const { uuid, ...restNutritionalMeal } = nutritionalMealDetailsState;
   const createUpdateNutritionalMealHandler = async () => {
     const { image, imageSource, ...restBasicInfo } = mealNameBasicInfo;
-    const ingredientDetails = restNutritionalMeal.ingredientDetails.map(({ ingredient: ingredientData, ...rest }) => {
-      if (ingredientData) {
-        const { internalFood, ...restIngredientData } = ingredientData;
-        return { ingredient: restIngredientData, ...rest };
-      }
-      return { ingredient: ingredientData, ...rest };
-    });
+
     if (_nutritionalMeal && _nutritionalMeal.uuid) {
       void updateNutritionalMeal({
         nutritionalMeal: uuid,
         ...restBasicInfo,
         ...restNutritionalMeal,
-        ingredientDetails,
         professional: authContext.professional,
         ...(image && { image }),
       });
@@ -70,7 +63,6 @@ function CreateUpdateNutritionalMealDialog({
       void createNutritionalMeal({
         ...restBasicInfo,
         ...restNutritionalMeal,
-        ingredientDetails,
         professional: authContext.professional,
         ...(image && { image }),
       });
