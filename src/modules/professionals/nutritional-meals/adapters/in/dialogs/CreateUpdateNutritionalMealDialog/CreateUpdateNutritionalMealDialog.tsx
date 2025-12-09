@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Card, Dialog, DialogContent, DialogTitle } from '@mui/material';
+import { Box, Card, Dialog, DialogContent, DialogTitle } from '@mui/material';
 import * as NutritionalMealDetailsSlice from 'src/modules/professionals/nutritional-meals/adapters/in/slicers/NutritionalMealDetailsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNutritionalMeal } from 'src/modules/professionals/nutritional-meals/adapters/out/NutritionalMealActions';
@@ -126,30 +126,36 @@ function CreateUpdateNutritionalMealDialog({
         <CloseDialogIcon closedIconDialog={closedIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
       </DialogTitle>
       <DialogContent dividers={true}>
-        <Card
-          className={classes.card}
-          style={{ padding: '20px', marginBottom: '15px' }}
-          variant="outlined"
-          onClick={() => {
-            if (!componentTouched) {
-              setComponentTouched(true);
-            }
-          }}
-        >
-          <EnableEditionContext.Provider
-            value={{ enableEdition: _nutritionalMeal === undefined ? true : _nutritionalMeal.source !== MealSourceEnum.SYSTEM }}
+        <Box sx={{ display: 'flex' }}>
+          <Card
+            className={classes.card}
+            style={{ padding: '20px', marginBottom: '15px' }}
+            variant="outlined"
+            onClick={() => {
+              if (!componentTouched) {
+                setComponentTouched(true);
+              }
+            }}
           >
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <NutritionalMealNameInput />
-              <NutritionalMealOptions setShowAnticancerProperties={setShowAnticancerProperties} />
-            </div>
-            <ImageContainer image={mealNameBasicInfo.image} />
-            <CurrentModuleContext.Provider value={{ currentModule: Modules.NUTRITIONAL_MEALS }}>
-              {!showAnticancerProperties && <MealBuilder meal={{ uuid, ...restNutritionalMeal }} />}
-              {showAnticancerProperties && <FoodAnalyzerList internalFoods={internalFoods} />}
-            </CurrentModuleContext.Provider>
-          </EnableEditionContext.Provider>
-        </Card>
+            <EnableEditionContext.Provider
+              value={{ enableEdition: _nutritionalMeal === undefined ? true : _nutritionalMeal.source !== MealSourceEnum.SYSTEM }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <NutritionalMealNameInput />
+                <NutritionalMealOptions setShowAnticancerProperties={setShowAnticancerProperties} />
+              </div>
+              <ImageContainer image={mealNameBasicInfo.image} />
+              <CurrentModuleContext.Provider value={{ currentModule: Modules.NUTRITIONAL_MEALS }}>
+                {!showAnticancerProperties && <MealBuilder meal={{ uuid, ...restNutritionalMeal }} />}
+                {showAnticancerProperties && <FoodAnalyzerList internalFoods={internalFoods} />}
+              </CurrentModuleContext.Provider>
+            </EnableEditionContext.Provider>
+          </Card>
+          <Card style={{ padding: '10px' }} variant="outlined">
+            adsfsdfsadfadsfsdfsadf
+          </Card>
+        </Box>
+
         <CancelAndSaveButtons cancelHandler={closeIconDialogHandler} saveHandler={createUpdateNutritionalMealHandler} />
 
         {/* <NutrientsDetail /> */}

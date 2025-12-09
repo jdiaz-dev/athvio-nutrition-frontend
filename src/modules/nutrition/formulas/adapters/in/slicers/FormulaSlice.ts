@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { formulaInitialState } from 'src/modules/backoffice/formulas/adapters/in/slicers/FormulaInitialState';
-import { Formula } from 'src/modules/backoffice/formulas/types/formula';
+import { formulaInitialState } from 'src/modules/nutrition/formulas/adapters/in/slicers/FormulaInitialState';
+import { Formula } from 'src/modules/nutrition/formulas/types/formula';
 
 const formulaSlice = createSlice({
   name: 'formula',

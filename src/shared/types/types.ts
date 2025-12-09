@@ -13,7 +13,7 @@ import { PatientQuestionaryInitialState } from 'src/modules/patients/patient-con
 import { PatientInitialState } from 'src/modules/patients/patients/adapters/out/patient.types';
 import { FoodAnalyzerInitialState } from 'src/modules/food-analyzers/adapters/out/FoodAnalyzer';
 import { PlanificationInitialState } from 'src/modules/patients/patient-console/planifications/helpers/planifications';
-import { FormulaInitialState } from 'src/modules/backoffice/formulas/types/formula';
+import { FormulaInitialState } from 'src/modules/nutrition/formulas/types/formula';
 
 export type DateItem<T> = {
   title: string;

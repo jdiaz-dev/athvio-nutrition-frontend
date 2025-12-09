@@ -14,8 +14,8 @@ import * as PlanificationSlice from 'src/modules/patients/patient-console/planif
 import { usePlanification } from 'src/modules/patients/patient-console/planifications/adapters/out/PlanificationActions';
 import { useParams } from 'react-router-dom';
 import { ReduxStates } from 'src/shared/types/types';
-import FormulaSelector from 'src/modules/backoffice/formulas/adapters/in/components/FormulaSelector';
-import { FormulaGroup } from 'src/modules/backoffice/formulas/types/formula';
+import FormulaSelector from 'src/modules/nutrition/formulas/adapters/in/components/FormulaSelector';
+import { FormulaGroup } from 'src/modules/nutrition/formulas/types/formula';
 
 function CreateUpdatePlanificationDialog({
   openCreateUpdatePlanificationDialog,

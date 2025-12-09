@@ -10,6 +10,7 @@
 - fix: manage when there arent planification created
 
 - fix: after to upload first meal image y can't upload again (all meal modules)
+- fix: meal options (right corner) must contain ingredients option
 
 # programs
 - working in program to treat fibromialgia

@@ -21,7 +21,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import * as PlanificationSlice from 'src/modules/patients/patient-console/planifications/adapters/in/slicers/PlanificationSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
-import { Case, FormulaGroup } from 'src/modules/backoffice/formulas/types/formula';
+import { Case, FormulaGroup } from 'src/modules/nutrition/formulas/types/formula';
 import PhysicActivityFactor from './PhysicActivityFactor';
 
 enum FomulaAutors {

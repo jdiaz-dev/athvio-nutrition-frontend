@@ -16,7 +16,7 @@ import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import * as PlanificationSlice from 'src/modules/patients/patient-console/planifications/adapters/in/slicers/PlanificationSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
-import { FormulaGroup, Parameter, ValueCase } from 'src/modules/backoffice/formulas/types/formula';
+import { FormulaGroup, Parameter, ValueCase } from 'src/modules/nutrition/formulas/types/formula';
 
 const getFactorForGender = (gender: 'male' | 'female', opt: ValueCase[]) => {
   return opt.find((vc) => vc.case === gender)?.value as number;

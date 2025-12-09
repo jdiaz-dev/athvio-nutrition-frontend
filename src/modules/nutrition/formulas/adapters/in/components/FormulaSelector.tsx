@@ -2,8 +2,8 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
-import { useFormula } from 'src/modules/backoffice/formulas/adapters/out/FormulaActions';
-import { FormulaGroup } from 'src/modules/backoffice/formulas/types/formula.d';
+import { useFormula } from 'src/modules/nutrition/formulas/adapters/out/FormulaActions';
+import { FormulaGroup } from 'src/modules/nutrition/formulas/types/formula.d';
 
 interface FormulaSelectorProps {
   setSelectedFormulaGroup: Dispatch<SetStateAction<FormulaGroup | null>>;
