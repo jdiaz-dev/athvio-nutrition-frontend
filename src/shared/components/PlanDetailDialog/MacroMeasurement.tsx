@@ -1,117 +1,97 @@
 import React, { useContext } from 'react';
-import { Box, LinearProgress, Typography } from '@mui/material';
+import { Box, LinearProgress, Stack, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
-import { useMealsStates } from 'src/shared/components/PlanDetailDialog/useMealsStates';
 import { PlanificationBody } from 'src/modules/patients/patient-console/planifications/helpers/planifications';
 import { Modules } from 'src/shared/Consts';
 
-type MacroKey = 'protein' | 'carbs' | 'fat' | 'calories';
-
 type MacroBarProps = {
-  percentage: number;
+  advancePercentageMacro: number;
+  targetMacro: number;
   accumulated: number;
   unit: string;
   subtitle: string;
+  color: 'primary' | 'info' | 'warning' | 'secondary' | 'success' | string;
 };
 
-function MacroBar({ percentage, accumulated, unit, subtitle }: MacroBarProps) {
+function NutrientBar({ advancePercentageMacro, targetMacro, accumulated, unit, subtitle, color }: MacroBarProps) {
   const { currentModule } = useContext(CurrentModuleContext);
-  const applyAnalysis = currentModule === Modules.CLIENT_PLANS;
+  const applyMeasurement = currentModule === Modules.CLIENT_PLANS;
+  const targetFormat = applyMeasurement ? `${accumulated.toFixed(1)} / ${targetMacro} ${unit}` : `${accumulated.toFixed(1)} ${unit}`;
 
   return (
-    <Box sx={{ position: 'relative', width: '23%' }}>
-      <LinearProgress
-        color="success"
-        variant="determinate"
-        value={Math.min(100, applyAnalysis ? percentage : 100)}
-        sx={{
-          height: 20,
-          borderRadius: 5,
-        }}
-      />
-      <Typography
-        variant="caption"
-        sx={{
-          position: 'absolute',
-          top: '25%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          fontWeight: 'bold',
-          color: 'white',
-          fontSize: '0.75rem',
-        }}
-      >
-        {accumulated.toFixed(1)} {unit}
-      </Typography>
-      {
-        <Typography
-          variant="caption"
-          sx={{
-            display: 'block',
-            mt: 0.5,
-            textAlign: 'center',
-            fontSize: '0.7rem',
-            color: 'text.secondary',
-          }}
-        >
+    <Box sx={{ mb: 1.5 }}>
+      <Stack direction="row" justifyContent="space-between">
+        <Typography variant="body2" fontWeight={500}>
           {subtitle}
         </Typography>
-      }
+        <Typography variant="body2" fontWeight={600}>
+          {targetFormat}
+        </Typography>
+      </Stack>
+      <LinearProgress
+        color={color as 'primary' | 'info' | 'warning' | 'secondary' | 'success'}
+        variant="determinate"
+        value={Math.min(100, applyMeasurement ? advancePercentageMacro : 100)}
+        sx={{ mt: 0.75, height: 8, borderRadius: 8 }}
+      />
     </Box>
   );
 }
 
-function MacroMeasurement() {
-  const { currentModule } = useContext(CurrentModuleContext);
-  const applyAnalysis = currentModule === Modules.CLIENT_PLANS;
-
+function MacroMeasurement(macros: { protein: number; carbs: number; fat: number; calories: number }) {
   const planificationState = useSelector((state: ReduxStates) => state.planifications.planification) as PlanificationBody;
-  const { mealListState } = useMealsStates(currentModule);
-
-  const getAccumulated = (key: MacroKey): number => mealListState?.reduce((accum, meal) => accum + (meal.macros[key] || 0), 0) || 0;
 
   const macrosConfig = [
     {
+      key: 'calories' as const,
+      target: planificationState.configuredMacros.planCalories,
+      accumulated: macros.calories,
+      unit: 'cal',
+      subtitleSuffix: 'Calorías',
+      color: 'secondary',
+    },
+    {
       key: 'protein' as const,
-      total: planificationState.configuredMacros.totalProtein,
+      target: planificationState.configuredMacros.totalProtein,
+      accumulated: macros.protein,
       unit: 'g',
-      subtitleSuffix: applyAnalysis ? 'g. de proteína' : 'proteina',
+      subtitleSuffix: 'Proteína',
+      color: 'primary',
     },
     {
       key: 'carbs' as const,
-      total: planificationState.configuredMacros.totalCarbs,
+      target: planificationState.configuredMacros.totalCarbs,
+      accumulated: macros.carbs,
       unit: 'g',
-      subtitleSuffix: applyAnalysis ? 'g. de carbohidratos' : 'carbohidratos',
+      subtitleSuffix: 'Carbohidratos',
+      color: 'info',
     },
     {
       key: 'fat' as const,
-      total: planificationState.configuredMacros.totalFat,
+      target: planificationState.configuredMacros.totalFat,
+      accumulated: macros.fat,
       unit: 'g',
-      subtitleSuffix: applyAnalysis ? 'g. de grasas' : 'grasas',
-    },
-    {
-      key: 'calories' as const,
-      total: planificationState.configuredMacros.planCalories,
-      unit: 'cal',
-      subtitleSuffix: applyAnalysis ? 'calorías' : 'calorías',
+      subtitleSuffix: 'Grasas',
+      color: 'warning',
     },
   ];
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '90%', margin: '0 auto' }}>
-      {macrosConfig.map(({ key, total, unit, subtitleSuffix }) => {
-        const accumulated = getAccumulated(key);
-        const percentage = total ? (accumulated * 100) / total : 0;
+    <Box sx={{ mb: 3 }}>
+      {macrosConfig.map(({ key, target, accumulated, unit, subtitleSuffix, color }) => {
+        const advancePercentageMacro = target ? (accumulated * 100) / target : 0;
 
         return (
-          <MacroBar
+          <NutrientBar
             key={key}
-            percentage={percentage}
+            advancePercentageMacro={advancePercentageMacro}
+            targetMacro={target}
             accumulated={accumulated}
             unit={unit}
-            subtitle={`${applyAnalysis ? total : ''} ${subtitleSuffix}`}
+            subtitle={subtitleSuffix}
+            color={color}
           />
         );
       })}

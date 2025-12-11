@@ -36,9 +36,9 @@ function FoodItem({ food }: { food: Food }) {
     const defaultMeasure = food.availableMeasures?.find((measure) =>
       language === SupportedLanguages.ENGLISH
         ? measure.label === MeasureSizes.GRAM_LABEL_ENGLISH
-        : measure.label === MeasureSizes.GRAM_LABEL_SPANISH,
+        : measure.spanishLabel === MeasureSizes.GRAM_LABEL_SPANISH,
     );
-    const defaultMeasureValue = `${defaultMeasure?.label || ''} ${defaultMeasure?.weightInGrams || ''}`;
+    const defaultMeasureValue = `${defaultMeasure?.spanishLabel || ''} ${defaultMeasure?.weightInGrams || ''}`;
     setMeasure(defaultMeasureValue);
     setFoodManager({
       ...food,
@@ -136,10 +136,10 @@ function FoodItem({ food }: { food: Food }) {
                 }}
               />
               <FormControl size="small" style={{ margin: 0, marginLeft: '5%', width: '60%' }} variant="standard">
-                <InputLabel id="demo-customized-select-label">Measure</InputLabel>
+                <InputLabel id="measure">Measure</InputLabel>
                 <Select
-                  labelId="demo-select-small-label"
-                  id="demo-select-small"
+                  labelId="measure"
+                  id="measure-select"
                   value={measure !== null ? measure : ''}
                   label="measure"
                   style={{ width: '75px', marginTop: '17%' }}
@@ -148,12 +148,12 @@ function FoodItem({ food }: { food: Food }) {
                 >
                   {foodManager.availableMeasures &&
                     foodManager.availableMeasures.map((measure, index) => {
-                      const value = `${measure.label} ${measure.weightInGrams}`;
+                      const value = `${measure.spanishLabel} ${measure.weightInGrams}`;
                       return (
                         <MenuItem key={index} value={value}>
-                          {measure.label === MeasureSizes.GRAM_LABEL_ENGLISH
-                            ? measure.label
-                            : `${measure.label} (${measure.weightInGrams}g)`}
+                          {measure.spanishLabel === MeasureSizes.GRAM_LABEL_SPANISH
+                            ? measure.spanishLabel
+                            : `${measure.spanishLabel !== null ? measure.spanishLabel : measure.label} (${measure.weightInGrams}g)`}
                         </MenuItem>
                       );
                     })}

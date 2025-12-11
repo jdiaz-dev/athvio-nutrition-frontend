@@ -111,6 +111,7 @@ export const GET_FOODS = gql`
         availableMeasures {
           uri
           label
+          spanishLabel
           weightInGrams
         }
       }

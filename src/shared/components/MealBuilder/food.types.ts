@@ -20,7 +20,7 @@ export type GetAutocompleteFoodNamesResponse = {
   };
 };
 
-export interface InputGetFoods {
+export type InputGetFoods = {
   professional: string;
   offset: number;
   limit: number;
@@ -28,16 +28,58 @@ export interface InputGetFoods {
   targetLanguage: string;
   search?: string[];
   session?: number;
-}
-export type GetFoodRequest = {
-  input: InputGetFoods;
 };
 
-export interface Measure {
+export type Measure = {
   uri: string;
   label: string;
+  spanishLabel: string;
   weightInGrams: number;
-}
+};
+
+export type Nutrient = {
+  label: string;
+  spanishLabel: string | null;
+  quantity: number;
+  unit: string;
+};
+
+export type NutrientDetails = {
+  CA?: Nutrient;
+  CHOCDF_NET?: Nutrient;
+  CHOCDF?: Nutrient;
+  CHOLE?: Nutrient;
+  ENERC_KCAL?: Nutrient;
+  FAMS?: Nutrient;
+  FAT?: Nutrient;
+  FAPU?: Nutrient;
+  FASAT?: Nutrient;
+  FATRN?: Nutrient;
+  FIBTG?: Nutrient;
+  FOLDFE?: Nutrient;
+  FOLFD?: Nutrient;
+  FOLAC?: Nutrient;
+  FE?: Nutrient;
+  K?: Nutrient;
+  MG?: Nutrient;
+  NA?: Nutrient;
+  NIA?: Nutrient;
+  P?: Nutrient;
+  PROCNT?: Nutrient;
+  RIBF?: Nutrient;
+  SUGAR?: Nutrient;
+  SUGAR_ADDED?: Nutrient;
+  THIA?: Nutrient;
+  TOCPHA?: Nutrient;
+  VITA_RAE?: Nutrient;
+  VITB12?: Nutrient;
+  VITB6A?: Nutrient;
+  VITC?: Nutrient;
+  VITD?: Nutrient;
+  VITK1?: Nutrient;
+  WATER?: Nutrient;
+  ZN?: Nutrient;
+};
 
 export type Food = {
   uuid?: string;
@@ -47,20 +89,26 @@ export type Food = {
   macros: Macros;
   ingredientDetails?: IngredientDetail[];
   availableMeasures?: Measure[];
+  nutrientDetails: NutrientDetails;
 };
-interface EstablishedMeasure {
+
+type EstablishedMeasure = {
   amount: number;
   label: string;
   weightInGrams: number;
-}
-export interface FoodManager extends Food {
+};
+export type FoodManager = Food & {
   measure: EstablishedMeasure;
-}
+};
 
-interface FoodProviderSession {
+type FoodProviderSession = {
   title: string;
   nextSession: number;
-}
+};
+
+export type GetFoodRequest = {
+  input: InputGetFoods;
+};
 
 export type GetFoodsResponse = {
   getFoods: {

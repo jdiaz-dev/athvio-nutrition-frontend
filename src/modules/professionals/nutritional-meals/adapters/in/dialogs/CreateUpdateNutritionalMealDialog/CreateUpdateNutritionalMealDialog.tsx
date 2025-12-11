@@ -20,6 +20,7 @@ import { EnableEditionContext } from 'src/shared/components/wrappers/EnablerEdit
 import ImageContainer from 'src/shared/components/PlanDetailDialog/ImageContainer';
 import NutritionalMealOptions from 'src/modules/professionals/nutritional-meals/adapters/in/dialogs/CreateUpdateNutritionalMealDialog/NutritionalMealOptions';
 import FoodAnalyzerList from 'src/modules/food-analyzers/adapters/in/components/FoodAnalyzerList';
+import NutrientCalculator from 'src/shared/components/NutrientCalculation';
 
 function CreateUpdateNutritionalMealDialog({
   openCreateUpdateNutritionalMealDialog,
@@ -151,9 +152,13 @@ function CreateUpdateNutritionalMealDialog({
               </CurrentModuleContext.Provider>
             </EnableEditionContext.Provider>
           </Card>
-          <Card style={{ padding: '10px' }} variant="outlined">
-            adsfsdfsadfadsfsdfsadf
-          </Card>
+
+          <NutrientCalculator
+            internalFoods={nutritionalMealDetailsState.ingredientDetails.map(({ ingredient }) => ({
+              internalFood: ingredient?.internalFood as string,
+              amount: parseInt(ingredient?.amount || ''),
+            }))}
+          />
         </Box>
 
         <CancelAndSaveButtons cancelHandler={closeIconDialogHandler} saveHandler={createUpdateNutritionalMealHandler} />
