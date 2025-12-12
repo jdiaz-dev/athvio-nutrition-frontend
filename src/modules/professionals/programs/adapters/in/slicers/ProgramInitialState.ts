@@ -20,7 +20,7 @@ export const programInitialState: ProgramInitialState = {
   mealBasicInfo: {
     position: 0,
     mealTag: defaultMealTagKey,
-    name: 'Meal name',
+    name: 'Nombre de la comida',
   },
   mealDetails: {
     uuid: '',

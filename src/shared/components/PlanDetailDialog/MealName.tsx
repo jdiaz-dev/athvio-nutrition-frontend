@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { changeName } from 'src/modules/professionals/programs/adapters/in/slicers/MealBasicInfoSlice';
 import { Box, TextField } from '@mui/material';
 
-const defaultName = 'Meal name';
+const defaultName = 'Nombre de la comida';
 function MealName({ name, mealContainerTouched }: { name: string; mealContainerTouched: boolean }) {
   const dispatch = useDispatch();
   const [_name, _setName] = useState(name);

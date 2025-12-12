@@ -24,7 +24,7 @@ function NutritionalMealNameInput() {
         <TextField
           fullWidth
           id="fullWidth"
-          label="Meal name"
+          label="Nombre de la comida"
           autoComplete="off"
           value={mealNameBasicInfo.name}
           onChange={(e) => dispatch(NutritionalMealBasicInfoSlice.renameNutritionalMeal(e.target.value))}

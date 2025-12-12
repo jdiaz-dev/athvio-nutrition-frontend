@@ -14,7 +14,7 @@ export const patientPlanInitialState: PatientPlanInitialState = {
   mealBasicInfo: {
     position: 0,
     mealTag: defaultMealTagKey,
-    name: 'Meal name',
+    name: 'Nombre de la comida',
   },
   mealList: [],
   mealDetails: {
