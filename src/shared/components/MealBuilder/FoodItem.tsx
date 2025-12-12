@@ -38,7 +38,7 @@ function FoodItem({ food }: { food: Food }) {
         ? measure.label === MeasureSizes.GRAM_LABEL_ENGLISH
         : measure.spanishLabel === MeasureSizes.GRAM_LABEL_SPANISH,
     );
-    const defaultMeasureValue = `${defaultMeasure?.spanishLabel || ''} ${defaultMeasure?.weightInGrams || ''}`;
+    const defaultMeasureValue = `${defaultMeasure?.spanishLabel || defaultMeasure?.label} ${defaultMeasure?.weightInGrams || ''}`;
     setMeasure(defaultMeasureValue);
     setFoodManager({
       ...food,
@@ -95,9 +95,8 @@ function FoodItem({ food }: { food: Food }) {
   };
 
   const chooseIngredient = () => {
-    let ingredientDetailCustomRecipe: IngredientDetail;
     if (foodManager !== null && foodManager.measure.amount > 0 && foodManager.foodDatabase === FoodDatabases.SYSTEM) {
-      ingredientDetailCustomRecipe = {
+      const ingredientDetailCustomRecipe: IngredientDetail = {
         ingredientType: IngredientType.UNIQUE_INGREDIENT,
         ingredient: {
           internalFood: foodManager.uuid,
@@ -136,7 +135,7 @@ function FoodItem({ food }: { food: Food }) {
                 }}
               />
               <FormControl size="small" style={{ margin: 0, marginLeft: '5%', width: '60%' }} variant="standard">
-                <InputLabel id="measure">Measure</InputLabel>
+                <InputLabel id="measure">Medida</InputLabel>
                 <Select
                   labelId="measure"
                   id="measure-select"
@@ -151,9 +150,7 @@ function FoodItem({ food }: { food: Food }) {
                       const value = `${measure.spanishLabel} ${measure.weightInGrams}`;
                       return (
                         <MenuItem key={index} value={value}>
-                          {measure.spanishLabel === MeasureSizes.GRAM_LABEL_SPANISH
-                            ? measure.spanishLabel
-                            : `${measure.spanishLabel !== null ? measure.spanishLabel : measure.label} (${measure.weightInGrams}g)`}
+                          {language === SupportedLanguages.SPANISH ? measure.spanishLabel : measure.label}
                         </MenuItem>
                       );
                     })}
