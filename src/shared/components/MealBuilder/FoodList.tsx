@@ -18,7 +18,6 @@ import { Accordion, AccordionDetails, AccordionSummary } from 'src/shared/compon
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useSearcher } from 'src/shared/hooks/useSearcher';
 import { usePaginator } from 'src/shared/hooks/usePaginator';
-import { GET_AUTOCOMPLETE_FOOD_NAMES, GET_FOODS } from 'src/shared/components/MealBuilder/FoodQueries';
 import FoodItem from 'src/shared/components/MealBuilder/FoodItem';
 import DatabaseSelector from 'src/shared/components/databaseSelector/DatabaseSelector';
 import { DatabasesEnum, FoodDatabases, SpecialPagination } from 'src/shared/Consts';
@@ -26,6 +25,7 @@ import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthConte
 import SearcherAndSelectorWrapper from 'src/shared/components/SearcherAndSelector/SearcherAndSelectorWrapper';
 import { useTranslation } from 'react-i18next';
 import { getShortLang } from 'src/shared/internationalization/getShortLang';
+import { GET_AUTOCOMPLETE_FOOD_NAMES, GET_FOODS } from 'src/modules/nutrition/internal-foods/adapters/out/InternalFoodQueries';
 
 function FoodList() {
   const authContext = useContext(AuthContext);

@@ -33,7 +33,7 @@ export type InputGetFoods = {
 export type Measure = {
   uri: string;
   label: string;
-  spanishLabel: string;
+  spanishLabel?: string;
   weightInGrams: number;
 };
 
@@ -96,6 +96,7 @@ type EstablishedMeasure = {
   amount: number;
   label: string;
   weightInGrams: number;
+  uri: string;
 };
 export type FoodManager = Food & {
   measure: EstablishedMeasure;

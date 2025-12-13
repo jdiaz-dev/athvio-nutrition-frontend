@@ -21,7 +21,7 @@ const NutrientCalculator = ({ internalFoods }: NutrientDailyAnalysisProps) => {
     const fetchNutrients = async () => {
       try {
         const result = await calculateNutrients({ internalFoods });
-        if (result.data) setNutrients(result.data.calculateNutrients);
+        if (result.data) setNutrients(result.data.calculateFoodsNutrients);
       } catch (error) {}
     };
     if (internalFoods.length > 0) void fetchNutrients();

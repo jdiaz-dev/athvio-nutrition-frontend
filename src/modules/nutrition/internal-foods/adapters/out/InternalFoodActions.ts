@@ -1,6 +1,6 @@
 import { ApolloError, FetchResult } from '@apollo/client';
 import { apolloClient } from 'src/graphql/ApolloClient';
-import { CALCULATE_NUTRIENTS } from 'src/modules/nutrition/internal-foods/adapters/out/InternalFoodQueries';
+import { CALCULATE_FOODS_NUTRIENTS } from 'src/modules/nutrition/internal-foods/adapters/out/InternalFoodQueries';
 import {
   CalculateNutrientsInput,
   CalculateNutrientsRequest,
@@ -11,7 +11,7 @@ export function useInternalFoods() {
   const calculateNutrients = async (body: CalculateNutrientsInput): Promise<FetchResult<CalculateNutrientsResponse>> => {
     try {
       const response = await apolloClient.mutate<CalculateNutrientsResponse, CalculateNutrientsRequest>({
-        mutation: CALCULATE_NUTRIENTS,
+        mutation: CALCULATE_FOODS_NUTRIENTS,
         variables: {
           input: {
             ...body,

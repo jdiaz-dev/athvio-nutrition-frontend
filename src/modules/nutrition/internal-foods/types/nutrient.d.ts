@@ -2,7 +2,7 @@ import { NutrientDetails } from 'src/shared/components/MealBuilder/food.types';
 
 export type InternalFood = {
   internalFood: string;
-  amount: number;
+  amountInGrams: number;
 };
 
 export type CalculateNutrientsInput = {
@@ -14,5 +14,19 @@ export type CalculateNutrientsRequest = {
 };
 
 export type CalculateNutrientsResponse = {
-  calculateNutrients: NutrientDetails;
+  calculateFoodsNutrients: NutrientDetails;
+};
+
+export type CalculateNutrientsByMeasureInput = {
+  internalFood: string;
+  amount: number;
+  uri: string;
+};
+
+export type CalculateNutrientsByMeasureRequest = {
+  input: CalculateNutrientsByMeasureInput;
+};
+
+export type CalculateNutrientsByMeasureResponse = {
+  calculateNutrientsByMeasure: NutrientDetails;
 };
