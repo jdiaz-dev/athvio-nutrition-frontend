@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextField } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -27,19 +27,21 @@ function FoodMeasureManager({
   setFoodManager: React.Dispatch<React.SetStateAction<FoodManager | null>>;
 }) {
   const language = getShortLang();
+  const [isAmountChanged, setIsAmountChanged] = useState<boolean>(false);
+
   const [calculateNutrientsByMeasure] = useMutation<CalculateNutrientsByMeasureResponse, CalculateNutrientsByMeasureRequest>(
     CALCULATE_NUTRIENTS_BY_MEASURE,
     {
       fetchPolicy: 'network-only',
     },
   );
-  const calculateNutrientsFetcher = async (choosedMeasure?: string, _weightInGrams?: number) => {
+  const calculateNutrientsFetcher = async (choosedMeasureUri?: string, measureInGrams?: number, measureLabel?: string) => {
     const res = await calculateNutrientsByMeasure({
       variables: {
         input: {
           internalFood: foodManager.uuid as string,
-          amount: foodManager.measure.amount,
-          uri: choosedMeasure ? choosedMeasure : foodManager.measure.uri,
+          amount: foodManager.currentMeasure.amount,
+          uri: choosedMeasureUri ? choosedMeasureUri : foodManager.currentMeasure.uri,
         },
       },
     });
@@ -49,16 +51,20 @@ function FoodMeasureManager({
       if (foodManager !== null) {
         setFoodManager({
           ...foodManager,
-          measure: {
-            ...foodManager.measure,
-            uri: choosedMeasure ? choosedMeasure : foodManager.measure.uri,
+          currentMeasure: {
+            ...foodManager.currentMeasure,
+            uri: choosedMeasureUri ? choosedMeasureUri : foodManager.currentMeasure.uri,
+            ...(measureLabel && { label: measureLabel }),
+            ...(measureInGrams && { weightInGrams: measureInGrams }),
           },
           macros: {
             calories: ENERC_KCAL ? ENERC_KCAL.quantity : 0,
             protein: PROCNT ? PROCNT.quantity : 0,
             carbs: CHOCDF ? CHOCDF.quantity : 0,
             fat: FAT ? FAT.quantity : 0,
-            weightInGrams: _weightInGrams ? foodManager.measure.amount * _weightInGrams : foodManager.measure.amount,
+            weightInGrams: measureInGrams
+              ? measureInGrams * foodManager.currentMeasure.amount
+              : foodManager.currentMeasure.weightInGrams * foodManager.currentMeasure.amount,
           },
         });
       }
@@ -76,12 +82,15 @@ function FoodMeasureManager({
         (measureLabel === label || measureLabel === spanishLabel) && weightInGrams === _weightInGrams,
     ) as Measure;
 
-    calculateNutrientsFetcher(choosedMeasure.uri, _weightInGrams);
+    calculateNutrientsFetcher(choosedMeasure.uri, _weightInGrams, measureLabel);
   };
 
   useEffect(() => {
-    calculateNutrientsFetcher();
-  }, [foodManager.measure.amount]);
+    if (isAmountChanged) {
+      calculateNutrientsFetcher();
+      setIsAmountChanged(false);
+    }
+  }, [isAmountChanged]);
 
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -93,12 +102,13 @@ function FoodMeasureManager({
         size="small"
         variant="standard"
         type="number"
-        value={foodManager.measure.amount}
+        value={foodManager.currentMeasure.amount}
         onChange={(e) => {
           setFoodManager({
             ...foodManager,
-            measure: { ...foodManager.measure, amount: Number(e.target.value) },
+            currentMeasure: { ...foodManager.currentMeasure, amount: Number(e.target.value) },
           });
+          setIsAmountChanged(true);
         }}
       />
       <FormControl size="small" style={{ margin: 0, marginLeft: '5%', width: '60%' }} variant="standard">
@@ -124,7 +134,7 @@ function FoodMeasureManager({
             })}
         </Select>
       </FormControl>
-      <div style={{ display: 'flex', alignItems: 'center', width: '20%' }}>{foodManager.measure.weightInGrams}g</div>
+      <div style={{ display: 'flex', alignItems: 'center', width: '20%' }}>{foodManager.macros.weightInGrams}g</div>
     </div>
   );
 }

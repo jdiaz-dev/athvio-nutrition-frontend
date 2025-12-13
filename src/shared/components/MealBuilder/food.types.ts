@@ -99,7 +99,7 @@ type EstablishedMeasure = {
   uri: string;
 };
 export type FoodManager = Food & {
-  measure: EstablishedMeasure;
+  currentMeasure: EstablishedMeasure;
 };
 
 type FoodProviderSession = {

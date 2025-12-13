@@ -27,23 +27,20 @@ function FoodItem({ food }: { food: Food }) {
 
   useEffect(() => {
     const prepareFoodManager = () => {
-      const defaultMeasure = food.availableMeasures?.find((measure) =>
+      const defaultMeasure: Measure = food.availableMeasures?.find((measure) =>
         language === SupportedLanguages.ENGLISH
           ? measure.label === MeasureSizes.GRAM_LABEL_ENGLISH
           : measure.spanishLabel === MeasureSizes.GRAM_LABEL_SPANISH,
-      );
+      ) as Measure;
       const defaultMeasureValue = `${defaultMeasure?.spanishLabel || defaultMeasure?.label} ${defaultMeasure?.weightInGrams || ''}`;
       setMeasure(defaultMeasureValue);
-      const defaultMeasureUri: Measure = food.availableMeasures?.find(
-        ({ label, spanishLabel }) => MeasureSizes.GRAM_LABEL_SPANISH === spanishLabel || MeasureSizes.GRAM_LABEL_SPANISH === label,
-      ) as Measure;
       setFoodManager({
         ...food,
-        measure: {
+        currentMeasure: {
           amount: food.macros.weightInGrams,
           label: (language === SupportedLanguages.ENGLISH ? MeasureSizes.GRAM_LABEL_ENGLISH : MeasureSizes.GRAM_LABEL_SPANISH) as string,
           weightInGrams: food.macros.weightInGrams,
-          uri: defaultMeasureUri.uri,
+          uri: defaultMeasure.uri,
         },
       });
     };
@@ -51,14 +48,14 @@ function FoodItem({ food }: { food: Food }) {
   }, [food]);
 
   const chooseIngredient = () => {
-    if (foodManager !== null && foodManager.measure.amount > 0 && foodManager.foodDatabase === FoodDatabases.SYSTEM) {
+    if (foodManager !== null && foodManager.currentMeasure.amount > 0 && foodManager.foodDatabase === FoodDatabases.SYSTEM) {
       const ingredientDetailCustomRecipe: IngredientDetail = {
         ingredientType: IngredientType.UNIQUE_INGREDIENT,
         ingredient: {
           internalFood: foodManager.uuid,
           name: foodManager.name,
-          label: foodManager.measure.label,
-          amount: foodManager.measure.amount.toString(),
+          label: `${foodManager.currentMeasure.label} (${foodManager.macros.weightInGrams} gr.)`,
+          amount: foodManager.currentMeasure.amount.toString(),
           ...foodManager.macros,
         },
         equivalents: [],

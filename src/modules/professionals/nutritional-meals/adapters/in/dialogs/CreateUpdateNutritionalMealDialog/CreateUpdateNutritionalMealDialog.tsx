@@ -117,7 +117,7 @@ function CreateUpdateNutritionalMealDialog({
         dispatch(NutritionalMealDetailsSlice.reinitializeMeal());
       }}
       scroll="body"
-      // fullWidth={true}
+      fullWidth={true}
       maxWidth="lg"
       aria-labelledby="dialog-title"
       aria-describedby="dialog-description"
@@ -156,7 +156,7 @@ function CreateUpdateNutritionalMealDialog({
           <NutrientCalculator
             internalFoods={nutritionalMealDetailsState.ingredientDetails.map(({ ingredient }) => ({
               internalFood: ingredient?.internalFood as string,
-              amountInGrams: parseInt(ingredient?.amount || ''),
+              amountInGrams: ingredient?.weightInGrams as number,
             }))}
           />
         </Box>
