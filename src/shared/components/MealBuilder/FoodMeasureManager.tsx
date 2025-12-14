@@ -35,6 +35,7 @@ function FoodMeasureManager({
       fetchPolicy: 'network-only',
     },
   );
+  console.log('----------foodManager', foodManager.currentMeasure);
   const calculateNutrientsFetcher = async (choosedMeasureUri?: string, measureInGrams?: number, measureLabel?: string) => {
     const res = await calculateNutrientsByMeasure({
       variables: {
@@ -128,13 +129,13 @@ function FoodMeasureManager({
               return (
                 <MenuItem key={index} value={value}>
                   {language === SupportedLanguages.SPANISH && measure.spanishLabel !== null ? measure.spanishLabel : measure.label} (
-                  {measure.weightInGrams}g)
+                  {measure.weightInGrams} gr.)
                 </MenuItem>
               );
             })}
         </Select>
       </FormControl>
-      <div style={{ display: 'flex', alignItems: 'center', width: '20%' }}>{foodManager.macros.weightInGrams}g</div>
+      <div style={{ display: 'flex', alignItems: 'center', width: '30%' }}>{foodManager.macros.weightInGrams} gr.</div>
     </div>
   );
 }

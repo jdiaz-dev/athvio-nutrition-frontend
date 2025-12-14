@@ -39,7 +39,7 @@ function FoodItem({ food }: { food: Food }) {
         currentMeasure: {
           amount: food.macros.weightInGrams,
           label: (language === SupportedLanguages.ENGLISH ? MeasureSizes.GRAM_LABEL_ENGLISH : MeasureSizes.GRAM_LABEL_SPANISH) as string,
-          weightInGrams: food.macros.weightInGrams,
+          weightInGrams: defaultMeasure.weightInGrams,
           uri: defaultMeasure.uri,
         },
       });
@@ -54,7 +54,11 @@ function FoodItem({ food }: { food: Food }) {
         ingredient: {
           internalFood: foodManager.uuid,
           name: foodManager.name,
-          label: `${foodManager.currentMeasure.label} (${foodManager.macros.weightInGrams} gr.)`,
+          label:
+            foodManager.currentMeasure.label === MeasureSizes.GRAM_LABEL_SPANISH ||
+            foodManager.currentMeasure.label === MeasureSizes.GRAM_LABEL_ENGLISH
+              ? foodManager.currentMeasure.label
+              : `${foodManager.currentMeasure.label} (${foodManager.macros.weightInGrams} gr.)`,
           amount: foodManager.currentMeasure.amount.toString(),
           ...foodManager.macros,
         },
