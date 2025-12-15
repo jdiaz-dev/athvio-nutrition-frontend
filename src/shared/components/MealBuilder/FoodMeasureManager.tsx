@@ -35,7 +35,6 @@ function FoodMeasureManager({
       fetchPolicy: 'network-only',
     },
   );
-  console.log('----------foodManager', foodManager.currentMeasure);
   const calculateNutrientsFetcher = async (choosedMeasureUri?: string, measureInGrams?: number, measureLabel?: string) => {
     const res = await calculateNutrientsByMeasure({
       variables: {

@@ -13,16 +13,16 @@ enum Operation {
   ADDITION = 'addition',
   SUBTRACTION = 'subtraction',
 }
-const fixProblemWithDecimals = (num1: number, num2: number, operation: Operation) => {
-  return operation === Operation.ADDITION ? parseFloat((num1 + num2).toFixed(2)) : parseFloat((num1 - num2).toFixed(2));
+const realizeOperation = (num1: number, num2: number, operation: Operation) => {
+  return operation === Operation.ADDITION ? num1 + num2 : num1 - num2;
 };
 
 const recalculateGeneralMacros = (foodMacros: Macros, macrosToAdd: Macros, operation: Operation): Macros => ({
-  protein: fixProblemWithDecimals(foodMacros.protein, macrosToAdd.protein, operation),
-  carbs: fixProblemWithDecimals(foodMacros.carbs, macrosToAdd.carbs, operation),
-  fat: fixProblemWithDecimals(foodMacros.fat, macrosToAdd.fat, operation),
-  calories: fixProblemWithDecimals(foodMacros.calories, macrosToAdd.calories, operation),
-  weightInGrams: fixProblemWithDecimals(foodMacros.weightInGrams, macrosToAdd.weightInGrams, operation),
+  protein: realizeOperation(foodMacros.protein, macrosToAdd.protein, operation),
+  carbs: realizeOperation(foodMacros.carbs, macrosToAdd.carbs, operation),
+  fat: realizeOperation(foodMacros.fat, macrosToAdd.fat, operation),
+  calories: realizeOperation(foodMacros.calories, macrosToAdd.calories, operation),
+  weightInGrams: realizeOperation(foodMacros.weightInGrams, macrosToAdd.weightInGrams, operation),
 });
 
 export const mealBuilderSlice = (sliceName: string, initState: MealBuilderBody) => {
@@ -72,16 +72,17 @@ export const mealBuilderSlice = (sliceName: string, initState: MealBuilderBody) 
               ingredient.label === MeasureSizes.GRAM_LABEL_ENGLISH || ingredient.label === MeasureSizes.GRAM_LABEL_SPANISH
                 ? newAmount
                 : newAmount * ingredient.weightInGrams,
-            protein: Number(((ingredient.protein * newAmount) / amountInNumber).toFixed(2)),
-            carbs: Number(((ingredient.carbs * newAmount) / amountInNumber).toFixed(2)),
-            fat: Number(((ingredient.fat * newAmount) / amountInNumber).toFixed(2)),
-            calories: Number(((ingredient.calories * newAmount) / amountInNumber).toFixed(2)),
+            protein: Number((ingredient.protein * newAmount) / amountInNumber),
+            carbs: Number((ingredient.carbs * newAmount) / amountInNumber),
+            fat: Number((ingredient.fat * newAmount) / amountInNumber),
+            calories: Number((ingredient.calories * newAmount) / amountInNumber),
           };
 
           (state.ingredientDetails[indexIngredient].ingredient as Ingredient) = {
             amount: newAmount.toString(),
             name: ingredient.name,
             label: ingredient.label,
+            internalFood: ingredient.internalFood,
             ...newMacros,
           };
           state.macros = recalculateGeneralMacros(state.macros, ingredient, Operation.SUBTRACTION);

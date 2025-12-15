@@ -63,7 +63,6 @@ export function useNutritionalMeal() {
     }
   };
   const updateNutritionalMeal = async (body: UpdateNutritionalMealBody): Promise<void> => {
-    console.log('------body', body)
     try {
       const response = await apolloClient.mutate<UpdateNutritionalMealResponse, UpdateNutritionalMealRequest>({
         mutation: UPDATE_NUTRITIONAL_MEAL,
@@ -91,7 +90,6 @@ export function useNutritionalMeal() {
         },
       });
       if (response) dispatch(NutritionalMealDetailsSlice.reinitializeMeal());
-      console.log(response);
     } catch (error) {
       console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
       throw error;

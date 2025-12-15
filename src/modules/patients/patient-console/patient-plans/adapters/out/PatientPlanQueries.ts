@@ -45,6 +45,7 @@ export const CREATE_CLIENT_PLAN = gql`
             carbs
             fat
             calories
+            internalFood
           }
           equivalents {
             ingredientType
@@ -162,6 +163,7 @@ export const GET_CLIENT_PLANS_SCREEN = gql`
             carbs
             fat
             calories
+            internalFood
           }
           equivalents {
             ingredientType
@@ -257,6 +259,7 @@ export const UPDATE_CLIENT_PLAN = gql`
             carbs
             fat
             calories
+            internalFood
           }
           equivalents {
             ingredientType
@@ -352,6 +355,7 @@ export const DUPLICATE_CLIENT_PLAN = gql`
             carbs
             fat
             calories
+            internalFood
           }
           equivalents {
             ingredientType

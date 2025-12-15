@@ -119,8 +119,6 @@ function MealDetail({ meal: { position, mealTag, name, image, ...mealDetails } }
   };
   useEffect(() => {
     if (mealContainerTouched) {
-      console.log('----mealBasicInfoState', mealBasicInfoState);
-      console.log('----image', image);
       componentClickedHandler();
     }
     return () => {};
@@ -133,7 +131,7 @@ function MealDetail({ meal: { position, mealTag, name, image, ...mealDetails } }
   return (
     <>
       <Card
-        style={{ width: '90%', padding: '10px' }}
+        style={{ width: '100%', padding: '10px' }}
         sx={{ minWidth: 275 }}
         className={classes.card}
         variant="outlined"

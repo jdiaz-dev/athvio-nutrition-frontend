@@ -4,8 +4,8 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import { programInitialState } from 'src/modules/professionals/programs/adapters/in/slicers/ProgramInitialState';
 import { patientPlanInitialState } from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/PatientPlanInitialState';
-import { useDispatch, useSelector } from 'react-redux';
-import { DialogTitle } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { Box, DialogTitle } from '@mui/material';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import MealDetail from 'src/shared/components/PlanDetailDialog/MealDetail';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
@@ -18,9 +18,9 @@ import CancelAndSaveButtons from 'src/shared/components/CancelAndSaveButtons';
 import { useMealsStates } from 'src/shared/components/PlanDetailDialog/useMealsStates';
 import { useTranslation } from 'react-i18next';
 import { EnableEditionContext } from 'src/shared/components/wrappers/EnablerEditionWrapper/EnableEditionContext';
-import MacroMeasurement from 'src/shared/components/PlanDetailDialog/MacroMeasurement';
-import { ReduxStates } from 'src/shared/types/types';
 import { useMealBasicInfoSlicers } from 'src/shared/hooks/useMealBasicInfoSlicers';
+import NutrientCalculator from 'src/shared/components/NutrientCalculation';
+import { IngredientDetail } from 'src/shared/components/MealBuilder/MealBuilder.types';
 
 const savedPlanButton = new Subject<boolean>();
 export const savedPlanButton$ = savedPlanButton.asObservable();
@@ -36,7 +36,6 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
 }) {
   const reloadRecordListContext = useContext(ReloadRecordListContext);
   const currentModuleContext = useContext(CurrentModuleContext);
-  const planificationState = useSelector((state: ReduxStates) => state.planifications.planification);
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const { addMeal } = useMealListSlicers(currentModuleContext.currentModule);
@@ -53,9 +52,11 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
       dispatch(resetMealBasicInfo());
     };
   }, [closedIconDialog]);
+
   const closeIconDialogHandler = () => {
     setOpenPlanDetailDialog(false);
   };
+
   const addMealPlanHandler = () => {
     if (currentModuleContext.currentModule === Modules.CLIENT_PLANS) {
       dispatch(addMeal({ ...patientPlanInitialState.mealBasicInfo, ...patientPlanInitialState.mealDetails, uuid: generateTemporalId() }));
@@ -70,6 +71,13 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
     setOpenPlanDetailDialog(false);
   };
 
+  const mealIngredients = mealListState
+    .reduce((acc: IngredientDetail[], meal) => acc.concat(meal.ingredientDetails), [])
+    .map(({ ingredient }) => ({
+      internalFood: ingredient?.internalFood as string,
+      amountInGrams: ingredient?.weightInGrams as number,
+    }));
+
   return (
     <>
       <Dialog
@@ -78,30 +86,39 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
           setOpenPlanDetailDialog(false);
         }}
         scroll="body"
-        maxWidth="md"
+        maxWidth="lg"
         fullWidth={true}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
           {planDay}
-          {planificationState !== null && <MacroMeasurement />}
           <CloseDialogIcon closedIconDialog={closedIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
         </DialogTitle>
-        <DialogContent>
-          <EnableEditionContext.Provider value={{ enableEdition: true }}>
-            {mealListState
-              .filter((meal) => meal.status != ReduxItemtatus.DELETED)
-              .map((meal, index) => (
-                <MealDetail key={index} meal={meal} />
-              ))}
-          </EnableEditionContext.Provider>
+        <DialogContent dividers={true}>
+          <Box sx={{ display: 'flex' }}>
+            <Box style={{ width: '90%' }}>
+              <EnableEditionContext.Provider value={{ enableEdition: true }}>
+                {mealListState
+                  .filter((meal) => meal.status != ReduxItemtatus.DELETED)
+                  .map((meal, index) => (
+                    <MealDetail key={index} meal={meal} />
+                  ))}
+              </EnableEditionContext.Provider>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Button
+                  variant="contained"
+                  onClick={() => addMealPlanHandler()}
+                  size="large"
+                  style={{ width: '100%', marginBottom: '20px' }}
+                >
+                  {t('mealBuilder.buttons.addMeal')}
+                </Button>
+              </div>
+            </Box>
 
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Button variant="contained" onClick={() => addMealPlanHandler()} size="large" style={{ width: '90%', marginBottom: '20px' }}>
-              {t('mealBuilder.buttons.addMeal')}
-            </Button>
-          </div>
+            <NutrientCalculator internalFoods={mealIngredients} />
+          </Box>
 
           <CancelAndSaveButtons cancelHandler={closeIconDialogHandler} saveHandler={savePlanHandler} />
         </DialogContent>

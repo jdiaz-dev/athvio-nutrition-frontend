@@ -62,6 +62,7 @@ export const PROGRAM_PLAN_MEALS_CRUD = gql`
               carbs
               fat
               calories
+              internalFood
             }
             equivalents {
               ingredientType
@@ -163,6 +164,7 @@ export const PROGRAM_PLAN_MEALS_CRUD = gql`
               carbs
               fat
               calories
+              internalFood
             }
             equivalents {
               ingredientType

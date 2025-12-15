@@ -160,6 +160,7 @@ export const GET_PROGRAM = gql`
               carbs
               fat
               calories
+              internalFood
             }
             equivalents {
               ingredientType

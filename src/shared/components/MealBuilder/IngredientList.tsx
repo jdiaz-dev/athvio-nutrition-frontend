@@ -25,25 +25,25 @@ function IngredientList({ meal }: { meal: MealDataForBuilder }) {
           <Table sx={{ minWidth: 350 }} size="small" aria-label="customized table">
             <TableHead>
               <TableRow>
-                <StyledTableCell style={styleTableCell} align="left" width={'10%'}>
+                <StyledTableCell style={styleTableCell} align="left" width={'30%'}>
                   {t('mealBuilder.table.name')}
                 </StyledTableCell>
-                <StyledTableCell style={styleTableCell} align="left" width={'30%'}>
+                <StyledTableCell style={styleTableCell} align="left" width={'60%'}>
                   {t('mealBuilder.table.food')}
                 </StyledTableCell>
-                <StyledTableCell style={styleTableCell} align="left">
+                <StyledTableCell style={styleTableCell} align="right" width={'7%'}>
                   {t('mealBuilder.table.proteins')}
                 </StyledTableCell>
-                <StyledTableCell style={styleTableCell} align="left">
+                <StyledTableCell style={styleTableCell} align="right" width={'7%'}>
                   {t('mealBuilder.table.carbs')}
                 </StyledTableCell>
-                <StyledTableCell style={styleTableCell} align="left">
+                <StyledTableCell style={styleTableCell} align="right" width={'7%'}>
                   {t('mealBuilder.table.fats')}
                 </StyledTableCell>
-                <StyledTableCell style={styleTableCell} align="left">
+                <StyledTableCell style={styleTableCell} align="right" width={'7%'}>
                   {t('mealBuilder.table.calories')}
                 </StyledTableCell>
-                <StyledTableCell style={styleTableCell} align="left" width={'10%'}></StyledTableCell>
+                <StyledTableCell style={styleTableCell} align="right" width={'7%'}></StyledTableCell>
               </TableRow>
             </TableHead>
             {
@@ -65,10 +65,10 @@ function IngredientList({ meal }: { meal: MealDataForBuilder }) {
                 <StyledTableRow>
                   <StyledTableCell align="right"></StyledTableCell>
                   <StyledTableCell align="right">Total</StyledTableCell>
-                  <StyledTableCell align="left">{meal.macros.protein}</StyledTableCell>
-                  <StyledTableCell align="left">{meal.macros.carbs}</StyledTableCell>
-                  <StyledTableCell align="left">{meal.macros.fat}</StyledTableCell>
-                  <StyledTableCell align="left">{meal.macros.calories}</StyledTableCell>
+                  <StyledTableCell align="right">{meal.macros.protein.toFixed(2)}</StyledTableCell>
+                  <StyledTableCell align="right">{meal.macros.carbs.toFixed(2)}</StyledTableCell>
+                  <StyledTableCell align="right">{meal.macros.fat.toFixed(2)}</StyledTableCell>
+                  <StyledTableCell align="right">{meal.macros.calories.toFixed(2)}</StyledTableCell>
                 </StyledTableRow>
               </TableBody>
             }

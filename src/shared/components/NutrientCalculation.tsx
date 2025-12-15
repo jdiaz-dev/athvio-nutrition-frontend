@@ -9,8 +9,6 @@ type NutrientDailyAnalysisProps = {
   internalFoods: InternalFood[];
 };
 
-const clamp = (value: number, min = 0, max = 200) => Math.min(max, Math.max(min, value));
-
 const NutrientCalculator = ({ internalFoods }: NutrientDailyAnalysisProps) => {
   const theme = useTheme();
   const { calculateNutrients } = useInternalFoods();

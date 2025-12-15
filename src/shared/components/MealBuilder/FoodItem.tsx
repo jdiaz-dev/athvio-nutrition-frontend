@@ -89,7 +89,7 @@ function FoodItem({ food }: { food: Food }) {
             {parseFloat(foodManager.macros.fat.toString()).toFixed(2)}
           </StyledTableCell>
           <StyledTableCell width={'7%'} style={{ padding: '4px' }} component="th" scope="row">
-            {foodManager.macros.calories} cal
+            {foodManager.macros.calories.toFixed(2)} cal
           </StyledTableCell>
           <StyledTableCell align="right" width={'5%'} style={{ padding: '0px', paddingRight: '7px' }}>
             <Tooltip title={t('toolTips.add')} placement="right">

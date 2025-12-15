@@ -64,7 +64,7 @@ function IngredientItem({ displayedIngredient: { name, amount, label, ...rest } 
         }}
         style={{ opacity: displayOverlay ? 0.8 : 1 }}
       >
-        <StyledTableCell align="left" width={'20%'}>
+        <StyledTableCell align="left" width={'30%'}>
           <IngredientAmountEditor
             editAmount={editAmount}
             isSavedNewAmount={isSavedNewAmount}
@@ -74,22 +74,22 @@ function IngredientItem({ displayedIngredient: { name, amount, label, ...rest } 
             label={label}
           />
         </StyledTableCell>
-        <StyledTableCell align="left" component="th" scope="row" width={'20%'}>
+        <StyledTableCell align="left" component="th" scope="row" width={'60%'}>
           {name}
         </StyledTableCell>
-        <StyledTableCell align="left" width={'10%'}>
-          {rest.protein} g
+        <StyledTableCell align="right" width={'8%'}>
+          {rest.protein.toFixed(2)} g
         </StyledTableCell>
-        <StyledTableCell align="left" width={'10%'}>
-          {rest.carbs} g
+        <StyledTableCell align="right" width={'8%'}>
+          {rest.carbs.toFixed(2)} g
         </StyledTableCell>
-        <StyledTableCell align="left" width={'10%'}>
-          {rest.fat} g
+        <StyledTableCell align="right" width={'8%'}>
+          {rest.fat.toFixed(2)} g
         </StyledTableCell>
-        <StyledTableCell align="left" width={'10%'}>
-          {rest.calories} cal
+        <StyledTableCell align="right" width={'8%'}>
+          {rest.calories.toFixed(2)} cal
         </StyledTableCell>
-        <StyledTableCell align="left" width={'10%'}>
+        <StyledTableCell align="right" width={'8%'}>
           <EnablerEditionWrapper enableEdition={enableEditionContext.enableEdition}>
             {!editAmount ? (
               <Box style={{ display: 'flex', width: '100%', opacity: 0.7 }}>

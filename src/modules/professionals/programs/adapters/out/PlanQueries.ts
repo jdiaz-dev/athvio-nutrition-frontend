@@ -55,6 +55,7 @@ export const CREATE_PROGRAM_PLAN = gql`
               carbs
               fat
               calories
+              internalFood
             }
             equivalents {
               ingredientType
@@ -161,6 +162,7 @@ export const UPDATE_PLAN_ASSIGNED_WEKK_DAY = gql`
               carbs
               fat
               calories
+              internalFood
             }
             equivalents {
               ingredientType
@@ -267,6 +269,7 @@ export const DUPLICATE_PROGRAM_PLAN = gql`
               carbs
               fat
               calories
+              internalFood
             }
             equivalents {
               ingredientType
@@ -372,6 +375,7 @@ export const DELETE_PROGRAM_PLAN = gql`
               carbs
               fat
               calories
+              internalFood
             }
             equivalents {
               ingredientType

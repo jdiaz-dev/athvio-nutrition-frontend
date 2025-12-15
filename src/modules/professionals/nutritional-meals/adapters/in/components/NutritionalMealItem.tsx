@@ -148,16 +148,16 @@ function NutritionalMealItem(nutritionalMeal: NutritionalMealBody) {
                 >
                   <TableRow key={nutritionalMeal.name}>
                     <TableCell onClick={nutritionalMealClickedHandler} align="center">
-                      {nutritionalMeal.macros.protein} g
+                      {nutritionalMeal.macros.protein.toFixed(2)} g
                     </TableCell>
                     <TableCell onClick={nutritionalMealClickedHandler} align="center">
-                      {nutritionalMeal.macros.carbs} g
+                      {nutritionalMeal.macros.carbs.toFixed(2)} g
                     </TableCell>
                     <TableCell onClick={nutritionalMealClickedHandler} align="center">
-                      {nutritionalMeal.macros.fat} g
+                      {nutritionalMeal.macros.fat.toFixed(2)} g
                     </TableCell>
                     <TableCell onClick={nutritionalMealClickedHandler} align="center">
-                      {nutritionalMeal.macros.calories} cal
+                      {nutritionalMeal.macros.calories.toFixed(2)} cal
                     </TableCell>
                   </TableRow>
                 </TableBody>
