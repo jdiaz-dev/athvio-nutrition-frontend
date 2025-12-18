@@ -40,6 +40,15 @@ const ImageContainer = ({ image }: { image: string | File | null }) => {
   const enableEditionContext = useContext(EnableEditionContext);
   const { setImage } = useMealImageSlicers(currentModuleContext.currentModule);
 
+  const renderImage = () => {
+    if (image instanceof File) {
+      return URL.createObjectURL(image);
+    } else if (typeof image === 'string') {
+      return image;
+    }
+
+    return process.env.NODE_ENV === 'production' ? '/bowl.jpg' : '/public/bowl.jpg';
+  };
   return (
     <Box
       sx={{
@@ -59,7 +68,7 @@ const ImageContainer = ({ image }: { image: string | File | null }) => {
       <CardMedia
         component="img"
         className="meal-image"
-        image={image instanceof File ? URL.createObjectURL(image) : image ?? '/public/bowl.jpg'}
+        image={renderImage()}
         alt="Meal image"
         sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
       />

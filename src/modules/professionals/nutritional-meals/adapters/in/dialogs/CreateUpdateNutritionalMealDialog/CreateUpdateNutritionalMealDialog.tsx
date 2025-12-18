@@ -143,7 +143,7 @@ function CreateUpdateNutritionalMealDialog({
             >
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <NutritionalMealNameInput />
-                <NutritionalMealOptions setShowAnticancerProperties={setShowAnticancerProperties} />
+                {/* <NutritionalMealOptions setShowAnticancerProperties={setShowAnticancerProperties} /> */}
               </div>
               <ImageContainer image={mealNameBasicInfo.image} />
               <CurrentModuleContext.Provider value={{ currentModule: Modules.NUTRITIONAL_MEALS }}>

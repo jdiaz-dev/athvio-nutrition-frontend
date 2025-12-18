@@ -13,6 +13,7 @@ export default defineConfig(({ mode }) => {
       include: ['@mui/material', '@mui/icons-material', '@emotion/react', '@emotion/styled'],
     },
     define: {
+      'process.env.NODE_ENV': JSON.stringify(env.NODE_ENV),
       'process.env.REACT_APP_GRAPHQL_HTTP_URI': JSON.stringify(env.REACT_APP_GRAPHQL_HTTP_URI),
       'process.env.REACT_APP_GRAPHQL_WS_URI': JSON.stringify(env.REACT_APP_GRAPHQL_WS_URI),
       'process.env.OAUTH_GOOGLE_CLIENT_ID': JSON.stringify(env.OAUTH_GOOGLE_CLIENT_ID),
