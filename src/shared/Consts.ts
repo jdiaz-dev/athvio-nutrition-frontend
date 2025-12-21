@@ -80,8 +80,8 @@ export enum SpecialPagination {
 }
 
 export enum MeasureSizes {
-  GRAM_LABEL_ENGLISH = 'Grams',
-  GRAM_LABEL_SPANISH = 'Gramos',
+  GRAM_LABEL_ENGLISH = 'Gram',
+  GRAM_LABEL_SPANISH = 'Gramo',
   GRAM_AMOUNT = 100,
   NORMAL_AMOUNT = 1,
 }
