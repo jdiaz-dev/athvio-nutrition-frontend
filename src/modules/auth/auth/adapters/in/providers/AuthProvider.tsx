@@ -29,7 +29,11 @@ function AuthProvider({ children }: { children: ReactNode }) {
     if (data) saveJwt(data.signIn);
   };
   const signUpProfessionalHandler = async (body: SignUpProfessionalModel): Promise<FetchResult<SignUpProfessionalResponse>> => {
-    return await signUpProfessional(body);
+    try {
+      return await signUpProfessional(body);
+    } catch (error) {
+      throw error;
+    }
   };
   const signInWithGoogleHandler = async (
     body: SignInProfessionalWithGoogleInput,

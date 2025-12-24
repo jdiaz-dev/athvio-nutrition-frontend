@@ -82,8 +82,8 @@ const SignUpProfessionalForm = () => {
         validationSchema={Yup.object().shape({
           firstname: Yup.string().max(255).optional(),
           lastname: Yup.string().max(255).optional(),
-          email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-          password: Yup.string().max(255).required('Password is required'),
+          email: Yup.string().email('Ingresa un correo electrónico válido').max(255).required('El correo electrónico es obligatorio'),
+          password: Yup.string().max(255).required('La contraseña es obligatoria'),
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
@@ -118,11 +118,11 @@ const SignUpProfessionalForm = () => {
               }, 1500);
             } */
           } catch (error: any) {
-            console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors[0].extensions.response.message[0]);
-            // throw error;
+            console.log('-----xxx', ((error as ApolloError).graphQLErrors[0].extensions.originalError as any).message[0]);
             if (scriptedRef.current) {
               setStatus({ success: false });
-              setErrors({ submit: (error as ApolloError).graphQLErrors[0].extensions.response.messsage[0] });
+              // setErrors({ submit: (error as ApolloError).graphQLErrors[0].extensions.response.messsage[0] });
+              setErrors({ submit: ((error as ApolloError).graphQLErrors[0].extensions.originalError as any).message[0] });
               setSubmitting(false);
             }
           }
@@ -310,11 +310,11 @@ const SignUpProfessionalForm = () => {
                   </Link>
                 </Typography>
               </Grid> */}
-              {/* {errors.submit && (
+              {errors.submit && (
                 <Grid item xs={12}>
                   <FormHelperText error>{errors.submit}</FormHelperText>
                 </Grid>
-              )} */}
+              )}
               <Grid item xs={12}>
                 <AnimateButton>
                   <Button disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained" color="primary">

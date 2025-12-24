@@ -39,13 +39,17 @@ export function useAuthentication() {
     return res;
   };
   const signUpProfessional = async (body: SignUpProfessionalModel): Promise<FetchResult<SignUpProfessionalResponse>> => {
-    const res = await apolloClient.mutate<SignUpProfessionalResponse, SignUpProfessionalRequest>({
-      mutation: SIGN_UP_PROFESSIONAL,
-      variables: {
-        input: body,
-      },
-    });
-    return res;
+    try {
+      const res = await apolloClient.mutate<SignUpProfessionalResponse, SignUpProfessionalRequest>({
+        mutation: SIGN_UP_PROFESSIONAL,
+        variables: {
+          input: body,
+        },
+      });
+      return res;
+    } catch (error) {
+      throw error;
+    }
   };
   const signInProfessionalWithGoogle = async (
     body: SignInProfessionalWithGoogleInput,
