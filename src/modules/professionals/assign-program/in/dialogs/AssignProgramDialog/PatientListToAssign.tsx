@@ -85,6 +85,7 @@ function PatientList() {
   return (
     <>
       <SearcherBar
+        setOffset={setOffset}
         setSearchWords={setSearchWords}
         matchedRecords={matchedRecords}
         setChoosedWord={setChoosedWord}

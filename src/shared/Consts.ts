@@ -70,15 +70,6 @@ export enum WeekActions {
   NEUTRAL = 'neutral',
 }
 
-export enum SpecialPagination {
-  FIRST_PAGE_SIMULATION = 0,
-  ALLOWED_OFFSET_LIMIT = 15,
-  OFFSET_RESETED = 0,
-  LIMIT_RECORDS_IN_MEMORY = 20,
-  TOTAL_NEXT_RECORDS = 20,
-  // rowsPerPageForDefaultDB = 20;
-}
-
 export enum MeasureSizes {
   GRAM_LABEL_ENGLISH = 'Gram',
   GRAM_LABEL_SPANISH = 'Gramo',

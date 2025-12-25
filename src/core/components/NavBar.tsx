@@ -118,7 +118,7 @@ function NabBar() {
           <Box sx={{ display: { xs: 'none', md: 'flex' }, width: '85%' }}>
             <ToolbarItems style={{ width: '14%', textAlign: 'center' }} />
           </Box>
-          <Box sx={{ width: '9%' }}>
+          {/* <Box sx={{ width: '9%' }}>
             <IconButton onClick={handleOpenSettingsIconMenu} sx={{ p: 0, cursor: 'pointer' }}>
               <SettingsIcon />
             </IconButton>
@@ -153,7 +153,7 @@ function NabBar() {
                 </ListItem>
               </MenuItem>
             </Menu>
-          </Box>
+          </Box> */}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenAvatarMenu} sx={{ p: 0 }}>

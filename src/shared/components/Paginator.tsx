@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { TablePagination } from '@mui/material';
 
 function Paginator({
@@ -25,6 +25,11 @@ function Paginator({
     setCurrentPage(newPage);
   };
 
+  useEffect(() => {
+    if (offset === 0) {
+      setCurrentPage(0);
+    }
+  }, [offset]);
   return (
     <>
       <TablePagination

@@ -79,6 +79,7 @@ function ProgramList() {
   return (
     <>
       <SearcherBar
+        setOffset={setOffset}
         setSearchWords={setSearchWords}
         matchedRecords={matchedRecords}
         setChoosedWord={setChoosedWord}

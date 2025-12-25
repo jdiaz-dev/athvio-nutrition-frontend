@@ -83,6 +83,7 @@ function NutritionalMealList() {
     <>
       <SearcherAndSelectorWrapper>
         <SearcherBar
+          setOffset={setOffset}
           setSearchWords={setSearchWords}
           matchedRecords={matchedRecords}
           setChoosedWord={setChoosedWord}

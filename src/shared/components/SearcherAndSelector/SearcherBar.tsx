@@ -4,6 +4,7 @@ import { debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 function SearcherBar({
+  setOffset,
   setSearchWords,
   matchedRecords,
   setChoosedWord,
@@ -11,6 +12,7 @@ function SearcherBar({
   styles,
   withMultipleOption = true,
 }: {
+  setOffset?: React.Dispatch<React.SetStateAction<number>>;
   setSearchWords: React.Dispatch<React.SetStateAction<string[]>>;
   matchedRecords: string[];
   setChoosedWord: React.Dispatch<React.SetStateAction<boolean>>;
@@ -51,6 +53,7 @@ function SearcherBar({
             setSearchWords([values]);
           }
           setChoosedWord(true);
+          if (setOffset) setOffset(0);
         }}
         freeSolo={withMultipleOption ? true : false}
         onInputChange={inputChangeHandler}

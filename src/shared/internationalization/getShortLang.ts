@@ -4,7 +4,7 @@ const supportedLanguages = ['en', 'es'] as const;
 type SupportedLang = (typeof supportedLanguages)[number];
 
 export const getShortLang = (): SupportedLang => {
-  const rawLang = i18n.language || 'es';
+  const rawLang = 'es'; //i18n.language
 
   const normalizedLang = rawLang.includes('-') ? rawLang.split('-')[0] : rawLang;
 

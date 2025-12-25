@@ -20,7 +20,7 @@ import { useSearcher } from 'src/shared/hooks/useSearcher';
 import { usePaginator } from 'src/shared/hooks/usePaginator';
 import FoodItem from 'src/shared/components/MealBuilder/FoodItem';
 import DatabaseSelector from 'src/shared/components/databaseSelector/DatabaseSelector';
-import { DatabasesEnum, FoodDatabases, SpecialPagination } from 'src/shared/Consts';
+import { DatabasesEnum, FoodDatabases } from 'src/shared/Consts';
 import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import SearcherAndSelectorWrapper from 'src/shared/components/SearcherAndSelector/SearcherAndSelectorWrapper';
 import { useTranslation } from 'react-i18next';
@@ -44,10 +44,6 @@ function FoodList() {
   const [database, setDatabase] = useState<string>(FoodDatabases.SYSTEM);
 
   const [foods, setFoods] = useState<Food[]>([]);
-  const [providerFoods, setProviderFoods] = useState<Food[]>([]);
-  const [usedSessions, setUsedSessions] = useState<number[]>([]);
-  const [session, setSession] = useState<number | null>(null);
-  const [nextSession, setNextSession] = useState<number | null>(null);
   const [makeRequestToDefaultDB, setMaqueRequestToDefaultDB] = useState<boolean>(true);
 
   const [databaseChanged, setDatabaseChanged] = useState<boolean>(false);
@@ -72,7 +68,6 @@ function FoodList() {
     setPanelExpanded(newPanelExpanded ? panel : false);
   };
 
-  const isSpecialPagination = () => database === FoodDatabases.SYSTEM;
   const input: InputGetFoods = {
     professional: authContext.professional,
     offset: offset,
@@ -95,23 +90,8 @@ function FoodList() {
       }
     };
 
-    _input = isRequestToDefaultDB && session !== null ? { ..._input, session } : _input;
-    const getFoodsForSpecialPagintation = async () => {
-      if (authContext.professional && (choosedWord || isRequestToDefaultDB || databaseChanged)) {
-        const res = await refetch({ input: _input });
-
-        setProviderFoods(res.data.getFoods.data);
-        setNextSession(res.data.getFoods.meta.foodProviderSessions?.nextSession || null);
-        setMaqueRequestToDefaultDB(false);
-      }
-    };
-
     const getFoods = () => {
-      if (isSpecialPagination()) {
-        void getFoodsForSpecialPagintation();
-      } else {
-        void getFoodsForNormalPagination();
-      }
+      void getFoodsForNormalPagination();
       setChoosedWord(false);
       setDatabaseChanged(false);
     };
@@ -140,37 +120,6 @@ function FoodList() {
     verifyNewWordToSearch();
   }, [searchWords, recentlyTypedWord]);
 
-  useEffect(() => {
-    const requestToGetNextPageOfDefaultDB = () => offset === SpecialPagination.LIMIT_RECORDS_IN_MEMORY;
-    const paginateUsingArrInMemory = () => offset >= SpecialPagination.OFFSET_RESETED && providerFoods.length > 0;
-    const requestToGetPreviousPageOfDefaultDB = () =>
-      offset < SpecialPagination.OFFSET_RESETED && providerFoods.length > 0 && nextSession !== null;
-
-    const managePaginationInDefaultDB = () => {
-      if (requestToGetNextPageOfDefaultDB()) {
-        setUsedSessions([...usedSessions, session === null ? SpecialPagination.FIRST_PAGE_SIMULATION : session]);
-        setSession(nextSession);
-        setProviderFoods([]);
-        setFoods([]);
-        setOffset(SpecialPagination.OFFSET_RESETED);
-        setMaqueRequestToDefaultDB(true);
-      } else if (paginateUsingArrInMemory()) {
-        setFoods(providerFoods.slice(offset, offset + rowsPerPage));
-        setLength(
-          providerFoods.length + usedSessions.length * SpecialPagination.LIMIT_RECORDS_IN_MEMORY + SpecialPagination.TOTAL_NEXT_RECORDS,
-        );
-      } else if (requestToGetPreviousPageOfDefaultDB()) {
-        setSession(usedSessions.length > 1 ? usedSessions[usedSessions.length - 1] : null);
-        setUsedSessions(usedSessions.slice(0, usedSessions.length - 1));
-        setProviderFoods([]);
-        setFoods([]);
-        setOffset(SpecialPagination.ALLOWED_OFFSET_LIMIT);
-        setMaqueRequestToDefaultDB(true);
-      }
-    };
-    if (isSpecialPagination()) managePaginationInDefaultDB();
-  }, [providerFoods, offset]);
-
   if (loading) return <div>Loading...</div>;
 
   return (
@@ -182,6 +131,7 @@ function FoodList() {
         <AccordionDetails>
           <SearcherAndSelectorWrapper>
             <SearcherBar
+              setOffset={setOffset}
               setSearchWords={setSearchWords}
               matchedRecords={matchedRecords}
               setChoosedWord={setChoosedWord}
