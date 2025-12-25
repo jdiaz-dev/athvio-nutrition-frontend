@@ -39,13 +39,18 @@ const splitLink = split(
   httpLink,
 );
 
+export const unauthorizedEvent = new EventTarget();
+export enum GraphqlErrorEvents {
+  UNAUTHORIZED = 'unauthorized',
+}
 const errorLink = onError(({ graphQLErrors, networkError }) => {
-  console.log('-------graphQLErrors', graphQLErrors);
-  console.log('-------networkError', networkError);
   if (graphQLErrors)
-    graphQLErrors.forEach(({ message, locations, path }) =>
-      console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`),
-    );
+    graphQLErrors.forEach(({ message, extensions }) => {
+      if (extensions?.code === 'UNAUTHENTICATED' || message.toLowerCase().includes(GraphqlErrorEvents.UNAUTHORIZED)) {
+        unauthorizedEvent.dispatchEvent(new Event(GraphqlErrorEvents.UNAUTHORIZED));
+      }
+    });
+
   if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 

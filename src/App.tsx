@@ -23,6 +23,7 @@ import PatientQuestionaryContainer from 'src/modules/patients/patient-console/pa
 import PatientProfileContainer from 'src/modules/patients/patient-console/profile/in/components/PatientProfileContainer';
 import LandingPage from 'src/core/components/LandingPage/LandingPage';
 import Lab from 'src/modules/Lab';
+import UnauthorizedDialog from 'src/modules/auth/auth/adapters/in/dialogs/UnauthorizedDialog';
 
 function App() {
   return (
@@ -89,6 +90,7 @@ function App() {
           {<Route path="*" element={<div>404</div>} />}
         </Routes>
       </LocalizationProvider>
+      <UnauthorizedDialog />
     </div>
   );
 }

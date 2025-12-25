@@ -10,7 +10,7 @@ import SearcherBar from 'src/shared/components/SearcherAndSelector/SearcherBar';
 import { useSearcher } from 'src/shared/hooks/useSearcher';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
 import { GET_PATIENTS } from 'src/modules/patients/patients/adapters/out/PatientQueries';
-import { GetPatientResponse, GetPatientsRequest } from 'src/modules/patients/patients/adapters/out/patient.types';
+import { GetPatientResponse, GetPatientsRequest, PatientBody } from 'src/modules/patients/patients/adapters/out/patient.types';
 import { useQuery } from '@apollo/client';
 import { StyledTableCell } from 'src/shared/components/CustomizedTable';
 import { usePaginator } from 'src/shared/hooks/usePaginator';
@@ -18,7 +18,6 @@ import Paginator from 'src/shared/components/Paginator';
 import { PatientStates } from 'src/shared/Consts';
 import PatientItem from 'src/modules/professionals/assign-program/in/dialogs/AssignProgramDialog/PatientItem';
 import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
-import { PatientBody } from 'src/modules/patients/patient-console/patient/adapters/out/patient';
 import { useTranslation } from 'react-i18next';
 
 function PatientList() {
