@@ -18,11 +18,20 @@ function MealNamesList({ meals, handler }: { meals: Meal[]; handler: () => void 
           />
 
           <List style={{ padding: 0 }}>
+            {/* doesn't work   overflowWrap: 'break-word' */}
             {meal.ingredientDetails.map((item, index2) => (
               <ListItemText
-                style={{ overflow: 'hidden' }}
                 key={index2}
-                secondary={item.ingredient ? item.ingredient.name : item.customIngredient?.name}
+                secondary={`${item.ingredient ? item.ingredient.name : item.customIngredient?.name} - ${item.ingredient?.amount} ${
+                  item.ingredient?.label
+                }`}
+                secondaryTypographyProps={{
+                  sx: {
+                    overflowWrap: 'break-word',
+                    wordBreak: 'break-word',
+                    whiteSpace: 'normal',
+                  },
+                }}
               />
             ))}
           </List>
