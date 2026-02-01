@@ -1,4 +1,5 @@
 // GoogleButton.tsx
+import { ApolloError } from 'apollo-boost';
 import { useContext, useEffect, useRef } from 'react';
 import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import { useDetectedLanguage } from 'src/modules/auth/auth/adapters/in/hooks/useDetectedLanguage';
@@ -34,12 +35,23 @@ export default function SignUpOrSignInWithGoogle({ authFormMode }: { authFormMod
             } as SnackbarProps);
           }
         } else {
-          const { data } = await signUpWithGoogleHandler({
-            idToken: resp.credential,
-            clientOffsetMinutes: new Date().getTimezoneOffset(),
-            detectedLanguage,
-          });
-          if (data) goToPayment(data.signUpProfessionalWithGoogle.paymentLink);
+          try {
+            const { data } = await signUpWithGoogleHandler({
+              idToken: resp.credential,
+              clientOffsetMinutes: new Date().getTimezoneOffset(),
+              detectedLanguage,
+            });
+            if (data) goToPayment(data.signUpProfessionalWithGoogle.paymentLink);
+          } catch (error) {
+            openSnackbar({
+              open: true,
+              message: (error as ApolloError).message,
+              variant: 'alert',
+              alert: {
+                color: 'error',
+              },
+            } as SnackbarProps);
+          }
         }
       },
     });

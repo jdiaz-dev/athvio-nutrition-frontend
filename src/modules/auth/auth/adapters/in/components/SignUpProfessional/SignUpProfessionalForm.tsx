@@ -37,6 +37,7 @@ import { SignUpProfessionalModel } from '../../../out/authentication.types';
 import { ApolloError } from 'apollo-boost';
 import { useDetectedLanguage } from 'src/modules/auth/auth/adapters/in/hooks/useDetectedLanguage';
 import { goToPayment } from 'src/modules/auth/auth/adapters/in/shared/helpers';
+import { openSnackbar } from 'src/shared/components/Snackbar/snackbar';
 
 const SignUpProfessionalForm = () => {
   const { isAuthenticated, signUpProfessionalHandler } = useContext(AuthContext);
@@ -118,13 +119,22 @@ const SignUpProfessionalForm = () => {
               }, 1500);
             } */
           } catch (error: any) {
-            console.log('-----xxx', ((error as ApolloError).graphQLErrors[0].extensions.originalError as any).message[0]);
+            openSnackbar({
+              open: true,
+              message: (error as ApolloError).message,
+              variant: 'alert',
+              alert: {
+                color: 'error',
+              },
+            } as SnackbarProps);
+
+            /* console.log('-----xxx', ((error as ApolloError).graphQLErrors[0].extensions.originalError as any).message[0]);
             if (scriptedRef.current) {
               setStatus({ success: false });
               // setErrors({ submit: (error as ApolloError).graphQLErrors[0].extensions.response.messsage[0] });
               setErrors({ submit: ((error as ApolloError).graphQLErrors[0].extensions.originalError as any).message[0] });
               setSubmitting(false);
-            }
+            } */
           }
         }}
       >
