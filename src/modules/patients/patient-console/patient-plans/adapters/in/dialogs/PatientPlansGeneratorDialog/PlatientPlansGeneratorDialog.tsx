@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Dialog, DialogContent, DialogTitle, TextField } from '@mui/material';
-import ParameterList from 'src/modules/patients/patient-console/patient-plans/adapters/in/dialogs/PatientPlansGeneratorDialog/ParameterList';
+import { Dialog, DialogContent, DialogTitle } from '@mui/material';
+import DiseaseParameterList from 'src/modules/patients/patient-console/patient-plans/adapters/in/dialogs/PatientPlansGeneratorDialog/DiseaseParameterList';
 import { useNutritionBuilder } from 'src/modules/nutrition-builder/adapters/out/NutritionBuilderActions';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 import { MessagesForOkDialog, NutriBuilderParamStatus } from 'src/shared/Consts';
-import AssigmentStartDate from 'src/shared/components/AssigmentStartDate';
 import { Dayjs } from 'dayjs';
 import CancelAndSaveButtons from 'src/shared/components/CancelAndSaveButtons';
 import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
-import PatientMacros from 'src/modules/patients/patient-console/patient-plans/adapters/in/dialogs/PatientPlansGeneratorDialog/PatientMacros';
-import * as nutritionBuilderSlice from 'src/modules/nutrition-builder/adapters/in/slicers/NutritionBuilderSlice';
+import GeneralPatientPlanDefinition from 'src/modules/patients/patient-console/patient-plans/adapters/in/dialogs/PatientPlansGeneratorDialog/GeneralPatientPlanDefinition';
 import { useParams } from 'react-router-dom';
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
 import MessageDialog from 'src/shared/dialogs/MessageDialog';
@@ -78,27 +76,8 @@ function PlatientPlansGeneratorDialog({
           <CloseDialogIcon closedIconDialog={closedIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
         </DialogTitle>
         <DialogContent dividers={true}>
-          <div style={{ display: 'flex' }}>
-            <AssigmentStartDate datePickedHandler={datePickedHandler} />
-            <div style={{ width: '55%', display: 'flex', paddingTop: '2.5%', justifyContent: 'space-around' }}>
-              <TextField
-                id="outlined-number"
-                label="Dias totales"
-                type="number"
-                defaultValue={nutritionBuilderState.totalDays}
-                onChange={(event) => nutritionBuilderSlice.updateTotalDays(parseInt(event.target.value))}
-              />
-              <TextField
-                id="outlined-number"
-                label="Comidas por dia"
-                type="number"
-                defaultValue={nutritionBuilderState.mealsByDay}
-                onChange={(event) => nutritionBuilderSlice.updateMealsByDay(parseInt(event.target.value))}
-              />
-              <PatientMacros />
-            </div>
-          </div>
-          <ParameterList />
+          <GeneralPatientPlanDefinition setStartDate={setStartDate} />
+          <DiseaseParameterList />
           <CancelAndSaveButtons
             cancelHandler={closeIconDialogHandler}
             saveHandler={saveButtonHandler}

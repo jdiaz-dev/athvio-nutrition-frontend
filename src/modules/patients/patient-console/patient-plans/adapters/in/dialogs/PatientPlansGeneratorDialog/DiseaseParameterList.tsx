@@ -11,7 +11,7 @@ function FormControlContainer({ children }: { children: ReactNode }) {
   return <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'left', border: '1px solid green' }}>{children}</div>;
 }
 
-function ParameterList() {
+function DiseaseParameterList() {
   const nutritionBuilderState = useSelector((state: ReduxStates) => state.nutritionBuilder);
   const { getNutritionBuilderParameters } = useNutritionBuilder();
 
@@ -60,4 +60,4 @@ function ParameterList() {
   );
 }
 
-export default ParameterList;
+export default DiseaseParameterList;
