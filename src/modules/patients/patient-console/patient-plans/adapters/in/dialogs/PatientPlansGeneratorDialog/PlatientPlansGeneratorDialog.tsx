@@ -112,9 +112,7 @@ function PlatientPlansGeneratorDialog({
     }
 
     // Validate disease causes (at least one must be selected)
-    const hasSelectedDiseaseCause = nutritionBuilderState.diseaseCauses.some(
-      (item) => item.status === NutriBuilderParamStatus.SELECTED
-    );
+    const hasSelectedDiseaseCause = nutritionBuilderState.diseaseCauses.some((item) => item.status === NutriBuilderParamStatus.SELECTED);
     if (!hasSelectedDiseaseCause) {
       errors.diseaseCauses = 'Debe seleccionar al menos una causa raíz de la enfermedad';
       isValid = false;
@@ -122,7 +120,7 @@ function PlatientPlansGeneratorDialog({
 
     // Validate nutritional preferences (at least one must be selected)
     const hasSelectedNutritionalPreference = nutritionBuilderState.nutritionalPreferences.some(
-      (item) => item.status === NutriBuilderParamStatus.SELECTED
+      (item) => item.status === NutriBuilderParamStatus.SELECTED,
     );
     if (!hasSelectedNutritionalPreference) {
       errors.nutritionalPreferences = 'Debe seleccionar al menos una preferencia nutricional';
@@ -180,12 +178,12 @@ function PlatientPlansGeneratorDialog({
           <CloseDialogIcon closedIconDialog={closedIconDialog} closeIconDialogHandler={closeIconDialogHandler} />
         </DialogTitle>
         <DialogContent dividers={true}>
-          <GeneralPatientPlanDefinition 
-            setStartDate={setStartDate} 
+          <GeneralPatientPlanDefinition
+            setStartDate={setStartDate}
             validationErrors={validationErrors}
             setValidationErrors={setValidationErrors}
           />
-          <DiseaseParameterList validationErrors={validationErrors} />
+          <DiseaseParameterList validationErrors={validationErrors} setValidationErrors={setValidationErrors} />
           <CancelAndSaveButtons
             cancelHandler={closeIconDialogHandler}
             saveHandler={saveButtonHandler}

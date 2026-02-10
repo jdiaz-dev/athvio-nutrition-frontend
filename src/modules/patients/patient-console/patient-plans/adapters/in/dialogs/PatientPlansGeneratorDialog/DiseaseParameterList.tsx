@@ -24,12 +24,19 @@ interface ValidationErrors {
   diseases: string;
 }
 
+interface DiseaseParameterListProps {
+  validationErrors: ValidationErrors;
+  setValidationErrors: React.Dispatch<React.SetStateAction<ValidationErrors>>;
+}
+
 function CheckboxController({
   item,
   reducer,
+  onCheckChange,
 }: {
   item: { uuid: string; spanishName: string };
   reducer: (param: ParamStatus) => AnyAction;
+  onCheckChange?: () => void;
 }) {
   const dispatch = useDispatch();
   const [checked, setChecked] = useState(false);
@@ -41,6 +48,11 @@ function CheckboxController({
       dispatch(reducer({ uuid: event.target.defaultValue, status: NutriBuilderParamStatus.UNSELECTED }));
     }
     setChecked(event.target.checked);
+
+    // Notify parent component about the change
+    if (onCheckChange) {
+      onCheckChange();
+    }
   };
 
   return (
@@ -57,7 +69,7 @@ function FormControlContainer({ children }: { children: ReactNode }) {
   return <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'left', border: '1px solid green' }}>{children}</div>;
 }
 
-function DiseaseParameterList({ validationErrors }: { validationErrors: ValidationErrors }) {
+function DiseaseParameterList({ validationErrors, setValidationErrors }: DiseaseParameterListProps) {
   const nutritionBuilderState = useSelector((state: ReduxStates) => state.nutritionBuilder);
   const { getNutritionBuilderParameters } = useNutritionBuilder();
 
@@ -68,16 +80,42 @@ function DiseaseParameterList({ validationErrors }: { validationErrors: Validati
     fetchParameters();
   }, []);
 
+  const handleDiseaseCauseChange = () => {
+    const hasSelectedDiseaseCause = nutritionBuilderState.diseaseCauses.some((item) => item.status === NutriBuilderParamStatus.SELECTED);
+    if (hasSelectedDiseaseCause && validationErrors.diseaseCauses) {
+      setValidationErrors((prev) => ({ ...prev, diseaseCauses: '' }));
+    }
+  };
+
+  const handleNutritionalPreferenceChange = () => {
+    const hasSelectedNutritionalPreference = nutritionBuilderState.nutritionalPreferences.some(
+      (item) => item.status === NutriBuilderParamStatus.SELECTED,
+    );
+    if (hasSelectedNutritionalPreference && validationErrors.nutritionalPreferences) {
+      setValidationErrors((prev) => ({ ...prev, nutritionalPreferences: '' }));
+    }
+  };
+
+  const handleDiseaseChange = () => {
+    const hasSelectedDisease = nutritionBuilderState.diseases.some((item) => item.status === NutriBuilderParamStatus.SELECTED);
+    if (hasSelectedDisease && validationErrors.diseases) {
+      setValidationErrors((prev) => ({ ...prev, diseases: '' }));
+    }
+  };
+
   return (
     <>
       <Card style={{ marginTop: '16px', marginBottom: '16px' }}>
         <FormGroup>
-          <FormLabel color="primary" error={!!validationErrors.diseaseCauses}>
-            Causa raiz de la enfermedad
-          </FormLabel>
+          <FormLabel color="primary">Causa raiz de la enfermedad</FormLabel>
           <FormControlContainer>
             {nutritionBuilderState.diseaseCauses.map((item) => (
-              <CheckboxController key={item.uuid} item={item} reducer={nutritionBuilderSlice.updateDiseaseCause} />
+              <CheckboxController
+                key={item.uuid}
+                item={item}
+                reducer={nutritionBuilderSlice.updateDiseaseCause}
+                onCheckChange={handleDiseaseCauseChange}
+              />
             ))}
           </FormControlContainer>
           {validationErrors.diseaseCauses && (
@@ -90,12 +128,15 @@ function DiseaseParameterList({ validationErrors }: { validationErrors: Validati
 
       <Card style={{ marginTop: '16px', marginBottom: '16px' }}>
         <FormGroup>
-          <FormLabel color="primary" error={!!validationErrors.nutritionalPreferences}>
-            Preferencias nutritionales
-          </FormLabel>
+          <FormLabel color="primary">Preferencias nutritionales</FormLabel>
           <FormControlContainer>
             {nutritionBuilderState.nutritionalPreferences.map((item) => (
-              <CheckboxController key={item.uuid} item={item} reducer={nutritionBuilderSlice.updateNutritionalPreference} />
+              <CheckboxController
+                key={item.uuid}
+                item={item}
+                reducer={nutritionBuilderSlice.updateNutritionalPreference}
+                onCheckChange={handleNutritionalPreferenceChange}
+              />
             ))}
           </FormControlContainer>
           {validationErrors.nutritionalPreferences && (
@@ -108,12 +149,15 @@ function DiseaseParameterList({ validationErrors }: { validationErrors: Validati
 
       <Card style={{ marginTop: '16px', marginBottom: '16px' }}>
         <FormGroup>
-          <FormLabel color="primary" error={!!validationErrors.diseases}>
-            Enfermedades
-          </FormLabel>
+          <FormLabel color="primary">Enfermedades</FormLabel>
           <FormControlContainer>
             {nutritionBuilderState.diseases.map((item) => (
-              <CheckboxController key={item.uuid} item={item} reducer={nutritionBuilderSlice.updateDisease} />
+              <CheckboxController
+                key={item.uuid}
+                item={item}
+                reducer={nutritionBuilderSlice.updateDisease}
+                onCheckChange={handleDiseaseChange}
+              />
             ))}
           </FormControlContainer>
           {validationErrors.diseases && (
