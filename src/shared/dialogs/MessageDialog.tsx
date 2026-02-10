@@ -40,7 +40,7 @@ function MessageDialog({
             }}
             autoFocus
           >
-            Accept
+            Aceptar
           </Button>
         </DialogActions>
       </Dialog>

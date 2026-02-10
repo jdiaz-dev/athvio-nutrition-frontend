@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dialog, DialogContent, DialogTitle, TextField } from '@mui/material';
 import ParameterList from 'src/modules/patients/patient-console/patient-plans/adapters/in/dialogs/PatientPlansGeneratorDialog/ParameterList';
 import { useNutritionBuilder } from 'src/modules/nutrition-builder/adapters/out/NutritionBuilderActions';
 import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
-import { NutriBuilderParamStatus } from 'src/shared/Consts';
+import { MessagesForOkDialog, NutriBuilderParamStatus } from 'src/shared/Consts';
 import AssigmentStartDate from 'src/shared/components/AssigmentStartDate';
 import { Dayjs } from 'dayjs';
 import CancelAndSaveButtons from 'src/shared/components/CancelAndSaveButtons';
@@ -12,6 +12,8 @@ import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
 import PatientMacros from 'src/modules/patients/patient-console/patient-plans/adapters/in/dialogs/PatientPlansGeneratorDialog/PatientMacros';
 import * as nutritionBuilderSlice from 'src/modules/nutrition-builder/adapters/in/slicers/NutritionBuilderSlice';
 import { useParams } from 'react-router-dom';
+import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
+import MessageDialog from 'src/shared/dialogs/MessageDialog';
 
 function PlatientPlansGeneratorDialog({
   openPlatientPlansGeneratorDialog,
@@ -25,6 +27,14 @@ function PlatientPlansGeneratorDialog({
   const [closedIconDialog, setClosedIconDialog] = useState(true);
   const [startDate, setStartDate] = useState<Dayjs>();
   const { patientId } = useParams();
+  const { openDialog, setOpenDialog, message, setMessage, messageOk, setMessageOk } = useMessageDialog();
+
+  useEffect(() => {
+    if (!openDialog && messageOk) {
+      setOpenPlatientPlansGeneratorDialog(false);
+      setMessageOk(false);
+    }
+  }, [openDialog, messageOk]);
 
   const datePickedHandler = (newDate: Dayjs | null) => {
     setStartDate(newDate as Dayjs);
@@ -48,8 +58,10 @@ function PlatientPlansGeneratorDialog({
       mealsByDay: nutritionBuilderState.mealsByDay,
       macros: nutritionBuilderState.macros,
     });
-    setOpenPlatientPlansGeneratorDialog(false);
+    setMessage(MessagesForOkDialog.GENERATING_PATIENT_PLANS);
+    setOpenDialog(true);
   };
+
   return (
     <>
       <Dialog
@@ -73,21 +85,28 @@ function PlatientPlansGeneratorDialog({
                 id="outlined-number"
                 label="Dias totales"
                 type="number"
-                value={nutritionBuilderState.totalDays}
+                defaultValue={nutritionBuilderState.totalDays}
                 onChange={(event) => nutritionBuilderSlice.updateTotalDays(parseInt(event.target.value))}
               />
               <TextField
                 id="outlined-number"
                 label="Comidas por dia"
                 type="number"
-                value={nutritionBuilderState.mealsByDay}
+                defaultValue={nutritionBuilderState.mealsByDay}
                 onChange={(event) => nutritionBuilderSlice.updateMealsByDay(parseInt(event.target.value))}
               />
               <PatientMacros />
             </div>
           </div>
           <ParameterList />
-          <CancelAndSaveButtons cancelHandler={closeIconDialogHandler} saveHandler={saveButtonHandler} />
+          <CancelAndSaveButtons
+            cancelHandler={closeIconDialogHandler}
+            saveHandler={saveButtonHandler}
+            customSaveNameButton="Generar plan"
+          />
+          {openDialog && (
+            <MessageDialog openDialog={openDialog} setOpenDialog={setOpenDialog} message={message} setMessageOk={setMessageOk} />
+          )}
         </DialogContent>
       </Dialog>
     </>

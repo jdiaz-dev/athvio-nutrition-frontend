@@ -96,7 +96,8 @@ export enum PatientStatesActions {
 }
 
 export enum MessagesForOkDialog {
-  PROGRAM_ASSIGNED = 'Program assignment queued!',
+  PROGRAM_ASSIGNED = 'Asignando programa nutricional',
+  GENERATING_PATIENT_PLANS = 'Generando plan nutricional para el paciente, esto puede tardar unos minutos. Por favor espere.',
 }
 
 export enum ReduxItemtatus {
