@@ -63,7 +63,7 @@ function GeneralPatientPlanDefinition({ setStartDate, validationErrors, setValid
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <div style={{ display: 'flex' }}>
-        <div style={{ flex: 1 }}>
+        <div>
           <AssigmentStartDate datePickedHandler={datePickedHandler} />
           {validationErrors.startDate && (
             <FormHelperText error style={{ marginLeft: '14px', marginTop: '4px' }}>
@@ -71,8 +71,8 @@ function GeneralPatientPlanDefinition({ setStartDate, validationErrors, setValid
             </FormHelperText>
           )}
         </div>
-        <div style={{ width: '55%', display: 'flex', paddingTop: '2.5%', justifyContent: 'space-around' }}>
-          <div>
+        <div style={{ width: '55%', display: 'flex', paddingTop: '30px', justifyContent: 'space-around' }}>
+          <div style={{ width: '30%' }}>
             <TextField
               id="outlined-number"
               label="Dias totales"
@@ -81,10 +81,11 @@ function GeneralPatientPlanDefinition({ setStartDate, validationErrors, setValid
               onChange={handleTotalDaysChange}
               error={!!validationErrors.totalDays}
               inputProps={{ min: 1, max: 7 }}
+              fullWidth
             />
             {validationErrors.totalDays && <FormHelperText error>{validationErrors.totalDays}</FormHelperText>}
           </div>
-          <div>
+          <div style={{ width: '30%' }}>
             <TextField
               id="outlined-number"
               label="Comidas por dia"
@@ -93,10 +94,11 @@ function GeneralPatientPlanDefinition({ setStartDate, validationErrors, setValid
               onChange={handleMealsByDayChange}
               error={!!validationErrors.mealsByDay}
               inputProps={{ min: 1, max: 3 }}
+              fullWidth
             />
             {validationErrors.mealsByDay && <FormHelperText error>{validationErrors.mealsByDay}</FormHelperText>}
           </div>
-          <div>
+          <div style={{ width: '30%' }}>
             <TextField
               id="outlined-number"
               label="Calorias"
@@ -105,6 +107,7 @@ function GeneralPatientPlanDefinition({ setStartDate, validationErrors, setValid
               onChange={handleCaloriesChange}
               error={!!validationErrors.calories}
               inputProps={{ min: 1, max: 10000 }}
+              fullWidth
             />
             {validationErrors.calories && <FormHelperText error>{validationErrors.calories}</FormHelperText>}
           </div>
