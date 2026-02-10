@@ -49,10 +49,12 @@ function CheckboxController({
     }
     setChecked(event.target.checked);
 
-    // Notify parent component about the change
-    if (onCheckChange) {
-      onCheckChange();
-    }
+    // Use setTimeout to ensure Redux state is updated before checking
+    setTimeout(() => {
+      if (onCheckChange) {
+        onCheckChange();
+      }
+    }, 0);
   };
 
   return (
@@ -80,27 +82,42 @@ function DiseaseParameterList({ validationErrors, setValidationErrors }: Disease
     fetchParameters();
   }, []);
 
-  const handleDiseaseCauseChange = () => {
+  // Clear error when at least one disease cause is selected
+  useEffect(() => {
     const hasSelectedDiseaseCause = nutritionBuilderState.diseaseCauses.some((item) => item.status === NutriBuilderParamStatus.SELECTED);
     if (hasSelectedDiseaseCause && validationErrors.diseaseCauses) {
       setValidationErrors((prev) => ({ ...prev, diseaseCauses: '' }));
     }
-  };
+  }, [nutritionBuilderState.diseaseCauses]);
 
-  const handleNutritionalPreferenceChange = () => {
+  // Clear error when at least one nutritional preference is selected
+  useEffect(() => {
     const hasSelectedNutritionalPreference = nutritionBuilderState.nutritionalPreferences.some(
       (item) => item.status === NutriBuilderParamStatus.SELECTED,
     );
     if (hasSelectedNutritionalPreference && validationErrors.nutritionalPreferences) {
       setValidationErrors((prev) => ({ ...prev, nutritionalPreferences: '' }));
     }
-  };
+  }, [nutritionBuilderState.nutritionalPreferences]);
 
-  const handleDiseaseChange = () => {
+  // Clear error when at least one disease is selected
+  useEffect(() => {
     const hasSelectedDisease = nutritionBuilderState.diseases.some((item) => item.status === NutriBuilderParamStatus.SELECTED);
     if (hasSelectedDisease && validationErrors.diseases) {
       setValidationErrors((prev) => ({ ...prev, diseases: '' }));
     }
+  }, [nutritionBuilderState.diseases]);
+
+  const handleDiseaseCauseChange = () => {
+    // This will trigger the useEffect above after Redux state updates
+  };
+
+  const handleNutritionalPreferenceChange = () => {
+    // This will trigger the useEffect above after Redux state updates
+  };
+
+  const handleDiseaseChange = () => {
+    // This will trigger the useEffect above after Redux state updates
   };
 
   return (
