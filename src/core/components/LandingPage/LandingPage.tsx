@@ -152,7 +152,7 @@ export default function LandingPage() {
                   display: 'inline-block',
                 })}
               >
-                nutricionistas
+                nutricionistas naturópatas
               </Box>{' '}
               que te simplifica todo
             </Typography>
