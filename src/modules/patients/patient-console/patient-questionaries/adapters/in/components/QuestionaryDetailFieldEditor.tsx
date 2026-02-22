@@ -4,6 +4,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useDispatch } from 'react-redux';
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 import CheckAndCloseIcons from 'src/shared/components/Icons/CheckAndCloseIcons';
+import { fontSize, fontStyle } from '@mui/system';
 
 function QuestionaryDetailFieldEditor({
   questionaryDetail,
@@ -54,8 +55,18 @@ function QuestionaryDetailFieldEditor({
         </Box>
       ) : (
         <Box style={{ display: 'flex' }}>
-          <Box style={{ width: '94%', border: '1px solid blue', borderRadius: '4px' }} onClick={editFieldHandler}>
-            {fieldValue}
+          <Box
+            style={{
+              width: '94%',
+              border: '1px solid blue',
+              borderRadius: '4px',
+              fontStyle: fieldValue ? 'normal' : 'italic',
+              opacity: fieldValue ? 1 : 0.4,
+              fontSize: fieldValue ? '14px' : '12px',
+            }}
+            onClick={editFieldHandler}
+          >
+            {fieldValue ? fieldValue : placeHolder}
           </Box>
           <EditIcon width={'6%'} style={{ cursor: 'pointer' }} onClick={editFieldHandler} />
         </Box>
