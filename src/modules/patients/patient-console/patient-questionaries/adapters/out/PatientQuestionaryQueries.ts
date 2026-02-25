@@ -23,29 +23,6 @@ export const GET_PATIENT_QUESTIONARY = gql`
   }
 `;
 
-export const GET_PATIENT_QUESTIONARY_BYuuid = gql`
-  query _getPatientQuestionaryById($input: GetPatientQuestionaryByIdDto!) {
-    getPatientQuestionaryById(input: $input) {
-      uuid
-      patient
-      professional
-      questionaryGroups {
-        uuid
-        title
-        description
-        questionaryDetails {
-          uuid
-          fieldName
-          isEnabled
-          associatedQuestion
-          answer
-          additionalNotes
-        }
-      }
-    }
-  }
-`;
-
 export const UPDATE_ANSWERS = gql`
   mutation _updatePatientQuestionaryAnswers($input: UpdateAnswersDto!) {
     updatePatientQuestionaryAnswers(input: $input) {
