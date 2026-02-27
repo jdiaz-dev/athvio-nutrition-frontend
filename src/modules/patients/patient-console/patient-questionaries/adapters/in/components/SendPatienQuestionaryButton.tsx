@@ -8,6 +8,8 @@ import MessageDialog from 'src/shared/dialogs/MessageDialog';
 import { useMessageDialog } from 'src/shared/hooks/useMessageDialog';
 import { buttonStytes } from 'src/shared/styles/styles';
 import { ReduxStates } from 'src/shared/types/types';
+import { openSnackbar } from 'src/shared/components/Snackbar/snackbar';
+import { SnackbarProps } from 'src/shared/types/snackbar';
 
 function SendPatienQuestionaryButton() {
   const authContext = useContext(AuthContext);
@@ -24,6 +26,14 @@ function SendPatienQuestionaryButton() {
         patient: patientId as string,
         questionary: questionaryGroupsState.uuid,
       });
+      openSnackbar({
+        open: true,
+        message: 'El cuestionario fue enviado al correo del paciente.',
+        variant: 'alert',
+        alert: {
+          color: 'success',
+        },
+      } as SnackbarProps);
     };
     if (messageOk) handleMessageOk();
   }, [messageOk]);
