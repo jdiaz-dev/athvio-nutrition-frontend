@@ -29,15 +29,15 @@ function SendPatienQuestionaryButton() {
   }, [messageOk]);
 
   const onClickHandler = async () => {
-    setMessage('Are you sure you want to send the questionary?');
+    setMessage('¿Estás seguro de enviar este cuestionario?');
     setOpenDialog(true);
     setAlert(true);
   };
   return (
     <>
-      {/* <Button style={{ width: '200px' }} className={classes.yellowButton} variant="contained" color="secondary" onClick={onClickHandler}>
-        Enviar questionario
-      </Button> */}
+      <Button style={{ width: '200px' }} className={classes.yellowButton} variant="contained" color="secondary" onClick={onClickHandler}>
+        Enviar cuestionario
+      </Button>
       {openDialog && (
         <MessageDialog openDialog={openDialog} setOpenDialog={setOpenDialog} message={message} setMessageOk={setMessageOk} alert={alert} />
       )}

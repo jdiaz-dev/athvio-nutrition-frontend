@@ -6,7 +6,7 @@ import SendPatienQuestionaryButton from 'src/modules/patients/patient-console/pa
 function PatientQuestionaryContainer() {
   return (
     <div style={{ width: '100%', overflowY: 'auto' }}>
-      <div style={{ display: 'flex', justifyContent: 'end', margin: '0 auto', width: '85%', marginTop: '1.1%' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', margin: '0 auto', width: '85%', marginTop: '1.1%' }}>
         <SendPatienQuestionaryButton />
         <SaveQuestionaryButton />
       </div>
