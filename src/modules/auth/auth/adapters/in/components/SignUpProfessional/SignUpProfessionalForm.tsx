@@ -1,5 +1,5 @@
 import { useEffect, useState, SyntheticEvent, useContext } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 
 // material-ui
 import {
@@ -42,6 +42,8 @@ import { openSnackbar } from 'src/shared/components/Snackbar/snackbar';
 const SignUpProfessionalForm = () => {
   const { isAuthenticated, signUpProfessionalHandler } = useContext(AuthContext);
   const scriptedRef = useScriptRef();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const [countryCode, setCountryCode] = useState<string | undefined>();
   const [countryName, setCountryName] = useState<string | undefined>('');
@@ -98,7 +100,13 @@ const SignUpProfessionalForm = () => {
             if (countryCode) _user.countryCode = countryCode;
             const { data } = await signUpProfessionalHandler(_user);
 
-            if (data) goToPayment(data.signUpProfessional.paymentLink);
+            if (data) {
+              if (searchParams.get('commodin')) {
+                navigate(`/signin?isWithCommodin=true`);
+              } else {
+                goToPayment(data.signUpProfessional.paymentLink);
+              }
+            }
             /* 
 
             await register(values.email, values.password, values.firstname, values.lastname);

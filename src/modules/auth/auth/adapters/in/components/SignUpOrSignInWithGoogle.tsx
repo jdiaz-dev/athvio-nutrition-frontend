@@ -1,6 +1,7 @@
 // GoogleButton.tsx
 import { ApolloError } from 'apollo-boost';
 import { useContext, useEffect, useRef } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import { useDetectedLanguage } from 'src/modules/auth/auth/adapters/in/hooks/useDetectedLanguage';
 import { AuthFormMode } from 'src/modules/auth/auth/adapters/in/shared/enum';
@@ -9,9 +10,10 @@ import { openSnackbar } from 'src/shared/components/Snackbar/snackbar';
 import { SnackbarProps } from 'src/shared/types/snackbar';
 
 export default function SignUpOrSignInWithGoogle({ authFormMode }: { authFormMode: AuthFormMode }) {
+  const navigate = useNavigate();
   const { signUpWithGoogleHandler, signInWithGoogleHandler } = useContext(AuthContext);
   const { detectedLanguage } = useDetectedLanguage();
-
+  const [searchParams] = useSearchParams();
   const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -41,7 +43,13 @@ export default function SignUpOrSignInWithGoogle({ authFormMode }: { authFormMod
               clientOffsetMinutes: new Date().getTimezoneOffset(),
               detectedLanguage,
             });
-            if (data) goToPayment(data.signUpProfessionalWithGoogle.paymentLink);
+            if (data) {
+              if (searchParams.get('commodin')) {
+                navigate(`/signin?isWithCommodin=true`);
+              } else {
+                goToPayment(data.signUpProfessionalWithGoogle.paymentLink);
+              }
+            }
           } catch (error) {
             openSnackbar({
               open: true,

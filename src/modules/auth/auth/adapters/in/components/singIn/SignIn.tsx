@@ -42,6 +42,19 @@ const SignIn = () => {
     }
   }, [searchParams]);
 
+  useEffect(() => {
+    if (searchParams.get('isWithCommodin')) {
+      openSnackbar({
+        open: true,
+        message: 'Registro exitoso, por favor inicie sesión.',
+        variant: 'alert',
+        alert: {
+          color: 'success',
+        },
+      } as SnackbarProps);
+    }
+  }, [searchParams]);
+
   return (
     <AuthWrapper>
       <Grid container spacing={3}>
