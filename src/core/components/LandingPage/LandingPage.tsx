@@ -139,7 +139,7 @@ export default function LandingPage() {
                 color: 'text.primary',
               }}
             >
-              El software para{' '}
+              El software para <br />
               <Box
                 component="span"
                 sx={(t) => ({
@@ -152,9 +152,25 @@ export default function LandingPage() {
                   display: 'inline-block',
                 })}
               >
-                nutricionistas naturópatas
+                nutricionistas
               </Box>{' '}
-              que te simplifica todo
+              y{' '}
+              <Box
+                component="span"
+                sx={(t) => ({
+                  px: 1.25,
+                  py: 0.5,
+                  borderRadius: 1.5,
+                  color: t.palette.getContrastText(t.palette.primary.main),
+                  background: 'linear-gradient(135deg, #6a00ff 0%, #8a2be2 35%, #a855f7 70%, #c084fc 100%)',
+                  boxShadow: '0 6px 18px rgba(138,43,226,0.35)',
+                  display: 'inline-block',
+                })}
+              >
+                naturópatas
+              </Box>
+              <br />
+              que simplifica todo
             </Typography>
 
             <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 920, lineHeight: 1.7, px: { xs: 2, md: 0 } }}>
