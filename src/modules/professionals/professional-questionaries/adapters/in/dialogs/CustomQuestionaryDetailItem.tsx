@@ -76,7 +76,7 @@ function CustomQuestionaryDetailItem({ questionaryDetail: questionaryDetailData 
 
           <Box component="section" style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div>
-              Enabled:{' '}
+              Habilitado:{' '}
               <Checkbox
                 className="size-large"
                 onChange={enableQuestionaryDetailHandler}
