@@ -82,11 +82,11 @@ function CalendarHeader({
             />
           </Box>
         )}
-        <Box display="flex" gap={1}>
+        {/* <Box display="flex" gap={1}>
           <Button variant="contained" startIcon={<AutoFixHigh />} onClick={() => setOpenDialog(true)}>
             Auto-generar plan nutricional
           </Button>
-        </Box>
+        </Box> */}
       </Box>
 
       {openDialog && (
