@@ -2,7 +2,10 @@ import React, { useContext, useEffect } from 'react';
 import { Button, Card } from '@mui/material';
 
 import CustomQuestionaryDetailItem from 'src/modules/professionals/professional-questionaries/adapters/in/dialogs/CustomQuestionaryDetailItem';
-import { QuestionaryDetail, QuestionaryGroup } from 'src/modules/professionals/professional-questionaries/adapters/out/ProfessionalQuestionary';
+import {
+  QuestionaryDetail,
+  QuestionaryGroup,
+} from 'src/modules/professionals/professional-questionaries/adapters/out/ProfessionalQuestionary';
 import MainCard from 'src/shared/components/MainCard/MainCard';
 import { useDispatch } from 'react-redux';
 import * as CustomProfessionalQuestionaryDetailsSlice from 'src/modules/professionals/professional-questionaries/adapters/in/slicers/CustomQuestionaryDetailsSlice';
@@ -10,15 +13,18 @@ import { useProfessionalQuestionary } from 'src/modules/professionals/profession
 import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 import { generateTemporalId } from 'src/shared/helpers/functions';
 import { ReduxItemtatus, temporalId } from 'src/shared/Consts';
+import CancelAndSaveButtons from 'src/shared/components/CancelAndSaveButtons';
 
 function CustomQuestionaryDetailsManager({
   questionary,
   questionaryGroup,
   questionaryDetails,
+  openDialog,
 }: {
   questionary: string;
   questionaryGroup: QuestionaryGroup;
   questionaryDetails: QuestionaryDetail[];
+  openDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const dispatch = useDispatch();
   const { customQuestionaryDetailsCRUD } = useProfessionalQuestionary();
@@ -44,7 +50,9 @@ function CustomQuestionaryDetailsManager({
     };
     dispatch(CustomProfessionalQuestionaryDetailsSlice.addCustom(newQuestionaryDetail));
   };
-
+  const closeIconDialogHandler = () => {
+    openDialog(false);
+  };
   const customQuestionaryDetailsHandler = async () => {
     const baseData = {
       professional: authContext.professional,
@@ -83,6 +91,7 @@ function CustomQuestionaryDetailsManager({
       shouldToUpdate: toUpdateInput.length >= 1 ? true : false,
       shouldToDelete: toDeleteInput.length >= 1 ? true : false,
     });
+    openDialog(false);
   };
 
   return (
@@ -93,14 +102,10 @@ function CustomQuestionaryDetailsManager({
           .map((questionaryDetail, index) => (
             <CustomQuestionaryDetailItem key={index} questionaryDetail={questionaryDetail} />
           ))}
-        <Button variant="contained" onClick={addCustomQuestionaryDetailHandler}>
-          Add question
+        <Button variant="contained" style={{ marginBottom: '20px' }} onClick={addCustomQuestionaryDetailHandler}>
+          Añadir pregunta
         </Button>
-        <Card variant="outlined">
-          <Button variant="contained" onClick={customQuestionaryDetailsHandler}>
-            Save
-          </Button>
-        </Card>
+        <CancelAndSaveButtons cancelHandler={closeIconDialogHandler} saveHandler={customQuestionaryDetailsHandler} />
       </MainCard>
     </>
   );

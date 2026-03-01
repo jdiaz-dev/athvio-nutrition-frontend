@@ -16,7 +16,7 @@ function QuestionaryDetailsDialog({
   questionaryGroup,
 }: {
   openQuestionaryGroupDialog: boolean;
-  setOpenQuestionaryGroupDialog: (openProgram: boolean) => void;
+  setOpenQuestionaryGroupDialog: React.Dispatch<React.SetStateAction<boolean>>;
   questionary: string;
   questionaryGroup: QuestionaryGroup;
 }) {
@@ -56,6 +56,7 @@ function QuestionaryDetailsDialog({
               questionary={questionary}
               questionaryGroup={questionaryGroup}
               questionaryDetails={questionaryDetails}
+              openDialog={setOpenQuestionaryGroupDialog}
             />
           ) : (
             <DefaultQuestionaryDetailsManager

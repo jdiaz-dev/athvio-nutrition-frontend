@@ -33,7 +33,13 @@ function CustomQuestionaryDetailItem({ questionaryDetail: questionaryDetailData 
   };
 
   const enableQuestionaryDetailHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    dispatch(CustomProfessionalQuestionaryDetailsSlice.updateCustom({ ...rest, uuid: uuid as string, isEnabled: !questionaryDetailData.isEnabled }));
+    dispatch(
+      CustomProfessionalQuestionaryDetailsSlice.updateCustom({
+        ...rest,
+        uuid: uuid as string,
+        isEnabled: !questionaryDetailData.isEnabled,
+      }),
+    );
   };
   const deleteCustomQuestionaryDetailHandler = () => {
     dispatch(CustomProfessionalQuestionaryDetailsSlice.deleteCustom(uuid as string));
@@ -78,7 +84,7 @@ function CustomQuestionaryDetailItem({ questionaryDetail: questionaryDetailData 
                 color="success"
               />
             </div>
-            <DeleteForeverIcon onClick={deleteCustomQuestionaryDetailHandler} />
+            <DeleteForeverIcon style={{ cursor: 'pointer' }} onClick={deleteCustomQuestionaryDetailHandler} />
           </Box>
         </Typography>
       </AccordionDetails>
