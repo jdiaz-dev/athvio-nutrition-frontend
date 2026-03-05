@@ -140,6 +140,10 @@ const IMAGES: string[] = [
   'https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=1920&q=80',
   'https://images.unsplash.com/photo-1444927714506-8492d94b4e3d?w=1920&q=80',
   'https://images.unsplash.com/photo-1458501534264-7d326fa0ca04?w=1920&q=80',
+  // ── 3 new nature images ──────────────────────────────────────────────────
+  'https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=1920&q=80', // waterfall lush green forest
+  'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920&q=80', // misty mountain valley sunrise
+  'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=1920&q=80', // tropical jungle sunlight through leaves
 ];
 
 // ── Helpers ───────────────────────────────────────────────────────────────
@@ -185,7 +189,7 @@ export default function NaturopathyIntroduction(): JSX.Element {
   const [animating, setAnimating] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
 
-  // Cycle background every 5 s
+  // Cycle background every 3 s
   useEffect(() => {
     const interval = setInterval(() => {
       setBgFade(false);
@@ -193,7 +197,7 @@ export default function NaturopathyIntroduction(): JSX.Element {
         setBgIndex((prev) => (prev + 1) % IMAGES.length);
         setBgFade(true);
       }, 800);
-    }, 3000);
+    }, 10000);
     return () => clearInterval(interval);
   }, []);
 
