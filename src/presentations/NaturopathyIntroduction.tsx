@@ -197,7 +197,7 @@ export default function NaturopathyIntroduction(): JSX.Element {
         setBgIndex((prev) => (prev + 1) % IMAGES.length);
         setBgFade(true);
       }, 800);
-    }, 10000);
+    }, 12000);
     return () => clearInterval(interval);
   }, []);
 
