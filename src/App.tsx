@@ -24,6 +24,7 @@ import PatientProfileContainer from 'src/modules/patients/patient-console/profil
 import LandingPage from 'src/core/components/LandingPage/LandingPage';
 import Lab from 'src/modules/Lab';
 import UnauthorizedDialog from 'src/modules/auth/auth/adapters/in/dialogs/UnauthorizedDialog';
+import NaturopathyIntroduction from 'src/presentations/NaturopathyIntroduction';
 
 function App() {
   return (
@@ -88,6 +89,7 @@ function App() {
             <Route path="lab" element={<Lab />} />
           </Route>
           {<Route path="*" element={<div>404</div>} />}
+          {<Route path="naturopathy-introduction" element={<NaturopathyIntroduction />} />}
         </Routes>
       </LocalizationProvider>
       <UnauthorizedDialog />
