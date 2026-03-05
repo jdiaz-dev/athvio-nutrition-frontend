@@ -205,7 +205,7 @@ export default function NaturopathyIntroduction(): JSX.Element {
   useEffect(() => {
     setProgress(0);
     const start = Date.now();
-    const duration = 5000;
+    const duration = 12000;
     let rafId: number;
     const tick = (): void => {
       const elapsed = Date.now() - start;
