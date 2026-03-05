@@ -225,7 +225,7 @@ export default function NaturopathyIntroduction(): JSX.Element {
       setTimeout(() => {
         setSlide((prev) => (dir === 'next' ? (prev + 1) % totalSlides : (prev - 1 + totalSlides) % totalSlides));
         setSlideDir(null);
-        setTimeout(() => setAnimating(false), 400);
+        setTimeout(() => setAnimating(false), 1000);
       }, 350);
     },
     [animating],
@@ -467,7 +467,7 @@ export default function NaturopathyIntroduction(): JSX.Element {
       </div>
 
       {/* ── Bottom progress bar (image cycle) ── */}
-      <div
+      {/* <div
         style={{
           position: 'absolute',
           bottom: 0,
@@ -486,7 +486,7 @@ export default function NaturopathyIntroduction(): JSX.Element {
             transition: 'width 0.1s linear',
           }}
         />
-      </div>
+      </div> */}
 
       {/* ── Keyframe animations ── */}
       <style>{`
