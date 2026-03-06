@@ -124,26 +124,35 @@ const sections: Section[] = [
 // ── Background images ─────────────────────────────────────────────────────
 
 const IMAGES: string[] = [
-  'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1920&q=80',
-  'https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=1920&q=80',
-  'https://images.unsplash.com/photo-1471193945509-9ad0617afabf?w=1920&q=80',
-  'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=1920&q=80',
-  'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=1920&q=80',
-  'https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=1920&q=80',
-  'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1920&q=80',
-  'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=1920&q=80',
-  'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=1920&q=80',
-  'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=1920&q=80',
-  'https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=1920&q=80',
-  'https://images.unsplash.com/photo-1502003148287-a82ef80a6abc?w=1920&q=80',
-  'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=1920&q=80',
-  'https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=1920&q=80',
-  'https://images.unsplash.com/photo-1444927714506-8492d94b4e3d?w=1920&q=80',
-  'https://images.unsplash.com/photo-1458501534264-7d326fa0ca04?w=1920&q=80',
-  // ── 3 new nature images ──────────────────────────────────────────────────
-  'https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=1920&q=80', // waterfall lush green forest
-  'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920&q=80', // misty mountain valley sunrise
-  'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=1920&q=80', // tropical jungle sunlight through leaves
+  // -- original 16 --
+  'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1920&q=80', // sunrise yoga
+  'https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=1920&q=80', // botanical herbs
+  'https://images.unsplash.com/photo-1471193945509-9ad0617afabf?w=1920&q=80', // herbs mortar pestle
+  'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=1920&q=80', // leafy greens
+  'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=1920&q=80', // colorful raw vegetables
+  'https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=1920&q=80', // fresh fruit bowl
+  'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1920&q=80', // wholesome food spread
+  'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=1920&q=80', // healthy salad bowl
+  'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=1920&q=80', // food flat lay
+  'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=1920&q=80', // wholesome meal
+  'https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=1920&q=80', // forest light rays
+  'https://images.unsplash.com/photo-1502003148287-a82ef80a6abc?w=1920&q=80', // pure water stream
+  'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=1920&q=80', // fresh harvest
+  'https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=1920&q=80', // green plant
+  'https://images.unsplash.com/photo-1444927714506-8492d94b4e3d?w=1920&q=80', // nature closeup
+  'https://images.unsplash.com/photo-1458501534264-7d326fa0ca04?w=1920&q=80', // green landscape
+  // -- 3 previously added --
+  'https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=1920&q=80', // waterfall lush forest
+  'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920&q=80', // misty mountain valley
+  'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=1920&q=80', // tropical jungle sunlight
+  // -- 10 new nature images ─────────────────────────────────────────────────
+  'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1920&q=80', // aerial view green forest
+  'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1920&q=80', // lake reflection snowy trees
+  'https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=1920&q=80', // vast green valley panorama
+  'https://images.unsplash.com/photo-1511497584788-876760111969?w=1920&q=80', // dense redwood forest
+  'https://images.unsplash.com/photo-1520962922320-2038eebab146?w=1920&q=80', // lavender field purple bloom
+  'https://images.unsplash.com/photo-1445307806294-bff7f67ff225?w=1920&q=80', // green fern macro closeup
+  'https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=1920&q=80', // aurora borealis over landscape
 ];
 
 // ── Helpers ───────────────────────────────────────────────────────────────
@@ -189,7 +198,7 @@ export default function NaturopathyIntroduction(): JSX.Element {
   const [animating, setAnimating] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
 
-  // Cycle background every 3 s
+  // Cycle background every 12 s
   useEffect(() => {
     const interval = setInterval(() => {
       setBgFade(false);
@@ -465,28 +474,6 @@ export default function NaturopathyIntroduction(): JSX.Element {
 
         {/* Keyboard hint */}
       </div>
-
-      {/* ── Bottom progress bar (image cycle) ── */}
-      {/* <div
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          zIndex: 4,
-          height: '2px',
-          background: 'rgba(255,255,255,0.1)',
-        }}
-      >
-        <div
-          style={{
-            height: '100%',
-            background: 'rgba(159,232,112,0.6)',
-            width: `${progress}%`,
-            transition: 'width 0.1s linear',
-          }}
-        />
-      </div> */}
 
       {/* ── Keyframe animations ── */}
       <style>{`
