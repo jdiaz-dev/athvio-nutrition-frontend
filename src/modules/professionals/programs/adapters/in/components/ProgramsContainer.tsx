@@ -27,7 +27,7 @@ function ProgramsContainer() {
       <GenericContainerWrapper>
         <ReloadRecordListContext.Provider value={{ reloadRecordList, setReloadRecordList }}>
           <TitleAndButtonModule
-            titleModule={t('programsModule.table.name')}
+            titleModule="Plantillas de los programas"
             buttonName={t('programsModule.buttons.createNewProgram')}
             buttonHandler={buttonOnclikHandler}
           />

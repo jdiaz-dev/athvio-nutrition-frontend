@@ -68,14 +68,14 @@
     },
     "table":{
       "name":"Nombre",
-      "description":"Descripcion"
+      "description":"Descripción"
     },
     "titles":{
       "programs":"Programas",
       "selectedPatients":"Pacientes seleccionados",
       "assigmentStartDate":"Fecha de inicio asignada",
-      "startingDay":"Dia de inicio",
-      "day":"Dia"
+      "startingDay":"Día de inicio",
+      "day":"Día"
     }
   },
   "mealBuilder":{
