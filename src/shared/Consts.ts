@@ -43,7 +43,7 @@ export enum MessagesUserForm {
 }
 
 export enum ProgramMessages {
-  REMOVE_PLAN = 'Are you sure to delete this plan?',
+  REMOVE_PLAN = '¿Estás seguro de eliminar este plan?',
 }
 
 export enum UserType {

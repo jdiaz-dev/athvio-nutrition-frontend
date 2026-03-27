@@ -44,11 +44,12 @@ export default function SignUpOrSignInWithGoogle({ authFormMode }: { authFormMod
               detectedLanguage,
             });
             if (data) {
-              if (searchParams.get('commodin')) {
+              /* if (searchParams.get('commodin')) {
                 navigate(`/signin?isWithCommodin=true`);
               } else {
                 goToPayment(data.signUpProfessionalWithGoogle.paymentLink);
-              }
+              } */
+              navigate(`/signin?isWithCommodin=true`);
             }
           } catch (error) {
             openSnackbar({

@@ -101,11 +101,12 @@ const SignUpProfessionalForm = () => {
             const { data } = await signUpProfessionalHandler(_user);
 
             if (data) {
-              if (searchParams.get('commodin')) {
+              /* if (searchParams.get('commodin')) {
                 navigate(`/signin?isWithCommodin=true`);
               } else {
                 goToPayment(data.signUpProfessional.paymentLink);
-              }
+              } */
+              navigate(`/signin?isWithCommodin=true`);
             }
             /* 
 
