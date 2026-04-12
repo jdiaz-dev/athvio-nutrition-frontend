@@ -17,7 +17,7 @@ export default function ThemeToggleButton() {
       color="inherit"
       style={{ marginRight: '30px' }}
     >
-      {theme.palette.mode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
+      {theme.palette.mode === ThemeMode.DARK ? <LightModeIcon /> : <DarkModeIcon />}
     </IconButton>
   );
 }
