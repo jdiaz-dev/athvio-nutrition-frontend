@@ -19,6 +19,7 @@ import Logo from 'src/core/components/logo/Logo';
 import { useTranslation } from 'react-i18next';
 import SettingsIcon from '@mui/icons-material/Settings';
 import i18n from 'src/internationalization/i18n';
+import ThemeToggleButton from 'src/core/components/NavBar/ThemeToggleButton';
 
 type page = {
   pageKey: string | any; // for internationalization
@@ -154,6 +155,7 @@ function NabBar() {
               </MenuItem>
             </Menu>
           </Box> */}
+          <ThemeToggleButton />
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenAvatarMenu} sx={{ p: 0 }}>

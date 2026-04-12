@@ -13,24 +13,27 @@ import ThemeCustomization from './core/themes';
 import Locales from 'src/modules/patients/patient-console/patient-sidebar/components/Locales';
 import 'src/internationalization/i18n';
 import Snackbar from 'src/shared/components/Snackbar/Snackbar';
+import { ConfigProvider } from 'src/shared/context/ConfigContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   // <React.StrictMode>
-  <ThemeCustomization>
-    <ApolloProvider client={apolloClient}>
-      <AuthProvider>
-        <Provider store={store}>
-          <BrowserRouter>
-            <Locales>
-              <App />
-              <Snackbar />
-            </Locales>
-          </BrowserRouter>
-        </Provider>
-      </AuthProvider>
-    </ApolloProvider>
-  </ThemeCustomization>,
+  <ConfigProvider>
+    <ThemeCustomization>
+      <ApolloProvider client={apolloClient}>
+        <AuthProvider>
+          <Provider store={store}>
+            <BrowserRouter>
+              <Locales>
+                <App />
+                <Snackbar />
+              </Locales>
+            </BrowserRouter>
+          </Provider>
+        </AuthProvider>
+      </ApolloProvider>
+    </ThemeCustomization>
+  </ConfigProvider>,
   // </React.StrictMode>
 );
 

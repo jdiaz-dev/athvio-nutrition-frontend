@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import NavBar from 'src/core/components/NavBar';
+import NavBar from 'src/core/components/NavBar/NavBar';
 
 export function Drawer() {
   return (

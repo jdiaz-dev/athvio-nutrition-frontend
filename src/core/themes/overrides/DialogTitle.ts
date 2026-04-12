@@ -6,9 +6,9 @@ export default function DialogTitle() {
       styleOverrides: {
         root: {
           fontSize: '1rem',
-          fontWeight: 500
-        }
-      }
-    }
+          fontWeight: 500,
+        },
+      },
+    },
   };
 }
