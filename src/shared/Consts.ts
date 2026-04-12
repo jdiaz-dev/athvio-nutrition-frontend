@@ -124,7 +124,7 @@ export const themeConfig: DefaultConfigProps = {
   menuOrientation: MenuOrientation.VERTICAL,
   miniDrawer: false,
   container: true,
-  mode: ThemeMode.DARK,
+  mode: ThemeMode.LIGHT,
   presetColor: 'theme8',
   themeDirection: ThemeDirection.LTR,
 };
