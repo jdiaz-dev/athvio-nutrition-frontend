@@ -7,9 +7,6 @@ import {
   SignInResponse,
   SignInRequest,
   CredentialsSignIn,
-  ActivatePatientRequest,
-  ActivatePatientResponse,
-  ActivatePatientBody,
   SignUpProfessionalWithGoogleResponse,
   SignUpProfessionalWithGoogleRequest,
   SignUpProfessionalWithGoogleInput,
@@ -74,14 +71,5 @@ export function useAuthentication() {
     return res;
   };
 
-  const activatePatient = async (body: ActivatePatientBody): Promise<FetchResult<ActivatePatientResponse>> => {
-    const res = await apolloClient.mutate<ActivatePatientResponse, ActivatePatientRequest>({
-      mutation: ACTIVATE_PATIENT,
-      variables: {
-        input: body,
-      },
-    });
-    return res;
-  };
-  return { signIn, signUpProfessional, signInProfessionalWithGoogle, signUpProfessionalWithGoogle, activatePatient };
+  return { signIn, signUpProfessional, signInProfessionalWithGoogle, signUpProfessionalWithGoogle };
 }

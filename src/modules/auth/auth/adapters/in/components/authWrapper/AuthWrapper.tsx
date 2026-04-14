@@ -8,7 +8,6 @@ import AuthFooter from './AuthFooter';
 import Logo from 'src/shared/components/logo';
 import AuthCard from './AuthCard';
 
-// assets
 import AuthBackground from './AuthBackground';
 
 interface Props {

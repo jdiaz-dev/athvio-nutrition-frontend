@@ -73,16 +73,3 @@ export type SignUpProfessionalWithGoogleRequest = {
 export type SignUpProfessionalWithGoogleResponse = {
   signUpProfessionalWithGoogle: PendingPayment;
 };
-
-export type ActivatePatientBody = {
-  user: string;
-  password: string;
-};
-
-export type ActivatePatientRequest = {
-  input: ActivatePatientBody;
-};
-
-export type ActivatePatientResponse = {
-  activatePatient: User;
-};
