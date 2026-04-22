@@ -12,13 +12,10 @@ export const mealTagKeyList = [
   'mealBuilder.mealTags.infusion',
   'mealBuilder.mealTags.extract',
   'mealBuilder.mealTags.breakfast',
+  'mealBuilder.mealTags.midMorning',
   'mealBuilder.mealTags.lunch',
+  'mealBuilder.mealTags.midAfternoon',
   'mealBuilder.mealTags.dinner',
-  'mealBuilder.mealTags.firstMeal',
-  'mealBuilder.mealTags.secondMeal',
-  'mealBuilder.mealTags.thirdMeal',
-  'mealBuilder.mealTags.fourthMeal',
-  'mealBuilder.mealTags.fifthMeal',
 ];
 
 export enum LocalStorageEnum {

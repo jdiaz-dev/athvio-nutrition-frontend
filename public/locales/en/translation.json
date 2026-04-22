@@ -104,13 +104,11 @@
       "infusion":"Infusion",
       "extract":"Extract",
       "breakfast":"Breakfast",
+      "midMorning":"Mid morning",
       "lunch":"Lunch",
-      "dinner":"Dinner",
-      "firstMeal":"First meal",
-      "secondMeal":"Second meal",
-      "thirdMeal":"Third meal",
-      "fourthMeal":"Fourth meal",
-      "fifthMeal":"Fifth meal"
+      "midAfternoon":"Mid afternoon",
+      "dinner":"Dinner"
+      
     }
   },
   "toolTips":{

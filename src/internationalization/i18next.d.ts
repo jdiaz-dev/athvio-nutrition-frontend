@@ -108,11 +108,10 @@ declare module 'i18next' {
             infusion: string;
             extract: string;
             breakfast: string;
+            midMorning: string;
             lunch: string;
+            midAfternoon: string;
             dinner: string;
-            firstMeal: string;
-            secondMeal: string;
-            thirdMeal: string;
           };
         };
         toolTips: {
