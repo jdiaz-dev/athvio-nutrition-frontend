@@ -88,7 +88,6 @@ function CalendarHeader({
           </Button>
         </Box>
       </Box>
-      -
       {openDialog && (
         <PlatientPlansGeneratorDialog openPlatientPlansGeneratorDialog={openDialog} setOpenPlatientPlansGeneratorDialog={setOpenDialog} />
       )}
