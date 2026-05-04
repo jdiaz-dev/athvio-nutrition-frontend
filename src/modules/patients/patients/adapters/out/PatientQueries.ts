@@ -69,6 +69,12 @@ export const UPDATE_PATIENT_FOR_WEB = gql`
   }
 `;
 
+export const RESEND_PATIENT_INVITATION_EMAIL = gql`
+  mutation _resendPatientInvitationEmail($input: ResendPatientInvitationEmailDto!) {
+    resendPatientInvitationEmail(input: $input)
+  }
+`;
+
 export const MANAGE_PATIENT_GROUP = gql`
   mutation _managePatientGroup($input: ManagePatientGroupDto!) {
     managePatientGroup(input: $input) {

@@ -149,6 +149,18 @@ export type ManagePatientStateResponse = {
   };
 };
 
+export type ResendPatientInvitationEmailInput = {
+  professional: string;
+  patient: string;
+};
+export type ResendPatientInvitationEmailRequest = {
+  input: ResendPatientInvitationEmailInput;
+};
+
+export type ResendPatientInvitationEmailResponse = {
+  resendPatientInvitationEmail: boolean;
+};
+
 export type PatientPlanDateExtendedProps = {
   patientPlanDayInfo: PlanDayInfo;
   patient: string;

@@ -5,12 +5,19 @@ import * as PatientSlice from 'src/modules/patients/patients/adapters/in/slicers
 import {
   GetPatientForConsoleRequest,
   GetPatientForConsoleResponse,
+  ResendPatientInvitationEmailInput,
+  ResendPatientInvitationEmailRequest,
+  ResendPatientInvitationEmailResponse,
   UpdatePatientForWebInput,
   UpdatePatientForWebRequest,
   UpdatePatientForWebResponse,
 } from 'src/modules/patients/patients/adapters/out/patient.types';
 
-import { GET_PATIENT_FOR_WEB, UPDATE_PATIENT_FOR_WEB } from 'src/modules/patients/patients/adapters/out/PatientQueries';
+import {
+  GET_PATIENT_FOR_WEB,
+  RESEND_PATIENT_INVITATION_EMAIL,
+  UPDATE_PATIENT_FOR_WEB,
+} from 'src/modules/patients/patients/adapters/out/PatientQueries';
 
 export function usePatient() {
   const dispatch = useDispatch();
@@ -45,6 +52,20 @@ export function usePatient() {
       throw error;
     }
   };
+  const resendPatientInvitationEmail = async (body: ResendPatientInvitationEmailInput) => {
+    try {
+      const response = await apolloClient.mutate<ResendPatientInvitationEmailResponse, ResendPatientInvitationEmailRequest>({
+        mutation: RESEND_PATIENT_INVITATION_EMAIL,
+        variables: {
+          input: { ...body },
+        },
+        fetchPolicy: 'network-only',
+      });
+    } catch (error) {
+      console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
+      throw error;
+    }
+  };
 
-  return { getPatientForWeb, updatePatientForWeb };
+  return { getPatientForWeb, updatePatientForWeb, resendPatientInvitationEmail };
 }
