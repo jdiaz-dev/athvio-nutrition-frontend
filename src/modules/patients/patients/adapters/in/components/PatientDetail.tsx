@@ -27,7 +27,7 @@ function PatientDetail({ patient }: { patient: PatientBody }) {
           <PatientBasicInfo firstname={patient.user.firstname} lastname={patient.user.lastname} />
         </StyledTableCell>
         <StyledTableCell component="th" scope="row" style={{ cursor: 'pointer' }}>
-          {patient.state === PatientStates.ACTIVE ? (
+          {patient.state === PatientStates.ACTIVE && (
             <Chip
               label="Activo"
               // onClick={handleChipClick}
@@ -46,9 +46,9 @@ function PatientDetail({ patient }: { patient: PatientBody }) {
                 },
               }}
             />
-          ) : (
-            <ResendPatientInvitationEmail patient={patient} />
           )}
+          {patient.state === PatientStates.INVITATION_PENDING && <ResendPatientInvitationEmail patient={patient} />}
+          {patient.state === PatientStates.ARCHIVED && 'Archivado'}
         </StyledTableCell>
         <StyledTableCell component="th" scope="row">
           <ManagePatientGroup patient={patient.uuid} assignedGroups={patient.groups || []} />
