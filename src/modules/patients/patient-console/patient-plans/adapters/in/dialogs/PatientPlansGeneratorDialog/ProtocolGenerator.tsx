@@ -463,7 +463,10 @@ export default function ProtocolGenerator({ open, setOpenProtocolGeneratorDialog
 
   const tabKeys: TabKey[] = ['limpiar', 'equilibrar', 'suplementar', 'prevenir' /* "habitos" */];
 
-  const allTabs: TabDef[] = [...tabKeys.map((k) => ({ key: k as AllTabKey, label: TAB_LABELS[k] })), { key: 'preview', label: 'VISTA FINAL' }];
+  const allTabs: TabDef[] = [
+    ...tabKeys.map((k) => ({ key: k as AllTabKey, label: TAB_LABELS[k] })),
+    { key: 'preview', label: 'VISTA FINAL' },
+  ];
 
   const toggle = (tk: TabKey, si: number, ii: number): void => {
     setData((prev) => ({
@@ -548,7 +551,7 @@ export default function ProtocolGenerator({ open, setOpenProtocolGeneratorDialog
           color: '#e0e0e0',
         }}
       >
-        Generator del plan nutritional
+        Generator del plan
         <IconButton onClick={() => setOpenProtocolGeneratorDialog(false)} size="small" sx={{ color: '#666' }}>
           <CloseIcon fontSize="small" />
         </IconButton>
