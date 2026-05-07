@@ -4,12 +4,16 @@ import { apolloClient } from 'src/graphql/ApolloClient';
 import * as nutritionBuilderSlice from 'src/modules/nutrition-builder/adapters/in/slicers/NutritionBuilderSlice';
 
 import {
+  BuildNaturalProtocolRequest,
+  BuildNaturalProtocolResponse,
   BuildNutritionalPlanInput,
   BuildNutritionalPlanRequest,
   BuildNutritionalPlanResponse,
+  GenerateNaturalProtocolInput,
   GetProgramBuilderParametersResponse,
 } from 'src/modules/nutrition-builder/adapters/out/nutritionBuilder';
 import {
+  GENERATE_NATURAL_PROTOCOL,
   GENERATE_NUTRITIONAL_PLAN_FOR_PATIENT,
   GET_PROGRAM_BUILDER,
 } from 'src/modules/nutrition-builder/adapters/out/NutritionBuilderQueries';
@@ -50,6 +54,24 @@ export function useNutritionBuilder() {
       throw error;
     }
   };
+  const generateNaturalProtocol = async (body: GenerateNaturalProtocolInput) => {
+    try {
+      const response = await apolloClient.mutate<BuildNaturalProtocolResponse, BuildNaturalProtocolRequest>({
+        mutation: GENERATE_NATURAL_PROTOCOL,
+        variables: {
+          input: {
+            ...body,
+          },
+        },
+      });
+      if (response.data) {
+        dispatch(PatientPlanSlice.addManyNewPatientPlans(response.data.generateNaturalProtocol));
+      }
+    } catch (error) {
+      console.log('-------------error graphQLErrors', (error as ApolloError).graphQLErrors);
+      throw error;
+    }
+  };
 
-  return { getNutritionBuilderParameters, generateNutritionalPlanForPatient };
+  return { getNutritionBuilderParameters, generateNutritionalPlanForPatient, generateNaturalProtocol };
 }

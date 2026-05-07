@@ -54,6 +54,22 @@ export type BuildNutritionalPlanResponse = {
   generateNutritionalPlanForPatient: PatientPlanBody[];
 };
 
+export type GenerateNaturalProtocolInput = Omit<AdditionalParams, 'macros'> & {
+  clean: string[];
+  equilibrate: string[];
+  suplementate: string[];
+  patient: string;
+  startDate: Dayjs;
+};
+
+export type BuildNaturalProtocolRequest = {
+  input: GenerateNaturalProtocolInput;
+};
+
+export type BuildNaturalProtocolResponse = {
+  generateNaturalProtocol: PatientPlanBody[];
+};
+
 export type NutritionBuilderInitialState = AdditionalParams & {
   diseaseCauses: (DiseaseCauseBody & { status: NutriBuilderParamStatus })[];
   diseases: (DiseaseBody & { status: NutriBuilderParamStatus })[];

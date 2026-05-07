@@ -6,6 +6,7 @@ export const SIGN_IN = gql`
       uuid
       role
       token
+      speciality
     }
   }
 `;
@@ -24,6 +25,7 @@ export const SIGN_IN_PROFESSIONAL_WITH_GOOGLE = gql`
       uuid
       role
       token
+      speciality
     }
   }
 `;

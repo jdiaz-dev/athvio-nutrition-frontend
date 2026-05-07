@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 import { Navigate, useParams } from 'react-router-dom';
 import * as PlanificationSlice from 'src/modules/patients/patient-console/planifications/adapters/in/slicers/PlanificationSlice';
+import ProtocolGenerator from 'src/modules/patients/patient-console/patient-plans/adapters/in/dialogs/PatientPlansGeneratorDialog/ProtocolGenerator';
 
 function CalendarHeader({
   dateSet,
@@ -89,7 +90,8 @@ function CalendarHeader({
         </Box>
       </Box>
       {openDialog && (
-        <PlatientPlansGeneratorDialog openPlatientPlansGeneratorDialog={openDialog} setOpenPlatientPlansGeneratorDialog={setOpenDialog} />
+        // <PlatientPlansGeneratorDialog openPlatientPlansGeneratorDialog={openDialog} setOpenPlatientPlansGeneratorDialog={setOpenDialog} />
+        <ProtocolGenerator open={openDialog} setOpenProtocolGeneratorDialog={setOpenDialog} />
       )}
     </Box>
   );

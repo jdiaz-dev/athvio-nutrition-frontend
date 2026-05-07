@@ -107,3 +107,94 @@ export const GENERATE_NUTRITIONAL_PLAN_FOR_PATIENT = gql`
     }
   }
 `;
+
+export const GENERATE_NATURAL_PROTOCOL = gql`
+  mutation _generateNaturalProtocol($input: GenerateNaturalProtocolDto!) {
+    generateNaturalProtocol(input: $input) {
+      uuid
+      assignedDate
+      meals {
+        mealTag
+        name
+        ingredientDetails {
+          ingredientType
+          customIngredient {
+            amount
+            label
+            name
+            ingredients {
+              name
+              amount
+              label
+              weightInGrams
+              protein
+              carbs
+              fat
+              calories
+            }
+            macros {
+              weightInGrams
+              protein
+              carbs
+              fat
+              calories
+            }
+          }
+          ingredient {
+            name
+            amount
+            label
+            weightInGrams
+            protein
+            carbs
+            fat
+            calories
+          }
+          equivalents {
+            ingredientType
+            customIngredient {
+              amount
+              label
+              name
+              ingredients {
+                name
+                amount
+                label
+                weightInGrams
+                protein
+                carbs
+                fat
+                calories
+              }
+              macros {
+                weightInGrams
+                protein
+                carbs
+                fat
+                calories
+              }
+            }
+            ingredient {
+              name
+              amount
+              label
+              weightInGrams
+              protein
+              carbs
+              fat
+              calories
+            }
+          }
+        }
+        cookingInstructions
+        macros {
+          weightInGrams
+          protein
+          carbs
+          fat
+          calories
+        }
+      }
+    }
+  }
+`;
