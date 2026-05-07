@@ -85,7 +85,7 @@ function CalendarHeader({
         )}
         <Box display="flex" gap={1}>
           <Button variant="contained" startIcon={<AutoFixHigh />} onClick={() => setOpenDialog(true)}>
-            Auto-generar plan nutricional
+            Auto-generar plan
           </Button>
         </Box>
       </Box>
