@@ -145,7 +145,7 @@ function SignUpPatientDialog({
                 className={classes.textField}
                 id="outlined-basic"
                 variant="outlined"
-                label="First name"
+                label="Nombres"
                 type="text"
                 {...register('firstname', {
                   required: MessagesUserForm.FIRSTNAME_MANDATORY,
@@ -157,7 +157,7 @@ function SignUpPatientDialog({
                 className={classes.textField}
                 id="outlined-basic"
                 variant="outlined"
-                label="Enter First Name"
+                label="Apellidos"
                 type="text"
                 {...register('lastname', { required: MessagesUserForm.LASTNAME_MANDATORY })}
                 error={Boolean(errors.lastname)}
@@ -167,7 +167,7 @@ function SignUpPatientDialog({
                 className={classes.textField}
                 id="outlined-basic"
                 variant="outlined"
-                label="Email address"
+                label="Correo electrónico"
                 error={Boolean(errors.email)}
                 fullWidth
                 {...register('email', {
@@ -190,14 +190,14 @@ function SignUpPatientDialog({
               <div className={classes.accordion}>
                 <Accordion expanded={panelExpanded === 'panel1'} onChange={handleChangeAditionalInfo('panel1')}>
                   <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-                    <Typography>Add aditional details</Typography>
+                    <Typography>Añadir más detalles</Typography>
                   </AccordionSummary>
                   <AccordionDetails>
                     <TextField
                       className={classes.textField}
                       id="outlined-basic"
                       variant="outlined"
-                      label="Location"
+                      label="Ubicación"
                       type="text"
                       {...register('location', { required: false })}
                       error={Boolean(errors.location)}
@@ -207,7 +207,7 @@ function SignUpPatientDialog({
                       className={classes.textField}
                       id="outlined-basic"
                       variant="outlined"
-                      label="Height (cm)"
+                      label="Altura (cm)"
                       type="number"
                       {...register('height', {
                         required: false,
@@ -220,7 +220,7 @@ function SignUpPatientDialog({
                       className={classes.textField}
                       id="outlined-basic"
                       variant="outlined"
-                      label="Weight (kg)"
+                      label="Peso (kg)"
                       type="number"
                       {...register('weight', {
                         required: false,
@@ -238,9 +238,9 @@ function SignUpPatientDialog({
                         onChange={handleChangeGender}
                         aria-label="Platform"
                       >
-                        <ToggleButton value="male">Male</ToggleButton>
-                        <ToggleButton value="female">Female</ToggleButton>
-                        <ToggleButton value="prefer not to say">Prefer not to say</ToggleButton>
+                        <ToggleButton value="male">Hombre</ToggleButton>
+                        <ToggleButton value="female">Mujer</ToggleButton>
+                        <ToggleButton value="prefer not to say">Prefiere no decirlo</ToggleButton>
                       </ToggleButtonGroup>
                     </div>
 
@@ -252,7 +252,7 @@ function SignUpPatientDialog({
                     <TextField
                       className={classes.textField}
                       id="filled-basic"
-                      label="Phone"
+                      label="Celular"
                       variant="outlined"
                       type="text"
                       {...register('phone', { required: false })}
@@ -264,7 +264,7 @@ function SignUpPatientDialog({
               </div>
 
               <Button className={classes.button} variant="contained" type="submit">
-                Add patient
+                Guardar
               </Button>
             </form>
           </Card>

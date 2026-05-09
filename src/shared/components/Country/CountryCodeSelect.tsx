@@ -41,7 +41,7 @@ function CountryCodeSelect({
       {countries[0] && (
         <Box>
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Country</InputLabel>
+            <InputLabel id="demo-simple-select-label">Código del país</InputLabel>
             <Select labelId="demo-simple-select-label" id="demo-simple-select" value={countryCode} onChange={selectCountryHandler}>
               {countries.map(
                 (country, index) =>

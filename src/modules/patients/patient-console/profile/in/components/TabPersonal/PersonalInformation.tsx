@@ -108,7 +108,7 @@ export default function PersonalInformation({ formRef }: { formRef: RefObject<Fo
                       name="firstname"
                       onBlur={handleBlur}
                       onChange={handleChange}
-                      placeholder="First Name"
+                      placeholder="Ingrese los nombres"
                       autoFocus
                       inputRef={inputRef}
                     />
@@ -129,7 +129,7 @@ export default function PersonalInformation({ formRef }: { formRef: RefObject<Fo
                       name="lastname"
                       onBlur={handleBlur}
                       onChange={handleChange}
-                      placeholder="Last Name"
+                      placeholder="Ingrese los apellidos"
                     />
                   </Stack>
                   {touched.lastname && errors.lastname && (
@@ -149,7 +149,7 @@ export default function PersonalInformation({ formRef }: { formRef: RefObject<Fo
                       onBlur={handleBlur}
                       onChange={handleChange}
                       id="personal-email"
-                      placeholder="Email Address"
+                      placeholder="Ingrese el correo electrónico"
                     />
                   </Stack>
                   {touched.email && errors.email && (
@@ -160,7 +160,7 @@ export default function PersonalInformation({ formRef }: { formRef: RefObject<Fo
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Stack spacing={1}>
-                    <InputLabel htmlFor="personal-phone">Número de Teléfono</InputLabel>
+                    <InputLabel htmlFor="personal-phone">Número de Celular</InputLabel>
                     <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
                       <Select value={values.countryCode} name="countryCode" onBlur={handleBlur} onChange={handleChange}>
                         {/* <MenuItem value="+91">+91</MenuItem>
@@ -184,7 +184,7 @@ export default function PersonalInformation({ formRef }: { formRef: RefObject<Fo
                         name="phone"
                         onBlur={handleBlur}
                         onChange={handleChange}
-                        placeholder="Phone"
+                        placeholder="Ingrese el número de celular"
                       />
                     </Stack>
                   </Stack>

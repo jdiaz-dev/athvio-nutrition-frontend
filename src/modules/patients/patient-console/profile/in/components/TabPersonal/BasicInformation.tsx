@@ -123,18 +123,18 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
                         name="birthday-month"
                         onChange={(e: SelectChangeEvent<string>) => handleChangeMonth(e, values.birthday, setFieldValue)}
                       >
-                        <MenuItem value="0">January</MenuItem>
-                        <MenuItem value="1">February</MenuItem>
-                        <MenuItem value="2">March</MenuItem>
-                        <MenuItem value="3">April</MenuItem>
-                        <MenuItem value="4">May</MenuItem>
-                        <MenuItem value="5">June</MenuItem>
-                        <MenuItem value="6">July</MenuItem>
-                        <MenuItem value="7">August</MenuItem>
-                        <MenuItem value="8">September</MenuItem>
-                        <MenuItem value="9">October</MenuItem>
-                        <MenuItem value="10">November</MenuItem>
-                        <MenuItem value="11">December</MenuItem>
+                        <MenuItem value="0">Enero</MenuItem>
+                        <MenuItem value="1">Febrero</MenuItem>
+                        <MenuItem value="2">Marzo</MenuItem>
+                        <MenuItem value="3">Abril</MenuItem>
+                        <MenuItem value="4">Mayo</MenuItem>
+                        <MenuItem value="5">Junio</MenuItem>
+                        <MenuItem value="6">Julio</MenuItem>
+                        <MenuItem value="7">Agosto</MenuItem>
+                        <MenuItem value="8">Septiembre</MenuItem>
+                        <MenuItem value="9">Octubre</MenuItem>
+                        <MenuItem value="10">Noviembre</MenuItem>
+                        <MenuItem value="11">Diciembre</MenuItem>
                       </Select>
                       <Select
                         fullWidth
@@ -191,7 +191,7 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
                       name="height"
                       onBlur={handleBlur}
                       onChange={handleChange}
-                      placeholder="Height"
+                      placeholder="Ingrese la altura en cm."
                     />
                   </Stack>
                   {touched.height && errors.height && (
@@ -211,7 +211,7 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
                       name="weight"
                       onBlur={handleBlur}
                       onChange={handleChange}
-                      placeholder="Weight"
+                      placeholder="Ingrese el peso en kg."
                     />
                   </Stack>
                   {touched.weight && errors.weight && (
@@ -233,9 +233,9 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
                         }
                       }}
                     >
-                      <ToggleButton value="male">Male</ToggleButton>
-                      <ToggleButton value="female">Female</ToggleButton>
-                      <ToggleButton value="prefer not to say">Prefer not to say</ToggleButton>
+                      <ToggleButton value="male">Masculino</ToggleButton>
+                      <ToggleButton value="female">Femenino</ToggleButton>
+                      <ToggleButton value="prefer not to say">Prefiere no decirlo</ToggleButton>
                     </ToggleButtonGroup>
                   </Stack>
                   {touched.gender && errors.gender && (
