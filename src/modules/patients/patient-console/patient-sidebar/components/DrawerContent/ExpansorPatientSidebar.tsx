@@ -18,7 +18,7 @@ function ExpansorPatientSidebar() {
 
   const iconBackColor = mode === ThemeMode.DARK ? 'background.default' : 'grey.100';
   return (
-    <Tooltip title={openSidebar ? 'Contraer' : 'Expandir'} placement="right">
+    <Tooltip title={openSidebar ? 'contraer' : 'expandir'} placement="right">
       <IconButton
         aria-label="open drawer"
         onClick={() => setOpenSidebar(!openSidebar)}
