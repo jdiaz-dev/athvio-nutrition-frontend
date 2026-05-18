@@ -45,10 +45,9 @@ function PatientPlansCalendar() {
   useEffect(() => {
     if (calendarRef.current) {
       const calendarApi = calendarRef.current.getApi();
-      calendarApi.changeView(matchDownSM ? 'listWeek' : 'dayGridMonth');
+      calendarApi.changeView(matchDownSM ? 'listMonth' : 'dayGridMonth');
     }
   }, [matchDownSM]);
-
   useEffect(() => {
     const fetchPlans = async () => {
       if (dateSet !== null) {
@@ -79,27 +78,17 @@ function PatientPlansCalendar() {
 
   useEffect(() => {
     const fullWeekTableWithDates = (): DateItem<PatientPlanDateExtendedProps>[] => {
-      let dateStart = dayjs(dateSet ? dateSet.dateStart : new Date());
+      let dateStart = dayjs.utc(dateSet ? dateSet.dateStart : new Date());
+      const dateEnd = dayjs.utc(dateSet ? dateSet.dateEnd : new Date());
       const dates: DateItem<PatientPlanDateExtendedProps>[] = [];
 
-      while (dateStart < dayjs(dateSet ? dateSet.dateEnd : new Date())) {
+      while (dateStart.isBefore(dateEnd)) {
         const planIndex = patientPlansState.findIndex((plan) => {
-          const assignedDateOnlyDate = dayjs
-            .utc(plan.assignedDate)
-            .set('hour', 0)
-            .set('minute', 0)
-            .set('second', 0)
-            .set('millisecond', 0)
-            .toString();
-          const dateStartOnlyDate = dayjs
-            .utc(dateStart.toString())
-            .set('hour', 0)
-            .set('minute', 0)
-            .set('second', 0)
-            .set('millisecond', 0)
-            .toString();
+          const assignedDateOnlyDate = dayjs.utc(plan.assignedDate).startOf('day').toString();
+          const dateStartOnlyDate = dateStart.startOf('day').toString();
           return assignedDateOnlyDate === dateStartOnlyDate;
         });
+
         dates.push({
           title: '',
           date: dateStart.toDate(),

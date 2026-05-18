@@ -1,12 +1,49 @@
-// material-ui
 import { styled } from '@mui/material/styles';
 import { Box } from '@mui/material';
-
-// types
 import { ThemeDirection } from 'src/shared/types/config';
 
-// ==============================|| CALENDAR - STYLED ||============================== //
-
+const sytlesFullcalendarContainer = {
+  '@media (max-width: 721px)': {
+    '& .fc-media-screen': {
+      height: '93%',
+    },
+  },
+  '@media (max-width: 629px)': {
+    '& .fc-media-screen': {
+      height: '100%',
+    },
+  },
+  '@media (max-width: 580px)': {
+    '& .fc-media-screen': {
+      height: '110%',
+    },
+  },
+  '@media (max-width: 460px)': {
+    '& .fc-media-screen': {
+      height: '120%',
+    },
+  },
+  '@media (max-width: 408px)': {
+    '& .fc-media-screen': {
+      height: '130%',
+    },
+  },
+  '@media (max-width: 368px)': {
+    '& .fc-media-screen': {
+      height: '140%',
+    },
+  },
+  '@media (max-width: 330px)': {
+    '& .fc-media-screen': {
+      height: '150%',
+    },
+  },
+  '@media (max-width: 300px)': {
+    '& .fc-media-screen': {
+      height: '160%',
+    },
+  },
+};
 interface StyledProps {
   withStylesForCustomScroller?: boolean;
 }
@@ -17,7 +54,7 @@ const ExperimentalStyled = styled(Box, {
   'width': '100%',
   'marginLeft': -1,
   'transition': 'width 0.4s ease-in-out, opacity 0.3s ease-in-out',
-
+  ...sytlesFullcalendarContainer,
   // hide license message
   '& .fc-license-message': {
     display: 'none',
@@ -168,6 +205,13 @@ const ExperimentalStyled = styled(Box, {
   '& .fc-timegrid-event-harness-inset .fc-timegrid-event, .fc-timegrid-event.fc-event-mirror, .fc-timegrid-more-link': {
     padding: 8,
     margin: 2,
+  },
+  //  to hidde the time and the dot components when we are in listMonth mode
+  '& .fc .fc-list-event-time': {
+    display: 'none',
+  },
+  '& .fc .fc-list-event-graphic': {
+    display: 'none',
   },
   ...(theme.direction === ThemeDirection.RTL && { overflow: 'hidden', paddingTop: '8px' }),
 }));
