@@ -207,7 +207,7 @@ function SignUpPatientDialog({
                       className={classes.textField}
                       id="outlined-basic"
                       variant="outlined"
-                      label="Talla (cm)"
+cal                      label="Talla (cm)"
                       type="number"
                       {...register('height', {
                         required: false,
