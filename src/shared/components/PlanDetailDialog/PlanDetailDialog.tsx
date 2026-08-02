@@ -5,9 +5,8 @@ import DialogContent from '@mui/material/DialogContent';
 import { programInitialState } from 'src/modules/professionals/programs/adapters/in/slicers/ProgramInitialState';
 import { patientPlanInitialState } from 'src/modules/patients/patient-console/patient-plans/adapters/in/slicers/PatientPlanInitialState';
 import { useDispatch } from 'react-redux';
-import { Box, DialogTitle } from '@mui/material';
+import { Box, DialogTitle, List } from '@mui/material';
 import { ReloadRecordListContext } from 'src/shared/context/ReloadRecordsContext';
-import MealDetail from 'src/shared/components/PlanDetailDialog/MealDetail';
 import { CurrentModuleContext } from 'src/shared/context/CurrentModuleContext';
 import { Modules, ReduxItemtatus } from 'src/shared/Consts';
 import CloseDialogIcon from 'src/shared/components/CloseDialogIcon';
@@ -21,6 +20,7 @@ import { EnableEditionContext } from 'src/shared/components/wrappers/EnablerEdit
 import { useMealBasicInfoSlicers } from 'src/shared/hooks/useMealBasicInfoSlicers';
 import NutrientCalculator from 'src/shared/components/NutrientCalculation';
 import { IngredientDetail } from 'src/shared/components/MealBuilder/MealBuilder.types';
+import MealList from 'src/shared/components/PlanDetailDialog/MealList';
 
 const savedPlanButton = new Subject<boolean>();
 export const savedPlanButton$ = savedPlanButton.asObservable();
@@ -99,11 +99,7 @@ const PlanDetailDialog = memo(function PlanDetailDialog({
           <Box sx={{ display: 'flex' }}>
             <Box style={{ width: '90%' }}>
               <EnableEditionContext.Provider value={{ enableEdition: true }}>
-                {mealListState
-                  .filter((meal) => meal.status != ReduxItemtatus.DELETED)
-                  .map((meal, index) => (
-                    <MealDetail key={index} meal={meal} />
-                  ))}
+                <MealList />
               </EnableEditionContext.Provider>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Button

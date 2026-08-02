@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import React, { useEffect, useState } from 'react';
-import { Card, Grid, Menu, MenuItem, Tooltip } from '@mui/material';
+import { Card, Grid, ListItem, Menu, MenuItem, Tooltip } from '@mui/material';
 import IconButton from 'src/shared/components/IconButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
@@ -14,9 +14,7 @@ import MealBuilder from 'src/shared/components/MealBuilder/MealBuilder';
 import { makeStyles } from 'tss-react/mui';
 
 import MealName from 'src/shared/components/PlanDetailDialog/MealName';
-import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-import { MealWithStatus } from 'src/shared/components/PlanDetailDialog/MealList';
 import { useMealBasicInfoSlicers } from 'src/shared/hooks/useMealBasicInfoSlicers';
 import { useMealBuilderSlicers } from 'src/shared/hooks/useMealBuilderSlicers';
 import { useMealListSlicers } from 'src/shared/hooks/useMealListSlicers';
@@ -27,6 +25,10 @@ import { useTranslation } from 'react-i18next';
 import { generateTemporalId } from 'src/shared/helpers/functions';
 import { Box } from '@mui/system';
 import ImageContainer from 'src/shared/components/PlanDetailDialog/ImageContainer';
+import { CSS } from '@dnd-kit/utilities';
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
+import { MealWithStatus } from 'src/shared/components/PlanDetailDialog/MealListStatus';
+import { useSortable } from '@dnd-kit/sortable';
 
 const cardStyles = makeStyles()(() => {
   return {
@@ -39,13 +41,6 @@ const cardStyles = makeStyles()(() => {
     },
   };
 });
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
 
 function MealDetail({ meal: { position, mealTag, name, image, ...mealDetails } }: { meal: MealWithStatus }) {
   const { t } = useTranslation();
@@ -128,66 +123,87 @@ function MealDetail({ meal: { position, mealTag, name, image, ...mealDetails } }
   const _mealTag = () => (mealContainerTouched ? mealBasicInfoState.mealTag : mealTag);
   const _mealName = () => (mealContainerTouched ? mealBasicInfoState.name : name);
   const _mealImage = () => (mealContainerTouched ? mealBasicInfoState.image : image);
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: mealDetails.uuid });
+
+  const style: React.CSSProperties = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
   return (
     <>
-      <Card
-        style={{ width: '100%', padding: '10px' }}
-        sx={{ minWidth: 275 }}
-        className={classes.card}
-        variant="outlined"
-        onClick={componentTouchedHandler}
-        onMouseLeave={untouchedComponetHandler}
+      <ListItem
+        ref={setNodeRef}
+        style={style}
+        component={Paper}
+        elevation={isDragging ? 4 : 1}
+        sx={{ mb: 1 }}
+        secondaryAction={
+          // drag handle — only this icon triggers dragging
+          <IconButton {...attributes} {...listeners} sx={{ cursor: 'grab' }}>
+            <DragIndicatorIcon />
+          </IconButton>
+        }
       >
-        <Grid container spacing={1}>
-          <Grid item xs={10} style={{ display: 'flex' }}>
-            <MealTagSelector mealTag={_mealTag()} setMealContainerTouched={setMealContainerTouched} />
-            <MealName name={_mealName()} mealContainerTouched={mealContainerTouched} />
-          </Grid>
-          <Grid
-            item
-            xs={2}
-            style={{
-              height: '45px',
-              width: '100%',
-              paddingLeft: '3%',
-            }}
-          >
-            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
-              <Tooltip title="imagen" placement="top">
-                <IconButton onClick={insertImageHandler}>
-                  <InsertPhotoIcon style={{ cursor: 'pointer' }} />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title={t('toolTips.importMeal')} placement="top">
-                <IconButton onClick={() => setOpenImportMealDialog(true)}>
-                  <SystemUpdateAltIcon style={{ cursor: 'pointer' }} />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title={t('toolTips.options')} placement="top" onClick={handleAnchorOpen}>
-                <IconButton>
-                  <FontAwesomeIcon icon={faEllipsisV} size="xs" />
-                </IconButton>
-              </Tooltip>
-            </Box>
-
-            <Menu
-              id="basic-menu"
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleAnchorClose}
-              MenuListProps={{
-                'aria-labelledby': 'basic-button',
+        <Card
+          style={{ width: '100%', padding: '10px' }}
+          sx={{ minWidth: 275 }}
+          className={classes.card}
+          variant="outlined"
+          onClick={componentTouchedHandler}
+          onMouseLeave={untouchedComponetHandler}
+        >
+          <Grid container spacing={1}>
+            <Grid item xs={10} style={{ display: 'flex' }}>
+              <MealTagSelector mealTag={_mealTag()} setMealContainerTouched={setMealContainerTouched} />
+              <MealName name={_mealName()} mealContainerTouched={mealContainerTouched} />
+            </Grid>
+            <Grid
+              item
+              xs={2}
+              style={{
+                height: '45px',
+                width: '100%',
+                paddingLeft: '3%',
               }}
             >
-              <MenuItem onClick={() => deleteMealHandler()}>{t('mealBuilder.buttons.deleteMeal')}</MenuItem>
-              <MenuItem onClick={() => duplicateMealHandler()}>{t('mealBuilder.buttons.duplicateMeal')}</MenuItem>
-            </Menu>
-          </Grid>
-        </Grid>
+              <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
+                <Tooltip title="imagen" placement="top">
+                  <IconButton onClick={insertImageHandler}>
+                    <InsertPhotoIcon style={{ cursor: 'pointer' }} />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title={t('toolTips.importMeal')} placement="top">
+                  <IconButton onClick={() => setOpenImportMealDialog(true)}>
+                    <SystemUpdateAltIcon style={{ cursor: 'pointer' }} />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title={t('toolTips.options')} placement="top" onClick={handleAnchorOpen}>
+                  <IconButton>
+                    <FontAwesomeIcon icon={faEllipsisV} size="xs" />
+                  </IconButton>
+                </Tooltip>
+              </Box>
 
-        {!showMealImage ? <MealBuilder meal={_meal()} /> : <ImageContainer image={_mealImage()} />}
-        <ImportMealDialog openImportMealDialog={openImportMealDialog} closeImportMealHandler={closeImportMealHandler} />
-      </Card>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleAnchorClose}
+                MenuListProps={{
+                  'aria-labelledby': 'basic-button',
+                }}
+              >
+                <MenuItem onClick={() => deleteMealHandler()}>{t('mealBuilder.buttons.deleteMeal')}</MenuItem>
+                <MenuItem onClick={() => duplicateMealHandler()}>{t('mealBuilder.buttons.duplicateMeal')}</MenuItem>
+              </Menu>
+            </Grid>
+          </Grid>
+
+          {!showMealImage ? <MealBuilder meal={_meal()} /> : <ImageContainer image={_mealImage()} />}
+          <ImportMealDialog openImportMealDialog={openImportMealDialog} closeImportMealHandler={closeImportMealHandler} />
+        </Card>
+      </ListItem>
     </>
   );
 }

@@ -3,4 +3,4 @@ import { mealListSlicer } from 'src/shared/components/PlanDetailDialog/MealListS
 
 export const mealListSlice = mealListSlicer('mealList', mealListInitialState);
 
-export const { initializeMeals, addMeal, updateMeal, deleteMeal } = mealListSlice.actions;
+export const { initializeMeals, addMeal, updateMeal, reorderMeals, deleteMeal } = mealListSlice.actions;

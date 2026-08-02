@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => {
 
     plugins: [react(), viteTsconfigPaths()],
     optimizeDeps: {
-      include: ['@mui/material', '@mui/icons-material', '@emotion/react', '@emotion/styled'],
+      include: ['@emotion/react', '@mui/material', '@mui/icons-material', '@emotion/react', '@emotion/styled'],
     },
     define: {
       'process.env.NODE_ENV': JSON.stringify(env.NODE_ENV),

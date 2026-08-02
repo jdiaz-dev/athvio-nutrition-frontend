@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ReduxItemtatus } from 'src/shared/Consts';
 import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
-import { MealWithStatus } from 'src/shared/components/PlanDetailDialog/MealList';
+import { MealWithStatus } from 'src/shared/components/PlanDetailDialog/MealList.d';
 
 export const mealListSlicer = (sliceName: string, initialState: MealWithStatus[]) => {
   return createSlice({
@@ -19,6 +19,14 @@ export const mealListSlicer = (sliceName: string, initialState: MealWithStatus[]
       updateMeal: (state, action: PayloadAction<Meal>) => {
         const itemFoundIndex = state.findIndex((item) => item.uuid === action.payload.uuid);
         if (itemFoundIndex != -1) state[itemFoundIndex] = { ...action.payload, status: ReduxItemtatus.UPDATED };
+        return state;
+      },
+      reorderMeals: (state, { payload }: PayloadAction<{ oldIndex: number; newIndex: number }>) => {
+        const { oldIndex, newIndex } = payload;
+        const temp = state[oldIndex];
+        state[oldIndex] = { ...state[newIndex], position: oldIndex, status: ReduxItemtatus.UPDATED };
+        state[newIndex] = { ...temp, position: newIndex, status: ReduxItemtatus.UPDATED };
+
         return state;
       },
       deleteMeal: (state, action: PayloadAction<string>) => {
