@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ReduxItemtatus } from 'src/shared/Consts';
 import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
-import { MealWithStatus } from 'src/shared/components/PlanDetailDialog/MealList.d';
+import { MealWithStatus } from 'src/shared/components/PlanDetailDialog/MealListStatus';
 
 export const mealListSlicer = (sliceName: string, initialState: MealWithStatus[]) => {
   return createSlice({
