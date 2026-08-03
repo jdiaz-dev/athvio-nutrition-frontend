@@ -49,8 +49,6 @@ const animation: KeyedObject = {
   Fade,
 };
 
-// ==============================|| SNACKBAR ||============================== //
-
 export default function Snackbar() {
   const { snackbar } = useGetSnackbar();
 

@@ -22,28 +22,6 @@ export const endpoints = {
 };
 
 //todo: delete it
-export function useGetMenu() {
-  const { data, isLoading, error, isValidating } = useSWR(endpoints.key + endpoints.dashboard, fetcher, {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-  });
-
-  const memoizedValue = useMemo(
-    () => ({
-      menu: [], // data?.dashboard as NavItemType,
-      menuLoading: isLoading,
-      menuError: error,
-      menuValidating: isValidating,
-      menuEmpty: !isLoading && !data?.length,
-    }),
-    [data, error, isLoading, isValidating],
-  );
-
-  return memoizedValue;
-}
-
-//todo: delete it
 export function useGetMenuMaster() {
   const { data, isLoading, error, isValidating } = useSWR(endpoints.key + endpoints.master, () => initialState);
   const memoizedValue = useMemo(
