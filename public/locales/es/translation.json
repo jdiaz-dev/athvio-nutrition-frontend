@@ -108,7 +108,8 @@
       "midMorning":"Media mañana",
       "lunch":"Almuerzo",
       "midAfternoon":"Media tarde",
-      "dinner":"Cena"      
+      "dinner":"Cena",      
+      "supplement":"Suplemento"
     }
   },
   "toolTips":{

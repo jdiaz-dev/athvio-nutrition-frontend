@@ -16,6 +16,7 @@ export const mealTagKeyList = [
   'mealBuilder.mealTags.lunch',
   'mealBuilder.mealTags.midAfternoon',
   'mealBuilder.mealTags.dinner',
+  'mealBuilder.mealTags.supplement',
 ];
 
 export enum LocalStorageEnum {

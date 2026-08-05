@@ -107,8 +107,8 @@
       "midMorning":"Mid morning",
       "lunch":"Lunch",
       "midAfternoon":"Mid afternoon",
-      "dinner":"Dinner"
-      
+      "dinner":"Dinner",
+      "supplement":"Supplement"
     }
   },
   "toolTips":{
