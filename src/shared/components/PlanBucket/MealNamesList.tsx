@@ -1,8 +1,9 @@
 import React from 'react';
-import { List, ListItemText } from '@mui/material';
+import { List, ListItemText, useTheme } from '@mui/material';
 import { Meal } from 'src/shared/components/PlanDetailDialog/Meal.types';
 
 function MealNamesList({ meals, handler }: { meals: Meal[]; handler: () => void }) {
+  const theme = useTheme();
   return (
     <List onClick={handler}>
       {meals?.map((meal, index1) => (
@@ -13,10 +14,16 @@ function MealNamesList({ meals, handler }: { meals: Meal[]; handler: () => void 
               overflowWrap: 'break-word',
               whiteSpace: 'normal',
             }}
-            primary={`${meal.mealTag}  -  ${meal.name}`}
+            primary={
+              <div>
+                <span style={{ fontWeight: 'bold', fontStyle: 'italic', color: theme.palette.primary.dark }}>{meal.mealTag}</span>
+                <span style={{ margin: '0 8px' }}>:</span>
+                <span>{meal.name}</span>
+              </div>
+            }
             primaryTypographyProps={{ fontWeight: 'bold' }}
           />
-
+          {/* {`${meal.mealTag}  -  ${meal.name}`} */}
           <List style={{ padding: 0 }}>
             {/* doesn't work   overflowWrap: 'break-word' */}
             {meal.ingredientDetails.map((item, index2) => (
