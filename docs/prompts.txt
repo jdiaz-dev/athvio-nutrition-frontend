@@ -1,0 +1,29 @@
+- now I want that you generate tables for OBSERVACIÓN GENERAL DEL TERRENO and RASTREO FUNCIONAL DEL TERRENO and INTERPRETACIÓN DEL TERRENO in react with typescript, MUI and Redux, 
+- every table must be independent component
+
+- at the end of table RASTREO FUNCIONAL DEL TERRENO you must add TOTAL row to realize one adition of  Puntaje column
+- Note column must be added in RASTREO FUNCIONAL DEL TERRENO and fill this column must be optional  
+- the architecture for this components is the next
+
+src/
+├── modules/
+│   ├── patients/
+│   │   ├── biological-terrain-assessment/
+│   │   │   ├── adapters/
+│   │   │   │   ├── in/
+│   │   │   │   │   ├── components/
+│   │   │   │   │   │   ├── GeneralObservations.tsx
+│   │   │   │   │   │   └── FunctionalScreeningQuestions.tsx
+│   │   │   │   │   │   └── Interpreation.tsx
+│   │   │   │   │   │   └── SaveBiologicalTerrainAssessment.tsx
+│   │   │   │   │   ├── slicers/
+│   │   │   │   │   │   ├── BiologicalTerrainAssessmentInitialState.ts
+│   │   │   │   │   │   ├── BiologicalTerrainAssessmentSlice.ts (the fields that will be updated are value, score and note; ths edition will be allowed from component and when response from server finish)
+│   │   │   │   ├── out/
+│   │   │   │   │   ├── BiologicalTerrainAssessment.d.ts
+│   │   │   │   │   ├── BiologicalTerrainAssessmentActions.ts (hook to interact with graphql server)
+│   │   │   │   │   ├── BiologicalTerrainAssessmentQueries.ts (for graphql queries mutation, etc)
+│   │   │   ├── application/
+
+
+- must add a button GUARDAR at the end to save data saved in  BiologicalTerrainAssessmentSlice.ts
