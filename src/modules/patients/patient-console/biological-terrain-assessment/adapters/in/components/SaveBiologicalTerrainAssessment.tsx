@@ -26,7 +26,7 @@ export function SaveBiologicalTerrainAssessment() {
       })),
       functionalScreeningScores: assessment.functionalScreeningQuestions.map((question) => ({
         functionalScreening: question.uuid,
-        score: 2,// question.score,
+        score: question.score,
         note: question.note,
       })),
     };
