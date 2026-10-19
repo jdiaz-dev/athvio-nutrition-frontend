@@ -44,7 +44,7 @@ const clinicalHistory: NavItemType = {
     },
     {
       id: 'BiologicalTerrainAssessment',
-      title: <FormattedMessage id="BiologicalTerrainAssessment" />,
+      title: <FormattedMessage id="Terreno biológico" />,
       type: 'item',
       url: 'biological-terrain-assessment',
       icon: icons.AccessibilityIcon,
