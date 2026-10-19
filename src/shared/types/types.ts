@@ -14,6 +14,7 @@ import { PatientInitialState } from 'src/modules/patients/patients/adapters/out/
 import { FoodAnalyzerInitialState } from 'src/modules/food-analyzers/adapters/out/FoodAnalyzer';
 import { PlanificationInitialState } from 'src/modules/patients/patient-console/planifications/helpers/planifications';
 import { FormulaInitialState } from 'src/modules/nutrition/formulas/types/formula';
+import { BiologicalTerrainAssessmentState } from 'src/modules/patients/patient-console/biological-terrain-assessment/adapters/in/slicers/BiologicalterrainAssessmentInitialState';
 
 export type DateItem<T> = {
   title: string;
@@ -60,6 +61,7 @@ export type ReduxStates = {
   notes: NotesInitialState;
   foodAnalyzers: FoodAnalyzerInitialState;
   formula: FormulaInitialState;
+  biologicalTerrainAssessment: BiologicalTerrainAssessmentState;
 };
 
 export interface PlanDayInfo {

@@ -14,6 +14,7 @@ import PatientQuestionaryReducer from 'src/modules/patients/patient-console/pati
 import FoodAnalyzerReducer from 'src/modules/food-analyzers/adapters/in/slicers/FoodAnalyzerSlice';
 import NutritionBuilderReducer from 'src/modules/nutrition-builder/adapters/in/slicers/NutritionBuilderSlice';
 import FormulaReducer from 'src/modules/nutrition/formulas/adapters/in/slicers/FormulaSlice';
+import BiologicalTerrainAssessmentReducer from 'src/modules/patients/patient-console/biological-terrain-assessment/adapters/in/slicers/BiologicalterrainAssessmentSlice';
 
 import thunk from 'redux-thunk';
 
@@ -37,6 +38,7 @@ export default configureStore({
     foodAnalyzers: FoodAnalyzerReducer,
     formula: FormulaReducer,
     nutritionBuilder: NutritionBuilderReducer,
+    biologicalTerrainAssessment: BiologicalTerrainAssessmentReducer,
   },
   devTools: true,
 });

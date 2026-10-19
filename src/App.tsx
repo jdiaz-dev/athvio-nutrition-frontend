@@ -23,6 +23,7 @@ import LandingPage from 'src/core/components/LandingPage/LandingPage';
 import Lab from 'src/modules/Lab';
 import UnauthorizedDialog from 'src/modules/auth/auth/adapters/in/dialogs/UnauthorizedDialog';
 import PlantDosificator from 'src/plant-dosificator/PlantDosificator';
+import BiologicalTerrainAssessmentContainer from 'src/modules/patients/patient-console/biological-terrain-assessment/adapters/in/components/BiologicalTerrainAssessmentContainer';
 
 function App() {
   return (
@@ -62,6 +63,7 @@ function App() {
               <Route path="notes" element={<NotesContainer />} />
               <Route path="questionary" element={<PatientQuestionaryContainer />} />
               <Route path="profile" element={<PatientProfileContainer />} />
+              <Route path="biological-terrain-assessment" element={<BiologicalTerrainAssessmentContainer />} />
             </Route>
             <Route path="professional" element={<PatientConsoleContainer />} />
             <Route path="professional/preferences" element={<QuestionaryDetailContainer />} />

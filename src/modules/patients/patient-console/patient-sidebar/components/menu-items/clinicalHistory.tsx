@@ -9,10 +9,12 @@ import { AvailableSlides } from 'src/modules/patients/patient-console/patient-si
 import { NavItemType } from 'src/modules/patients/patient-console/patient-sidebar/types/menu';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import QuizIcon from '@mui/icons-material/Quiz';
+import AccessibilityIcon from '@mui/icons-material/Accessibility';
 
 const icons = {
   QuizIcon,
   EditNoteIcon,
+  AccessibilityIcon,
 };
 
 //todo: rename it file accoding to client options
@@ -39,6 +41,15 @@ const clinicalHistory: NavItemType = {
       icon: icons.QuizIcon,
       toolTipTitle: 'Questionario',
       slide: AvailableSlides.PATIENT_QUESTIONARY,
+    },
+    {
+      id: 'BiologicalTerrainAssessment',
+      title: <FormattedMessage id="BiologicalTerrainAssessment" />,
+      type: 'item',
+      url: 'biological-terrain-assessment',
+      icon: icons.AccessibilityIcon,
+      toolTipTitle: 'Terreno biologico',
+      slide: AvailableSlides.BIOLOGICAL_TERRAIN_ASSESSMENT,
     },
   ],
 };
