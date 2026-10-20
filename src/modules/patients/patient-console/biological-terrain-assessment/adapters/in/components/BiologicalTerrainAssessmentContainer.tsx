@@ -17,10 +17,10 @@ function BiologicalTerrainAssessmentContainer() {
   return (
     <div style={{ width: '100%', overflowY: 'auto' }}>
       <Container maxWidth="lg" sx={{ py: 2 }}>
+        <SaveBiologicalTerrainAssessment />
         <GeneralObservations />
         <FunctionalScreeningQuestions />
         <Interpreation />
-        <SaveBiologicalTerrainAssessment />
       </Container>
     </div>
   );

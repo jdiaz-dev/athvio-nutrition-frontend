@@ -17,7 +17,6 @@ const SCORE_OPTIONS: {
   { value: FunctionalScreeningScore.MODERATE, label: '🟡 Alteración moderada' },
   { value: FunctionalScreeningScore.SEVERE, label: '🔴 Alteración importante' },
 ];
-
 export function FunctionalScreeningQuestionItem({ question }: { question: FunctionalScreening }) {
   const dispatch = useDispatch();
 

@@ -1,36 +1,54 @@
 import React from 'react';
 import {
   Paper,
-  SelectChangeEvent,
+  styled,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
+  TextareaAutosize,
   TextField,
   Typography,
 } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { FunctionalScreeningScore } from 'src/modules/patients/patient-console/biological-terrain-assessment/adapters/out/BiologicalterrainAssessment';
-import {
-  setFunctionalScreeningNote,
-  setFunctionalScreeningScore,
-} from 'src/modules/patients/patient-console/biological-terrain-assessment/adapters/in/slicers/BiologicalterrainAssessmentSlice';
+import { setFunctionalScreeningNote } from 'src/modules/patients/patient-console/biological-terrain-assessment/adapters/in/slicers/BiologicalterrainAssessmentSlice';
 import { ReduxStates } from 'src/shared/types/types';
 import FunctionalScreeningQuestionItem from 'src/modules/patients/patient-console/biological-terrain-assessment/adapters/in/components/FunctionalScreeningQuestionItem';
+
+const StyledTextarea = styled(TextareaAutosize)(({ theme }) => ({
+  'width': '100%',
+  'fontFamily': theme.typography.fontFamily,
+  'fontSize': '1rem',
+  'color': theme.palette.text.primary,
+  'backgroundColor': theme.palette.background.paper,
+  'borderRadius': theme.shape.borderRadius,
+  'border': `1px solid ${theme.palette.grey[400]}`,
+  'boxSizing': 'border-box',
+  'resize': 'vertical',
+
+  '&:hover': {
+    borderColor: theme.palette.text.primary,
+  },
+
+  '&:focus': {
+    outline: 0,
+    borderColor: theme.palette.primary.main,
+    borderWidth: '2px',
+  },
+
+  '&::placeholder': {
+    color: theme.palette.text.secondary,
+    opacity: 1,
+  },
+}));
 
 export function FunctionalScreeningQuestions() {
   const dispatch = useDispatch();
   const questions = useSelector((state: ReduxStates) => state.biologicalTerrainAssessment.data?.functionalScreeningQuestions ?? []);
   const totalScore = useSelector((state: ReduxStates) => state.biologicalTerrainAssessment.data?.totalScore ?? 0);
-
-  const handleScoreChange = (id: string, event: SelectChangeEvent<number | string>) => {
-    const { value } = event.target;
-    if (value === '') return;
-    dispatch(setFunctionalScreeningScore({ id, score: Number(value) as FunctionalScreeningScore }));
-  };
 
   return (
     <Paper variant="outlined" sx={{ p: 2 }}>
@@ -43,7 +61,10 @@ export function FunctionalScreeningQuestions() {
             <TableRow>
               <TableCell sx={{ width: 48 }}>N°</TableCell>
               <TableCell>Pregunta</TableCell>
-              <TableCell sx={{ width: 600 }}>Puntaje</TableCell>
+              <TableCell sx={{ width: 600 }}>
+                Puntaje
+                <br/> 
+                🟢 Buena función (0)  🟡 Alteración moderada (1)  🔴 Alteración importante (2)</TableCell>
               <TableCell sx={{ width: 260 }}>Nota (opcional)</TableCell>
             </TableRow>
           </TableHead>
@@ -56,13 +77,18 @@ export function FunctionalScreeningQuestions() {
                   <FunctionalScreeningQuestionItem question={question} />
                 </TableCell>
                 <TableCell>
-                  <TextField
-                    fullWidth
-                    size="small"
-                    variant="outlined"
+                  <StyledTextarea
+                    minRows={2}
                     placeholder="Opcional"
                     value={question.note ?? ''}
-                    onChange={(event) => dispatch(setFunctionalScreeningNote({ id: question.uuid, note: event.target.value }))}
+                    onChange={(event) =>
+                      dispatch(
+                        setFunctionalScreeningNote({
+                          id: question.uuid,
+                          note: event.target.value,
+                        }),
+                      )
+                    }
                   />
                 </TableCell>
               </TableRow>

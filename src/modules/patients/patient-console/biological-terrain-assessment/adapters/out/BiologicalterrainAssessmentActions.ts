@@ -28,9 +28,9 @@ export function useBiologicalTerrainAssessmentActions() {
   });
 
   const [saveAssessment, { loading: saving }] = useMutation<{
-    saveBiologicalTerrainAssessment: BiologicalTerrainAssessment;
+    updateBiologicalTerrainAssessment: BiologicalTerrainAssessment;
   }>(SAVE_BIOLOGICAL_TERRAIN_ASSESSMENT, {
-    onCompleted: (data) => dispatch(setAssessment(data.saveBiologicalTerrainAssessment)),
+    onCompleted: (data) => dispatch(setAssessment(data.updateBiologicalTerrainAssessment)),
     onError: (error) => dispatch(setError(error.message)),
   });
 

@@ -32,7 +32,6 @@ export interface BiologicalTerrainAssessment {
   updatedAt?: string;
 }
 
-
 export interface ObservationValueInput {
   generalObservation: string;
   value?: string | null;
@@ -47,6 +46,7 @@ export interface FunctionalScreeningAnswerInput {
 export interface SaveBiologicalTerrainAssessmentInput {
   professional: string;
   patient: string;
+  totalScore: number;
   biologicalTerrainAssessment: string;
   generalObservations: ObservationValueInput[];
   functionalScreeningScores: FunctionalScreeningAnswerInput[];
