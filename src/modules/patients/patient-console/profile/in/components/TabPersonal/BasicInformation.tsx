@@ -54,12 +54,18 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
 
   const patientState = useSelector((state: ReduxStates) => state.patient);
   const { updatePatientForWeb } = usePatient();
-  const handleChangeDay = (event: SelectChangeEvent<string>, date: Date, setFieldValue: (field: string, value: any) => void) => {
-    setFieldValue('birthday', new Date(date.setDate(parseInt(event.target.value, 10))));
+  const handleChangeDay = (event: SelectChangeEvent<string>, date: Date | null, setFieldValue: (field: string, value: any) => void) => {
+    const day = parseInt(event.target.value, 10);
+    const current = date ?? new Date();
+    setFieldValue('birthday', new Date(current.getFullYear(), current.getMonth(), day));
   };
 
-  const handleChangeMonth = (event: SelectChangeEvent<string>, date: Date, setFieldValue: (field: string, value: any) => void) => {
-    setFieldValue('birthday', new Date(date.setMonth(parseInt(event.target.value, 10))));
+  const handleChangeMonth = (event: SelectChangeEvent<string>, date: Date | null, setFieldValue: (field: string, value: any) => void) => {
+    const month = parseInt(event.target.value, 10);
+    const current = date ?? new Date();
+    const day = Math.min(current.getDate(), new Date(current.getFullYear(), month + 1, 0).getDate());
+
+    setFieldValue('birthday', new Date(current.getFullYear(), month, day));
   };
 
   const maxDate = new Date();
@@ -77,17 +83,17 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
         enableReinitialize
         innerRef={formRef}
         initialValues={{
-          birthday: patientState.birthday ? new Date(getFomattedDate(patientState.birthday)) : new Date('2000-01-01'),
+          birthday: patientState.birthday ? new Date(getFomattedDate(patientState.birthday)) : null,
           weight: patientState.weight,
           height: patientState.height,
           gender: patientState.gender,
           submit: null,
         }}
         validationSchema={Yup.object().shape({
-          birthday: Yup.date().optional(),
-          weight: Yup.number().optional(),
-          height: Yup.number().optional(),
-          gender: Yup.string().optional(),
+          birthday: Yup.date().nullable().optional(),
+          weight: Yup.number().nullable().optional(),
+          height: Yup.number().nullable().optional(),
+          gender: Yup.string().nullable().optional(),
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
@@ -119,7 +125,7 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
                     <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
                       <Select
                         fullWidth
-                        value={values.birthday.getMonth().toString()}
+                        value={values.birthday ? values.birthday.getMonth().toString() : ''}
                         name="birthday-month"
                         onChange={(e: SelectChangeEvent<string>) => handleChangeMonth(e, values.birthday, setFieldValue)}
                       >
@@ -138,7 +144,7 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
                       </Select>
                       <Select
                         fullWidth
-                        value={values.birthday.getDate().toString()}
+                        value={values.birthday ? values.birthday.getDate().toString() : ''}
                         name="birthday-date"
                         onBlur={handleBlur}
                         onChange={(e: SelectChangeEvent<string>) => handleChangeDay(e, values.birthday, setFieldValue)}
@@ -151,9 +157,10 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
                             key={i}
                             value={i}
                             disabled={
-                              (values.birthday.getMonth() === 1 && i > (values.birthday.getFullYear() % 4 === 0 ? 29 : 28)) ||
-                              (values.birthday.getMonth() % 2 !== 0 && values.birthday.getMonth() < 7 && i > 30) ||
-                              (values.birthday.getMonth() % 2 === 0 && values.birthday.getMonth() > 7 && i > 30)
+                              !!values.birthday &&
+                              ((values.birthday.getMonth() === 1 && i > (values.birthday.getFullYear() % 4 === 0 ? 29 : 28)) ||
+                                (values.birthday.getMonth() % 2 !== 0 && values.birthday.getMonth() < 7 && i > 30) ||
+                                (values.birthday.getMonth() % 2 === 0 && values.birthday.getMonth() > 7 && i > 30))
                             }
                           >
                             {i}

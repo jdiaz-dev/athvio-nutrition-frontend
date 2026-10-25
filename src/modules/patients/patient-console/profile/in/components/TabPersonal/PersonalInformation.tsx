@@ -74,7 +74,7 @@ export default function PersonalInformation({ formRef }: { formRef: RefObject<Fo
           firstname: Yup.string().max(255).required('First Name is required.'),
           lastname: Yup.string().max(255).required('Last Name is required.'),
           email: Yup.string().email('Invalid email address.').max(255).required('Email is required.'),
-          phone: Yup.number().optional(),
+          phone: Yup.number().nullable().optional(),
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
