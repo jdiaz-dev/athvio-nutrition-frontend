@@ -14,6 +14,7 @@ export type UpdateUserInput = {
   lastname: string;
   email: string;
   phone: string;
+  countryCode: string;
 };
 
 export type UpdateUserRequest = {

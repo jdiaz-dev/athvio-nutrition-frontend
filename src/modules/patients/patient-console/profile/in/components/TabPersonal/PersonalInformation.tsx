@@ -66,8 +66,8 @@ export default function PersonalInformation({ formRef }: { formRef: RefObject<Fo
           firstname: patientState.user.firstname,
           lastname: patientState.user.lastname,
           email: patientState.user.email,
-          countryCode: patientState.user.countryCode,
           phone: patientState.user.phone,
+          countryCode: patientState.user.countryCode ?? '',
           submit: null,
         }}
         validationSchema={Yup.object().shape({
@@ -75,6 +75,7 @@ export default function PersonalInformation({ formRef }: { formRef: RefObject<Fo
           lastname: Yup.string().max(255).required('Last Name is required.'),
           email: Yup.string().email('Invalid email address.').max(255).required('Email is required.'),
           phone: Yup.number().nullable().optional(),
+          countryCode: Yup.string().nullable().optional(),
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
@@ -84,6 +85,7 @@ export default function PersonalInformation({ formRef }: { formRef: RefObject<Fo
               firstname: values.firstname,
               lastname: values.lastname,
               phone: values.phone,
+              countryCode: values.countryCode,
             });
             setStatus({ success: false });
             setSubmitting(false);
@@ -175,7 +177,7 @@ export default function PersonalInformation({ formRef }: { formRef: RefObject<Fo
                         <MenuItem value="1-664">1-664</MenuItem>
                         <MenuItem value="+95">+95</MenuItem>
                         <MenuItem value="(264)">(264)</MenuItem> */}
-                        <MenuItem value="1-664">1-664</MenuItem>
+                        <MenuItem value="+51">+51</MenuItem>
                       </Select>
                       <TextField
                         fullWidth

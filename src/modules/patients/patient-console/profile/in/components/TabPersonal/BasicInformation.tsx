@@ -51,8 +51,6 @@ const MONTHS = [
 ];
 
 const DAYS = Array.from({ length: 31 }, (_, index) => index + 1);
-
-// When the year is not selected yet we use a leap year, so Feb 29 stays selectable
 const FALLBACK_YEAR = 2000;
 
 function getFomattedDate(_date: string) {
@@ -71,8 +69,6 @@ function getDaysInMonth(month: string, year: number | null): number {
 
 // Empty inputs give "" which Yup would read as NaN, so convert them to null
 const emptyToNull = (value: any, originalValue: any) => (originalValue === '' ? null : value);
-
-// ==============================|| TAB - PERSONAL ||============================== //
 
 export default function BasicInformation({ formRef }: { formRef: RefObject<FormikProps<any>> }) {
   const authContext = useContext(AuthContext);
@@ -106,7 +102,6 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
           submit: null,
         }}
         validationSchema={Yup.object().shape({
-          // Birthday must be either completely empty or completely filled
           birthdayYear: Yup.number()
             .nullable()
             .test('complete-birthday', 'Complete la fecha de nacimiento', function () {
