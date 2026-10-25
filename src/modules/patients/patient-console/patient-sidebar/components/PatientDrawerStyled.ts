@@ -13,23 +13,27 @@ const openedMixin = (theme: Theme) =>
     borderRightColor: theme.palette.divider,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
+      duration: theme.transitions.duration.enteringScreen,
     }),
     overflowX: 'hidden',
-    boxShadow: theme.palette.mode === ThemeMode.DARK ? theme.customShadows.z1 : 'none'
-  }) as CSSObject;
+    overflowY: 'auto',
+    height: '100%',
+    boxShadow: theme.palette.mode === ThemeMode.DARK ? theme.customShadows.z1 : 'none',
+  } as CSSObject);
 
 const closedMixin = (theme: Theme) =>
   ({
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
+      duration: theme.transitions.duration.leavingScreen,
     }),
     overflowX: 'hidden',
+    overflowY: 'auto',
+    height: '100%',
     width: theme.spacing(7.5),
     borderRight: 'none',
-    boxShadow: theme.customShadows.z1
-  }) as CSSObject;
+    boxShadow: theme.customShadows.z1,
+  } as CSSObject);
 
 // ==============================|| DRAWER - MINI STYLED ||============================== //
 
@@ -40,12 +44,12 @@ const PatientDrawerStyled = styled(Drawer, { shouldForwardProp: (prop) => prop !
   boxSizing: 'border-box',
   ...(open && {
     ...openedMixin(theme),
-    '& .MuiDrawer-paper': openedMixin(theme)
+    '& .MuiDrawer-paper': openedMixin(theme),
   }),
   ...(!open && {
     ...closedMixin(theme),
-    '& .MuiDrawer-paper': closedMixin(theme)
-  })
+    '& .MuiDrawer-paper': closedMixin(theme),
+  }),
 }));
 
 export default PatientDrawerStyled;

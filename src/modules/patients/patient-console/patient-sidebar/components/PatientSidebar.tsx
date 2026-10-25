@@ -29,13 +29,31 @@ const PatientSidebar = ({ window }: Props) => {
         sx={{
           '& .MuiDrawer-paper': {
             position: 'absolute',
+            height: '100%',
+            overflowY: 'auto',
+            overflowX: 'hidden',
           },
         }}
         variant="permanent"
         open={openSidebar}
       >
         {patientAvatar}
-        {drawerContent}
+        <Box
+          sx={{
+            'flex': 1,
+            'minHeight': 0,
+            'overflowY': 'auto',
+            'overflowX': 'hidden',
+            'scrollbarWidth': 'none',
+            'msOverflowStyle': 'none',
+            '&::-webkit-scrollbar': {
+              //to hidde scroller
+              display: 'none',
+            },
+          }}
+        >
+          {drawerContent}
+        </Box>
       </PatientDrawerStyled>
     </Box>
   );
