@@ -1,5 +1,4 @@
 import { RefObject, useContext } from 'react';
-import { useOutletContext } from 'react-router';
 
 // material-ui
 import Box from '@mui/material/Box';
@@ -11,6 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
+import { ToggleButton, ToggleButtonGroup } from '@mui/material';
 
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -18,9 +18,9 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 // third party
 import * as Yup from 'yup';
 import { Formik, FormikProps } from 'formik';
-import { ReduxStates } from 'src/shared/types/types';
 import { useSelector } from 'react-redux';
-import { ToggleButton, ToggleButtonGroup } from '@mui/material';
+
+import { ReduxStates } from 'src/shared/types/types';
 import { usePatient } from 'src/modules/patients/patients/adapters/out/PatientActions';
 import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
 
@@ -35,17 +35,42 @@ const MenuProps = {
   },
 };
 
+const MONTHS = [
+  'Enero',
+  'Febrero',
+  'Marzo',
+  'Abril',
+  'Mayo',
+  'Junio',
+  'Julio',
+  'Agosto',
+  'Septiembre',
+  'Octubre',
+  'Noviembre',
+  'Diciembre',
+];
+
+const DAYS = Array.from({ length: 31 }, (_, index) => index + 1);
+
+// When the year is not selected yet we use a leap year, so Feb 29 stays selectable
+const FALLBACK_YEAR = 2000;
+
 function getFomattedDate(_date: string) {
   const date = new Date(_date);
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();
-  const formatted = `${year}-${month}-${day}`;
-  return formatted;
+  return `${year}-${month}-${day}`;
 }
-function useInputRef() {
-  return useOutletContext<RefObject<HTMLInputElement>>();
+
+// Last day of the given month (month is 0-based). Day 0 of next month = last day of this month.
+function getDaysInMonth(month: string, year: number | null): number {
+  if (month === '') return 31;
+  return new Date(year ?? FALLBACK_YEAR, Number(month) + 1, 0).getDate();
 }
+
+// Empty inputs give "" which Yup would read as NaN, so convert them to null
+const emptyToNull = (value: any, originalValue: any) => (originalValue === '' ? null : value);
 
 // ==============================|| TAB - PERSONAL ||============================== //
 
@@ -54,19 +79,8 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
 
   const patientState = useSelector((state: ReduxStates) => state.patient);
   const { updatePatientForWeb } = usePatient();
-  const handleChangeDay = (event: SelectChangeEvent<string>, date: Date | null, setFieldValue: (field: string, value: any) => void) => {
-    const day = parseInt(event.target.value, 10);
-    const current = date ?? new Date();
-    setFieldValue('birthday', new Date(current.getFullYear(), current.getMonth(), day));
-  };
 
-  const handleChangeMonth = (event: SelectChangeEvent<string>, date: Date | null, setFieldValue: (field: string, value: any) => void) => {
-    const month = parseInt(event.target.value, 10);
-    const current = date ?? new Date();
-    const day = Math.min(current.getDate(), new Date(current.getFullYear(), month + 1, 0).getDate());
-
-    setFieldValue('birthday', new Date(current.getFullYear(), month, day));
-  };
+  const savedBirthday = patientState.birthday ? new Date(getFomattedDate(patientState.birthday)) : null;
 
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() - 18);
@@ -83,27 +97,42 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
         enableReinitialize
         innerRef={formRef}
         initialValues={{
-          birthday: patientState.birthday ? new Date(getFomattedDate(patientState.birthday)) : null,
-          weight: patientState.weight,
-          height: patientState.height,
-          gender: patientState.gender,
+          birthdayDay: savedBirthday ? savedBirthday.getDate().toString() : '',
+          birthdayMonth: savedBirthday ? savedBirthday.getMonth().toString() : '',
+          birthdayYear: savedBirthday ? savedBirthday.getFullYear() : (null as number | null),
+          weight: patientState.weight ?? '',
+          height: patientState.height ?? '',
+          gender: patientState.gender ?? '',
           submit: null,
         }}
         validationSchema={Yup.object().shape({
-          birthday: Yup.date().nullable().optional(),
-          weight: Yup.number().nullable().optional(),
-          height: Yup.number().nullable().optional(),
+          // Birthday must be either completely empty or completely filled
+          birthdayYear: Yup.number()
+            .nullable()
+            .test('complete-birthday', 'Complete la fecha de nacimiento', function () {
+              const { birthdayDay, birthdayMonth, birthdayYear } = this.parent;
+              const filled = [birthdayDay, birthdayMonth, birthdayYear].filter((v) => v !== '' && v !== null && v !== undefined).length;
+              return filled === 0 || filled === 3;
+            }),
+          weight: Yup.number().transform(emptyToNull).nullable().optional(),
+          height: Yup.number().transform(emptyToNull).nullable().optional(),
           gender: Yup.string().nullable().optional(),
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
+            const { birthdayDay, birthdayMonth, birthdayYear } = values;
+            const birthday =
+              birthdayDay !== '' && birthdayMonth !== '' && birthdayYear !== null
+                ? new Date(birthdayYear, Number(birthdayMonth), Number(birthdayDay)).toISOString()
+                : undefined;
+
             await updatePatientForWeb({
               professional: authContext.professional,
               patient: patientState.uuid,
-              birthday: values.birthday.toISOString(),
-              height: values.height,
-              weight: values.weight,
-              gender: values.gender,
+              birthday,
+              height: values.height === '' ? undefined : Number(values.height),
+              weight: values.weight === '' ? undefined : Number(values.weight),
+              gender: values.gender === '' ? undefined : values.gender,
             });
             setStatus({ success: false });
             setSubmitting(false);
@@ -114,147 +143,152 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
           }
         }}
       >
-        {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, setFieldValue, touched, values }) => (
-          <form noValidate onSubmit={handleSubmit}>
-            <Box sx={{ p: 2.5 }}>
-              <Grid container spacing={3}>
-                <Grid item xs={12} sm={6}>
-                  <Stack spacing={1}>
-                    {/* todo: fix to allow any age and not only +18  */}
-                    <InputLabel htmlFor="personal-date">Fecha de nacimiento</InputLabel>
-                    <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
-                      <Select
-                        fullWidth
-                        value={values.birthday ? values.birthday.getMonth().toString() : ''}
-                        name="birthday-month"
-                        onChange={(e: SelectChangeEvent<string>) => handleChangeMonth(e, values.birthday, setFieldValue)}
-                      >
-                        <MenuItem value="0">Enero</MenuItem>
-                        <MenuItem value="1">Febrero</MenuItem>
-                        <MenuItem value="2">Marzo</MenuItem>
-                        <MenuItem value="3">Abril</MenuItem>
-                        <MenuItem value="4">Mayo</MenuItem>
-                        <MenuItem value="5">Junio</MenuItem>
-                        <MenuItem value="6">Julio</MenuItem>
-                        <MenuItem value="7">Agosto</MenuItem>
-                        <MenuItem value="8">Septiembre</MenuItem>
-                        <MenuItem value="9">Octubre</MenuItem>
-                        <MenuItem value="10">Noviembre</MenuItem>
-                        <MenuItem value="11">Diciembre</MenuItem>
-                      </Select>
-                      <Select
-                        fullWidth
-                        value={values.birthday ? values.birthday.getDate().toString() : ''}
-                        name="birthday-date"
-                        onBlur={handleBlur}
-                        onChange={(e: SelectChangeEvent<string>) => handleChangeDay(e, values.birthday, setFieldValue)}
-                        MenuProps={MenuProps}
-                      >
-                        {[
-                          1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
-                        ].map((i) => (
-                          <MenuItem
-                            key={i}
-                            value={i}
-                            disabled={
-                              !!values.birthday &&
-                              ((values.birthday.getMonth() === 1 && i > (values.birthday.getFullYear() % 4 === 0 ? 29 : 28)) ||
-                                (values.birthday.getMonth() % 2 !== 0 && values.birthday.getMonth() < 7 && i > 30) ||
-                                (values.birthday.getMonth() % 2 === 0 && values.birthday.getMonth() > 7 && i > 30))
-                            }
-                          >
-                            {i}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                      <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <DatePicker
-                          sx={{ width: 1 }}
-                          views={['year']}
-                          value={values.birthday}
-                          maxDate={maxDate}
-                          onChange={(newValue) => {
-                            setFieldValue('birthday', newValue);
-                          }}
-                        />
-                      </LocalizationProvider>
-                    </Stack>
-                  </Stack>
-                  {touched.birthday && errors.birthday && (
-                    <FormHelperText error id="personal-birthday-helper">
-                      {errors.birthday as String}
-                    </FormHelperText>
-                  )}
-                </Grid>
+        {({ errors, handleBlur, handleChange, handleSubmit, setFieldValue, touched, values }) => {
+          const daysInMonth = getDaysInMonth(values.birthdayMonth, values.birthdayYear);
 
-                <Grid item xs={12} sm={6}>
-                  <Stack spacing={1}>
-                    <InputLabel htmlFor="weight">Altura</InputLabel>
-                    <TextField
-                      fullWidth
-                      type="number"
-                      id="height"
-                      value={values.height}
-                      name="height"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      placeholder="Ingrese la altura en cm."
-                    />
-                  </Stack>
-                  {touched.height && errors.height && (
-                    <FormHelperText error id="weight-helper">
-                      {errors.height as string}
-                    </FormHelperText>
-                  )}
+          // If the selected day does not exist in the new month/year, clear it
+          const clearDayIfInvalid = (month: string, year: number | null) => {
+            if (values.birthdayDay === '' || month === '') return;
+            if (Number(values.birthdayDay) > getDaysInMonth(month, year)) {
+              setFieldValue('birthdayDay', '');
+            }
+          };
+
+          return (
+            <form noValidate onSubmit={handleSubmit}>
+              <Box sx={{ p: 2.5 }}>
+                <Grid container spacing={3}>
+                  <Grid item xs={12} sm={6}>
+                    <Stack spacing={1}>
+                      {/* todo: fix to allow any age and not only +18  */}
+                      <InputLabel htmlFor="personal-date">Fecha de nacimiento</InputLabel>
+                      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
+                        <Select
+                          fullWidth
+                          displayEmpty
+                          value={values.birthdayMonth}
+                          name="birthdayMonth"
+                          onChange={(e: SelectChangeEvent<string>) => {
+                            setFieldValue('birthdayMonth', e.target.value);
+                            clearDayIfInvalid(e.target.value, values.birthdayYear);
+                          }}
+                        >
+                          {MONTHS.map((month, index) => (
+                            <MenuItem key={month} value={index.toString()}>
+                              {month}
+                            </MenuItem>
+                          ))}
+                        </Select>
+
+                        <Select
+                          fullWidth
+                          displayEmpty
+                          value={values.birthdayDay}
+                          name="birthdayDay"
+                          onBlur={handleBlur}
+                          onChange={(e: SelectChangeEvent<string>) => setFieldValue('birthdayDay', e.target.value)}
+                          MenuProps={MenuProps}
+                        >
+                          {DAYS.map((day) => (
+                            <MenuItem key={day} value={day.toString()} disabled={day > daysInMonth}>
+                              {day}
+                            </MenuItem>
+                          ))}
+                        </Select>
+
+                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                          <DatePicker
+                            sx={{ width: 1 }}
+                            views={['year']}
+                            value={values.birthdayYear ? new Date(values.birthdayYear, 0, 1) : null}
+                            maxDate={maxDate}
+                            onChange={(newValue) => {
+                              const year = newValue && !isNaN(newValue.getTime()) ? newValue.getFullYear() : null;
+                              setFieldValue('birthdayYear', year);
+                              clearDayIfInvalid(values.birthdayMonth, year);
+                            }}
+                          />
+                        </LocalizationProvider>
+                      </Stack>
+                    </Stack>
+                    {touched.birthdayYear && errors.birthdayYear && (
+                      <FormHelperText error id="personal-birthday-helper">
+                        {errors.birthdayYear as string}
+                      </FormHelperText>
+                    )}
+                  </Grid>
+
+                  <Grid item xs={12} sm={6}>
+                    <Stack spacing={1}>
+                      <InputLabel htmlFor="height">Altura</InputLabel>
+                      <TextField
+                        fullWidth
+                        type="number"
+                        id="height"
+                        value={values.height}
+                        name="height"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        placeholder="Ingrese la altura en cm."
+                      />
+                    </Stack>
+                    {touched.height && errors.height && (
+                      <FormHelperText error id="height-helper">
+                        {errors.height as string}
+                      </FormHelperText>
+                    )}
+                  </Grid>
+
+                  <Grid item xs={12} sm={6}>
+                    <Stack spacing={1}>
+                      <InputLabel htmlFor="weight">Peso</InputLabel>
+                      <TextField
+                        fullWidth
+                        type="number"
+                        id="weight"
+                        value={values.weight}
+                        name="weight"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        placeholder="Ingrese el peso en kg."
+                      />
+                    </Stack>
+                    {touched.weight && errors.weight && (
+                      <FormHelperText error id="weight-helper">
+                        {errors.weight as string}
+                      </FormHelperText>
+                    )}
+                  </Grid>
+
+                  <Grid item xs={12} sm={6}>
+                    <Stack spacing={1}>
+                      <InputLabel htmlFor="gender">Género</InputLabel>
+                      <ToggleButtonGroup
+                        color="primary"
+                        value={values.gender}
+                        exclusive
+                        onChange={(_event, newValue) => {
+                          if (newValue !== null) {
+                            setFieldValue('gender', newValue);
+                          }
+                        }}
+                      >
+                        <ToggleButton value="male">Masculino</ToggleButton>
+                        <ToggleButton value="female">Femenino</ToggleButton>
+                        <ToggleButton value="prefer not to say">Prefiere no decirlo</ToggleButton>
+                      </ToggleButtonGroup>
+                    </Stack>
+                    {touched.gender && errors.gender && (
+                      <FormHelperText error id="gender-helper">
+                        {errors.gender as string}
+                      </FormHelperText>
+                    )}
+                  </Grid>
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Stack spacing={1}>
-                    <InputLabel htmlFor="weight">Peso</InputLabel>
-                    <TextField
-                      fullWidth
-                      type="number"
-                      id="weight"
-                      value={values.weight}
-                      name="weight"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      placeholder="Ingrese el peso en kg."
-                    />
-                  </Stack>
-                  {touched.weight && errors.weight && (
-                    <FormHelperText error id="weight-helper">
-                      {errors.weight as string}
-                    </FormHelperText>
-                  )}
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Stack spacing={1}>
-                    <InputLabel htmlFor="weight">Género</InputLabel>
-                    <ToggleButtonGroup
-                      color="primary"
-                      value={values.gender}
-                      exclusive
-                      onChange={(_event, newValue) => {
-                        if (newValue !== null) {
-                          setFieldValue('gender', newValue);
-                        }
-                      }}
-                    >
-                      <ToggleButton value="male">Masculino</ToggleButton>
-                      <ToggleButton value="female">Femenino</ToggleButton>
-                      <ToggleButton value="prefer not to say">Prefiere no decirlo</ToggleButton>
-                    </ToggleButtonGroup>
-                  </Stack>
-                  {touched.gender && errors.gender && (
-                    <FormHelperText error id="gender-helper">
-                      {errors.gender as string}
-                    </FormHelperText>
-                  )}
-                </Grid>
-              </Grid>
-            </Box>
-          </form>
-        )}
+              </Box>
+            </form>
+          );
+        }}
       </Formik>
     </>
   );
