@@ -51,8 +51,10 @@ export const GET_PATIENT_FOR_WEB = gql`
       }
       height
       weight
+      abdominalCircumference
       birthday
       gender
+      occupation
     }
   }
 `;
@@ -63,8 +65,10 @@ export const UPDATE_PATIENT_FOR_WEB = gql`
       uuid
       height
       weight
+      abdominalCircumference
       birthday
       gender
+      occupation
     }
   }
 `;

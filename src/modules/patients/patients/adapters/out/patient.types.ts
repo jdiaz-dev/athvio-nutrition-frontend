@@ -16,8 +16,10 @@ export type PatientBody = {
   };
   height?: number;
   weight?: number;
+  abdominalCircumference?: number;
   birthday?: string;
   gender?: string;
+  occupation?: string;
   groups?: PatientGroup[];
   state?: string;
 };
@@ -86,10 +88,12 @@ export type GetPatientResponse = {
 export type UpdatePatientForWebInput = {
   professional: string;
   patient: string;
-  height: number;
-  weight: number;
-  birthday: string;
-  gender: string;
+  height?: number;
+  weight?: number;
+  abdominalCircumference?: number;
+  birthday?: string;
+  gender?: string;
+  occupation?: string;
 };
 export type UpdatePatientForWebRequest = {
   patient: UpdatePatientForWebInput;

@@ -99,6 +99,8 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
           weight: patientState.weight ?? '',
           height: patientState.height ?? '',
           gender: patientState.gender ?? '',
+          occupation: patientState.occupation ?? '',
+          abdominalCircumference: patientState.abdominalCircumference ?? '',
           submit: null,
         }}
         validationSchema={Yup.object().shape({
@@ -111,7 +113,9 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
             }),
           weight: Yup.number().transform(emptyToNull).nullable().optional(),
           height: Yup.number().transform(emptyToNull).nullable().optional(),
+          abdominalCircumference: Yup.number().transform(emptyToNull).nullable().optional(),
           gender: Yup.string().nullable().optional(),
+          occupation: Yup.string().nullable().optional(),
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
@@ -128,6 +132,8 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
               height: values.height === '' ? undefined : Number(values.height),
               weight: values.weight === '' ? undefined : Number(values.weight),
               gender: values.gender === '' ? undefined : values.gender,
+              abdominalCircumference: values.abdominalCircumference === '' ? undefined : values.abdominalCircumference,
+              occupation: values.occupation === '' ? undefined : values.occupation,
             });
             setStatus({ success: false });
             setSubmitting(false);
@@ -215,7 +221,52 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
 
                   <Grid item xs={12} sm={6}>
                     <Stack spacing={1}>
-                      <InputLabel htmlFor="height">Altura</InputLabel>
+                      <InputLabel htmlFor="gender">Género</InputLabel>
+                      <ToggleButtonGroup
+                        color="primary"
+                        value={values.gender}
+                        exclusive
+                        onChange={(_event, newValue) => {
+                          if (newValue !== null) {
+                            setFieldValue('gender', newValue);
+                          }
+                        }}
+                      >
+                        <ToggleButton value="male">Masculino</ToggleButton>
+                        <ToggleButton value="female">Femenino</ToggleButton>
+                        <ToggleButton value="prefer not to say">Prefiere no decirlo</ToggleButton>
+                      </ToggleButtonGroup>
+                    </Stack>
+                    {touched.gender && errors.gender && (
+                      <FormHelperText error id="gender-helper">
+                        {errors.gender as string}
+                      </FormHelperText>
+                    )}
+                  </Grid>
+
+                  <Grid item xs={12} sm={6}>
+                    <Stack spacing={1}>
+                      <InputLabel htmlFor="gender">Ocupación</InputLabel>
+                      <TextField
+                        fullWidth
+                        id="occupation"
+                        value={values.occupation}
+                        name="occupation"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        placeholder="Ingrese la ocupación de la persona"
+                      />
+                    </Stack>
+                    {touched.occupation && errors.occupation && (
+                      <FormHelperText error id="occupation-helper">
+                        {errors.occupation as string}
+                      </FormHelperText>
+                    )}
+                  </Grid>
+
+                  <Grid item xs={12} sm={6}>
+                    <Stack spacing={1}>
+                      <InputLabel htmlFor="height">Altura (cm.)</InputLabel>
                       <TextField
                         fullWidth
                         type="number"
@@ -236,7 +287,7 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
 
                   <Grid item xs={12} sm={6}>
                     <Stack spacing={1}>
-                      <InputLabel htmlFor="weight">Peso</InputLabel>
+                      <InputLabel htmlFor="weight">Peso (kg.)</InputLabel>
                       <TextField
                         fullWidth
                         type="number"
@@ -257,25 +308,21 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
 
                   <Grid item xs={12} sm={6}>
                     <Stack spacing={1}>
-                      <InputLabel htmlFor="gender">Género</InputLabel>
-                      <ToggleButtonGroup
-                        color="primary"
-                        value={values.gender}
-                        exclusive
-                        onChange={(_event, newValue) => {
-                          if (newValue !== null) {
-                            setFieldValue('gender', newValue);
-                          }
-                        }}
-                      >
-                        <ToggleButton value="male">Masculino</ToggleButton>
-                        <ToggleButton value="female">Femenino</ToggleButton>
-                        <ToggleButton value="prefer not to say">Prefiere no decirlo</ToggleButton>
-                      </ToggleButtonGroup>
+                      <InputLabel htmlFor="weight">Circunferencia abdominal (cm.)</InputLabel>
+                      <TextField
+                        fullWidth
+                        type="number"
+                        id="abdominalCircumference"
+                        value={values.abdominalCircumference}
+                        name="abdominalCircumference"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        placeholder="Ingrese la medida en cm."
+                      />
                     </Stack>
-                    {touched.gender && errors.gender && (
-                      <FormHelperText error id="gender-helper">
-                        {errors.gender as string}
+                    {touched.abdominalCircumference && errors.abdominalCircumference && (
+                      <FormHelperText error id="abdominalCircumference-helper">
+                        {errors.abdominalCircumference as string}
                       </FormHelperText>
                     )}
                   </Grid>
