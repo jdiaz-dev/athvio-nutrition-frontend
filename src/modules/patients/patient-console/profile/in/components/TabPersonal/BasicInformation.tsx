@@ -23,6 +23,7 @@ import { useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 import { usePatient } from 'src/modules/patients/patients/adapters/out/PatientActions';
 import { AuthContext } from 'src/modules/auth/auth/adapters/in/context/AuthContext';
+import Chip from '@mui/material/Chip';
 
 // styles & constant
 const ITEM_HEIGHT = 48;
@@ -163,6 +164,7 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
                     <Stack spacing={1}>
                       {/* todo: fix to allow any age and not only +18  */}
                       <InputLabel htmlFor="personal-date">Fecha de nacimiento</InputLabel>
+                      <Chip label="primary" color="primary" size="small" />
                       <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
                         <Select
                           fullWidth
@@ -234,7 +236,6 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
                       >
                         <ToggleButton value="male">Masculino</ToggleButton>
                         <ToggleButton value="female">Femenino</ToggleButton>
-                        <ToggleButton value="prefer not to say">Prefiere no decirlo</ToggleButton>
                       </ToggleButtonGroup>
                     </Stack>
                     {touched.gender && errors.gender && (
