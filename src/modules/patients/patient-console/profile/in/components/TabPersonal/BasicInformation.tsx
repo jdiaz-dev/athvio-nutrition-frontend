@@ -162,9 +162,14 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
                 <Grid container spacing={3}>
                   <Grid item xs={12} sm={6}>
                     <Stack spacing={1}>
-                      {/* todo: fix to allow any age and not only +18  */}
-                      <InputLabel htmlFor="personal-date">Fecha de nacimiento</InputLabel>
-                      <Chip label="primary" color="primary" size="small" />
+                      <div style={{ justifyContent: 'flex-start', display: 'flex' }}>
+                        <InputLabel htmlFor="personal-date" style={{ width: '150px' }}>
+                          Fecha de nacimiento
+                        </InputLabel>
+
+                        {/* i need calculate current years */}
+                        <Chip label="años" color="primary" size="small" />
+                      </div>
                       <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
                         <Select
                           fullWidth
