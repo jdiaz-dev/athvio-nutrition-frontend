@@ -71,6 +71,22 @@ function getDaysInMonth(month: string, year: number | null): number {
 // Empty inputs give "" which Yup would read as NaN, so convert them to null
 const emptyToNull = (value: any, originalValue: any) => (originalValue === '' ? null : value);
 
+function calculateAge(day: string, month: string, year: number | null): number | null {
+  if (day === '' || month === '' || year === null) return null;
+  if (Number(day) > getDaysInMonth(month, year)) return null;
+
+  const today = new Date();
+  const birth = new Date(year, Number(month), Number(day));
+
+  let age = today.getFullYear() - birth.getFullYear();
+  const hadBirthdayThisYear =
+    today.getMonth() > birth.getMonth() || (today.getMonth() === birth.getMonth() && today.getDate() >= birth.getDate());
+
+  if (!hadBirthdayThisYear) age -= 1;
+
+  return age >= 0 ? age : null;
+}
+
 export default function BasicInformation({ formRef }: { formRef: RefObject<FormikProps<any>> }) {
   const authContext = useContext(AuthContext);
 
@@ -80,7 +96,7 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
   const savedBirthday = patientState.birthday ? new Date(getFomattedDate(patientState.birthday)) : null;
 
   const maxDate = new Date();
-  maxDate.setFullYear(maxDate.getFullYear() - 18);
+  maxDate.setFullYear(maxDate.getFullYear());
 
   return (
     <>
@@ -147,6 +163,7 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
       >
         {({ errors, handleBlur, handleChange, handleSubmit, setFieldValue, touched, values }) => {
           const daysInMonth = getDaysInMonth(values.birthdayMonth, values.birthdayYear);
+          const age = calculateAge(values.birthdayDay, values.birthdayMonth, values.birthdayYear);
 
           // If the selected day does not exist in the new month/year, clear it
           const clearDayIfInvalid = (month: string, year: number | null) => {
@@ -163,12 +180,23 @@ export default function BasicInformation({ formRef }: { formRef: RefObject<Formi
                   <Grid item xs={12} sm={6}>
                     <Stack spacing={1}>
                       <div style={{ justifyContent: 'flex-start', display: 'flex' }}>
-                        <InputLabel htmlFor="personal-date" style={{ width: '150px' }}>
+                        <InputLabel htmlFor="personal-date" style={{ width: '140px' }}>
                           Fecha de nacimiento
                         </InputLabel>
 
-                        {/* i need calculate current years */}
-                        <Chip label="años" color="primary" size="small" />
+                        {age !== null && (
+                          <Chip
+                            label={`${age} ${age === 1 ? 'año' : 'años'}`}
+                            color="warning"
+                            size="small"
+                            sx={{
+                              borderRadius: '50px',
+                              px: 1.5,
+                              height: 26,
+                              fontWeight: 600,
+                            }}
+                          />
+                        )}
                       </div>
                       <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
                         <Select
