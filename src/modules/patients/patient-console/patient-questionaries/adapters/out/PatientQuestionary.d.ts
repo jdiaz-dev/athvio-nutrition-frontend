@@ -1,12 +1,26 @@
 import { ReduxItemtatus } from 'src/shared/Consts';
 
+export enum OptionType {
+  MULTIPLE_SELECTOR = 'multiple_selector',
+  TEXT = 'text',
+  SELECTOR = 'selector',
+  BOOLEAN = 'boolean',
+  HOUR = 'hour',
+}
+
+export class Option {
+  uuid: string;
+  name: string;
+}
+
 export type PatientQuestionaryDetail = {
   uuid: string;
   fieldName: string;
   associatedQuestion: string;
   answer: string;
   additionalNotes: string;
-  // fieldOptions?: string | string[];
+  options?: Option[];
+  optionType: OptionType;
 };
 
 export type QuestionaryDetailState = PatientQuestionaryDetail & {

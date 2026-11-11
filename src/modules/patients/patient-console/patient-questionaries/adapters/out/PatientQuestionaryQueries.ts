@@ -17,6 +17,11 @@ export const GET_PATIENT_QUESTIONARY = gql`
           associatedQuestion
           answer
           additionalNotes
+          optionType
+          options {
+            uuid
+            name
+          }
         }
       }
     }
@@ -37,6 +42,11 @@ export const UPDATE_ANSWERS = gql`
           associatedQuestion
           answer
           additionalNotes
+          optionType
+          options {
+            uuid
+            name
+          }
         }
       }
     }
@@ -60,6 +70,11 @@ export const UPDATE_ANSWERS_AND_ADDITIONAL_NOTES = gql`
           associatedQuestion
           answer
           additionalNotes
+          optionType
+          options {
+            uuid
+            name
+          }
         }
       }
     }
