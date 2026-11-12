@@ -3,18 +3,21 @@ import { Divider } from '@mui/material';
 import { PatientQuestionaryDetail } from 'src/modules/patients/patient-console/patient-questionaries/adapters/out/PatientQuestionary';
 import QuestionaryDetailFieldEditor from 'src/modules/patients/patient-console/patient-questionaries/adapters/in/components/QuestionaryDetailFieldEditor';
 import * as PatientQuestionarySlice from 'src/modules/patients/patient-console/patient-questionaries/adapters/in/slicers/PatientQuestionarySlice';
+import QuestionaryDetailAnswerEditor from 'src/modules/patients/patient-console/patient-questionaries/adapters/in/components/QuestionaryDetailAnswerEditor';
 
 function PatientQuestionaryDetailItem({ questionaryDetail }: { questionaryDetail: PatientQuestionaryDetail }) {
   return (
     <div style={{ display: 'flex', width: '100%', marginBottom: '10px' }}>
       <div style={{ width: '20%', border: '1px solid green', borderRadius: '4px' }}>{questionaryDetail.fieldName}</div>
       <Divider orientation="vertical" flexItem />
-      <QuestionaryDetailFieldEditor
+      <QuestionaryDetailAnswerEditor
         questionaryDetail={questionaryDetail.uuid}
         sliceUpdater={PatientQuestionarySlice.updateAnswer}
         fieldKey="answer"
         placeHolder="Respuesta del paciente..."
         fieldValue={questionaryDetail.answer}
+        optionType={questionaryDetail.optionType}
+        options={questionaryDetail.options}
       />
       <Divider orientation="vertical" flexItem />
       <QuestionaryDetailFieldEditor

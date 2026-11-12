@@ -8,10 +8,10 @@ export enum OptionType {
   HOUR = 'hour',
 }
 
-export class Option {
+export type Option = {
   uuid: string;
   name: string;
-}
+};
 
 export type PatientQuestionaryDetail = {
   uuid: string;
