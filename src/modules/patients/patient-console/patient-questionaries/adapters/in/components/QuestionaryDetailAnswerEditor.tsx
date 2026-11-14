@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, MenuItem, Select, TextField } from '@mui/material';
+import { Box, Checkbox, ListItemText, MenuItem, Select, TextField } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 import { Option, OptionType } from 'src/modules/patients/patient-console/patient-questionaries/adapters/out/PatientQuestionary.d';
@@ -85,7 +85,8 @@ function QuestionaryDetailAnswerEditor({
           >
             {selectableOptions.map((o) => (
               <MenuItem key={o.value} value={o.value}>
-                {o.label}
+                <Checkbox checked={selected.includes(o.value)} size="small" />
+                <ListItemText primary={o.label} />
               </MenuItem>
             ))}
           </Select>
