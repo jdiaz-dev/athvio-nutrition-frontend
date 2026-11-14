@@ -10,17 +10,19 @@ import { ReduxStates } from 'src/shared/types/types';
 
 let flushActiveGroup: (() => void) | null = null;
 
+const POPUP_SELECTOR = '.MuiPopover-root, .MuiPopper-root';
+
 function PatientQuestionaryGroupItem({ questionaryGroup }: { questionaryGroup: PatientQuestionaryGroup }) {
   const dispatch = useDispatch();
   const boxRef = useRef<HTMLDivElement>(null);
-  const touchedRef = useRef(false);
+  const touchedRef = useRef(false); // synchronous guard: "this group was clicked"
   const [touched, setTouched] = useState(false);
   const detailsState = useSelector((state: ReduxStates) => state.patientQuestionary.patientQuestionaryDetails);
 
   const detailsRef = useRef(detailsState);
   detailsRef.current = detailsState;
 
-  const isPopupOpen = () => !!document.querySelector('.MuiPopover-root, .MuiPopper-root');
+  const isPopupOpen = () => !!document.querySelector(POPUP_SELECTOR);
 
   const commit = () => {
     if (!touchedRef.current) return;
@@ -35,10 +37,9 @@ function PatientQuestionaryGroupItem({ questionaryGroup }: { questionaryGroup: P
     setTouched(false);
   };
 
-  const onEnter = () => {
+  const onTouch = () => {
     if (touchedRef.current) return;
     flushActiveGroup?.();
-
     touchedRef.current = true;
     flushActiveGroup = commit;
     dispatch(PatientQuestionarySlice.initializePatientQuestionaryDetails(questionaryGroup.questionaryDetails));
@@ -46,7 +47,7 @@ function PatientQuestionaryGroupItem({ questionaryGroup }: { questionaryGroup: P
   };
 
   const onLeave = () => {
-    setTouched(false);
+    console.log('--------leaving')
     if (!touchedRef.current || isPopupOpen()) return;
     commit();
   };
@@ -57,17 +58,18 @@ function PatientQuestionaryGroupItem({ questionaryGroup }: { questionaryGroup: P
     const onMove = (e: MouseEvent) => {
       const target = e.target as Element | null;
       if (!target || boxRef.current?.contains(target)) return;
-      if (target.closest('.MuiPopover-root, .MuiPopper-root')) return;
+      if (target.closest(POPUP_SELECTOR) || isPopupOpen()) return;
       commit();
     };
 
     document.addEventListener('mousemove', onMove);
     return () => document.removeEventListener('mousemove', onMove);
   }, [touched]);
+
   const questionaryDetails = touched ? detailsState : questionaryGroup.questionaryDetails;
 
   return (
-    <Box ref={boxRef} marginTop={2} onMouseEnter={onEnter} onMouseLeave={onLeave}>
+    <Box ref={boxRef} marginTop={2} onMouseDownCapture={onTouch} onMouseLeave={onLeave}>
       <Paper style={{ padding: '10px', marginBottom: '10px' }} variant="outlined" elevation={16}>
         <Typography variant="h4" gutterBottom>
           {questionaryGroup.title}
