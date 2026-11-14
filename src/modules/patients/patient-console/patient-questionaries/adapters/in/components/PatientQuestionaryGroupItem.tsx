@@ -8,6 +8,8 @@ import * as PatientQuestionarySlice from 'src/modules/patients/patient-console/p
 import { useDispatch, useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 
+let flushActiveGroup: (() => void) | null = null;
+
 function PatientQuestionaryGroupItem({ questionaryGroup }: { questionaryGroup: PatientQuestionaryGroup }) {
   const dispatch = useDispatch();
   const boxRef = useRef<HTMLDivElement>(null);
@@ -15,15 +17,19 @@ function PatientQuestionaryGroupItem({ questionaryGroup }: { questionaryGroup: P
   const [touched, setTouched] = useState(false);
   const detailsState = useSelector((state: ReduxStates) => state.patientQuestionary.patientQuestionaryDetails);
 
+  const detailsRef = useRef(detailsState);
+  detailsRef.current = detailsState;
+
   const isPopupOpen = () => !!document.querySelector('.MuiPopover-root, .MuiPopper-root');
 
   const commit = () => {
     if (!touchedRef.current) return;
     touchedRef.current = false;
+    if (flushActiveGroup === commit) flushActiveGroup = null;
     dispatch(
       PatientQuestionarySlice.updateQuestionaryGroupItem({
         uuid: questionaryGroup.uuid,
-        questionaryDetails: detailsState,
+        questionaryDetails: detailsRef.current,
       }),
     );
     setTouched(false);
@@ -31,12 +37,16 @@ function PatientQuestionaryGroupItem({ questionaryGroup }: { questionaryGroup: P
 
   const onEnter = () => {
     if (touchedRef.current) return;
+    flushActiveGroup?.();
+
     touchedRef.current = true;
+    flushActiveGroup = commit;
     dispatch(PatientQuestionarySlice.initializePatientQuestionaryDetails(questionaryGroup.questionaryDetails));
     setTouched(true);
   };
 
   const onLeave = () => {
+    setTouched(false);
     if (!touchedRef.current || isPopupOpen()) return;
     commit();
   };
@@ -53,8 +63,7 @@ function PatientQuestionaryGroupItem({ questionaryGroup }: { questionaryGroup: P
 
     document.addEventListener('mousemove', onMove);
     return () => document.removeEventListener('mousemove', onMove);
-  }, [touched, detailsState]);
-
+  }, [touched]);
   const questionaryDetails = touched ? detailsState : questionaryGroup.questionaryDetails;
 
   return (
@@ -70,4 +79,5 @@ function PatientQuestionaryGroupItem({ questionaryGroup }: { questionaryGroup: P
     </Box>
   );
 }
+
 export default PatientQuestionaryGroupItem;
