@@ -10,9 +10,11 @@ import { SidebarContext } from 'src/modules/patients/patient-console/patient-sid
 import { AvailableSlides } from 'src/modules/patients/patient-console/patient-sidebar/utils/sidebar.enum';
 
 function PatientConsoleContainer() {
+  const url = window.location.href;
+  const lastFragment = url.split('/').pop();
   const [openSidebar, setOpenSidebar] = useState(false);
   const [openChat, setOpenChat] = useState(false);
-  const [selectedPanel, setSelectedPanel] = useState<AvailableSlides>(AvailableSlides.PLANS);
+  const [selectedPanel, setSelectedPanel] = useState<AvailableSlides>(lastFragment as AvailableSlides);
 
   return (
     <>
