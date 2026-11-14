@@ -15,14 +15,14 @@ const POPUP_SELECTOR = '.MuiPopover-root, .MuiPopper-root';
 function PatientQuestionaryGroupItem({ questionaryGroup }: { questionaryGroup: PatientQuestionaryGroup }) {
   const dispatch = useDispatch();
   const boxRef = useRef<HTMLDivElement>(null);
-  const touchedRef = useRef(false); // synchronous guard: "this group was clicked"
+  const touchedRef = useRef(false);
   const [touched, setTouched] = useState(false);
   const detailsState = useSelector((state: ReduxStates) => state.patientQuestionary.patientQuestionaryDetails);
 
   const detailsRef = useRef(detailsState);
   detailsRef.current = detailsState;
 
-  const isPopupOpen = () => !!document.querySelector(POPUP_SELECTOR);
+  const existChildDropdownOpen = () => !!boxRef.current?.querySelector('[aria-expanded="true"]');
 
   const commit = () => {
     if (!touchedRef.current) return;
@@ -47,23 +47,23 @@ function PatientQuestionaryGroupItem({ questionaryGroup }: { questionaryGroup: P
   };
 
   const onLeave = () => {
-    console.log('--------leaving')
-    if (!touchedRef.current || isPopupOpen()) return;
+    if (!touchedRef.current || existChildDropdownOpen()) return;
     commit();
   };
 
   useEffect(() => {
     if (!touched) return undefined;
 
-    const onMove = (e: MouseEvent) => {
+    const commitWhenPointerIsOutsideBox = (e: MouseEvent) => {
       const target = e.target as Element | null;
       if (!target || boxRef.current?.contains(target)) return;
-      if (target.closest(POPUP_SELECTOR) || isPopupOpen()) return;
+      if (target.closest(POPUP_SELECTOR)) return;
+      if (existChildDropdownOpen()) return;
       commit();
     };
 
-    document.addEventListener('mousemove', onMove);
-    return () => document.removeEventListener('mousemove', onMove);
+    document.addEventListener('mousemove', commitWhenPointerIsOutsideBox);
+    return () => document.removeEventListener('mousemove', commitWhenPointerIsOutsideBox);
   }, [touched]);
 
   const questionaryDetails = touched ? detailsState : questionaryGroup.questionaryDetails;
