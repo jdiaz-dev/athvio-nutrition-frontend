@@ -159,3 +159,63 @@ export enum MealImageSources {
   PROGRAM = 'program',
   PATIENT_PLAN = 'patient_plan',
 }
+
+export const routes = {
+  landing: {
+    path: 'landing',
+    type: 'public',
+    children: {},
+  },
+  signin: {
+    path: 'signin',
+    type: 'public',
+    children: {},
+  },
+  signup: {
+    path: 'signup',
+    type: 'public',
+    children: {},
+  },
+  professional: {
+    path: 'professional',
+    type: 'private',
+    children: {
+      patients: {
+        path: 'patients',
+        children: {},
+      },
+      patientDetail: {
+        path: 'patients/:patientId',
+        children: {
+          plans: { path: 'plans' },
+          planification: { path: 'planification' },
+          notes: { path: 'notes' },
+          questionary: { path: 'questionary' },
+          profile: { path: 'profile' },
+          biologicalTerrainAssessment: {
+            path: 'biological-terrain-assessment',
+          },
+        },
+      },
+      professional: {
+        path: 'professional',
+      },
+      preferences: {
+        path: 'professional/preferences',
+      },
+      meals: {
+        path: 'meals',
+      },
+      programs: {
+        path: 'programs',
+        children: {},
+      },
+      programPlans: {
+        path: 'programs/:programId/plans',
+      },
+      lab: {
+        path: 'lab',
+      },
+    },
+  },
+};

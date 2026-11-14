@@ -24,58 +24,76 @@ import Lab from 'src/modules/Lab';
 import UnauthorizedDialog from 'src/modules/auth/auth/adapters/in/dialogs/UnauthorizedDialog';
 import PlantDosificator from 'src/plant-dosificator/PlantDosificator';
 import BiologicalTerrainAssessmentContainer from 'src/modules/patients/patient-console/biological-terrain-assessment/adapters/in/components/BiologicalTerrainAssessmentContainer';
+import { routes } from 'src/shared/Consts';
 
 function App() {
   return (
     <div className="App">
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Routes>
-          <Route path="landing" element={<LandingPage />} />
-          <Route path="/" element={<Navigate to="/signin" replace />} />
+          <Route path={routes.landing.path} element={<LandingPage />} />
+          <Route path="/" element={<Navigate to={`/${routes.signin.path}`} replace />} />
           <Route
-            path="signin"
+            path={routes.signin.path}
             element={
               <PublicRoute>
                 <SignIn />
               </PublicRoute>
             }
           />
+
           <Route
-            path="signup"
+            path={routes.signup.path}
             element={
               <PublicRoute>
                 <SignUpProfessional />
               </PublicRoute>
             }
           />
+
           <Route
-            path="professional"
+            path={routes.professional.path}
             element={
               <PrivateRoute>
                 <Drawer />
               </PrivateRoute>
             }
           >
-            <Route path="patients" element={<PatientsContainer />}></Route>
-            <Route path="patients/:patientId" element={<PatientConsoleContainer />}>
-              <Route path="plans" element={<PatientPlansCalendar />} />
-              <Route path="planification" element={<PlanificationContainer />} />
-              <Route path="notes" element={<NotesContainer />} />
-              <Route path="questionary" element={<PatientQuestionaryContainer />} />
-              <Route path="profile" element={<PatientProfileContainer />} />
-              <Route path="biological-terrain-assessment" element={<BiologicalTerrainAssessmentContainer />} />
+            <Route path={routes.professional.children.patients.path} element={<PatientsContainer />} />
+
+            <Route path={routes.professional.children.patientDetail.path} element={<PatientConsoleContainer />}>
+              <Route path={routes.professional.children.patientDetail.children.plans.path} element={<PatientPlansCalendar />} />
+              <Route path={routes.professional.children.patientDetail.children.planification.path} element={<PlanificationContainer />} />
+              <Route path={routes.professional.children.patientDetail.children.notes.path} element={<NotesContainer />} />
+              <Route
+                path={routes.professional.children.patientDetail.children.questionary.path}
+                element={<PatientQuestionaryContainer />}
+              />
+              <Route path={routes.professional.children.patientDetail.children.profile.path} element={<PatientProfileContainer />} />
+              <Route
+                path={routes.professional.children.patientDetail.children.biologicalTerrainAssessment.path}
+                element={<BiologicalTerrainAssessmentContainer />}
+              />
             </Route>
-            <Route path="professional" element={<PatientConsoleContainer />} />
-            <Route path="professional/preferences" element={<QuestionaryDetailContainer />} />
-            <Route path="meals" element={<NutritionalMealsContainer />} />
-            <Route path="programs" element={<ProgramsContainer />} />
-            <Route path="programs/:programId/plans" element={<ProgramPlansContainer />} />
-            <Route path="lab" element={<Lab />} />
+
+            <Route path={routes.professional.children.professional.path} element={<PatientConsoleContainer />} />
+
+            <Route path={routes.professional.children.preferences.path} element={<QuestionaryDetailContainer />} />
+
+            <Route path={routes.professional.children.meals.path} element={<NutritionalMealsContainer />} />
+
+            <Route path={routes.professional.children.programs.path} element={<ProgramsContainer />} />
+
+            <Route path={routes.professional.children.programPlans.path} element={<ProgramPlansContainer />} />
+
+            <Route path={routes.professional.children.lab.path} element={<Lab />} />
           </Route>
-          {<Route path="*" element={<div>404</div>} />}
-          {<Route path="plant-dosificator" element={<PlantDosificator />} />}
+
+          <Route path="plant-dosificator" element={<PlantDosificator />} />
+          <Route path="*" element={<div>404</div>} />
         </Routes>
       </LocalizationProvider>
+
       <UnauthorizedDialog />
     </div>
   );
