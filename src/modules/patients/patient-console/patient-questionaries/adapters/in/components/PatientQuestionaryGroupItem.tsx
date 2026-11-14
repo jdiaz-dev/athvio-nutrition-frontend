@@ -11,12 +11,15 @@ import { ReduxStates } from 'src/shared/types/types';
 function PatientQuestionaryGroupItem({ questionaryGroup }: { questionaryGroup: PatientQuestionaryGroup }) {
   const dispatch = useDispatch();
   const boxRef = useRef<HTMLDivElement>(null);
+  const touchedRef = useRef(false);
   const [touched, setTouched] = useState(false);
   const detailsState = useSelector((state: ReduxStates) => state.patientQuestionary.patientQuestionaryDetails);
 
   const isPopupOpen = () => !!document.querySelector('.MuiPopover-root, .MuiPopper-root');
 
   const commit = () => {
+    if (!touchedRef.current) return;
+    touchedRef.current = false;
     dispatch(
       PatientQuestionarySlice.updateQuestionaryGroupItem({
         uuid: questionaryGroup.uuid,
@@ -27,18 +30,17 @@ function PatientQuestionaryGroupItem({ questionaryGroup }: { questionaryGroup: P
   };
 
   const onEnter = () => {
-    if (touched) return;
+    if (touchedRef.current) return;
+    touchedRef.current = true;
     dispatch(PatientQuestionarySlice.initializePatientQuestionaryDetails(questionaryGroup.questionaryDetails));
     setTouched(true);
   };
 
   const onLeave = () => {
-    console.log('---leaving');
-    if (!touched || isPopupOpen()) return; // dropdown open: don't commit yet
+    if (!touchedRef.current || isPopupOpen()) return;
     commit();
   };
 
-  // Fallback: dropdown closed while the pointer is already outside the group
   useEffect(() => {
     if (!touched) return undefined;
 
@@ -51,7 +53,6 @@ function PatientQuestionaryGroupItem({ questionaryGroup }: { questionaryGroup: P
 
     document.addEventListener('mousemove', onMove);
     return () => document.removeEventListener('mousemove', onMove);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [touched, detailsState]);
 
   const questionaryDetails = touched ? detailsState : questionaryGroup.questionaryDetails;
