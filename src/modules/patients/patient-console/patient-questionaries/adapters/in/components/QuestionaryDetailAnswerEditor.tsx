@@ -1,18 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, MenuItem, Select, TextField } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
 import { useDispatch } from 'react-redux';
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
-import CheckAndCloseIcons from 'src/shared/components/Icons/CheckAndCloseIcons';
 import { Option, OptionType } from 'src/modules/patients/patient-console/patient-questionaries/adapters/out/PatientQuestionary.d';
 
-// The stored value is the option's uuid; the label shown to the user is its name.
-// If you'd rather store the name, return option.name in getOptionValue.
-const getOptionValue = (option: Option): string => option.uuid;
+const getOptionValue = (option: Option): string => option.name;
 const getOptionLabel = (option: Option): string => option.name;
 
-const HOURS = Array.from({ length: 24 }, (_, i) => String(i).padStart(2, '0')); // 00..23
-const MINUTES = Array.from({ length: 12 }, (_, i) => String(i * 5).padStart(2, '0')); // 00,05,...,55
+const HOURS = Array.from({ length: 24 }, (_, i) => String(i).padStart(2, '0'));
+const MINUTES = Array.from({ length: 12 }, (_, i) => String(i * 5).padStart(2, '0'));
 
 const BOOLEAN_OPTIONS = [
   { value: 'true', label: 'Verdadero' },
@@ -24,6 +20,8 @@ const splitCsv = (value: string): string[] =>
     .split(',')
     .map((v) => v.trim())
     .filter(Boolean);
+
+const placeholderSpan = (text: string) => <span style={{ opacity: 0.4, fontStyle: 'italic' }}>{text}</span>;
 
 function QuestionaryDetailAnswerEditor({
   questionaryDetail,
@@ -42,67 +40,48 @@ function QuestionaryDetailAnswerEditor({
   optionType: OptionType;
   options?: Option[] | undefined;
 }) {
-  console.log('---options', options);
   const dispatch = useDispatch();
-  const [editField, setEdtiField] = useState(false);
-  const [newValue, setNewValue] = useState('');
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const [value, setValue] = useState(fieldValue ?? '');
 
-  const cancerlEditFieldHandler = () => {
-    setEdtiField(false);
-  };
-  const saveFieldHandler = () => {
-    setEdtiField(false);
+  useEffect(() => {
+    setValue(fieldValue ?? '');
+  }, [fieldValue]);
+
+  const save = (newValue: string) => {
     dispatch(sliceUpdater({ uuid: questionaryDetail, [fieldKey]: newValue }));
   };
 
+  const commit = (newValue: string) => {
+    setValue(newValue);
+    save(newValue);
+  };
+
   useEffect(() => {
-    if (editField && optionType === OptionType.TEXT) inputRef.current?.focus();
-  }, [editField, optionType]);
+    // Debounced commit: runs DEBOUNCE_MS after the last keystroke
+    const DEBOUNCE_MS = 600;
+    const id = setTimeout(() => save(value), DEBOUNCE_MS);
+    return () => clearTimeout(id); // restarts the timer on every change
+  }, [value]);
 
   const selectableOptions = (options ?? []).map((o) => ({ value: getOptionValue(o), label: getOptionLabel(o) }));
 
-  // ---------- Read-only display ----------
-  const getDisplayValue = (): string => {
-    if (!fieldValue) return '';
-    switch (optionType) {
-      case OptionType.BOOLEAN:
-        return BOOLEAN_OPTIONS.find((o) => o.value === String(fieldValue).toLowerCase())?.label ?? fieldValue;
-      case OptionType.SELECTOR:
-        return selectableOptions.find((o) => o.value === fieldValue)?.label ?? fieldValue;
-      case OptionType.MULTIPLE_SELECTOR:
-        return splitCsv(fieldValue)
-          .map((v) => selectableOptions.find((o) => o.value === v)?.label ?? v)
-          .join(', ');
-      default:
-        return fieldValue;
-    }
-  };
-
-  // ---------- Editors ----------
   const renderEditor = () => {
     switch (optionType) {
       case OptionType.MULTIPLE_SELECTOR: {
-        const selected = splitCsv(newValue);
+        const selected = splitCsv(value);
         return (
           <Select
             multiple
             displayEmpty
             variant="standard"
-            style={{ width: '88%' }}
+            fullWidth
             value={selected}
             onChange={(e) => {
               const val = e.target.value;
               const arr = typeof val === 'string' ? splitCsv(val) : val;
-              setNewValue(arr.join(','));
+              commit(arr.join(','));
             }}
-            renderValue={(sel) =>
-              sel.length === 0 ? (
-                <span style={{ opacity: 0.4, fontStyle: 'italic' }}>{placeHolder}</span>
-              ) : (
-                sel.map((v) => selectableOptions.find((o) => o.value === v)?.label ?? v).join(', ')
-              )
-            }
+            renderValue={(sel) => (sel.length === 0 ? placeholderSpan(placeHolder) : sel.join(', '))}
           >
             {selectableOptions.map((o) => (
               <MenuItem key={o.value} value={o.value}>
@@ -114,21 +93,15 @@ function QuestionaryDetailAnswerEditor({
       }
 
       case OptionType.SELECTOR: {
-        const valid = selectableOptions.some((o) => o.value === newValue) ? newValue : '';
+        const valid = selectableOptions.some((o) => o.value === value) ? value : '';
         return (
           <Select
             displayEmpty
             variant="standard"
-            style={{ width: '88%' }}
+            fullWidth
             value={valid}
-            onChange={(e) => setNewValue(e.target.value as string)}
-            renderValue={(v) =>
-              v ? (
-                selectableOptions.find((o) => o.value === v)?.label ?? v
-              ) : (
-                <span style={{ opacity: 0.4, fontStyle: 'italic' }}>{placeHolder}</span>
-              )
-            }
+            onChange={(e) => commit(e.target.value as string)}
+            renderValue={(v) => (v ? v : placeholderSpan(placeHolder))}
           >
             {selectableOptions.map((o) => (
               <MenuItem key={o.value} value={o.value}>
@@ -140,22 +113,16 @@ function QuestionaryDetailAnswerEditor({
       }
 
       case OptionType.BOOLEAN: {
-        const normalized = String(newValue).toLowerCase();
+        const normalized = String(value).toLowerCase();
         const valid = BOOLEAN_OPTIONS.some((o) => o.value === normalized) ? normalized : '';
         return (
           <Select
             displayEmpty
             variant="standard"
-            style={{ width: '88%' }}
+            fullWidth
             value={valid}
-            onChange={(e) => setNewValue(e.target.value as string)}
-            renderValue={(v) =>
-              v ? (
-                BOOLEAN_OPTIONS.find((o) => o.value === v)?.label
-              ) : (
-                <span style={{ opacity: 0.4, fontStyle: 'italic' }}>{placeHolder}</span>
-              )
-            }
+            onChange={(e) => commit(e.target.value as string)}
+            renderValue={(v) => (v ? BOOLEAN_OPTIONS.find((o) => o.value === v)?.label : placeholderSpan(placeHolder))}
           >
             {BOOLEAN_OPTIONS.map((o) => (
               <MenuItem key={o.value} value={o.value}>
@@ -167,19 +134,18 @@ function QuestionaryDetailAnswerEditor({
       }
 
       case OptionType.HOUR: {
-        const [h = '', m = ''] = (newValue ?? '').split(':');
+        const [h = '', m = ''] = (value ?? '').split(':');
         const hour = HOURS.includes(h) ? h : '';
         const minute = MINUTES.includes(m) ? m : '';
-        // If only one of the two is chosen, the other defaults to "00" so the value is always HH:mm
-        const update = (nextHour: string, nextMinute: string) => setNewValue(`${nextHour || '00'}:${nextMinute || '00'}`);
+        const update = (nextHour: string, nextMinute: string) => commit(`${nextHour || '00'}:${nextMinute || '00'}`);
         return (
-          <Box style={{ display: 'flex', alignItems: 'center', gap: 8, width: '88%' }}>
+          <Box style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <Select
               displayEmpty
               variant="standard"
               value={hour}
               onChange={(e) => update(e.target.value as string, minute)}
-              renderValue={(v) => (v ? v : <span style={{ opacity: 0.4, fontStyle: 'italic' }}>HH</span>)}
+              renderValue={(v) => (v ? v : placeholderSpan('HH'))}
               MenuProps={{ PaperProps: { style: { maxHeight: 240 } } }}
               style={{ minWidth: 60 }}
             >
@@ -195,7 +161,7 @@ function QuestionaryDetailAnswerEditor({
               variant="standard"
               value={minute}
               onChange={(e) => update(hour, e.target.value as string)}
-              renderValue={(v) => (v ? v : <span style={{ opacity: 0.4, fontStyle: 'italic' }}>mm</span>)}
+              renderValue={(v) => (v ? v : placeholderSpan('mm'))}
               MenuProps={{ PaperProps: { style: { maxHeight: 240 } } }}
               style={{ minWidth: 60 }}
             >
@@ -213,26 +179,21 @@ function QuestionaryDetailAnswerEditor({
       default:
         return (
           <TextField
-            style={{ width: '88%' }}
+            fullWidth
             multiline
             placeholder={placeHolder}
-            value={newValue}
+            value={value}
             variant="standard"
-            inputRef={inputRef}
-            onChange={(e) => setNewValue(e.target.value)}
+            onChange={(e) => setValue(e.target.value)}
+            onBlur={() => {
+              if (value !== (fieldValue ?? '')) save(value);
+            }}
           />
         );
     }
   };
 
-  return (
-    <Box width={'40%'}>
-      <Box style={{ display: 'flex' }}>
-        {renderEditor()}
-        <CheckAndCloseIcons checkHandler={saveFieldHandler} closeHandler={cancerlEditFieldHandler} styles={{ marginLeft: '8%' }} />
-      </Box>
-    </Box>
-  );
+  return <Box width={'40%'}>{renderEditor()}</Box>;
 }
 
 export default QuestionaryDetailAnswerEditor;

@@ -8,9 +8,8 @@ import * as PatientQuestionarySlice from 'src/modules/patients/patient-console/p
 import { useDispatch, useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 
-let flushActiveGroup: (() => void) | null = null;
-
 const POPUP_SELECTOR = '.MuiPopover-root, .MuiPopper-root';
+let flushActiveGroup: (() => void) | null = null;
 
 function PatientQuestionaryGroupItem({ questionaryGroup }: { questionaryGroup: PatientQuestionaryGroup }) {
   const dispatch = useDispatch();
@@ -24,10 +23,10 @@ function PatientQuestionaryGroupItem({ questionaryGroup }: { questionaryGroup: P
 
   const existChildDropdownOpen = () => !!boxRef.current?.querySelector('[aria-expanded="true"]');
 
-  const commit = () => {
+  const saveQuestionaryGroup = () => {
     if (!touchedRef.current) return;
     touchedRef.current = false;
-    if (flushActiveGroup === commit) flushActiveGroup = null;
+    if (flushActiveGroup === saveQuestionaryGroup) flushActiveGroup = null;
     dispatch(
       PatientQuestionarySlice.updateQuestionaryGroupItem({
         uuid: questionaryGroup.uuid,
@@ -41,14 +40,14 @@ function PatientQuestionaryGroupItem({ questionaryGroup }: { questionaryGroup: P
     if (touchedRef.current) return;
     flushActiveGroup?.();
     touchedRef.current = true;
-    flushActiveGroup = commit;
+    flushActiveGroup = saveQuestionaryGroup;
     dispatch(PatientQuestionarySlice.initializePatientQuestionaryDetails(questionaryGroup.questionaryDetails));
     setTouched(true);
   };
 
   const onLeave = () => {
     if (!touchedRef.current || existChildDropdownOpen()) return;
-    commit();
+    saveQuestionaryGroup();
   };
 
   useEffect(() => {
@@ -59,7 +58,7 @@ function PatientQuestionaryGroupItem({ questionaryGroup }: { questionaryGroup: P
       if (!target || boxRef.current?.contains(target)) return;
       if (target.closest(POPUP_SELECTOR)) return;
       if (existChildDropdownOpen()) return;
-      commit();
+      saveQuestionaryGroup();
     };
 
     document.addEventListener('mousemove', commitWhenPointerIsOutsideBox);
