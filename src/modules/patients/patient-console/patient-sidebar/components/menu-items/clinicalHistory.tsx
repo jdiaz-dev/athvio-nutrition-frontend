@@ -44,11 +44,11 @@ const clinicalHistory: NavItemType = {
     },
     {
       id: 'Goals',
-      title: <FormattedMessage id="Notas de control" />,
+      title: <FormattedMessage id="Notas de consulta" />,
       type: 'item',
       url: 'notes',
       icon: icons.EditNoteIcon,
-      toolTipTitle: 'Notas del paciente',
+      toolTipTitle: 'Notas de consulta',
       slide: AvailableSlides.CLINICAL_NOTES,
     },
   ],

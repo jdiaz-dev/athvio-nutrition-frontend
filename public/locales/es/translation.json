@@ -42,7 +42,7 @@
     },
     "titles":{
       "patients":"Pacientes",
-      "clinicalNotes":"Notas clínicas"
+      "clinicalNotes":"Notas de consulta"
     },
     "messages":{
       "deleteNoteMessage":"¿Estás seguro de eliminar esta nota?"
