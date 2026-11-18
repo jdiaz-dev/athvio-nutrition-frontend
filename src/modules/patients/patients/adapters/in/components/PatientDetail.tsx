@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import PatientBasicInfo from 'src/shared/components/PatientList/PatientBasicInfo';
 import { StyledTableCell, StyledTableRow } from 'src/shared/components/CustomizedTable';
@@ -7,6 +7,8 @@ import PatientOptions from 'src/modules/patients/patients/adapters/in/components
 import { PatientBody } from 'src/modules/patients/patients/adapters/out/patient.types';
 import ResendPatientInvitationEmail from 'src/modules/patients/patients/adapters/in/components/ResendPatientInvitationEmail';
 import { Chip } from '@mui/material';
+import * as PatientSlice from 'src/modules/patients/patients/adapters/in/slicers/PatientSlice';
+import { useDispatch } from 'react-redux';
 
 enum PatientStates {
   ACTIVE = 'active',
@@ -14,7 +16,13 @@ enum PatientStates {
   ARCHIVED = 'archived',
 }
 function PatientDetail({ patient }: { patient: PatientBody }) {
+  const dispatch = useDispatch();
   const [goToPatientPlans, setGoToPatientPlans] = useState(false);
+  useEffect(() => {
+    if (goToPatientPlans) {
+      dispatch(PatientSlice.acceptNewPatient({ ...patient }));
+    }
+  }, [goToPatientPlans]);
   if (goToPatientPlans) {
     const path = `/professional/patients/${patient.uuid}/plans`;
     return <Navigate replace to={path} />;

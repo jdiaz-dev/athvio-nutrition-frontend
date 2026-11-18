@@ -26,6 +26,7 @@ export const GET_PATIENTS = gql`
           uuid
           groupName
         }
+        birthday
         state
       }
       meta {
