@@ -4,7 +4,6 @@ import { Box, Button, IconButton, Chip } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import dayjs from 'dayjs';
 import { DateSet } from 'src/modules/patients/patient-console/patient-plans/adapters/helpers/PatientPlans';
-import PlatientPlansGeneratorDialog from 'src/modules/patients/patient-console/patient-plans/adapters/in/dialogs/PatientPlansGeneratorDialog/PlatientPlansGeneratorDialog';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 import { Navigate, useParams } from 'react-router-dom';
@@ -49,7 +48,7 @@ function CalendarHeader({
       pb={1.2}
       pr={2}
     >
-      <Box display="flex" alignItems="center">
+      <Box display="flex" alignItems="center" sx={{ marginLeft: '30px' }}>
         <IconButton onClick={handleCalendarPrev}>
           <ChevronLeft />
         </IconButton>
