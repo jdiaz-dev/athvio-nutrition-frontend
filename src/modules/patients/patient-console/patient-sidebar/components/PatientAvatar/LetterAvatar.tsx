@@ -25,7 +25,11 @@ export default function LetterAvatar({ open }: { open: boolean }) {
         <Avatar {...stringAvatar(fullname, theme.palette.primary.main)} sx={{ width: 32, height: 32, backgroundColor: '#1E8E98' }} />
       )}
       {open && (
-        <Typography variant="h5" align="left" style={{ marginLeft: '6px' }}>
+        <Typography
+          variant="h5"
+          align="left"
+          sx={{ marginLeft: '6px', minWidth: 0, wordBreak: 'break-word', overflowWrap: 'anywhere', whiteSpace: 'normal' }}
+        >
           {fullname}
         </Typography>
       )}
