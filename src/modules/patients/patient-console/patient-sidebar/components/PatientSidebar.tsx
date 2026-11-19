@@ -7,6 +7,7 @@ import { Box } from '@mui/material';
 import PatientAvatar from './PatientAvatar/PatientAvatar';
 import DrawerContent from './DrawerContent';
 import PatientDrawerStyled from './PatientDrawerStyled';
+import ExpansorPatientSidebar from './ExpansorPatientSidebar';
 
 //todo: move config?
 import { SidebarContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SidebarContext';
@@ -24,7 +25,7 @@ const PatientSidebar = ({ window }: Props) => {
   const drawerContent = useMemo(() => <DrawerContent />, []);
 
   return (
-    <Box component="nav" sx={{ flexShrink: { md: 0 }, zIndex: 1200 }} aria-label="mailbox folders">
+    <Box component="nav" sx={{ flexShrink: { md: 0 }, zIndex: 1200, position: 'relative' }} aria-label="mailbox folders">
       <PatientDrawerStyled
         sx={{
           '& .MuiDrawer-paper': {
@@ -55,6 +56,18 @@ const PatientSidebar = ({ window }: Props) => {
           {drawerContent}
         </Box>
       </PatientDrawerStyled>
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 30, // vertical center of the 60px avatar row
+          right: 0,
+          transform: 'translate(50%, -50%)',
+          zIndex: 1201,
+          display: 'flex',
+        }}
+      >
+        <ExpansorPatientSidebar />
+      </Box>
     </Box>
   );
 };

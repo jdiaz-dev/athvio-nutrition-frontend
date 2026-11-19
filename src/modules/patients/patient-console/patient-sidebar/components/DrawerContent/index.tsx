@@ -9,7 +9,6 @@ import Navigation from './Navigation';
 import SimpleBar from 'src/shared/components/third-party/SimpleBar';
 import { useContext } from 'react';
 import { SidebarContext } from 'src/modules/patients/patient-console/patient-sidebar/context/SidebarContext';
-import ExpansorPatientSidebar from 'src/modules/patients/patient-console/patient-sidebar/components/DrawerContent/ExpansorPatientSidebar';
 
 // ==============================|| DRAWER CONTENT ||============================== //
 
@@ -32,7 +31,6 @@ const DrawerContent = () => {
         <Navigation />
         {/* {openSidebar && !matchDownMD && <NavCard />} */} {/* //x */}
       </SimpleBar>
-      <ExpansorPatientSidebar />
     </>
   );
 };
