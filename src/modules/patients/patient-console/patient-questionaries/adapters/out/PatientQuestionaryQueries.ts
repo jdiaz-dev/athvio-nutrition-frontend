@@ -22,6 +22,7 @@ export const GET_PATIENT_QUESTIONARY = gql`
             uuid
             name
             focusedQuestions {
+              uuid
               fieldName
               associatedQuestion
               optionType
@@ -57,6 +58,7 @@ export const UPDATE_ANSWERS = gql`
             uuid
             name
             focusedQuestions {
+              uuid
               fieldName
               associatedQuestion
               optionType
@@ -95,6 +97,7 @@ export const UPDATE_ANSWERS_AND_ADDITIONAL_NOTES = gql`
             uuid
             name
             focusedQuestions {
+              uuid
               fieldName
               associatedQuestion
               optionType

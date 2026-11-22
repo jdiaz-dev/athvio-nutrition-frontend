@@ -14,6 +14,7 @@ export type FocusedQuestionOption = {
 };
 
 export type FocusedQuestion = {
+  uuid: string;
   fieldName: string;
   associatedQuestion: string;
   optionType: OptionType;
@@ -30,8 +31,10 @@ export type Option = {
 export type PrimitiveAnswer = string | number | boolean;
 
 export type FocusedQuestionAnswer = {
-  associatedQuestion: string;
+  professionalFocusedQuestion: string;
   answer?: PrimitiveAnswer;
+  readonly fieldName?: string;
+  readonly associatedQuestion?: string;
 };
 
 export type MultipleSelectorAnswerItem = {

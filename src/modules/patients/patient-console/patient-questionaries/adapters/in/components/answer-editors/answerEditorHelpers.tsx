@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  FocusedQuestion,
   FocusedQuestionAnswer,
   MultipleSelectorAnswerItem,
   PrimitiveAnswer,
@@ -35,12 +36,15 @@ export const toMultipleSelectorItems = (answer: QuestionaryAnswer | null | undef
 
 export const upsertFocusedQuestionAnswer = (
   focusedAnswers: FocusedQuestionAnswer[] | undefined,
-  associatedQuestion: string,
+  { uuid }: Pick<FocusedQuestion, 'uuid'>,
   answer: PrimitiveAnswer,
 ): FocusedQuestionAnswer[] => {
-  const current = focusedAnswers ?? [];
-  const exists = current.some((item) => item.associatedQuestion === associatedQuestion);
+  const current = (focusedAnswers ?? []).map(({ professionalFocusedQuestion, answer: currentAnswer }) => ({
+    professionalFocusedQuestion,
+    ...(currentAnswer !== undefined && { answer: currentAnswer }),
+  }));
+  const exists = current.some((item) => item.professionalFocusedQuestion === uuid);
   return exists
-    ? current.map((item) => (item.associatedQuestion === associatedQuestion ? { ...item, answer } : item))
-    : [...current, { associatedQuestion, answer }];
+    ? current.map((item) => (item.professionalFocusedQuestion === uuid ? { ...item, answer } : item))
+    : [...current, { professionalFocusedQuestion: uuid, answer }];
 };
