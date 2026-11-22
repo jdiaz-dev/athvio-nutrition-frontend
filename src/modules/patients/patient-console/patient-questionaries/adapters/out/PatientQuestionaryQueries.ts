@@ -21,6 +21,16 @@ export const GET_PATIENT_QUESTIONARY = gql`
           options {
             uuid
             name
+            focusedQuestions {
+              fieldName
+              associatedQuestion
+              optionType
+              isEnabled
+              options {
+                uuid
+                name
+              }
+            }
           }
         }
       }
@@ -46,6 +56,16 @@ export const UPDATE_ANSWERS = gql`
           options {
             uuid
             name
+            focusedQuestions {
+              fieldName
+              associatedQuestion
+              optionType
+              isEnabled
+              options {
+                uuid
+                name
+              }
+            }
           }
         }
       }
@@ -74,6 +94,16 @@ export const UPDATE_ANSWERS_AND_ADDITIONAL_NOTES = gql`
           options {
             uuid
             name
+            focusedQuestions {
+              fieldName
+              associatedQuestion
+              optionType
+              isEnabled
+              options {
+                uuid
+                name
+              }
+            }
           }
         }
       }

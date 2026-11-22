@@ -8,16 +8,44 @@ export enum OptionType {
   HOUR = 'hour',
 }
 
-export type Option = {
+export type FocusedQuestionOption = {
   uuid: string;
   name: string;
 };
+
+export type FocusedQuestion = {
+  fieldName: string;
+  associatedQuestion: string;
+  optionType: OptionType;
+  isEnabled: boolean;
+  options?: FocusedQuestionOption[];
+};
+
+export type Option = {
+  uuid: string;
+  name: string;
+  focusedQuestions?: FocusedQuestion[];
+};
+
+export type PrimitiveAnswer = string | number | boolean;
+
+export type FocusedQuestionAnswer = {
+  associatedQuestion: string;
+  answer?: PrimitiveAnswer;
+};
+
+export type MultipleSelectorAnswerItem = {
+  name: string;
+  focusedQuestions?: FocusedQuestionAnswer[];
+};
+
+export type QuestionaryAnswer = PrimitiveAnswer | MultipleSelectorAnswerItem[];
 
 export type PatientQuestionaryDetail = {
   uuid: string;
   fieldName: string;
   associatedQuestion: string;
-  answer: string;
+  answer?: QuestionaryAnswer | null;
   additionalNotes: string;
   options?: Option[];
   optionType: OptionType;
@@ -56,7 +84,7 @@ export type GetPatientQuestionaryResponse = {
 
 export type PatientQuestionaryAnswersInput = {
   questionaryDetail: string;
-  answer: string;
+  answer?: QuestionaryAnswer | null;
 };
 
 export type AnswersAndAdditionalNotesInput = PatientQuestionaryAnswersInput & {
