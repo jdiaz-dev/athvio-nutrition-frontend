@@ -27,7 +27,7 @@ export default function PatientData() {
       <CardContent>
         <Box sx={{ mt: -5 }}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={3}>
+            <Grid item xs={12} sm={2.5}>
               <TextField
                 label="Peso"
                 value={planificationState.patientInformation.weight}
@@ -40,7 +40,7 @@ export default function PatientData() {
                 }}
               />
             </Grid>
-            <Grid item xs={12} sm={3}>
+            <Grid item xs={12} sm={2.5}>
               <TextField
                 label="Estatura"
                 value={planificationState.patientInformation.height}
@@ -53,7 +53,7 @@ export default function PatientData() {
                 }}
               />
             </Grid>
-            <Grid item xs={12} sm={3}>
+            <Grid item xs={12} sm={2.5}>
               <TextField
                 label="Edad"
                 value={planificationState.patientInformation.age}
@@ -66,7 +66,7 @@ export default function PatientData() {
                 }}
               />
             </Grid>
-            <Grid item xs={12} sm={3}>
+            <Grid item xs={12} sm={2.5}>
               <FormControl fullWidth>
                 <InputLabel id="sexo-lbl">Género</InputLabel>
                 <Select
