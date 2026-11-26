@@ -23,6 +23,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 import { Case, FormulaGroup } from 'src/modules/nutrition/formulas/types/formula';
 import PhysicActivityFactor from './PhysicActivityFactor';
+import { PlanificationBody } from '../../../helpers/planifications';
 
 enum FomulaAutors {
   MIFFLIN = 'MIFFLIN',
@@ -33,7 +34,7 @@ enum FomulaAutors {
 
 export default function PlanCaloriesForm({ selectedFormulaGroup }: { selectedFormulaGroup: FormulaGroup | null }) {
   const dispatch = useDispatch();
-  const planificationState = useSelector((state: ReduxStates) => state.planifications.planification);
+  const planificationState = useSelector((state: ReduxStates) => state.planifications.planification) as PlanificationBody;
   const [openPatient, setOpenPatient] = useState(true);
 
   useEffect(() => {
@@ -82,67 +83,6 @@ export default function PlanCaloriesForm({ selectedFormulaGroup }: { selectedFor
             </IconButton>
           </Stack>
 
-          <Collapse in={openPatient} unmountOnExit>
-            <Box sx={{ mt: 1 }}>
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    label="Peso"
-                    value={planificationState.patientInformation.weight}
-                    type="number"
-                    fullWidth
-                    inputProps={{ min: 0, step: 0.1 }}
-                    InputProps={{ endAdornment: <InputAdornment position="end">kg.</InputAdornment> }}
-                    onChange={(e) => {
-                      dispatch(PlanificationSlice.modifyWeight(parseFloat(e.target.value)));
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    label="Estatura"
-                    value={planificationState.patientInformation.height}
-                    type="number"
-                    fullWidth
-                    inputProps={{ min: 0 }}
-                    InputProps={{ endAdornment: <InputAdornment position="end">cm.</InputAdornment> }}
-                    onChange={(e) => {
-                      dispatch(PlanificationSlice.modifyHeight(parseFloat(e.target.value)));
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    label="Edad"
-                    value={planificationState.patientInformation.age}
-                    type="number"
-                    fullWidth
-                    inputProps={{ min: 0, step: 1 }}
-                    InputProps={{ endAdornment: <InputAdornment position="end">Años</InputAdornment> }}
-                    onChange={(e) => {
-                      dispatch(PlanificationSlice.modifyAge(parseInt(e.target.value)));
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <FormControl fullWidth>
-                    <InputLabel id="sexo-lbl">Género</InputLabel>
-                    <Select
-                      labelId="sexo-lbl"
-                      label="Género"
-                      value={planificationState.patientInformation.gender}
-                      onChange={(e) => {
-                        dispatch(PlanificationSlice.modifyGender(e.target.value));
-                      }}
-                    >
-                      <MenuItem value="male">Masculino</MenuItem>
-                      <MenuItem value="female">Femenino</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Grid>
-              </Grid>
-            </Box>
-          </Collapse>
           <Divider />
 
           <Typography variant="body2">

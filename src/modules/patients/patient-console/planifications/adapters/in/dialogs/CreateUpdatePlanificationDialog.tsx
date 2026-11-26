@@ -16,6 +16,7 @@ import { useParams } from 'react-router-dom';
 import { ReduxStates } from 'src/shared/types/types';
 import FormulaSelector from 'src/modules/nutrition/formulas/adapters/in/components/FormulaSelector';
 import { FormulaGroup } from 'src/modules/nutrition/formulas/types/formula';
+import PatientData from './PatientData';
 
 function CreateUpdatePlanificationDialog({
   openCreateUpdatePlanificationDialog,
@@ -104,8 +105,10 @@ function CreateUpdatePlanificationDialog({
           }}
         >
           <Container maxWidth="lg" sx={{ py: 2 }}>
+            <PatientData />
             <Grid container spacing={2}>
               <Grid item xs={12} md={6}>
+                <div>IMC</div>
                 <FormulaSelector setSelectedFormulaGroup={setSelectedFormulaGroup} />
                 {selectedFormulaGroup !== null && <PlanCaloriesForm selectedFormulaGroup={selectedFormulaGroup} />}
               </Grid>
