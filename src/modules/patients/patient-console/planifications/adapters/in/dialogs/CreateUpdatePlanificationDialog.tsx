@@ -17,6 +17,7 @@ import { ReduxStates } from 'src/shared/types/types';
 import FormulaSelector from 'src/modules/nutrition/formulas/adapters/in/components/FormulaSelector';
 import { FormulaGroup } from 'src/modules/nutrition/formulas/types/formula';
 import PatientData from './PatientData';
+import BodyMassIndexCard from 'src/modules/nutrition/formulas/adapters/in/components/BodyMassIndexCard';
 
 function CreateUpdatePlanificationDialog({
   openCreateUpdatePlanificationDialog,
@@ -34,6 +35,7 @@ function CreateUpdatePlanificationDialog({
 
   const { createPlanification, updatePlanification } = usePlanification();
   const [selectedFormulaGroup, setSelectedFormulaGroup] = useState<FormulaGroup | null>(null);
+  const [isPregnant, setIsPregnant] = useState(false);
 
   const { classes } = formStyles();
   const dispatch = useDispatch();
@@ -105,10 +107,16 @@ function CreateUpdatePlanificationDialog({
           }}
         >
           <Container maxWidth="lg" sx={{ py: 2 }}>
-            <PatientData />
+            <PatientData isPregnant={isPregnant} setIsPregnant={setIsPregnant} />
             <Grid container spacing={2}>
               <Grid item xs={12} md={6}>
-                <div>IMC</div>
+                <BodyMassIndexCard
+                  age={planificationState.patientInformation.age}
+                  height={planificationState.patientInformation.height}
+                  weight={planificationState.patientInformation.weight}
+                  gender={planificationState.patientInformation.gender}
+                  isPregnant={isPregnant}
+                />
                 <FormulaSelector setSelectedFormulaGroup={setSelectedFormulaGroup} />
                 {selectedFormulaGroup !== null && <PlanCaloriesForm selectedFormulaGroup={selectedFormulaGroup} />}
               </Grid>

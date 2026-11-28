@@ -5,11 +5,13 @@ import {
   CardContent,
   CardHeader,
   FormControl,
+  FormControlLabel,
   Grid,
   InputAdornment,
   InputLabel,
   MenuItem,
   Select,
+  Switch,
   TextField,
 } from '@mui/material';
 import * as PlanificationSlice from 'src/modules/patients/patient-console/planifications/adapters/in/slicers/PlanificationSlice';
@@ -17,7 +19,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ReduxStates } from 'src/shared/types/types';
 import { PlanificationBody } from '../../../helpers/planifications';
 
-export default function PatientData() {
+interface PatientDataProps {
+  isPregnant: boolean;
+  setIsPregnant: (isPregnant: boolean) => void;
+}
+
+export default function PatientData({ isPregnant, setIsPregnant }: PatientDataProps) {
   const dispatch = useDispatch();
   const planificationState = useSelector((state: ReduxStates) => state.planifications.planification) as PlanificationBody;
 
@@ -75,6 +82,7 @@ export default function PatientData() {
                   value={planificationState.patientInformation.gender}
                   onChange={(e) => {
                     dispatch(PlanificationSlice.modifyGender(e.target.value));
+                    if (e.target.value !== 'female') setIsPregnant(false);
                   }}
                 >
                   <MenuItem value="male">Masculino</MenuItem>
@@ -82,6 +90,14 @@ export default function PatientData() {
                 </Select>
               </FormControl>
             </Grid>
+            {planificationState.patientInformation.gender === 'female' && (
+              <Grid item xs={12} sm={2} display="flex" alignItems="center">
+                <FormControlLabel
+                  control={<Switch checked={isPregnant} onChange={(e) => setIsPregnant(e.target.checked)} />}
+                  label="Gestante"
+                />
+              </Grid>
+            )}
           </Grid>
         </Box>
       </CardContent>

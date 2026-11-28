@@ -46,3 +46,29 @@ export type GetFormulaResponse = {
 export type FormulaInitialState = {
   formula: Formula;
 };
+
+export type CalculateBodyMassIndexInput = {
+  age: number;
+  height: number;
+  weight: number;
+  gender: string;
+  isPregnant?: boolean;
+};
+
+export type CalculateBodyMassIndexRequest = {
+  input: CalculateBodyMassIndexInput;
+};
+
+export type BodyMassIndexResult = {
+  bodyMassIndex: number;
+  classification: string;
+  source: string;
+  rangeLabel: string;
+  zScore: number | null;
+  weightGainMinKg: number | null;
+  weightGainMaxKg: number | null;
+};
+
+export type CalculateBodyMassIndexResponse = {
+  calculateBodyMassIndex: BodyMassIndexResult;
+};
